@@ -3,6 +3,7 @@
 Assay is a Kanon language fork for EVM contracts.  It inherits the kernel and
 surface at `2c2e6e6`.  M0 Stage A supplies the checker, erasure, axiom disclosure
 and carry gates.  Stage B adds Keccak-256 and selector derivation.
+Stage C adds the Cancun assembler and bytecode listing.
 EVM emission is pending Stage E.
 
 ```sh
@@ -52,11 +53,32 @@ hex without `0x`: 64 digits for a digest and eight for a selector.
 Pass a canonical ABI signature to `selector`, such as
 `transfer(address,uint256)`.  Signature parsing belongs to the ABI layer.
 
-Stage C adds the assembler and listing.  Stage D adds
-the Cancun reference fixture.  Stage E adds EVM emission, recognizers, JSON
+The `assay_asm` library exposes `Assay_asm.Asm` and `Assay_asm.Listing`.
+`Asm.assemble` takes blocks with declared incoming stack heights.  It returns
+a sealed program or a named error.  It checks each instruction, branch edge,
+loop edge and fallthrough, including unreachable blocks.  The first block
+starts at height zero.  No step may exceed 1024 words, including label pushes.
+The assembler supports the 149 legacy Cancun opcodes.  Control instructions
+are block endings, and dynamic jumps are refused.
+
+Each block has a label.  Set `destination = true` to emit a `JUMPDEST` at its
+start.  `Goto` and `Branch` use explicit PUSH widths from 1 to 32 bytes and
+require marked targets.  One layout pass collects label offsets, then encoding
+resolves forward and backward references.  A target that does not fit is an
+error.  `Next` names the next physical block and emits no jump.
+`Push ""` emits `PUSH0`; nonempty operands use lowercase, prefix-free hex.
+
+`Asm.hex`, `Asm.labels` and `Asm.heights` expose the checked bytes, label
+offsets and per-block input, output and peak heights.  `Listing.decode`
+reads hex bytes independently of the block representation.  It rejects
+malformed hex, unknown opcodes and truncated PUSH data.  `Listing.render`
+prints hex PCs, mnemonics and exact immediate bytes.  These are library
+entry points; source-to-EVM emission still belongs to Stage E.
+
+Stage D adds the Cancun reference fixture.  Stage E adds EVM emission, recognizers, JSON
 outputs and the proof seed.  Stage F measures the frozen corpus.
 
-The Stage B gate battery checks the build, complete inherited kernel suite,
+The Stage C gate battery checks the build, complete inherited kernel suite,
 surface suite, driver behavior, pin, carry inventory, R0, house rules,
 trusted-line budgets, denominator hash and gate mutations.  It also compares
 35 digest and selector vectors with frozen values and live `cast` output.
@@ -64,12 +86,22 @@ Four Keccak mutants must fail their named vectors and a restored control
 must pass.  The vectors cover binary inputs and the 136-byte rate boundary.
 Five malformed adapter invocations must exit 64, and the sealed
 `assay_keccak` signature must equal `dev/keccak-iface.txt`.
+The assembler checks frozen opcode metadata and stack effects at their lower
+and upper limits.  Seven disassembly fixtures, including all 149 opcodes and
+every PUSH width, must match live `cast disassemble` and `evm disasm` output.
+The comparison normalizes the `DIFFICULTY` spelling to `PREVRANDAO` in the two
+oracle transcripts only, and only at offsets where the input byte is `0x44`.
+Our own listing is never rewritten, and the all-opcodes fixture must apply the
+alias at least once.  The comparison preserves every PC and immediate byte.  Six assembler and listing
+mutants must fail, and restored controls must pass.  Stage C disassembles bytes;
+execution under the explicit Cancun prestate starts in Stage D.
 It prints pending backend stages and does not claim the M0 exit gate has passed.
 
-The gates require Python 3.11 or newer (`-P`) and Foundry `cast` on PATH.
+The gates require Python 3.11 or newer (`-P`), Foundry `cast` and geth `evm`
+on PATH.  Stage C was checked with `cast` 0.3.0 and geth 1.14.12.
 The OCaml toolchain is the installed `zxcaml-p1` switch.  The dune scripts
 select it and derive the repository root from their own paths.  The library
 names `kanon_kernel` and `kanon_surface` stay unchanged for a byte-exact carry.
-The tot submodule remains data only and is not needed for the Stage B build.
+The tot submodule remains data only and is not needed for the Stage C build.
 
 License: MIT OR Apache-2.0.

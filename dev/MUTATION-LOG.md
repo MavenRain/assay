@@ -211,3 +211,30 @@ requires all 35 unmodified vectors to match `cast` and their frozen values,
 prints the `cast` output of each row beside the frozen value, requires five
 malformed adapter invocations to exit 64, and pins the sealed
 `assay_keccak` signature against `dev/keccak-iface.txt`.
+
+## Stage C (2026-09-10)
+
+Command: `python3 -P dev/asm-test.py mutants`, as the ASM-MUTANTS leg of
+`dev/gates.sh`.  Each mutant runs in a temporary copy containing the assembler,
+listing, adapter and the same gate inputs.  Each mutated program must build
+with zero warnings.  A compile failure is not a kill.  Each gate must exit 1
+and print the named witness.  The first four mutants run the `stack` mode, the
+STACK-HEIGHT leg, whose adapter prints one line per case with the `ASM-CASE`
+prefix.  The last two run the `disasm` mode, the DISASM-3WAY leg.  Each witness
+below is the literal string the kill rule requires in the mutant output.
+The sources are restored between mutants.
+
+| Mutant | Change | Required witness |
+| --- | --- | --- |
+| STACK-EFFECT | Change ADD from two inputs to one | ASM-CASE add-underflow FAIL |
+| EDGE-HEIGHT | Disable the block-edge height comparison | ASM-CASE goto-height FAIL |
+| JUMP-PEAK | Exempt label pushes from the 1024-word limit | ASM-CASE branch-overflow FAIL |
+| LABEL-PC | Add one to each resolved label offset | ASM-CASE ref20 FAIL |
+| LISTING-OP | Print SLOAD for byte 0x55, which is SSTORE | DISASM-3WAY ref20 FAIL |
+| LISTING-PC | Ignore PUSH width when advancing the listing PC | DISASM-3WAY ref20 FAIL |
+
+Result: `ASM-MUTANTS killed=6/6 control=OK`.  After restoration, both the
+complete stack gate and the live three-way disassembly gate pass.  The six
+rejection transcripts and both control transcripts are stored in
+`dev/validation/2026-09-10-stage-c/`.  The full battery also kills all 13
+Stage A and all four Stage B mutants.  No Stage C gate executes EVM code.

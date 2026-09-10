@@ -1,0 +1,25 @@
+M0 Stage C: add the Cancun assembler and listing
+
+Add sealed assembly and bytecode listing libraries. Check instruction
+stack effects, block joins, loop edges, fallthrough and temporary label
+pushes against the 1024-word limit. Resolve fixed-width forward and
+backward labels after one layout pass and reject invalid destinations.
+
+Check 149 Cancun opcode rows, 370 stack-effect probes and 64 assembly
+cases. Compare 272 disassembly rows across seven fixtures with cast and
+geth, and reject malformed hex and every truncated PUSH width. Kill six
+assembler and listing mutants, then require restored controls to pass.
+
+Extend the gate battery to Stage C and record all 16 passing legs. Keep
+the carried kernel at 3997 lines. The assembler uses 238 of 600 lines,
+and the listing uses 54 of 250. Cancun execution remains Stage D work.
+
+Review pass 1 (2026-09-10) fixed 7 findings: C-1, A-2, C-2, A-3, A-4,
+B-2, D-1.
+C-1 medium: pin the 64 assembly cases in the STACK-HEIGHT leg marker.
+A-2 medium: check Asm.heights for a block with nonzero incoming height.
+C-2 medium: record the witness strings the ASM-MUTANTS kill rule uses.
+A-3 low: count ours, cast and evm disassembly rows separately.
+A-4 low: report blocks as a measured sum, not a fixture length.
+B-2 low: scope the DIFFICULTY to PREVRANDAO alias to oracle byte 0x44.
+D-1 low: name the gate id in the DISASM-3WAY success marker.

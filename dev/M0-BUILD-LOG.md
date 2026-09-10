@@ -385,3 +385,136 @@ The finder, the builder and the closer ran opus/medium because the Fable
 tier probe died on the reasoning_extraction classifier
 (req_011Ceux88aMuSgW4kmsAUKPX).
 
+## Stage C (2026-09-10)
+
+Base: `cfcdbf11eb43cc20d32f24e1d8e0c687cac88e0c`, the committed Stage B.
+The implementation and validation ran in
+`/Users/oobi/Documents/gpt1/assay-stage-c`.  The checked delta is prepared for
+`/Users/oobi/Documents/assay`.  No commit was made.
+
+The new `assay_asm` library contains `asm/asm.ml` and `asm/listing.ml`.
+The assembler accepts blocks with declared incoming heights, validates every
+instruction and edge, and returns a sealed program.  It checks underflow,
+the 1024-word limit, conditional and unconditional edges, loops and physical
+fallthrough.  Temporary label pushes count toward the peak.  Control
+instructions cannot hide inside block bodies, and dynamic jumps are refused.
+Unreachable blocks are checked against their declarations too.
+
+One layout pass records all label offsets.  The encoding pass resolves
+forward and backward operands at explicit PUSH widths from 1 to 32 bytes.
+Duplicate, missing, unmarked and out-of-width targets return named errors.
+The listing decodes bytes independently of the block representation.  It
+rejects malformed hex, undefined opcodes and incomplete PUSH operands.
+`dev/ASM-PROVENANCE.md` records the pinned geth source and comparison rules.
+
+The first local checks found and corrected two fixture assumptions: the
+diamond join is at hex PC 0x11, and geth disassembly uses hex PCs.  The
+assembler already emitted the correct diamond label.  The installed cast
+prints DIFFICULTY for byte 0x44, so the comparator normalizes that single
+alias to PREVRANDAO in the oracle transcripts, at the offsets where the input
+byte is 0x44.  All PC and immediate data remain exact.
+
+Validation command, run through `kanon-wait` and `kanon-exec`:
+
+```sh
+env -u OPAM_SWITCH_PREFIX -u CAML_LD_LIBRARY_PATH -u OCAMLPATH \
+  -u OCAMLFIND_CONF zsh -f dev/gates.sh
+```
+
+All 16 legs pass.  Full evidence and source hashes are in
+`dev/validation/2026-09-10-stage-c/`.
+
+| Gate | Result |
+| --- | --- |
+| BUILD | 0 errors, 0 warnings |
+| PIN-CARRY, R0-COUNT, R0-AUDIT, HOUSE | PASS |
+| SUITE-KERNEL, SUITE-SURFACE | PASS |
+| DRIVER | 24 cases |
+| MUTANTS | 13/13 killed |
+| DENOMINATORS | unchanged hash, PASS |
+| KECCAK-VEC | 35/35, adapter=5 |
+| KECCAK-MUTANTS | 4/4 killed, restored control OK |
+| STACK-HEIGHT | 64 assembly cases, 30 height-checked blocks, 149 opcode rows, 370 effect probes |
+| DISASM-3WAY | ours=272 cast=272 evm=272, 7 fixtures, 38 negative cases |
+| ASM-MUTANTS | 6/6 killed, restored stack and disassembly controls OK |
+| TRUSTED-LINES | kernel=3997, assembler=238/600, listing=54/250, keccak=89/250 |
+
+The measured new total is 381/3550.  Emitter, ABI and layout rows remain
+pending.  `panicscan --strict asm test/asm_cases.ml` reports no findings.
+The carried kernel, surface and driver sources are unchanged.
+
+Stage D adds the Cancun prestate, reference contract and execution gates.
+Stage C only disassembles EVM bytes.  No M0 exit or ratio is claimed.
+The proposed commit message is `dev/STAGE-C-COMMIT.txt`.
+
+### Review round 2026-09-10 (Stage C)
+
+Seven findings were kept and all seven are fixed in one fix round.
+
+| id | severity | finding | files |
+| --- | --- | --- | --- |
+| C-1 | medium | No leg pins the 64 assembly cases: STACK-HEIGHT stays green at 63 or at 15 | dev/asm-test.py, dev/stage-a-gates.py |
+| A-2 | medium | Asm.heights is never checked for a block with nonzero incoming height, so two metadata mutants survive both Stage C legs | test/asm_cases.ml |
+| C-2 | medium | MUTATION-LOG records witness strings that the ASM-MUTANTS kill rule does not use | dev/MUTATION-LOG.md |
+| A-3 | low | DISASM-3WAY summary prints one counter three times as ours=, cast= and evm= | dev/asm-test.py |
+| A-4 | low | The STACK-HEIGHT suite line reports blocks=6, a constant fixture length that does not move with the run | test/asm_cases.ml, dev/asm-test.py, dev/M0-BUILD-LOG.md, dev/validation/2026-09-10-stage-c/README.md |
+| B-2 | low | The DIFFICULTY to PREVRANDAO alias is unscoped: it rewrites our own listing too, and any byte, not the 0x44 the documents name | dev/asm-test.py, README.md, dev/ASM-PROVENANCE.md, dev/M0-BUILD-LOG.md |
+| D-1 | low | DISASM-3WAY is the only leg whose success marker omits its own gate id | dev/stage-a-gates.py |
+
+Refuted: 0 findings.  No finding was refuted at the verify stage.
+
+Merged and dropped: 5 findings.  A-1 was merged into C-1: same file and
+line (dev/asm-test.py:38) and the same defect, the unpinned cases= count.
+C-1 is the clearer statement because it names the three documents that
+record 64.  A-1's cases=15 probe is folded into the C-1 detail.  C-5 was
+merged into B-2: same file and line (dev/asm-test.py:80) and the same
+defect, an unscoped DIFFICULTY to PREVRANDAO rewrite.  B-2 states the
+stream scope, C-5 states the byte scope and the two document sentences;
+the merged item carries both and the fix hint covers both.  B-1 was cut
+at the 7 finding cap, ranked last of the lows: the staged diff of
+dev/gates.sh is one line, --keccak to --asm; the no argument forwarding
+property is pre-existing and was deliberately installed by the Stage B
+B-2 fix, so this slice did not introduce the defect.  It is confirmed on
+the merits (ARGV ['--asm'] for every invocation) but it loses the
+introduced-by-this-slice tie break to the four kept lows.  C-3 was cut at
+the cap: the verifier corrected a load bearing part of the claim, because
+no gate script reads CARRIED.md, so the sentence "the leg checks the
+carried inventory named in CARRIED.md" is unsupported, and dev/PIN is in
+fact already hash pinned by dev/DENOMINATORS.sha256, which lists
+789550fa...  dev/PIN.  What remains is that the validation README
+sentence is looser than the 33 rows and that SPIKE-TRACE.md is listed
+although only SPIKE-KECCAK.md is read by a leg, which is documentation
+wording below the bar of the kept lows.  C-4 was cut at the cap, lowest
+value of the confirmed lows: the measurement holds (STAGE-A max=72,
+STAGE-B max=70, STAGE-C max=73 at line 8), but 72 columns is a convention
+of the earlier templates, not a rule any gate or house check enforces,
+and the defect is cosmetic wrap width in a commit template.  It is ranked
+below four gate integrity lows.
+
+Closing gate run on a copy, log
+`/Users/oobi/Documents/assay-stage-c-review/gates-C-1.log`: pass=16 fail=0,
+porcelain_before=46, porcelain_after=46, unstaged=0.
+
+```
+STAGE-C OK
+EXIT 0
+MUTANTS-TAIL: MUTANTS killed=13/13 OK
+DRIVER-TAIL: DRIVER cases=24 OK
+KECCAK-VEC-TAIL: KECCAK-VEC vectors=35 ok=35 adapter=5 OK
+KECCAK-MUTANTS-TAIL: KECCAK-MUTANTS killed=4/4 control=OK
+STACK-HEIGHT-TAIL: STACK-HEIGHT blocks=30 cases=64 opcodes=149 effect_cases=370 OK
+DISASM-3WAY-TAIL: DISASM-3WAY ours=272 cast=272 evm=272 fixtures=7 negative=38 OK
+ASM-MUTANTS-TAIL: ASM-MUTANTS killed=6/6 control=OK
+TRUSTED-TAIL: TRUSTED-LINES total=381/3550 ratified=3550 TRUSTED-LINES OK
+```
+
+The finder, the builder and the closer ran opus/medium because the Fable
+tier probe died on the reasoning_extraction classifier
+(req_011Ceux88aMuSgW4kmsAUKPX).  The Stage C probe on 2026-09-10 13:4x was
+live, PROBE OK 39, but Fable subagents die mid-run 5/5 on the same
+classifier, so the opus pin stays and the rulings are reported unmet.
+
+After the close, C-4 (a low cut at the finding cap) was fixed by hand:
+line 8 of dev/STAGE-C-COMMIT.txt was 73 columns. One word was removed, so
+every line of that file is at most 72 columns. The review commit message
+mirrors the file.

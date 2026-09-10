@@ -1,0 +1,18 @@
+PASS BUILD exit=0 elapsed_ms=392.5
+PASS PIN-CARRY exit=0 elapsed_ms=2089.8
+PASS R0-COUNT exit=0 elapsed_ms=541.2
+PASS R0-AUDIT exit=0 elapsed_ms=398.4
+PASS HOUSE exit=0 elapsed_ms=884.7
+PASS TRUSTED-LINES exit=0 elapsed_ms=64.6
+PASS SUITE-KERNEL exit=0 elapsed_ms=388.2
+PASS SUITE-SURFACE exit=0 elapsed_ms=16.7
+PASS DRIVER exit=0 elapsed_ms=764.3
+PASS MUTANTS exit=0 elapsed_ms=18197.1
+PASS DENOMINATORS exit=0 elapsed_ms=117.3
+PASS KECCAK-VEC exit=0 elapsed_ms=2614.8
+PASS KECCAK-MUTANTS exit=0 elapsed_ms=8647.7
+PASS STACK-HEIGHT exit=0 elapsed_ms=4242.5
+PASS DISASM-3WAY exit=0 elapsed_ms=1007.4
+PASS ASM-MUTANTS exit=0 elapsed_ms=10802.2
+PENDING D-F: Cancun reference, EVM emission and corpus measurements
+STAGE-C OK
