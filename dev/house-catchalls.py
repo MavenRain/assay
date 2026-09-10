@@ -96,10 +96,11 @@ def check(root):
         if key in allowed:
             raise ValueError("HOUSE allow entry is duplicated")
         allowed[key] = arm_text
-    if set(allowed) != {("bin/host.ml", "of_exit"), ("bin/kanon.ml", "dispatch")}:
-        raise ValueError("HOUSE allowlist must contain exactly the two D-M1-10 sites")
+    if set(allowed) != {("bin/assay.ml", "dispatch")}:
+        raise ValueError("HOUSE allowlist must contain only the inherited string dispatch site")
     result = subprocess.run(
-        ["rg", "--files", "lib", "surface", "bin", "test", "wasm", "dev",
+        ["rg", "--files", "lib", "surface", "bin", "test", "dev",
+         *[name for name in ("emit", "asm", "keccak", "abi") if (root / name).is_dir()],
          "--glob", "*.ml", "--glob", "*.mli"], cwd=root,
         capture_output=True, text=True, check=True)
     used = set()

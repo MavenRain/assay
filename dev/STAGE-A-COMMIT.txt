@@ -1,0 +1,15 @@
+M0 Stage A: establish the assay checker and carry gates
+
+Remove the Wasm backend and its driver consumers. Preserve all inherited
+kernel and surface bytes. Add the Stage A battery and gate mutation
+checks.
+
+Review pass 1 (2026-09-10) fixed 7 findings: D-1, A-1, A-2, D-2, A-4,
+B-1, A-6.
+D-1: emit FILE -o DIR is accepted; the --export alias is kept.
+A-1: R0-AUDIT reads the SPEC.md shape refusal table.
+A-2: HOUSE covers five house rules and reads the Stage A code.
+D-2: trace, diff, run, deploy and test exit 3 as PENDING.
+A-4: CARRY splits missing from extra and counts compared files.
+B-1: the driver accepts only .asy and .kan sources.
+A-6: TRUSTED-LINES prints the enforced bounds and the ratified 3550.

@@ -202,3 +202,79 @@ The judge of run wf_d25195e4-0c3 passed the other 11 gates, and its sub-budget c
 S0-G11 and before the close, so this section was written by the closer.
 
 Stage 0 gates: 12 of 12 green after the close.
+
+
+## Stage A (2026-09-10)
+
+Base: `858deeb`, the committed Stage 0 import.  Stage A builds the assay
+checker driver, removes `wasm/` and `runtime/` and their executable consumers,
+and adds the assay carry, pin and six artifact budget checks.  The inherited
+kernel and surface inventory is 31 files with zero changed bytes.  The kernel
+remains 3997 lines.  No upstream source checkout was changed.
+
+The driver preserves check, checked printing, erasure and axiom disclosure.
+It accepts `.asy` input and the inherited `.kan` fixtures.  Valid emit syntax
+checks and erases the input, then exits 2 with EVM_BACKEND_UNAVAILABLE and
+writes no file.  Invalid arguments exit 64.  EVM emission remains Stage E.
+
+CARRIED.md records the required driver scope correction: the actual imported
+driver has three Wasm callers outside dispatch_emit.  Removing the backend
+requires removing build and run as well.  The inherited library names remain
+unchanged so even the lib and surface dune files match the pin.
+
+Validation: `zsh -f dev/gates.sh` passed all 11 legs.  BUILD reports zero
+errors and zero warnings.  The full inherited kernel suite and 20 surface
+cases pass.  All 24 driver checks and all 13 gate mutations pass.  The frozen
+Stage 0 denominator manifest is unchanged and verifies from the repository
+root.  The first battery exposed a wrong manifest working directory in the
+new runner; the corrected battery passes.  No denominator was remeasured.
+
+Full per-leg output and the final summary are in
+`dev/validation/2026-09-10-stage-a/`.  The validation checkout is
+`/Users/oobi/Documents/gpt11/assay-stage-a`.  The capture is
+`.kanon-exec/run-lZCFny` in that checkout.  The kernel, surface and backend
+source status is unchanged between validation and staging.
+
+The gate battery is Stage A only.  It prints B-F as pending and makes no
+M0-TRACE or M0 exit claim.  Historical Wasm tests and runtime gates no longer
+belong to the active target.  Both inherited checker executables remain in
+the build and battery.  Stage B, keccak and selector vectors, is next.
+
+No commit was made.  The changes are prepared for staging in the assay
+repository.  The optional commit message is `dev/STAGE-A-COMMIT.txt`.
+
+### Review round 2026-09-10 (Stage A)
+
+| id | severity | finding | files |
+| --- | --- | --- | --- |
+| D-1 | high | The plan's emit form `assay emit FILE -o DIR` exits 64, because the driver keeps the inherited wasm arity `--export NAME` | bin/assay.ml, dev/stage-a-test.py, README.md |
+| A-1 | high | R0-AUDIT never reads SPEC.md, so its documented bound (every naming carries a refusal citation) is unimplemented | dev/r0-audit.py, dev/stage-a-test.py |
+| A-2 | high | HOUSE checks three of the five house rules of plan section 11, and its mutable-state leg never reads the code Stage A writes | dev/house.sh, dev/stage-a-test.py |
+| D-2 | medium | The subcommands the plan declares at M0 (trace, diff, run, deploy, test) are absent, and the DRIVER leg pins them as typos | bin/assay.ml, dev/stage-a-test.py, README.md |
+| A-4 | medium | CARRY reports a deleted carried file with the same word as a smuggled-in file, and still prints files=31 when 30 remain | dev/carry-check.py, dev/stage-a-test.py |
+| B-1 | medium | README and R-M0-1 state an accepted source-extension set that bin/assay.ml never checks | bin/assay.ml, dev/stage-a-test.py, SPEC.md, README.md |
+| A-6 | medium | TRUSTED-LINES prints numbers it does not enforce, and never prints the ratified total 3550 | dev/trusted-lines.py |
+
+Refuted: 0.
+
+Merged and dropped: 11.  A-3 merged into A-2 (same file dev/house.sh, same
+defect class).  A-5 merged into D-2 (same file bin/assay.ml, same defect).
+C-5 merged into A-4 (same file dev/carry-check.py, same defect).  D-4 merged
+into B-1 (no extension check against a documented accept list).  D-3 merged
+into A-6 (the printed numbers are not the enforced or ratified ones).  Cut at
+the 7-finding cap: C-1 (dev/CARRIED.md:6 carry-check.sh claim, documentation
+only), C-2 (dev/TOOLCHAIN.md:35 records kanon.exe, file untouched), C-3
+(SPEC.md:373-375 ENCODER-SUBSET leg in the present tense), C-4 (REACTOR.md,
+dev/runtime-test.mjs and dev/agreement.py still describe the deleted Wasm
+backend), A-7 (three gate rows of M0-PLAN.md section 8 quote lines the
+shipped scripts do not print), B-2 (dev/gates.sh:3 needs python3 3.11 or
+newer for -P, a portability note).
+
+Gate result: `/Users/oobi/Documents/assay-stage-a-review/gates-A-1.log`,
+GATES-OK, pass=11 fail=0 porcelain_before=47 porcelain_after=47 unstaged=0.
+`STAGE-A OK`, `EXIT 0`, `MUTANTS-TAIL: MUTANTS killed=13/13 OK`,
+`DRIVER-TAIL: DRIVER cases=24 OK`.
+
+Tier: the finder, the builder and the closer ran opus/medium because the
+Fable tier probe died on the reasoning_extraction classifier
+(req_011Ceux88aMuSgW4kmsAUKPX).

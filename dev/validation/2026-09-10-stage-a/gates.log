@@ -1,0 +1,13 @@
+PASS BUILD exit=0 elapsed_ms=2146.9
+PASS PIN-CARRY exit=0 elapsed_ms=3546.3
+PASS R0-COUNT exit=0 elapsed_ms=1313.3
+PASS R0-AUDIT exit=0 elapsed_ms=152.3
+PASS HOUSE exit=0 elapsed_ms=2873.7
+PASS TRUSTED-LINES exit=0 elapsed_ms=353.3
+PASS SUITE-KERNEL exit=0 elapsed_ms=1656.7
+PASS SUITE-SURFACE exit=0 elapsed_ms=500.6
+PASS DRIVER exit=0 elapsed_ms=2006.0
+PASS MUTANTS exit=0 elapsed_ms=18072.3
+PASS DENOMINATORS exit=0 elapsed_ms=71.4
+PENDING B-F: keccak, assembler, Cancun reference, EVM emission and corpus measurements
+STAGE-A OK

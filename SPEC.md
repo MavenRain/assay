@@ -1,7 +1,8 @@
-# kanon M0 specification
+# Assay specification and inherited Kanon grammar
 
-Date: 2026-09-05.  Status: M0 Stage A.  This file pins the closed grammar
-and the R0 counts.  The gate legs R0-COUNT and R0-AUDIT read it.
+Assay status: M0 Stage A, 2026-09-10.  The grammar below is inherited from
+kanon `2c2e6e6`; its original specification date is 2026-09-05.  The gate
+legs R0-COUNT and R0-AUDIT read the unchanged inherited counts.
 
 ## 1 The claim
 
@@ -20,6 +21,13 @@ The shape sum, the term sum and the erased form are declared whole at
 Stage A (D-M0-2).  A constructor past M0 is refused by the module named
 in its row, with its milestone name in the message.  A later milestone is
 then a loud edit to an exhaustive match, not a new constructor.
+
+### 2.0 Source files
+
+A source file ends in `.asy`, and the inherited `.kan` fixtures stay
+accepted (R-M0-1).  A module path is dotted PascalCase, and a module name
+equals its path under the source root.  The driver rejects every other
+suffix with exit 64 and a named message.
 
 ### 2.1 Shapes, lib/shape.ml
 
@@ -169,7 +177,10 @@ a use of an erased binder is `KErased`.
 
 ## R0 counts
 
-`kanon spec-count` prints this block.  dev/r0-count.sh diffs the two.  A
+Inherited unchanged from kanon `2c2e6e6`.  Assay M0 adds no kernel former,
+shape, rule or trusted kernel line.
+
+`assay spec-count` prints this block.  dev/r0-count.sh diffs the two.  A
 count that grows fails the R0-COUNT gate leg.
 
 ```
@@ -361,7 +372,10 @@ row.  Plan sections 4 and 8 leave it out, and `natAdd` cannot be applied
 without it.  It binds tighter than the arrow and the star, and looser
 than the postfix `.1`, `.2` and `.k`.  It is left associative.
 
-## 8 The encoder subset
+The following encoder section is retained as upstream evidence only.  Assay
+Stage A removes Wasm emission.  EVM emission is pending Stage E.
+
+## 8 Historical Kanon encoder subset (not an assay backend)
 
 wasm/gc_encode.ml encodes this subset and nothing else.  The gate leg
 ENCODER-SUBSET fails when an opcode outside the table is emitted, so

@@ -1,8 +1,8 @@
 (lang dune 3.24)
 
-(name kanon)
+(name assay)
 
 (package
- (name kanon)
+ (name assay)
  (allow_empty)
  (depends (zarith (= 1.14))))

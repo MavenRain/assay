@@ -14,7 +14,7 @@ unfunction chpwd 2>/dev/null
 
 ROOT=${0:A:h}/..
 SPEC=$ROOT/SPEC.md
-DRIVER=$ROOT/_build/default/bin/kanon.exe
+DRIVER=$ROOT/_build/default/bin/assay.exe
 # The work directory sits under the repository root, not under the system
 # temp directory, so the script needs no writable path outside the tree it
 # checks.  .gitignore holds it.

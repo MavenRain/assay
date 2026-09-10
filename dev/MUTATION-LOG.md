@@ -162,3 +162,29 @@ KILLED.
 
 Judge result:  three mutants, three killed, no repository file mutated, every copy deleted, and
 `git -C /Users/oobi/Documents/assay status --porcelain` unchanged by the run.
+
+
+## Stage A (2026-09-10)
+
+Command: `python3 -P dev/stage-a-test.py mutants`.  Each mutation runs in a
+temporary copy.  It must exit 1 and print its named rejection.  Original
+bytes are restored between cases.  The source checkout is never mutated.
+
+| Mutant | Damage | Rejection |
+| --- | --- | --- |
+| PIN | Replace dev/PIN with forty zeroes | PIN FAIL |
+| CARRY | Append a newline to lib/check.ml | CARRY changed lib/check.ml |
+| CARRY-NEW | Add lib/unlisted.ml | CARRY extra lib/unlisted.ml |
+| CARRY-GONE | Delete the carried lib/pp.ml | CARRY missing lib/pp.ml |
+| R0-COUNT | Change the documented former count to 3 | R0-COUNT FAIL |
+| R0-AUDIT | Put SColl in an unapproved kernel file | R0-AUDIT FAIL |
+| R0-AUDIT-SPEC | Cite an absent refusing module in the SPEC.md shape table | cites the absent refuser gone.ml |
+| HOUSE | Add a failwith site to the driver | HOUSE FAIL |
+| HOUSE-LOOP | Add a for loop to the driver | HOUSE no-loop-keyword FAIL |
+| HOUSE-DIVISION | Add a bare division to the driver | HOUSE no-bare-division FAIL |
+| TRUSTED-LINES | Grow the inherited kernel by one line | TRUSTED-LINES FAIL |
+| TRUSTED-UNPRICED | Add emit/hidden.ml outside the priced inventory | unpriced=emit/hidden.ml |
+| TRUSTED-BOUND | Add a 251-line keccak implementation | TRUSTED-LINES FAIL |
+
+Result: `MUTANTS killed=13/13 OK`.  Complete output is in
+`dev/validation/2026-09-10-stage-a/MUTANTS.log`.
