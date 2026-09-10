@@ -278,3 +278,110 @@ GATES-OK, pass=11 fail=0 porcelain_before=47 porcelain_after=47 unstaged=0.
 Tier: the finder, the builder and the closer ran opus/medium because the
 Fable tier probe died on the reasoning_extraction classifier
 (req_011Ceux88aMuSgW4kmsAUKPX).
+
+## Stage B (2026-09-10)
+
+Base: `f6ddcd618c0c5c51adfc722318d391254c82672c`, the committed Stage A.
+Work and validation root: `/Users/oobi/Documents/gpt1/assay-stage-b`.
+The existing README deployment roadmap edit is preserved in this slice.
+
+`keccak/keccak.ml` adds the `assay_keccak` library.  The implementation uses
+immutable five-lane tuples, 24 rounds, a 136-byte rate and suffix `0x01`.
+`keccak256` hashes arbitrary bytes and returns 64 lowercase hex digits.
+`selector` hashes a canonical ABI signature and returns its first eight hex
+digits.  Neither result has a `0x` prefix.  Canonical signature parsing
+belongs to the later ABI layer.  The private state and round helpers stay
+behind the module signature, and the KECCAK-VEC leg pins that signature
+against `dev/keccak-iface.txt`.
+
+The algorithm follows the [Keccak team specification summary](https://keccak.team/keccak_specs_summary.html).
+The eight recorded spike rows and 27 additional vectors pass against frozen
+values and live `cast` output.  The additional vectors cover arbitrary
+bytes, lane boundaries, lengths 135/136/137 and 271/272/273, a 4096-byte
+message, and three error signatures.  Their oracle version, commands and
+input construction are in `dev/keccak-vectors.json`.  No cryptographic
+dependency was added.  The kernel and surface remain byte-exact at the pin.
+
+Validation command, from the work root:
+
+```sh
+env -u OPAM_SWITCH_PREFIX -u CAML_LD_LIBRARY_PATH -u OCAMLPATH -u OCAMLFIND_CONF zsh -f dev/gates.sh
+```
+
+Final result: 13 PASS legs, zero FAIL legs, `STAGE-B OK`, exit 0.
+The complete final transcript and per-leg logs are in
+`dev/validation/2026-09-10-stage-b/`.  The source hash manifest identifies
+the code and gate files used for this result.
+
+| measurement | result |
+| --- | --- |
+| BUILD | 0 errors, 0 warnings |
+| PIN-CARRY | files=31/31 diff=0 unlisted=0 |
+| R0-COUNT and R0-AUDIT | OK |
+| HOUSE | seven legs OK; mutable-state roots include lib and keccak |
+| TRUSTED-LINES | kernel=3997; keccak=89/250; new total=89/3550 |
+| SUITE-KERNEL and SUITE-SURFACE | OK; surface=20/20 |
+| DRIVER | cases=24 OK |
+| MUTANTS | killed=13/13 OK |
+| DENOMINATORS | all frozen hashes OK |
+| KECCAK-VEC | vectors=35 ok=35 adapter=5 OK |
+| KECCAK-MUTANTS | killed=4/4 control=OK |
+
+Harness corrections during validation: mutation copies now live outside
+the enclosing Dune workspace and build only the Keccak library and adapter.
+A build error never counts as a mutation kill.  Host load reached 80 to 123.
+An earlier carry leg exceeded 30 seconds, and the inherited mutation leg
+exceeded 120 seconds.  Its deadline is now 300 seconds; all 13 checks and
+their required markers remain.  The final run passed carry in 0.9 seconds,
+inherited mutants in 3.9 seconds and Keccak mutants in 5.1 seconds, at host
+load 39.
+
+Stage C, the assembler and listing, is next.  EVM emission remains pending
+Stage E.  No M0 exit or performance ratio is claimed.  No commit was made.
+The proposed commit message is `dev/STAGE-B-COMMIT.txt`.
+
+### Review round 2026-09-10 (Stage B)
+
+Seven findings were kept and all seven are fixed in one fix round.
+
+| id | severity | finding | files |
+| --- | --- | --- | --- |
+| A-1 | medium | The hex adapter test/keccak_vec.ml has no mutation coverage: a widened hex decoder survives every Stage B leg | dev/keccak-test.py, dev/stage-a-gates.py, dev/M0-BUILD-LOG.md, README.md, dev/MUTATION-LOG.md, dev/validation/2026-09-10-stage-b/ |
+| B-1 | medium | README M4 roadmap sentence contradicts the shipped diagnostic, which prints PENDING (M1) for deploy and test | README.md |
+| A-2 | low | No gate pins the sealed signature of assay_keccak, so an encapsulation regression passes the whole ladder | dev/keccak-iface.txt (new), dev/keccak-test.py, README.md, dev/M0-BUILD-LOG.md, dev/MUTATION-LOG.md, SOURCES.json |
+| A-3 | low | An oracle disagreement is reported as an implementation failure: every row prints got equal to want and the cast output is discarded | dev/keccak-test.py, dev/MUTATION-LOG.md, KECCAK-VEC.log |
+| B-2 | low | dev/gates.sh forwards "$@" into an argv check that rejects every extra argument, so any argument aborts the ladder with a usage line naming a different script | dev/gates.sh |
+| C-3 | low | Source hash manifest omits dev/dunecho.sh, a gate file the KECCAK-MUTANTS result depends on | dev/validation/2026-09-10-stage-b/SOURCES.json |
+| D-1 | low | README states M4 deployment deliverables that no ruling and no plan line contains (merges C-1) | README.md |
+
+Refuted: 0 findings.
+
+Merged and dropped: 3 findings.  C-1 was merged into D-1 (same file and
+same defect: README.md:37-39 ships unratified M4 deployment scope under the
+R-8a citation; D-1 concedes that R-4 grounds the chain-profile clause).
+B-3 was cut at the seven-item cap as the weakest low: README.md:65 names
+cast with no floor and dev/keccak-test.py:38-43 prints the version without
+an assertion, but the gate records the version on the KECCAK-ORACLE line
+and the installed cast matches the validated one.  C-2 was cut at the cap
+as the weakest remaining low: the pronoun in the timing sentence is
+ambiguous, but the next sentence discloses the carry timing, so no
+statement is false and no gate is affected.
+
+Gate result, log `assay-stage-b-review/gates-B-1.log`:
+
+| line | value |
+| --- | --- |
+| STAGE-B | STAGE-B OK |
+| EXIT | EXIT 0 |
+| MUTANTS tail | MUTANTS killed=13/13 OK |
+| DRIVER tail | DRIVER cases=24 OK |
+| KECCAK-VEC tail | KECCAK-VEC vectors=35 ok=35 adapter=5 OK |
+| KECCAK-MUTANTS tail | KECCAK-MUTANTS killed=4/4 control=OK |
+
+All 13 legs passed, pass=13 fail=0, porcelain 32 before and after, and
+unstaged 0.
+
+The finder, the builder and the closer ran opus/medium because the Fable
+tier probe died on the reasoning_extraction classifier
+(req_011Ceux88aMuSgW4kmsAUKPX).
+

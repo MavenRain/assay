@@ -1,3 +1,9 @@
 (tests
  (names main sl_surface)
+ (modules (:standard \ keccak_vec))
  (libraries kanon_kernel kanon_surface))
+
+(executable
+ (name keccak_vec)
+ (modules keccak_vec)
+ (libraries assay_keccak))

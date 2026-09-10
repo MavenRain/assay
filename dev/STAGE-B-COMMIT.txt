@@ -1,0 +1,28 @@
+M0 Stage B: add Keccak-256 and selector validation
+
+Add the pure assay_keccak library with fixed five-lane tuples, a
+136-byte rate, Keccak padding, and canonical signature hashing.
+Keep the inherited kernel and surface unchanged.
+
+Gate 35 digest and selector vectors against frozen values and cast.
+Cover binary inputs, rate boundaries, function and error selectors.
+Require four compiled mutants to fail and a restored control to pass.
+Retain the full Stage A battery and record Stage B validation.
+
+Preserve the README deployment roadmap update for M4.
+
+Review pass 1 (2026-09-10) fixed 7 findings: A-1, B-1, A-2, A-3,
+B-2, C-3, D-1.
+A-1 pin the frozen lowercase hex alphabet of the adapter with two
+negative cases, so adapter=5.
+B-1 make the README agree with the diagnostic, which prints
+PENDING (M1) for deploy and test.
+A-2 pin the sealed signature of assay_keccak with dev/keccak-iface.txt
+and a new interface check.
+A-3 report an oracle disagreement as an oracle disagreement and keep
+the cast output in the row.
+B-2 stop dev/gates.sh from forwarding arguments into an argv check
+that rejects them.
+C-3 add dev/dunecho.sh to the source hash manifest of the Stage B
+validation record.
+D-1 drop the unratified M4 deployment deliverables from the README.

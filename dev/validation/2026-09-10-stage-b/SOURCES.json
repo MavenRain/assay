@@ -1,0 +1,13 @@
+{
+  "dev/SPIKE-KECCAK.md": "a97cf32c3443b4bbd61cebcf239a372f0c8767c1fbe689db596f1ee5c1227230",
+  "dev/dunecho.sh": "806aab239dec81651b64b1ef725c9967a51671da2bf54462de67ae8b2dbbef3c",
+  "dev/gates.sh": "d05f50ed62dfd0473ae59ac0bc01c55e53c53ddaac15e06fdcbcba8e5f248fac",
+  "dev/keccak-iface.txt": "64fc224bf57fca5b9585308e902b655fd06b7032eaeed9e98dd183abd73e745a",
+  "dev/keccak-test.py": "4d699f017a4c0089e9498e2d9e1e793b676aaea97c92aedb5d4d0264889ea531",
+  "dev/keccak-vectors.json": "ff2884fb50096b9124a8f74fe6ce7589eae2e85f134f21d956d9ac1cd1919400",
+  "dev/stage-a-gates.py": "2ceb295140909d8ec25e6f6904933ebb6591859bf396e4d06cb237562dd3326a",
+  "keccak/dune": "26c3bd15e1a951c858afc8dd6fb3b4ef42f6e215867fb70876d57db7761670d7",
+  "keccak/keccak.ml": "c334fd6277a58d3182855e535f4b61bef762360fdef8f453b741009601704210",
+  "test/dune": "3c2dfe03497389a7eb8b222065e685710010bdd0f9df042234c497d05c16cfdd",
+  "test/keccak_vec.ml": "d7e9c334318fffa0857762814d516855a45b3b9725c20b738a1e15521a5f9577"
+}

@@ -188,3 +188,26 @@ bytes are restored between cases.  The source checkout is never mutated.
 
 Result: `MUTANTS killed=13/13 OK`.  Complete output is in
 `dev/validation/2026-09-10-stage-a/MUTANTS.log`.
+
+## Stage B (2026-09-10)
+
+Runner: `python3 -P dev/keccak-test.py mutants`, after the build.
+Each mutant builds the same library and adapter in an isolated temporary
+Dune project.  A compile failure does not count as a kill.  The frozen
+vector gate must exit 1 and name the expected failing vector.  The source
+is then restored, rebuilt, and required to pass the same vector gate.
+
+| mutant | edit | required witness |
+| --- | --- | --- |
+| PADDING | Change suffix 0x01 to SHA3 suffix 0x06 | K2 empty-input digest fails |
+| END-BIT | Remove the final 0x80 padding bit | K2 empty-input digest fails |
+| EXACT-RATE | Omit the extra padding block after an exact rate block | B136 digest fails |
+| SELECTOR | Select digest bytes 4 to 7 instead of 0 to 3 | S1 transfer selector fails |
+
+Result: `KECCAK-MUTANTS killed=4/4 control=OK`.  All 13 inherited mutants
+also pass.  The summary and four complete rejection transcripts are in
+`dev/validation/2026-09-10-stage-b/`.  The live oracle gate separately
+requires all 35 unmodified vectors to match `cast` and their frozen values,
+prints the `cast` output of each row beside the frozen value, requires five
+malformed adapter invocations to exit 64, and pins the sealed
+`assay_keccak` signature against `dev/keccak-iface.txt`.
