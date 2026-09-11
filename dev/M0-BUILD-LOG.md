@@ -518,3 +518,181 @@ After the close, C-4 (a low cut at the finding cap) was fixed by hand:
 line 8 of dev/STAGE-C-COMMIT.txt was 73 columns. One word was removed, so
 every line of that file is at most 72 columns. The review commit message
 mirrors the file.
+
+## Stage D (2026-09-10)
+
+Base: `7ff9921b1b91deff84c4b8a5e416febffa60fa97`, the committed and reviewed
+Stage C.  Work and validation root:
+`/Users/oobi/Documents/gpt1/assay-stage-d`.  No commit was made.
+
+Stage D adds `reference/ref20.evm`, `reference/ref20-init.evm`,
+`evm/fixtures/cancun.json`, `dev/reference-test.py` and `dev/fork-check.sh`.
+The runtime is the 20-byte Stage 0 reference.  Each instruction has a comment.
+The creation prefix copies and returns those bytes.  The gate reads the
+annotated source, checks the Stage C assembler and listing, compares cast,
+then runs geth with the explicit prestate and fixed sender, receiver and gas.
+
+M0-TRACE checks 17 static rows and the exact 13-step execution path.  PCs
+7 through 10 are the four unexecuted guards.  Each executed opcode number,
+mnemonic and stack snapshot must match.  The return data is the 32-byte
+value 42, and storage contains only slot zero = 42.  CREATE-EQ checks the
+creation trace, returned runtime and installed account code.  The constructor
+has no storage effect.  A zero process exit alone never establishes success:
+the gates check geth's step and summary error fields too.
+
+FORK-DRIFT probes PUSH0, TLOAD, nonzero TSTORE/TLOAD and MCOPY, plus the
+expected CLZ refusal.  The negative controls retain the measured Stage 0
+correction: removing only `cancunTime` leaves PUSH0 enabled but rejects TLOAD;
+removing both `cancunTime` and `shanghaiTime` rejects PUSH0.  Both recipes
+run, and the plain PUSH0 diagnostic is checked as well as the JSON error.
+
+Validation command, through `kanon-wait` and `kanon-exec`:
+
+```sh
+env -u OPAM_SWITCH_PREFIX -u CAML_LD_LIBRARY_PATH -u OCAMLPATH \
+  -u OCAMLFIND_CONF zsh -f dev/gates.sh
+```
+
+All 21 legs pass.  The complete logs, oracle receipts and selected input
+hashes are in `dev/validation/2026-09-10-stage-d/`.
+
+| Gate or measurement | Result |
+| --- | --- |
+| Inherited Stage A-C gates | 16/16 PASS |
+| FORK-DRIFT | PUSH0, TLOAD, TSTORE and MCOPY execute; CLZ is refused |
+| M0-TRACE | reference bytes=20, listing=17, cast=17, evm=13, skipped=4 |
+| Runtime state | slot zero=42, return word=42 |
+| CREATE-EQ | 20 bytes returned and installed exactly |
+| REFERENCE-CHECKS | 32 corrupt captures rejected, 2 controls pass |
+| REFERENCE-MUTANTS | 8/8 killed, 3 restored controls pass |
+| Runtime code size and gas | 20 bytes, 22,232 gas |
+| Creation code size and gas | 30 bytes, 4,022 gas |
+| TRUSTED-LINES | kernel=3997, assembler=238/600, listing=54/250, keccak=89/250 |
+
+The gas figures are geth execution measurements, without transaction
+intrinsic gas.  They are reported and not bound.  The new trusted-code total
+stays 381/3550.  No OCaml source, carried kernel, surface or driver changed.
+The bounded OCaml build ran, and `dev/validation/2026-09-10-stage-d/BUILD.log`
+records 0 errors and 0 warnings.  No tool was installed.
+
+Stage E adds source emission, the five output files, recognizers and the
+proof seed.  M0-TRACE is explicitly marked `scope=reference` here.  No final
+M0 exit or performance ratio is claimed.  The proposed commit message is
+`dev/STAGE-D-COMMIT.txt`.
+
+### Review round 2026-09-10 (Stage D)
+
+Eight findings were kept and all eight are fixed in two fix rounds.
+
+| id | severity | finding | files |
+| --- | --- | --- | --- |
+| D-1 | medium | CREATE-EQ prints neither declared key of M0-PLAN section 8, and no repository document declares the split | reference/README.md |
+| B-1 | medium | An outer leg timeout discards all partial output and leaks the mutant clone under TMPDIR | dev/stage-a-gates.py, dev/reference-test.py |
+| B-2 | medium | The README promises a saved receipt for every oracle call, but the mutant-clone calls leave none | reference/README.md |
+| ND-1-1 | medium | new defect from the fixes: the round 1 TMPDIR sweep could delete the clone of a concurrent run | dev/reference-test.py, dev/validation/2026-09-10-stage-d/SOURCES.json |
+| B-3 | low | The inner subprocess timeouts sum far past the leg deadlines, so they can never fire first | dev/reference-test.py |
+| B-4 | low | The MUTATION-SITE guard cannot fire for the two prestate mutants | dev/reference-test.py |
+| C-3 | low | The documented reference commands fail with a raw Errno message when the build artifact is absent | dev/reference-test.py, reference/README.md |
+| C-1 | low | Stage D build log states a disk guard, a threshold, a skip marker and sibling tree sizes that no repository file defines | dev/M0-BUILD-LOG.md |
+
+Refuted: 0 findings.  No finding was refuted at the verify stage.
+
+Merged and dropped: 3 findings.  B-5 was merged into C-1: same file and
+same defect (dev/M0-BUILD-LOG.md:575, the disk guard, the 30 GiB threshold
+and the skip marker).  C-1 is the clearest statement because it also names
+the 19/21 MiB figures and the contradiction with the archived BUILD.log.
+D-2 was merged into C-1: same file and same defect
+(dev/M0-BUILD-LOG.md:575-576).  D-2's useful extra, that the M0-PLAN
+section 11 free-disk rule lives outside the repository and is not cited
+here, is folded into the C-1 fix hint.  C-2 was cut at the 7-finding cap
+as the least consequential survivor: dev/validation/2026-09-10-stage-d/
+SOURCES.json omits dev/SPIKE-FORK.md, but the folder README discloses that
+the inventory is selective and not a complete dependency graph, so nothing
+in the tree makes a false statement and no gate depends on the entry.
+Re-file it as a one-line evidence addendum if a later stage needs the fork
+spike rehashable.
+
+Gate result after the fixes, log
+`/Users/oobi/Documents/assay-stage-d-review/gates-D-2.log`: 21 PASS, 0 FAIL,
+porcelain 60/60, unstaged 0.
+
+```
+STAGE-D OK
+EXIT 0
+MUTANTS-TAIL: MUTANTS killed=13/13 OK
+DRIVER-TAIL: DRIVER cases=24 OK
+KECCAK-VEC-TAIL: KECCAK-VEC vectors=35 ok=35 adapter=5 OK
+KECCAK-MUTANTS-TAIL: KECCAK-MUTANTS killed=4/4 control=OK
+STACK-HEIGHT-TAIL: STACK-HEIGHT blocks=30 cases=64 opcodes=149 effect_cases=370 OK
+DISASM-3WAY-TAIL: DISASM-3WAY ours=272 cast=272 evm=272 fixtures=7 negative=38 OK
+ASM-MUTANTS-TAIL: ASM-MUTANTS killed=6/6 control=OK
+TRUSTED-TAIL: TRUSTED-LINES total=381/3550 ratified=3550 TRUSTED-LINES OK
+FORK-DRIFT-TAIL: FORK-DRIFT push0=OK tload=OK tstore=OK mcopy=OK clz=INVALID OK
+M0-TRACE-TAIL: REFERENCE-MEASURE runtime_bytes=20 gas=22232 M0-TRACE scope=reference bytes=20 listing=17 cast=17 evm=13 skipped=4 storage=42 return=42 OK
+CREATE-EQ-TAIL: CREATE-MEASURE init_bytes=30 gas=4022 CREATE-EQ bytes=20 returned=20 installed=1 OK
+REFERENCE-CHECKS-TAIL: REFERENCE-CHECKS cases=29 controls=2 OK
+REFERENCE-MUTANTS-TAIL: REFERENCE-MUTANTS killed=8/8 controls=3 OK
+```
+
+Tier: the finder, the builder and the closer ran opus/medium because the
+Fable tier probe died on the reasoning_extraction classifier
+(req_011Ceux88aMuSgW4kmsAUKPX); the Stage C probe on 2026-09-10 13:4x was
+live but Fable subagents die mid-run 5/5 on the same classifier, so the
+Stage D run on 2026-09-10 20:4x keeps the opus pin without a new probe and
+the rulings are reported unmet.
+
+Pass 2, lens A rerun.  The lens A finder (gate logic and mutation
+adequacy) died in the workflow run on the safety classifier with no
+result, so lens A ran again as a standalone finder on the tree that holds
+the pass 1 fixes.  Five findings were kept and all five are fixed in one
+fix round.  The verifier downgraded A-1 from medium to low: the frozen
+receiver address holds no hex letter, so the trace leg cannot fail on it
+today.
+
+| id | severity | finding | files |
+| --- | --- | --- | --- |
+| A-2 | medium | Four requires could be neutralized with every leg green: REFERENCE-ASSEMBLER, TRACE-ACCOUNT, TRACE-SKIP and CREATE-ACCOUNT | dev/reference-test.py, dev/stage-a-gates.py, dev/MUTATION-LOG.md |
+| A-1 | low | verify_trace indexed the geth state dump by the literal receiver address, case-sensitively, while verify_create lowercased its keys | dev/reference-test.py |
+| A-3 | low | TRACE-SKIP could never fail: the skipped set is a function of values already pinned | dev/reference-test.py |
+| A-4 | low | A renamed or truncated prestate fixture failed with a bare key error or decoder message and no gate code | dev/reference-test.py |
+| A-5 | low | The M0-TRACE, CREATE-EQ, REFERENCE-CHECKS, REFERENCE-MUTANTS and FORK-DRIFT marker values were literals | dev/reference-test.py |
+
+Refuted: 0 findings.  No finding was refuted at the verify stage.
+
+The check stage confirmed all five fixes on its own copies and reported
+one new item, ND-A-1: the recorded run time in the pass 1 tier paragraph
+above reads 20:4x, while the pass 1 ladder copy still read 17:xx.  The
+closer made that correction by hand after the copy was taken, because
+17:xx was a template value and the Stage D run started at 20:4x.  The
+value stays, and this paragraph records the edit.
+
+The A-2 fix adds three corrupt-capture cases (trace-21, create-22 and
+assembler-row) and no ninth mutant: every in-tree edit of
+reference/ref20.evm fails at REFERENCE-BYTES first, and the fixture
+column comes from test/asm_cases.ml, outside the mutants() copy list.
+The printed cases= count is now a counter in the rejection path and
+moves from 29 to 32.  Every document that repeated 29 is amended, and
+dev/validation/2026-09-10-stage-d/REFERENCE-CHECKS.log is re-captured
+from the post-fix ladder.  SOURCES.json is refreshed for
+dev/reference-test.py and dev/stage-a-gates.py.  No line of M0-PLAN.md
+or RATIFICATIONS.md pins the count (RATIFICATIONS.md line 62).
+
+Gate result after the pass 2 fixes, log
+`/Users/oobi/Documents/assay-stage-d-review/gates-final.log`: 21 PASS,
+0 FAIL, porcelain 60/60, unstaged 0.  Every tail line is identical to
+the pass 1 result except the REFERENCE-CHECKS count.
+
+```
+STAGE-D OK
+EXIT 0
+FORK-DRIFT-TAIL: FORK-DRIFT push0=OK tload=OK tstore=OK mcopy=OK clz=INVALID OK
+M0-TRACE-TAIL: REFERENCE-MEASURE runtime_bytes=20 gas=22232 M0-TRACE scope=reference bytes=20 listing=17 cast=17 evm=13 skipped=4 storage=42 return=42 OK
+CREATE-EQ-TAIL: CREATE-MEASURE init_bytes=30 gas=4022 CREATE-EQ bytes=20 returned=20 installed=1 OK
+REFERENCE-CHECKS-TAIL: REFERENCE-CHECKS cases=32 controls=2 OK
+REFERENCE-MUTANTS-TAIL: REFERENCE-MUTANTS killed=8/8 controls=3 OK
+```
+
+Tier for pass 2: the finder, the builder and the checker kept the
+opus/medium pin with the explicit tier markers, and the verifier ran
+opus/high.  No new Fable probe was made, so the three tier rulings stay
+reported unmet.

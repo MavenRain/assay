@@ -1,0 +1,9 @@
+; Hand-assembled creation prefix, 10 bytes.  Append the bytes of ref20.evm.
+; PCs and operands are hex.  No constructor storage write is needed.
+00 6014 PUSH1 0x14 ; Push the runtime length, 20 bytes.
+02 600a PUSH1 0x0a ; Push the runtime start after this prefix.
+04 5f PUSH0 ; Push the destination memory offset, zero.
+05 39 CODECOPY ; Copy the runtime bytes to memory.
+06 6014 PUSH1 0x14 ; Push the runtime length, 20 bytes.
+08 5f PUSH0 ; Push the return memory offset, zero.
+09 f3 RETURN ; Return the copied bytes as the deployed runtime.

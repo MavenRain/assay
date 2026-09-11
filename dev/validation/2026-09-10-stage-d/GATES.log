@@ -1,0 +1,23 @@
+PASS BUILD exit=0 elapsed_ms=1100.8
+PASS PIN-CARRY exit=0 elapsed_ms=2647.5
+PASS R0-COUNT exit=0 elapsed_ms=628.8
+PASS R0-AUDIT exit=0 elapsed_ms=85.4
+PASS HOUSE exit=0 elapsed_ms=3390.8
+PASS TRUSTED-LINES exit=0 elapsed_ms=159.0
+PASS SUITE-KERNEL exit=0 elapsed_ms=3513.6
+PASS SUITE-SURFACE exit=0 elapsed_ms=373.2
+PASS DRIVER exit=0 elapsed_ms=487.0
+PASS MUTANTS exit=0 elapsed_ms=13126.6
+PASS DENOMINATORS exit=0 elapsed_ms=79.4
+PASS KECCAK-VEC exit=0 elapsed_ms=2271.3
+PASS KECCAK-MUTANTS exit=0 elapsed_ms=12027.1
+PASS STACK-HEIGHT exit=0 elapsed_ms=4846.4
+PASS DISASM-3WAY exit=0 elapsed_ms=1403.4
+PASS ASM-MUTANTS exit=0 elapsed_ms=20265.8
+PASS FORK-DRIFT exit=0 elapsed_ms=2389.5
+PASS M0-TRACE exit=0 elapsed_ms=999.6
+PASS CREATE-EQ exit=0 elapsed_ms=793.5
+PASS REFERENCE-CHECKS exit=0 elapsed_ms=711.5
+PASS REFERENCE-MUTANTS exit=0 elapsed_ms=9296.9
+PENDING E-F: EVM emission, five output files, recognizers, proof seed and corpus measurements
+STAGE-D OK

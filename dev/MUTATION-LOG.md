@@ -238,3 +238,45 @@ complete stack gate and the live three-way disassembly gate pass.  The six
 rejection transcripts and both control transcripts are stored in
 `dev/validation/2026-09-10-stage-c/`.  The full battery also kills all 13
 Stage A and all four Stage B mutants.  No Stage C gate executes EVM code.
+
+## Stage D (2026-09-10)
+
+Command: `python3 -P dev/reference-test.py mutants`.  Each fixture mutation
+runs the same gate in a temporary copy with the checked Stage C adapter.
+No mutation rebuild is needed because the compiled code is unchanged.
+Each run must exit 1, print its named witness and produce no traceback.
+The original fixture is restored between mutations.
+
+| Mutant | Change | Required witness |
+| --- | --- | --- |
+| CANCUN-OFF | Remove only config.cancunTime | FORK-TLOAD invalid opcode: TLOAD |
+| SHANGHAI-OFF | Remove cancunTime and shanghaiTime | FORK-PUSH0 invalid opcode: PUSH0 |
+| REFERENCE-BYTE | Change the stored literal from 42 to 43 | REFERENCE-BYTES |
+| REFERENCE-PC | Change SSTORE's declared PC | REFERENCE-PC |
+| REFERENCE-NAME | Annotate SSTORE as SLOAD | REFERENCE-LISTING |
+| INIT-OFFSET | Copy from offset 11 instead of 10 | CREATE-BYTES |
+| INIT-LENGTH | Copy and return 19 runtime bytes | CREATE-BYTES |
+| INIT-REVERT | Replace the creation RETURN with REVERT | CREATE-EXEC execution reverted |
+
+Result: `REFERENCE-MUTANTS killed=8/8 controls=3 OK`.  The restored fork,
+trace and creation gates all pass.  The Cancun-only control also proves
+that PUSH0 still executes, and the Shanghai-off control checks the plain
+`error: invalid opcode: PUSH0` line.  This preserves the measured correction
+in `dev/SPIKE-FORK.md` section 3.1 rather than repeating the plan's literal
+PUSH0 expectation for a Cancun-only deletion.
+
+`python3 -P dev/reference-test.py checks` corrupts copies of live successful
+captures.  Twenty-two field edits cover PCs, numeric opcodes, names, stacks,
+return values, execution errors, storage, balance, gas and installed code.
+Two of them are the runtime-account edit, which adds one account to the
+runtime dump, and the sender-nonce edit, which clears the sender nonce of
+the creation dump.
+Five cases remove, duplicate or reorder trace records.  Two cases damage
+cast rows, two reject duplicate JSON keys and a non-object JSON value, and
+one damages the reference row of the checked-block fixture table.
+Each case requires its exact error code.  Both unchanged controls pass.
+Result: `REFERENCE-CHECKS cases=32 controls=2 OK`.
+
+The complete battery also retains the 13 Stage A, four Stage B and six
+Stage C mutant kills.  Evidence is in
+`dev/validation/2026-09-10-stage-d/`.

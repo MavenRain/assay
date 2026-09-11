@@ -1,0 +1,33 @@
+M0 Stage D: add the Cancun reference execution gates
+
+Add the annotated 20-byte reference runtime, its creation prefix and an
+explicit Cancun prestate. Compare the listing and cast output with the
+geth execution path, stack, storage and returned word. Check that create
+returns and installs the exact runtime bytes.
+
+Probe PUSH0, TLOAD, nonzero transient storage and MCOPY, plus expected
+CLZ refusal. Preserve both Cancun-only and Cancun/Shanghai-off controls.
+Reject 32 corrupt captures and eight fixture mutants, then require the
+restored controls to pass. Record source hashes and validation evidence.
+
+Keep the carried kernel and Stage C implementation unchanged. The five
+compiler output files and EVM emission remain pending Stage E.
+
+Review pass 1 (2026-09-10) fixed 8 findings: D-1, B-1, B-2, ND-1-1,
+B-3, B-4, C-3, C-1.
+D-1 CREATE-EQ prints neither declared key of M0-PLAN section 8.
+B-1 A leg timeout discarded partial output and leaked the clone.
+B-2 The receipt promise was false for the mutation copies.
+ND-1-1 The round 1 TMPDIR sweep could delete a concurrent clone.
+B-3 The inner timeouts summed far past the leg deadlines.
+B-4 MUTATION-SITE could not fire for the two prestate mutants.
+C-3 A missing build artifact raised a bare Errno message.
+C-1 The build log stated a disk guard no repository file defines.
+
+Review pass 2 (2026-09-10, lens A rerun) fixed 5 findings: A-2, A-1,
+A-3, A-4, A-5.
+A-2 Four requires could not fail; three new cases raise cases= to 32.
+A-1 verify_trace indexed the geth dump by the literal address case.
+A-3 TRACE-SKIP could never fail and is removed.
+A-4 A damaged prestate fixture failed with no gate code.
+A-5 Five marker lines printed literals, now values read back.

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Run the carried battery and optional Stage B/C legs with finite deadlines."""
+"""Run the carried battery and optional Stage B/C/D legs with finite deadlines."""
 
 from pathlib import Path
 import subprocess
@@ -9,10 +9,11 @@ import time
 
 def main():
     root = Path(__file__).resolve().parent.parent
-    if sys.argv[1:] not in ([], ["--keccak"], ["--asm"]):
-        print("usage: stage-a-gates.py [--keccak|--asm]")
+    if sys.argv[1:] not in ([], ["--keccak"], ["--asm"], ["--reference"]):
+        print("usage: stage-a-gates.py [--keccak|--asm|--reference]")
         return 64
-    assembler = sys.argv[1:] == ["--asm"]
+    reference = sys.argv[1:] == ["--reference"]
+    assembler = reference or sys.argv[1:] == ["--asm"]
     keccak = assembler or sys.argv[1:] == ["--keccak"]
     legs = [
         ("BUILD", 120, ("zsh", "-f", "dev/dunecho.sh", "build"), "0 errors, 0 warnings"),
@@ -41,7 +42,20 @@ def main():
              "DISASM-3WAY ours=272 cast=272 evm=272 fixtures=7 negative=38 OK"),
             ("ASM-MUTANTS", 1200, ("python3", "-P", "dev/asm-test.py", "mutants"), "ASM-MUTANTS killed=6/6 control=OK"),
         ])
-    stage = "C" if assembler else "B" if keccak else "A"
+    if reference:
+        legs.extend([
+            ("FORK-DRIFT", 120, ("zsh", "-f", "dev/fork-check.sh"),
+             "FORK-DRIFT push0=OK tload=OK tstore=OK mcopy=OK clz=INVALID OK"),
+            ("M0-TRACE", 120, ("python3", "-P", "dev/reference-test.py", "trace"),
+             "M0-TRACE scope=reference bytes=20 listing=17 cast=17 evm=13 skipped=4 storage=42 return=42 OK"),
+            ("CREATE-EQ", 120, ("python3", "-P", "dev/reference-test.py", "create"),
+             "CREATE-EQ bytes=20 returned=20 installed=1 OK"),
+            ("REFERENCE-CHECKS", 180, ("python3", "-P", "dev/reference-test.py", "checks"),
+             "REFERENCE-CHECKS cases=32 controls=2 OK"),
+            ("REFERENCE-MUTANTS", 1200, ("python3", "-P", "dev/reference-test.py", "mutants"),
+             "REFERENCE-MUTANTS killed=8/8 controls=3 OK"),
+        ])
+    stage = "D" if reference else "C" if assembler else "B" if keccak else "A"
     work = root / (".gatework/stage-" + stage.lower())
     work.mkdir(parents=True, exist_ok=True)
     failed = False
@@ -54,7 +68,13 @@ def main():
             good = result.returncode == 0 and marker in output
             code = result.returncode
         except (OSError, subprocess.TimeoutExpired) as error:
-            output, good, code = str(error), False, 1
+            # Review round 2026-09-10 (B-1):  TimeoutExpired carries the output
+            # the killed leg had already produced.  Keep it, so the leg log
+            # names the case that hung instead of holding one exception line.
+            streams = (getattr(error, "stdout", None), getattr(error, "stderr", None))
+            partial = "".join(text if isinstance(text, str) else text.decode("utf-8", "replace")
+                              for text in streams if text)
+            output, good, code = partial + str(error) + "\n", False, 1
         (work / (name + ".log")).write_text(output)
         print(f"{'PASS' if good else 'FAIL'} {name} exit={code} elapsed_ms={(time.monotonic() - start) * 1000:.1f}", flush=True)
         if not good:
@@ -62,7 +82,8 @@ def main():
             failed = True
             if name == "BUILD":
                 break
-    pending = ("D-F: Cancun reference, EVM emission and corpus measurements" if assembler
+    pending = ("E-F: EVM emission, five output files, recognizers, proof seed and corpus measurements" if reference
+               else "D-F: Cancun reference, EVM emission and corpus measurements" if assembler
                else "C-F: assembler, Cancun reference, EVM emission and corpus measurements" if keccak
                else "B-F: keccak, assembler, Cancun reference, EVM emission and corpus measurements")
     print("PENDING " + pending)

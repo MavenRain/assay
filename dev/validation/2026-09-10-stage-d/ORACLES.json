@@ -1,0 +1,242 @@
+{
+  "assembler-fixtures.json": {
+    "argv": [
+      "/Users/oobi/Documents/gpt1/assay-stage-d/_build/default/test/asm_cases.exe",
+      "fixtures"
+    ],
+    "exit": 0,
+    "stdout": "ref20 602a5f55600b56fefefefe5b5f545f5260205ff3\ndiamond 6001600857600e565b602a6011565b602b5b5000\nloop 5b60016100005761000b565b00\npushes 5f60ff61ffff62ffffff63ffffffff64ffffffffff65ffffffffffff66ffffffffffffff67ffffffffffffffff68ffffffffffffffffff69ffffffffffffffffffff6affffffffffffffffffffff6bffffffffffffffffffffffff6cffffffffffffffffffffffffff6dffffffffffffffffffffffffffff6effffffffffffffffffffffffffffff6fffffffffffffffffffffffffffffffff70ffffffffffffffffffffffffffffffffff71ffffffffffffffffffffffffffffffffffff72ffffffffffffffffffffffffffffffffffffff73ffffffffffffffffffffffffffffffffffffffff74ffffffffffffffffffffffffffffffffffffffffff75ffffffffffffffffffffffffffffffffffffffffffff76ffffffffffffffffffffffffffffffffffffffffffffff77ffffffffffffffffffffffffffffffffffffffffffffffff78ffffffffffffffffffffffffffffffffffffffffffffffffff79ffffffffffffffffffffffffffffffffffffffffffffffffffff7affffffffffffffffffffffffffffffffffffffffffffffffffffff7bffffffffffffffffffffffffffffffffffffffffffffffffffffffff7cffffffffffffffffffffffffffffffffffffffffffffffffffffffffff7dffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff7effffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff00\ndepths 5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9f00\n",
+    "stderr": ""
+  },
+  "cast-version.json": {
+    "argv": [
+      "cast",
+      "--version"
+    ],
+    "exit": 0,
+    "stdout": "cast 0.3.0 (5a8bd89 2024-12-20T08:45:53.135759000Z)\n",
+    "stderr": ""
+  },
+  "evm-version.json": {
+    "argv": [
+      "evm",
+      "--version"
+    ],
+    "exit": 0,
+    "stdout": "evm version 1.14.12-stable\n",
+    "stderr": ""
+  },
+  "fork-CLZ-plain.json": {
+    "argv": [
+      "evm",
+      "--verbosity",
+      "0",
+      "run",
+      "--prestate",
+      "/Users/oobi/Documents/gpt1/assay-stage-d/evm/fixtures/cancun.json",
+      "--gas",
+      "16777216",
+      "--sender",
+      "0x000000000000000000000000000073656e646572",
+      "--receiver",
+      "0x0000000000000000000000007265636569766572",
+      "--code",
+      "5f1e00"
+    ],
+    "exit": 0,
+    "stdout": "\n error: invalid opcode: opcode 0x1e not defined\n",
+    "stderr": ""
+  },
+  "fork-CLZ.json": {
+    "argv": [
+      "evm",
+      "--verbosity",
+      "0",
+      "run",
+      "--prestate",
+      "/Users/oobi/Documents/gpt1/assay-stage-d/evm/fixtures/cancun.json",
+      "--gas",
+      "16777216",
+      "--sender",
+      "0x000000000000000000000000000073656e646572",
+      "--receiver",
+      "0x0000000000000000000000007265636569766572",
+      "--code",
+      "5f1e00",
+      "--json",
+      "--dump"
+    ],
+    "exit": 0,
+    "stdout": "{\"pc\":0,\"op\":95,\"gas\":\"0x1000000\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":1,\"op\":30,\"gas\":\"0xfffffe\",\"gasCost\":\"0x0\",\"memSize\":0,\"stack\":[\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"opcode 0x1e not defined\"}\n{\"pc\":1,\"op\":30,\"gas\":\"0xfffffe\",\"gasCost\":\"0x0\",\"memSize\":0,\"stack\":[\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"opcode 0x1e not defined\",\"error\":\"invalid opcode: opcode 0x1e not defined\"}\n{\"output\":\"\",\"gasUsed\":\"0x1000000\",\"error\":\"invalid opcode: opcode 0x1e not defined\"}\n{\n    \"root\": \"97b7ac0bc66184e5e0b9e33a182b0503a515de467b30b5a741cbab4552cfa6fb\",\n    \"accounts\": {\n        \"0x0000000000000000000000007265636569766572\": {\n            \"balance\": \"0\",\n            \"nonce\": 0,\n            \"root\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\",\n            \"codeHash\": \"0x99dac0574f862b396c4e67ed812ff17a226a5150f27cb276f9464b1a1b7f2f78\",\n            \"code\": \"0x5f1e00\",\n            \"address\": \"0x0000000000000000000000007265636569766572\",\n            \"key\": \"0x30d7a0694cb29af31b982480e11d7ebb003a3fca4026939149071f014689b142\"\n        }\n    }\n}\n",
+    "stderr": ""
+  },
+  "fork-MCOPY.json": {
+    "argv": [
+      "evm",
+      "--verbosity",
+      "0",
+      "run",
+      "--prestate",
+      "/Users/oobi/Documents/gpt1/assay-stage-d/evm/fixtures/cancun.json",
+      "--gas",
+      "16777216",
+      "--sender",
+      "0x000000000000000000000000000073656e646572",
+      "--receiver",
+      "0x0000000000000000000000007265636569766572",
+      "--code",
+      "602a5f5260205f60205e60205100",
+      "--json",
+      "--dump"
+    ],
+    "exit": 0,
+    "stdout": "{\"pc\":0,\"op\":96,\"gas\":\"0x1000000\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":2,\"op\":95,\"gas\":\"0xfffffd\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[\"0x2a\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":3,\"op\":82,\"gas\":\"0xfffffb\",\"gasCost\":\"0x6\",\"memSize\":0,\"stack\":[\"0x2a\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"MSTORE\"}\n{\"pc\":4,\"op\":96,\"gas\":\"0xfffff5\",\"gasCost\":\"0x3\",\"memSize\":32,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":6,\"op\":95,\"gas\":\"0xfffff2\",\"gasCost\":\"0x2\",\"memSize\":32,\"stack\":[\"0x20\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":7,\"op\":96,\"gas\":\"0xfffff0\",\"gasCost\":\"0x3\",\"memSize\":32,\"stack\":[\"0x20\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":9,\"op\":94,\"gas\":\"0xffffed\",\"gasCost\":\"0x9\",\"memSize\":32,\"stack\":[\"0x20\",\"0x0\",\"0x20\"],\"depth\":1,\"refund\":0,\"opName\":\"MCOPY\"}\n{\"pc\":10,\"op\":96,\"gas\":\"0xffffe4\",\"gasCost\":\"0x3\",\"memSize\":64,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":12,\"op\":81,\"gas\":\"0xffffe1\",\"gasCost\":\"0x3\",\"memSize\":64,\"stack\":[\"0x20\"],\"depth\":1,\"refund\":0,\"opName\":\"MLOAD\"}\n{\"pc\":13,\"op\":0,\"gas\":\"0xffffde\",\"gasCost\":\"0x0\",\"memSize\":64,\"stack\":[\"0x2a\"],\"depth\":1,\"refund\":0,\"opName\":\"STOP\"}\n{\"output\":\"\",\"gasUsed\":\"0x22\"}\n{\n    \"root\": \"b7a31eebd18b703d2b714ee059cb7c85332168c34924d828a3b51eec48dc1771\",\n    \"accounts\": {\n        \"0x0000000000000000000000007265636569766572\": {\n            \"balance\": \"0\",\n            \"nonce\": 0,\n            \"root\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\",\n            \"codeHash\": \"0x7452b121b58b124410cf6ffb9eca5fcb4c59510b94a1d90935d9d7aee3590b30\",\n            \"code\": \"0x602a5f5260205f60205e60205100\",\n            \"address\": \"0x0000000000000000000000007265636569766572\",\n            \"key\": \"0x30d7a0694cb29af31b982480e11d7ebb003a3fca4026939149071f014689b142\"\n        }\n    }\n}\n",
+    "stderr": ""
+  },
+  "fork-PUSH0.json": {
+    "argv": [
+      "evm",
+      "--verbosity",
+      "0",
+      "run",
+      "--prestate",
+      "/Users/oobi/Documents/gpt1/assay-stage-d/evm/fixtures/cancun.json",
+      "--gas",
+      "16777216",
+      "--sender",
+      "0x000000000000000000000000000073656e646572",
+      "--receiver",
+      "0x0000000000000000000000007265636569766572",
+      "--code",
+      "5f00",
+      "--json",
+      "--dump"
+    ],
+    "exit": 0,
+    "stdout": "{\"pc\":0,\"op\":95,\"gas\":\"0x1000000\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":1,\"op\":0,\"gas\":\"0xfffffe\",\"gasCost\":\"0x0\",\"memSize\":0,\"stack\":[\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"STOP\"}\n{\"output\":\"\",\"gasUsed\":\"0x2\"}\n{\n    \"root\": \"16dffb7d9f6cbfd72b3f672951273c728c3b69634ebab09edfec672ea2acbdc6\",\n    \"accounts\": {\n        \"0x0000000000000000000000007265636569766572\": {\n            \"balance\": \"0\",\n            \"nonce\": 0,\n            \"root\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\",\n            \"codeHash\": \"0x8bad9ba94613fec1e809fab581b571a885374d55530adda2718a1d613e9a5c60\",\n            \"code\": \"0x5f00\",\n            \"address\": \"0x0000000000000000000000007265636569766572\",\n            \"key\": \"0x30d7a0694cb29af31b982480e11d7ebb003a3fca4026939149071f014689b142\"\n        }\n    }\n}\n",
+    "stderr": ""
+  },
+  "fork-TLOAD.json": {
+    "argv": [
+      "evm",
+      "--verbosity",
+      "0",
+      "run",
+      "--prestate",
+      "/Users/oobi/Documents/gpt1/assay-stage-d/evm/fixtures/cancun.json",
+      "--gas",
+      "16777216",
+      "--sender",
+      "0x000000000000000000000000000073656e646572",
+      "--receiver",
+      "0x0000000000000000000000007265636569766572",
+      "--code",
+      "5f5c00",
+      "--json",
+      "--dump"
+    ],
+    "exit": 0,
+    "stdout": "{\"pc\":0,\"op\":95,\"gas\":\"0x1000000\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":1,\"op\":92,\"gas\":\"0xfffffe\",\"gasCost\":\"0x64\",\"memSize\":0,\"stack\":[\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"TLOAD\"}\n{\"pc\":2,\"op\":0,\"gas\":\"0xffff9a\",\"gasCost\":\"0x0\",\"memSize\":0,\"stack\":[\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"STOP\"}\n{\"output\":\"\",\"gasUsed\":\"0x66\"}\n{\n    \"root\": \"d02c428943105059395c61df518f5dc6bbf4d52efb56a7a0ea65dac5620e1fce\",\n    \"accounts\": {\n        \"0x0000000000000000000000007265636569766572\": {\n            \"balance\": \"0\",\n            \"nonce\": 0,\n            \"root\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\",\n            \"codeHash\": \"0x18ae3b7f499b5a6cb5a657d48b69ea19969414f31a3c642a03360274c7c88882\",\n            \"code\": \"0x5f5c00\",\n            \"address\": \"0x0000000000000000000000007265636569766572\",\n            \"key\": \"0x30d7a0694cb29af31b982480e11d7ebb003a3fca4026939149071f014689b142\"\n        }\n    }\n}\n",
+    "stderr": ""
+  },
+  "fork-TSTORE.json": {
+    "argv": [
+      "evm",
+      "--verbosity",
+      "0",
+      "run",
+      "--prestate",
+      "/Users/oobi/Documents/gpt1/assay-stage-d/evm/fixtures/cancun.json",
+      "--gas",
+      "16777216",
+      "--sender",
+      "0x000000000000000000000000000073656e646572",
+      "--receiver",
+      "0x0000000000000000000000007265636569766572",
+      "--code",
+      "602a5f5d5f5c00",
+      "--json",
+      "--dump"
+    ],
+    "exit": 0,
+    "stdout": "{\"pc\":0,\"op\":96,\"gas\":\"0x1000000\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":2,\"op\":95,\"gas\":\"0xfffffd\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[\"0x2a\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":3,\"op\":93,\"gas\":\"0xfffffb\",\"gasCost\":\"0x64\",\"memSize\":0,\"stack\":[\"0x2a\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"TSTORE\"}\n{\"pc\":4,\"op\":95,\"gas\":\"0xffff97\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":5,\"op\":92,\"gas\":\"0xffff95\",\"gasCost\":\"0x64\",\"memSize\":0,\"stack\":[\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"TLOAD\"}\n{\"pc\":6,\"op\":0,\"gas\":\"0xffff31\",\"gasCost\":\"0x0\",\"memSize\":0,\"stack\":[\"0x2a\"],\"depth\":1,\"refund\":0,\"opName\":\"STOP\"}\n{\"output\":\"\",\"gasUsed\":\"0xcf\"}\n{\n    \"root\": \"591b04c20282a8f119d9fab2d61ce0e9ea7eaafbce3bad60070811041bfd2057\",\n    \"accounts\": {\n        \"0x0000000000000000000000007265636569766572\": {\n            \"balance\": \"0\",\n            \"nonce\": 0,\n            \"root\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\",\n            \"codeHash\": \"0x500a0231ab211f71b760f2bfa044bcef542e06ba25926877ef7bc138163a0386\",\n            \"code\": \"0x602a5f5d5f5c00\",\n            \"address\": \"0x0000000000000000000000007265636569766572\",\n            \"key\": \"0x30d7a0694cb29af31b982480e11d7ebb003a3fca4026939149071f014689b142\"\n        }\n    }\n}\n",
+    "stderr": ""
+  },
+  "ref20-cast.json": {
+    "argv": [
+      "cast",
+      "disassemble",
+      "0x602a5f55600b56fefefefe5b5f545f5260205ff3"
+    ],
+    "exit": 0,
+    "stdout": "00000000: PUSH1 0x2a\n00000002: PUSH0\n00000003: SSTORE\n00000004: PUSH1 0x0b\n00000006: JUMP\n00000007: INVALID\n00000008: INVALID\n00000009: INVALID\n0000000a: INVALID\n0000000b: JUMPDEST\n0000000c: PUSH0\n0000000d: SLOAD\n0000000e: PUSH0\n0000000f: MSTORE\n00000010: PUSH1 0x20\n00000012: PUSH0\n00000013: RETURN\n\n",
+    "stderr": ""
+  },
+  "ref20-create.json": {
+    "argv": [
+      "evm",
+      "--verbosity",
+      "0",
+      "run",
+      "--prestate",
+      "/Users/oobi/Documents/gpt1/assay-stage-d/evm/fixtures/cancun.json",
+      "--gas",
+      "16777216",
+      "--sender",
+      "0x000000000000000000000000000073656e646572",
+      "--receiver",
+      "0x0000000000000000000000007265636569766572",
+      "--code",
+      "6014600a5f3960145ff3602a5f55600b56fefefefe5b5f545f5260205ff3",
+      "--json",
+      "--dump",
+      "--create"
+    ],
+    "exit": 0,
+    "stdout": "{\"pc\":0,\"op\":96,\"gas\":\"0x1000000\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":2,\"op\":96,\"gas\":\"0xfffffd\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[\"0x14\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":4,\"op\":95,\"gas\":\"0xfffffa\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[\"0x14\",\"0xa\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":5,\"op\":57,\"gas\":\"0xfffff8\",\"gasCost\":\"0x9\",\"memSize\":0,\"stack\":[\"0x14\",\"0xa\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"CODECOPY\"}\n{\"pc\":6,\"op\":96,\"gas\":\"0xffffef\",\"gasCost\":\"0x3\",\"memSize\":32,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":8,\"op\":95,\"gas\":\"0xffffec\",\"gasCost\":\"0x2\",\"memSize\":32,\"stack\":[\"0x14\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":9,\"op\":243,\"gas\":\"0xffffea\",\"gasCost\":\"0x0\",\"memSize\":32,\"stack\":[\"0x14\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"RETURN\"}\n{\"output\":\"602a5f55600b56fefefefe5b5f545f5260205ff3\",\"gasUsed\":\"0xfb6\"}\n{\n    \"root\": \"30948383ee9898511b4f28bc3d2311fce4c8e06dfd560c6e8c3245aa913fd538\",\n    \"accounts\": {\n        \"0x000000000000000000000000000073656E646572\": {\n            \"balance\": \"0\",\n            \"nonce\": 1,\n            \"root\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\",\n            \"codeHash\": \"0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470\",\n            \"address\": \"0x000000000000000000000000000073656e646572\",\n            \"key\": \"0x991ce00dc1ffbea80c37495ab0286baa37f4aa9220f83711b7e407379aec6fcb\"\n        },\n        \"0x1f2a98889594024BFfdA3311CbE69728d392C06D\": {\n            \"balance\": \"0\",\n            \"nonce\": 1,\n            \"root\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\",\n            \"codeHash\": \"0x755b9e03b3191b071ebb78b7ebae672c2db6c3b52febaf13955e337d95b5f2ef\",\n            \"code\": \"0x602a5f55600b56fefefefe5b5f545f5260205ff3\",\n            \"address\": \"0x1f2a98889594024bffda3311cbe69728d392c06d\",\n            \"key\": \"0xcbeeb4463624bc2f332dcfe2b479eddb1c380ec862ee63d9f31b31b854fb7c61\"\n        }\n    }\n}\n",
+    "stderr": ""
+  },
+  "ref20-init.evm-listing.json": {
+    "argv": [
+      "/Users/oobi/Documents/gpt1/assay-stage-d/_build/default/test/asm_cases.exe",
+      "listing",
+      "6014600a5f3960145ff3"
+    ],
+    "exit": 0,
+    "stdout": "00000000: PUSH1 0x14\n00000002: PUSH1 0x0a\n00000004: PUSH0\n00000005: CODECOPY\n00000006: PUSH1 0x14\n00000008: PUSH0\n00000009: RETURN\n",
+    "stderr": ""
+  },
+  "ref20-run.json": {
+    "argv": [
+      "evm",
+      "--verbosity",
+      "0",
+      "run",
+      "--prestate",
+      "/Users/oobi/Documents/gpt1/assay-stage-d/evm/fixtures/cancun.json",
+      "--gas",
+      "16777216",
+      "--sender",
+      "0x000000000000000000000000000073656e646572",
+      "--receiver",
+      "0x0000000000000000000000007265636569766572",
+      "--code",
+      "602a5f55600b56fefefefe5b5f545f5260205ff3",
+      "--json",
+      "--dump"
+    ],
+    "exit": 0,
+    "stdout": "{\"pc\":0,\"op\":96,\"gas\":\"0x1000000\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":2,\"op\":95,\"gas\":\"0xfffffd\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[\"0x2a\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":3,\"op\":85,\"gas\":\"0xfffffb\",\"gasCost\":\"0x5654\",\"memSize\":0,\"stack\":[\"0x2a\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"SSTORE\"}\n{\"pc\":4,\"op\":96,\"gas\":\"0xffa9a7\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":6,\"op\":86,\"gas\":\"0xffa9a4\",\"gasCost\":\"0x8\",\"memSize\":0,\"stack\":[\"0xb\"],\"depth\":1,\"refund\":0,\"opName\":\"JUMP\"}\n{\"pc\":11,\"op\":91,\"gas\":\"0xffa99c\",\"gasCost\":\"0x1\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"JUMPDEST\"}\n{\"pc\":12,\"op\":95,\"gas\":\"0xffa99b\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":13,\"op\":84,\"gas\":\"0xffa999\",\"gasCost\":\"0x64\",\"memSize\":0,\"stack\":[\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"SLOAD\"}\n{\"pc\":14,\"op\":95,\"gas\":\"0xffa935\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[\"0x2a\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":15,\"op\":82,\"gas\":\"0xffa933\",\"gasCost\":\"0x6\",\"memSize\":0,\"stack\":[\"0x2a\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"MSTORE\"}\n{\"pc\":16,\"op\":96,\"gas\":\"0xffa92d\",\"gasCost\":\"0x3\",\"memSize\":32,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":18,\"op\":95,\"gas\":\"0xffa92a\",\"gasCost\":\"0x2\",\"memSize\":32,\"stack\":[\"0x20\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":19,\"op\":243,\"gas\":\"0xffa928\",\"gasCost\":\"0x0\",\"memSize\":32,\"stack\":[\"0x20\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"RETURN\"}\n{\"output\":\"000000000000000000000000000000000000000000000000000000000000002a\",\"gasUsed\":\"0x56d8\"}\n{\n    \"root\": \"0abe467c85a5dbac429cd5d2becbe405d4d77533412a5bebeee8391de2da5523\",\n    \"accounts\": {\n        \"0x0000000000000000000000007265636569766572\": {\n            \"balance\": \"0\",\n            \"nonce\": 0,\n            \"root\": \"0x81d1fa699f807735499cf6f7df860797cf66f6a66b565cfcda3fae3521eb6861\",\n            \"codeHash\": \"0x755b9e03b3191b071ebb78b7ebae672c2db6c3b52febaf13955e337d95b5f2ef\",\n            \"code\": \"0x602a5f55600b56fefefefe5b5f545f5260205ff3\",\n            \"storage\": {\n                \"0x0000000000000000000000000000000000000000000000000000000000000000\": \"2a\"\n            },\n            \"address\": \"0x0000000000000000000000007265636569766572\",\n            \"key\": \"0x30d7a0694cb29af31b982480e11d7ebb003a3fca4026939149071f014689b142\"\n        }\n    }\n}\n",
+    "stderr": ""
+  },
+  "ref20.evm-listing.json": {
+    "argv": [
+      "/Users/oobi/Documents/gpt1/assay-stage-d/_build/default/test/asm_cases.exe",
+      "listing",
+      "602a5f55600b56fefefefe5b5f545f5260205ff3"
+    ],
+    "exit": 0,
+    "stdout": "00000000: PUSH1 0x2a\n00000002: PUSH0\n00000003: SSTORE\n00000004: PUSH1 0x0b\n00000006: JUMP\n00000007: INVALID\n00000008: INVALID\n00000009: INVALID\n0000000a: INVALID\n0000000b: JUMPDEST\n0000000c: PUSH0\n0000000d: SLOAD\n0000000e: PUSH0\n0000000f: MSTORE\n00000010: PUSH1 0x20\n00000012: PUSH0\n00000013: RETURN\n",
+    "stderr": ""
+  }
+}

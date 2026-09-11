@@ -1,0 +1,19 @@
+; Hand-assembled runtime, 20 bytes.  PCs and operands are hex.
+; Format: PC BYTES MNEMONIC [IMMEDIATE] ; instruction comment.
+00 602a PUSH1 0x2a ; Push the value 42.
+02 5f PUSH0 ; Push storage slot zero.
+03 55 SSTORE ; Store 42 in slot zero.
+04 600b PUSH1 0x0b ; Push the destination at PC 11.
+06 56 JUMP ; Jump past the four guard bytes.
+07 fe INVALID ; Guard byte, never executed.
+08 fe INVALID ; Guard byte, never executed.
+09 fe INVALID ; Guard byte, never executed.
+0a fe INVALID ; Guard byte, never executed.
+0b 5b JUMPDEST ; Mark the read block.
+0c 5f PUSH0 ; Push storage slot zero.
+0d 54 SLOAD ; Read the stored value.
+0e 5f PUSH0 ; Push memory offset zero.
+0f 52 MSTORE ; Write the value as a 32-byte memory word.
+10 6020 PUSH1 0x20 ; Push the return length, 32 bytes.
+12 5f PUSH0 ; Push the return offset, zero.
+13 f3 RETURN ; Return the memory word containing 42.
