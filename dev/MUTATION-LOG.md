@@ -362,3 +362,67 @@ two mutations by hand on a copy and rebuilt the driver for each one.
 
 The restored copy prints `TRACE-DRIVER cases=20 explicit_prestate=true
 literal_argv=true OK` and exits 0.
+
+## 2026-09-11: M1 executor slice
+
+`dev/diff-test.py` rejects 24 damaged captures, mismatched outcomes and
+unsupported execution inputs.  Its final restored capture passes.
+`dev/validation/2026-09-11-m1-executor/DIFF-EVIDENCE.json` records each
+name and exact rejection, plus the live captures used by the checks.
+
+| Names | Required witness |
+| --- | --- |
+| STATUS, RETURN, STORAGE | `DIFF_MISMATCH` for the changed field |
+| NO-RESULT, NO-ALLOC | `DIFF_T8N` missing result or alloc |
+| REJECTED | transaction rejected |
+| NO-RECEIPT, DUP-RECEIPT | expected one receipt |
+| RECEIPT-STATUS | receipt and trace disagree |
+| RECEIPT-HASH, NO-TRACE | missing or unrelated transaction trace |
+| RECEIPT-INDEX | wrong receipt index |
+| BAD-STORAGE | `DIFF_STORAGE` invalid word |
+| TRAILING-JSON, NO-STATE | `DIFF_RUN` missing state dump |
+| DUP-JSON | duplicate key |
+| EVM-FAULT, LIVE-FAULT | `DIFF_EXECUTION` EVM fault |
+| EXCESS-GAS | gas exceeds execution allowance |
+| DUP-ACCOUNT | `DIFF_PRESTATE` duplicate account |
+| DUP-SLOT | duplicate slot |
+| GASLIMIT, BASEFEE, BLOBBASEFEE | `DIFF_CONTEXT` unsupported observation |
+
+The same leg has 26 public driver cases.  They include malformed calldata,
+invalid source and prestate paths, the wrong fork, missing or non-executable
+tools, process exit and signal failures, and malformed executor output.
+Every failed command must leave stdout empty.  Eight calldata rows, an
+explicit prestate and paths with spaces must succeed.  Literal argv and
+the Cancun flag are read from the tool wrapper's captured arguments.
+
+The live `GAS` case caught a context mismatch during development:
+`evm run` returned `0xfffffe` while t8n returned `0xf423e` when the runner
+requested one million execution gas.  The final adapter uses the genesis
+allowance and adds intrinsic gas to the t8n transaction and block limit.
+The `GASLIMIT` rejection records the resulting context restriction.
+`BASEFEE` and `BLOBBASEFEE` read the same divided context: `evm run`
+returned `0x3b9aca00` for a base fee probe while the t8n environment pins
+`0x0`, so both opcodes are refused with the same diagnostic.
+
+### Review round 2026-09-11 (M1 executor)
+
+Three round-1 driver cases close three unwitnessed paths.  Each mutation
+was applied to a copy, was built with 0 errors and 0 warnings, and the leg
+failed.  The restored copy prints `DIFF-EXECUTOR live=20 driver=26
+rejected=24 OK` and exits 0.
+
+| Mutation | Leg case | Witness |
+| --- | --- | --- |
+| delete the unexpected-stderr guard of evm/diff.py | executor-stderr | `DIFF-EXECUTOR FAIL DIFF-DRIVER executor-stderr: 2: assay: diff: DIFF_RUN: missing state dump` |
+| rename the `Missing_helper` text of bin/differential.ml | missing-helper | `DIFF-EXECUTOR FAIL DIFF-DRIVER missing-helper: 2: assay: diff: DIFF_HELPER: MUTANT` |
+| report `Runner_exit` for the `WSIGNALED` arm of bin/differential.ml | runner-signal | `DIFF-EXECUTOR FAIL DIFF-DRIVER runner-signal: 2: assay: diff: DIFF_RUNNER: exit -11` |
+
+The last witness also shows the reported defect: the mutant prints the
+OCaml signal encoding `-11` for a `SIGTERM`.  The fixed reader prints
+`DIFF_RUNNER: killed by SIGTERM` and keeps a separate `stopped by` wording
+for `WSTOPPED`.
+
+A fourth mutation checks the stage verdict of `dev/stage-a-gates.py`.  A
+copy with one passing base leg and a failing `DIFF-EXECUTOR` leg prints
+`M0-VALIDATION OK` with `STAGE-M1-EXECUTOR FAIL` and exit 1.  The control
+copy with a passing executor leg prints both lines as `OK` with exit 0.

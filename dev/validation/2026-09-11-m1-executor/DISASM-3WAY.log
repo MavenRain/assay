@@ -1,0 +1,10 @@
+DISASM-ORACLE cast 0.3.0 (5a8bd89 2024-12-20T08:45:53.135759000Z)
+DISASM-ORACLE evm version 1.14.12-stable
+DISASM-3WAY ref20 OK offsets=17 bytes=20 alias=0
+DISASM-3WAY diamond OK offsets=14 bytes=20 alias=0
+DISASM-3WAY loop OK offsets=8 bytes=13 alias=0
+DISASM-3WAY pushes OK offsets=34 bytes=562 alias=0
+DISASM-3WAY depths OK offsets=50 bytes=50 alias=0
+DISASM-3WAY all-opcodes OK offsets=149 bytes=677 alias=2
+DISASM-3WAY empty OK offsets=0 bytes=0 alias=0
+DISASM-3WAY ours=272 cast=272 evm=272 fixtures=7 negative=38 OK

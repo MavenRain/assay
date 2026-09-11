@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Run the carried battery and optional Stage B through F legs with finite deadlines."""
+"""Run the carried battery and optional emission and executor legs with finite deadlines."""
 
 from pathlib import Path
 import shutil
@@ -10,10 +10,11 @@ import time
 
 def main():
     root = Path(__file__).resolve().parent.parent
-    if sys.argv[1:] not in ([], ["--keccak"], ["--asm"], ["--reference"], ["--emit"], ["--m0"]):
-        print("usage: stage-a-gates.py [--keccak|--asm|--reference|--emit|--m0]")
+    if sys.argv[1:] not in ([], ["--keccak"], ["--asm"], ["--reference"], ["--emit"], ["--m0"], ["--m1-executor"]):
+        print("usage: stage-a-gates.py [--keccak|--asm|--reference|--emit|--m0|--m1-executor]")
         return 64
-    corpus = sys.argv[1:] == ["--m0"]
+    executor = sys.argv[1:] == ["--m1-executor"]
+    corpus = executor or sys.argv[1:] == ["--m0"]
     emission = corpus or sys.argv[1:] == ["--emit"]
     reference = emission or sys.argv[1:] == ["--reference"]
     assembler = reference or sys.argv[1:] == ["--asm"]
@@ -91,10 +92,18 @@ def main():
             ("F-MUTANTS", 180, ("python3", "-P", "dev/corpus-test.py", "mutants"),
              "F-MUTANTS killed=7/7 controls=5 OK"),
         ])
-    stage = "F" if corpus else "E" if emission else "D" if reference else "C" if assembler else "B" if keccak else "A"
+    if executor:
+        legs.append(("DIFF-EXECUTOR", 180, ("python3", "-P", "dev/diff-test.py"),
+                     "DIFF-EXECUTOR live=20 driver=26 rejected=24 OK"))
+    # Review round 2026-09-11 (D-1):  the M0 verdict reads the legs of
+    # M0-PLAN section 8 only.  A leg that this mode appends is an M1 leg,
+    # so its failure moves the stage line and the exit code, not M0.
+    m1_names = {"DIFF-EXECUTOR"}
+    stage = "M1-EXECUTOR" if executor else "F" if corpus else "E" if emission else "D" if reference else "C" if assembler else "B" if keccak else "A"
     work = root / (".gatework/stage-" + stage.lower())
     work.mkdir(parents=True, exist_ok=True)
     failed = False
+    failed_m1 = False
     for name, timeout, command, marker in legs:
         start = time.monotonic()
         try:
@@ -126,7 +135,8 @@ def main():
         print(f"{'PASS' if good else 'FAIL'} {name} exit={code} elapsed_ms={(time.monotonic() - start) * 1000:.1f}", flush=True)
         if not good:
             print(output, flush=True)
-            failed = True
+            failed_m1 = failed_m1 or name in m1_names
+            failed = failed or name not in m1_names
             if name == "BUILD":
                 break
     pending = ("F: frozen corpus, ratio and ERASED-BYTES seed" if emission
@@ -138,8 +148,8 @@ def main():
         print("M0-VALIDATION " + ("FAIL" if failed else "OK") + "; M0-EXIT requires the user commit and ratification")
     else:
         print("PENDING " + pending)
-    print("STAGE-" + stage + " " + ("FAIL" if failed else "OK"))
-    return int(failed)
+    print("STAGE-" + stage + " " + ("FAIL" if failed or failed_m1 else "OK"))
+    return int(failed or failed_m1)
 
 
 if __name__ == "__main__":

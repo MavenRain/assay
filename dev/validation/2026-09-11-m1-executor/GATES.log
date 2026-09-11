@@ -1,0 +1,190 @@
+PASS BUILD exit=0 elapsed_ms=867.1
+PASS PIN-CARRY exit=0 elapsed_ms=578.0
+PASS R0-COUNT exit=0 elapsed_ms=312.7
+PASS R0-AUDIT exit=0 elapsed_ms=52.5
+PASS HOUSE exit=0 elapsed_ms=474.6
+PASS TRUSTED-LINES exit=0 elapsed_ms=43.2
+PASS SUITE-KERNEL exit=0 elapsed_ms=596.0
+PASS SUITE-SURFACE exit=0 elapsed_ms=368.3
+PASS DRIVER exit=0 elapsed_ms=266.1
+PASS MUTANTS exit=0 elapsed_ms=6889.7
+FAIL DENOMINATORS exit=1 elapsed_ms=31.9
+abi/abi.ml: OK
+abi/dune: OK
+abi/layout.ml: OK
+asm/asm.ml: OK
+asm/dune: OK
+asm/listing.ml: OK
+bin/assay.ml: FAILED
+bin/dune: OK
+bin/trace.ml: OK
+corpus/MANIFEST.json: OK
+corpus/contracts/Arithmetic.asy: OK
+corpus/contracts/Maximum.asy: OK
+corpus/contracts/Pair.asy: OK
+corpus/contracts/Ref20.asy: OK
+corpus/contracts/Return.asy: OK
+corpus/contracts/TwoSlots.asy: OK
+corpus/contracts/WideLabel.asy: OK
+corpus/contracts/Zero.asy: OK
+corpus/proofs/Apply.asy: OK
+corpus/proofs/Leaf.asy: OK
+corpus/proofs/Let.asy: OK
+dev/PIN: OK
+dev/corpus-data.py: OK
+dev/corpus-test.py: OK
+dev/denominator.sh: OK
+dev/denominators-stage-0.json: OK
+dev/denominators.json: OK
+dev/dunecho.sh: OK
+dev/emit-test.py: OK
+dev/gates.sh: FAILED
+dev/import-check.sh: OK
+dev/ratio.py: OK
+dev/ratio.sh: OK
+dev/stage-a-gates.py: FAILED
+dev/stage-a-test.py: FAILED
+dev/trace-test.py: OK
+dune: OK
+dune-project: OK
+emit/dune: OK
+emit/emit.ml: OK
+emit/recognize.ml: OK
+keccak/dune: OK
+keccak/keccak.ml: OK
+lib/bignum.ml: OK
+lib/budget.ml: OK
+lib/budget.mli: OK
+lib/check.ml: OK
+lib/conv.ml: OK
+lib/dune: OK
+lib/erase.ml: OK
+lib/error.ml: OK
+lib/eterm.ml: OK
+lib/eval.ml: OK
+lib/global.ml: OK
+lib/level.ml: OK
+lib/level.mli: OK
+lib/literal.ml: OK
+lib/order.ml: OK
+lib/positivity.ml: OK
+lib/pp.ml: OK
+lib/prim.ml: OK
+lib/quantity.ml: OK
+lib/rules.ml: OK
+lib/shape.ml: OK
+lib/spec_count.ml: OK
+lib/term.ml: OK
+lib/totality.ml: OK
+lib/value.ml: OK
+surface/dune: OK
+surface/elab.ml: OK
+surface/lexer.ml: OK
+surface/parser.ml: OK
+surface/syntax.ml: OK
+surface/token.ml: OK
+shasum: WARNING: 4 computed checksums did NOT match
+
+PASS KECCAK-VEC exit=0 elapsed_ms=824.2
+PASS KECCAK-MUTANTS exit=0 elapsed_ms=6077.2
+PASS STACK-HEIGHT exit=0 elapsed_ms=3084.1
+PASS DISASM-3WAY exit=0 elapsed_ms=682.4
+PASS ASM-MUTANTS exit=0 elapsed_ms=8761.9
+PASS FORK-DRIFT exit=0 elapsed_ms=481.9
+PASS M0-TRACE exit=0 elapsed_ms=158.9
+PASS CREATE-EQ exit=0 elapsed_ms=117.7
+PASS REFERENCE-CHECKS exit=0 elapsed_ms=357.9
+PASS REFERENCE-MUTANTS exit=0 elapsed_ms=1721.4
+PASS EMIT-CONSTRUCTORS exit=0 elapsed_ms=336.2
+PASS WORD-UNBOX exit=0 elapsed_ms=5.3
+PASS STORAGE-NOCLOS exit=0 elapsed_ms=5.0
+PASS ABI-GOLD exit=0 elapsed_ms=246.9
+PASS EMITTED-TRACE exit=0 elapsed_ms=149.1
+PASS EMIT-SOURCES exit=0 elapsed_ms=910.8
+PASS EMIT-MUTANTS exit=0 elapsed_ms=11211.5
+PASS AXIOMS exit=0 elapsed_ms=5624.1
+PASS TRACE-DRIVER exit=0 elapsed_ms=789.1
+PASS CORPUS exit=0 elapsed_ms=882.0
+PASS ERASED-BYTES exit=0 elapsed_ms=463.5
+FAIL M0-RATIO exit=1 elapsed_ms=263.0
+M0-RATIO FAIL RATIO-COMMAND exit=1: ['shasum', '-a', '256', '-c', 'dev/DENOMINATORS.sha256']: abi/abi.ml: OK
+abi/dune: OK
+abi/layout.ml: OK
+asm/asm.ml: OK
+asm/dune: OK
+asm/listing.ml: OK
+bin/assay.ml: FAILED
+bin/dune: OK
+bin/trace.ml: OK
+corpus/MANIFEST.json: OK
+corpus/contracts/Arithmetic.asy: OK
+corpus/contracts/Maximum.asy: OK
+corpus/contracts/Pair.asy: OK
+corpus/contracts/Ref20.asy: OK
+corpus/contracts/Return.asy: OK
+corpus/contracts/TwoSlots.asy: OK
+corpus/contracts/WideLabel.asy: OK
+corpus/contracts/Zero.asy: OK
+corpus/proofs/Apply.asy: OK
+corpus/proofs/Leaf.asy: OK
+corpus/proofs/Let.asy: OK
+dev/PIN: OK
+dev/corpus-data.py: OK
+dev/corpus-test.py: OK
+dev/denominator.sh: OK
+dev/denominators-stage-0.json: OK
+dev/denominators.json: OK
+dev/dunecho.sh: OK
+dev/emit-test.py: OK
+dev/gates.sh: FAILED
+dev/import-check.sh: OK
+dev/ratio.py: OK
+dev/ratio.sh: OK
+dev/stage-a-gates.py: FAILED
+dev/stage-a-test.py: FAILED
+dev/trace-test.py: OK
+dune: OK
+dune-project: OK
+emit/dune: OK
+emit/emit.ml: OK
+emit/recognize.ml: OK
+keccak/dune: OK
+keccak/keccak.ml: OK
+lib/bignum.ml: OK
+lib/budget.ml: OK
+lib/budget.mli: OK
+lib/check.ml: OK
+lib/conv.ml: OK
+lib/dune: OK
+lib/erase.ml: OK
+lib/error.ml: OK
+lib/eterm.ml: OK
+lib/eval.ml: OK
+lib/global.ml: OK
+lib/level.ml: OK
+lib/level.mli: OK
+lib/literal.ml: OK
+lib/order.ml: OK
+lib/positivity.ml: OK
+lib/pp.ml: OK
+lib/prim.ml: OK
+lib/quantity.ml: OK
+lib/rules.ml: OK
+lib/shape.ml: OK
+lib/spec_count.ml: OK
+lib/term.ml: OK
+lib/totality.ml: OK
+lib/value.ml: OK
+surface/dune: OK
+surface/elab.ml: OK
+surface/lexer.ml: OK
+surface/parser.ml: OK
+surface/syntax.ml: OK
+surface/token.ml: OK
+shasum: WARNING: 4 computed checksums did NOT match
+
+
+PASS F-MUTANTS exit=0 elapsed_ms=418.4
+PASS DIFF-EXECUTOR exit=0 elapsed_ms=4953.3
+M0-VALIDATION FAIL; M0-EXIT requires the user commit and ratification
+STAGE-M1-EXECUTOR FAIL

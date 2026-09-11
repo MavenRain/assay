@@ -1,0 +1,22 @@
+M1: add offline differential execution under Cancun
+
+Implement diff with the checked emitter, evm run and evm t8n. Compare
+storage, returned bytes and revert status, with named failures for
+malformed output and unsupported contexts. Keep transaction intrinsic
+gas separate from execution gas and refuse GASLIMIT observations.
+
+Add live corpus, driver and corruption checks to the complete carried
+gate battery. Record the executor contract and validation evidence.
+The battery fails DENOMINATORS and M0-RATIO on four changed source
+hashes until a new sub-minute measurement freezes them.
+
+Review pass 1 (2026-09-11) fixed 8 findings: D-1, A-1, B-1, B-2, A-2,
+C-2, C-1, ND-1-1.
+D-1: keep a separate M1 flag, so M0-VALIDATION reports M0 legs alone.
+A-1: refuse BASEFEE and BLOBBASEFEE with DIFF_CONTEXT, two witnesses.
+B-1: name the signal of a killed helper instead of an OCaml number.
+B-2: add the missing-helper and runner-signal driver cases.
+A-2: add the executor-stderr driver case for the stderr guard.
+C-2: state in README that DENOMINATORS and M0-RATIO fail on 4 hashes.
+C-1: drop the unsupported host-load figures from the build log.
+ND-1-1: refresh the retained executor evidence from the fixed tree.

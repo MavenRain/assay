@@ -8,6 +8,8 @@ Stage D adds the hand-assembled reference and Cancun execution gates.
 Stage E emits closed first-order EVM effect programs and five output files.
 Stage F freezes the corpus, reports compile time and seeds proof erasure
 checks over emitted bytes.
+The first M1 slice adds offline differential execution through geth's
+`evm run` and `evm t8n` entry points.
 
 ```sh
 zsh -f dev/dunecho.sh build
@@ -17,6 +19,7 @@ _build/default/bin/assay.exe axioms examples/m0-spine.kan
 _build/default/bin/assay.exe spec-count
 _build/default/bin/assay.exe emit examples/Ref20.asy -o Ref20-out
 _build/default/bin/assay.exe trace examples/Ref20.asy --calldata 0x
+_build/default/bin/assay.exe diff examples/Ref20.asy --calldata 0x
 zsh -f dev/gates.sh
 ```
 
@@ -41,9 +44,19 @@ ignore calldata.  The default fixture is resolved from the executable's
 Use `--prestate FILE` after the calldata to select an explicit fixture.
 Invalid hex exits 64; missing tools or fixtures, EVM faults and executor
 failures exit 2.  Compilation uses the same checks as `emit` and writes
-no output files.  `diff`, `run`, `deploy` and `test` still exit 3 with
-named `PENDING` diagnostics.  `diff` will run
-`evm t8n --state.fork Cancun` on the same prestate (R-M0-8, R-M0-9).
+no output files.
+
+`diff FILE --calldata HEX [--prestate FILE]` compiles the source and
+compares storage, returned bytes and revert outcomes under `evm run` and
+`evm t8n --state.fork Cancun` (R-M0-8, R-M0-9).  It prints a JSON result
+and `DIFF OK` on agreement.  Matching reverts are valid results.  A mismatch,
+EVM fault, malformed capture or executor failure exits 2.  Invalid arguments
+or calldata exit 64.  Temporary executor files are removed on completion.
+The [executor contract](dev/M1-EXECUTOR.md) defines the supported prestate,
+the gas adjustment and the remaining M1 work.  Both entry points use geth;
+this provides no independent client implementation.
+
+`run`, `deploy` and `test` still exit 3 with named `PENDING` diagnostics.
 `run` arrives in M1.  `deploy` and `test`
 print `PENDING (M1)` today and gain behavior at M4 (R-8a).
 
@@ -104,7 +117,7 @@ The [frozen corpus](corpus/README.md) has eight contracts and three
 structural proof variants.  `zsh -f dev/ratio.sh` verifies and reports the
 frozen wall-time measurements.  The ratio is informational at M0.
 
-The Stage F gate battery checks the build, complete inherited kernel suite,
+The gate battery checks the build, complete inherited kernel suite,
 surface suite, driver behavior, pin, carry inventory, R0, house rules,
 trusted-line budgets, denominator hash and gate mutations.  It also compares
 35 digest and selector vectors with frozen values and live `cast` output.
@@ -131,8 +144,14 @@ five-file hashes, proof-shape byte equality, the frozen ratio report and
 seven rejection witnesses.  The M0 trace row verifies all five outputs.
 The trace driver also has 20 cases for calldata, path handling, tool
 selection and failures.
-`M0-VALIDATION OK` means the 34 legs pass.  The final M0-EXIT stamp still
-requires the user's Stage F commit and explicit ratification.
+The executor gate adds 20 live cases, 26 driver cases and 24 rejection
+witnesses.  `STAGE-M1-EXECUTOR OK` means all 35 legs pass.  Stage F is
+committed at `10ba107`.  This tree does not print that line.  DENOMINATORS
+and M0-RATIO fail on four changed driver source hashes, so the battery is
+not green until a new measurement is frozen by the recipe in
+`corpus/README.md`.  The final M0-EXIT stamp still requires explicit
+user ratification.  The counter, entry dispatcher and surface sugar remain
+unfinished M1 work.
 
 The gates require Python 3.11 or newer (`-P`), Foundry `cast` and geth `evm`
 on PATH.  The oracles are `cast` 0.3.0 and geth 1.14.12.

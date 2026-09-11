@@ -1,0 +1,107 @@
+# Offline differential execution
+
+This is the first assay M1 slice, on Stage F commit `10ba107`.
+R-QE and R-M0-9 select `evm t8n --state.fork Cancun` as the second
+executor.  R-M0-8 names the command `diff`.  The M0 ratification stamp
+is still the user's.  This slice does not claim M1 completion.
+
+```sh
+zsh -f dev/dunecho.sh build
+_build/default/bin/assay.exe diff examples/Ref20.asy --calldata 0x00ff
+_build/default/bin/assay.exe diff examples/Ref20.asy --calldata 0x --prestate fixture.json
+zsh -f dev/gates.sh
+```
+
+The command checks and emits `main` in memory.  It uses the M0 source
+protocol and its named refusals.  It compares all nonzero storage slots,
+returned bytes and success or revert status.  A matching revert succeeds.
+Other EVM faults fail even if both executors report the same fault.
+The JSON report contains the agreed outcome and measured gas figures.
+Gas, balance, nonce and logs are outside the equality verdict.
+
+`bin/differential.ml` launches `evm/diff.py` through Python 3.11 or newer
+with `-P` and literal arguments.  The helper uses only the Python standard
+library.  Both tools must be executable on PATH.  Empty PATH elements are
+ignored.  The default fixture and helper paths are relative to the built
+executable, so the command may run from another directory.  Each executor
+has a 30-second deadline.  The helper caps runtime at 24,576 bytes and
+calldata at 32,768 bytes.  It writes only in its temporary directory.
+
+The checked source and compiler remain OCaml.  The Python adapter parses
+external JSON and does not enter the emitter, assembler or kernel trusted
+line counts.  It is an additional trust boundary for the differential
+verdict.  The two entry points both use geth 1.14.12, so agreement does not
+establish correctness against an independent EVM implementation.
+
+## Prestate and transaction
+
+The non-alloc fields must equal `evm/fixtures/cancun.json` after canonical
+JSON serialization.  `ENV_SHA` pins those fields.  Changes to the fork,
+chain, timestamp or other environment fields fail with `DIFF_PRESTATE`.
+This restriction avoids silently translating unsupported genesis fields.
+
+The alloc may contain these two addresses, with or without `0x`:
+
+| Role | Address |
+| --- | --- |
+| Sender | `7e5f4552091a69125d5dfcb7b8c2659029395bdf` |
+| Receiver | `0000000000000000000000007265636569766572` |
+
+Each account may have balance, nonce, storage and empty code fields.
+Missing accounts have zero balance, nonce and storage.  Both executors
+receive the same normalized alloc, with the emitted runtime installed at
+the receiver.  Nonzero initial storage is preserved.  Address aliases and
+slot aliases cannot introduce duplicate entries.  Zero slots are omitted
+only after their values have been checked.
+
+The t8n input is one legacy transaction, with zero value and gas price.
+The public fixture key 1 signs it offline.  That key derives the sender
+above.  It is never used for a network request.  The sender's initial nonce
+is read from the alloc.  The runner disables block rewards and supplies
+empty withdrawals and a zero beacon root.  It starts no daemon.
+
+## Gas adapter
+
+With a prestate, geth 1.14.12 `evm run` overrides `--gas` with the genesis
+gas limit.  This was measured with a program that returns `GAS`.
+The execution allowance is therefore 16,777,216 on both paths.
+
+The t8n transaction receives that allowance plus its intrinsic gas:
+21,000 plus 4 per zero calldata byte and 16 per nonzero calldata byte.
+Its block gas limit also includes that intrinsic amount, so the transaction
+fits the block.  The accounts and calldata stay the same, but the block gas
+limit differs by this named adjustment.  The runner also pins a zero base
+fee and the genesis excess blob gas for t8n only, while `evm run` reads the
+values of its own genesis.  `GASLIMIT`, `BASEFEE` and `BLOBBASEFEE` are
+therefore refused with `DIFF_CONTEXT`.  The opcode scan skips PUSH operands.
+The current M0 emitter does not emit these three opcodes.
+
+The report separates execution gas, transaction gas and intrinsic gas.
+The t8n receipt includes refund effects; its gas is not assumed to equal
+the sum of the trace gas and intrinsic gas.  Storage clearing is a live
+witness for that distinction.
+
+## Gates and remaining work
+
+The executor leg runs nine hand-assembled cases and all eleven frozen
+corpus files.  The direct cases cover reference bytes, nonzero storage,
+slot preservation, clearing, calldata, nonempty revert data, write rollback,
+caller identity and `GAS`.  The driver runs eight calldata rows and checks
+paths with spaces, explicit prestates, literal argv and named failures.
+The named failures include an absent helper, a runner that a signal kills,
+and an executor that writes to stderr and then exits zero.
+Damaged captures must fail for each compared field, missing results,
+missing or unrelated traces, receipt corruption, EVM faults and malformed
+state.  A restored capture must pass.  Evidence retains the raw captures.
+
+The public source path still supports closed M0 programs.  Raw revert and
+calldata probes exercise the executor adapter, not new source constructs.
+The bounded counter, hand-assembled counter reference, entry dispatcher,
+real ABI and layout printers, `contract`, `storage`, `entry` and `do` sugar,
+CALLVALUE guard and complete M1-DIFF gate remain.  The Stage F timing report
+and its hash manifest remain unchanged.  Two replacement measurement runs
+exceeded the one-minute bound under high host load and were rejected.
+DENOMINATORS and M0-RATIO therefore fail on the changed driver sources.
+They require a fresh measurement and freeze by the recipe in
+`corpus/README.md`.  All other 33 legs passed.  This slice does not satisfy
+the M1 ratio bound, and its full gate battery is not yet green.
