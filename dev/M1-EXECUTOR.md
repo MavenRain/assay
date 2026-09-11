@@ -54,7 +54,13 @@ the receiver.  Nonzero initial storage is preserved.  Address aliases and
 slot aliases cannot introduce duplicate entries.  Zero slots are omitted
 only after their values have been checked.
 
-The t8n input is one legacy transaction, with zero value and gas price.
+The t8n input is one legacy transaction with zero gas price.
+The public `assay diff` command uses zero value. The Python adapter also
+accepts `--value N`, a decimal count or a `0x`-prefixed hex word, or the
+keyword argument `value` in `execute`,
+for the counter reference's nonpayable probes. Values must fit uint256
+and the sender's prestate balance must cover them. Both executor paths
+receive the same value; the adapter never funds the sender itself.
 The public fixture key 1 signs it offline.  That key derives the sender
 above.  It is never used for a network request.  The sender's initial nonce
 is read from the alloc.  The runner disables block rewards and supplies
@@ -96,7 +102,7 @@ state.  A restored capture must pass.  Evidence retains the raw captures.
 
 The public source path still supports closed M0 programs.  Raw revert and
 calldata probes exercise the executor adapter, not new source constructs.
-The bounded counter, hand-assembled counter reference, entry dispatcher,
+The bounded counter source and entry dispatcher,
 real ABI and layout printers, `contract`, `storage`, `entry` and `do` sugar,
 CALLVALUE guard and complete M1-DIFF gate remain.  The Stage F timing report
 and its hash manifest remain unchanged.  Two replacement measurement runs
@@ -105,3 +111,8 @@ DENOMINATORS and M0-RATIO therefore fail on the changed driver sources.
 They require a fresh measurement and freeze by the recipe in
 `corpus/README.md`.  All other 33 legs passed.  This slice does not satisfy
 the M1 ratio bound, and its full gate battery is not yet green.
+
+The [hand-assembled counter reference](../reference/counter/README.md) is the
+second M1 slice in this tree, including its nonpayable guard and offline
+call-value probes. Its current
+validation and measurement status are recorded in `dev/ASSAY-M1-BUILD-LOG.md`.

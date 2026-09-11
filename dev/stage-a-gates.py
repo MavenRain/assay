@@ -10,10 +10,11 @@ import time
 
 def main():
     root = Path(__file__).resolve().parent.parent
-    if sys.argv[1:] not in ([], ["--keccak"], ["--asm"], ["--reference"], ["--emit"], ["--m0"], ["--m1-executor"]):
-        print("usage: stage-a-gates.py [--keccak|--asm|--reference|--emit|--m0|--m1-executor]")
+    if sys.argv[1:] not in ([], ["--keccak"], ["--asm"], ["--reference"], ["--emit"], ["--m0"], ["--m1-executor"], ["--m1-counter"]):
+        print("usage: stage-a-gates.py [--keccak|--asm|--reference|--emit|--m0|--m1-executor|--m1-counter]")
         return 64
-    executor = sys.argv[1:] == ["--m1-executor"]
+    counter = sys.argv[1:] == ["--m1-counter"]
+    executor = counter or sys.argv[1:] == ["--m1-executor"]
     corpus = executor or sys.argv[1:] == ["--m0"]
     emission = corpus or sys.argv[1:] == ["--emit"]
     reference = emission or sys.argv[1:] == ["--reference"]
@@ -94,12 +95,15 @@ def main():
         ])
     if executor:
         legs.append(("DIFF-EXECUTOR", 180, ("python3", "-P", "dev/diff-test.py"),
-                     "DIFF-EXECUTOR live=20 driver=26 rejected=24 OK"))
+                     "DIFF-EXECUTOR live=20 driver=28 rejected=24 OK"))
+    if counter:
+        legs.append(("COUNTER-REFERENCE", 300, ("python3", "-P", "dev/counter-test.py"),
+                     "COUNTER-REFERENCE cases=30 creates=2 mutants=8 value_rejected=5 covered=120 scope=reference OK"))
     # Review round 2026-09-11 (D-1):  the M0 verdict reads the legs of
     # M0-PLAN section 8 only.  A leg that this mode appends is an M1 leg,
     # so its failure moves the stage line and the exit code, not M0.
-    m1_names = {"DIFF-EXECUTOR"}
-    stage = "M1-EXECUTOR" if executor else "F" if corpus else "E" if emission else "D" if reference else "C" if assembler else "B" if keccak else "A"
+    m1_names = {"DIFF-EXECUTOR", "COUNTER-REFERENCE"}
+    stage = "M1-COUNTER" if counter else "M1-EXECUTOR" if executor else "F" if corpus else "E" if emission else "D" if reference else "C" if assembler else "B" if keccak else "A"
     work = root / (".gatework/stage-" + stage.lower())
     work.mkdir(parents=True, exist_ok=True)
     failed = False

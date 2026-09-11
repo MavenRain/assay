@@ -10,6 +10,8 @@ Stage F freezes the corpus, reports compile time and seeds proof erasure
 checks over emitted bytes.
 The first M1 slice adds offline differential execution through geth's
 `evm run` and `evm t8n` entry points.
+The second M1 slice adds the [bounded counter reference](reference/counter/README.md)
+with a dispatcher, ABI/layout fixtures and 30 execution cases.
 
 ```sh
 zsh -f dev/dunecho.sh build
@@ -144,14 +146,19 @@ five-file hashes, proof-shape byte equality, the frozen ratio report and
 seven rejection witnesses.  The M0 trace row verifies all five outputs.
 The trace driver also has 20 cases for calldata, path handling, tool
 selection and failures.
-The executor gate adds 20 live cases, 26 driver cases and 24 rejection
-witnesses.  `STAGE-M1-EXECUTOR OK` means all 35 legs pass.  Stage F is
-committed at `10ba107`.  This tree does not print that line.  DENOMINATORS
-and M0-RATIO fail on four changed driver source hashes, so the battery is
-not green until a new measurement is frozen by the recipe in
-`corpus/README.md`.  The final M0-EXIT stamp still requires explicit
-user ratification.  The counter, entry dispatcher and surface sugar remain
-unfinished M1 work.
+The executor gate adds 20 live cases, 28 driver cases and 24 rejection
+witnesses. The counter reference adds 30 cases, two constructor probes,
+eight bytecode mutations and five call-value refusals. Every runtime
+instruction is exercised. `STAGE-M1-COUNTER OK` means all 36 legs pass.
+The final M0-EXIT stamp still requires explicit user ratification.
+Counter source emission, the source entry dispatcher, ABI/layout emission,
+surface sugar, `run`, the complete M1-DIFF gate and the M1 performance
+bound remain unfinished M1 work. The hand-assembled
+reference must be committed before the emitter targets it.
+The current battery passes 34 of 36 legs. DENOMINATORS and M0-RATIO
+still reject four source hashes left stale by the prior executor slice.
+Both new timing attempts exceeded the one-minute measurement bound.
+The [M1 build log](dev/ASSAY-M1-BUILD-LOG.md) records the retained evidence.
 
 The gates require Python 3.11 or newer (`-P`), Foundry `cast` and geth `evm`
 on PATH.  The oracles are `cast` 0.3.0 and geth 1.14.12.

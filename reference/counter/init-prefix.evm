@@ -1,0 +1,18 @@
+; Hand-assembled Cancun counter. PCs and operands are hex.
+0000 34 CALLVALUE ; Nonpayable constructor.
+0001 610017 PUSH2 0x0017 ; Target reject.
+0004 57 JUMPI ; Branch to reject.
+0005 6064 PUSH1 0x64 ; Constructor limit is 100.
+0007 6001 PUSH1 0x01 ; Limit is storage slot one.
+0009 55 SSTORE ; Initialize the limit; count starts at zero.
+000a 6100b1 PUSH2 0x00b1 ; Runtime size in bytes.
+000d 61001b PUSH2 0x001b ; Runtime starts after the 27-byte creation prefix.
+0010 5f PUSH0 ; Copy to memory offset zero.
+0011 39 CODECOPY ; Copy the complete runtime.
+0012 6100b1 PUSH2 0x00b1 ; Return runtime size in bytes.
+0015 5f PUSH0 ; Return runtime from memory offset zero.
+0016 f3 RETURN ; Install the returned runtime.
+0017 5b JUMPDEST ; Begin reject.
+0018 5f PUSH0 ; Empty revert length.
+0019 5f PUSH0 ; Empty revert offset.
+001a fd REVERT ; Reject a nonzero constructor value.

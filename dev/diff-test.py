@@ -155,6 +155,24 @@ def driver():
         require(sorted(path.name for path in work.iterdir()) ==
                 ['argv.jsonl', 'bin', 'prestate with spaces.json', 'source with spaces.asy'],
                 'DIFF-DRIVER unexpected output files')
+    # The adapter command line owns the string form of --value, which no
+    # other case reaches: the counter gate calls execute() with an integer
+    # and the public assay diff always sends zero value.
+    with tempfile.TemporaryDirectory(prefix='assay-diff-value-') as directory:
+        genesis = Path(directory) / 'prestate.json'
+        genesis.write_text(json.dumps(dict(BASE, alloc={DIFF.SENDER: dict(balance='0xa')})))
+        argv = [sys.executable, '-P', str(ROOT / 'evm/diff.py'), '--runtime', '345f5260205ff3',
+                '--calldata', '', '--prestate', str(genesis)]
+        for name, value, code, marker in [('cli-value', '7', 0, 'DIFF OK'),
+                                          ('cli-value-above-balance', '11', 2, 'DIFF_VALUE')]:
+            result = subprocess.run([*argv, '--value', value], cwd=str(ROOT),
+                                    capture_output=True, text=True, timeout=70)
+            require(result.returncode == code and marker in result.stdout + result.stderr,
+                    f'DIFF-DRIVER {name}: {result.returncode}: {result.stdout}{result.stderr}')
+            require(code != 0 or json.loads(result.stdout.splitlines()[0])['output'] == '0x' + '00' * 31 + '07',
+                    'DIFF-DRIVER value word ' + name)
+            receipts.append(dict(name=name, args=['--value', value], exit=result.returncode,
+                                 stdout=result.stdout, stderr=result.stderr))
     print(f'DIFF-DRIVER cases={len(receipts)} literal_argv=true OK')
     return receipts
 

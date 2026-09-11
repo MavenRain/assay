@@ -1,5 +1,144 @@
 # Assay M1 build log
 
+## 2026-09-11: bounded counter reference
+
+Base: `1e76d6922038d2549ed4804c738574badc964850`, the committed offline
+executor slice. The user requested continued development and staging of
+all changes. Work used `/Users/oobi/Documents/gpt1/assay-m1-counter`.
+
+The ratified design requires reference bytes to be committed before the
+emitter targets them. This slice therefore supplies the hand-assembled
+counter, its ABI and layout fixtures, and execution gates. It makes no
+counter emitter or surface change and claims no M1 completion.
+
+The runtime is 177 bytes in 120 commented instruction rows. Creation
+adds a 27-byte prefix, initializes limit to 100 and starts with count
+zero. Increment checks overflow and the limit before its only store.
+Decrement checks underflow. Get has no store. All entries and creation
+reject nonzero value. Short calldata and unknown selectors revert;
+trailing calldata is ignored for all three entries.
+
+The offline Python adapter now accepts a uint256 call value and refuses
+insufficient sender funds before execution. It passes the same value to
+both entry points. The public `assay diff` command remains zero-value.
+The positive CALLVALUE probe returns seven, so the nonpayable probes
+cannot pass through an adapter that silently discards the value.
+
+### Validation
+
+The complete battery passed 34 of 36 legs. Only DENOMINATORS and
+M0-RATIO failed, on the same four stale source hashes from the prior
+executor slice. No gate was skipped or weakened. The new counter leg is
+classified as M1, preserving the separate M0 result.
+
+| Check | Result |
+| --- | --- |
+| Build, kernel, surface, driver, carry and house rules | Pass |
+| Existing Keccak, assembler, reference, emission and mutation gates | Pass |
+| Frozen corpus and proof erasure seed | Pass |
+| Carried proofs | 42 axiom reports, no sorryAx |
+| Existing differential executor | 20 live cases, 28 driver cases, 24 refusals |
+| Counter behavior | 30 expected outcomes on both geth paths |
+| Counter creation | Returned and installed bytes, initial storage, nonpayable rollback |
+| Counter listing | In-tree, cast and geth rows equal, every runtime and prefix PC exercised |
+| Counter mutations | Eight semantic failures with passing restored controls |
+| Call-value validation | Positive value seven, five input/funding refusals |
+| Measurement | Both new attempts rejected by the unchanged one-minute bound |
+
+Counter cases retain a nonzero unrelated slot and include a successful
+increment from count 7 with limit 100. They cover overflow, underflow,
+equality at the bound, zero and maximum values, truncated heads, trailing
+data and funded nonpayable calls. Executor agreement is followed by an
+exact expected storage/status/output check. Mutation kills require that
+specific expectation failure, not an EVM fault or tool error. Creation
+uses `evm run --create` only; runtime cases use both executor paths.
+
+`reference/counter/MANIFEST.json` pins the manually specified fixtures.
+`dev/M1-COUNTER-MUTATIONS.md` records the exact edits and witnesses.
+`dev/validation/2026-09-11-m1-counter/` retains the battery and raw
+counter captures. Both executor paths use geth, and these checks do not
+constitute a compiler correctness proof.
+
+Two fresh measurement attempts failed `RATIO-WINDOW`, including a final
+attempt after the gate battery had finished. Neither produced a report
+eligible for a new freeze. The prior measurement and source hash manifest
+remain unchanged. DENOMINATORS and M0-RATIO therefore remain open. The
+archived attempt logs contain their exact rejection messages.
+
+The counter source emitter can target this reference after the user
+commits it. The source dispatcher, ABI/layout emission, entry sugar,
+`run`, complete M1-DIFF gate and M1 performance bound remain. M0-EXIT
+still requires the user's ratification. No commit or network operation
+was made by this slice.
+
+### Review round 2026-09-11 (M1 counter)
+
+Scope: the bounded counter reference slice recorded above under
+`## 2026-09-11: bounded counter reference`, 126 paths, +4565/-19,
+staged on head 1e76d69.  Four lenses raised 9 findings, 7 kept and
+all 7 fixed in one fix round.
+
+| id | sev | one line | files |
+| --- | --- | --- | --- |
+| B-1 | medium | COUNTER-LABELS checks only the set of label PCs, so a permuted MANIFEST label map passes the leg | `dev/counter-test.py` |
+| A-1 | low | The new `--value` CLI flag is exercised by no gate leg | `dev/diff-test.py`, `dev/stage-a-gates.py`, `README.md`, `dev/ASSAY-M1-BUILD-LOG.md` |
+| A-2 | low | `--value QUANTITY` does not state the radix, and a bare decimal is read as decimal | `dev/M1-EXECUTOR.md` |
+| C-3 | low | README announces the counter reference as a future slice while the same README documents it as present | `README.md`, `dev/M1-EXECUTOR.md` |
+| C-4 | low | The docs name one capture directory, the gate writes two | `reference/counter/README.md`, `dev/M1-COUNTER-MUTATIONS.md` |
+| D-1 | low | New freeze instruction names a file class `dev/DENOMINATORS.sha256` has never pinned | `corpus/README.md` |
+| D-2 | low | README remaining-work list disagrees with the build log and `dev/M1-EXECUTOR.md` | `README.md` |
+
+Refuted: 0.
+
+Merged and dropped: 2.  C-1 merged into B-1 (same file, same line
+`dev/counter-test.py:51`, same defect: label names and label PCs
+compared as two sets, never paired, and `MANIFEST.json` covered by no
+hash; B-1 keeps the wider probe and folds in the literal-dict repair
+hint).  C-2 cut by the 7-finding cap as the weakest low (the cited
+`dev/M1-EXECUTOR.md:111` text is verbatim and does contradict
+`README.md`, so it is not refuted, but it is past tense inside the
+executor slice's own historical record and is the same doc-freshness
+class as the kept C-3 and D-2).
+
+Gate ladder: `/Users/oobi/Documents/assay-m1-counter-review/gates-1.log`,
+verdict GREEN-DOCUMENTED, reason: pass=34 of 36 legs,
+fail=[DENOMINATORS,M0-RATIO],
+denom rows=[bin/assay.ml,dev/gates.sh,dev/stage-a-gates.py,dev/stage-a-test.py],
+mutants=true, stage=STAGE-M1-LINE: STAGE-M1-COUNTER FAIL,
+m0=M0-LINE: M0-VALIDATION FAIL; M0-EXIT requires the user commit and
+ratification, exit=EXIT 1.
+
+```
+STAGE-M1-LINE: STAGE-M1-COUNTER FAIL
+M0-LINE: M0-VALIDATION FAIL; M0-EXIT requires the user commit and ratification
+EXIT 1
+PASS-COUNT: 34
+FAIL-LINES: FAIL DENOMINATORS exit=1 elapsed_ms=275.5 FAIL M0-RATIO exit=1 elapsed_ms=1677.6
+DENOM-FAILED-ROWS: bin/assay.ml: FAILED dev/gates.sh: FAILED dev/stage-a-gates.py: FAILED dev/stage-a-test.py: FAILED
+MUTANTS-TAIL: MUTANT TRUSTED-BOUND killed exit=1 MUTANTS killed=13/13 OK
+DIFF-EXECUTOR-TAIL: DIFF-CHECKS killed=24/24 controls=1 OK DIFF-EXECUTOR live=20 driver=28 rejected=24 OK
+COUNTER-REFERENCE-TAIL: COUNTER-MUTANT SELECTOR witness=increment-success killed control=OK COUNTER-REFERENCE cases=30 creates=2 mutants=8 value_rejected=5 covered=120 scope=reference OK
+DRIVER-TAIL: DRIVER cases=24 OK
+DENOMINATORS-TAIL: surface/token.ml: OK shasum: WARNING: 4 computed checksums did NOT match
+M0-RATIO-TAIL: shasum: WARNING: 4 computed checksums did NOT match
+PROOF-BUILD-TAIL: OK lake: 0 errors, 0 sorries, 0 warnings
+PROOF-REPORT-LINES: 42
+```
+
+The DENOMINATORS and M0-RATIO pair stays red by the documented freeze
+recipe of `corpus/README.md`, on the same four stale rows
+`bin/assay.ml`, `dev/gates.sh`, `dev/stage-a-gates.py` and
+`dev/stage-a-test.py`; this review repeated no measurement and edited
+no frozen input.
+
+gate: GREEN-DOCUMENTED (pass=34 of 36 legs, fail=[DENOMINATORS,M0-RATIO], denom rows=[bin/assay.ml,dev/gates.sh,dev/stage-a-gates.py,dev/stage-a-test.py], mutants=true, stage=STAGE-M1-LINE: STAGE-M1-COUNTER FAIL, m0=M0-LINE: M0-VALIDATION FAIL; M0-EXIT requires the user commit and ratification, exit=EXIT 1)
+
+Tiers: the finders, the builder and the closer ran opus/medium because
+the Fable tier probe died on the reasoning_extraction classifier
+(probe req_011CexKZWQfZPzn1ksRjRrht, session claude1, 2026-09-11 14:0x,
+DEAD), so this run keeps the opus pin and the Fable tier rulings are
+reported unmet.
+
 ## 2026-09-11: offline executor slice
 
 Base: `10ba107b60654323622e29f20b5f0a04d0a38ba2`, the committed M0 Stage F.

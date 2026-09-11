@@ -192,11 +192,14 @@ def supported(runtime):
         pc += 1 + (opcode - 0x5f if 0x60 <= opcode <= 0x7f else 0)
 
 
-def execute(runtime, calldata, prestate, evm):
+def execute(runtime, calldata, prestate, evm, *, value=0):
     runtime, calldata = byte_hex(runtime), byte_hex(calldata)
+    value = quantity(value)
     require(len(runtime) <= 49152 and len(calldata) <= 65536, 'DIFF_LIMIT: code or calldata is too large')
     supported(runtime)
     prepared = prepare(prestate, runtime)
+    require(quantity(prepared['alloc'][SENDER]['balance']) >= value,
+            'DIFF_VALUE: sender balance is below call value')
     intrinsic = 21000 + sum(4 if byte == 0 else 16 for byte in bytes.fromhex(calldata))
     env = dict(currentCoinbase=prepared['coinbase'], currentGasLimit=hex(GAS + intrinsic),
                currentNumber=prepared['number'], currentTimestamp=prepared['timestamp'],
@@ -204,7 +207,7 @@ def execute(runtime, calldata, prestate, evm):
                currentExcessBlobGas=prepared['excessBlobGas'], withdrawals=[],
                parentBeaconBlockRoot='0x' + '00' * 32)
     tx = dict(nonce=prepared['alloc'][SENDER]['nonce'], gasPrice='0x0', gas=hex(GAS + intrinsic),
-              to='0x' + RECEIVER, value='0x0', input='0x' + calldata,
+              to='0x' + RECEIVER, value=hex(value), input='0x' + calldata,
               secretKey='0x' + '0' * 63 + '1', v='0x0', r='0x0', s='0x0')
     with tempfile.TemporaryDirectory(prefix='assay-diff-') as directory:
         work = Path(directory)
@@ -212,7 +215,7 @@ def execute(runtime, calldata, prestate, evm):
         genesis.write_text(json.dumps(prepared))
         run_text = invoke(evm, ['run', '--prestate', str(genesis), '--gas', str(GAS),
                                '--sender', '0x' + SENDER, '--receiver', '0x' + RECEIVER,
-                               '--code', runtime, '--input', calldata, '--json', '--dump'])
+                               '--code', runtime, '--input', calldata, '--value', str(value), '--json', '--dump'])
         t8n_text = invoke(evm, ['t8n', '--state.fork', 'Cancun', '--state.chainid', '1',
                                '--state.reward', '-1', '--input.alloc', 'stdin', '--input.env', 'stdin',
                                '--input.txs', 'stdin', '--output.alloc', 'stdout', '--output.result', 'stdout',
@@ -233,13 +236,14 @@ def main():
     parser.add_argument('--runtime', required=True)
     parser.add_argument('--calldata', required=True)
     parser.add_argument('--prestate', required=True)
+    parser.add_argument('--value', default='0')
     args = parser.parse_args()
     evm = next((str(Path(path) / 'evm') for path in os.environ.get('PATH', '').split(':')
                 if path and shutil.which(str(Path(path) / 'evm'))), None)
     require(evm is not None, 'DIFF_TOOL: evm is not on PATH')
     records = objects(Path(args.prestate).read_text())
     require(len(records) == 1, 'DIFF_PRESTATE: expected one genesis')
-    report, _evidence = execute(args.runtime, args.calldata, records[0], evm)
+    report, _evidence = execute(args.runtime, args.calldata, records[0], evm, value=args.value)
     print(json.dumps(report, sort_keys=True, separators=(',', ':')))
     print('DIFF OK')
     return 0

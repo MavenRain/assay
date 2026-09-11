@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "fork": "Cancun",
+  "runtime_bytes": 177,
+  "init_prefix_bytes": 27,
+  "labels": {
+    "increment": 60,
+    "decrement": 116,
+    "get": 155,
+    "save": 162,
+    "return": 166,
+    "reject": 173
+  },
+  "selectors": {
+    "increment(uint256)": "7cf5dab0",
+    "decrement(uint256)": "3a9ebefd",
+    "get()": "6d4ce63c"
+  },
+  "files": {
+    "runtime.evm": "18db62da3583381343a4f1ed5b1aafc6cf073c1f749787bab495c91da7e31ce2",
+    "runtime.hex": "f88e78531e001faab06154631516a26fa8e7c723dc10ccdf9319cef12ce705e9",
+    "init-prefix.evm": "59c3558f8b5b4190b1110de54349faf7d5caf7a7604e5052986d2683e089008b",
+    "init.hex": "ebfa01c84c77832413e8a200ec5996b40edd51e539bd4a1f390316b6060205f4",
+    "abi.json": "c0f889ddfdfac6e18eb85535cb9f752df247718d374ea902b93a9853e1afc827",
+    "layout.json": "68fa8ad86b29c99796ca887d1e4aee7f4d697cb440f29dab31d7c74326cfbd97",
+    "cases.json": "b5e87bc51be4cbc4e40598d8af633998b49f48e2664464e4dabc3dd6b64be564"
+  }
+}

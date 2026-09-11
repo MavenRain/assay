@@ -46,6 +46,13 @@ M1 executor freeze must add `bin/differential.ml`, `evm/diff.py`,
 `dev/diff-test.py` and both dated reports.  Two measurement attempts on
 2026-09-11 exceeded the one-minute bound, so the old hashes remain active
 and correctly reject the changed driver sources.
+The counter reference slice also requires `dev/counter-test.py` and both
+dated reports in the next source freeze. The `reference/counter/` fixture
+files stay outside this manifest, like `reference/ref20.evm`, because
+`reference/counter/MANIFEST.json` already pins their hashes and a fixture
+edit changes no compiled source and no measured interval. Both fresh
+measurements again exceeded the one-minute window. Existing source
+hashes must stay unchanged until a timing run passes that same bound.
 
 The method uses one warm run and five interleaved measured rounds in
 less than one minute.  Each assay interval starts before process launch

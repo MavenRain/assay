@@ -1,0 +1,27 @@
+{
+  "storage": [
+    {
+      "astId": 0,
+      "contract": "Counter",
+      "label": "count",
+      "offset": 0,
+      "slot": "0",
+      "type": "t_uint256"
+    },
+    {
+      "astId": 1,
+      "contract": "Counter",
+      "label": "limit",
+      "offset": 0,
+      "slot": "1",
+      "type": "t_uint256"
+    }
+  ],
+  "types": {
+    "t_uint256": {
+      "encoding": "inplace",
+      "label": "uint256",
+      "numberOfBytes": "32"
+    }
+  }
+}

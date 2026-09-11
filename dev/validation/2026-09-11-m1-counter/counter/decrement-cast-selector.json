@@ -1,0 +1,10 @@
+{
+  "argv": [
+    "cast",
+    "sig",
+    "decrement(uint256)"
+  ],
+  "exit": 0,
+  "stdout": "0x3a9ebefd\n",
+  "stderr": ""
+}

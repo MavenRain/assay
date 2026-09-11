@@ -1,0 +1,29 @@
+M1: freeze the bounded counter reference and execution gates
+
+Add hand-assembled Cancun counter runtime and creation bytecode with
+ABI, storage layout and thirty explicit calldata/prestate outcomes.
+Compare storage, status and return bytes on both offline geth paths.
+Check selectors, three-way listings, creation and all runtime PCs.
+
+Allow funded call-value probes in the Python differential adapter.
+Kill eight bytecode mutants and require restored controls to pass.
+Keep the reference separate from the future counter source emitter.
+
+Validate 34 of 36 gates. The two inherited measurement gates remain
+open after both fresh timing attempts exceed the one-minute bound.
+Preserve the old timing report and source hashes, plus all evidence.
+
+Review pass 1 (2026-09-11) fixed 7 findings: B-1, A-1, A-2, C-3, C-4,
+D-1, D-2.
+B-1 medium: COUNTER-LABELS checks only the set of label PCs, so a
+  permuted MANIFEST label map passes the leg.
+A-1 low: the new --value CLI flag is exercised by no gate leg.
+A-2 low: --value QUANTITY does not state the radix, and a bare
+  decimal is read as decimal.
+C-3 low: README announces the counter reference as a future slice
+  while the same README documents it as present.
+C-4 low: the docs name one capture directory, the gate writes two.
+D-1 low: new freeze instruction names a file class
+  dev/DENOMINATORS.sha256 has never pinned.
+D-2 low: README remaining-work list disagrees with the build log and
+  dev/M1-EXECUTOR.md.

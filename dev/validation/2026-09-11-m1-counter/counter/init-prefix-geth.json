@@ -1,0 +1,10 @@
+{
+  "argv": [
+    "evm",
+    "disasm",
+    "/Users/oobi/Documents/gpt1/assay-m1-counter/.gatework/counter/init-prefix.hex"
+  ],
+  "exit": 0,
+  "stdout": "346100175760646001556100b161001b5f396100b15ff35b5f5ffd\n00000: CALLVALUE\n00001: PUSH2 0x0017\n00004: JUMPI\n00005: PUSH1 0x64\n00007: PUSH1 0x01\n00009: SSTORE\n0000a: PUSH2 0x00b1\n0000d: PUSH2 0x001b\n00010: PUSH0\n00011: CODECOPY\n00012: PUSH2 0x00b1\n00015: PUSH0\n00016: RETURN\n00017: JUMPDEST\n00018: PUSH0\n00019: PUSH0\n0001a: REVERT\n",
+  "stderr": ""
+}

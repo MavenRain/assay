@@ -1,0 +1,10 @@
+{
+  "argv": [
+    "/Users/oobi/Documents/gpt1/assay-m1-counter/_build/default/test/keccak_vec.exe",
+    "selector",
+    "6765742829"
+  ],
+  "exit": 0,
+  "stdout": "0x6d4ce63c\n",
+  "stderr": ""
+}

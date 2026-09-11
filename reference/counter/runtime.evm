@@ -1,0 +1,121 @@
+; Hand-assembled Cancun counter. PCs and operands are hex.
+0000 34 CALLVALUE ; Nonpayable guard for every entry and fallback.
+0001 6100ad PUSH2 0x00ad ; Target reject.
+0004 57 JUMPI ; Branch to reject.
+0005 6004 PUSH1 0x04 ; Minimum selector size.
+0007 36 CALLDATASIZE ; Read supplied byte count.
+0008 10 LT ; Reject a selector shorter than four bytes.
+0009 6100ad PUSH2 0x00ad ; Target reject.
+000c 57 JUMPI ; Branch to reject.
+000d 5f PUSH0 ; Selector word offset.
+000e 35 CALLDATALOAD ; Read selector and the first argument prefix.
+000f 60e0 PUSH1 0xe0 ; Discard the low 224 bits.
+0011 1c SHR ; Extract the four-byte selector.
+0012 5f PUSH0 ; Memory offset 0.
+0013 52 MSTORE ; Save selector for the three dispatch comparisons.
+0014 5f PUSH0 ; Memory offset 0.
+0015 51 MLOAD ; Load selector for increment.
+0016 637cf5dab0 PUSH4 0x7cf5dab0 ; Selector of increment(uint256).
+001b 14 EQ ; Match the complete selector.
+001c 61003c PUSH2 0x003c ; Target increment.
+001f 57 JUMPI ; Branch to increment.
+0020 5f PUSH0 ; Memory offset 0.
+0021 51 MLOAD ; Load selector for decrement.
+0022 633a9ebefd PUSH4 0x3a9ebefd ; Selector of decrement(uint256).
+0027 14 EQ ; Match the complete selector.
+0028 610074 PUSH2 0x0074 ; Target decrement.
+002b 57 JUMPI ; Branch to decrement.
+002c 5f PUSH0 ; Memory offset 0.
+002d 51 MLOAD ; Load selector for get.
+002e 636d4ce63c PUSH4 0x6d4ce63c ; Selector of get().
+0033 14 EQ ; Match the complete selector.
+0034 61009b PUSH2 0x009b ; Target get.
+0037 57 JUMPI ; Branch to get.
+0038 6100ad PUSH2 0x00ad ; Target reject.
+003b 56 JUMP ; Branch to reject.
+003c 5b JUMPDEST ; Begin increment.
+003d 6024 PUSH1 0x24 ; Four selector bytes plus one 32-byte argument.
+003f 36 CALLDATASIZE ; Trailing calldata is permitted.
+0040 10 LT ; Reject a short argument head.
+0041 6100ad PUSH2 0x00ad ; Target reject.
+0044 57 JUMPI ; Branch to reject.
+0045 6004 PUSH1 0x04 ; First argument offset.
+0047 35 CALLDATALOAD ; Decode the full uint256 argument.
+0048 6020 PUSH1 0x20 ; Memory offset 32.
+004a 52 MSTORE ; Save argument n.
+004b 5f PUSH0 ; Count is storage slot zero.
+004c 54 SLOAD ; Read current count c.
+004d 5f PUSH0 ; Memory offset 0.
+004e 52 MSTORE ; Save current count c.
+004f 5f PUSH0 ; Memory offset 0.
+0050 51 MLOAD ; Load c for addition.
+0051 6020 PUSH1 0x20 ; Memory offset 32.
+0053 51 MLOAD ; Load n for addition.
+0054 01 ADD ; Compute sum modulo 2^256, before the overflow guard.
+0055 6040 PUSH1 0x40 ; Memory offset 64.
+0057 52 MSTORE ; Save sum s.
+0058 5f PUSH0 ; Memory offset 0.
+0059 51 MLOAD ; Overflow comparison right operand c.
+005a 6040 PUSH1 0x40 ; Memory offset 64.
+005c 51 MLOAD ; Overflow comparison left operand s.
+005d 10 LT ; Overflow exactly when s is less than c.
+005e 6100ad PUSH2 0x00ad ; Target reject.
+0061 57 JUMPI ; Branch to reject.
+0062 6001 PUSH1 0x01 ; Limit is storage slot one.
+0064 54 SLOAD ; Bound comparison right operand limit.
+0065 6040 PUSH1 0x40 ; Memory offset 64.
+0067 51 MLOAD ; Bound comparison left operand s.
+0068 11 GT ; Reject s greater than limit, allowing equality.
+0069 6100ad PUSH2 0x00ad ; Target reject.
+006c 57 JUMPI ; Branch to reject.
+006d 6040 PUSH1 0x40 ; Memory offset 64.
+006f 51 MLOAD ; Return and store the checked sum.
+0070 6100a2 PUSH2 0x00a2 ; Target save.
+0073 56 JUMP ; Branch to save.
+0074 5b JUMPDEST ; Begin decrement.
+0075 6024 PUSH1 0x24 ; Four selector bytes plus one 32-byte argument.
+0077 36 CALLDATASIZE ; Trailing calldata is permitted.
+0078 10 LT ; Reject a short argument head.
+0079 6100ad PUSH2 0x00ad ; Target reject.
+007c 57 JUMPI ; Branch to reject.
+007d 6004 PUSH1 0x04 ; First argument offset.
+007f 35 CALLDATALOAD ; Decode the full uint256 argument.
+0080 6020 PUSH1 0x20 ; Memory offset 32.
+0082 52 MSTORE ; Save argument n.
+0083 5f PUSH0 ; Count is storage slot zero.
+0084 54 SLOAD ; Read current count c.
+0085 5f PUSH0 ; Memory offset 0.
+0086 52 MSTORE ; Save current count c.
+0087 5f PUSH0 ; Memory offset 0.
+0088 51 MLOAD ; Underflow comparison right operand c.
+0089 6020 PUSH1 0x20 ; Memory offset 32.
+008b 51 MLOAD ; Underflow comparison left operand n.
+008c 11 GT ; Reject n greater than c, allowing equality.
+008d 6100ad PUSH2 0x00ad ; Target reject.
+0090 57 JUMPI ; Branch to reject.
+0091 6020 PUSH1 0x20 ; Memory offset 32.
+0093 51 MLOAD ; Subtraction right operand n.
+0094 5f PUSH0 ; Memory offset 0.
+0095 51 MLOAD ; Subtraction left operand c.
+0096 03 SUB ; Compute c minus n only after the underflow guard.
+0097 6100a2 PUSH2 0x00a2 ; Target save.
+009a 56 JUMP ; Branch to save.
+009b 5b JUMPDEST ; Begin get.
+009c 5f PUSH0 ; Count is storage slot zero.
+009d 54 SLOAD ; Return count without a storage write.
+009e 6100a6 PUSH2 0x00a6 ; Target return.
+00a1 56 JUMP ; Branch to return.
+00a2 5b JUMPDEST ; Begin save.
+00a3 80 DUP1 ; Preserve the result for return.
+00a4 5f PUSH0 ; Only update the count slot.
+00a5 55 SSTORE ; Commit the checked count.
+00a6 5b JUMPDEST ; Begin return.
+00a7 5f PUSH0 ; Memory offset 0.
+00a8 52 MSTORE ; Encode the uint256 result in memory.
+00a9 6020 PUSH1 0x20 ; Return exactly one ABI word.
+00ab 5f PUSH0 ; Return from memory offset zero.
+00ac f3 RETURN ; Finish successfully.
+00ad 5b JUMPDEST ; Begin reject.
+00ae 5f PUSH0 ; Empty revert length.
+00af 5f PUSH0 ; Empty revert offset.
+00b0 fd REVERT ; Reject and roll back all state changes.
