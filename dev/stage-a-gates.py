@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Run the carried battery and optional Stage B/C/D/E legs with finite deadlines."""
+"""Run the carried battery and optional Stage B through F legs with finite deadlines."""
 
 from pathlib import Path
 import shutil
@@ -10,10 +10,11 @@ import time
 
 def main():
     root = Path(__file__).resolve().parent.parent
-    if sys.argv[1:] not in ([], ["--keccak"], ["--asm"], ["--reference"], ["--emit"]):
-        print("usage: stage-a-gates.py [--keccak|--asm|--reference|--emit]")
+    if sys.argv[1:] not in ([], ["--keccak"], ["--asm"], ["--reference"], ["--emit"], ["--m0"]):
+        print("usage: stage-a-gates.py [--keccak|--asm|--reference|--emit|--m0]")
         return 64
-    emission = sys.argv[1:] == ["--emit"]
+    corpus = sys.argv[1:] == ["--m0"]
+    emission = corpus or sys.argv[1:] == ["--emit"]
     reference = emission or sys.argv[1:] == ["--reference"]
     assembler = reference or sys.argv[1:] == ["--asm"]
     keccak = assembler or sys.argv[1:] == ["--keccak"]
@@ -68,6 +69,7 @@ def main():
             ("ABI-GOLD", 60, ("zsh", "-f", "dev/abi-gold.sh"),
              "ABI-GOLD jq_sorted=equal provenance=dev/ABI-PROVENANCE.md controls=4 OK"),
             ("EMITTED-TRACE", 120, ("python3", "-P", "dev/emit-test.py", "trace"),
+             "M0-TRACE offsets=13 listing=17 cast=17 evm=13 five_files=5 OK" if corpus else
              "M0-TRACE scope=emitted bytes=20 listing=17 cast=17 evm=13 skipped=4 storage=42 return=42 OK"),
             ("EMIT-SOURCES", 600, ("python3", "-P", "dev/emit-test.py", "sources"),
              "EMIT-SOURCES success=15 refusal=9 driver=3 OK"),
@@ -76,7 +78,20 @@ def main():
             ("AXIOMS", 480, ("python3", "-P", "dev/proofs-test.py"),
              "AXIOMS sorryAx=0 theorems=42 carried_files=28 controls=3 OK"),
         ])
-    stage = "E" if emission else "D" if reference else "C" if assembler else "B" if keccak else "A"
+    if corpus:
+        legs.extend([
+            ("TRACE-DRIVER", 120, ("python3", "-P", "dev/trace-test.py"),
+             "TRACE-DRIVER cases=20 explicit_prestate=true literal_argv=true OK"),
+            ("CORPUS", 600, ("python3", "-P", "dev/corpus-test.py", "corpus"),
+             "CORPUS cases=11 five_files=5 OK"),
+            ("ERASED-BYTES", 120, ("python3", "-P", "dev/corpus-test.py", "erased"),
+             "ERASED-BYTES mutants=2 caught=1 equal=2 scope=M0-seed OK"),
+            ("M0-RATIO", 60, ("zsh", "-f", "dev/ratio.sh"),
+             "M0-RATIO provenance=dev/denominators.json fixed=spec-count-proxy subtraction=none OK"),
+            ("F-MUTANTS", 180, ("python3", "-P", "dev/corpus-test.py", "mutants"),
+             "F-MUTANTS killed=7/7 controls=5 OK"),
+        ])
+    stage = "F" if corpus else "E" if emission else "D" if reference else "C" if assembler else "B" if keccak else "A"
     work = root / (".gatework/stage-" + stage.lower())
     work.mkdir(parents=True, exist_ok=True)
     failed = False
@@ -114,12 +129,15 @@ def main():
             failed = True
             if name == "BUILD":
                 break
-    pending = ("F: frozen corpus, ratio, trace/diff commands and ERASED-BYTES seed" if emission
+    pending = ("F: frozen corpus, ratio and ERASED-BYTES seed" if emission
                else "E-F: EVM emission, five output files, recognizers, proof seed and corpus measurements" if reference
                else "D-F: Cancun reference, EVM emission and corpus measurements" if assembler
                else "C-F: assembler, Cancun reference, EVM emission and corpus measurements" if keccak
                else "B-F: keccak, assembler, Cancun reference, EVM emission and corpus measurements")
-    print("PENDING " + pending)
+    if corpus:
+        print("M0-VALIDATION " + ("FAIL" if failed else "OK") + "; M0-EXIT requires the user commit and ratification")
+    else:
+        print("PENDING " + pending)
     print("STAGE-" + stage + " " + ("FAIL" if failed else "OK"))
     return int(failed)
 

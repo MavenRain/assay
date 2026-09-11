@@ -6,6 +6,8 @@ and carry gates.  Stage B adds Keccak-256 and selector derivation.
 Stage C adds the Cancun assembler and bytecode listing.
 Stage D adds the hand-assembled reference and Cancun execution gates.
 Stage E emits closed first-order EVM effect programs and five output files.
+Stage F freezes the corpus, reports compile time and seeds proof erasure
+checks over emitted bytes.
 
 ```sh
 zsh -f dev/dunecho.sh build
@@ -14,6 +16,7 @@ _build/default/bin/assay.exe check --erased examples/m0-spine.kan
 _build/default/bin/assay.exe axioms examples/m0-spine.kan
 _build/default/bin/assay.exe spec-count
 _build/default/bin/assay.exe emit examples/Ref20.asy -o Ref20-out
+_build/default/bin/assay.exe trace examples/Ref20.asy --calldata 0x
 zsh -f dev/gates.sh
 ```
 
@@ -30,11 +33,18 @@ exits 2 and writes nothing.  `--export NAME` selects a closed export in place
 of `main`.  [The emission contract](dev/EMISSION.md) defines the source
 protocol, supported constructors, bounds and I/O behavior.
 
-`trace`, `diff`, `run`, `deploy` and `test` are declared at M0 and exit 3
-with a named `PENDING` diagnostic, so a declared name is never reported as a
-typo.  `trace FILE --calldata HEX` and `diff FIXTURE` arrive in Stage F, and
-`diff` runs the second executor `evm t8n --state.fork Cancun` on the same
-prestate (R-M0-8, R-M0-9).  `run` arrives in M1.  `deploy` and `test`
+`trace FILE --calldata HEX` compiles the source and prints geth's JSON
+steps, summary and state dump.  It uses the explicit Cancun fixture and
+literal process arguments.  Hex may have a `0x` prefix.  M0 programs
+ignore calldata.  The default fixture is resolved from the executable's
+`_build/default/bin` location, so the working directory can differ.
+Use `--prestate FILE` after the calldata to select an explicit fixture.
+Invalid hex exits 64; missing tools or fixtures, EVM faults and executor
+failures exit 2.  Compilation uses the same checks as `emit` and writes
+no output files.  `diff`, `run`, `deploy` and `test` still exit 3 with
+named `PENDING` diagnostics.  `diff` will run
+`evm t8n --state.fork Cancun` on the same prestate (R-M0-8, R-M0-9).
+`run` arrives in M1.  `deploy` and `test`
 print `PENDING (M1)` today and gain behavior at M4 (R-8a).
 
 M4 deployment support targets anvil, Adiri (Telcoin testnet, chain ID
@@ -89,10 +99,12 @@ The creation gate checks both returned and installed runtime bytes.
 Stage E checks Word unboxing and closure-free storage before assembly.
 The source fixture emits the exact committed reference bytes.  Its ABI is
 empty, and its layout declares one full-word slot.  The carried proof seed
-is hash-pinned and retains its original fidelity statement.  Stage F owns
-the frozen corpus, ratio report and ERASED-BYTES seed.
+is hash-pinned and retains its original fidelity statement.
+The [frozen corpus](corpus/README.md) has eight contracts and three
+structural proof variants.  `zsh -f dev/ratio.sh` verifies and reports the
+frozen wall-time measurements.  The ratio is informational at M0.
 
-The Stage E gate battery checks the build, complete inherited kernel suite,
+The Stage F gate battery checks the build, complete inherited kernel suite,
 surface suite, driver behavior, pin, carry inventory, R0, house rules,
 trusted-line budgets, denominator hash and gate mutations.  It also compares
 35 digest and selector vectors with frozen values and live `cast` output.
@@ -113,8 +125,14 @@ refusal.  The transient store and memory-copy probes check nonzero values.
 It also rejects 32 corrupt execution captures and eight damaged fixtures,
 then requires restored controls to pass.  Gas use and code sizes are reported.
 Stage E adds source execution, emitted creation, recognizer mutations,
-canonical JSON equality and the carried seed's 42 axiom reports.  It prints
-the pending Stage F work and does not claim the M0 exit gate has passed.
+canonical JSON equality and the carried seed's 42 axiom reports.
+Stage F adds execution and creation for all eleven corpus files, exact
+five-file hashes, proof-shape byte equality, the frozen ratio report and
+seven rejection witnesses.  The M0 trace row verifies all five outputs.
+The trace driver also has 20 cases for calldata, path handling, tool
+selection and failures.
+`M0-VALIDATION OK` means the 34 legs pass.  The final M0-EXIT stamp still
+requires the user's Stage F commit and explicit ratification.
 
 The gates require Python 3.11 or newer (`-P`), Foundry `cast` and geth `evm`
 on PATH.  The oracles are `cast` 0.3.0 and geth 1.14.12.
@@ -122,6 +140,6 @@ The proof seed uses Lean 4.33.1 and the dependencies in its pinned manifest.
 The OCaml toolchain is the installed `zxcaml-p1` switch.  The dune scripts
 select it and derive the repository root from their own paths.  The library
 names `kanon_kernel` and `kanon_surface` stay unchanged for a byte-exact carry.
-The tot submodule remains data only and is not needed for the Stage E build.
+The tot submodule remains data only and is not needed for the Stage F build.
 
 License: MIT OR Apache-2.0.

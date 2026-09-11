@@ -98,4 +98,8 @@ Installed Lean dependencies must already match the seed manifest.
 
 Read `proofs/FIDELITY.md` for the seed's exact scope.  These are proofs of
 the kan-evm Lean embedding.  They do not prove this emitter correct.
-Stage F owns the frozen corpus, ratio report and ERASED-BYTES seed.
+Stage F freezes eleven corpus files and the wall-time report.  Its
+ERASED-BYTES seed compiles three different checked proof shapes and
+requires identical runtime and creation bytes.  Changing the runtime
+payload must change both byte strings.  This is an executable M0 seed,
+not a proof of erasure correctness or the full M2 erasure gate.

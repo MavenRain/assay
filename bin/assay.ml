@@ -7,7 +7,7 @@
 let usage () : unit =
   prerr_endline
     "usage: assay check [--print|--erased] FILE | axioms FILE | spec-count | \
-     emit FILE -o DIR | trace FILE | diff FILE | run FILE | deploy FILE | \
+     emit FILE -o DIR | trace FILE --calldata HEX [--prestate FILE] | diff FILE | run FILE | deploy FILE | \
      test FILE"
 
 let bad_usage () : unit = usage (); exit 64
@@ -53,18 +53,21 @@ let run_axioms (path : string) : unit =
   List.iter print_endline
     (Kanon_surface.Elab.axiom_names (snd (checked_in path)))
 
-(* The output directory must be new.  All compilation finishes before
-   file creation, so a named compiler refusal writes nothing. *)
-let run_emit (path : string) (directory : string) (export : string) : unit =
+let compile (path : string) (export : string) : Assay_emit.Emit.output =
   let globals, rows = checked_in path in
   let erased = Kanon_kernel.Erase.program globals rows
     |> Result.fold ~ok:Fun.id
        ~error:(fun e ->
          prerr_endline (Kanon_kernel.Error.to_string e); exit 1) in
   let contract = Filename.remove_extension (Filename.basename path) in
-  let out = Assay_emit.Emit.program ~contract ~export globals rows erased
+  Assay_emit.Emit.program ~contract ~export globals rows erased
     |> Result.fold ~ok:Fun.id ~error:(fun e ->
-      prerr_endline ("assay: emit: " ^ Assay_emit.Emit.error e); exit 2) in
+      prerr_endline ("assay: emit: " ^ Assay_emit.Emit.error e); exit 2)
+
+(* The output directory must be new.  All compilation finishes before
+   file creation, so a named compiler refusal writes nothing. *)
+let run_emit (path : string) (directory : string) (export : string) : unit =
+  let out = compile path export in
   let parent = Filename.dirname directory in
   if Sys.file_exists directory || not (Sys.file_exists parent && Sys.is_directory parent) then
     (prerr_endline "assay: emit: OUTPUT_PATH: use a new directory under an existing parent"; exit 64)
@@ -75,6 +78,22 @@ let run_emit (path : string) (directory : string) (export : string) : unit =
       (fun channel -> output_string channel contents))
     ["runtime.hex", out.runtime ^ "\n"; "init.hex", out.init ^ "\n";
      "abi.json", out.abi; "layout.json", out.layout; "axioms.txt", out.axioms]
+
+let run_trace (path : string) (input : string) (prestate : string) : unit =
+  Option.fold
+    ~none:(fun () -> prerr_endline "assay: trace: CALLDATA_HEX: expected whole hex bytes"; exit 64)
+    ~some:(fun input () ->
+      let out = compile path "main" in
+      Trace.run ~runtime:out.runtime ~input ~prestate
+      |> Result.fold ~ok:Fun.id ~error:(fun e ->
+        prerr_endline ("assay: trace: " ^ Trace.error e); exit 2))
+    (Trace.calldata input) ()
+
+let dispatch_trace (args : string list) : unit =
+  match args with
+  | [ path; "--calldata"; input ] -> run_trace path input (Trace.prestate ())
+  | [ path; "--calldata"; input; "--prestate"; prestate ] -> run_trace path input prestate
+  | [] | _ :: _ -> bad_usage ()
 
 let dispatch_emit (args : string list) : unit =
   match args with
@@ -109,8 +128,8 @@ let dispatch (cmd : string) (args : string list) : unit =
        | [ path ] -> run_axioms path
        | [] | _ :: _ -> bad_usage ())
   | "emit" -> dispatch_emit args
-  | "trace" -> run_pending cmd "Stage F"
-  | "diff" -> run_pending cmd "Stage F"
+  | "trace" -> dispatch_trace args
+  | "diff" -> run_pending cmd "M1"
   | "run" | "deploy" | "test" -> run_pending cmd "M1"
   | _unknown -> bad_usage ()
 

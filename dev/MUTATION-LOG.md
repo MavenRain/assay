@@ -315,3 +315,50 @@ The restored complete report has 42 theorem rows and no `sorryAx`.
 
 The complete Stage E battery also retains the 13 Stage A, four Stage B,
 six Stage C and eight Stage D mutant kills.
+
+## Stage F (2026-09-11)
+
+The ERASED-BYTES seed replaces the proof argument with an application and
+a let.  The checked forms are distinct, the declarations are identical,
+and both runtime and init bytes stay equal.  A payload change from 42 to
+43 changes both byte strings.  This is a seed for the M2 obligation.
+
+| change | gate | required witness |
+| --- | --- | --- |
+| emitted PUSH1 payload 42 to 43, then execute | F-MUTANTS (M0-TRACE check) | TRACE-STACK |
+| runtime byte changed beside the intact constructor | F-MUTANTS (CREATE-EQ check) | CREATE-BYTES |
+| append one newline to a frozen corpus file | F-MUTANTS (CORPUS check) | CORPUS-HASH |
+| append one newline to frozen denominators.json | F-MUTANTS (DENOMINATORS check) | sha256; the leg requires the shasum line `dev/denominators.json: FAILED` and records `witness=sha256` |
+| report four runs instead of five | M0-RATIO validator | RATIO-SUMMARY |
+| report one source line | M0-RATIO validator | RATIO-SUMMARY |
+| report a zero median | M0-RATIO validator | RATIO-SUMMARY |
+
+All seven changes fail their named checks.  The five gate rows above run
+inside the F-MUTANTS leg, which reads the check functions of the named
+gates; the mutants are not run through those gate commands.  Five
+unchanged controls pass: trace, creation, corpus hashes, denominator hash
+and ratio metadata.  `ORACLES.json` in the Stage F validation directory
+holds the execution and listing receipts of the controls and mutants
+(`f-control-run`, `f-control-cast`, `f-control-create`, `f-mutant-run`
+and `f-mutant-cast`).  `F-MUTANTS.log` keeps one kill line per change
+with its witness identifier.  It holds no rejection text.  The
+runtime-byte trace witness executes the changed code; it is not rejected
+by a pre-execution hash comparison.
+
+The denominator of the printed `F-MUTANTS killed=7/7` line is the roster
+of seven declared names, so a deleted mutation fails `F-MUTANT-ROSTER`.
+In the `ERASED-BYTES` line, `mutants` counts the checked proof shapes
+beyond the leaf, which must give equal bytes, and `caught` counts the
+value control, which must give different bytes.  The counted shapes
+cannot survive.  The control is the only item that can.
+
+TRACE-DRIVER has no harness mutant, so the 2026-09-11 review round ran
+two mutations by hand on a copy and rebuilt the driver for each one.
+
+| change | gate | observed rejection |
+| --- | --- | --- |
+| drop the `has_error` test in the `WEXITED 0` arm of bin/trace.ml | TRACE-DRIVER | `TRACE-DRIVER FAIL TRACE-DRIVER wrong-fork: 0:` exit 1 |
+| accept a readable but non-executable file named evm in the PATH lookup | TRACE-DRIVER | `TRACE-DRIVER FAIL TRACE-DRIVER non-executable-evm: 2: Fatal error: exception Unix.Unix_error(Unix.EACCES, "create_process", ...)` |
+
+The restored copy prints `TRACE-DRIVER cases=20 explicit_prestate=true
+literal_argv=true OK` and exits 0.

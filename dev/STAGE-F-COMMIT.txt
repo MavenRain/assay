@@ -1,0 +1,21 @@
+M0 Stage F: freeze the corpus and complete the measurement gates
+
+Freeze eight contracts and three proof shapes with five-file hashes.
+Measure parse through emitted files, native and bytecode compilation,
+and per-process fixed cost.  Preserve Stage 0 denominator evidence.
+
+Check corpus execution, creation, structural proof erasure and seven
+mutation witnesses.  Record gas, code sizes and the 34 passing gates.
+Add the trace command.  Keep diff pending for M1 executor integration.
+
+M0 ratios are informational.  The user owns the M0-EXIT ratification.
+
+Review pass 1 (2026-09-11) fixed 7 findings: A-1, B-1, C-1, D-1, D-2,
+B-2, D-4.
+A-1 corpus/README.md: the Zero.asy zero write is witnessed by hashes.
+B-1 bin/trace.ml: runnable checks the execute bit; 20 driver cases.
+C-1 Docs: the contract measurement sits inside the startup proxy.
+D-1 dev/corpus-test.py: printed gate fields now derive from checks.
+D-2 dev/MUTATION-LOG.md: the Stage F table names the real gates.
+B-2 corpus/README.md: the freeze regeneration command is stated.
+D-4 dev/emit-test.py: offsets is the listing and executed pc set.

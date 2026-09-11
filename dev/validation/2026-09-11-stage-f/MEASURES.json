@@ -1,0 +1,112 @@
+[
+  {
+    "path": "corpus/contracts/Ref20.asy",
+    "group": "contracts",
+    "runtime_bytes": 20,
+    "init_bytes": 30,
+    "gas": 22232,
+    "creation_gas": 4022,
+    "steps": 13,
+    "listing": 17
+  },
+  {
+    "path": "corpus/contracts/Return.asy",
+    "group": "contracts",
+    "runtime_bytes": 8,
+    "init_bytes": 18,
+    "gas": 16,
+    "creation_gas": 1622,
+    "steps": 6,
+    "listing": 6
+  },
+  {
+    "path": "corpus/contracts/Zero.asy",
+    "group": "contracts",
+    "runtime_bytes": 19,
+    "init_bytes": 29,
+    "gas": 2331,
+    "creation_gas": 3822,
+    "steps": 13,
+    "listing": 17
+  },
+  {
+    "path": "corpus/contracts/Maximum.asy",
+    "group": "contracts",
+    "runtime_bytes": 51,
+    "init_bytes": 61,
+    "gas": 22232,
+    "creation_gas": 10228,
+    "steps": 13,
+    "listing": 17
+  },
+  {
+    "path": "corpus/contracts/Arithmetic.asy",
+    "group": "contracts",
+    "runtime_bytes": 8,
+    "init_bytes": 18,
+    "gas": 16,
+    "creation_gas": 1622,
+    "steps": 6,
+    "listing": 6
+  },
+  {
+    "path": "corpus/contracts/Pair.asy",
+    "group": "contracts",
+    "runtime_bytes": 8,
+    "init_bytes": 18,
+    "gas": 16,
+    "creation_gas": 1622,
+    "steps": 6,
+    "listing": 6
+  },
+  {
+    "path": "corpus/contracts/TwoSlots.asy",
+    "group": "contracts",
+    "runtime_bytes": 34,
+    "init_bytes": 44,
+    "gas": 44351,
+    "creation_gas": 6828,
+    "steps": 19,
+    "listing": 27
+  },
+  {
+    "path": "corpus/contracts/WideLabel.asy",
+    "group": "contracts",
+    "runtime_bytes": 398,
+    "init_bytes": 410,
+    "gas": 25625,
+    "creation_gas": 79694,
+    "steps": 187,
+    "listing": 307
+  },
+  {
+    "path": "corpus/proofs/Leaf.asy",
+    "group": "proofs",
+    "runtime_bytes": 8,
+    "init_bytes": 18,
+    "gas": 16,
+    "creation_gas": 1622,
+    "steps": 6,
+    "listing": 6
+  },
+  {
+    "path": "corpus/proofs/Apply.asy",
+    "group": "proofs",
+    "runtime_bytes": 8,
+    "init_bytes": 18,
+    "gas": 16,
+    "creation_gas": 1622,
+    "steps": 6,
+    "listing": 6
+  },
+  {
+    "path": "corpus/proofs/Let.asy",
+    "group": "proofs",
+    "runtime_bytes": 8,
+    "init_bytes": 18,
+    "gas": 16,
+    "creation_gas": 1622,
+    "steps": 6,
+    "listing": 6
+  }
+]

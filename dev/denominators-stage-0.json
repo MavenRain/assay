@@ -1,0 +1,30 @@
+{
+  "date": "2026-09-10",
+  "kanon_pin": "2c2e6e6831a0b2cf3107fa4aad392606109a2bcf",
+  "stage": "M0 Stage 0, spike (c)",
+  "noisy": true,
+  "note": "No ratio prints at Stage 0.  M0-RATIO is printed and gated at no milestone at M0 (R-Q1a).  A re-measurement is a new dated file and never an overwrite of this one.",
+  "versions": {
+    "ocamlopt": "5.2.1",
+    "ocamlc": "5.2.1",
+    "kanon": "usage: kanon check [--print|--erased] FILE | axioms FILE | emit FILE -o OUT.wasm --export NAME | run FILE --export NAME [--host node|wasmtime|kernel|both] | build FILE... -o OUT.wasm --export NAME... | spec-count",
+    "kanon_path": "/Users/oobi/Documents/assay/_build/default/bin/kanon.exe"
+  },
+  "host": {"arch": "arm64", "ncpu": 12, "macos": "26.4"},
+  "load": " 1:10  27 users, load averages: 53.20 50.80 43.65",
+  "window": {"started": "2026-09-10T08:10:30Z", "ended": "2026-09-10T08:10:56Z", "load_end": " 1:10  27 users, load averages: 48.81 50.01 43.58"},
+  "corpus": {
+    "root": "/Users/oobi/Documents/assay",
+    "dir": "lib",
+    "files": [{"path":"lib/bignum.ml","lines":51},{"path":"lib/budget.ml","lines":27},{"path":"lib/budget.mli","lines":9},{"path":"lib/check.ml","lines":538},{"path":"lib/conv.ml","lines":396},{"path":"lib/erase.ml","lines":1484},{"path":"lib/error.ml","lines":82},{"path":"lib/eterm.ml","lines":117},{"path":"lib/eval.ml","lines":297},{"path":"lib/global.ml","lines":130},{"path":"lib/level.ml","lines":11},{"path":"lib/level.mli","lines":13},{"path":"lib/literal.ml","lines":14},{"path":"lib/order.ml","lines":510},{"path":"lib/positivity.ml","lines":118},{"path":"lib/pp.ml","lines":102},{"path":"lib/prim.ml","lines":139},{"path":"lib/quantity.ml","lines":158},{"path":"lib/rules.ml","lines":1481},{"path":"lib/shape.ml","lines":60},{"path":"lib/spec_count.ml","lines":62},{"path":"lib/term.ml","lines":133},{"path":"lib/totality.ml","lines":146},{"path":"lib/value.ml","lines":137}],
+    "total_lines": 6215,
+    "sha256_of_concatenation": "4fc55822aa4fbe13b00a7e742015acac35a90cdffaaf6c0b3fc87c35f28537a1",
+    "order": "ocamldep -sort over the .ml files, every .mli placed before its .ml"
+  },
+  "rerun": "zsh /Users/oobi/Documents/assay/dev/denominator.sh --root /Users/oobi/Documents/assay --scratch <scratch dir>",
+  "rows": {
+    "ocamlopt_ms_per_kloc": {"value":448.4,"median_ms":2786.6,"min_ms":2258.2,"max_ms":4921.2,"runs":5,"lines":6215,"command":"/Users/oobi/.opam/zxcaml-p1/bin/ocamlopt -c -I <fresh scratch dir> -I /Users/oobi/.opam/zxcaml-p1/lib/zarith <corpus in ocamldep -sort order, every .mli before its .ml>","method":"One frozen OCaml corpus, one warm run, then 5 timed runs in the same minute, a fresh scratch output directory per timed run, wall clock from zsh EPOCHREALTIME, value = median_ms * 1000 / lines.  Row: native compilation of the corpus to .cmx.","load":" 1:10  27 users, load averages: 53.20 50.80 43.65","provisional_reference":{"value":2135.8,"unit":"ms per kloc","source":"assay-ocaml-denominators-provisional.json, load 58 to 64","status":"PROVISIONAL, replaced at Stage F"}},
+    "ocamlc_ms_per_kloc": {"value":50.7,"median_ms":315.3,"min_ms":265.9,"max_ms":1015.9,"runs":5,"lines":6215,"command":"/Users/oobi/.opam/zxcaml-p1/bin/ocamlc -c -I <fresh scratch dir> -I /Users/oobi/.opam/zxcaml-p1/lib/zarith <corpus in ocamldep -sort order, every .mli before its .ml>","method":"One frozen OCaml corpus, one warm run, then 5 timed runs in the same minute, a fresh scratch output directory per timed run, wall clock from zsh EPOCHREALTIME, value = median_ms * 1000 / lines.  Row: bytecode compilation of the same corpus to .cmo.","load":" 1:10  27 users, load averages: 53.20 50.80 43.65"},
+    "assay_ms_per_kloc": {"value":40.8,"median_ms":253.5,"min_ms":165.8,"max_ms":288.9,"runs":5,"lines":6215,"command":"/Users/oobi/Documents/assay/_build/default/bin/kanon.exe check <file> for every corpus file in the fresh scratch dir","method":"One frozen OCaml corpus, one warm run, then 5 timed runs in the same minute, a fresh scratch output directory per timed run, wall clock from zsh EPOCHREALTIME, value = median_ms * 1000 / lines.  Row: the kanon front end at the pin over the same corpus, one call per file, called by absolute path and never through kanoncho.  The pin front end reads Kanon source, so every call stops at the first lexical error of the OCaml file;  the number is a floor of process start plus read plus lex, not a compile.","load":" 1:10  27 users, load averages: 53.20 50.80 43.65","status":"PLACEHOLDER, replaced at Stage F by the assay front end over the frozen contract corpus"}
+  }
+}

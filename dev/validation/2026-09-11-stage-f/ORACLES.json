@@ -1,0 +1,886 @@
+{
+  "corpus-Apply.json": {
+    "argv": [
+      "evm",
+      "--verbosity",
+      "0",
+      "run",
+      "--prestate",
+      "/Users/oobi/Documents/gpt1/assay-stage-f/evm/fixtures/cancun.json",
+      "--gas",
+      "16777216",
+      "--sender",
+      "0x000000000000000000000000000073656e646572",
+      "--receiver",
+      "0x0000000000000000000000007265636569766572",
+      "--code",
+      "602a5f5260205ff3",
+      "--json",
+      "--dump"
+    ],
+    "exit": 0,
+    "stdout": "{\"pc\":0,\"op\":96,\"gas\":\"0x1000000\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":2,\"op\":95,\"gas\":\"0xfffffd\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[\"0x2a\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":3,\"op\":82,\"gas\":\"0xfffffb\",\"gasCost\":\"0x6\",\"memSize\":0,\"stack\":[\"0x2a\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"MSTORE\"}\n{\"pc\":4,\"op\":96,\"gas\":\"0xfffff5\",\"gasCost\":\"0x3\",\"memSize\":32,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":6,\"op\":95,\"gas\":\"0xfffff2\",\"gasCost\":\"0x2\",\"memSize\":32,\"stack\":[\"0x20\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":7,\"op\":243,\"gas\":\"0xfffff0\",\"gasCost\":\"0x0\",\"memSize\":32,\"stack\":[\"0x20\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"RETURN\"}\n{\"output\":\"000000000000000000000000000000000000000000000000000000000000002a\",\"gasUsed\":\"0x10\"}\n{\n    \"root\": \"f79f67a2899f98119d128d71a975cb400b99257c0dca45725977597e4d8c48b3\",\n    \"accounts\": {\n        \"0x0000000000000000000000007265636569766572\": {\n            \"balance\": \"0\",\n            \"nonce\": 0,\n            \"root\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\",\n            \"codeHash\": \"0x30962a84ef989ca0f724a5b2ec94f9cbf6a731752ce2c0be5333bf96e460c9fd\",\n            \"code\": \"0x602a5f5260205ff3\",\n            \"address\": \"0x0000000000000000000000007265636569766572\",\n            \"key\": \"0x30d7a0694cb29af31b982480e11d7ebb003a3fca4026939149071f014689b142\"\n        }\n    }\n}\n",
+    "stderr": ""
+  },
+  "corpus-Arithmetic.json": {
+    "argv": [
+      "evm",
+      "--verbosity",
+      "0",
+      "run",
+      "--prestate",
+      "/Users/oobi/Documents/gpt1/assay-stage-f/evm/fixtures/cancun.json",
+      "--gas",
+      "16777216",
+      "--sender",
+      "0x000000000000000000000000000073656e646572",
+      "--receiver",
+      "0x0000000000000000000000007265636569766572",
+      "--code",
+      "602a5f5260205ff3",
+      "--json",
+      "--dump"
+    ],
+    "exit": 0,
+    "stdout": "{\"pc\":0,\"op\":96,\"gas\":\"0x1000000\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":2,\"op\":95,\"gas\":\"0xfffffd\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[\"0x2a\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":3,\"op\":82,\"gas\":\"0xfffffb\",\"gasCost\":\"0x6\",\"memSize\":0,\"stack\":[\"0x2a\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"MSTORE\"}\n{\"pc\":4,\"op\":96,\"gas\":\"0xfffff5\",\"gasCost\":\"0x3\",\"memSize\":32,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":6,\"op\":95,\"gas\":\"0xfffff2\",\"gasCost\":\"0x2\",\"memSize\":32,\"stack\":[\"0x20\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":7,\"op\":243,\"gas\":\"0xfffff0\",\"gasCost\":\"0x0\",\"memSize\":32,\"stack\":[\"0x20\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"RETURN\"}\n{\"output\":\"000000000000000000000000000000000000000000000000000000000000002a\",\"gasUsed\":\"0x10\"}\n{\n    \"root\": \"f79f67a2899f98119d128d71a975cb400b99257c0dca45725977597e4d8c48b3\",\n    \"accounts\": {\n        \"0x0000000000000000000000007265636569766572\": {\n            \"balance\": \"0\",\n            \"nonce\": 0,\n            \"root\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\",\n            \"codeHash\": \"0x30962a84ef989ca0f724a5b2ec94f9cbf6a731752ce2c0be5333bf96e460c9fd\",\n            \"code\": \"0x602a5f5260205ff3\",\n            \"address\": \"0x0000000000000000000000007265636569766572\",\n            \"key\": \"0x30d7a0694cb29af31b982480e11d7ebb003a3fca4026939149071f014689b142\"\n        }\n    }\n}\n",
+    "stderr": ""
+  },
+  "corpus-Leaf.json": {
+    "argv": [
+      "evm",
+      "--verbosity",
+      "0",
+      "run",
+      "--prestate",
+      "/Users/oobi/Documents/gpt1/assay-stage-f/evm/fixtures/cancun.json",
+      "--gas",
+      "16777216",
+      "--sender",
+      "0x000000000000000000000000000073656e646572",
+      "--receiver",
+      "0x0000000000000000000000007265636569766572",
+      "--code",
+      "602a5f5260205ff3",
+      "--json",
+      "--dump"
+    ],
+    "exit": 0,
+    "stdout": "{\"pc\":0,\"op\":96,\"gas\":\"0x1000000\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":2,\"op\":95,\"gas\":\"0xfffffd\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[\"0x2a\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":3,\"op\":82,\"gas\":\"0xfffffb\",\"gasCost\":\"0x6\",\"memSize\":0,\"stack\":[\"0x2a\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"MSTORE\"}\n{\"pc\":4,\"op\":96,\"gas\":\"0xfffff5\",\"gasCost\":\"0x3\",\"memSize\":32,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":6,\"op\":95,\"gas\":\"0xfffff2\",\"gasCost\":\"0x2\",\"memSize\":32,\"stack\":[\"0x20\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":7,\"op\":243,\"gas\":\"0xfffff0\",\"gasCost\":\"0x0\",\"memSize\":32,\"stack\":[\"0x20\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"RETURN\"}\n{\"output\":\"000000000000000000000000000000000000000000000000000000000000002a\",\"gasUsed\":\"0x10\"}\n{\n    \"root\": \"f79f67a2899f98119d128d71a975cb400b99257c0dca45725977597e4d8c48b3\",\n    \"accounts\": {\n        \"0x0000000000000000000000007265636569766572\": {\n            \"balance\": \"0\",\n            \"nonce\": 0,\n            \"root\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\",\n            \"codeHash\": \"0x30962a84ef989ca0f724a5b2ec94f9cbf6a731752ce2c0be5333bf96e460c9fd\",\n            \"code\": \"0x602a5f5260205ff3\",\n            \"address\": \"0x0000000000000000000000007265636569766572\",\n            \"key\": \"0x30d7a0694cb29af31b982480e11d7ebb003a3fca4026939149071f014689b142\"\n        }\n    }\n}\n",
+    "stderr": ""
+  },
+  "corpus-Let.json": {
+    "argv": [
+      "evm",
+      "--verbosity",
+      "0",
+      "run",
+      "--prestate",
+      "/Users/oobi/Documents/gpt1/assay-stage-f/evm/fixtures/cancun.json",
+      "--gas",
+      "16777216",
+      "--sender",
+      "0x000000000000000000000000000073656e646572",
+      "--receiver",
+      "0x0000000000000000000000007265636569766572",
+      "--code",
+      "602a5f5260205ff3",
+      "--json",
+      "--dump"
+    ],
+    "exit": 0,
+    "stdout": "{\"pc\":0,\"op\":96,\"gas\":\"0x1000000\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":2,\"op\":95,\"gas\":\"0xfffffd\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[\"0x2a\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":3,\"op\":82,\"gas\":\"0xfffffb\",\"gasCost\":\"0x6\",\"memSize\":0,\"stack\":[\"0x2a\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"MSTORE\"}\n{\"pc\":4,\"op\":96,\"gas\":\"0xfffff5\",\"gasCost\":\"0x3\",\"memSize\":32,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":6,\"op\":95,\"gas\":\"0xfffff2\",\"gasCost\":\"0x2\",\"memSize\":32,\"stack\":[\"0x20\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":7,\"op\":243,\"gas\":\"0xfffff0\",\"gasCost\":\"0x0\",\"memSize\":32,\"stack\":[\"0x20\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"RETURN\"}\n{\"output\":\"000000000000000000000000000000000000000000000000000000000000002a\",\"gasUsed\":\"0x10\"}\n{\n    \"root\": \"f79f67a2899f98119d128d71a975cb400b99257c0dca45725977597e4d8c48b3\",\n    \"accounts\": {\n        \"0x0000000000000000000000007265636569766572\": {\n            \"balance\": \"0\",\n            \"nonce\": 0,\n            \"root\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\",\n            \"codeHash\": \"0x30962a84ef989ca0f724a5b2ec94f9cbf6a731752ce2c0be5333bf96e460c9fd\",\n            \"code\": \"0x602a5f5260205ff3\",\n            \"address\": \"0x0000000000000000000000007265636569766572\",\n            \"key\": \"0x30d7a0694cb29af31b982480e11d7ebb003a3fca4026939149071f014689b142\"\n        }\n    }\n}\n",
+    "stderr": ""
+  },
+  "corpus-Maximum.json": {
+    "argv": [
+      "evm",
+      "--verbosity",
+      "0",
+      "run",
+      "--prestate",
+      "/Users/oobi/Documents/gpt1/assay-stage-f/evm/fixtures/cancun.json",
+      "--gas",
+      "16777216",
+      "--sender",
+      "0x000000000000000000000000000073656e646572",
+      "--receiver",
+      "0x0000000000000000000000007265636569766572",
+      "--code",
+      "7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff5f55602a56fefefefe5b5f545f5260205ff3",
+      "--json",
+      "--dump"
+    ],
+    "exit": 0,
+    "stdout": "{\"pc\":0,\"op\":127,\"gas\":\"0x1000000\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH32\"}\n{\"pc\":33,\"op\":95,\"gas\":\"0xfffffd\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[\"0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":34,\"op\":85,\"gas\":\"0xfffffb\",\"gasCost\":\"0x5654\",\"memSize\":0,\"stack\":[\"0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"SSTORE\"}\n{\"pc\":35,\"op\":96,\"gas\":\"0xffa9a7\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":37,\"op\":86,\"gas\":\"0xffa9a4\",\"gasCost\":\"0x8\",\"memSize\":0,\"stack\":[\"0x2a\"],\"depth\":1,\"refund\":0,\"opName\":\"JUMP\"}\n{\"pc\":42,\"op\":91,\"gas\":\"0xffa99c\",\"gasCost\":\"0x1\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"JUMPDEST\"}\n{\"pc\":43,\"op\":95,\"gas\":\"0xffa99b\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":44,\"op\":84,\"gas\":\"0xffa999\",\"gasCost\":\"0x64\",\"memSize\":0,\"stack\":[\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"SLOAD\"}\n{\"pc\":45,\"op\":95,\"gas\":\"0xffa935\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[\"0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":46,\"op\":82,\"gas\":\"0xffa933\",\"gasCost\":\"0x6\",\"memSize\":0,\"stack\":[\"0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"MSTORE\"}\n{\"pc\":47,\"op\":96,\"gas\":\"0xffa92d\",\"gasCost\":\"0x3\",\"memSize\":32,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":49,\"op\":95,\"gas\":\"0xffa92a\",\"gasCost\":\"0x2\",\"memSize\":32,\"stack\":[\"0x20\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":50,\"op\":243,\"gas\":\"0xffa928\",\"gasCost\":\"0x0\",\"memSize\":32,\"stack\":[\"0x20\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"RETURN\"}\n{\"output\":\"ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff\",\"gasUsed\":\"0x56d8\"}\n{\n    \"root\": \"a30ff8f330f22ca3eaeffd6798e4e8c5d9543be05eae746a7a6f6bdcab454690\",\n    \"accounts\": {\n        \"0x0000000000000000000000007265636569766572\": {\n            \"balance\": \"0\",\n            \"nonce\": 0,\n            \"root\": \"0xca6f0fbdeda818216f399c395dc814121e66bca0139cef25a2b81223c438c1f6\",\n            \"codeHash\": \"0x5e9430fda7ff8bd735b1e06faa83a0e3cfcc46a465d4db0285a87a5027ae959d\",\n            \"code\": \"0x7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff5f55602a56fefefefe5b5f545f5260205ff3\",\n            \"storage\": {\n                \"0x0000000000000000000000000000000000000000000000000000000000000000\": \"ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff\"\n            },\n            \"address\": \"0x0000000000000000000000007265636569766572\",\n            \"key\": \"0x30d7a0694cb29af31b982480e11d7ebb003a3fca4026939149071f014689b142\"\n        }\n    }\n}\n",
+    "stderr": ""
+  },
+  "corpus-Pair.json": {
+    "argv": [
+      "evm",
+      "--verbosity",
+      "0",
+      "run",
+      "--prestate",
+      "/Users/oobi/Documents/gpt1/assay-stage-f/evm/fixtures/cancun.json",
+      "--gas",
+      "16777216",
+      "--sender",
+      "0x000000000000000000000000000073656e646572",
+      "--receiver",
+      "0x0000000000000000000000007265636569766572",
+      "--code",
+      "60045f5260205ff3",
+      "--json",
+      "--dump"
+    ],
+    "exit": 0,
+    "stdout": "{\"pc\":0,\"op\":96,\"gas\":\"0x1000000\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":2,\"op\":95,\"gas\":\"0xfffffd\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[\"0x4\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":3,\"op\":82,\"gas\":\"0xfffffb\",\"gasCost\":\"0x6\",\"memSize\":0,\"stack\":[\"0x4\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"MSTORE\"}\n{\"pc\":4,\"op\":96,\"gas\":\"0xfffff5\",\"gasCost\":\"0x3\",\"memSize\":32,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":6,\"op\":95,\"gas\":\"0xfffff2\",\"gasCost\":\"0x2\",\"memSize\":32,\"stack\":[\"0x20\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":7,\"op\":243,\"gas\":\"0xfffff0\",\"gasCost\":\"0x0\",\"memSize\":32,\"stack\":[\"0x20\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"RETURN\"}\n{\"output\":\"0000000000000000000000000000000000000000000000000000000000000004\",\"gasUsed\":\"0x10\"}\n{\n    \"root\": \"6320e870ced9a5e4cdae03ac63e25096b76f0e3b6161a26cf859664f33ab4f43\",\n    \"accounts\": {\n        \"0x0000000000000000000000007265636569766572\": {\n            \"balance\": \"0\",\n            \"nonce\": 0,\n            \"root\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\",\n            \"codeHash\": \"0x0a5ffa9f932b3f0b7586f72e33f5d76f41f10b303de6e5aea77228c66b31a0b7\",\n            \"code\": \"0x60045f5260205ff3\",\n            \"address\": \"0x0000000000000000000000007265636569766572\",\n            \"key\": \"0x30d7a0694cb29af31b982480e11d7ebb003a3fca4026939149071f014689b142\"\n        }\n    }\n}\n",
+    "stderr": ""
+  },
+  "corpus-Ref20.json": {
+    "argv": [
+      "evm",
+      "--verbosity",
+      "0",
+      "run",
+      "--prestate",
+      "/Users/oobi/Documents/gpt1/assay-stage-f/evm/fixtures/cancun.json",
+      "--gas",
+      "16777216",
+      "--sender",
+      "0x000000000000000000000000000073656e646572",
+      "--receiver",
+      "0x0000000000000000000000007265636569766572",
+      "--code",
+      "602a5f55600b56fefefefe5b5f545f5260205ff3",
+      "--json",
+      "--dump"
+    ],
+    "exit": 0,
+    "stdout": "{\"pc\":0,\"op\":96,\"gas\":\"0x1000000\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":2,\"op\":95,\"gas\":\"0xfffffd\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[\"0x2a\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":3,\"op\":85,\"gas\":\"0xfffffb\",\"gasCost\":\"0x5654\",\"memSize\":0,\"stack\":[\"0x2a\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"SSTORE\"}\n{\"pc\":4,\"op\":96,\"gas\":\"0xffa9a7\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":6,\"op\":86,\"gas\":\"0xffa9a4\",\"gasCost\":\"0x8\",\"memSize\":0,\"stack\":[\"0xb\"],\"depth\":1,\"refund\":0,\"opName\":\"JUMP\"}\n{\"pc\":11,\"op\":91,\"gas\":\"0xffa99c\",\"gasCost\":\"0x1\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"JUMPDEST\"}\n{\"pc\":12,\"op\":95,\"gas\":\"0xffa99b\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":13,\"op\":84,\"gas\":\"0xffa999\",\"gasCost\":\"0x64\",\"memSize\":0,\"stack\":[\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"SLOAD\"}\n{\"pc\":14,\"op\":95,\"gas\":\"0xffa935\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[\"0x2a\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":15,\"op\":82,\"gas\":\"0xffa933\",\"gasCost\":\"0x6\",\"memSize\":0,\"stack\":[\"0x2a\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"MSTORE\"}\n{\"pc\":16,\"op\":96,\"gas\":\"0xffa92d\",\"gasCost\":\"0x3\",\"memSize\":32,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":18,\"op\":95,\"gas\":\"0xffa92a\",\"gasCost\":\"0x2\",\"memSize\":32,\"stack\":[\"0x20\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":19,\"op\":243,\"gas\":\"0xffa928\",\"gasCost\":\"0x0\",\"memSize\":32,\"stack\":[\"0x20\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"RETURN\"}\n{\"output\":\"000000000000000000000000000000000000000000000000000000000000002a\",\"gasUsed\":\"0x56d8\"}\n{\n    \"root\": \"0abe467c85a5dbac429cd5d2becbe405d4d77533412a5bebeee8391de2da5523\",\n    \"accounts\": {\n        \"0x0000000000000000000000007265636569766572\": {\n            \"balance\": \"0\",\n            \"nonce\": 0,\n            \"root\": \"0x81d1fa699f807735499cf6f7df860797cf66f6a66b565cfcda3fae3521eb6861\",\n            \"codeHash\": \"0x755b9e03b3191b071ebb78b7ebae672c2db6c3b52febaf13955e337d95b5f2ef\",\n            \"code\": \"0x602a5f55600b56fefefefe5b5f545f5260205ff3\",\n            \"storage\": {\n                \"0x0000000000000000000000000000000000000000000000000000000000000000\": \"2a\"\n            },\n            \"address\": \"0x0000000000000000000000007265636569766572\",\n            \"key\": \"0x30d7a0694cb29af31b982480e11d7ebb003a3fca4026939149071f014689b142\"\n        }\n    }\n}\n",
+    "stderr": ""
+  },
+  "corpus-Return.json": {
+    "argv": [
+      "evm",
+      "--verbosity",
+      "0",
+      "run",
+      "--prestate",
+      "/Users/oobi/Documents/gpt1/assay-stage-f/evm/fixtures/cancun.json",
+      "--gas",
+      "16777216",
+      "--sender",
+      "0x000000000000000000000000000073656e646572",
+      "--receiver",
+      "0x0000000000000000000000007265636569766572",
+      "--code",
+      "60255f5260205ff3",
+      "--json",
+      "--dump"
+    ],
+    "exit": 0,
+    "stdout": "{\"pc\":0,\"op\":96,\"gas\":\"0x1000000\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":2,\"op\":95,\"gas\":\"0xfffffd\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[\"0x25\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":3,\"op\":82,\"gas\":\"0xfffffb\",\"gasCost\":\"0x6\",\"memSize\":0,\"stack\":[\"0x25\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"MSTORE\"}\n{\"pc\":4,\"op\":96,\"gas\":\"0xfffff5\",\"gasCost\":\"0x3\",\"memSize\":32,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":6,\"op\":95,\"gas\":\"0xfffff2\",\"gasCost\":\"0x2\",\"memSize\":32,\"stack\":[\"0x20\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":7,\"op\":243,\"gas\":\"0xfffff0\",\"gasCost\":\"0x0\",\"memSize\":32,\"stack\":[\"0x20\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"RETURN\"}\n{\"output\":\"0000000000000000000000000000000000000000000000000000000000000025\",\"gasUsed\":\"0x10\"}\n{\n    \"root\": \"a00addba9401cb930bf15e8e20b447aa50440cd60b5ad3243910df958bd89755\",\n    \"accounts\": {\n        \"0x0000000000000000000000007265636569766572\": {\n            \"balance\": \"0\",\n            \"nonce\": 0,\n            \"root\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\",\n            \"codeHash\": \"0x9a5977870f1ac86e74bc301c2ce6f8c137245ca7295b03332d6d0f0cd4a4b108\",\n            \"code\": \"0x60255f5260205ff3\",\n            \"address\": \"0x0000000000000000000000007265636569766572\",\n            \"key\": \"0x30d7a0694cb29af31b982480e11d7ebb003a3fca4026939149071f014689b142\"\n        }\n    }\n}\n",
+    "stderr": ""
+  },
+  "corpus-TwoSlots.json": {
+    "argv": [
+      "evm",
+      "--verbosity",
+      "0",
+      "run",
+      "--prestate",
+      "/Users/oobi/Documents/gpt1/assay-stage-f/evm/fixtures/cancun.json",
+      "--gas",
+      "16777216",
+      "--sender",
+      "0x000000000000000000000000000073656e646572",
+      "--receiver",
+      "0x0000000000000000000000007265636569766572",
+      "--code",
+      "600b5f55600b56fefefefe5b6016600155601856fefefefe5b6001545f5260205ff3",
+      "--json",
+      "--dump"
+    ],
+    "exit": 0,
+    "stdout": "{\"pc\":0,\"op\":96,\"gas\":\"0x1000000\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":2,\"op\":95,\"gas\":\"0xfffffd\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[\"0xb\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":3,\"op\":85,\"gas\":\"0xfffffb\",\"gasCost\":\"0x5654\",\"memSize\":0,\"stack\":[\"0xb\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"SSTORE\"}\n{\"pc\":4,\"op\":96,\"gas\":\"0xffa9a7\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":6,\"op\":86,\"gas\":\"0xffa9a4\",\"gasCost\":\"0x8\",\"memSize\":0,\"stack\":[\"0xb\"],\"depth\":1,\"refund\":0,\"opName\":\"JUMP\"}\n{\"pc\":11,\"op\":91,\"gas\":\"0xffa99c\",\"gasCost\":\"0x1\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"JUMPDEST\"}\n{\"pc\":12,\"op\":96,\"gas\":\"0xffa99b\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":14,\"op\":96,\"gas\":\"0xffa998\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[\"0x16\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":16,\"op\":85,\"gas\":\"0xffa995\",\"gasCost\":\"0x5654\",\"memSize\":0,\"stack\":[\"0x16\",\"0x1\"],\"depth\":1,\"refund\":0,\"opName\":\"SSTORE\"}\n{\"pc\":17,\"op\":96,\"gas\":\"0xff5341\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":19,\"op\":86,\"gas\":\"0xff533e\",\"gasCost\":\"0x8\",\"memSize\":0,\"stack\":[\"0x18\"],\"depth\":1,\"refund\":0,\"opName\":\"JUMP\"}\n{\"pc\":24,\"op\":91,\"gas\":\"0xff5336\",\"gasCost\":\"0x1\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"JUMPDEST\"}\n{\"pc\":25,\"op\":96,\"gas\":\"0xff5335\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":27,\"op\":84,\"gas\":\"0xff5332\",\"gasCost\":\"0x64\",\"memSize\":0,\"stack\":[\"0x1\"],\"depth\":1,\"refund\":0,\"opName\":\"SLOAD\"}\n{\"pc\":28,\"op\":95,\"gas\":\"0xff52ce\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[\"0x16\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":29,\"op\":82,\"gas\":\"0xff52cc\",\"gasCost\":\"0x6\",\"memSize\":0,\"stack\":[\"0x16\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"MSTORE\"}\n{\"pc\":30,\"op\":96,\"gas\":\"0xff52c6\",\"gasCost\":\"0x3\",\"memSize\":32,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":32,\"op\":95,\"gas\":\"0xff52c3\",\"gasCost\":\"0x2\",\"memSize\":32,\"stack\":[\"0x20\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":33,\"op\":243,\"gas\":\"0xff52c1\",\"gasCost\":\"0x0\",\"memSize\":32,\"stack\":[\"0x20\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"RETURN\"}\n{\"output\":\"0000000000000000000000000000000000000000000000000000000000000016\",\"gasUsed\":\"0xad3f\"}\n{\n    \"root\": \"76b7d8ce00145d43fc82964f2f92cc7f41f8e7386588299f7d8677a86b64696d\",\n    \"accounts\": {\n        \"0x0000000000000000000000007265636569766572\": {\n            \"balance\": \"0\",\n            \"nonce\": 0,\n            \"root\": \"0x064d66f909ac854686e8244f15e4a49575329d816e063bbaa6d50987be03b531\",\n            \"codeHash\": \"0x584a1976d95ccb4265eb82264b985cc9be3e99c518b6caaee8f3bebdfb8121f8\",\n            \"code\": \"0x600b5f55600b56fefefefe5b6016600155601856fefefefe5b6001545f5260205ff3\",\n            \"storage\": {\n                \"0x0000000000000000000000000000000000000000000000000000000000000000\": \"0b\",\n                \"0x0000000000000000000000000000000000000000000000000000000000000001\": \"16\"\n            },\n            \"address\": \"0x0000000000000000000000007265636569766572\",\n            \"key\": \"0x30d7a0694cb29af31b982480e11d7ebb003a3fca4026939149071f014689b142\"\n        }\n    }\n}\n",
+    "stderr": ""
+  },
+  "corpus-WideLabel.json": {
+    "argv": [
+      "evm",
+      "--verbosity",
+      "0",
+      "run",
+      "--prestate",
+      "/Users/oobi/Documents/gpt1/assay-stage-f/evm/fixtures/cancun.json",
+      "--gas",
+      "16777216",
+      "--sender",
+      "0x000000000000000000000000000073656e646572",
+      "--receiver",
+      "0x0000000000000000000000007265636569766572",
+      "--code",
+      "60015f5561000c56fefefefe5b60015f5561001956fefefefe5b60015f5561002656fefefefe5b60015f5561003356fefefefe5b60015f5561004056fefefefe5b60015f5561004d56fefefefe5b60015f5561005a56fefefefe5b60015f5561006756fefefefe5b60015f5561007456fefefefe5b60015f5561008156fefefefe5b60015f5561008e56fefefefe5b60015f5561009b56fefefefe5b60015f556100a856fefefefe5b60015f556100b556fefefefe5b60015f556100c256fefefefe5b60015f556100cf56fefefefe5b60015f556100dc56fefefefe5b60015f556100e956fefefefe5b60015f556100f656fefefefe5b60015f5561010356fefefefe5b60015f5561011056fefefefe5b60015f5561011d56fefefefe5b60015f5561012a56fefefefe5b60015f5561013756fefefefe5b60015f5561014456fefefefe5b60015f5561015156fefefefe5b60015f5561015e56fefefefe5b60015f5561016b56fefefefe5b60015f5561017856fefefefe5b60015f5561018556fefefefe5b5f545f5260205ff3",
+      "--json",
+      "--dump"
+    ],
+    "exit": 0,
+    "stdout": "{\"pc\":0,\"op\":96,\"gas\":\"0x1000000\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":2,\"op\":95,\"gas\":\"0xfffffd\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[\"0x1\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":3,\"op\":85,\"gas\":\"0xfffffb\",\"gasCost\":\"0x5654\",\"memSize\":0,\"stack\":[\"0x1\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"SSTORE\"}\n{\"pc\":4,\"op\":97,\"gas\":\"0xffa9a7\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH2\"}\n{\"pc\":7,\"op\":86,\"gas\":\"0xffa9a4\",\"gasCost\":\"0x8\",\"memSize\":0,\"stack\":[\"0xc\"],\"depth\":1,\"refund\":0,\"opName\":\"JUMP\"}\n{\"pc\":12,\"op\":91,\"gas\":\"0xffa99c\",\"gasCost\":\"0x1\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"JUMPDEST\"}\n{\"pc\":13,\"op\":96,\"gas\":\"0xffa99b\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":15,\"op\":95,\"gas\":\"0xffa998\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[\"0x1\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":16,\"op\":85,\"gas\":\"0xffa996\",\"gasCost\":\"0x64\",\"memSize\":0,\"stack\":[\"0x1\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"SSTORE\"}\n{\"pc\":17,\"op\":97,\"gas\":\"0xffa932\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH2\"}\n{\"pc\":20,\"op\":86,\"gas\":\"0xffa92f\",\"gasCost\":\"0x8\",\"memSize\":0,\"stack\":[\"0x19\"],\"depth\":1,\"refund\":0,\"opName\":\"JUMP\"}\n{\"pc\":25,\"op\":91,\"gas\":\"0xffa927\",\"gasCost\":\"0x1\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"JUMPDEST\"}\n{\"pc\":26,\"op\":96,\"gas\":\"0xffa926\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":28,\"op\":95,\"gas\":\"0xffa923\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[\"0x1\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":29,\"op\":85,\"gas\":\"0xffa921\",\"gasCost\":\"0x64\",\"memSize\":0,\"stack\":[\"0x1\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"SSTORE\"}\n{\"pc\":30,\"op\":97,\"gas\":\"0xffa8bd\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH2\"}\n{\"pc\":33,\"op\":86,\"gas\":\"0xffa8ba\",\"gasCost\":\"0x8\",\"memSize\":0,\"stack\":[\"0x26\"],\"depth\":1,\"refund\":0,\"opName\":\"JUMP\"}\n{\"pc\":38,\"op\":91,\"gas\":\"0xffa8b2\",\"gasCost\":\"0x1\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"JUMPDEST\"}\n{\"pc\":39,\"op\":96,\"gas\":\"0xffa8b1\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":41,\"op\":95,\"gas\":\"0xffa8ae\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[\"0x1\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":42,\"op\":85,\"gas\":\"0xffa8ac\",\"gasCost\":\"0x64\",\"memSize\":0,\"stack\":[\"0x1\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"SSTORE\"}\n{\"pc\":43,\"op\":97,\"gas\":\"0xffa848\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH2\"}\n{\"pc\":46,\"op\":86,\"gas\":\"0xffa845\",\"gasCost\":\"0x8\",\"memSize\":0,\"stack\":[\"0x33\"],\"depth\":1,\"refund\":0,\"opName\":\"JUMP\"}\n{\"pc\":51,\"op\":91,\"gas\":\"0xffa83d\",\"gasCost\":\"0x1\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"JUMPDEST\"}\n{\"pc\":52,\"op\":96,\"gas\":\"0xffa83c\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":54,\"op\":95,\"gas\":\"0xffa839\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[\"0x1\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":55,\"op\":85,\"gas\":\"0xffa837\",\"gasCost\":\"0x64\",\"memSize\":0,\"stack\":[\"0x1\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"SSTORE\"}\n{\"pc\":56,\"op\":97,\"gas\":\"0xffa7d3\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH2\"}\n{\"pc\":59,\"op\":86,\"gas\":\"0xffa7d0\",\"gasCost\":\"0x8\",\"memSize\":0,\"stack\":[\"0x40\"],\"depth\":1,\"refund\":0,\"opName\":\"JUMP\"}\n{\"pc\":64,\"op\":91,\"gas\":\"0xffa7c8\",\"gasCost\":\"0x1\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"JUMPDEST\"}\n{\"pc\":65,\"op\":96,\"gas\":\"0xffa7c7\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":67,\"op\":95,\"gas\":\"0xffa7c4\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[\"0x1\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":68,\"op\":85,\"gas\":\"0xffa7c2\",\"gasCost\":\"0x64\",\"memSize\":0,\"stack\":[\"0x1\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"SSTORE\"}\n{\"pc\":69,\"op\":97,\"gas\":\"0xffa75e\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH2\"}\n{\"pc\":72,\"op\":86,\"gas\":\"0xffa75b\",\"gasCost\":\"0x8\",\"memSize\":0,\"stack\":[\"0x4d\"],\"depth\":1,\"refund\":0,\"opName\":\"JUMP\"}\n{\"pc\":77,\"op\":91,\"gas\":\"0xffa753\",\"gasCost\":\"0x1\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"JUMPDEST\"}\n{\"pc\":78,\"op\":96,\"gas\":\"0xffa752\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":80,\"op\":95,\"gas\":\"0xffa74f\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[\"0x1\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":81,\"op\":85,\"gas\":\"0xffa74d\",\"gasCost\":\"0x64\",\"memSize\":0,\"stack\":[\"0x1\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"SSTORE\"}\n{\"pc\":82,\"op\":97,\"gas\":\"0xffa6e9\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH2\"}\n{\"pc\":85,\"op\":86,\"gas\":\"0xffa6e6\",\"gasCost\":\"0x8\",\"memSize\":0,\"stack\":[\"0x5a\"],\"depth\":1,\"refund\":0,\"opName\":\"JUMP\"}\n{\"pc\":90,\"op\":91,\"gas\":\"0xffa6de\",\"gasCost\":\"0x1\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"JUMPDEST\"}\n{\"pc\":91,\"op\":96,\"gas\":\"0xffa6dd\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":93,\"op\":95,\"gas\":\"0xffa6da\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[\"0x1\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":94,\"op\":85,\"gas\":\"0xffa6d8\",\"gasCost\":\"0x64\",\"memSize\":0,\"stack\":[\"0x1\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"SSTORE\"}\n{\"pc\":95,\"op\":97,\"gas\":\"0xffa674\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH2\"}\n{\"pc\":98,\"op\":86,\"gas\":\"0xffa671\",\"gasCost\":\"0x8\",\"memSize\":0,\"stack\":[\"0x67\"],\"depth\":1,\"refund\":0,\"opName\":\"JUMP\"}\n{\"pc\":103,\"op\":91,\"gas\":\"0xffa669\",\"gasCost\":\"0x1\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"JUMPDEST\"}\n{\"pc\":104,\"op\":96,\"gas\":\"0xffa668\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":106,\"op\":95,\"gas\":\"0xffa665\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[\"0x1\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":107,\"op\":85,\"gas\":\"0xffa663\",\"gasCost\":\"0x64\",\"memSize\":0,\"stack\":[\"0x1\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"SSTORE\"}\n{\"pc\":108,\"op\":97,\"gas\":\"0xffa5ff\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH2\"}\n{\"pc\":111,\"op\":86,\"gas\":\"0xffa5fc\",\"gasCost\":\"0x8\",\"memSize\":0,\"stack\":[\"0x74\"],\"depth\":1,\"refund\":0,\"opName\":\"JUMP\"}\n{\"pc\":116,\"op\":91,\"gas\":\"0xffa5f4\",\"gasCost\":\"0x1\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"JUMPDEST\"}\n{\"pc\":117,\"op\":96,\"gas\":\"0xffa5f3\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":119,\"op\":95,\"gas\":\"0xffa5f0\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[\"0x1\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":120,\"op\":85,\"gas\":\"0xffa5ee\",\"gasCost\":\"0x64\",\"memSize\":0,\"stack\":[\"0x1\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"SSTORE\"}\n{\"pc\":121,\"op\":97,\"gas\":\"0xffa58a\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH2\"}\n{\"pc\":124,\"op\":86,\"gas\":\"0xffa587\",\"gasCost\":\"0x8\",\"memSize\":0,\"stack\":[\"0x81\"],\"depth\":1,\"refund\":0,\"opName\":\"JUMP\"}\n{\"pc\":129,\"op\":91,\"gas\":\"0xffa57f\",\"gasCost\":\"0x1\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"JUMPDEST\"}\n{\"pc\":130,\"op\":96,\"gas\":\"0xffa57e\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":132,\"op\":95,\"gas\":\"0xffa57b\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[\"0x1\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":133,\"op\":85,\"gas\":\"0xffa579\",\"gasCost\":\"0x64\",\"memSize\":0,\"stack\":[\"0x1\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"SSTORE\"}\n{\"pc\":134,\"op\":97,\"gas\":\"0xffa515\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH2\"}\n{\"pc\":137,\"op\":86,\"gas\":\"0xffa512\",\"gasCost\":\"0x8\",\"memSize\":0,\"stack\":[\"0x8e\"],\"depth\":1,\"refund\":0,\"opName\":\"JUMP\"}\n{\"pc\":142,\"op\":91,\"gas\":\"0xffa50a\",\"gasCost\":\"0x1\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"JUMPDEST\"}\n{\"pc\":143,\"op\":96,\"gas\":\"0xffa509\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":145,\"op\":95,\"gas\":\"0xffa506\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[\"0x1\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":146,\"op\":85,\"gas\":\"0xffa504\",\"gasCost\":\"0x64\",\"memSize\":0,\"stack\":[\"0x1\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"SSTORE\"}\n{\"pc\":147,\"op\":97,\"gas\":\"0xffa4a0\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH2\"}\n{\"pc\":150,\"op\":86,\"gas\":\"0xffa49d\",\"gasCost\":\"0x8\",\"memSize\":0,\"stack\":[\"0x9b\"],\"depth\":1,\"refund\":0,\"opName\":\"JUMP\"}\n{\"pc\":155,\"op\":91,\"gas\":\"0xffa495\",\"gasCost\":\"0x1\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"JUMPDEST\"}\n{\"pc\":156,\"op\":96,\"gas\":\"0xffa494\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":158,\"op\":95,\"gas\":\"0xffa491\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[\"0x1\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":159,\"op\":85,\"gas\":\"0xffa48f\",\"gasCost\":\"0x64\",\"memSize\":0,\"stack\":[\"0x1\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"SSTORE\"}\n{\"pc\":160,\"op\":97,\"gas\":\"0xffa42b\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH2\"}\n{\"pc\":163,\"op\":86,\"gas\":\"0xffa428\",\"gasCost\":\"0x8\",\"memSize\":0,\"stack\":[\"0xa8\"],\"depth\":1,\"refund\":0,\"opName\":\"JUMP\"}\n{\"pc\":168,\"op\":91,\"gas\":\"0xffa420\",\"gasCost\":\"0x1\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"JUMPDEST\"}\n{\"pc\":169,\"op\":96,\"gas\":\"0xffa41f\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":171,\"op\":95,\"gas\":\"0xffa41c\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[\"0x1\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":172,\"op\":85,\"gas\":\"0xffa41a\",\"gasCost\":\"0x64\",\"memSize\":0,\"stack\":[\"0x1\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"SSTORE\"}\n{\"pc\":173,\"op\":97,\"gas\":\"0xffa3b6\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH2\"}\n{\"pc\":176,\"op\":86,\"gas\":\"0xffa3b3\",\"gasCost\":\"0x8\",\"memSize\":0,\"stack\":[\"0xb5\"],\"depth\":1,\"refund\":0,\"opName\":\"JUMP\"}\n{\"pc\":181,\"op\":91,\"gas\":\"0xffa3ab\",\"gasCost\":\"0x1\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"JUMPDEST\"}\n{\"pc\":182,\"op\":96,\"gas\":\"0xffa3aa\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":184,\"op\":95,\"gas\":\"0xffa3a7\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[\"0x1\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":185,\"op\":85,\"gas\":\"0xffa3a5\",\"gasCost\":\"0x64\",\"memSize\":0,\"stack\":[\"0x1\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"SSTORE\"}\n{\"pc\":186,\"op\":97,\"gas\":\"0xffa341\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH2\"}\n{\"pc\":189,\"op\":86,\"gas\":\"0xffa33e\",\"gasCost\":\"0x8\",\"memSize\":0,\"stack\":[\"0xc2\"],\"depth\":1,\"refund\":0,\"opName\":\"JUMP\"}\n{\"pc\":194,\"op\":91,\"gas\":\"0xffa336\",\"gasCost\":\"0x1\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"JUMPDEST\"}\n{\"pc\":195,\"op\":96,\"gas\":\"0xffa335\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":197,\"op\":95,\"gas\":\"0xffa332\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[\"0x1\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":198,\"op\":85,\"gas\":\"0xffa330\",\"gasCost\":\"0x64\",\"memSize\":0,\"stack\":[\"0x1\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"SSTORE\"}\n{\"pc\":199,\"op\":97,\"gas\":\"0xffa2cc\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH2\"}\n{\"pc\":202,\"op\":86,\"gas\":\"0xffa2c9\",\"gasCost\":\"0x8\",\"memSize\":0,\"stack\":[\"0xcf\"],\"depth\":1,\"refund\":0,\"opName\":\"JUMP\"}\n{\"pc\":207,\"op\":91,\"gas\":\"0xffa2c1\",\"gasCost\":\"0x1\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"JUMPDEST\"}\n{\"pc\":208,\"op\":96,\"gas\":\"0xffa2c0\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":210,\"op\":95,\"gas\":\"0xffa2bd\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[\"0x1\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":211,\"op\":85,\"gas\":\"0xffa2bb\",\"gasCost\":\"0x64\",\"memSize\":0,\"stack\":[\"0x1\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"SSTORE\"}\n{\"pc\":212,\"op\":97,\"gas\":\"0xffa257\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH2\"}\n{\"pc\":215,\"op\":86,\"gas\":\"0xffa254\",\"gasCost\":\"0x8\",\"memSize\":0,\"stack\":[\"0xdc\"],\"depth\":1,\"refund\":0,\"opName\":\"JUMP\"}\n{\"pc\":220,\"op\":91,\"gas\":\"0xffa24c\",\"gasCost\":\"0x1\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"JUMPDEST\"}\n{\"pc\":221,\"op\":96,\"gas\":\"0xffa24b\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":223,\"op\":95,\"gas\":\"0xffa248\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[\"0x1\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":224,\"op\":85,\"gas\":\"0xffa246\",\"gasCost\":\"0x64\",\"memSize\":0,\"stack\":[\"0x1\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"SSTORE\"}\n{\"pc\":225,\"op\":97,\"gas\":\"0xffa1e2\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH2\"}\n{\"pc\":228,\"op\":86,\"gas\":\"0xffa1df\",\"gasCost\":\"0x8\",\"memSize\":0,\"stack\":[\"0xe9\"],\"depth\":1,\"refund\":0,\"opName\":\"JUMP\"}\n{\"pc\":233,\"op\":91,\"gas\":\"0xffa1d7\",\"gasCost\":\"0x1\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"JUMPDEST\"}\n{\"pc\":234,\"op\":96,\"gas\":\"0xffa1d6\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":236,\"op\":95,\"gas\":\"0xffa1d3\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[\"0x1\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":237,\"op\":85,\"gas\":\"0xffa1d1\",\"gasCost\":\"0x64\",\"memSize\":0,\"stack\":[\"0x1\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"SSTORE\"}\n{\"pc\":238,\"op\":97,\"gas\":\"0xffa16d\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH2\"}\n{\"pc\":241,\"op\":86,\"gas\":\"0xffa16a\",\"gasCost\":\"0x8\",\"memSize\":0,\"stack\":[\"0xf6\"],\"depth\":1,\"refund\":0,\"opName\":\"JUMP\"}\n{\"pc\":246,\"op\":91,\"gas\":\"0xffa162\",\"gasCost\":\"0x1\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"JUMPDEST\"}\n{\"pc\":247,\"op\":96,\"gas\":\"0xffa161\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":249,\"op\":95,\"gas\":\"0xffa15e\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[\"0x1\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":250,\"op\":85,\"gas\":\"0xffa15c\",\"gasCost\":\"0x64\",\"memSize\":0,\"stack\":[\"0x1\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"SSTORE\"}\n{\"pc\":251,\"op\":97,\"gas\":\"0xffa0f8\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH2\"}\n{\"pc\":254,\"op\":86,\"gas\":\"0xffa0f5\",\"gasCost\":\"0x8\",\"memSize\":0,\"stack\":[\"0x103\"],\"depth\":1,\"refund\":0,\"opName\":\"JUMP\"}\n{\"pc\":259,\"op\":91,\"gas\":\"0xffa0ed\",\"gasCost\":\"0x1\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"JUMPDEST\"}\n{\"pc\":260,\"op\":96,\"gas\":\"0xffa0ec\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":262,\"op\":95,\"gas\":\"0xffa0e9\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[\"0x1\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":263,\"op\":85,\"gas\":\"0xffa0e7\",\"gasCost\":\"0x64\",\"memSize\":0,\"stack\":[\"0x1\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"SSTORE\"}\n{\"pc\":264,\"op\":97,\"gas\":\"0xffa083\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH2\"}\n{\"pc\":267,\"op\":86,\"gas\":\"0xffa080\",\"gasCost\":\"0x8\",\"memSize\":0,\"stack\":[\"0x110\"],\"depth\":1,\"refund\":0,\"opName\":\"JUMP\"}\n{\"pc\":272,\"op\":91,\"gas\":\"0xffa078\",\"gasCost\":\"0x1\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"JUMPDEST\"}\n{\"pc\":273,\"op\":96,\"gas\":\"0xffa077\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":275,\"op\":95,\"gas\":\"0xffa074\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[\"0x1\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":276,\"op\":85,\"gas\":\"0xffa072\",\"gasCost\":\"0x64\",\"memSize\":0,\"stack\":[\"0x1\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"SSTORE\"}\n{\"pc\":277,\"op\":97,\"gas\":\"0xffa00e\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH2\"}\n{\"pc\":280,\"op\":86,\"gas\":\"0xffa00b\",\"gasCost\":\"0x8\",\"memSize\":0,\"stack\":[\"0x11d\"],\"depth\":1,\"refund\":0,\"opName\":\"JUMP\"}\n{\"pc\":285,\"op\":91,\"gas\":\"0xffa003\",\"gasCost\":\"0x1\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"JUMPDEST\"}\n{\"pc\":286,\"op\":96,\"gas\":\"0xffa002\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":288,\"op\":95,\"gas\":\"0xff9fff\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[\"0x1\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":289,\"op\":85,\"gas\":\"0xff9ffd\",\"gasCost\":\"0x64\",\"memSize\":0,\"stack\":[\"0x1\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"SSTORE\"}\n{\"pc\":290,\"op\":97,\"gas\":\"0xff9f99\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH2\"}\n{\"pc\":293,\"op\":86,\"gas\":\"0xff9f96\",\"gasCost\":\"0x8\",\"memSize\":0,\"stack\":[\"0x12a\"],\"depth\":1,\"refund\":0,\"opName\":\"JUMP\"}\n{\"pc\":298,\"op\":91,\"gas\":\"0xff9f8e\",\"gasCost\":\"0x1\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"JUMPDEST\"}\n{\"pc\":299,\"op\":96,\"gas\":\"0xff9f8d\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":301,\"op\":95,\"gas\":\"0xff9f8a\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[\"0x1\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":302,\"op\":85,\"gas\":\"0xff9f88\",\"gasCost\":\"0x64\",\"memSize\":0,\"stack\":[\"0x1\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"SSTORE\"}\n{\"pc\":303,\"op\":97,\"gas\":\"0xff9f24\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH2\"}\n{\"pc\":306,\"op\":86,\"gas\":\"0xff9f21\",\"gasCost\":\"0x8\",\"memSize\":0,\"stack\":[\"0x137\"],\"depth\":1,\"refund\":0,\"opName\":\"JUMP\"}\n{\"pc\":311,\"op\":91,\"gas\":\"0xff9f19\",\"gasCost\":\"0x1\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"JUMPDEST\"}\n{\"pc\":312,\"op\":96,\"gas\":\"0xff9f18\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":314,\"op\":95,\"gas\":\"0xff9f15\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[\"0x1\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":315,\"op\":85,\"gas\":\"0xff9f13\",\"gasCost\":\"0x64\",\"memSize\":0,\"stack\":[\"0x1\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"SSTORE\"}\n{\"pc\":316,\"op\":97,\"gas\":\"0xff9eaf\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH2\"}\n{\"pc\":319,\"op\":86,\"gas\":\"0xff9eac\",\"gasCost\":\"0x8\",\"memSize\":0,\"stack\":[\"0x144\"],\"depth\":1,\"refund\":0,\"opName\":\"JUMP\"}\n{\"pc\":324,\"op\":91,\"gas\":\"0xff9ea4\",\"gasCost\":\"0x1\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"JUMPDEST\"}\n{\"pc\":325,\"op\":96,\"gas\":\"0xff9ea3\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":327,\"op\":95,\"gas\":\"0xff9ea0\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[\"0x1\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":328,\"op\":85,\"gas\":\"0xff9e9e\",\"gasCost\":\"0x64\",\"memSize\":0,\"stack\":[\"0x1\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"SSTORE\"}\n{\"pc\":329,\"op\":97,\"gas\":\"0xff9e3a\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH2\"}\n{\"pc\":332,\"op\":86,\"gas\":\"0xff9e37\",\"gasCost\":\"0x8\",\"memSize\":0,\"stack\":[\"0x151\"],\"depth\":1,\"refund\":0,\"opName\":\"JUMP\"}\n{\"pc\":337,\"op\":91,\"gas\":\"0xff9e2f\",\"gasCost\":\"0x1\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"JUMPDEST\"}\n{\"pc\":338,\"op\":96,\"gas\":\"0xff9e2e\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":340,\"op\":95,\"gas\":\"0xff9e2b\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[\"0x1\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":341,\"op\":85,\"gas\":\"0xff9e29\",\"gasCost\":\"0x64\",\"memSize\":0,\"stack\":[\"0x1\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"SSTORE\"}\n{\"pc\":342,\"op\":97,\"gas\":\"0xff9dc5\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH2\"}\n{\"pc\":345,\"op\":86,\"gas\":\"0xff9dc2\",\"gasCost\":\"0x8\",\"memSize\":0,\"stack\":[\"0x15e\"],\"depth\":1,\"refund\":0,\"opName\":\"JUMP\"}\n{\"pc\":350,\"op\":91,\"gas\":\"0xff9dba\",\"gasCost\":\"0x1\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"JUMPDEST\"}\n{\"pc\":351,\"op\":96,\"gas\":\"0xff9db9\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":353,\"op\":95,\"gas\":\"0xff9db6\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[\"0x1\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":354,\"op\":85,\"gas\":\"0xff9db4\",\"gasCost\":\"0x64\",\"memSize\":0,\"stack\":[\"0x1\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"SSTORE\"}\n{\"pc\":355,\"op\":97,\"gas\":\"0xff9d50\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH2\"}\n{\"pc\":358,\"op\":86,\"gas\":\"0xff9d4d\",\"gasCost\":\"0x8\",\"memSize\":0,\"stack\":[\"0x16b\"],\"depth\":1,\"refund\":0,\"opName\":\"JUMP\"}\n{\"pc\":363,\"op\":91,\"gas\":\"0xff9d45\",\"gasCost\":\"0x1\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"JUMPDEST\"}\n{\"pc\":364,\"op\":96,\"gas\":\"0xff9d44\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":366,\"op\":95,\"gas\":\"0xff9d41\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[\"0x1\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":367,\"op\":85,\"gas\":\"0xff9d3f\",\"gasCost\":\"0x64\",\"memSize\":0,\"stack\":[\"0x1\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"SSTORE\"}\n{\"pc\":368,\"op\":97,\"gas\":\"0xff9cdb\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH2\"}\n{\"pc\":371,\"op\":86,\"gas\":\"0xff9cd8\",\"gasCost\":\"0x8\",\"memSize\":0,\"stack\":[\"0x178\"],\"depth\":1,\"refund\":0,\"opName\":\"JUMP\"}\n{\"pc\":376,\"op\":91,\"gas\":\"0xff9cd0\",\"gasCost\":\"0x1\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"JUMPDEST\"}\n{\"pc\":377,\"op\":96,\"gas\":\"0xff9ccf\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":379,\"op\":95,\"gas\":\"0xff9ccc\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[\"0x1\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":380,\"op\":85,\"gas\":\"0xff9cca\",\"gasCost\":\"0x64\",\"memSize\":0,\"stack\":[\"0x1\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"SSTORE\"}\n{\"pc\":381,\"op\":97,\"gas\":\"0xff9c66\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH2\"}\n{\"pc\":384,\"op\":86,\"gas\":\"0xff9c63\",\"gasCost\":\"0x8\",\"memSize\":0,\"stack\":[\"0x185\"],\"depth\":1,\"refund\":0,\"opName\":\"JUMP\"}\n{\"pc\":389,\"op\":91,\"gas\":\"0xff9c5b\",\"gasCost\":\"0x1\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"JUMPDEST\"}\n{\"pc\":390,\"op\":95,\"gas\":\"0xff9c5a\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":391,\"op\":84,\"gas\":\"0xff9c58\",\"gasCost\":\"0x64\",\"memSize\":0,\"stack\":[\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"SLOAD\"}\n{\"pc\":392,\"op\":95,\"gas\":\"0xff9bf4\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[\"0x1\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":393,\"op\":82,\"gas\":\"0xff9bf2\",\"gasCost\":\"0x6\",\"memSize\":0,\"stack\":[\"0x1\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"MSTORE\"}\n{\"pc\":394,\"op\":96,\"gas\":\"0xff9bec\",\"gasCost\":\"0x3\",\"memSize\":32,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":396,\"op\":95,\"gas\":\"0xff9be9\",\"gasCost\":\"0x2\",\"memSize\":32,\"stack\":[\"0x20\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":397,\"op\":243,\"gas\":\"0xff9be7\",\"gasCost\":\"0x0\",\"memSize\":32,\"stack\":[\"0x20\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"RETURN\"}\n{\"output\":\"0000000000000000000000000000000000000000000000000000000000000001\",\"gasUsed\":\"0x6419\"}\n{\n    \"root\": \"74dea98a40560ce255b1c5da688e35d14105c8e7f194aeaa056f7511ffa8d5f5\",\n    \"accounts\": {\n        \"0x0000000000000000000000007265636569766572\": {\n            \"balance\": \"0\",\n            \"nonce\": 0,\n            \"root\": \"0x821e2556a290c86405f8160a2d662042a431ba456b9db265c79bb837c04be5f0\",\n            \"codeHash\": \"0xea05fc8411f0a001985f4a4c4f261d0071df0d49eb4304279817a2ade3b9d460\",\n            \"code\": \"0x60015f5561000c56fefefefe5b60015f5561001956fefefefe5b60015f5561002656fefefefe5b60015f5561003356fefefefe5b60015f5561004056fefefefe5b60015f5561004d56fefefefe5b60015f5561005a56fefefefe5b60015f5561006756fefefefe5b60015f5561007456fefefefe5b60015f5561008156fefefefe5b60015f5561008e56fefefefe5b60015f5561009b56fefefefe5b60015f556100a856fefefefe5b60015f556100b556fefefefe5b60015f556100c256fefefefe5b60015f556100cf56fefefefe5b60015f556100dc56fefefefe5b60015f556100e956fefefefe5b60015f556100f656fefefefe5b60015f5561010356fefefefe5b60015f5561011056fefefefe5b60015f5561011d56fefefefe5b60015f5561012a56fefefefe5b60015f5561013756fefefefe5b60015f5561014456fefefefe5b60015f5561015156fefefefe5b60015f5561015e56fefefefe5b60015f5561016b56fefefefe5b60015f5561017856fefefefe5b60015f5561018556fefefefe5b5f545f5260205ff3\",\n            \"storage\": {\n                \"0x0000000000000000000000000000000000000000000000000000000000000000\": \"01\"\n            },\n            \"address\": \"0x0000000000000000000000007265636569766572\",\n            \"key\": \"0x30d7a0694cb29af31b982480e11d7ebb003a3fca4026939149071f014689b142\"\n        }\n    }\n}\n",
+    "stderr": ""
+  },
+  "corpus-Zero.json": {
+    "argv": [
+      "evm",
+      "--verbosity",
+      "0",
+      "run",
+      "--prestate",
+      "/Users/oobi/Documents/gpt1/assay-stage-f/evm/fixtures/cancun.json",
+      "--gas",
+      "16777216",
+      "--sender",
+      "0x000000000000000000000000000073656e646572",
+      "--receiver",
+      "0x0000000000000000000000007265636569766572",
+      "--code",
+      "5f5f55600a56fefefefe5b5f545f5260205ff3",
+      "--json",
+      "--dump"
+    ],
+    "exit": 0,
+    "stdout": "{\"pc\":0,\"op\":95,\"gas\":\"0x1000000\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":1,\"op\":95,\"gas\":\"0xfffffe\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":2,\"op\":85,\"gas\":\"0xfffffc\",\"gasCost\":\"0x898\",\"memSize\":0,\"stack\":[\"0x0\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"SSTORE\"}\n{\"pc\":3,\"op\":96,\"gas\":\"0xfff764\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":5,\"op\":86,\"gas\":\"0xfff761\",\"gasCost\":\"0x8\",\"memSize\":0,\"stack\":[\"0xa\"],\"depth\":1,\"refund\":0,\"opName\":\"JUMP\"}\n{\"pc\":10,\"op\":91,\"gas\":\"0xfff759\",\"gasCost\":\"0x1\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"JUMPDEST\"}\n{\"pc\":11,\"op\":95,\"gas\":\"0xfff758\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":12,\"op\":84,\"gas\":\"0xfff756\",\"gasCost\":\"0x64\",\"memSize\":0,\"stack\":[\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"SLOAD\"}\n{\"pc\":13,\"op\":95,\"gas\":\"0xfff6f2\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":14,\"op\":82,\"gas\":\"0xfff6f0\",\"gasCost\":\"0x6\",\"memSize\":0,\"stack\":[\"0x0\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"MSTORE\"}\n{\"pc\":15,\"op\":96,\"gas\":\"0xfff6ea\",\"gasCost\":\"0x3\",\"memSize\":32,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":17,\"op\":95,\"gas\":\"0xfff6e7\",\"gasCost\":\"0x2\",\"memSize\":32,\"stack\":[\"0x20\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":18,\"op\":243,\"gas\":\"0xfff6e5\",\"gasCost\":\"0x0\",\"memSize\":32,\"stack\":[\"0x20\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"RETURN\"}\n{\"output\":\"0000000000000000000000000000000000000000000000000000000000000000\",\"gasUsed\":\"0x91b\"}\n{\n    \"root\": \"9d4d645b91f5f220227c0306f938cd5c0feedad721d1e25304bd53c56c088cfc\",\n    \"accounts\": {\n        \"0x0000000000000000000000007265636569766572\": {\n            \"balance\": \"0\",\n            \"nonce\": 0,\n            \"root\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\",\n            \"codeHash\": \"0x5848946d9e0565cf1584bc78c6daf98bee47f67fbd272103c6d9e209c3a49c3b\",\n            \"code\": \"0x5f5f55600a56fefefefe5b5f545f5260205ff3\",\n            \"address\": \"0x0000000000000000000000007265636569766572\",\n            \"key\": \"0x30d7a0694cb29af31b982480e11d7ebb003a3fca4026939149071f014689b142\"\n        }\n    }\n}\n",
+    "stderr": ""
+  },
+  "corpus-cast-Apply.json": {
+    "argv": [
+      "cast",
+      "disassemble",
+      "0x602a5f5260205ff3"
+    ],
+    "exit": 0,
+    "stdout": "00000000: PUSH1 0x2a\n00000002: PUSH0\n00000003: MSTORE\n00000004: PUSH1 0x20\n00000006: PUSH0\n00000007: RETURN\n\n",
+    "stderr": ""
+  },
+  "corpus-cast-Arithmetic.json": {
+    "argv": [
+      "cast",
+      "disassemble",
+      "0x602a5f5260205ff3"
+    ],
+    "exit": 0,
+    "stdout": "00000000: PUSH1 0x2a\n00000002: PUSH0\n00000003: MSTORE\n00000004: PUSH1 0x20\n00000006: PUSH0\n00000007: RETURN\n\n",
+    "stderr": ""
+  },
+  "corpus-cast-Leaf.json": {
+    "argv": [
+      "cast",
+      "disassemble",
+      "0x602a5f5260205ff3"
+    ],
+    "exit": 0,
+    "stdout": "00000000: PUSH1 0x2a\n00000002: PUSH0\n00000003: MSTORE\n00000004: PUSH1 0x20\n00000006: PUSH0\n00000007: RETURN\n\n",
+    "stderr": ""
+  },
+  "corpus-cast-Let.json": {
+    "argv": [
+      "cast",
+      "disassemble",
+      "0x602a5f5260205ff3"
+    ],
+    "exit": 0,
+    "stdout": "00000000: PUSH1 0x2a\n00000002: PUSH0\n00000003: MSTORE\n00000004: PUSH1 0x20\n00000006: PUSH0\n00000007: RETURN\n\n",
+    "stderr": ""
+  },
+  "corpus-cast-Maximum.json": {
+    "argv": [
+      "cast",
+      "disassemble",
+      "0x7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff5f55602a56fefefefe5b5f545f5260205ff3"
+    ],
+    "exit": 0,
+    "stdout": "00000000: PUSH32 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff\n00000021: PUSH0\n00000022: SSTORE\n00000023: PUSH1 0x2a\n00000025: JUMP\n00000026: INVALID\n00000027: INVALID\n00000028: INVALID\n00000029: INVALID\n0000002a: JUMPDEST\n0000002b: PUSH0\n0000002c: SLOAD\n0000002d: PUSH0\n0000002e: MSTORE\n0000002f: PUSH1 0x20\n00000031: PUSH0\n00000032: RETURN\n\n",
+    "stderr": ""
+  },
+  "corpus-cast-Pair.json": {
+    "argv": [
+      "cast",
+      "disassemble",
+      "0x60045f5260205ff3"
+    ],
+    "exit": 0,
+    "stdout": "00000000: PUSH1 0x04\n00000002: PUSH0\n00000003: MSTORE\n00000004: PUSH1 0x20\n00000006: PUSH0\n00000007: RETURN\n\n",
+    "stderr": ""
+  },
+  "corpus-cast-Ref20.json": {
+    "argv": [
+      "cast",
+      "disassemble",
+      "0x602a5f55600b56fefefefe5b5f545f5260205ff3"
+    ],
+    "exit": 0,
+    "stdout": "00000000: PUSH1 0x2a\n00000002: PUSH0\n00000003: SSTORE\n00000004: PUSH1 0x0b\n00000006: JUMP\n00000007: INVALID\n00000008: INVALID\n00000009: INVALID\n0000000a: INVALID\n0000000b: JUMPDEST\n0000000c: PUSH0\n0000000d: SLOAD\n0000000e: PUSH0\n0000000f: MSTORE\n00000010: PUSH1 0x20\n00000012: PUSH0\n00000013: RETURN\n\n",
+    "stderr": ""
+  },
+  "corpus-cast-Return.json": {
+    "argv": [
+      "cast",
+      "disassemble",
+      "0x60255f5260205ff3"
+    ],
+    "exit": 0,
+    "stdout": "00000000: PUSH1 0x25\n00000002: PUSH0\n00000003: MSTORE\n00000004: PUSH1 0x20\n00000006: PUSH0\n00000007: RETURN\n\n",
+    "stderr": ""
+  },
+  "corpus-cast-TwoSlots.json": {
+    "argv": [
+      "cast",
+      "disassemble",
+      "0x600b5f55600b56fefefefe5b6016600155601856fefefefe5b6001545f5260205ff3"
+    ],
+    "exit": 0,
+    "stdout": "00000000: PUSH1 0x0b\n00000002: PUSH0\n00000003: SSTORE\n00000004: PUSH1 0x0b\n00000006: JUMP\n00000007: INVALID\n00000008: INVALID\n00000009: INVALID\n0000000a: INVALID\n0000000b: JUMPDEST\n0000000c: PUSH1 0x16\n0000000e: PUSH1 0x01\n00000010: SSTORE\n00000011: PUSH1 0x18\n00000013: JUMP\n00000014: INVALID\n00000015: INVALID\n00000016: INVALID\n00000017: INVALID\n00000018: JUMPDEST\n00000019: PUSH1 0x01\n0000001b: SLOAD\n0000001c: PUSH0\n0000001d: MSTORE\n0000001e: PUSH1 0x20\n00000020: PUSH0\n00000021: RETURN\n\n",
+    "stderr": ""
+  },
+  "corpus-cast-WideLabel.json": {
+    "argv": [
+      "cast",
+      "disassemble",
+      "0x60015f5561000c56fefefefe5b60015f5561001956fefefefe5b60015f5561002656fefefefe5b60015f5561003356fefefefe5b60015f5561004056fefefefe5b60015f5561004d56fefefefe5b60015f5561005a56fefefefe5b60015f5561006756fefefefe5b60015f5561007456fefefefe5b60015f5561008156fefefefe5b60015f5561008e56fefefefe5b60015f5561009b56fefefefe5b60015f556100a856fefefefe5b60015f556100b556fefefefe5b60015f556100c256fefefefe5b60015f556100cf56fefefefe5b60015f556100dc56fefefefe5b60015f556100e956fefefefe5b60015f556100f656fefefefe5b60015f5561010356fefefefe5b60015f5561011056fefefefe5b60015f5561011d56fefefefe5b60015f5561012a56fefefefe5b60015f5561013756fefefefe5b60015f5561014456fefefefe5b60015f5561015156fefefefe5b60015f5561015e56fefefefe5b60015f5561016b56fefefefe5b60015f5561017856fefefefe5b60015f5561018556fefefefe5b5f545f5260205ff3"
+    ],
+    "exit": 0,
+    "stdout": "00000000: PUSH1 0x01\n00000002: PUSH0\n00000003: SSTORE\n00000004: PUSH2 0x000c\n00000007: JUMP\n00000008: INVALID\n00000009: INVALID\n0000000a: INVALID\n0000000b: INVALID\n0000000c: JUMPDEST\n0000000d: PUSH1 0x01\n0000000f: PUSH0\n00000010: SSTORE\n00000011: PUSH2 0x0019\n00000014: JUMP\n00000015: INVALID\n00000016: INVALID\n00000017: INVALID\n00000018: INVALID\n00000019: JUMPDEST\n0000001a: PUSH1 0x01\n0000001c: PUSH0\n0000001d: SSTORE\n0000001e: PUSH2 0x0026\n00000021: JUMP\n00000022: INVALID\n00000023: INVALID\n00000024: INVALID\n00000025: INVALID\n00000026: JUMPDEST\n00000027: PUSH1 0x01\n00000029: PUSH0\n0000002a: SSTORE\n0000002b: PUSH2 0x0033\n0000002e: JUMP\n0000002f: INVALID\n00000030: INVALID\n00000031: INVALID\n00000032: INVALID\n00000033: JUMPDEST\n00000034: PUSH1 0x01\n00000036: PUSH0\n00000037: SSTORE\n00000038: PUSH2 0x0040\n0000003b: JUMP\n0000003c: INVALID\n0000003d: INVALID\n0000003e: INVALID\n0000003f: INVALID\n00000040: JUMPDEST\n00000041: PUSH1 0x01\n00000043: PUSH0\n00000044: SSTORE\n00000045: PUSH2 0x004d\n00000048: JUMP\n00000049: INVALID\n0000004a: INVALID\n0000004b: INVALID\n0000004c: INVALID\n0000004d: JUMPDEST\n0000004e: PUSH1 0x01\n00000050: PUSH0\n00000051: SSTORE\n00000052: PUSH2 0x005a\n00000055: JUMP\n00000056: INVALID\n00000057: INVALID\n00000058: INVALID\n00000059: INVALID\n0000005a: JUMPDEST\n0000005b: PUSH1 0x01\n0000005d: PUSH0\n0000005e: SSTORE\n0000005f: PUSH2 0x0067\n00000062: JUMP\n00000063: INVALID\n00000064: INVALID\n00000065: INVALID\n00000066: INVALID\n00000067: JUMPDEST\n00000068: PUSH1 0x01\n0000006a: PUSH0\n0000006b: SSTORE\n0000006c: PUSH2 0x0074\n0000006f: JUMP\n00000070: INVALID\n00000071: INVALID\n00000072: INVALID\n00000073: INVALID\n00000074: JUMPDEST\n00000075: PUSH1 0x01\n00000077: PUSH0\n00000078: SSTORE\n00000079: PUSH2 0x0081\n0000007c: JUMP\n0000007d: INVALID\n0000007e: INVALID\n0000007f: INVALID\n00000080: INVALID\n00000081: JUMPDEST\n00000082: PUSH1 0x01\n00000084: PUSH0\n00000085: SSTORE\n00000086: PUSH2 0x008e\n00000089: JUMP\n0000008a: INVALID\n0000008b: INVALID\n0000008c: INVALID\n0000008d: INVALID\n0000008e: JUMPDEST\n0000008f: PUSH1 0x01\n00000091: PUSH0\n00000092: SSTORE\n00000093: PUSH2 0x009b\n00000096: JUMP\n00000097: INVALID\n00000098: INVALID\n00000099: INVALID\n0000009a: INVALID\n0000009b: JUMPDEST\n0000009c: PUSH1 0x01\n0000009e: PUSH0\n0000009f: SSTORE\n000000a0: PUSH2 0x00a8\n000000a3: JUMP\n000000a4: INVALID\n000000a5: INVALID\n000000a6: INVALID\n000000a7: INVALID\n000000a8: JUMPDEST\n000000a9: PUSH1 0x01\n000000ab: PUSH0\n000000ac: SSTORE\n000000ad: PUSH2 0x00b5\n000000b0: JUMP\n000000b1: INVALID\n000000b2: INVALID\n000000b3: INVALID\n000000b4: INVALID\n000000b5: JUMPDEST\n000000b6: PUSH1 0x01\n000000b8: PUSH0\n000000b9: SSTORE\n000000ba: PUSH2 0x00c2\n000000bd: JUMP\n000000be: INVALID\n000000bf: INVALID\n000000c0: INVALID\n000000c1: INVALID\n000000c2: JUMPDEST\n000000c3: PUSH1 0x01\n000000c5: PUSH0\n000000c6: SSTORE\n000000c7: PUSH2 0x00cf\n000000ca: JUMP\n000000cb: INVALID\n000000cc: INVALID\n000000cd: INVALID\n000000ce: INVALID\n000000cf: JUMPDEST\n000000d0: PUSH1 0x01\n000000d2: PUSH0\n000000d3: SSTORE\n000000d4: PUSH2 0x00dc\n000000d7: JUMP\n000000d8: INVALID\n000000d9: INVALID\n000000da: INVALID\n000000db: INVALID\n000000dc: JUMPDEST\n000000dd: PUSH1 0x01\n000000df: PUSH0\n000000e0: SSTORE\n000000e1: PUSH2 0x00e9\n000000e4: JUMP\n000000e5: INVALID\n000000e6: INVALID\n000000e7: INVALID\n000000e8: INVALID\n000000e9: JUMPDEST\n000000ea: PUSH1 0x01\n000000ec: PUSH0\n000000ed: SSTORE\n000000ee: PUSH2 0x00f6\n000000f1: JUMP\n000000f2: INVALID\n000000f3: INVALID\n000000f4: INVALID\n000000f5: INVALID\n000000f6: JUMPDEST\n000000f7: PUSH1 0x01\n000000f9: PUSH0\n000000fa: SSTORE\n000000fb: PUSH2 0x0103\n000000fe: JUMP\n000000ff: INVALID\n00000100: INVALID\n00000101: INVALID\n00000102: INVALID\n00000103: JUMPDEST\n00000104: PUSH1 0x01\n00000106: PUSH0\n00000107: SSTORE\n00000108: PUSH2 0x0110\n0000010b: JUMP\n0000010c: INVALID\n0000010d: INVALID\n0000010e: INVALID\n0000010f: INVALID\n00000110: JUMPDEST\n00000111: PUSH1 0x01\n00000113: PUSH0\n00000114: SSTORE\n00000115: PUSH2 0x011d\n00000118: JUMP\n00000119: INVALID\n0000011a: INVALID\n0000011b: INVALID\n0000011c: INVALID\n0000011d: JUMPDEST\n0000011e: PUSH1 0x01\n00000120: PUSH0\n00000121: SSTORE\n00000122: PUSH2 0x012a\n00000125: JUMP\n00000126: INVALID\n00000127: INVALID\n00000128: INVALID\n00000129: INVALID\n0000012a: JUMPDEST\n0000012b: PUSH1 0x01\n0000012d: PUSH0\n0000012e: SSTORE\n0000012f: PUSH2 0x0137\n00000132: JUMP\n00000133: INVALID\n00000134: INVALID\n00000135: INVALID\n00000136: INVALID\n00000137: JUMPDEST\n00000138: PUSH1 0x01\n0000013a: PUSH0\n0000013b: SSTORE\n0000013c: PUSH2 0x0144\n0000013f: JUMP\n00000140: INVALID\n00000141: INVALID\n00000142: INVALID\n00000143: INVALID\n00000144: JUMPDEST\n00000145: PUSH1 0x01\n00000147: PUSH0\n00000148: SSTORE\n00000149: PUSH2 0x0151\n0000014c: JUMP\n0000014d: INVALID\n0000014e: INVALID\n0000014f: INVALID\n00000150: INVALID\n00000151: JUMPDEST\n00000152: PUSH1 0x01\n00000154: PUSH0\n00000155: SSTORE\n00000156: PUSH2 0x015e\n00000159: JUMP\n0000015a: INVALID\n0000015b: INVALID\n0000015c: INVALID\n0000015d: INVALID\n0000015e: JUMPDEST\n0000015f: PUSH1 0x01\n00000161: PUSH0\n00000162: SSTORE\n00000163: PUSH2 0x016b\n00000166: JUMP\n00000167: INVALID\n00000168: INVALID\n00000169: INVALID\n0000016a: INVALID\n0000016b: JUMPDEST\n0000016c: PUSH1 0x01\n0000016e: PUSH0\n0000016f: SSTORE\n00000170: PUSH2 0x0178\n00000173: JUMP\n00000174: INVALID\n00000175: INVALID\n00000176: INVALID\n00000177: INVALID\n00000178: JUMPDEST\n00000179: PUSH1 0x01\n0000017b: PUSH0\n0000017c: SSTORE\n0000017d: PUSH2 0x0185\n00000180: JUMP\n00000181: INVALID\n00000182: INVALID\n00000183: INVALID\n00000184: INVALID\n00000185: JUMPDEST\n00000186: PUSH0\n00000187: SLOAD\n00000188: PUSH0\n00000189: MSTORE\n0000018a: PUSH1 0x20\n0000018c: PUSH0\n0000018d: RETURN\n\n",
+    "stderr": ""
+  },
+  "corpus-cast-Zero.json": {
+    "argv": [
+      "cast",
+      "disassemble",
+      "0x5f5f55600a56fefefefe5b5f545f5260205ff3"
+    ],
+    "exit": 0,
+    "stdout": "00000000: PUSH0\n00000001: PUSH0\n00000002: SSTORE\n00000003: PUSH1 0x0a\n00000005: JUMP\n00000006: INVALID\n00000007: INVALID\n00000008: INVALID\n00000009: INVALID\n0000000a: JUMPDEST\n0000000b: PUSH0\n0000000c: SLOAD\n0000000d: PUSH0\n0000000e: MSTORE\n0000000f: PUSH1 0x20\n00000011: PUSH0\n00000012: RETURN\n\n",
+    "stderr": ""
+  },
+  "corpus-create-Apply.json": {
+    "argv": [
+      "evm",
+      "--verbosity",
+      "0",
+      "run",
+      "--prestate",
+      "/Users/oobi/Documents/gpt1/assay-stage-f/evm/fixtures/cancun.json",
+      "--gas",
+      "16777216",
+      "--sender",
+      "0x000000000000000000000000000073656e646572",
+      "--receiver",
+      "0x0000000000000000000000007265636569766572",
+      "--code",
+      "6008600a5f3960085ff3602a5f5260205ff3",
+      "--json",
+      "--dump",
+      "--create"
+    ],
+    "exit": 0,
+    "stdout": "{\"pc\":0,\"op\":96,\"gas\":\"0x1000000\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":2,\"op\":96,\"gas\":\"0xfffffd\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[\"0x8\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":4,\"op\":95,\"gas\":\"0xfffffa\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[\"0x8\",\"0xa\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":5,\"op\":57,\"gas\":\"0xfffff8\",\"gasCost\":\"0x9\",\"memSize\":0,\"stack\":[\"0x8\",\"0xa\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"CODECOPY\"}\n{\"pc\":6,\"op\":96,\"gas\":\"0xffffef\",\"gasCost\":\"0x3\",\"memSize\":32,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":8,\"op\":95,\"gas\":\"0xffffec\",\"gasCost\":\"0x2\",\"memSize\":32,\"stack\":[\"0x8\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":9,\"op\":243,\"gas\":\"0xffffea\",\"gasCost\":\"0x0\",\"memSize\":32,\"stack\":[\"0x8\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"RETURN\"}\n{\"output\":\"602a5f5260205ff3\",\"gasUsed\":\"0x656\"}\n{\n    \"root\": \"00c3408529eee0403c5631a1b19b8eb5f52c22f6645c237d7027c3741bf751ab\",\n    \"accounts\": {\n        \"0x000000000000000000000000000073656E646572\": {\n            \"balance\": \"0\",\n            \"nonce\": 1,\n            \"root\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\",\n            \"codeHash\": \"0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470\",\n            \"address\": \"0x000000000000000000000000000073656e646572\",\n            \"key\": \"0x991ce00dc1ffbea80c37495ab0286baa37f4aa9220f83711b7e407379aec6fcb\"\n        },\n        \"0x1f2a98889594024BFfdA3311CbE69728d392C06D\": {\n            \"balance\": \"0\",\n            \"nonce\": 1,\n            \"root\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\",\n            \"codeHash\": \"0x30962a84ef989ca0f724a5b2ec94f9cbf6a731752ce2c0be5333bf96e460c9fd\",\n            \"code\": \"0x602a5f5260205ff3\",\n            \"address\": \"0x1f2a98889594024bffda3311cbe69728d392c06d\",\n            \"key\": \"0xcbeeb4463624bc2f332dcfe2b479eddb1c380ec862ee63d9f31b31b854fb7c61\"\n        }\n    }\n}\n",
+    "stderr": ""
+  },
+  "corpus-create-Arithmetic.json": {
+    "argv": [
+      "evm",
+      "--verbosity",
+      "0",
+      "run",
+      "--prestate",
+      "/Users/oobi/Documents/gpt1/assay-stage-f/evm/fixtures/cancun.json",
+      "--gas",
+      "16777216",
+      "--sender",
+      "0x000000000000000000000000000073656e646572",
+      "--receiver",
+      "0x0000000000000000000000007265636569766572",
+      "--code",
+      "6008600a5f3960085ff3602a5f5260205ff3",
+      "--json",
+      "--dump",
+      "--create"
+    ],
+    "exit": 0,
+    "stdout": "{\"pc\":0,\"op\":96,\"gas\":\"0x1000000\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":2,\"op\":96,\"gas\":\"0xfffffd\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[\"0x8\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":4,\"op\":95,\"gas\":\"0xfffffa\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[\"0x8\",\"0xa\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":5,\"op\":57,\"gas\":\"0xfffff8\",\"gasCost\":\"0x9\",\"memSize\":0,\"stack\":[\"0x8\",\"0xa\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"CODECOPY\"}\n{\"pc\":6,\"op\":96,\"gas\":\"0xffffef\",\"gasCost\":\"0x3\",\"memSize\":32,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":8,\"op\":95,\"gas\":\"0xffffec\",\"gasCost\":\"0x2\",\"memSize\":32,\"stack\":[\"0x8\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":9,\"op\":243,\"gas\":\"0xffffea\",\"gasCost\":\"0x0\",\"memSize\":32,\"stack\":[\"0x8\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"RETURN\"}\n{\"output\":\"602a5f5260205ff3\",\"gasUsed\":\"0x656\"}\n{\n    \"root\": \"00c3408529eee0403c5631a1b19b8eb5f52c22f6645c237d7027c3741bf751ab\",\n    \"accounts\": {\n        \"0x000000000000000000000000000073656E646572\": {\n            \"balance\": \"0\",\n            \"nonce\": 1,\n            \"root\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\",\n            \"codeHash\": \"0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470\",\n            \"address\": \"0x000000000000000000000000000073656e646572\",\n            \"key\": \"0x991ce00dc1ffbea80c37495ab0286baa37f4aa9220f83711b7e407379aec6fcb\"\n        },\n        \"0x1f2a98889594024BFfdA3311CbE69728d392C06D\": {\n            \"balance\": \"0\",\n            \"nonce\": 1,\n            \"root\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\",\n            \"codeHash\": \"0x30962a84ef989ca0f724a5b2ec94f9cbf6a731752ce2c0be5333bf96e460c9fd\",\n            \"code\": \"0x602a5f5260205ff3\",\n            \"address\": \"0x1f2a98889594024bffda3311cbe69728d392c06d\",\n            \"key\": \"0xcbeeb4463624bc2f332dcfe2b479eddb1c380ec862ee63d9f31b31b854fb7c61\"\n        }\n    }\n}\n",
+    "stderr": ""
+  },
+  "corpus-create-Leaf.json": {
+    "argv": [
+      "evm",
+      "--verbosity",
+      "0",
+      "run",
+      "--prestate",
+      "/Users/oobi/Documents/gpt1/assay-stage-f/evm/fixtures/cancun.json",
+      "--gas",
+      "16777216",
+      "--sender",
+      "0x000000000000000000000000000073656e646572",
+      "--receiver",
+      "0x0000000000000000000000007265636569766572",
+      "--code",
+      "6008600a5f3960085ff3602a5f5260205ff3",
+      "--json",
+      "--dump",
+      "--create"
+    ],
+    "exit": 0,
+    "stdout": "{\"pc\":0,\"op\":96,\"gas\":\"0x1000000\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":2,\"op\":96,\"gas\":\"0xfffffd\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[\"0x8\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":4,\"op\":95,\"gas\":\"0xfffffa\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[\"0x8\",\"0xa\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":5,\"op\":57,\"gas\":\"0xfffff8\",\"gasCost\":\"0x9\",\"memSize\":0,\"stack\":[\"0x8\",\"0xa\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"CODECOPY\"}\n{\"pc\":6,\"op\":96,\"gas\":\"0xffffef\",\"gasCost\":\"0x3\",\"memSize\":32,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":8,\"op\":95,\"gas\":\"0xffffec\",\"gasCost\":\"0x2\",\"memSize\":32,\"stack\":[\"0x8\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":9,\"op\":243,\"gas\":\"0xffffea\",\"gasCost\":\"0x0\",\"memSize\":32,\"stack\":[\"0x8\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"RETURN\"}\n{\"output\":\"602a5f5260205ff3\",\"gasUsed\":\"0x656\"}\n{\n    \"root\": \"00c3408529eee0403c5631a1b19b8eb5f52c22f6645c237d7027c3741bf751ab\",\n    \"accounts\": {\n        \"0x000000000000000000000000000073656E646572\": {\n            \"balance\": \"0\",\n            \"nonce\": 1,\n            \"root\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\",\n            \"codeHash\": \"0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470\",\n            \"address\": \"0x000000000000000000000000000073656e646572\",\n            \"key\": \"0x991ce00dc1ffbea80c37495ab0286baa37f4aa9220f83711b7e407379aec6fcb\"\n        },\n        \"0x1f2a98889594024BFfdA3311CbE69728d392C06D\": {\n            \"balance\": \"0\",\n            \"nonce\": 1,\n            \"root\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\",\n            \"codeHash\": \"0x30962a84ef989ca0f724a5b2ec94f9cbf6a731752ce2c0be5333bf96e460c9fd\",\n            \"code\": \"0x602a5f5260205ff3\",\n            \"address\": \"0x1f2a98889594024bffda3311cbe69728d392c06d\",\n            \"key\": \"0xcbeeb4463624bc2f332dcfe2b479eddb1c380ec862ee63d9f31b31b854fb7c61\"\n        }\n    }\n}\n",
+    "stderr": ""
+  },
+  "corpus-create-Let.json": {
+    "argv": [
+      "evm",
+      "--verbosity",
+      "0",
+      "run",
+      "--prestate",
+      "/Users/oobi/Documents/gpt1/assay-stage-f/evm/fixtures/cancun.json",
+      "--gas",
+      "16777216",
+      "--sender",
+      "0x000000000000000000000000000073656e646572",
+      "--receiver",
+      "0x0000000000000000000000007265636569766572",
+      "--code",
+      "6008600a5f3960085ff3602a5f5260205ff3",
+      "--json",
+      "--dump",
+      "--create"
+    ],
+    "exit": 0,
+    "stdout": "{\"pc\":0,\"op\":96,\"gas\":\"0x1000000\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":2,\"op\":96,\"gas\":\"0xfffffd\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[\"0x8\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":4,\"op\":95,\"gas\":\"0xfffffa\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[\"0x8\",\"0xa\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":5,\"op\":57,\"gas\":\"0xfffff8\",\"gasCost\":\"0x9\",\"memSize\":0,\"stack\":[\"0x8\",\"0xa\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"CODECOPY\"}\n{\"pc\":6,\"op\":96,\"gas\":\"0xffffef\",\"gasCost\":\"0x3\",\"memSize\":32,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":8,\"op\":95,\"gas\":\"0xffffec\",\"gasCost\":\"0x2\",\"memSize\":32,\"stack\":[\"0x8\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":9,\"op\":243,\"gas\":\"0xffffea\",\"gasCost\":\"0x0\",\"memSize\":32,\"stack\":[\"0x8\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"RETURN\"}\n{\"output\":\"602a5f5260205ff3\",\"gasUsed\":\"0x656\"}\n{\n    \"root\": \"00c3408529eee0403c5631a1b19b8eb5f52c22f6645c237d7027c3741bf751ab\",\n    \"accounts\": {\n        \"0x000000000000000000000000000073656E646572\": {\n            \"balance\": \"0\",\n            \"nonce\": 1,\n            \"root\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\",\n            \"codeHash\": \"0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470\",\n            \"address\": \"0x000000000000000000000000000073656e646572\",\n            \"key\": \"0x991ce00dc1ffbea80c37495ab0286baa37f4aa9220f83711b7e407379aec6fcb\"\n        },\n        \"0x1f2a98889594024BFfdA3311CbE69728d392C06D\": {\n            \"balance\": \"0\",\n            \"nonce\": 1,\n            \"root\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\",\n            \"codeHash\": \"0x30962a84ef989ca0f724a5b2ec94f9cbf6a731752ce2c0be5333bf96e460c9fd\",\n            \"code\": \"0x602a5f5260205ff3\",\n            \"address\": \"0x1f2a98889594024bffda3311cbe69728d392c06d\",\n            \"key\": \"0xcbeeb4463624bc2f332dcfe2b479eddb1c380ec862ee63d9f31b31b854fb7c61\"\n        }\n    }\n}\n",
+    "stderr": ""
+  },
+  "corpus-create-Maximum.json": {
+    "argv": [
+      "evm",
+      "--verbosity",
+      "0",
+      "run",
+      "--prestate",
+      "/Users/oobi/Documents/gpt1/assay-stage-f/evm/fixtures/cancun.json",
+      "--gas",
+      "16777216",
+      "--sender",
+      "0x000000000000000000000000000073656e646572",
+      "--receiver",
+      "0x0000000000000000000000007265636569766572",
+      "--code",
+      "6033600a5f3960335ff37fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff5f55602a56fefefefe5b5f545f5260205ff3",
+      "--json",
+      "--dump",
+      "--create"
+    ],
+    "exit": 0,
+    "stdout": "{\"pc\":0,\"op\":96,\"gas\":\"0x1000000\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":2,\"op\":96,\"gas\":\"0xfffffd\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[\"0x33\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":4,\"op\":95,\"gas\":\"0xfffffa\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[\"0x33\",\"0xa\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":5,\"op\":57,\"gas\":\"0xfffff8\",\"gasCost\":\"0xf\",\"memSize\":0,\"stack\":[\"0x33\",\"0xa\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"CODECOPY\"}\n{\"pc\":6,\"op\":96,\"gas\":\"0xffffe9\",\"gasCost\":\"0x3\",\"memSize\":64,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":8,\"op\":95,\"gas\":\"0xffffe6\",\"gasCost\":\"0x2\",\"memSize\":64,\"stack\":[\"0x33\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":9,\"op\":243,\"gas\":\"0xffffe4\",\"gasCost\":\"0x0\",\"memSize\":64,\"stack\":[\"0x33\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"RETURN\"}\n{\"output\":\"7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff5f55602a56fefefefe5b5f545f5260205ff3\",\"gasUsed\":\"0x27f4\"}\n{\n    \"root\": \"760845bca5b44104fe299568c1520c451f5120596141971d2af2bef55998dc21\",\n    \"accounts\": {\n        \"0x000000000000000000000000000073656E646572\": {\n            \"balance\": \"0\",\n            \"nonce\": 1,\n            \"root\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\",\n            \"codeHash\": \"0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470\",\n            \"address\": \"0x000000000000000000000000000073656e646572\",\n            \"key\": \"0x991ce00dc1ffbea80c37495ab0286baa37f4aa9220f83711b7e407379aec6fcb\"\n        },\n        \"0x1f2a98889594024BFfdA3311CbE69728d392C06D\": {\n            \"balance\": \"0\",\n            \"nonce\": 1,\n            \"root\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\",\n            \"codeHash\": \"0x5e9430fda7ff8bd735b1e06faa83a0e3cfcc46a465d4db0285a87a5027ae959d\",\n            \"code\": \"0x7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff5f55602a56fefefefe5b5f545f5260205ff3\",\n            \"address\": \"0x1f2a98889594024bffda3311cbe69728d392c06d\",\n            \"key\": \"0xcbeeb4463624bc2f332dcfe2b479eddb1c380ec862ee63d9f31b31b854fb7c61\"\n        }\n    }\n}\n",
+    "stderr": ""
+  },
+  "corpus-create-Pair.json": {
+    "argv": [
+      "evm",
+      "--verbosity",
+      "0",
+      "run",
+      "--prestate",
+      "/Users/oobi/Documents/gpt1/assay-stage-f/evm/fixtures/cancun.json",
+      "--gas",
+      "16777216",
+      "--sender",
+      "0x000000000000000000000000000073656e646572",
+      "--receiver",
+      "0x0000000000000000000000007265636569766572",
+      "--code",
+      "6008600a5f3960085ff360045f5260205ff3",
+      "--json",
+      "--dump",
+      "--create"
+    ],
+    "exit": 0,
+    "stdout": "{\"pc\":0,\"op\":96,\"gas\":\"0x1000000\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":2,\"op\":96,\"gas\":\"0xfffffd\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[\"0x8\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":4,\"op\":95,\"gas\":\"0xfffffa\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[\"0x8\",\"0xa\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":5,\"op\":57,\"gas\":\"0xfffff8\",\"gasCost\":\"0x9\",\"memSize\":0,\"stack\":[\"0x8\",\"0xa\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"CODECOPY\"}\n{\"pc\":6,\"op\":96,\"gas\":\"0xffffef\",\"gasCost\":\"0x3\",\"memSize\":32,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":8,\"op\":95,\"gas\":\"0xffffec\",\"gasCost\":\"0x2\",\"memSize\":32,\"stack\":[\"0x8\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":9,\"op\":243,\"gas\":\"0xffffea\",\"gasCost\":\"0x0\",\"memSize\":32,\"stack\":[\"0x8\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"RETURN\"}\n{\"output\":\"60045f5260205ff3\",\"gasUsed\":\"0x656\"}\n{\n    \"root\": \"48802d7a93f9d8511fa2e925a8c0d5c18660197d7f5f87e9099c75daaa6e19ad\",\n    \"accounts\": {\n        \"0x000000000000000000000000000073656E646572\": {\n            \"balance\": \"0\",\n            \"nonce\": 1,\n            \"root\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\",\n            \"codeHash\": \"0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470\",\n            \"address\": \"0x000000000000000000000000000073656e646572\",\n            \"key\": \"0x991ce00dc1ffbea80c37495ab0286baa37f4aa9220f83711b7e407379aec6fcb\"\n        },\n        \"0x1f2a98889594024BFfdA3311CbE69728d392C06D\": {\n            \"balance\": \"0\",\n            \"nonce\": 1,\n            \"root\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\",\n            \"codeHash\": \"0x0a5ffa9f932b3f0b7586f72e33f5d76f41f10b303de6e5aea77228c66b31a0b7\",\n            \"code\": \"0x60045f5260205ff3\",\n            \"address\": \"0x1f2a98889594024bffda3311cbe69728d392c06d\",\n            \"key\": \"0xcbeeb4463624bc2f332dcfe2b479eddb1c380ec862ee63d9f31b31b854fb7c61\"\n        }\n    }\n}\n",
+    "stderr": ""
+  },
+  "corpus-create-Ref20.json": {
+    "argv": [
+      "evm",
+      "--verbosity",
+      "0",
+      "run",
+      "--prestate",
+      "/Users/oobi/Documents/gpt1/assay-stage-f/evm/fixtures/cancun.json",
+      "--gas",
+      "16777216",
+      "--sender",
+      "0x000000000000000000000000000073656e646572",
+      "--receiver",
+      "0x0000000000000000000000007265636569766572",
+      "--code",
+      "6014600a5f3960145ff3602a5f55600b56fefefefe5b5f545f5260205ff3",
+      "--json",
+      "--dump",
+      "--create"
+    ],
+    "exit": 0,
+    "stdout": "{\"pc\":0,\"op\":96,\"gas\":\"0x1000000\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":2,\"op\":96,\"gas\":\"0xfffffd\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[\"0x14\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":4,\"op\":95,\"gas\":\"0xfffffa\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[\"0x14\",\"0xa\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":5,\"op\":57,\"gas\":\"0xfffff8\",\"gasCost\":\"0x9\",\"memSize\":0,\"stack\":[\"0x14\",\"0xa\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"CODECOPY\"}\n{\"pc\":6,\"op\":96,\"gas\":\"0xffffef\",\"gasCost\":\"0x3\",\"memSize\":32,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":8,\"op\":95,\"gas\":\"0xffffec\",\"gasCost\":\"0x2\",\"memSize\":32,\"stack\":[\"0x14\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":9,\"op\":243,\"gas\":\"0xffffea\",\"gasCost\":\"0x0\",\"memSize\":32,\"stack\":[\"0x14\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"RETURN\"}\n{\"output\":\"602a5f55600b56fefefefe5b5f545f5260205ff3\",\"gasUsed\":\"0xfb6\"}\n{\n    \"root\": \"30948383ee9898511b4f28bc3d2311fce4c8e06dfd560c6e8c3245aa913fd538\",\n    \"accounts\": {\n        \"0x000000000000000000000000000073656E646572\": {\n            \"balance\": \"0\",\n            \"nonce\": 1,\n            \"root\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\",\n            \"codeHash\": \"0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470\",\n            \"address\": \"0x000000000000000000000000000073656e646572\",\n            \"key\": \"0x991ce00dc1ffbea80c37495ab0286baa37f4aa9220f83711b7e407379aec6fcb\"\n        },\n        \"0x1f2a98889594024BFfdA3311CbE69728d392C06D\": {\n            \"balance\": \"0\",\n            \"nonce\": 1,\n            \"root\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\",\n            \"codeHash\": \"0x755b9e03b3191b071ebb78b7ebae672c2db6c3b52febaf13955e337d95b5f2ef\",\n            \"code\": \"0x602a5f55600b56fefefefe5b5f545f5260205ff3\",\n            \"address\": \"0x1f2a98889594024bffda3311cbe69728d392c06d\",\n            \"key\": \"0xcbeeb4463624bc2f332dcfe2b479eddb1c380ec862ee63d9f31b31b854fb7c61\"\n        }\n    }\n}\n",
+    "stderr": ""
+  },
+  "corpus-create-Return.json": {
+    "argv": [
+      "evm",
+      "--verbosity",
+      "0",
+      "run",
+      "--prestate",
+      "/Users/oobi/Documents/gpt1/assay-stage-f/evm/fixtures/cancun.json",
+      "--gas",
+      "16777216",
+      "--sender",
+      "0x000000000000000000000000000073656e646572",
+      "--receiver",
+      "0x0000000000000000000000007265636569766572",
+      "--code",
+      "6008600a5f3960085ff360255f5260205ff3",
+      "--json",
+      "--dump",
+      "--create"
+    ],
+    "exit": 0,
+    "stdout": "{\"pc\":0,\"op\":96,\"gas\":\"0x1000000\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":2,\"op\":96,\"gas\":\"0xfffffd\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[\"0x8\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":4,\"op\":95,\"gas\":\"0xfffffa\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[\"0x8\",\"0xa\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":5,\"op\":57,\"gas\":\"0xfffff8\",\"gasCost\":\"0x9\",\"memSize\":0,\"stack\":[\"0x8\",\"0xa\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"CODECOPY\"}\n{\"pc\":6,\"op\":96,\"gas\":\"0xffffef\",\"gasCost\":\"0x3\",\"memSize\":32,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":8,\"op\":95,\"gas\":\"0xffffec\",\"gasCost\":\"0x2\",\"memSize\":32,\"stack\":[\"0x8\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":9,\"op\":243,\"gas\":\"0xffffea\",\"gasCost\":\"0x0\",\"memSize\":32,\"stack\":[\"0x8\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"RETURN\"}\n{\"output\":\"60255f5260205ff3\",\"gasUsed\":\"0x656\"}\n{\n    \"root\": \"050dc21f121af88655864f064a5a8af3a104c0a3164f74377fc8c511bc6a62cb\",\n    \"accounts\": {\n        \"0x000000000000000000000000000073656E646572\": {\n            \"balance\": \"0\",\n            \"nonce\": 1,\n            \"root\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\",\n            \"codeHash\": \"0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470\",\n            \"address\": \"0x000000000000000000000000000073656e646572\",\n            \"key\": \"0x991ce00dc1ffbea80c37495ab0286baa37f4aa9220f83711b7e407379aec6fcb\"\n        },\n        \"0x1f2a98889594024BFfdA3311CbE69728d392C06D\": {\n            \"balance\": \"0\",\n            \"nonce\": 1,\n            \"root\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\",\n            \"codeHash\": \"0x9a5977870f1ac86e74bc301c2ce6f8c137245ca7295b03332d6d0f0cd4a4b108\",\n            \"code\": \"0x60255f5260205ff3\",\n            \"address\": \"0x1f2a98889594024bffda3311cbe69728d392c06d\",\n            \"key\": \"0xcbeeb4463624bc2f332dcfe2b479eddb1c380ec862ee63d9f31b31b854fb7c61\"\n        }\n    }\n}\n",
+    "stderr": ""
+  },
+  "corpus-create-TwoSlots.json": {
+    "argv": [
+      "evm",
+      "--verbosity",
+      "0",
+      "run",
+      "--prestate",
+      "/Users/oobi/Documents/gpt1/assay-stage-f/evm/fixtures/cancun.json",
+      "--gas",
+      "16777216",
+      "--sender",
+      "0x000000000000000000000000000073656e646572",
+      "--receiver",
+      "0x0000000000000000000000007265636569766572",
+      "--code",
+      "6022600a5f3960225ff3600b5f55600b56fefefefe5b6016600155601856fefefefe5b6001545f5260205ff3",
+      "--json",
+      "--dump",
+      "--create"
+    ],
+    "exit": 0,
+    "stdout": "{\"pc\":0,\"op\":96,\"gas\":\"0x1000000\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":2,\"op\":96,\"gas\":\"0xfffffd\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[\"0x22\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":4,\"op\":95,\"gas\":\"0xfffffa\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[\"0x22\",\"0xa\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":5,\"op\":57,\"gas\":\"0xfffff8\",\"gasCost\":\"0xf\",\"memSize\":0,\"stack\":[\"0x22\",\"0xa\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"CODECOPY\"}\n{\"pc\":6,\"op\":96,\"gas\":\"0xffffe9\",\"gasCost\":\"0x3\",\"memSize\":64,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":8,\"op\":95,\"gas\":\"0xffffe6\",\"gasCost\":\"0x2\",\"memSize\":64,\"stack\":[\"0x22\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":9,\"op\":243,\"gas\":\"0xffffe4\",\"gasCost\":\"0x0\",\"memSize\":64,\"stack\":[\"0x22\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"RETURN\"}\n{\"output\":\"600b5f55600b56fefefefe5b6016600155601856fefefefe5b6001545f5260205ff3\",\"gasUsed\":\"0x1aac\"}\n{\n    \"root\": \"f8e42f89efe29618d3a8d6428fc60ae5151c33e3fc575e0a40fbba59ea5173d0\",\n    \"accounts\": {\n        \"0x000000000000000000000000000073656E646572\": {\n            \"balance\": \"0\",\n            \"nonce\": 1,\n            \"root\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\",\n            \"codeHash\": \"0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470\",\n            \"address\": \"0x000000000000000000000000000073656e646572\",\n            \"key\": \"0x991ce00dc1ffbea80c37495ab0286baa37f4aa9220f83711b7e407379aec6fcb\"\n        },\n        \"0x1f2a98889594024BFfdA3311CbE69728d392C06D\": {\n            \"balance\": \"0\",\n            \"nonce\": 1,\n            \"root\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\",\n            \"codeHash\": \"0x584a1976d95ccb4265eb82264b985cc9be3e99c518b6caaee8f3bebdfb8121f8\",\n            \"code\": \"0x600b5f55600b56fefefefe5b6016600155601856fefefefe5b6001545f5260205ff3\",\n            \"address\": \"0x1f2a98889594024bffda3311cbe69728d392c06d\",\n            \"key\": \"0xcbeeb4463624bc2f332dcfe2b479eddb1c380ec862ee63d9f31b31b854fb7c61\"\n        }\n    }\n}\n",
+    "stderr": ""
+  },
+  "corpus-create-WideLabel.json": {
+    "argv": [
+      "evm",
+      "--verbosity",
+      "0",
+      "run",
+      "--prestate",
+      "/Users/oobi/Documents/gpt1/assay-stage-f/evm/fixtures/cancun.json",
+      "--gas",
+      "16777216",
+      "--sender",
+      "0x000000000000000000000000000073656e646572",
+      "--receiver",
+      "0x0000000000000000000000007265636569766572",
+      "--code",
+      "61018e600c5f3961018e5ff360015f5561000c56fefefefe5b60015f5561001956fefefefe5b60015f5561002656fefefefe5b60015f5561003356fefefefe5b60015f5561004056fefefefe5b60015f5561004d56fefefefe5b60015f5561005a56fefefefe5b60015f5561006756fefefefe5b60015f5561007456fefefefe5b60015f5561008156fefefefe5b60015f5561008e56fefefefe5b60015f5561009b56fefefefe5b60015f556100a856fefefefe5b60015f556100b556fefefefe5b60015f556100c256fefefefe5b60015f556100cf56fefefefe5b60015f556100dc56fefefefe5b60015f556100e956fefefefe5b60015f556100f656fefefefe5b60015f5561010356fefefefe5b60015f5561011056fefefefe5b60015f5561011d56fefefefe5b60015f5561012a56fefefefe5b60015f5561013756fefefefe5b60015f5561014456fefefefe5b60015f5561015156fefefefe5b60015f5561015e56fefefefe5b60015f5561016b56fefefefe5b60015f5561017856fefefefe5b60015f5561018556fefefefe5b5f545f5260205ff3",
+      "--json",
+      "--dump",
+      "--create"
+    ],
+    "exit": 0,
+    "stdout": "{\"pc\":0,\"op\":97,\"gas\":\"0x1000000\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH2\"}\n{\"pc\":3,\"op\":96,\"gas\":\"0xfffffd\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[\"0x18e\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":5,\"op\":95,\"gas\":\"0xfffffa\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[\"0x18e\",\"0xc\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":6,\"op\":57,\"gas\":\"0xfffff8\",\"gasCost\":\"0x51\",\"memSize\":0,\"stack\":[\"0x18e\",\"0xc\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"CODECOPY\"}\n{\"pc\":7,\"op\":97,\"gas\":\"0xffffa7\",\"gasCost\":\"0x3\",\"memSize\":416,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH2\"}\n{\"pc\":10,\"op\":95,\"gas\":\"0xffffa4\",\"gasCost\":\"0x2\",\"memSize\":416,\"stack\":[\"0x18e\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":11,\"op\":243,\"gas\":\"0xffffa2\",\"gasCost\":\"0x0\",\"memSize\":416,\"stack\":[\"0x18e\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"RETURN\"}\n{\"output\":\"60015f5561000c56fefefefe5b60015f5561001956fefefefe5b60015f5561002656fefefefe5b60015f5561003356fefefefe5b60015f5561004056fefefefe5b60015f5561004d56fefefefe5b60015f5561005a56fefefefe5b60015f5561006756fefefefe5b60015f5561007456fefefefe5b60015f5561008156fefefefe5b60015f5561008e56fefefefe5b60015f5561009b56fefefefe5b60015f556100a856fefefefe5b60015f556100b556fefefefe5b60015f556100c256fefefefe5b60015f556100cf56fefefefe5b60015f556100dc56fefefefe5b60015f556100e956fefefefe5b60015f556100f656fefefefe5b60015f5561010356fefefefe5b60015f5561011056fefefefe5b60015f5561011d56fefefefe5b60015f5561012a56fefefefe5b60015f5561013756fefefefe5b60015f5561014456fefefefe5b60015f5561015156fefefefe5b60015f5561015e56fefefefe5b60015f5561016b56fefefefe5b60015f5561017856fefefefe5b60015f5561018556fefefefe5b5f545f5260205ff3\",\"gasUsed\":\"0x1374e\"}\n{\n    \"root\": \"e5355cab0e519a3c4edeef1c7a2dd3c85c95a4ee0cf7de7a36925e388d463c3a\",\n    \"accounts\": {\n        \"0x000000000000000000000000000073656E646572\": {\n            \"balance\": \"0\",\n            \"nonce\": 1,\n            \"root\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\",\n            \"codeHash\": \"0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470\",\n            \"address\": \"0x000000000000000000000000000073656e646572\",\n            \"key\": \"0x991ce00dc1ffbea80c37495ab0286baa37f4aa9220f83711b7e407379aec6fcb\"\n        },\n        \"0x1f2a98889594024BFfdA3311CbE69728d392C06D\": {\n            \"balance\": \"0\",\n            \"nonce\": 1,\n            \"root\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\",\n            \"codeHash\": \"0xea05fc8411f0a001985f4a4c4f261d0071df0d49eb4304279817a2ade3b9d460\",\n            \"code\": \"0x60015f5561000c56fefefefe5b60015f5561001956fefefefe5b60015f5561002656fefefefe5b60015f5561003356fefefefe5b60015f5561004056fefefefe5b60015f5561004d56fefefefe5b60015f5561005a56fefefefe5b60015f5561006756fefefefe5b60015f5561007456fefefefe5b60015f5561008156fefefefe5b60015f5561008e56fefefefe5b60015f5561009b56fefefefe5b60015f556100a856fefefefe5b60015f556100b556fefefefe5b60015f556100c256fefefefe5b60015f556100cf56fefefefe5b60015f556100dc56fefefefe5b60015f556100e956fefefefe5b60015f556100f656fefefefe5b60015f5561010356fefefefe5b60015f5561011056fefefefe5b60015f5561011d56fefefefe5b60015f5561012a56fefefefe5b60015f5561013756fefefefe5b60015f5561014456fefefefe5b60015f5561015156fefefefe5b60015f5561015e56fefefefe5b60015f5561016b56fefefefe5b60015f5561017856fefefefe5b60015f5561018556fefefefe5b5f545f5260205ff3\",\n            \"address\": \"0x1f2a98889594024bffda3311cbe69728d392c06d\",\n            \"key\": \"0xcbeeb4463624bc2f332dcfe2b479eddb1c380ec862ee63d9f31b31b854fb7c61\"\n        }\n    }\n}\n",
+    "stderr": ""
+  },
+  "corpus-create-Zero.json": {
+    "argv": [
+      "evm",
+      "--verbosity",
+      "0",
+      "run",
+      "--prestate",
+      "/Users/oobi/Documents/gpt1/assay-stage-f/evm/fixtures/cancun.json",
+      "--gas",
+      "16777216",
+      "--sender",
+      "0x000000000000000000000000000073656e646572",
+      "--receiver",
+      "0x0000000000000000000000007265636569766572",
+      "--code",
+      "6013600a5f3960135ff35f5f55600a56fefefefe5b5f545f5260205ff3",
+      "--json",
+      "--dump",
+      "--create"
+    ],
+    "exit": 0,
+    "stdout": "{\"pc\":0,\"op\":96,\"gas\":\"0x1000000\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":2,\"op\":96,\"gas\":\"0xfffffd\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[\"0x13\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":4,\"op\":95,\"gas\":\"0xfffffa\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[\"0x13\",\"0xa\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":5,\"op\":57,\"gas\":\"0xfffff8\",\"gasCost\":\"0x9\",\"memSize\":0,\"stack\":[\"0x13\",\"0xa\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"CODECOPY\"}\n{\"pc\":6,\"op\":96,\"gas\":\"0xffffef\",\"gasCost\":\"0x3\",\"memSize\":32,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":8,\"op\":95,\"gas\":\"0xffffec\",\"gasCost\":\"0x2\",\"memSize\":32,\"stack\":[\"0x13\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":9,\"op\":243,\"gas\":\"0xffffea\",\"gasCost\":\"0x0\",\"memSize\":32,\"stack\":[\"0x13\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"RETURN\"}\n{\"output\":\"5f5f55600a56fefefefe5b5f545f5260205ff3\",\"gasUsed\":\"0xeee\"}\n{\n    \"root\": \"094031b820b879c8b464fc4bab169e70c3fd343f7e3976738bf5487991e120a7\",\n    \"accounts\": {\n        \"0x000000000000000000000000000073656E646572\": {\n            \"balance\": \"0\",\n            \"nonce\": 1,\n            \"root\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\",\n            \"codeHash\": \"0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470\",\n            \"address\": \"0x000000000000000000000000000073656e646572\",\n            \"key\": \"0x991ce00dc1ffbea80c37495ab0286baa37f4aa9220f83711b7e407379aec6fcb\"\n        },\n        \"0x1f2a98889594024BFfdA3311CbE69728d392C06D\": {\n            \"balance\": \"0\",\n            \"nonce\": 1,\n            \"root\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\",\n            \"codeHash\": \"0x5848946d9e0565cf1584bc78c6daf98bee47f67fbd272103c6d9e209c3a49c3b\",\n            \"code\": \"0x5f5f55600a56fefefefe5b5f545f5260205ff3\",\n            \"address\": \"0x1f2a98889594024bffda3311cbe69728d392c06d\",\n            \"key\": \"0xcbeeb4463624bc2f332dcfe2b479eddb1c380ec862ee63d9f31b31b854fb7c61\"\n        }\n    }\n}\n",
+    "stderr": ""
+  },
+  "corpus-listing-Apply.json": {
+    "argv": [
+      "/Users/oobi/Documents/gpt1/assay-stage-f/_build/default/test/asm_cases.exe",
+      "listing",
+      "602a5f5260205ff3"
+    ],
+    "exit": 0,
+    "stdout": "00000000: PUSH1 0x2a\n00000002: PUSH0\n00000003: MSTORE\n00000004: PUSH1 0x20\n00000006: PUSH0\n00000007: RETURN\n",
+    "stderr": ""
+  },
+  "corpus-listing-Arithmetic.json": {
+    "argv": [
+      "/Users/oobi/Documents/gpt1/assay-stage-f/_build/default/test/asm_cases.exe",
+      "listing",
+      "602a5f5260205ff3"
+    ],
+    "exit": 0,
+    "stdout": "00000000: PUSH1 0x2a\n00000002: PUSH0\n00000003: MSTORE\n00000004: PUSH1 0x20\n00000006: PUSH0\n00000007: RETURN\n",
+    "stderr": ""
+  },
+  "corpus-listing-Leaf.json": {
+    "argv": [
+      "/Users/oobi/Documents/gpt1/assay-stage-f/_build/default/test/asm_cases.exe",
+      "listing",
+      "602a5f5260205ff3"
+    ],
+    "exit": 0,
+    "stdout": "00000000: PUSH1 0x2a\n00000002: PUSH0\n00000003: MSTORE\n00000004: PUSH1 0x20\n00000006: PUSH0\n00000007: RETURN\n",
+    "stderr": ""
+  },
+  "corpus-listing-Let.json": {
+    "argv": [
+      "/Users/oobi/Documents/gpt1/assay-stage-f/_build/default/test/asm_cases.exe",
+      "listing",
+      "602a5f5260205ff3"
+    ],
+    "exit": 0,
+    "stdout": "00000000: PUSH1 0x2a\n00000002: PUSH0\n00000003: MSTORE\n00000004: PUSH1 0x20\n00000006: PUSH0\n00000007: RETURN\n",
+    "stderr": ""
+  },
+  "corpus-listing-Maximum.json": {
+    "argv": [
+      "/Users/oobi/Documents/gpt1/assay-stage-f/_build/default/test/asm_cases.exe",
+      "listing",
+      "7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff5f55602a56fefefefe5b5f545f5260205ff3"
+    ],
+    "exit": 0,
+    "stdout": "00000000: PUSH32 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff\n00000021: PUSH0\n00000022: SSTORE\n00000023: PUSH1 0x2a\n00000025: JUMP\n00000026: INVALID\n00000027: INVALID\n00000028: INVALID\n00000029: INVALID\n0000002a: JUMPDEST\n0000002b: PUSH0\n0000002c: SLOAD\n0000002d: PUSH0\n0000002e: MSTORE\n0000002f: PUSH1 0x20\n00000031: PUSH0\n00000032: RETURN\n",
+    "stderr": ""
+  },
+  "corpus-listing-Pair.json": {
+    "argv": [
+      "/Users/oobi/Documents/gpt1/assay-stage-f/_build/default/test/asm_cases.exe",
+      "listing",
+      "60045f5260205ff3"
+    ],
+    "exit": 0,
+    "stdout": "00000000: PUSH1 0x04\n00000002: PUSH0\n00000003: MSTORE\n00000004: PUSH1 0x20\n00000006: PUSH0\n00000007: RETURN\n",
+    "stderr": ""
+  },
+  "corpus-listing-Ref20.json": {
+    "argv": [
+      "/Users/oobi/Documents/gpt1/assay-stage-f/_build/default/test/asm_cases.exe",
+      "listing",
+      "602a5f55600b56fefefefe5b5f545f5260205ff3"
+    ],
+    "exit": 0,
+    "stdout": "00000000: PUSH1 0x2a\n00000002: PUSH0\n00000003: SSTORE\n00000004: PUSH1 0x0b\n00000006: JUMP\n00000007: INVALID\n00000008: INVALID\n00000009: INVALID\n0000000a: INVALID\n0000000b: JUMPDEST\n0000000c: PUSH0\n0000000d: SLOAD\n0000000e: PUSH0\n0000000f: MSTORE\n00000010: PUSH1 0x20\n00000012: PUSH0\n00000013: RETURN\n",
+    "stderr": ""
+  },
+  "corpus-listing-Return.json": {
+    "argv": [
+      "/Users/oobi/Documents/gpt1/assay-stage-f/_build/default/test/asm_cases.exe",
+      "listing",
+      "60255f5260205ff3"
+    ],
+    "exit": 0,
+    "stdout": "00000000: PUSH1 0x25\n00000002: PUSH0\n00000003: MSTORE\n00000004: PUSH1 0x20\n00000006: PUSH0\n00000007: RETURN\n",
+    "stderr": ""
+  },
+  "corpus-listing-TwoSlots.json": {
+    "argv": [
+      "/Users/oobi/Documents/gpt1/assay-stage-f/_build/default/test/asm_cases.exe",
+      "listing",
+      "600b5f55600b56fefefefe5b6016600155601856fefefefe5b6001545f5260205ff3"
+    ],
+    "exit": 0,
+    "stdout": "00000000: PUSH1 0x0b\n00000002: PUSH0\n00000003: SSTORE\n00000004: PUSH1 0x0b\n00000006: JUMP\n00000007: INVALID\n00000008: INVALID\n00000009: INVALID\n0000000a: INVALID\n0000000b: JUMPDEST\n0000000c: PUSH1 0x16\n0000000e: PUSH1 0x01\n00000010: SSTORE\n00000011: PUSH1 0x18\n00000013: JUMP\n00000014: INVALID\n00000015: INVALID\n00000016: INVALID\n00000017: INVALID\n00000018: JUMPDEST\n00000019: PUSH1 0x01\n0000001b: SLOAD\n0000001c: PUSH0\n0000001d: MSTORE\n0000001e: PUSH1 0x20\n00000020: PUSH0\n00000021: RETURN\n",
+    "stderr": ""
+  },
+  "corpus-listing-WideLabel.json": {
+    "argv": [
+      "/Users/oobi/Documents/gpt1/assay-stage-f/_build/default/test/asm_cases.exe",
+      "listing",
+      "60015f5561000c56fefefefe5b60015f5561001956fefefefe5b60015f5561002656fefefefe5b60015f5561003356fefefefe5b60015f5561004056fefefefe5b60015f5561004d56fefefefe5b60015f5561005a56fefefefe5b60015f5561006756fefefefe5b60015f5561007456fefefefe5b60015f5561008156fefefefe5b60015f5561008e56fefefefe5b60015f5561009b56fefefefe5b60015f556100a856fefefefe5b60015f556100b556fefefefe5b60015f556100c256fefefefe5b60015f556100cf56fefefefe5b60015f556100dc56fefefefe5b60015f556100e956fefefefe5b60015f556100f656fefefefe5b60015f5561010356fefefefe5b60015f5561011056fefefefe5b60015f5561011d56fefefefe5b60015f5561012a56fefefefe5b60015f5561013756fefefefe5b60015f5561014456fefefefe5b60015f5561015156fefefefe5b60015f5561015e56fefefefe5b60015f5561016b56fefefefe5b60015f5561017856fefefefe5b60015f5561018556fefefefe5b5f545f5260205ff3"
+    ],
+    "exit": 0,
+    "stdout": "00000000: PUSH1 0x01\n00000002: PUSH0\n00000003: SSTORE\n00000004: PUSH2 0x000c\n00000007: JUMP\n00000008: INVALID\n00000009: INVALID\n0000000a: INVALID\n0000000b: INVALID\n0000000c: JUMPDEST\n0000000d: PUSH1 0x01\n0000000f: PUSH0\n00000010: SSTORE\n00000011: PUSH2 0x0019\n00000014: JUMP\n00000015: INVALID\n00000016: INVALID\n00000017: INVALID\n00000018: INVALID\n00000019: JUMPDEST\n0000001a: PUSH1 0x01\n0000001c: PUSH0\n0000001d: SSTORE\n0000001e: PUSH2 0x0026\n00000021: JUMP\n00000022: INVALID\n00000023: INVALID\n00000024: INVALID\n00000025: INVALID\n00000026: JUMPDEST\n00000027: PUSH1 0x01\n00000029: PUSH0\n0000002a: SSTORE\n0000002b: PUSH2 0x0033\n0000002e: JUMP\n0000002f: INVALID\n00000030: INVALID\n00000031: INVALID\n00000032: INVALID\n00000033: JUMPDEST\n00000034: PUSH1 0x01\n00000036: PUSH0\n00000037: SSTORE\n00000038: PUSH2 0x0040\n0000003b: JUMP\n0000003c: INVALID\n0000003d: INVALID\n0000003e: INVALID\n0000003f: INVALID\n00000040: JUMPDEST\n00000041: PUSH1 0x01\n00000043: PUSH0\n00000044: SSTORE\n00000045: PUSH2 0x004d\n00000048: JUMP\n00000049: INVALID\n0000004a: INVALID\n0000004b: INVALID\n0000004c: INVALID\n0000004d: JUMPDEST\n0000004e: PUSH1 0x01\n00000050: PUSH0\n00000051: SSTORE\n00000052: PUSH2 0x005a\n00000055: JUMP\n00000056: INVALID\n00000057: INVALID\n00000058: INVALID\n00000059: INVALID\n0000005a: JUMPDEST\n0000005b: PUSH1 0x01\n0000005d: PUSH0\n0000005e: SSTORE\n0000005f: PUSH2 0x0067\n00000062: JUMP\n00000063: INVALID\n00000064: INVALID\n00000065: INVALID\n00000066: INVALID\n00000067: JUMPDEST\n00000068: PUSH1 0x01\n0000006a: PUSH0\n0000006b: SSTORE\n0000006c: PUSH2 0x0074\n0000006f: JUMP\n00000070: INVALID\n00000071: INVALID\n00000072: INVALID\n00000073: INVALID\n00000074: JUMPDEST\n00000075: PUSH1 0x01\n00000077: PUSH0\n00000078: SSTORE\n00000079: PUSH2 0x0081\n0000007c: JUMP\n0000007d: INVALID\n0000007e: INVALID\n0000007f: INVALID\n00000080: INVALID\n00000081: JUMPDEST\n00000082: PUSH1 0x01\n00000084: PUSH0\n00000085: SSTORE\n00000086: PUSH2 0x008e\n00000089: JUMP\n0000008a: INVALID\n0000008b: INVALID\n0000008c: INVALID\n0000008d: INVALID\n0000008e: JUMPDEST\n0000008f: PUSH1 0x01\n00000091: PUSH0\n00000092: SSTORE\n00000093: PUSH2 0x009b\n00000096: JUMP\n00000097: INVALID\n00000098: INVALID\n00000099: INVALID\n0000009a: INVALID\n0000009b: JUMPDEST\n0000009c: PUSH1 0x01\n0000009e: PUSH0\n0000009f: SSTORE\n000000a0: PUSH2 0x00a8\n000000a3: JUMP\n000000a4: INVALID\n000000a5: INVALID\n000000a6: INVALID\n000000a7: INVALID\n000000a8: JUMPDEST\n000000a9: PUSH1 0x01\n000000ab: PUSH0\n000000ac: SSTORE\n000000ad: PUSH2 0x00b5\n000000b0: JUMP\n000000b1: INVALID\n000000b2: INVALID\n000000b3: INVALID\n000000b4: INVALID\n000000b5: JUMPDEST\n000000b6: PUSH1 0x01\n000000b8: PUSH0\n000000b9: SSTORE\n000000ba: PUSH2 0x00c2\n000000bd: JUMP\n000000be: INVALID\n000000bf: INVALID\n000000c0: INVALID\n000000c1: INVALID\n000000c2: JUMPDEST\n000000c3: PUSH1 0x01\n000000c5: PUSH0\n000000c6: SSTORE\n000000c7: PUSH2 0x00cf\n000000ca: JUMP\n000000cb: INVALID\n000000cc: INVALID\n000000cd: INVALID\n000000ce: INVALID\n000000cf: JUMPDEST\n000000d0: PUSH1 0x01\n000000d2: PUSH0\n000000d3: SSTORE\n000000d4: PUSH2 0x00dc\n000000d7: JUMP\n000000d8: INVALID\n000000d9: INVALID\n000000da: INVALID\n000000db: INVALID\n000000dc: JUMPDEST\n000000dd: PUSH1 0x01\n000000df: PUSH0\n000000e0: SSTORE\n000000e1: PUSH2 0x00e9\n000000e4: JUMP\n000000e5: INVALID\n000000e6: INVALID\n000000e7: INVALID\n000000e8: INVALID\n000000e9: JUMPDEST\n000000ea: PUSH1 0x01\n000000ec: PUSH0\n000000ed: SSTORE\n000000ee: PUSH2 0x00f6\n000000f1: JUMP\n000000f2: INVALID\n000000f3: INVALID\n000000f4: INVALID\n000000f5: INVALID\n000000f6: JUMPDEST\n000000f7: PUSH1 0x01\n000000f9: PUSH0\n000000fa: SSTORE\n000000fb: PUSH2 0x0103\n000000fe: JUMP\n000000ff: INVALID\n00000100: INVALID\n00000101: INVALID\n00000102: INVALID\n00000103: JUMPDEST\n00000104: PUSH1 0x01\n00000106: PUSH0\n00000107: SSTORE\n00000108: PUSH2 0x0110\n0000010b: JUMP\n0000010c: INVALID\n0000010d: INVALID\n0000010e: INVALID\n0000010f: INVALID\n00000110: JUMPDEST\n00000111: PUSH1 0x01\n00000113: PUSH0\n00000114: SSTORE\n00000115: PUSH2 0x011d\n00000118: JUMP\n00000119: INVALID\n0000011a: INVALID\n0000011b: INVALID\n0000011c: INVALID\n0000011d: JUMPDEST\n0000011e: PUSH1 0x01\n00000120: PUSH0\n00000121: SSTORE\n00000122: PUSH2 0x012a\n00000125: JUMP\n00000126: INVALID\n00000127: INVALID\n00000128: INVALID\n00000129: INVALID\n0000012a: JUMPDEST\n0000012b: PUSH1 0x01\n0000012d: PUSH0\n0000012e: SSTORE\n0000012f: PUSH2 0x0137\n00000132: JUMP\n00000133: INVALID\n00000134: INVALID\n00000135: INVALID\n00000136: INVALID\n00000137: JUMPDEST\n00000138: PUSH1 0x01\n0000013a: PUSH0\n0000013b: SSTORE\n0000013c: PUSH2 0x0144\n0000013f: JUMP\n00000140: INVALID\n00000141: INVALID\n00000142: INVALID\n00000143: INVALID\n00000144: JUMPDEST\n00000145: PUSH1 0x01\n00000147: PUSH0\n00000148: SSTORE\n00000149: PUSH2 0x0151\n0000014c: JUMP\n0000014d: INVALID\n0000014e: INVALID\n0000014f: INVALID\n00000150: INVALID\n00000151: JUMPDEST\n00000152: PUSH1 0x01\n00000154: PUSH0\n00000155: SSTORE\n00000156: PUSH2 0x015e\n00000159: JUMP\n0000015a: INVALID\n0000015b: INVALID\n0000015c: INVALID\n0000015d: INVALID\n0000015e: JUMPDEST\n0000015f: PUSH1 0x01\n00000161: PUSH0\n00000162: SSTORE\n00000163: PUSH2 0x016b\n00000166: JUMP\n00000167: INVALID\n00000168: INVALID\n00000169: INVALID\n0000016a: INVALID\n0000016b: JUMPDEST\n0000016c: PUSH1 0x01\n0000016e: PUSH0\n0000016f: SSTORE\n00000170: PUSH2 0x0178\n00000173: JUMP\n00000174: INVALID\n00000175: INVALID\n00000176: INVALID\n00000177: INVALID\n00000178: JUMPDEST\n00000179: PUSH1 0x01\n0000017b: PUSH0\n0000017c: SSTORE\n0000017d: PUSH2 0x0185\n00000180: JUMP\n00000181: INVALID\n00000182: INVALID\n00000183: INVALID\n00000184: INVALID\n00000185: JUMPDEST\n00000186: PUSH0\n00000187: SLOAD\n00000188: PUSH0\n00000189: MSTORE\n0000018a: PUSH1 0x20\n0000018c: PUSH0\n0000018d: RETURN\n",
+    "stderr": ""
+  },
+  "corpus-listing-Zero.json": {
+    "argv": [
+      "/Users/oobi/Documents/gpt1/assay-stage-f/_build/default/test/asm_cases.exe",
+      "listing",
+      "5f5f55600a56fefefefe5b5f545f5260205ff3"
+    ],
+    "exit": 0,
+    "stdout": "00000000: PUSH0\n00000001: PUSH0\n00000002: SSTORE\n00000003: PUSH1 0x0a\n00000005: JUMP\n00000006: INVALID\n00000007: INVALID\n00000008: INVALID\n00000009: INVALID\n0000000a: JUMPDEST\n0000000b: PUSH0\n0000000c: SLOAD\n0000000d: PUSH0\n0000000e: MSTORE\n0000000f: PUSH1 0x20\n00000011: PUSH0\n00000012: RETURN\n",
+    "stderr": ""
+  },
+  "emitted-cast.json": {
+    "argv": [
+      "cast",
+      "disassemble",
+      "0x602a5f55600b56fefefefe5b5f545f5260205ff3"
+    ],
+    "exit": 0,
+    "stdout": "00000000: PUSH1 0x2a\n00000002: PUSH0\n00000003: SSTORE\n00000004: PUSH1 0x0b\n00000006: JUMP\n00000007: INVALID\n00000008: INVALID\n00000009: INVALID\n0000000a: INVALID\n0000000b: JUMPDEST\n0000000c: PUSH0\n0000000d: SLOAD\n0000000e: PUSH0\n0000000f: MSTORE\n00000010: PUSH1 0x20\n00000012: PUSH0\n00000013: RETURN\n\n",
+    "stderr": ""
+  },
+  "emitted-create.json": {
+    "argv": [
+      "evm",
+      "--verbosity",
+      "0",
+      "run",
+      "--prestate",
+      "/Users/oobi/Documents/gpt1/assay-stage-f/evm/fixtures/cancun.json",
+      "--gas",
+      "16777216",
+      "--sender",
+      "0x000000000000000000000000000073656e646572",
+      "--receiver",
+      "0x0000000000000000000000007265636569766572",
+      "--code",
+      "6014600a5f3960145ff3602a5f55600b56fefefefe5b5f545f5260205ff3",
+      "--json",
+      "--dump",
+      "--create"
+    ],
+    "exit": 0,
+    "stdout": "{\"pc\":0,\"op\":96,\"gas\":\"0x1000000\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":2,\"op\":96,\"gas\":\"0xfffffd\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[\"0x14\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":4,\"op\":95,\"gas\":\"0xfffffa\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[\"0x14\",\"0xa\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":5,\"op\":57,\"gas\":\"0xfffff8\",\"gasCost\":\"0x9\",\"memSize\":0,\"stack\":[\"0x14\",\"0xa\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"CODECOPY\"}\n{\"pc\":6,\"op\":96,\"gas\":\"0xffffef\",\"gasCost\":\"0x3\",\"memSize\":32,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":8,\"op\":95,\"gas\":\"0xffffec\",\"gasCost\":\"0x2\",\"memSize\":32,\"stack\":[\"0x14\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":9,\"op\":243,\"gas\":\"0xffffea\",\"gasCost\":\"0x0\",\"memSize\":32,\"stack\":[\"0x14\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"RETURN\"}\n{\"output\":\"602a5f55600b56fefefefe5b5f545f5260205ff3\",\"gasUsed\":\"0xfb6\"}\n{\n    \"root\": \"30948383ee9898511b4f28bc3d2311fce4c8e06dfd560c6e8c3245aa913fd538\",\n    \"accounts\": {\n        \"0x000000000000000000000000000073656E646572\": {\n            \"balance\": \"0\",\n            \"nonce\": 1,\n            \"root\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\",\n            \"codeHash\": \"0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470\",\n            \"address\": \"0x000000000000000000000000000073656e646572\",\n            \"key\": \"0x991ce00dc1ffbea80c37495ab0286baa37f4aa9220f83711b7e407379aec6fcb\"\n        },\n        \"0x1f2a98889594024BFfdA3311CbE69728d392C06D\": {\n            \"balance\": \"0\",\n            \"nonce\": 1,\n            \"root\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\",\n            \"codeHash\": \"0x755b9e03b3191b071ebb78b7ebae672c2db6c3b52febaf13955e337d95b5f2ef\",\n            \"code\": \"0x602a5f55600b56fefefefe5b5f545f5260205ff3\",\n            \"address\": \"0x1f2a98889594024bffda3311cbe69728d392c06d\",\n            \"key\": \"0xcbeeb4463624bc2f332dcfe2b479eddb1c380ec862ee63d9f31b31b854fb7c61\"\n        }\n    }\n}\n",
+    "stderr": ""
+  },
+  "emitted-run.json": {
+    "argv": [
+      "evm",
+      "--verbosity",
+      "0",
+      "run",
+      "--prestate",
+      "/Users/oobi/Documents/gpt1/assay-stage-f/evm/fixtures/cancun.json",
+      "--gas",
+      "16777216",
+      "--sender",
+      "0x000000000000000000000000000073656e646572",
+      "--receiver",
+      "0x0000000000000000000000007265636569766572",
+      "--code",
+      "602a5f55600b56fefefefe5b5f545f5260205ff3",
+      "--json",
+      "--dump"
+    ],
+    "exit": 0,
+    "stdout": "{\"pc\":0,\"op\":96,\"gas\":\"0x1000000\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":2,\"op\":95,\"gas\":\"0xfffffd\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[\"0x2a\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":3,\"op\":85,\"gas\":\"0xfffffb\",\"gasCost\":\"0x5654\",\"memSize\":0,\"stack\":[\"0x2a\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"SSTORE\"}\n{\"pc\":4,\"op\":96,\"gas\":\"0xffa9a7\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":6,\"op\":86,\"gas\":\"0xffa9a4\",\"gasCost\":\"0x8\",\"memSize\":0,\"stack\":[\"0xb\"],\"depth\":1,\"refund\":0,\"opName\":\"JUMP\"}\n{\"pc\":11,\"op\":91,\"gas\":\"0xffa99c\",\"gasCost\":\"0x1\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"JUMPDEST\"}\n{\"pc\":12,\"op\":95,\"gas\":\"0xffa99b\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":13,\"op\":84,\"gas\":\"0xffa999\",\"gasCost\":\"0x64\",\"memSize\":0,\"stack\":[\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"SLOAD\"}\n{\"pc\":14,\"op\":95,\"gas\":\"0xffa935\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[\"0x2a\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":15,\"op\":82,\"gas\":\"0xffa933\",\"gasCost\":\"0x6\",\"memSize\":0,\"stack\":[\"0x2a\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"MSTORE\"}\n{\"pc\":16,\"op\":96,\"gas\":\"0xffa92d\",\"gasCost\":\"0x3\",\"memSize\":32,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":18,\"op\":95,\"gas\":\"0xffa92a\",\"gasCost\":\"0x2\",\"memSize\":32,\"stack\":[\"0x20\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":19,\"op\":243,\"gas\":\"0xffa928\",\"gasCost\":\"0x0\",\"memSize\":32,\"stack\":[\"0x20\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"RETURN\"}\n{\"output\":\"000000000000000000000000000000000000000000000000000000000000002a\",\"gasUsed\":\"0x56d8\"}\n{\n    \"root\": \"0abe467c85a5dbac429cd5d2becbe405d4d77533412a5bebeee8391de2da5523\",\n    \"accounts\": {\n        \"0x0000000000000000000000007265636569766572\": {\n            \"balance\": \"0\",\n            \"nonce\": 0,\n            \"root\": \"0x81d1fa699f807735499cf6f7df860797cf66f6a66b565cfcda3fae3521eb6861\",\n            \"codeHash\": \"0x755b9e03b3191b071ebb78b7ebae672c2db6c3b52febaf13955e337d95b5f2ef\",\n            \"code\": \"0x602a5f55600b56fefefefe5b5f545f5260205ff3\",\n            \"storage\": {\n                \"0x0000000000000000000000000000000000000000000000000000000000000000\": \"2a\"\n            },\n            \"address\": \"0x0000000000000000000000007265636569766572\",\n            \"key\": \"0x30d7a0694cb29af31b982480e11d7ebb003a3fca4026939149071f014689b142\"\n        }\n    }\n}\n",
+    "stderr": ""
+  },
+  "f-control-cast.json": {
+    "argv": [
+      "cast",
+      "disassemble",
+      "0x602a5f55600b56fefefefe5b5f545f5260205ff3"
+    ],
+    "exit": 0,
+    "stdout": "00000000: PUSH1 0x2a\n00000002: PUSH0\n00000003: SSTORE\n00000004: PUSH1 0x0b\n00000006: JUMP\n00000007: INVALID\n00000008: INVALID\n00000009: INVALID\n0000000a: INVALID\n0000000b: JUMPDEST\n0000000c: PUSH0\n0000000d: SLOAD\n0000000e: PUSH0\n0000000f: MSTORE\n00000010: PUSH1 0x20\n00000012: PUSH0\n00000013: RETURN\n\n",
+    "stderr": ""
+  },
+  "f-control-create.json": {
+    "argv": [
+      "evm",
+      "--verbosity",
+      "0",
+      "run",
+      "--prestate",
+      "/Users/oobi/Documents/gpt1/assay-stage-f/evm/fixtures/cancun.json",
+      "--gas",
+      "16777216",
+      "--sender",
+      "0x000000000000000000000000000073656e646572",
+      "--receiver",
+      "0x0000000000000000000000007265636569766572",
+      "--code",
+      "6014600a5f3960145ff3602a5f55600b56fefefefe5b5f545f5260205ff3",
+      "--json",
+      "--dump",
+      "--create"
+    ],
+    "exit": 0,
+    "stdout": "{\"pc\":0,\"op\":96,\"gas\":\"0x1000000\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":2,\"op\":96,\"gas\":\"0xfffffd\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[\"0x14\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":4,\"op\":95,\"gas\":\"0xfffffa\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[\"0x14\",\"0xa\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":5,\"op\":57,\"gas\":\"0xfffff8\",\"gasCost\":\"0x9\",\"memSize\":0,\"stack\":[\"0x14\",\"0xa\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"CODECOPY\"}\n{\"pc\":6,\"op\":96,\"gas\":\"0xffffef\",\"gasCost\":\"0x3\",\"memSize\":32,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":8,\"op\":95,\"gas\":\"0xffffec\",\"gasCost\":\"0x2\",\"memSize\":32,\"stack\":[\"0x14\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":9,\"op\":243,\"gas\":\"0xffffea\",\"gasCost\":\"0x0\",\"memSize\":32,\"stack\":[\"0x14\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"RETURN\"}\n{\"output\":\"602a5f55600b56fefefefe5b5f545f5260205ff3\",\"gasUsed\":\"0xfb6\"}\n{\n    \"root\": \"30948383ee9898511b4f28bc3d2311fce4c8e06dfd560c6e8c3245aa913fd538\",\n    \"accounts\": {\n        \"0x000000000000000000000000000073656E646572\": {\n            \"balance\": \"0\",\n            \"nonce\": 1,\n            \"root\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\",\n            \"codeHash\": \"0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470\",\n            \"address\": \"0x000000000000000000000000000073656e646572\",\n            \"key\": \"0x991ce00dc1ffbea80c37495ab0286baa37f4aa9220f83711b7e407379aec6fcb\"\n        },\n        \"0x1f2a98889594024BFfdA3311CbE69728d392C06D\": {\n            \"balance\": \"0\",\n            \"nonce\": 1,\n            \"root\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\",\n            \"codeHash\": \"0x755b9e03b3191b071ebb78b7ebae672c2db6c3b52febaf13955e337d95b5f2ef\",\n            \"code\": \"0x602a5f55600b56fefefefe5b5f545f5260205ff3\",\n            \"address\": \"0x1f2a98889594024bffda3311cbe69728d392c06d\",\n            \"key\": \"0xcbeeb4463624bc2f332dcfe2b479eddb1c380ec862ee63d9f31b31b854fb7c61\"\n        }\n    }\n}\n",
+    "stderr": ""
+  },
+  "f-control-run.json": {
+    "argv": [
+      "evm",
+      "--verbosity",
+      "0",
+      "run",
+      "--prestate",
+      "/Users/oobi/Documents/gpt1/assay-stage-f/evm/fixtures/cancun.json",
+      "--gas",
+      "16777216",
+      "--sender",
+      "0x000000000000000000000000000073656e646572",
+      "--receiver",
+      "0x0000000000000000000000007265636569766572",
+      "--code",
+      "602a5f55600b56fefefefe5b5f545f5260205ff3",
+      "--json",
+      "--dump"
+    ],
+    "exit": 0,
+    "stdout": "{\"pc\":0,\"op\":96,\"gas\":\"0x1000000\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":2,\"op\":95,\"gas\":\"0xfffffd\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[\"0x2a\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":3,\"op\":85,\"gas\":\"0xfffffb\",\"gasCost\":\"0x5654\",\"memSize\":0,\"stack\":[\"0x2a\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"SSTORE\"}\n{\"pc\":4,\"op\":96,\"gas\":\"0xffa9a7\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":6,\"op\":86,\"gas\":\"0xffa9a4\",\"gasCost\":\"0x8\",\"memSize\":0,\"stack\":[\"0xb\"],\"depth\":1,\"refund\":0,\"opName\":\"JUMP\"}\n{\"pc\":11,\"op\":91,\"gas\":\"0xffa99c\",\"gasCost\":\"0x1\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"JUMPDEST\"}\n{\"pc\":12,\"op\":95,\"gas\":\"0xffa99b\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":13,\"op\":84,\"gas\":\"0xffa999\",\"gasCost\":\"0x64\",\"memSize\":0,\"stack\":[\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"SLOAD\"}\n{\"pc\":14,\"op\":95,\"gas\":\"0xffa935\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[\"0x2a\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":15,\"op\":82,\"gas\":\"0xffa933\",\"gasCost\":\"0x6\",\"memSize\":0,\"stack\":[\"0x2a\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"MSTORE\"}\n{\"pc\":16,\"op\":96,\"gas\":\"0xffa92d\",\"gasCost\":\"0x3\",\"memSize\":32,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":18,\"op\":95,\"gas\":\"0xffa92a\",\"gasCost\":\"0x2\",\"memSize\":32,\"stack\":[\"0x20\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":19,\"op\":243,\"gas\":\"0xffa928\",\"gasCost\":\"0x0\",\"memSize\":32,\"stack\":[\"0x20\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"RETURN\"}\n{\"output\":\"000000000000000000000000000000000000000000000000000000000000002a\",\"gasUsed\":\"0x56d8\"}\n{\n    \"root\": \"0abe467c85a5dbac429cd5d2becbe405d4d77533412a5bebeee8391de2da5523\",\n    \"accounts\": {\n        \"0x0000000000000000000000007265636569766572\": {\n            \"balance\": \"0\",\n            \"nonce\": 0,\n            \"root\": \"0x81d1fa699f807735499cf6f7df860797cf66f6a66b565cfcda3fae3521eb6861\",\n            \"codeHash\": \"0x755b9e03b3191b071ebb78b7ebae672c2db6c3b52febaf13955e337d95b5f2ef\",\n            \"code\": \"0x602a5f55600b56fefefefe5b5f545f5260205ff3\",\n            \"storage\": {\n                \"0x0000000000000000000000000000000000000000000000000000000000000000\": \"2a\"\n            },\n            \"address\": \"0x0000000000000000000000007265636569766572\",\n            \"key\": \"0x30d7a0694cb29af31b982480e11d7ebb003a3fca4026939149071f014689b142\"\n        }\n    }\n}\n",
+    "stderr": ""
+  },
+  "f-mutant-cast.json": {
+    "argv": [
+      "cast",
+      "disassemble",
+      "0x602b5f55600b56fefefefe5b5f545f5260205ff3"
+    ],
+    "exit": 0,
+    "stdout": "00000000: PUSH1 0x2b\n00000002: PUSH0\n00000003: SSTORE\n00000004: PUSH1 0x0b\n00000006: JUMP\n00000007: INVALID\n00000008: INVALID\n00000009: INVALID\n0000000a: INVALID\n0000000b: JUMPDEST\n0000000c: PUSH0\n0000000d: SLOAD\n0000000e: PUSH0\n0000000f: MSTORE\n00000010: PUSH1 0x20\n00000012: PUSH0\n00000013: RETURN\n\n",
+    "stderr": ""
+  },
+  "f-mutant-run.json": {
+    "argv": [
+      "evm",
+      "--verbosity",
+      "0",
+      "run",
+      "--prestate",
+      "/Users/oobi/Documents/gpt1/assay-stage-f/evm/fixtures/cancun.json",
+      "--gas",
+      "16777216",
+      "--sender",
+      "0x000000000000000000000000000073656e646572",
+      "--receiver",
+      "0x0000000000000000000000007265636569766572",
+      "--code",
+      "602b5f55600b56fefefefe5b5f545f5260205ff3",
+      "--json",
+      "--dump"
+    ],
+    "exit": 0,
+    "stdout": "{\"pc\":0,\"op\":96,\"gas\":\"0x1000000\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":2,\"op\":95,\"gas\":\"0xfffffd\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[\"0x2b\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":3,\"op\":85,\"gas\":\"0xfffffb\",\"gasCost\":\"0x5654\",\"memSize\":0,\"stack\":[\"0x2b\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"SSTORE\"}\n{\"pc\":4,\"op\":96,\"gas\":\"0xffa9a7\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":6,\"op\":86,\"gas\":\"0xffa9a4\",\"gasCost\":\"0x8\",\"memSize\":0,\"stack\":[\"0xb\"],\"depth\":1,\"refund\":0,\"opName\":\"JUMP\"}\n{\"pc\":11,\"op\":91,\"gas\":\"0xffa99c\",\"gasCost\":\"0x1\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"JUMPDEST\"}\n{\"pc\":12,\"op\":95,\"gas\":\"0xffa99b\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":13,\"op\":84,\"gas\":\"0xffa999\",\"gasCost\":\"0x64\",\"memSize\":0,\"stack\":[\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"SLOAD\"}\n{\"pc\":14,\"op\":95,\"gas\":\"0xffa935\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[\"0x2b\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":15,\"op\":82,\"gas\":\"0xffa933\",\"gasCost\":\"0x6\",\"memSize\":0,\"stack\":[\"0x2b\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"MSTORE\"}\n{\"pc\":16,\"op\":96,\"gas\":\"0xffa92d\",\"gasCost\":\"0x3\",\"memSize\":32,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":18,\"op\":95,\"gas\":\"0xffa92a\",\"gasCost\":\"0x2\",\"memSize\":32,\"stack\":[\"0x20\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":19,\"op\":243,\"gas\":\"0xffa928\",\"gasCost\":\"0x0\",\"memSize\":32,\"stack\":[\"0x20\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"RETURN\"}\n{\"output\":\"000000000000000000000000000000000000000000000000000000000000002b\",\"gasUsed\":\"0x56d8\"}\n{\n    \"root\": \"fe80456213ebbd3018151776e2d871025cdcccecb4924719f16af8e2cf8aa755\",\n    \"accounts\": {\n        \"0x0000000000000000000000007265636569766572\": {\n            \"balance\": \"0\",\n            \"nonce\": 0,\n            \"root\": \"0x70b60b86e149bd18c3ebd5fc954878b3c2a7d03c205ea0d83153a1c48df3278d\",\n            \"codeHash\": \"0x342ffcad329cf727e2d3d9fe9b612674519b06d54333449b6d7738d21a35248d\",\n            \"code\": \"0x602b5f55600b56fefefefe5b5f545f5260205ff3\",\n            \"storage\": {\n                \"0x0000000000000000000000000000000000000000000000000000000000000000\": \"2b\"\n            },\n            \"address\": \"0x0000000000000000000000007265636569766572\",\n            \"key\": \"0x30d7a0694cb29af31b982480e11d7ebb003a3fca4026939149071f014689b142\"\n        }\n    }\n}\n",
+    "stderr": ""
+  }
+}

@@ -1,0 +1,287 @@
+[
+  {
+    "name": "calldata-",
+    "argv": [
+      "/Users/oobi/Documents/assay-stage-f-review/fix-copy-1/_build/default/bin/assay.exe",
+      "trace",
+      "/Users/oobi/Documents/assay-stage-f-review/fix-copy-1/examples/Ref20.asy",
+      "--calldata",
+      ""
+    ],
+    "cwd": "/tmp/claude-501/assay-trace-472iykqm",
+    "exit": 0,
+    "stdout": "{\"pc\":0,\"op\":96,\"gas\":\"0x1000000\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":2,\"op\":95,\"gas\":\"0xfffffd\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[\"0x2a\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":3,\"op\":85,\"gas\":\"0xfffffb\",\"gasCost\":\"0x5654\",\"memSize\":0,\"stack\":[\"0x2a\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"SSTORE\"}\n{\"pc\":4,\"op\":96,\"gas\":\"0xffa9a7\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":6,\"op\":86,\"gas\":\"0xffa9a4\",\"gasCost\":\"0x8\",\"memSize\":0,\"stack\":[\"0xb\"],\"depth\":1,\"refund\":0,\"opName\":\"JUMP\"}\n{\"pc\":11,\"op\":91,\"gas\":\"0xffa99c\",\"gasCost\":\"0x1\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"JUMPDEST\"}\n{\"pc\":12,\"op\":95,\"gas\":\"0xffa99b\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":13,\"op\":84,\"gas\":\"0xffa999\",\"gasCost\":\"0x64\",\"memSize\":0,\"stack\":[\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"SLOAD\"}\n{\"pc\":14,\"op\":95,\"gas\":\"0xffa935\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[\"0x2a\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":15,\"op\":82,\"gas\":\"0xffa933\",\"gasCost\":\"0x6\",\"memSize\":0,\"stack\":[\"0x2a\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"MSTORE\"}\n{\"pc\":16,\"op\":96,\"gas\":\"0xffa92d\",\"gasCost\":\"0x3\",\"memSize\":32,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":18,\"op\":95,\"gas\":\"0xffa92a\",\"gasCost\":\"0x2\",\"memSize\":32,\"stack\":[\"0x20\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":19,\"op\":243,\"gas\":\"0xffa928\",\"gasCost\":\"0x0\",\"memSize\":32,\"stack\":[\"0x20\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"RETURN\"}\n{\"output\":\"000000000000000000000000000000000000000000000000000000000000002a\",\"gasUsed\":\"0x56d8\"}\n{\n    \"root\": \"0abe467c85a5dbac429cd5d2becbe405d4d77533412a5bebeee8391de2da5523\",\n    \"accounts\": {\n        \"0x0000000000000000000000007265636569766572\": {\n            \"balance\": \"0\",\n            \"nonce\": 0,\n            \"root\": \"0x81d1fa699f807735499cf6f7df860797cf66f6a66b565cfcda3fae3521eb6861\",\n            \"codeHash\": \"0x755b9e03b3191b071ebb78b7ebae672c2db6c3b52febaf13955e337d95b5f2ef\",\n            \"code\": \"0x602a5f55600b56fefefefe5b5f545f5260205ff3\",\n            \"storage\": {\n                \"0x0000000000000000000000000000000000000000000000000000000000000000\": \"2a\"\n            },\n            \"address\": \"0x0000000000000000000000007265636569766572\",\n            \"key\": \"0x30d7a0694cb29af31b982480e11d7ebb003a3fca4026939149071f014689b142\"\n        }\n    }\n}\n",
+    "stderr": ""
+  },
+  {
+    "name": "calldata-0x",
+    "argv": [
+      "/Users/oobi/Documents/assay-stage-f-review/fix-copy-1/_build/default/bin/assay.exe",
+      "trace",
+      "/Users/oobi/Documents/assay-stage-f-review/fix-copy-1/examples/Ref20.asy",
+      "--calldata",
+      "0x"
+    ],
+    "cwd": "/tmp/claude-501/assay-trace-472iykqm",
+    "exit": 0,
+    "stdout": "{\"pc\":0,\"op\":96,\"gas\":\"0x1000000\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":2,\"op\":95,\"gas\":\"0xfffffd\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[\"0x2a\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":3,\"op\":85,\"gas\":\"0xfffffb\",\"gasCost\":\"0x5654\",\"memSize\":0,\"stack\":[\"0x2a\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"SSTORE\"}\n{\"pc\":4,\"op\":96,\"gas\":\"0xffa9a7\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":6,\"op\":86,\"gas\":\"0xffa9a4\",\"gasCost\":\"0x8\",\"memSize\":0,\"stack\":[\"0xb\"],\"depth\":1,\"refund\":0,\"opName\":\"JUMP\"}\n{\"pc\":11,\"op\":91,\"gas\":\"0xffa99c\",\"gasCost\":\"0x1\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"JUMPDEST\"}\n{\"pc\":12,\"op\":95,\"gas\":\"0xffa99b\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":13,\"op\":84,\"gas\":\"0xffa999\",\"gasCost\":\"0x64\",\"memSize\":0,\"stack\":[\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"SLOAD\"}\n{\"pc\":14,\"op\":95,\"gas\":\"0xffa935\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[\"0x2a\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":15,\"op\":82,\"gas\":\"0xffa933\",\"gasCost\":\"0x6\",\"memSize\":0,\"stack\":[\"0x2a\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"MSTORE\"}\n{\"pc\":16,\"op\":96,\"gas\":\"0xffa92d\",\"gasCost\":\"0x3\",\"memSize\":32,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":18,\"op\":95,\"gas\":\"0xffa92a\",\"gasCost\":\"0x2\",\"memSize\":32,\"stack\":[\"0x20\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":19,\"op\":243,\"gas\":\"0xffa928\",\"gasCost\":\"0x0\",\"memSize\":32,\"stack\":[\"0x20\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"RETURN\"}\n{\"output\":\"000000000000000000000000000000000000000000000000000000000000002a\",\"gasUsed\":\"0x56d8\"}\n{\n    \"root\": \"0abe467c85a5dbac429cd5d2becbe405d4d77533412a5bebeee8391de2da5523\",\n    \"accounts\": {\n        \"0x0000000000000000000000007265636569766572\": {\n            \"balance\": \"0\",\n            \"nonce\": 0,\n            \"root\": \"0x81d1fa699f807735499cf6f7df860797cf66f6a66b565cfcda3fae3521eb6861\",\n            \"codeHash\": \"0x755b9e03b3191b071ebb78b7ebae672c2db6c3b52febaf13955e337d95b5f2ef\",\n            \"code\": \"0x602a5f55600b56fefefefe5b5f545f5260205ff3\",\n            \"storage\": {\n                \"0x0000000000000000000000000000000000000000000000000000000000000000\": \"2a\"\n            },\n            \"address\": \"0x0000000000000000000000007265636569766572\",\n            \"key\": \"0x30d7a0694cb29af31b982480e11d7ebb003a3fca4026939149071f014689b142\"\n        }\n    }\n}\n",
+    "stderr": ""
+  },
+  {
+    "name": "calldata-0xDEADBEEF",
+    "argv": [
+      "/Users/oobi/Documents/assay-stage-f-review/fix-copy-1/_build/default/bin/assay.exe",
+      "trace",
+      "/Users/oobi/Documents/assay-stage-f-review/fix-copy-1/examples/Ref20.asy",
+      "--calldata",
+      "0xDEADBEEF"
+    ],
+    "cwd": "/tmp/claude-501/assay-trace-472iykqm",
+    "exit": 0,
+    "stdout": "{\"pc\":0,\"op\":96,\"gas\":\"0x1000000\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":2,\"op\":95,\"gas\":\"0xfffffd\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[\"0x2a\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":3,\"op\":85,\"gas\":\"0xfffffb\",\"gasCost\":\"0x5654\",\"memSize\":0,\"stack\":[\"0x2a\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"SSTORE\"}\n{\"pc\":4,\"op\":96,\"gas\":\"0xffa9a7\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":6,\"op\":86,\"gas\":\"0xffa9a4\",\"gasCost\":\"0x8\",\"memSize\":0,\"stack\":[\"0xb\"],\"depth\":1,\"refund\":0,\"opName\":\"JUMP\"}\n{\"pc\":11,\"op\":91,\"gas\":\"0xffa99c\",\"gasCost\":\"0x1\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"JUMPDEST\"}\n{\"pc\":12,\"op\":95,\"gas\":\"0xffa99b\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":13,\"op\":84,\"gas\":\"0xffa999\",\"gasCost\":\"0x64\",\"memSize\":0,\"stack\":[\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"SLOAD\"}\n{\"pc\":14,\"op\":95,\"gas\":\"0xffa935\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[\"0x2a\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":15,\"op\":82,\"gas\":\"0xffa933\",\"gasCost\":\"0x6\",\"memSize\":0,\"stack\":[\"0x2a\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"MSTORE\"}\n{\"pc\":16,\"op\":96,\"gas\":\"0xffa92d\",\"gasCost\":\"0x3\",\"memSize\":32,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":18,\"op\":95,\"gas\":\"0xffa92a\",\"gasCost\":\"0x2\",\"memSize\":32,\"stack\":[\"0x20\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":19,\"op\":243,\"gas\":\"0xffa928\",\"gasCost\":\"0x0\",\"memSize\":32,\"stack\":[\"0x20\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"RETURN\"}\n{\"output\":\"000000000000000000000000000000000000000000000000000000000000002a\",\"gasUsed\":\"0x56d8\"}\n{\n    \"root\": \"0abe467c85a5dbac429cd5d2becbe405d4d77533412a5bebeee8391de2da5523\",\n    \"accounts\": {\n        \"0x0000000000000000000000007265636569766572\": {\n            \"balance\": \"0\",\n            \"nonce\": 0,\n            \"root\": \"0x81d1fa699f807735499cf6f7df860797cf66f6a66b565cfcda3fae3521eb6861\",\n            \"codeHash\": \"0x755b9e03b3191b071ebb78b7ebae672c2db6c3b52febaf13955e337d95b5f2ef\",\n            \"code\": \"0x602a5f55600b56fefefefe5b5f545f5260205ff3\",\n            \"storage\": {\n                \"0x0000000000000000000000000000000000000000000000000000000000000000\": \"2a\"\n            },\n            \"address\": \"0x0000000000000000000000007265636569766572\",\n            \"key\": \"0x30d7a0694cb29af31b982480e11d7ebb003a3fca4026939149071f014689b142\"\n        }\n    }\n}\n",
+    "stderr": ""
+  },
+  {
+    "name": "explicit",
+    "argv": [
+      "/Users/oobi/Documents/assay-stage-f-review/fix-copy-1/_build/default/bin/assay.exe",
+      "trace",
+      "/tmp/claude-501/assay-trace-472iykqm/source with spaces.asy",
+      "--calldata",
+      "aa",
+      "--prestate",
+      "/tmp/claude-501/assay-trace-472iykqm/prestate with spaces.json"
+    ],
+    "cwd": "/tmp/claude-501/assay-trace-472iykqm",
+    "exit": 0,
+    "stdout": "{\"pc\":0,\"op\":96,\"gas\":\"0x1000000\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":2,\"op\":95,\"gas\":\"0xfffffd\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[\"0x2a\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":3,\"op\":85,\"gas\":\"0xfffffb\",\"gasCost\":\"0x5654\",\"memSize\":0,\"stack\":[\"0x2a\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"SSTORE\"}\n{\"pc\":4,\"op\":96,\"gas\":\"0xffa9a7\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":6,\"op\":86,\"gas\":\"0xffa9a4\",\"gasCost\":\"0x8\",\"memSize\":0,\"stack\":[\"0xb\"],\"depth\":1,\"refund\":0,\"opName\":\"JUMP\"}\n{\"pc\":11,\"op\":91,\"gas\":\"0xffa99c\",\"gasCost\":\"0x1\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"JUMPDEST\"}\n{\"pc\":12,\"op\":95,\"gas\":\"0xffa99b\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":13,\"op\":84,\"gas\":\"0xffa999\",\"gasCost\":\"0x64\",\"memSize\":0,\"stack\":[\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"SLOAD\"}\n{\"pc\":14,\"op\":95,\"gas\":\"0xffa935\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[\"0x2a\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":15,\"op\":82,\"gas\":\"0xffa933\",\"gasCost\":\"0x6\",\"memSize\":0,\"stack\":[\"0x2a\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"MSTORE\"}\n{\"pc\":16,\"op\":96,\"gas\":\"0xffa92d\",\"gasCost\":\"0x3\",\"memSize\":32,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":18,\"op\":95,\"gas\":\"0xffa92a\",\"gasCost\":\"0x2\",\"memSize\":32,\"stack\":[\"0x20\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":19,\"op\":243,\"gas\":\"0xffa928\",\"gasCost\":\"0x0\",\"memSize\":32,\"stack\":[\"0x20\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"RETURN\"}\n{\"output\":\"000000000000000000000000000000000000000000000000000000000000002a\",\"gasUsed\":\"0x56d8\"}\n{\n    \"root\": \"0abe467c85a5dbac429cd5d2becbe405d4d77533412a5bebeee8391de2da5523\",\n    \"accounts\": {\n        \"0x0000000000000000000000007265636569766572\": {\n            \"balance\": \"0\",\n            \"nonce\": 0,\n            \"root\": \"0x81d1fa699f807735499cf6f7df860797cf66f6a66b565cfcda3fae3521eb6861\",\n            \"codeHash\": \"0x755b9e03b3191b071ebb78b7ebae672c2db6c3b52febaf13955e337d95b5f2ef\",\n            \"code\": \"0x602a5f55600b56fefefefe5b5f545f5260205ff3\",\n            \"storage\": {\n                \"0x0000000000000000000000000000000000000000000000000000000000000000\": \"2a\"\n            },\n            \"address\": \"0x0000000000000000000000007265636569766572\",\n            \"key\": \"0x30d7a0694cb29af31b982480e11d7ebb003a3fca4026939149071f014689b142\"\n        }\n    }\n}\n",
+    "stderr": ""
+  },
+  {
+    "name": "missing-calldata",
+    "argv": [
+      "/Users/oobi/Documents/assay-stage-f-review/fix-copy-1/_build/default/bin/assay.exe",
+      "trace",
+      "/Users/oobi/Documents/assay-stage-f-review/fix-copy-1/examples/Ref20.asy"
+    ],
+    "cwd": "/tmp/claude-501/assay-trace-472iykqm",
+    "exit": 64,
+    "stdout": "",
+    "stderr": "usage: assay check [--print|--erased] FILE | axioms FILE | spec-count | emit FILE -o DIR | trace FILE --calldata HEX [--prestate FILE] | diff FILE | run FILE | deploy FILE | test FILE\n"
+  },
+  {
+    "name": "odd-calldata",
+    "argv": [
+      "/Users/oobi/Documents/assay-stage-f-review/fix-copy-1/_build/default/bin/assay.exe",
+      "trace",
+      "/Users/oobi/Documents/assay-stage-f-review/fix-copy-1/examples/Ref20.asy",
+      "--calldata",
+      "0"
+    ],
+    "cwd": "/tmp/claude-501/assay-trace-472iykqm",
+    "exit": 64,
+    "stdout": "",
+    "stderr": "assay: trace: CALLDATA_HEX: expected whole hex bytes\n"
+  },
+  {
+    "name": "invalid-calldata",
+    "argv": [
+      "/Users/oobi/Documents/assay-stage-f-review/fix-copy-1/_build/default/bin/assay.exe",
+      "trace",
+      "/Users/oobi/Documents/assay-stage-f-review/fix-copy-1/examples/Ref20.asy",
+      "--calldata",
+      "gg"
+    ],
+    "cwd": "/tmp/claude-501/assay-trace-472iykqm",
+    "exit": 64,
+    "stdout": "",
+    "stderr": "assay: trace: CALLDATA_HEX: expected whole hex bytes\n"
+  },
+  {
+    "name": "shell-calldata",
+    "argv": [
+      "/Users/oobi/Documents/assay-stage-f-review/fix-copy-1/_build/default/bin/assay.exe",
+      "trace",
+      "/Users/oobi/Documents/assay-stage-f-review/fix-copy-1/examples/Ref20.asy",
+      "--calldata",
+      "; touch SENTINEL"
+    ],
+    "cwd": "/tmp/claude-501/assay-trace-472iykqm",
+    "exit": 64,
+    "stdout": "",
+    "stderr": "assay: trace: CALLDATA_HEX: expected whole hex bytes\n"
+  },
+  {
+    "name": "extra-argument",
+    "argv": [
+      "/Users/oobi/Documents/assay-stage-f-review/fix-copy-1/_build/default/bin/assay.exe",
+      "trace",
+      "/Users/oobi/Documents/assay-stage-f-review/fix-copy-1/examples/Ref20.asy",
+      "--calldata",
+      "",
+      "extra"
+    ],
+    "cwd": "/tmp/claude-501/assay-trace-472iykqm",
+    "exit": 64,
+    "stdout": "",
+    "stderr": "usage: assay check [--print|--erased] FILE | axioms FILE | spec-count | emit FILE -o DIR | trace FILE --calldata HEX [--prestate FILE] | diff FILE | run FILE | deploy FILE | test FILE\n"
+  },
+  {
+    "name": "missing-source",
+    "argv": [
+      "/Users/oobi/Documents/assay-stage-f-review/fix-copy-1/_build/default/bin/assay.exe",
+      "trace",
+      "/tmp/claude-501/assay-trace-472iykqm/missing.asy",
+      "--calldata",
+      ""
+    ],
+    "cwd": "/tmp/claude-501/assay-trace-472iykqm",
+    "exit": 64,
+    "stdout": "",
+    "stderr": "assay: cannot read /tmp/claude-501/assay-trace-472iykqm/missing.asy\n"
+  },
+  {
+    "name": "suffix",
+    "argv": [
+      "/Users/oobi/Documents/assay-stage-f-review/fix-copy-1/_build/default/bin/assay.exe",
+      "trace",
+      "/tmp/claude-501/assay-trace-472iykqm/source.txt",
+      "--calldata",
+      ""
+    ],
+    "cwd": "/tmp/claude-501/assay-trace-472iykqm",
+    "exit": 64,
+    "stdout": "",
+    "stderr": "assay: /tmp/claude-501/assay-trace-472iykqm/source.txt: expected a .asy or .kan source\n"
+  },
+  {
+    "name": "missing-prestate",
+    "argv": [
+      "/Users/oobi/Documents/assay-stage-f-review/fix-copy-1/_build/default/bin/assay.exe",
+      "trace",
+      "/Users/oobi/Documents/assay-stage-f-review/fix-copy-1/examples/Ref20.asy",
+      "--calldata",
+      "",
+      "--prestate",
+      "/tmp/claude-501/assay-trace-472iykqm/missing.json"
+    ],
+    "cwd": "/tmp/claude-501/assay-trace-472iykqm",
+    "exit": 2,
+    "stdout": "",
+    "stderr": "assay: trace: TRACE_PRESTATE: cannot read /tmp/claude-501/assay-trace-472iykqm/missing.json\n"
+  },
+  {
+    "name": "protocol",
+    "argv": [
+      "/Users/oobi/Documents/assay-stage-f-review/fix-copy-1/_build/default/bin/assay.exe",
+      "trace",
+      "/Users/oobi/Documents/assay-stage-f-review/fix-copy-1/examples/m0-spine.kan",
+      "--calldata",
+      ""
+    ],
+    "cwd": "/tmp/claude-501/assay-trace-472iykqm",
+    "exit": 2,
+    "stdout": "",
+    "stderr": "assay: emit: M0_PROTOCOL: EvmOpcodes\n"
+  },
+  {
+    "name": "non-executable-evm",
+    "argv": [
+      "/Users/oobi/Documents/assay-stage-f-review/fix-copy-1/_build/default/bin/assay.exe",
+      "trace",
+      "/Users/oobi/Documents/assay-stage-f-review/fix-copy-1/examples/Ref20.asy",
+      "--calldata",
+      ""
+    ],
+    "cwd": "/tmp/claude-501/assay-trace-472iykqm",
+    "exit": 2,
+    "stdout": "",
+    "stderr": "assay: trace: TRACE_TOOL: evm is not on PATH\n"
+  },
+  {
+    "name": "non-executable-skipped",
+    "argv": [
+      "/Users/oobi/Documents/assay-stage-f-review/fix-copy-1/_build/default/bin/assay.exe",
+      "trace",
+      "/Users/oobi/Documents/assay-stage-f-review/fix-copy-1/examples/Ref20.asy",
+      "--calldata",
+      ""
+    ],
+    "cwd": "/tmp/claude-501/assay-trace-472iykqm",
+    "exit": 0,
+    "stdout": "{\"pc\":0,\"op\":96,\"gas\":\"0x1000000\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":2,\"op\":95,\"gas\":\"0xfffffd\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[\"0x2a\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":3,\"op\":85,\"gas\":\"0xfffffb\",\"gasCost\":\"0x5654\",\"memSize\":0,\"stack\":[\"0x2a\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"SSTORE\"}\n{\"pc\":4,\"op\":96,\"gas\":\"0xffa9a7\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":6,\"op\":86,\"gas\":\"0xffa9a4\",\"gasCost\":\"0x8\",\"memSize\":0,\"stack\":[\"0xb\"],\"depth\":1,\"refund\":0,\"opName\":\"JUMP\"}\n{\"pc\":11,\"op\":91,\"gas\":\"0xffa99c\",\"gasCost\":\"0x1\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"JUMPDEST\"}\n{\"pc\":12,\"op\":95,\"gas\":\"0xffa99b\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":13,\"op\":84,\"gas\":\"0xffa999\",\"gasCost\":\"0x64\",\"memSize\":0,\"stack\":[\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"SLOAD\"}\n{\"pc\":14,\"op\":95,\"gas\":\"0xffa935\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[\"0x2a\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":15,\"op\":82,\"gas\":\"0xffa933\",\"gasCost\":\"0x6\",\"memSize\":0,\"stack\":[\"0x2a\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"MSTORE\"}\n{\"pc\":16,\"op\":96,\"gas\":\"0xffa92d\",\"gasCost\":\"0x3\",\"memSize\":32,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":18,\"op\":95,\"gas\":\"0xffa92a\",\"gasCost\":\"0x2\",\"memSize\":32,\"stack\":[\"0x20\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":19,\"op\":243,\"gas\":\"0xffa928\",\"gasCost\":\"0x0\",\"memSize\":32,\"stack\":[\"0x20\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"RETURN\"}\n{\"output\":\"000000000000000000000000000000000000000000000000000000000000002a\",\"gasUsed\":\"0x56d8\"}\n{\n    \"root\": \"0abe467c85a5dbac429cd5d2becbe405d4d77533412a5bebeee8391de2da5523\",\n    \"accounts\": {\n        \"0x0000000000000000000000007265636569766572\": {\n            \"balance\": \"0\",\n            \"nonce\": 0,\n            \"root\": \"0x81d1fa699f807735499cf6f7df860797cf66f6a66b565cfcda3fae3521eb6861\",\n            \"codeHash\": \"0x755b9e03b3191b071ebb78b7ebae672c2db6c3b52febaf13955e337d95b5f2ef\",\n            \"code\": \"0x602a5f55600b56fefefefe5b5f545f5260205ff3\",\n            \"storage\": {\n                \"0x0000000000000000000000000000000000000000000000000000000000000000\": \"2a\"\n            },\n            \"address\": \"0x0000000000000000000000007265636569766572\",\n            \"key\": \"0x30d7a0694cb29af31b982480e11d7ebb003a3fca4026939149071f014689b142\"\n        }\n    }\n}\n",
+    "stderr": ""
+  },
+  {
+    "name": "empty-path-entry",
+    "argv": [
+      "/Users/oobi/Documents/assay-stage-f-review/fix-copy-1/_build/default/bin/assay.exe",
+      "trace",
+      "/Users/oobi/Documents/assay-stage-f-review/fix-copy-1/examples/Ref20.asy",
+      "--calldata",
+      ""
+    ],
+    "cwd": "/tmp/claude-501/assay-trace-472iykqm",
+    "exit": 2,
+    "stdout": "",
+    "stderr": "assay: trace: TRACE_TOOL: evm is not on PATH\n"
+  },
+  {
+    "name": "missing-evm",
+    "argv": [
+      "/Users/oobi/Documents/assay-stage-f-review/fix-copy-1/_build/default/bin/assay.exe",
+      "trace",
+      "/Users/oobi/Documents/assay-stage-f-review/fix-copy-1/examples/Ref20.asy",
+      "--calldata",
+      ""
+    ],
+    "cwd": "/tmp/claude-501/assay-trace-472iykqm",
+    "exit": 2,
+    "stdout": "",
+    "stderr": "assay: trace: TRACE_TOOL: evm is not on PATH\n"
+  },
+  {
+    "name": "wrong-fork",
+    "argv": [
+      "/Users/oobi/Documents/assay-stage-f-review/fix-copy-1/_build/default/bin/assay.exe",
+      "trace",
+      "/Users/oobi/Documents/assay-stage-f-review/fix-copy-1/examples/Ref20.asy",
+      "--calldata",
+      "",
+      "--prestate",
+      "/tmp/claude-501/assay-trace-472iykqm/prestate with spaces.json"
+    ],
+    "cwd": "/tmp/claude-501/assay-trace-472iykqm",
+    "exit": 2,
+    "stdout": "{\"pc\":0,\"op\":96,\"gas\":\"0x1000000\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH1\"}\n{\"pc\":2,\"op\":95,\"gas\":\"0xfffffd\",\"gasCost\":\"0x0\",\"memSize\":0,\"stack\":[\"0x2a\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":2,\"op\":95,\"gas\":\"0xfffffd\",\"gasCost\":\"0x0\",\"memSize\":0,\"stack\":[\"0x2a\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\",\"error\":\"invalid opcode: PUSH0\"}\n{\"output\":\"\",\"gasUsed\":\"0x1000000\",\"error\":\"invalid opcode: PUSH0\"}\n{\n    \"root\": \"16b87d67f1cd813217c82a42596e9d240db7d34d6745504fe166d621eea8cfd3\",\n    \"accounts\": {\n        \"0x0000000000000000000000007265636569766572\": {\n            \"balance\": \"0\",\n            \"nonce\": 0,\n            \"root\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\",\n            \"codeHash\": \"0x755b9e03b3191b071ebb78b7ebae672c2db6c3b52febaf13955e337d95b5f2ef\",\n            \"code\": \"0x602a5f55600b56fefefefe5b5f545f5260205ff3\",\n            \"address\": \"0x0000000000000000000000007265636569766572\",\n            \"key\": \"0x30d7a0694cb29af31b982480e11d7ebb003a3fca4026939149071f014689b142\"\n        }\n    }\n}\n",
+    "stderr": "assay: trace: TRACE_EXECUTION: geth reported an EVM error\n"
+  },
+  {
+    "name": "executor-exit",
+    "argv": [
+      "/Users/oobi/Documents/assay-stage-f-review/fix-copy-1/_build/default/bin/assay.exe",
+      "trace",
+      "/Users/oobi/Documents/assay-stage-f-review/fix-copy-1/examples/Ref20.asy",
+      "--calldata",
+      ""
+    ],
+    "cwd": "/tmp/claude-501/assay-trace-472iykqm",
+    "exit": 2,
+    "stdout": "",
+    "stderr": "assay: trace: TRACE_EXECUTOR: exit 7\n"
+  },
+  {
+    "name": "executor-signal",
+    "argv": [
+      "/Users/oobi/Documents/assay-stage-f-review/fix-copy-1/_build/default/bin/assay.exe",
+      "trace",
+      "/Users/oobi/Documents/assay-stage-f-review/fix-copy-1/examples/Ref20.asy",
+      "--calldata",
+      ""
+    ],
+    "cwd": "/tmp/claude-501/assay-trace-472iykqm",
+    "exit": 2,
+    "stdout": "",
+    "stderr": "assay: trace: TRACE_EXECUTOR: signal -11\n"
+  }
+]

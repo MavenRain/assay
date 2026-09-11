@@ -63,6 +63,11 @@ def trace(root):
         print(f'CREATE-EQ scope=emitted bytes={len(runtime)//2} returned={len(creation["output"])//2} '
               f'installed={len(installed)} OK')
         print(f'EMIT-MEASURE runtime_bytes={len(runtime)//2} init_bytes={len(init)//2} gas={int(summary["gasUsed"],16)}')
+        # Review round 2026-09-11 (D-4):  offsets counts the listing rows that
+        # the execution reached, so the offsets and evm columns come from two
+        # expressions and can disagree.
+        offsets = {pc for pc, _name, _immediate in declared} & {step['pc'] for step in steps}
+        print(f'M0-TRACE offsets={len(offsets)} listing={len(declared)} cast={len(cast)} evm={len(steps)} five_files={len(files)} OK')
 
 
 def canonical(root, value):

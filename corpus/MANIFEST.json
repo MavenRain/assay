@@ -1,0 +1,301 @@
+{
+  "version": 1,
+  "cases": [
+    {
+      "path": "corpus/contracts/Ref20.asy",
+      "group": "contracts",
+      "answer": "42",
+      "storage": {
+        "0": "42"
+      },
+      "sha256": "b0a25f0e079d174295fbef90733f78eeadab2a8892f3a177d2117bcafcb8f52c",
+      "lines": 12,
+      "outputs": {
+        "abi.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "axioms.txt": "61f8b9f0cb83fe5250e13b39b40e705d106caa92810d60168dfe5f4c3a89a302",
+        "init.hex": "eb41267ca5b9b3391cba0ce17ba21792f4f7ba164cd559ae7f565421ca690635",
+        "layout.json": "3932eeae7041008893cb56140c4017848f53a4267b27af0d29ecfa34a10f1da7",
+        "runtime.hex": "707722a7b773ff4fc9ef4a0343c8e232399052d6e67bae5414aea429aa5246a5"
+      }
+    },
+    {
+      "path": "corpus/contracts/Return.asy",
+      "group": "contracts",
+      "answer": "37",
+      "storage": {},
+      "sha256": "a4a7bdf961989d5733fb8f1b447cd2bf27e0161214763ac16a34bc9ff2037370",
+      "lines": 13,
+      "outputs": {
+        "abi.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "axioms.txt": "61f8b9f0cb83fe5250e13b39b40e705d106caa92810d60168dfe5f4c3a89a302",
+        "init.hex": "0435d833df891a4f3e5fe29a0004501dc34542f46fbab10ea31172b744a313b8",
+        "layout.json": "75d72b802b891e07ece6037e82569a72565035ea5affd99a45806901b1a12042",
+        "runtime.hex": "c9bfcc72747cc89b5f9d0a4dc78fca501a943626dde8c5f5379982225eff032c"
+      }
+    },
+    {
+      "path": "corpus/contracts/Zero.asy",
+      "group": "contracts",
+      "answer": "0",
+      "storage": {},
+      "sha256": "48c8f7afada8dc0531e692ce55286b1ffe2afe3277b458ddc18275c51269dd27",
+      "lines": 13,
+      "outputs": {
+        "abi.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "axioms.txt": "61f8b9f0cb83fe5250e13b39b40e705d106caa92810d60168dfe5f4c3a89a302",
+        "init.hex": "d5048d96a58bcc7e6569878150d79c40e08b6a81dbee059abec4d09a9be4b31c",
+        "layout.json": "600f149cfcc3108d76f2e6005ab5ad0121296769aadf3684de3cd9a80e1f1cd7",
+        "runtime.hex": "4ef2f96e140782cab924ffe30d4945b8e1b452edd02c590beeab52468c276fcf"
+      }
+    },
+    {
+      "path": "corpus/contracts/Maximum.asy",
+      "group": "contracts",
+      "answer": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
+      "storage": {
+        "0": "115792089237316195423570985008687907853269984665640564039457584007913129639935"
+      },
+      "sha256": "6b5c8e6d7d30e95482adfa63665a8780bc267589dd4ae75a13be6ae6d9347377",
+      "lines": 13,
+      "outputs": {
+        "abi.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "axioms.txt": "61f8b9f0cb83fe5250e13b39b40e705d106caa92810d60168dfe5f4c3a89a302",
+        "init.hex": "006010156cb8835c5885aa54659c5cff88e74ce53bd4ca1a964cfd4e294351c3",
+        "layout.json": "11bd4503e5805f8cf4bbe7640c9dca608272bd0e27b03dcad12ed922e9173eb3",
+        "runtime.hex": "90eb1f20ed5bd30c6ec6426b596470b33a5358de2df0b2f0e3136f2a07717d55"
+      }
+    },
+    {
+      "path": "corpus/contracts/Arithmetic.asy",
+      "group": "contracts",
+      "answer": "42",
+      "storage": {},
+      "sha256": "1f283e81bc201f7acec81f86021d83d039b0a76ca663e0ded04bd673a3baa524",
+      "lines": 14,
+      "outputs": {
+        "abi.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "axioms.txt": "61f8b9f0cb83fe5250e13b39b40e705d106caa92810d60168dfe5f4c3a89a302",
+        "init.hex": "08ad8e26bc9c3e230306a0b0fbb6ab1e03656a9c5892c41a88f9acae838cab23",
+        "layout.json": "7dc3fedb172b367e7b9a304b44ab0dacb26cc85ec4a5e45483df3061263f4e70",
+        "runtime.hex": "23a23373870b3b4f9cf24757c1bf36f796a5ebd119b8de301591d7156bf76210"
+      }
+    },
+    {
+      "path": "corpus/contracts/Pair.asy",
+      "group": "contracts",
+      "answer": "4",
+      "storage": {},
+      "sha256": "55678c5957749da437544ce8e6e3e0887e74cf45f0a41dbdd496e1215a44c98e",
+      "lines": 14,
+      "outputs": {
+        "abi.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "axioms.txt": "61f8b9f0cb83fe5250e13b39b40e705d106caa92810d60168dfe5f4c3a89a302",
+        "init.hex": "d626c14a11c25abf0205cccc3946dcd4dd9ca3c645ed7bf452358be6b941a7c1",
+        "layout.json": "385ef804fd76935cd4671dd4fbe75ee12f088438361d0311c747a22f46df636e",
+        "runtime.hex": "d940b6df95e34d92e4bbe023164eaa06ca1afa4cd189bd6b1dd0bab9fc5369eb"
+      }
+    },
+    {
+      "path": "corpus/contracts/TwoSlots.asy",
+      "group": "contracts",
+      "answer": "22",
+      "storage": {
+        "0": "11",
+        "1": "22"
+      },
+      "sha256": "0372075e7a2cb9890581177675c2c8cf4bb69a1b1ff7ede1b13aa6dae4241064",
+      "lines": 13,
+      "outputs": {
+        "abi.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "axioms.txt": "61f8b9f0cb83fe5250e13b39b40e705d106caa92810d60168dfe5f4c3a89a302",
+        "init.hex": "1e382750f9e55cb4a08fc0476d3d95408d5972d9c389062e5d7fde8881f25107",
+        "layout.json": "f607b7670d9493fdfd5936890174055bc17a4ad60ef6c77ecdae8be5974fd7e9",
+        "runtime.hex": "0eb6c86ceb663daa4320b768d03b7e40483eb4f9a5d6efa5b2a05d75254aaab6"
+      }
+    },
+    {
+      "path": "corpus/contracts/WideLabel.asy",
+      "group": "contracts",
+      "answer": "1",
+      "storage": {
+        "0": "1"
+      },
+      "sha256": "1ca63fb58b77db04726778ea5a8c0ac594f5e5d2e0cf0931fbd32f8e252ef043",
+      "lines": 43,
+      "outputs": {
+        "abi.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "axioms.txt": "61f8b9f0cb83fe5250e13b39b40e705d106caa92810d60168dfe5f4c3a89a302",
+        "init.hex": "743f796ada348b648aa03aef50b777aaabd2fd0ebe9ec376eb68157b61008f65",
+        "layout.json": "26d21a97081314ec05311a6742d8c61528e938efaa2b615329b61690caa02fb6",
+        "runtime.hex": "4a326e84830f3922a2a39c2278f9d282bbf799f2281e4b197222857c681d8737"
+      }
+    },
+    {
+      "path": "corpus/proofs/Leaf.asy",
+      "group": "proofs",
+      "answer": "42",
+      "storage": {},
+      "sha256": "89ef184f4865c809fe32236e7f3deb6cd7e03db0bc09b1d9ea06a4e5aa7f3ad4",
+      "lines": 16,
+      "outputs": {
+        "abi.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "axioms.txt": "3c8346c0dc21e6eb3d3ef3d8a7c179106bccbed8cad9939b9d3a5648af96067c",
+        "init.hex": "08ad8e26bc9c3e230306a0b0fbb6ab1e03656a9c5892c41a88f9acae838cab23",
+        "layout.json": "752a8a3673a8326ea7e4bd7970cfd22564a5e7fa5bc2e5713b990c51911cb13f",
+        "runtime.hex": "23a23373870b3b4f9cf24757c1bf36f796a5ebd119b8de301591d7156bf76210"
+      }
+    },
+    {
+      "path": "corpus/proofs/Apply.asy",
+      "group": "proofs",
+      "answer": "42",
+      "storage": {},
+      "sha256": "a1a9c559035a51e2438ae00ab74f5d46439a1850ea2217c9030da3c070743284",
+      "lines": 16,
+      "outputs": {
+        "abi.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "axioms.txt": "3c8346c0dc21e6eb3d3ef3d8a7c179106bccbed8cad9939b9d3a5648af96067c",
+        "init.hex": "08ad8e26bc9c3e230306a0b0fbb6ab1e03656a9c5892c41a88f9acae838cab23",
+        "layout.json": "0e9f170f02caf5587aabf41c938821a7d8098e8a0df85278762787b0f850791a",
+        "runtime.hex": "23a23373870b3b4f9cf24757c1bf36f796a5ebd119b8de301591d7156bf76210"
+      }
+    },
+    {
+      "path": "corpus/proofs/Let.asy",
+      "group": "proofs",
+      "answer": "42",
+      "storage": {},
+      "sha256": "b40ca455cefe628284de09ad9218bc81b3582d3138390d99951a260969900036",
+      "lines": 16,
+      "outputs": {
+        "abi.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "axioms.txt": "3c8346c0dc21e6eb3d3ef3d8a7c179106bccbed8cad9939b9d3a5648af96067c",
+        "init.hex": "08ad8e26bc9c3e230306a0b0fbb6ab1e03656a9c5892c41a88f9acae838cab23",
+        "layout.json": "8ac33058b205964882c7e3d85131fd9f743f485193b4143b8a23fc767965d03a",
+        "runtime.hex": "23a23373870b3b4f9cf24757c1bf36f796a5ebd119b8de301591d7156bf76210"
+      }
+    }
+  ],
+  "ocaml": [
+    {
+      "path": "lib/bignum.ml",
+      "lines": 51,
+      "sha256": "7159dd7e75fa08a5fc272cba76a8ec6214c7d190151dabf7db1a13bf5ecddd72"
+    },
+    {
+      "path": "lib/budget.ml",
+      "lines": 27,
+      "sha256": "7d8b2afc86883415c892d6fea0e56c2115e4d859b6b6daa21c611b4e9517f028"
+    },
+    {
+      "path": "lib/budget.mli",
+      "lines": 9,
+      "sha256": "b830149c9eb6d9362786d2e92c2dc8322f4d31f7b4cfc960ac6e1681d385578f"
+    },
+    {
+      "path": "lib/check.ml",
+      "lines": 538,
+      "sha256": "cdc3712bf5ed0fa49d8dae34ea946d85a195ea94b25235c821b155570010e335"
+    },
+    {
+      "path": "lib/conv.ml",
+      "lines": 396,
+      "sha256": "e73e707bcdac54808d8f8a1d9e9a174062edf0afd970972dee2c6d024f6bbe39"
+    },
+    {
+      "path": "lib/erase.ml",
+      "lines": 1484,
+      "sha256": "a6d03447ab9dfedf8e53bceff26cd7da57f113bb4b5d1453aecd618fac508a88"
+    },
+    {
+      "path": "lib/error.ml",
+      "lines": 82,
+      "sha256": "44c9c263479575ec04db5056404a5940d6bb5514a5b9e1ec6215385c6eccb5b6"
+    },
+    {
+      "path": "lib/eterm.ml",
+      "lines": 117,
+      "sha256": "028ff6e790f9c391463b961f7a3eac12e105d484285cfde1597e52c5b9ac69c7"
+    },
+    {
+      "path": "lib/eval.ml",
+      "lines": 297,
+      "sha256": "155ddf7578d4ad68352505064616bed6afa7a260a88f3ddf1722b95fa6a6bd18"
+    },
+    {
+      "path": "lib/global.ml",
+      "lines": 130,
+      "sha256": "2e5d2d932dfddcb329bcfdf237df87a70f2d79820470dc236e337ec6d275c329"
+    },
+    {
+      "path": "lib/level.ml",
+      "lines": 11,
+      "sha256": "344bb9819870d8c459154ac8109ba1d69a4ee4312670f3887c6ed30d3dbca448"
+    },
+    {
+      "path": "lib/level.mli",
+      "lines": 13,
+      "sha256": "c143b2b97e417724a81f8e83548b946d3339917488758b4d5fbf9da9e72e6811"
+    },
+    {
+      "path": "lib/literal.ml",
+      "lines": 14,
+      "sha256": "80554b1d98c8dde3b474023a01ac57cc4abcaba2a5f20b707041cc5f0361b617"
+    },
+    {
+      "path": "lib/order.ml",
+      "lines": 510,
+      "sha256": "d2cc3258fde25b61ba33093eaf19112c319329dc5b46ba029b3f042c14388e94"
+    },
+    {
+      "path": "lib/positivity.ml",
+      "lines": 118,
+      "sha256": "97cb5fc9484ecaec360b4be1ac42f0668ae767aad25efc10ddbc1d4143185471"
+    },
+    {
+      "path": "lib/pp.ml",
+      "lines": 102,
+      "sha256": "69618578ebb33a3d9803e604760252c77c64681aef2d847f3e1b40f9464e3895"
+    },
+    {
+      "path": "lib/prim.ml",
+      "lines": 139,
+      "sha256": "5224df4f75e499b8fb962fad2a256b31086fcc9de5ab2f353eb90f61a8408aaa"
+    },
+    {
+      "path": "lib/quantity.ml",
+      "lines": 158,
+      "sha256": "bf3f633c40a0dbb362cf85ca41b798ae0c9e1d4eca7e09f9b6f482bab2bfbb8b"
+    },
+    {
+      "path": "lib/rules.ml",
+      "lines": 1481,
+      "sha256": "b625cec31061ca79f77669889039e4ae2658393911e39076dc65189022f702ab"
+    },
+    {
+      "path": "lib/shape.ml",
+      "lines": 60,
+      "sha256": "dafd7741b4332dcab6faba9cb9afb131fb3654172e0d375b1edd1046e69f7f7b"
+    },
+    {
+      "path": "lib/spec_count.ml",
+      "lines": 62,
+      "sha256": "9a4cb97373ddbabb6156b04f92cc41803ee1b714391ccb669cf38e60d36437e6"
+    },
+    {
+      "path": "lib/term.ml",
+      "lines": 133,
+      "sha256": "2de6729958bfbc3af10ed2e9c51d6591ab40fa16bd19b7acea1fbf37adf60690"
+    },
+    {
+      "path": "lib/totality.ml",
+      "lines": 146,
+      "sha256": "046c608584ac21d465d46b05119a89dca5488a15113359eea30ed318a3f7c028"
+    },
+    {
+      "path": "lib/value.ml",
+      "lines": 137,
+      "sha256": "997f4634df60744c49555e896c1de8d60e51a1086e731e547b48450def9c68c7"
+    }
+  ]
+}

@@ -846,3 +846,189 @@ Closing check after the run: dev/validation/2026-09-10-stage-e/SOURCES.json
 still pinned the pre-fix hashes of dev/emit-test.py, dev/proofs-test.py,
 dev/stage-a-gates.py and test/emit_cases.ml.  The four entries are refreshed
 to the staged blobs.  The other 79 entries are unchanged.
+
+## Stage F (2026-09-11)
+
+Base: `27e1edb1b75055cf3c57587fa929ca2a4b126034`, the committed Stage E.
+The scratch checkout is `/Users/oobi/Documents/gpt1/assay-stage-f`.
+
+Stage F freezes eight contract modules (135 lines),
+three proof variants (48 lines) and the existing 24-file
+OCaml denominator (6215 lines).  The manifest pins physical line counts,
+source bytes, return words, storage and all five output file hashes.
+All eleven programs execute and create under the explicit Cancun fixture.
+The final M0-TRACE row verifies 13 executed PCs against both 17-row
+listings and verifies the five outputs.  Four guard instructions remain
+unexecuted, as in the committed reference.
+
+The benchmark measures successful parse through five closed output files.
+It warms each workload and interleaves five wall-clock samples within
+17.382 seconds.  Fixed cost is a separate spec-count
+process and is not subtracted.  Proof-heavy inputs print separately.
+The source and executable hashes are checked before and after timing.
+The Stage 0 report is preserved byte-for-byte in a named historical file.
+`dev/DENOMINATORS.sha256` freezes the new report and compiler inputs.
+
+Three preparation measurements were discarded: the first preceded a command
+provenance correction, and the second preceded the concurrent-change
+guard.  The third preceded the trace command.  None was selected by its
+performance result.  This report is
+the first run of the final measurement code.  The original sample arrays,
+commands, compiler versions and host data remain in the frozen JSON.
+
+### MEASURE
+
+```text
+M0-RATIO assay_ms_per_kloc=581.358 ocamlopt=412.490 ocamlc=72.168 ratio=1.409387 fixed_ms=10.070 load=33.61 informational=true
+M0-PROOF-RATIO ms_per_kloc=649.846 files=3 separate=true
+M0-RATIO provenance=dev/denominators.json fixed=spec-count-proxy subtraction=none OK
+```
+
+The starting load was 33.61 on 12 CPUs.
+The result is noisy.  The ratio 1.409387 exceeds the future M1 ceiling
+of 1.0 and does not fail the informational M0 gate.  The contract and
+OCaml corpora are different workloads.  No speedup is claimed.
+The eight contract processes total 78.5 ms against eight fixed-cost
+proxies of 10.07 ms each, so the measured interval is no larger than the
+declared startup proxy and the ratio does not isolate parse or emission
+work.  The three proof processes total 31.2 ms against three proxies.
+`assay_ms_per_kloc=581.358` therefore reports process startup and
+compilation together, not compilation alone.
+
+| source | runtime bytes | init bytes | execution gas | creation gas |
+| --- | ---: | ---: | ---: | ---: |
+| corpus/contracts/Ref20.asy | 20 | 30 | 22232 | 4022 |
+| corpus/contracts/Return.asy | 8 | 18 | 16 | 1622 |
+| corpus/contracts/Zero.asy | 19 | 29 | 2331 | 3822 |
+| corpus/contracts/Maximum.asy | 51 | 61 | 22232 | 10228 |
+| corpus/contracts/Arithmetic.asy | 8 | 18 | 16 | 1622 |
+| corpus/contracts/Pair.asy | 8 | 18 | 16 | 1622 |
+| corpus/contracts/TwoSlots.asy | 34 | 44 | 44351 | 6828 |
+| corpus/contracts/WideLabel.asy | 398 | 410 | 25625 | 79694 |
+| corpus/proofs/Leaf.asy | 8 | 18 | 16 | 1622 |
+| corpus/proofs/Apply.asy | 8 | 18 | 16 | 1622 |
+| corpus/proofs/Let.asy | 8 | 18 | 16 | 1622 |
+
+
+Gas is geth execution gas.  It excludes transaction intrinsic gas and
+deployment fees.  Code sizes count decoded bytes, without hex newlines.
+
+### Validation
+
+All 34 legs pass in `dev/validation/2026-09-11-stage-f/GATES.log`.
+The Lean gate ran: 42 theorem reports, 28 carried files, zero sorryAx.
+ERASED-BYTES compares three distinct checked proof shapes and rejects a
+changed runtime value through the same byte-equality condition.
+F-MUTANTS kills seven changes and accepts five original controls.
+The kernel remains 3997 lines; the new trusted backend remains 693/3550.
+The full battery ends `M0-VALIDATION OK` and `STAGE-F OK`.
+
+The trace command compiles the source and runs geth with literal argv,
+calldata and an explicit prestate.  Its 20 cases include real execution,
+malformed input, paths with spaces, missing tools, fork faults and failed
+or signaled executors.  Three cases cover the tool lookup: a readable but
+non-executable `evm` gives `TRACE_TOOL`, the same file ahead of a working
+`evm` is skipped, and an empty PATH entry does not run a tool from the
+working directory.  The transcript is preserved on executor faults.
+The default fixture resolves from the executable in the source checkout;
+an explicit prestate path also works.  It writes no emission directory.
+The driver section of M0-PLAN requires trace at M0.  Sections 1 and 12
+assign the second executor to M1, so only diff stays PENDING (M1).
+`dev/gates.sh` also rejects unexpected arguments with exit 64 instead
+of silently discarding them.
+
+No M0-EXIT ratification was entered.  It requires the user's Stage F
+commit and explicit stamp.  No commit was made.
+
+### Review round 2026-09-11 (Stage F)
+
+One fix round ran over the 79 staged paths on `27e1edb`.
+
+| id | sev | finding | files |
+| --- | --- | --- | --- |
+| A-1 | medium | The CORPUS storage oracle cannot witness Zero.asy's storage write (fixed) | dev/corpus-test.py:39 |
+| B-1 | medium | executable() accepts a non-executable evm, so TRACE_TOOL is unreachable and the real evm on PATH is masked (fixed) | bin/trace.ml:22 |
+| C-1 | medium | No document states that the whole contract measurement sits inside the fixed-cost proxy, so the headline ratio reads as compile throughput (fixed) | dev/M0-BUILD-LOG.md:866 |
+| D-1 | medium | Printed gate fields in corpus-test.py are declarations, not measurements (ERASED-BYTES caught=1, F-MUTANTS killed=N/N) (fixed) | dev/corpus-test.py:90 |
+| D-2 | medium | The Stage F mutation table names gates and a witness that the harness and the evidence do not record, and omits TRACE-DRIVER (fixed) | dev/MUTATION-LOG.md:331 |
+| B-2 | low | The freeze requires a re-generation step that no file states as a command (fixed) | corpus/README.md:25 |
+| D-4 | low | The new M0-TRACE line prints offsets and evm from one variable, so the plan's three agreeing pc columns are not witnessed (fixed) | dev/emit-test.py:66 |
+
+Refuted: 0.  The verification stage refuted nothing and the judge
+reproduced every cited line and number.
+
+Merged and dropped: 9.  A-2 merged into D-1 (same file dev/corpus-test.py
+and the same defect class, a printed gate figure derived from the thing it
+reports; the F-MUTANTS killed=N/N denominator, probe A-4 and the CORPUS
+five_files constant are carried in D-1's detail and fix hint).  A-3 merged
+into D-1 (same file and the same printed line dev/corpus-test.py:90; the
+mislabel point, two shape variants that must agree against one value
+control that must disagree, is carried in D-1's detail and its rename
+fix).  C-2 merged into D-2 (same file and the same Stage F table
+dev/MUTATION-LOG.md:326-339; the wrong gate cells at rows 328-329 and the
+F-MUTANTS.log versus M0-TRACE.log evidence are carried in D-2 item (2)).
+D-3 merged into D-2 (same file and the same table; the missing
+TRACE-DRIVER row, the M0-PLAN l.242 rule and the probe D-12 kill are
+carried in D-2 item (3) and its fix hint).  B-3 cut by the 7 cap: real and
+reproduced, bin/assay.ml:65 hard-codes `assay: emit: ` for the shared
+compile so `assay trace` prints an emit label, but a wrong diagnostic
+label has no effect on any gate verdict or artifact, the lowest impact of
+the surviving lows.  B-4 cut by the 7 cap: real, two of the three
+has_error arms at bin/trace.ml:48-52 have no TRACE-DRIVER witness, but the
+finder itself records the present behaviour as conservative and correct,
+so it is a coverage omission with no wrong verdict today.
+C-3 cut by the 7 cap: real, the Stage F evidence directory ships 6
+aggregate mutant leg logs and no per-mutant or restored-control
+transcript, against the Stage E precedent of 34 such files, with no
+sentence saying so; the same evidence gap is partly recorded in D-2 item
+(4).  C-4 cut by the 7 cap: real, dev/M0-BUILD-LOG.md:926-927 re-scopes
+diff to M1 by citing sections 1 and 12 and never names the deviation from
+M0-PLAN section 7 l.165 or the HEAD README l.35 promise, but the decision
+is defensible under R-M0-9 and the missing item is one deviation sentence.
+C-5 cut by the 7 cap: real, dev/validation/2026-09-11-stage-f/README.md:10
+drops the Stage E exclusion clause, so six staged prose paths look
+unhashed against the 136 SOURCES.json entries, but it is a documentation
+gap only and coverage is a superset of Stage E.
+
+Gate result, `/Users/oobi/Documents/assay-stage-f-review/gates-F-1.log`:
+
+```text
+STAGE-F-LINE: STAGE-F OK
+M0-LINE: M0-VALIDATION OK; M0-EXIT requires the user commit and ratification
+EXIT 0
+MUTANTS-TAIL: MUTANT TRUSTED-BOUND killed exit=1 MUTANTS killed=13/13 OK
+DRIVER-TAIL: DRIVER cases=24 OK
+KECCAK-MUTANTS-TAIL: KECCAK-MUTANT SELECTOR killed witness=S1 exit=1 KECCAK-MUTANTS killed=4/4 control=OK
+ASM-MUTANTS-TAIL: ASM-MUTANT LISTING-PC killed witness=DISASM-3WAY ref20 FAIL ASM-MUTANTS killed=6/6 control=OK
+TRUSTED-LINES-TAIL: TRUSTED-LINES total=693/3550 ratified=3550 TRUSTED-LINES OK
+M0-TRACE-TAIL: REFERENCE-MEASURE runtime_bytes=20 gas=22232 M0-TRACE scope=reference bytes=20 listing=17 cast=17 evm=13 skipped=4 storage=42 return=42 OK
+CREATE-EQ-TAIL: CREATE-MEASURE init_bytes=30 gas=4022 runtime_sha=e289c7e05023ac70a05725ddffd97143efe364fdbb882dedc9c04e3f8032a711 returned_sha=e289c7e05023ac70a05725ddffd97143efe364fdbb882dedc9c04e3f8032a711 CREATE-EQ bytes=20 returned=20 installed=1 OK
+REFERENCE-MUTANTS-TAIL: REFERENCE-MUTANT INIT-REVERT killed witness=CREATE-EXEC execution reverted REFERENCE-MUTANTS killed=8/8 controls=3 OK
+EMIT-CONSTRUCTORS-TAIL: EMIT-CONSTRUCTORS cases=22 OK
+WORD-UNBOX-TAIL: WORD-UNBOX ktag=0 kstruct=0 words=3 cases=9 OK
+STORAGE-NOCLOS-TAIL: STORAGE-NOCLOS kclos=0 ktail=0 fields=2 cases=9 OK
+ABI-GOLD-TAIL: ABI-GOLD jq_sorted=equal provenance=dev/ABI-PROVENANCE.md controls=4 OK
+EMITTED-TRACE-TAIL: EMIT-MEASURE runtime_bytes=20 init_bytes=30 gas=22232 M0-TRACE offsets=13 listing=17 cast=17 evm=13 five_files=5 OK
+EMIT-SOURCES-TAIL: EMIT-REFUSE runtime-nat OK EMIT-SOURCES success=15 refusal=9 driver=3 OK
+EMIT-MUTANTS-TAIL: EMIT-MUTANT LAYOUT-SLOT killed by LAYOUT-GOLD mismatch EMIT-MUTANTS killed=7/7 controls=4 OK
+AXIOMS-TAIL: AXIOMS sorryAx=0 theorems=42 carried_files=28 controls=3 OK AXIOMS-HOST elan present, skip refused
+TRACE-DRIVER-TAIL: TRACE-DRIVER cases=20 explicit_prestate=true literal_argv=true OK
+CORPUS-TAIL: CORPUS-MEASURE {"creation_gas": 1622, "gas": 16, "group": "proofs", "init_bytes": 18, "listing": 6, "path": "corpus/proofs/Let.asy", "runtime_bytes": 8, "steps": 6} CORPUS cases=11 five_files=5 OK
+ERASED-BYTES-TAIL: ERASED-BYTES mutants=2 caught=1 equal=2 scope=M0-seed OK
+M0-RATIO-TAIL: M0-PROOF-RATIO ms_per_kloc=649.846 files=3 separate=true M0-RATIO provenance=dev/denominators.json fixed=spec-count-proxy subtraction=none OK
+F-MUTANTS-TAIL: F-MUTANT RATIO-MEDIAN killed witness=RATIO-SUMMARY F-MUTANTS killed=7/7 controls=5 OK
+DENOMINATORS-TAIL: surface/syntax.ml: OK surface/token.ml: OK
+PROOF-BUILD-TAIL: OK lake: 0 errors, 0 sorries, 0 warnings
+PROOF-REPORT-LINES: 42
+```
+
+The counts of that run are pass=34 fail=0 porcelain_before=79
+porcelain_after=79 unstaged=0.
+
+The finder, the builder and the closer of this review ran opus/medium
+because the Fable tier probe died on the reasoning_extraction classifier
+(req_011Ceux88aMuSgW4kmsAUKPX); the Stage C probe on 2026-09-10 13:4x was
+live but Fable subagents die mid-run 5/5 on the same classifier, so the
+Stage D run on 2026-09-10 17:xx, the Stage E run on 2026-09-10 23:xx and
+this Stage F run on 2026-09-11 03:xx keep the opus pin without a new probe
+and the rulings are reported unmet.

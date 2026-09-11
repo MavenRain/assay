@@ -41,7 +41,7 @@ def driver(root):
             (("spec-count", "extra"), 64, "", "usage: assay"),
             (("check", str(inherited)), 0, "", ""),
             (("check", str(unaccepted)), 64, "", "expected a .asy or .kan source"),
-            (("trace", str(source)), 3, "", "assay: trace: PENDING"),
+            (("trace", str(source)), 64, "", "usage: assay"),
             (("diff", str(source)), 3, "", "assay: diff: PENDING"),
             (("run", str(source)), 3, "", "assay: run: PENDING"),
             (("deploy", str(source)), 3, "", "assay: deploy: PENDING"),
