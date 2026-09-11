@@ -280,3 +280,38 @@ Result: `REFERENCE-CHECKS cases=32 controls=2 OK`.
 The complete battery also retains the 13 Stage A, four Stage B and six
 Stage C mutant kills.  Evidence is in
 `dev/validation/2026-09-10-stage-d/`.
+
+## Stage E (2026-09-10)
+
+`python3 -P dev/emit-test.py mutants` copies the source to an isolated
+directory.  Every mutant must build without errors or warnings, then fail
+the named witness.  A build failure does not count as a kill.  Each source
+is restored before the next mutation.  All four restored controls pass.
+
+| Mutant | Code change | Required failing witness |
+| --- | --- | --- |
+| WORD-BOX | Return a Word `Struct` instead of the unboxed word | WORD-UNBOX `word-zero` |
+| WORD-RANGE | Permit a 257-bit payload | WORD-UNBOX `word-overflow` |
+| STORAGE-CLOSURE | Accept storage closures and tail applications | STORAGE-NOCLOS `storage-closure` |
+| STORAGE-ALIAS | Stop following a referenced storage field body | STORAGE-NOCLOS `storage-hidden` |
+| GLOBAL-APP | Replace a called function body with zero | EMIT-CONSTRUCTORS `app` |
+| ABI-ENTRY | Emit a nonempty ABI | ABI-GOLD mismatch |
+| LAYOUT-SLOT | Shift every printed slot by one | LAYOUT-GOLD mismatch |
+
+Result: `EMIT-MUTANTS killed=7/7 controls=4 OK`.  The exact compiler and
+witness outputs are the `emit-mutant-*.log` and `emit-control-*.log` files
+under `dev/validation/2026-09-10-stage-e/`.
+
+The ABI comparator uses a synthetic nonempty row because the emitted M0
+ABI is empty.  Reordering its keys preserves live `jq -S -c` equality;
+renaming its entry breaks equality.  A real emitted-ABI mutant above also
+breaks the production comparison.  The layout control checks escaped
+strings and declaration order.
+
+The proof gate checks its report parser against three damaged captures:
+add `sorryAx`, drop the first theorem and duplicate the first theorem.
+All are rejected.  No carried proof source is modified by these controls.
+The restored complete report has 42 theorem rows and no `sorryAx`.
+
+The complete Stage E battery also retains the 13 Stage A, four Stage B,
+six Stage C and eight Stage D mutant kills.

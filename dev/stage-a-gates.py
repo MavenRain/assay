@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
-"""Run the carried battery and optional Stage B/C/D legs with finite deadlines."""
+"""Run the carried battery and optional Stage B/C/D/E legs with finite deadlines."""
 
 from pathlib import Path
+import shutil
 import subprocess
 import sys
 import time
@@ -9,10 +10,11 @@ import time
 
 def main():
     root = Path(__file__).resolve().parent.parent
-    if sys.argv[1:] not in ([], ["--keccak"], ["--asm"], ["--reference"]):
-        print("usage: stage-a-gates.py [--keccak|--asm|--reference]")
+    if sys.argv[1:] not in ([], ["--keccak"], ["--asm"], ["--reference"], ["--emit"]):
+        print("usage: stage-a-gates.py [--keccak|--asm|--reference|--emit]")
         return 64
-    reference = sys.argv[1:] == ["--reference"]
+    emission = sys.argv[1:] == ["--emit"]
+    reference = emission or sys.argv[1:] == ["--reference"]
     assembler = reference or sys.argv[1:] == ["--asm"]
     keccak = assembler or sys.argv[1:] == ["--keccak"]
     legs = [
@@ -55,7 +57,26 @@ def main():
             ("REFERENCE-MUTANTS", 1200, ("python3", "-P", "dev/reference-test.py", "mutants"),
              "REFERENCE-MUTANTS killed=8/8 controls=3 OK"),
         ])
-    stage = "D" if reference else "C" if assembler else "B" if keccak else "A"
+    if emission:
+        legs.extend([
+            ("EMIT-CONSTRUCTORS", 30, ("_build/default/test/emit_cases.exe", "constructors"),
+             "EMIT-CONSTRUCTORS cases=22 OK"),
+            ("WORD-UNBOX", 30, ("_build/default/test/emit_cases.exe", "words"),
+             "WORD-UNBOX ktag=0 kstruct=0 words=3 cases=9 OK"),
+            ("STORAGE-NOCLOS", 30, ("_build/default/test/emit_cases.exe", "storage"),
+             "STORAGE-NOCLOS kclos=0 ktail=0 fields=2 cases=9 OK"),
+            ("ABI-GOLD", 60, ("zsh", "-f", "dev/abi-gold.sh"),
+             "ABI-GOLD jq_sorted=equal provenance=dev/ABI-PROVENANCE.md controls=4 OK"),
+            ("EMITTED-TRACE", 120, ("python3", "-P", "dev/emit-test.py", "trace"),
+             "M0-TRACE scope=emitted bytes=20 listing=17 cast=17 evm=13 skipped=4 storage=42 return=42 OK"),
+            ("EMIT-SOURCES", 600, ("python3", "-P", "dev/emit-test.py", "sources"),
+             "EMIT-SOURCES success=15 refusal=9 driver=3 OK"),
+            ("EMIT-MUTANTS", 1200, ("python3", "-P", "dev/emit-test.py", "mutants"),
+             "EMIT-MUTANTS killed=7/7 controls=4 OK"),
+            ("AXIOMS", 480, ("python3", "-P", "dev/proofs-test.py"),
+             "AXIOMS sorryAx=0 theorems=42 carried_files=28 controls=3 OK"),
+        ])
+    stage = "E" if emission else "D" if reference else "C" if assembler else "B" if keccak else "A"
     work = root / (".gatework/stage-" + stage.lower())
     work.mkdir(parents=True, exist_ok=True)
     failed = False
@@ -65,7 +86,18 @@ def main():
             result = subprocess.run(command, cwd=root,
                                     capture_output=True, text=True, timeout=timeout)
             output = result.stdout + result.stderr
-            good = result.returncode == 0 and marker in output
+            # Review round 2026-09-10 (A-3):  the ladder reads the host itself.
+            # The leg no longer decides that it may be skipped:  the SKIP line
+            # of plan correction 5 is honored only where elan is absent.
+            skip_allowed = shutil.which("elan") is None
+            declared_skip = (name == "AXIOMS" and skip_allowed
+                             and "AXIOMS SKIP elan absent carried_files=28" in output)
+            good = result.returncode == 0 and (marker in output or declared_skip)
+            if name == "AXIOMS":
+                # The leg log records which of the two sanctioned paths the host
+                # allows, so a SKIP line can be read against the host that ran.
+                output = output + "AXIOMS-HOST " + ("elan absent, skip allowed"
+                                                    if skip_allowed else "elan present, skip refused") + "\n"
             code = result.returncode
         except (OSError, subprocess.TimeoutExpired) as error:
             # Review round 2026-09-10 (B-1):  TimeoutExpired carries the output
@@ -82,7 +114,8 @@ def main():
             failed = True
             if name == "BUILD":
                 break
-    pending = ("E-F: EVM emission, five output files, recognizers, proof seed and corpus measurements" if reference
+    pending = ("F: frozen corpus, ratio, trace/diff commands and ERASED-BYTES seed" if emission
+               else "E-F: EVM emission, five output files, recognizers, proof seed and corpus measurements" if reference
                else "D-F: Cancun reference, EVM emission and corpus measurements" if assembler
                else "C-F: assembler, Cancun reference, EVM emission and corpus measurements" if keccak
                else "B-F: keccak, assembler, Cancun reference, EVM emission and corpus measurements")

@@ -3,3 +3,5 @@ _build/
 .gatework/
 .kanon-exec/
 .kanon-wait/
+proofs/.lake/
+__pycache__/

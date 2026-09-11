@@ -1,5 +1,5 @@
-(** Assay Stage A: the inherited checker, erasure and axiom disclosure.
-    EVM emission arrives in Stage E.  Exit 2 names an unavailable backend;
+(** Assay checker, erasure, axiom disclosure and M0 EVM emission.
+    Exit 2 names an emission refusal;
     exit 3 names a subcommand that is declared and not yet implemented;
     exit 64 names invalid arguments, an unaccepted suffix or a missing
     input. *)
@@ -53,22 +53,33 @@ let run_axioms (path : string) : unit =
   List.iter print_endline
     (Kanon_surface.Elab.axiom_names (snd (checked_in path)))
 
-(* The M0 plan interface is `assay emit FILE -o DIR`.  The inherited
-   `--export NAME` arity stays accepted as a deprecated alias until the
-   Stage E backend lands. *)
-let emit_refusal (path : string) : unit =
+(* The output directory must be new.  All compilation finishes before
+   file creation, so a named compiler refusal writes nothing. *)
+let run_emit (path : string) (directory : string) (export : string) : unit =
   let globals, rows = checked_in path in
-  Kanon_kernel.Erase.program globals rows
-  |> Result.fold
-       ~ok:(fun _erased ->
-         prerr_endline "assay: emit: EVM_BACKEND_UNAVAILABLE (Stage E)";
-         exit 2)
+  let erased = Kanon_kernel.Erase.program globals rows
+    |> Result.fold ~ok:Fun.id
        ~error:(fun e ->
-         prerr_endline (Kanon_kernel.Error.to_string e); exit 1)
+         prerr_endline (Kanon_kernel.Error.to_string e); exit 1) in
+  let contract = Filename.remove_extension (Filename.basename path) in
+  let out = Assay_emit.Emit.program ~contract ~export globals rows erased
+    |> Result.fold ~ok:Fun.id ~error:(fun e ->
+      prerr_endline ("assay: emit: " ^ Assay_emit.Emit.error e); exit 2) in
+  let parent = Filename.dirname directory in
+  if Sys.file_exists directory || not (Sys.file_exists parent && Sys.is_directory parent) then
+    (prerr_endline "assay: emit: OUTPUT_PATH: use a new directory under an existing parent"; exit 64)
+  else ();
+  Unix.mkdir directory 0o755;
+  List.iter (fun (name, contents) ->
+    Out_channel.with_open_bin (Filename.concat directory name)
+      (fun channel -> output_string channel contents))
+    ["runtime.hex", out.runtime ^ "\n"; "init.hex", out.init ^ "\n";
+     "abi.json", out.abi; "layout.json", out.layout; "axioms.txt", out.axioms]
 
 let dispatch_emit (args : string list) : unit =
   match args with
-  | [ path; "-o"; _ ] | [ path; "-o"; _; "--export"; _ ] -> emit_refusal path
+  | [ path; "-o"; directory ] -> run_emit path directory "main"
+  | [ path; "-o"; directory; "--export"; name ] -> run_emit path directory name
   | [] | _ :: _ -> bad_usage ()
 
 let dispatch_check (args : string list) : unit =

@@ -4,6 +4,22 @@ Date: 2026-09-10.  The install step is the user's.  No agent installs software, 
 agent ran any installer for this file.  Every version below was read by a live command on
 this machine on 2026-09-10, never copied from an earlier note.
 
+Stage E update: the carried `proofs/lean-toolchain` selects the already
+installed Lean 4.33.1.  `lake env lean --version` from `proofs/` reports
+commit `819816b2e0a3bf405af45ae5c7af2491d8f5bee6`.  The proof build and
+42 axiom reports pass.  No installation was needed.  The Stage 0 statements
+below about a missing default toolchain are historical; they do not prevent
+the directory-selected Stage E proof gate from running.
+
+Review round 2026-09-10 (B-3): this block supersedes two statements that were
+written in the present tense and are false at Stage E.  The correction under
+"Correction to the carried facts" said that a Lean build cannot run and that
+the AXIOMS gate still prints a SKIP line.  The second statement under "Two
+statements the plan requires" said the SKIP line stands until the user runs
+the install step.  Both are rewritten below against measured behaviour:
+`dev/proofs-test.py` takes the SKIP path only where `elan` is absent, and
+`elan` is present on this machine, so the gate runs.
+
 ## Table
 
 | Tool | Status | Version | Command that read the version |
@@ -25,6 +41,9 @@ this machine on 2026-09-10, never copied from an earlier note.
 | shasum | present | 6.02 | `shasum --version` |
 | elan | present | elan 4.2.3 (b6cec7e10 2026-06-08) | `elan --version` |
 | lake | present, no toolchain | error: no default toolchain configured.  run `elan default stable` to install and configure the latest Lean 4 stable release. | `lake --version` |
+| lake (from a directory whose `lean-toolchain` selects a version) | present | Lake version 5.0.0-src+819816b (Lean version 4.33.1) | `lake --version`, run in a directory holding the carried `proofs/lean-toolchain` |
+| lean (same directory selection) | present | Lean (version 4.33.1, arm64-apple-darwin24.6.0, commit 819816b2e0a3bf405af45ae5c7af2491d8f5bee6, Release) | `lean --version`, same directory |
+| leancho | present | leancho 0.1.0 | `leancho --version`, found at `/Users/oobi/.cargo/bin/leancho` by `command -v leancho` |
 | kanon (on PATH) | absent | (prints nothing) | `command -v kanon` |
 | kanon.exe (on PATH) | absent | (prints nothing) | `command -v kanon.exe` |
 | solc | absent | (prints nothing) | `command -v solc` |
@@ -44,8 +63,11 @@ kanon checkout, so kanoncho is not the pin and no denominator row uses it.
 
 Correction to the carried facts, measured not quoted (R-P): elan and lake are PRESENT on
 this machine, against the earlier note that recorded them as absent.  lake has no default
-Lean toolchain configured, so a Lean build still cannot run without the user's install
-step, and the AXIOMS gate still prints a SKIP line.
+toolchain for a command run outside a Lean package, which is the row above.  Inside
+`proofs/`, the carried `proofs/lean-toolchain` selects Lean 4.33.1, so every Lean command
+the AXIOMS gate runs resolves a toolchain and the Lean build runs.  The AXIOMS gate does
+not print a SKIP line on this machine, because `dev/proofs-test.py` takes that path only
+where `elan` is absent.
 
 ## The Stage 0a install list, for the user
 
@@ -54,15 +76,46 @@ No agent runs any of these.  They are printed here verbatim for the user to run 
 - `foundryup`, the foundry upgrade, for anvil as the second executor and `cast run` at M1.
 - solc through svm or Homebrew, the second oracle and a third-party ERC-20 ABI golden
   file, M2 and optional.
-- elan and lake, the Lean 4 toolchain, for the carried kan-evm proofs AXIOMS gate, M0 and
-  only if the Lean seed is carried.
+- elan and lake, the Lean 4 toolchain, and leancho, the house Lean build front end, for
+  the carried kan-evm proofs AXIOMS gate, M0 and only if the Lean seed is carried.  The
+  gate calls `leancho -C proofs` and refuses with `AXIOMS missing leancho` when leancho is
+  not on PATH.  leancho is installed with `cargo install --path .` from its own checkout;
+  it is not part of any Lean distribution.
 - a geth newer than 1.14.12, for CLZ and the Fusaka rows, M4 and optional.
 - nothing else: the opam switch, node, jq, python3, rg and sd are present.
 
+## The offline provisioning recipe for the AXIOMS gate
+
+Review round 2026-09-10 (B-1): the gate needs this and no file carried it.
+
+`dev/proofs-test.py` never fetches.  It requires both dependencies of
+`proofs/lake-manifest.json` to be present already under `proofs/.lake/packages`,
+at the manifest revision, and it refuses with `AXIOMS missing preprovisioned
+dependency: NAME` otherwise.  `proofs/.lake` is ignored by git, so a fresh clone
+holds none of them and `zsh -f dev/gates.sh` fails the AXIOMS leg until the user
+provisions them once, by hand, from the repository root:
+
+```
+mkdir -p proofs/.lake/packages
+git clone https://github.com/MavenRain/kan-tactics.git proofs/.lake/packages/kan-tactics
+git -C proofs/.lake/packages/kan-tactics checkout 3317f7ac5a22ca0d85b90a3286b8fe0c36cea8ac
+git clone https://github.com/MavenRain/comp-cat-theory.git proofs/.lake/packages/comp-cat-theory
+git -C proofs/.lake/packages/comp-cat-theory checkout cc6ced1086a3b5b14c43bd58b5ecbabef09ab201
+```
+
+An existing local clone is cloned from its path instead of its URL, which keeps
+the step offline.  Each directory name is the manifest `name` with the French
+quotes removed, and `git -C PACKAGE rev-parse HEAD` must equal the manifest
+`rev`; the gate reads both and refuses on a mismatch.  With the two packages in
+place the AXIOMS leg builds the seed and reads the 42 axiom reports with no
+network.
+
 ## Two statements the plan requires
 
-- The AXIOMS gate prints a SKIP line while the Lean toolchain cannot run (plan correction
-  5).  On this machine elan is installed but no default toolchain is configured, so the
-  SKIP line stands until the user runs the install step above.
+- The AXIOMS gate prints a SKIP line where elan is absent (plan correction 5).  That path
+  is implemented and stays implemented, and it is the only skip the ladder honors:
+  `dev/stage-a-gates.py` reads `shutil.which("elan")` itself before it accepts the line.
+  On this machine elan is present, so the skip is not taken and the gate builds the proof
+  seed and reads the 42 axiom reports.
 - No ratio prints at Stage 0.  M0-RATIO is printed and gated at no milestone at M0
   (R-Q1a), and the denominators of spike (c) are frozen numbers only.

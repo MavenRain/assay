@@ -5,7 +5,7 @@ surface at `2c2e6e6`.  M0 Stage A supplies the checker, erasure, axiom disclosur
 and carry gates.  Stage B adds Keccak-256 and selector derivation.
 Stage C adds the Cancun assembler and bytecode listing.
 Stage D adds the hand-assembled reference and Cancun execution gates.
-EVM emission is pending Stage E.
+Stage E emits closed first-order EVM effect programs and five output files.
 
 ```sh
 zsh -f dev/dunecho.sh build
@@ -13,6 +13,7 @@ _build/default/bin/assay.exe check examples/m0-spine.kan
 _build/default/bin/assay.exe check --erased examples/m0-spine.kan
 _build/default/bin/assay.exe axioms examples/m0-spine.kan
 _build/default/bin/assay.exe spec-count
+_build/default/bin/assay.exe emit examples/Ref20.asy -o Ref20-out
 zsh -f dev/gates.sh
 ```
 
@@ -22,10 +23,12 @@ grammar is unchanged.  `check --print FILE` prints the checked declarations.
 A valid file exits 0, a rejected file exits 1, and invalid arguments, an
 unaccepted suffix or a missing path exit 64.
 
-`emit FILE -o DIR` checks and erases its input, then exits 2 with
-`EVM_BACKEND_UNAVAILABLE`.  It writes no output.  The inherited
-`emit FILE -o DIR --export NAME` arity stays accepted as an alias.  The Wasm
-backend and its `build` and `run` commands have been removed.
+`emit FILE -o DIR` checks, erases and specializes a closed M0 effect program.
+It writes `runtime.hex`, `init.hex`, `abi.json`, `layout.json` and `axioms.txt`.
+Use a new directory under an existing parent.  A named compiler refusal
+exits 2 and writes nothing.  `--export NAME` selects a closed export in place
+of `main`.  [The emission contract](dev/EMISSION.md) defines the source
+protocol, supported constructors, bounds and I/O behavior.
 
 `trace`, `diff`, `run`, `deploy` and `test` are declared at M0 and exit 3
 with a named `PENDING` diagnostic, so a declared name is never reported as a
@@ -74,7 +77,7 @@ offsets and per-block input, output and peak heights.  `Listing.decode`
 reads hex bytes independently of the block representation.  It rejects
 malformed hex, unknown opcodes and truncated PUSH data.  `Listing.render`
 prints hex PCs, mnemonics and exact immediate bytes.  These are library
-entry points; source-to-EVM emission still belongs to Stage E.
+entry points used by source-to-EVM emission.
 
 The [reference contract](reference/README.md) stores 42 in slot zero and returns
 it as a 32-byte word.  Its 20-byte runtime and 10-byte creation prefix have one
@@ -83,10 +86,13 @@ comment per instruction.  All execution gates pass the explicit prestate in
 `cast` rows with the executed path, including the four skipped guard bytes.
 The creation gate checks both returned and installed runtime bytes.
 
-Stage E adds EVM emission, recognizers, JSON outputs and the proof seed.
-Stage F measures the frozen corpus.  The five compiler output files remain pending.
+Stage E checks Word unboxing and closure-free storage before assembly.
+The source fixture emits the exact committed reference bytes.  Its ABI is
+empty, and its layout declares one full-word slot.  The carried proof seed
+is hash-pinned and retains its original fidelity statement.  Stage F owns
+the frozen corpus, ratio report and ERASED-BYTES seed.
 
-The Stage D gate battery checks the build, complete inherited kernel suite,
+The Stage E gate battery checks the build, complete inherited kernel suite,
 surface suite, driver behavior, pin, carry inventory, R0, house rules,
 trusted-line budgets, denominator hash and gate mutations.  It also compares
 35 digest and selector vectors with frozen values and live `cast` output.
@@ -106,13 +112,16 @@ Stage D adds fork probes for PUSH0, TLOAD, TSTORE, MCOPY and the expected CLZ
 refusal.  The transient store and memory-copy probes check nonzero values.
 It also rejects 32 corrupt execution captures and eight damaged fixtures,
 then requires restored controls to pass.  Gas use and code sizes are reported.
-It prints pending backend stages and does not claim the M0 exit gate has passed.
+Stage E adds source execution, emitted creation, recognizer mutations,
+canonical JSON equality and the carried seed's 42 axiom reports.  It prints
+the pending Stage F work and does not claim the M0 exit gate has passed.
 
 The gates require Python 3.11 or newer (`-P`), Foundry `cast` and geth `evm`
-on PATH.  Stage D was checked with `cast` 0.3.0 and geth 1.14.12.
+on PATH.  The oracles are `cast` 0.3.0 and geth 1.14.12.
+The proof seed uses Lean 4.33.1 and the dependencies in its pinned manifest.
 The OCaml toolchain is the installed `zxcaml-p1` switch.  The dune scripts
 select it and derive the repository root from their own paths.  The library
 names `kanon_kernel` and `kanon_surface` stay unchanged for a byte-exact carry.
-The tot submodule remains data only and is not needed for the Stage D build.
+The tot submodule remains data only and is not needed for the Stage E build.
 
 License: MIT OR Apache-2.0.

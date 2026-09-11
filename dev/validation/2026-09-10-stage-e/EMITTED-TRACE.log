@@ -1,0 +1,3 @@
+M0-TRACE scope=emitted bytes=20 listing=17 cast=17 evm=13 skipped=4 storage=42 return=42 OK
+CREATE-EQ scope=emitted bytes=20 returned=20 installed=1 OK
+EMIT-MEASURE runtime_bytes=20 init_bytes=30 gas=22232

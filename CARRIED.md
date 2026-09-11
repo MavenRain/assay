@@ -36,3 +36,17 @@ libraries receive the assay prefix when their stages add them.
 
 Historical Wasm goldens, metatheory and development notes remain available.
 They are inherited evidence, not claims about assay's EVM implementation.
+
+## Stage E proof seed and integration
+
+The 28 files under `proofs/` are byte-exact committed objects from kan-evm
+`af81c541d394bd5d7477cf35e9f4021dc1a95539`.  `dev/PROOFS-PIN.json`
+records each SHA-256 digest.  `AXIOMS` checks that manifest separately
+from the unchanged Kanon kernel carry.  The seed includes its lakefiles,
+toolchain, `FIDELITY.md`, tests and axiom report.  Local Lean build products
+and dependency caches are ignored.  The upstream checkout remains unchanged.
+
+Stage E replaces the driver's emission refusal with the checked M0 backend
+and adds the `assay_emit` and `assay_abi` libraries.  No carried kernel or
+surface file changes.  The seed proves statements about its Lean embedding;
+it supplies no proof of the new OCaml emitter.

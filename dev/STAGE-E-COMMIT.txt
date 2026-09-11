@@ -1,0 +1,24 @@
+M0 Stage E: emit closed EVM programs and carry the proof seed
+
+Compile the checked Word, Storage and Eff protocol through first-order
+specialization and the Cancun assembler.  Emit runtime, creation, ABI,
+layout and axiom files.  Match the committed 20-byte reference exactly.
+
+Check Word ranges and unboxing, closure-free storage, canonical JSON,
+source execution and named refusals.  Carry the pinned kan-evm proof
+seed with its fidelity statement and enforce all 42 axiom reports.
+Keep the inherited kernel and surface byte-exact.
+
+Review pass 1 (2026-09-10) fixed 9 findings:
+A-1, A-2, B-1, A-3, B-2, B-3, ND-1-1, ND-1-2, GATE-1.
+A-1: control counts in dev/emit-test.py are now measured, not text.
+A-2: WORD-UNBOX and STORAGE-NOCLOS marker fields are now counted.
+B-1: the offline provisioning recipe for AXIOMS is documented.
+A-3: the AXIOMS declared skip is checked against the host.
+B-2: leancho is listed as a required tool with a clear message.
+B-3: the stale AXIOMS SKIP claim in dev/TOOLCHAIN.md is corrected.
+ND-1-1: the second catch site in bin/assay.ml is reverted.
+ND-1-2: the carried ABI-GOLD evidence is regenerated at controls=4.
+GATE-1: the ladder ends STAGE-E OK, EXIT 0, 29 PASS.
+SOURCES.json is refreshed for the four edited sources.
+A-4 stands open and needs a ruling, not a patch.

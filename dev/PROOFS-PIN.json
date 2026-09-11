@@ -1,0 +1,33 @@
+{
+  "commit": "af81c541d394bd5d7477cf35e9f4021dc1a95539",
+  "sources": {
+    "proofs/.gitignore": "fde850d24186b6e99c8c0debd641fb3ab85198b109eb66f71a1fea02bd6ea1b3",
+    "proofs/Axioms.lean": "7aa9dec4e2f44b329394df13e14f86c7a03a3bda593488ced582782f664c551f",
+    "proofs/FIDELITY.md": "b2d48dac14a066813b4070383f683e7fcc3d8417b8ae0834966f9b87c9a2ca5b",
+    "proofs/KanEvmProofs.lean": "7505db81d5ec0703d24a87ef69bb6f2ef6c804e7f62ff89306eec748a434990d",
+    "proofs/KanEvmProofs/Budget.lean": "50fcdf71db6cb2ad320ee62c5adc9176ad5475b3567dc1ed79b1d571c2646fdc",
+    "proofs/KanEvmProofs/Canonical.lean": "2cc90a7fccd3abce066d4f057d0bc62c0a5718900bbdfbd27ef1011b81f281fa",
+    "proofs/KanEvmProofs/Check.lean": "cc81204581d957eec96a9eb5bb48401bf196d5a70b8ef0608520df962aa4ff08",
+    "proofs/KanEvmProofs/Checker.lean": "fcd751c86204d604f0caa07fe997ed3b3efc34c719ab57bf191afdd8f7624363",
+    "proofs/KanEvmProofs/Conversion.lean": "ac6dec5074907586994219ff5bd5cac5bc48676f44887bc6d9f15d7a84c55212",
+    "proofs/KanEvmProofs/Eval.lean": "f2af4af372cda4c96b0b0d91fbfea557542f78ec0acad900b69b62fce911b48e",
+    "proofs/KanEvmProofs/EvalSubst.lean": "bc2f2390d77fdb7f6ea9f29f675a0155a8cfddd986903e1734e6c31bef6b135b",
+    "proofs/KanEvmProofs/Evaluation.lean": "48ccb6d729b375afc16b287614229855d9cd263ec0be29fafcecded235330c99",
+    "proofs/KanEvmProofs/Fidelity.lean": "9e8d24abaca029bd90f91f39ce103ce422a083fbfc565a365e5e1471ab7af9f3",
+    "proofs/KanEvmProofs/NormalizeAgree.lean": "b8926619fe9b12f6173652782a25cfe1431e63bcf17d0934a8352d05c4ca571f",
+    "proofs/KanEvmProofs/NormalizeCore.lean": "5435e3911f4b20f653707b8007a719b1c0f281e3a12d27dcec68db96889f6251",
+    "proofs/KanEvmProofs/NormalizeTyping.lean": "6a3748f0f1038d8ce243ce96ef5223ddd4ea0a059f77ca3014a118e1815c3d14",
+    "proofs/KanEvmProofs/Reduce.lean": "a733e563ab40635baa5f7dc1ffa6a044f30b354305c3c70afa20e4b90d19417e",
+    "proofs/KanEvmProofs/Subst.lean": "823b03df9cbaad68084a81187dcb61d601febd819566315160f5fc3baff54edd",
+    "proofs/KanEvmProofs/Substitution.lean": "f83c02e4e58d357144df613c4b6f7a874aeacab4bc33c184dc0d290b7ef5bd02",
+    "proofs/KanEvmProofs/Syntax.lean": "ee0125c23401e434dbfa0b648cd2aee8e1f7987dd59eadd13d9ef151f37792b7",
+    "proofs/KanEvmProofs/Typing.lean": "ba8c03f1ab44d44099aeeea3d2964117cf89f7859a84941fcb8674fe8021d76c",
+    "proofs/KanEvmProofs/Weakening.lean": "5504425ddfc1685ed0da6bb25e5cc2bebe6283c548c4b6b9ba4304c2a195cd10",
+    "proofs/README.md": "48fbe7e711460505ee9722448e75c425480a5f91c9eb80a3b9f6c852ade2e6aa",
+    "proofs/lake-manifest.json": "654c0288b689364b0a86ee51fde482055a3cd98994c992c362c370ef092ee03b",
+    "proofs/lakefile.lean": "7b80483befe03254258f67e59936aa45490e7f5b681ffc44124dc4b62b0596b2",
+    "proofs/lean-toolchain": "3aac669c7a910ec2389f4e4f921b605adf6ebf2d1e0c9b9cd0be4d33f3f5db71",
+    "proofs/test/Agreement.lean": "6c72186c9ec75489a5a283beb749b098af4925f834eb1e4f30dff1eb35bda2df",
+    "proofs/test/Conversion.lean": "b2b73e4afb3f7516b2aa4406437f795b2c11cc3ed2b4c7910baeea770b2eadc5"
+  }
+}

@@ -696,3 +696,153 @@ Tier for pass 2: the finder, the builder and the checker kept the
 opus/medium pin with the explicit tier markers, and the verifier ran
 opus/high.  No new Fable probe was made, so the three tier rulings stay
 reported unmet.
+
+## Stage E (2026-09-10)
+
+Base: `8d4bd9de0249340a6c8316f57ec6cf65b999cc23`, the committed Stage D
+slice.  Work ran in `/Users/oobi/Documents/gpt1/assay-stage-e`.  The main
+assay checkout was clean at the baseline.  No agent or workflow was
+delegated.  No kernel or surface source changed.
+
+Stage E adds `emit/emit.ml`, `emit/recognize.ml`, the ABI and layout
+printers, the five-file driver path, `examples/Ref20.asy` and the carried
+kan-evm proof seed.  `dev/EMISSION.md` records the implemented M0 boundary.
+The checked Word/Eff declarations are backend conventions in the inherited
+grammar.  The emitter compares their full checked schemas and family
+tables before giving their names EVM meaning.
+
+Closed first-order calls, records and cases specialize before assembly.
+Higher-order values have M1 refusals; delays, forces and thunk results have
+M2 refusals.  Nat remains compile-time data.  Word payloads are checked in
+`[0, 2^256)` and unboxed; the storage schema has whole-word slots in order
+and rejects closures, including aliases.  The default export is `main`.
+The driver compiles before creating a new directory and rejects an existing
+path.  Host I/O failures retain the inherited exception boundary and can
+leave partial output.  This limitation is explicit in `dev/EMISSION.md`.
+
+The emitted runtime is byte-identical to the committed 20-byte reference.
+The emitted creation code is its 10-byte prefix plus the runtime.  Both
+execution and creation ran under the explicit Cancun fixture.  The emitted
+ABI is empty; the layout records slot zero.  `axioms.txt` equals the source
+axiom disclosure.  JSON goldens are hand-authored, with provenance and the
+nonempty comparator control documented in `dev/ABI-PROVENANCE.md`.
+
+The proof seed consists of 28 byte-exact files from kan-evm
+`af81c541d394bd5d7477cf35e9f4021dc1a95539`.  Its original fidelity statement
+remains intact.  Lean 4.33.1 and the pinned dependencies were already
+installed.  The isolated seed build passed with zero errors, sorries and
+warnings.  All 42 carried axiom-report rows contain only the permitted
+standard axioms.  The seed does not prove this emitter correct.
+
+Validation command: `env -u OPAM_SWITCH_PREFIX -u CAML_LD_LIBRARY_PATH
+-u OCAMLPATH -u OCAMLFIND_CONF zsh -f dev/gates.sh`.
+All 29 legs passed, with no AXIOMS skip.  The complete evidence is in
+`dev/validation/2026-09-10-stage-e/`: 66 logs, 47 oracle receipts, the five
+emitted reference files and 83 source hashes.  The unchanged Stage A-D
+legs retain their prior expectations.  The driver now pins `M0_PROTOCOL`
+as the refusal for a bare Nat program that has no contract schema.
+
+| Measurement or gate | Result |
+| --- | --- |
+| EMIT-CONSTRUCTORS | 22 direct erased-boundary cases |
+| WORD-UNBOX | 3 positive words, 9 cases, no boxed Word |
+| STORAGE-NOCLOS | 2 positive fields, 9 cases, closure and alias refusals |
+| EMIT-SOURCES | 15 executed source variants, 9 checked-source refusals, 3 driver checks |
+| ABI-GOLD | live jq canonical equality, 4 comparator/escaping controls |
+| M0-TRACE, emitted | 20 bytes, listing 17, cast 17, executed PCs 13, skipped PCs 4 |
+| CREATE-EQ, emitted | runtime 20 bytes, returned 20 bytes, installed contracts 1 |
+| Runtime execution | slot zero 42, returned word 42, gas 22232 |
+| EMIT-MUTANTS | 7 of 7 killed; 4 restored controls passed |
+| AXIOMS | 42 reports, zero sorryAx, 3 negative report controls |
+| TRUSTED-LINES | emitter 294/1800, ABI 10/400, layout 8/250 |
+| TRUSTED-LINES total | new 693/3550, inherited kernel 3997/4000 unchanged |
+
+The source battery found a Boolean representation mismatch during
+development.  The emitter now uses the carried `sum<unit|unit>` with no
+payload, checked by true and false equality and ordering executions.
+Other source cases cover maximum-width words, two slots, a PUSH2 label
+program, creation length adjustment and quantity-zero arguments.
+
+The full battery ended `STAGE-E OK`.  Stage F remains pending, including
+the frozen corpus, ratio report, trace/diff commands and ERASED-BYTES seed.
+No final M0 exit or performance ratio is claimed.  No commit was made.
+The proposed commit text is `dev/STAGE-E-COMMIT.txt`.
+
+### Review round 2026-09-10 (Stage E)
+
+Two fix rounds ran over the 132 staged paths on `8d4bd9d`.
+
+| id | sev | finding | files |
+| --- | --- | --- | --- |
+| A-1 | high | Declared control counts are literal text, so a leg passes with its controls deleted (fixed) | dev/emit-test.py:98 |
+| A-2 | high | WORD-UNBOX and STORAGE-NOCLOS marker fields ktag, kstruct, words, kclos, ktail, fields are constants (fixed) | test/emit_cases.ml:61 |
+| B-1 | high | AXIOMS fails the whole ladder on a fresh clone and no repository document gives the offline provisioning recipe (fixed) | dev/proofs-test.py:48 |
+| A-3 | medium | The AXIOMS declared skip is taken from the leg output and never checked against the host (fixed) | dev/stage-a-gates.py:88 |
+| A-4 | medium | Unix.mkdir escapes as an uncaught Unix_error and exits 2, the code documented for an emission refusal (NOT FIXED, needs a ruling: every total form adds a second catch site against SD-D14, or a seventh dune library against R-M0-4) | bin/assay.ml:72 |
+| B-2 | medium | leancho is a hard requirement of the AXIOMS leg but is in no toolchain table or install list, and its absence prints an ambiguous message (fixed) | dev/TOOLCHAIN.md:64 |
+| B-3 | medium | TOOLCHAIN.md still asserts the AXIOMS gate prints a SKIP line, which this slice contradicts (merges C-1) (fixed) | dev/TOOLCHAIN.md:55 |
+| ND-1-1 | medium | New defect from the round 1 fixes: a second catch site (fixed by revert) | bin/assay.ml:75 |
+| ND-1-2 | medium | New defect from the round 1 fixes: carried ABI-GOLD evidence still said controls=3 (fixed) | dev/validation/2026-09-10-stage-e/ABI-GOLD.log:1 |
+| GATE-1 | high | The Stage E gates did not pass (fixed) | (gate) |
+
+Refuted: 0.  Every finding handed to the review stage survived the re-read.
+
+Merged and dropped: 7.  C-1 merged into B-3 (same file dev/TOOLCHAIN.md and
+the same live claim that the AXIOMS gate prints a SKIP line; B-3 cites both
+statement blocks plus the reproduced FAIL and PASS outcomes).  D-3 merged
+into C-4 (same file proofs/README.md:35, the carried seed README pointing at
+`../docs/validation.md`, which assay does not have), then both cut at the
+7-finding cap: the carried file is pinned byte exact by dev/PROOFS-PIN.json,
+so the only fix is one sentence of prose in CARRIED.md.  D-1 cut at the cap
+as the lowest ranked medium: dev/emit-test.py:61 omits `offsets=` and
+`five_files=`, but emit() still checks the five files, so the leg is not
+vacuous and the gap is a declaration gap against M0-PLAN.md:175 for the
+M0-EXIT review.  A-5 cut: dev/emit-test.py:208 concatenates
+`'MUTANT-BUILD ' + name + build.stdout` with no separator, diagnostic
+quality only on a path that already fails the leg.  C-2 cut as a low: the
+validation README:4 and dev/M0-BUILD-LOG.md:703 name a host local scratch
+path, while the base commit and the command in the same README already give
+reproduction.  C-3 cut and weakened on re-check: the subject measures 61
+characters, but no 60-column subject bound appears in M0-PLAN.md or
+RATIFICATIONS.md.  D-2 cut as a low: emit/emit.ml has no revert path and
+emit/dune does not link assay_keccak, an unrecorded deferral of a plan row,
+not an emitted defect, since M0 has no revert in its effect alphabet.
+
+Gate result after the fixes, log
+`/Users/oobi/Documents/assay-stage-e-review/gates-E-2.log`,
+29 PASS, 0 FAIL, porcelain 132 before and after, unstaged 0:
+
+```
+STAGE-E OK
+EXIT 0
+MUTANTS-TAIL: MUTANT TRUSTED-BOUND killed exit=1 MUTANTS killed=13/13 OK
+DRIVER-TAIL: DRIVER cases=24 OK
+KECCAK-MUTANTS-TAIL: KECCAK-MUTANT SELECTOR killed witness=S1 exit=1 KECCAK-MUTANTS killed=4/4 control=OK
+ASM-MUTANTS-TAIL: ASM-MUTANT LISTING-PC killed witness=DISASM-3WAY ref20 FAIL ASM-MUTANTS killed=6/6 control=OK
+TRUSTED-LINES-TAIL: TRUSTED-LINES total=693/3550 ratified=3550 TRUSTED-LINES OK
+M0-TRACE-TAIL: REFERENCE-MEASURE runtime_bytes=20 gas=22232 M0-TRACE scope=reference bytes=20 listing=17 cast=17 evm=13 skipped=4 storage=42 return=42 OK
+CREATE-EQ-TAIL: CREATE-MEASURE init_bytes=30 gas=4022 runtime_sha=e289c7e05023ac70a05725ddffd97143efe364fdbb882dedc9c04e3f8032a711 returned_sha=e289c7e05023ac70a05725ddffd97143efe364fdbb882dedc9c04e3f8032a711 CREATE-EQ bytes=20 returned=20 installed=1 OK
+REFERENCE-MUTANTS-TAIL: REFERENCE-MUTANT INIT-REVERT killed witness=CREATE-EXEC execution reverted REFERENCE-MUTANTS killed=8/8 controls=3 OK
+EMIT-CONSTRUCTORS-TAIL: EMIT-CONSTRUCTORS cases=22 OK
+WORD-UNBOX-TAIL: WORD-UNBOX ktag=0 kstruct=0 words=3 cases=9 OK
+STORAGE-NOCLOS-TAIL: STORAGE-NOCLOS kclos=0 ktail=0 fields=2 cases=9 OK
+ABI-GOLD-TAIL: ABI-GOLD jq_sorted=equal provenance=dev/ABI-PROVENANCE.md controls=4 OK
+EMITTED-TRACE-TAIL: CREATE-EQ scope=emitted bytes=20 returned=20 installed=1 OK EMIT-MEASURE runtime_bytes=20 init_bytes=30 gas=22232
+EMIT-SOURCES-TAIL: EMIT-REFUSE runtime-nat OK EMIT-SOURCES success=15 refusal=9 driver=3 OK
+EMIT-MUTANTS-TAIL: EMIT-MUTANT LAYOUT-SLOT killed by LAYOUT-GOLD mismatch EMIT-MUTANTS killed=7/7 controls=4 OK
+AXIOMS-TAIL: AXIOMS sorryAx=0 theorems=42 carried_files=28 controls=3 OK AXIOMS-HOST elan present, skip refused
+PROOF-BUILD-TAIL: OK lake: 0 errors, 0 sorries, 0 warnings
+PROOF-REPORT-LINES: 42
+```
+
+The finder, the builder and the closer of this review ran opus/medium
+because the Fable tier probe died on the reasoning_extraction classifier
+(req_011Ceux88aMuSgW4kmsAUKPX); the Stage C probe on 2026-09-10 13:4x was
+live but Fable subagents die mid-run 5/5 on the same classifier, so the
+Stage D run on 2026-09-10 17:xx and this Stage E run on 2026-09-10 23:xx
+keep the opus pin without a new probe and the rulings are reported unmet.
+
+Closing check after the run: dev/validation/2026-09-10-stage-e/SOURCES.json
+still pinned the pre-fix hashes of dev/emit-test.py, dev/proofs-test.py,
+dev/stage-a-gates.py and test/emit_cases.ml.  The four entries are refreshed
+to the staged blobs.  The other 79 entries are unchanged.

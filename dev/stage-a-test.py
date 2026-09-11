@@ -48,9 +48,9 @@ def driver(root):
             (("test", str(source)), 3, "", "assay: test: PENDING"),
             (("build", str(source)), 64, "", "usage: assay"),
             (("emit", str(source), "-o", str(outdir)),
-             2, "", "EVM_BACKEND_UNAVAILABLE"),
+             2, "", "M0_PROTOCOL"),
             (("emit", str(source), "-o", str(output), "--export", "main"),
-             2, "", "EVM_BACKEND_UNAVAILABLE"),
+             2, "", "M0_PROTOCOL"),
             (("emit", str(invalid), "-o", str(output), "--export", "main"),
              1, "", None),
             (("emit", str(source)), 64, "", "usage: assay"),
@@ -66,7 +66,7 @@ def driver(root):
                 return 1
             count += 1
         if output.exists() or outdir.exists():
-            print("DRIVER FAIL: unavailable emitter wrote output")
+            print("DRIVER FAIL: refused emitter wrote output")
             return 1
     print(f"DRIVER cases={count} OK")
     return 0

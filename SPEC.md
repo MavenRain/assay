@@ -373,7 +373,10 @@ without it.  It binds tighter than the arrow and the star, and looser
 than the postfix `.1`, `.2` and `.k`.  It is left associative.
 
 The following encoder section is retained as upstream evidence only.  Assay
-Stage A removes Wasm emission.  EVM emission is pending Stage E.
+Stage A removes Wasm emission.  Stage E emits closed M0 effect programs.
+The assay emission contract is in `dev/EMISSION.md`.  It defines the checked
+Word/Eff protocol, storage recognizer, five files and named refusals.
+The Wasm table below remains inherited historical evidence.
 
 ## 8 Historical Kanon encoder subset (not an assay backend)
 
