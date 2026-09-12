@@ -1,0 +1,12 @@
+{
+  "argv": [
+    "python3",
+    "-P",
+    "dev/contract-test.py",
+    "witness",
+    "word-range"
+  ],
+  "exit": 1,
+  "stdout": "CONTRACT-SURFACE FAIL: SURFACE-REFUSAL word-range\n",
+  "stderr": ""
+}

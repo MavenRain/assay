@@ -1,0 +1,12 @@
+{
+  "argv": [
+    "python3",
+    "-P",
+    "dev/contract-test.py",
+    "witness",
+    "shadow"
+  ],
+  "exit": 1,
+  "stdout": "CONTRACT-SURFACE FAIL: MODEL-EXPECTED shadow\n",
+  "stderr": ""
+}

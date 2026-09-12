@@ -32,18 +32,23 @@ let read_file (path : string) : string =
   | () -> In_channel.with_open_bin path In_channel.input_all
 
 let checked_in (path : string) :
-    Kanon_kernel.Global.t * (string * Kanon_kernel.Global.entry) list =
-  Kanon_surface.Elab.check_in Kanon_kernel.Global.initial (read_file path)
-  |> Result.fold ~ok:(fun rows -> rows)
+    string * Kanon_kernel.Global.t * (string * Kanon_kernel.Global.entry) list =
+  let source = Assay_emit.Contract.lower (read_file path) in
+  Result.bind source (fun (name, source) ->
+    Kanon_surface.Elab.check_in Kanon_kernel.Global.initial source
+    |> Result.map (fun (globals, rows) ->
+      Option.value ~default:(Filename.remove_extension (Filename.basename path)) name,
+      globals, rows))
+  |> Result.fold ~ok:Fun.id
        ~error:(fun e ->
          prerr_endline (Kanon_kernel.Error.to_string e); exit 1)
 
 let run_check (print_form : bool) (path : string) : unit =
-  let rows = snd (checked_in path) in
+  let _contract, _globals, rows = checked_in path in
   if print_form then print_string (Kanon_surface.Elab.checked_form rows) else ()
 
 let run_erased (path : string) : unit =
-  let globals, rows = checked_in path in
+  let _contract, globals, rows = checked_in path in
   Kanon_kernel.Erase.program globals rows
   |> Result.fold
        ~ok:(fun out -> print_string (Kanon_kernel.Erase.print out))
@@ -51,20 +56,20 @@ let run_erased (path : string) : unit =
          prerr_endline (Kanon_kernel.Error.to_string e); exit 1)
 
 let run_axioms (path : string) : unit =
+  let _contract, _globals, rows = checked_in path in
   List.iter print_endline
-    (Kanon_surface.Elab.axiom_names (snd (checked_in path)))
+    (Kanon_surface.Elab.axiom_names rows)
 
 let checked_erased path =
-  let globals, rows = checked_in path in
+  let contract, globals, rows = checked_in path in
   let erased = Kanon_kernel.Erase.program globals rows
     |> Result.fold ~ok:Fun.id
        ~error:(fun e ->
           prerr_endline (Kanon_kernel.Error.to_string e); exit 1) in
-  globals, rows, erased
+  contract, globals, rows, erased
 
 let compile (command : string) (path : string) (export : string) : Assay_emit.Emit.output =
-  let globals, rows, erased = checked_erased path in
-  let contract = Filename.remove_extension (Filename.basename path) in
+  let contract, globals, rows, erased = checked_erased path in
   Assay_emit.Emit.program ~contract ~export globals rows erased
     |> Result.fold ~ok:Fun.id ~error:(fun e ->
       prerr_endline ("assay: " ^ command ^ ": " ^ Assay_emit.Emit.error e); exit 2)
@@ -122,7 +127,7 @@ let run_model path options storage =
   let refuse code e = prerr_endline ("assay: run: " ^ M.error e); exit code in
   let input = M.inputs ~data:(option "--calldata" "") ~value:(option "--value" "0") ~storage
     |> Result.fold ~ok:Fun.id ~error:(refuse 64) in
-  let globals, _rows, erased = checked_erased path in
+  let _contract, globals, _rows, erased = checked_erased path in
   let program = M.prepare ~export:(option "--export" "main") globals erased
     |> Result.fold ~ok:Fun.id ~error:(refuse 2) in
   M.run program input

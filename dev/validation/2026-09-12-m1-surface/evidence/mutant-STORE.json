@@ -1,0 +1,12 @@
+{
+  "argv": [
+    "python3",
+    "-P",
+    "dev/contract-test.py",
+    "witness",
+    "increment-success"
+  ],
+  "exit": 1,
+  "stdout": "CONTRACT-SURFACE FAIL: MODEL-EXPECTED increment-success\n",
+  "stderr": ""
+}

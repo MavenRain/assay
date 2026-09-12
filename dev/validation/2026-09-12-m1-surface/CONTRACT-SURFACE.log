@@ -1,0 +1,11 @@
+SURFACE-LIVE counter=30 variants=13 creates=2 covered=216 five_files=5 executors=2 OK
+SURFACE-DRIVER refusals=35 commands=3 bounds=4 no_tools=true OK
+SURFACE-MUTANT SLOT witness=get-nonzero killed control=OK
+SURFACE-MUTANT ARGUMENT witness=two-args killed control=OK
+SURFACE-MUTANT SUBTRACTION witness=decrement-success killed control=OK
+SURFACE-MUTANT GUARD witness=increment-success killed control=OK
+SURFACE-MUTANT STORE witness=increment-success killed control=OK
+SURFACE-MUTANT SHADOW witness=shadow killed control=OK
+SURFACE-MUTANT LITERAL witness=word-range killed control=OK
+SURFACE-MUTANTS killed=7/7 controls=7 OK
+CONTRACT-SURFACE counter=30 variants=13 refusals=35 mutants=7 OK

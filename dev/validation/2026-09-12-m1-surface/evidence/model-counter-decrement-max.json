@@ -1,0 +1,20 @@
+{
+  "argv": [
+    "/Users/oobi/Documents/gpt1/assay-m1-surface/_build/default/bin/assay.exe",
+    "run",
+    "/Users/oobi/Documents/gpt1/assay-m1-surface/examples/CounterSurface.asy",
+    "--calldata",
+    "3a9ebefdffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+    "--value",
+    "0",
+    "--storage",
+    "0=0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+    "--storage",
+    "1=0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+    "--storage",
+    "7=0xb"
+  ],
+  "exit": 0,
+  "stdout": "{\"status\":\"success\",\"output\":\"0x0000000000000000000000000000000000000000000000000000000000000000\",\"storage\":{\"1\":\"0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff\",\"7\":\"0xb\"}}\n",
+  "stderr": ""
+}

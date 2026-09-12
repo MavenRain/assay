@@ -1,0 +1,13 @@
+M1: add checked contract and do surface syntax
+
+Lower word storage, entries and sequential effects to the checked core
+protocol. Preserve scope, checked arithmetic and constructor order,
+derive layout names from the declaration, and refuse unsupported forms.
+
+Add a surface counter with exact core artifact equality, dual execution,
+driver boundaries and seven compiler mutation controls. Archive all 39
+passing gates and a fresh measurement within the existing line budgets.
+
+Review pass 1 (2026-09-12) fixed 0 findings and carried 2 (A-1 medium,
+D-1 low, both in emit/contract.ml, a frozen timing input) with ready
+patches for the next timing freeze. Ladders on fresh copies: 39 PASS.

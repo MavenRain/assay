@@ -1,0 +1,10 @@
+{
+  "argv": [
+    "/Users/oobi/Documents/gpt1/assay-m1-surface/_build/default/bin/assay.exe",
+    "check",
+    "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-contract-driver-e25rw5pf/empty-storage.asy"
+  ],
+  "exit": 1,
+  "stdout": "",
+  "stderr": "line 1, column 44: SURFACE_NAME: expected an unreserved identifier of at most 64 characters\n"
+}

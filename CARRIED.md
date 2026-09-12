@@ -60,6 +60,16 @@ the existing Keccak library to derive selectors. The kernel, inherited
 surface and carried proofs remain byte-identical. The new source fixture
 uses their existing collection and recursive-family constructors.
 
+## M1 contract surface
+
+The fifth M1 slice adds `emit/contract.ml` and its sealed interface. It
+lowers bounded contract/entry/do syntax into checked core declarations
+before the existing driver pipeline. The files are priced within the
+emitter allocation. The carried kernel, surface and proofs stay unchanged.
+`examples/CounterSurface.asy` emits exactly the core counter's five files.
+The scope, named refusals and remaining P1 proof forms are recorded in
+`dev/M1-SURFACE.md`.
+
 ## M1 source model
 
 The fourth M1 slice factors the existing specialization entry points and

@@ -1,5 +1,76 @@
 # Assay M1 build log
 
+## 2026-09-12: checked contract surface
+
+This fifth M1 slice builds on `c7e721e`. It adds contract/storage/entry/do
+sugar in `emit/contract.ml`, with a sealed interface and one integration
+point before the carried checker. Named storage and entry collections,
+word locals, loads, stores, checked addition/subtraction, comparison guards,
+returns and literal constructors lower to the existing core protocol.
+All emitted code and model execution still pass through checking, erasure
+and the existing recognizer. The declared contract name supplies layout
+metadata. `dev/M1-SURFACE.md` defines the grammar and its bounded scope.
+
+The new counter fixture emits the same runtime, creation, ABI, layout and
+axiom files as the core counter. The initial source comparison passed all
+30 frozen rows and 13 additional cases, including local shadowing, argument
+order, maximum words, snapshots and rollback. Driver testing exposed the
+carried erasure's removal of the entry tag when all argument records are
+empty. That case now has an explicit `SURFACE_ENTRY` refusal. Mixed entry
+tables, including the counter's `get()`, are supported.
+
+### Validation
+
+The complete battery passed 39 of 39 legs with zero failures, ending in
+`STAGE-M1-SURFACE OK` and `M0-VALIDATION OK`. Its archive is
+`dev/validation/2026-09-12-m1-surface/`, including raw executions, driver
+results, compiler mutations, restored controls, source hashes and artifact
+hashes. The full run uses the installed OCaml switch, cast, geth and Lean
+tools. Existing local proof dependencies were copied into the validation
+checkout, and the proof gate verified their manifest revisions offline.
+
+| Check | Result |
+| --- | --- |
+| Build and inherited suites | Pass, zero build errors and warnings |
+| Carry | All 31 sources byte-identical, no unlisted files |
+| Surface counter | Five output files byte-identical to the core counter |
+| Counter execution | All 30 frozen rows agree with the model and both EVM paths |
+| Additional execution | 13 cases, including field reordering and declared layout name |
+| Creation and disassembly | Both creation outcomes pass; all 216 runtime instructions exercised |
+| Driver | 35 refusals through check/emit/run, four accepted boundary programs, no-tools model call |
+| Surface mutations | Seven named kills and seven restored controls |
+| Existing M0 and M1 checks | Every gate passes, including prior mutations and source model |
+| Proof seed | 28 carried files, 42 axiom reports, no sorryAx, no skip |
+| Trusted lines | Emitter 1012/1800, total 1425/3550, kernel 3997/4000 |
+| DENOMINATORS and M0-RATIO | Pass with the new measured executable and 94 frozen inputs |
+
+The full source-model leg took 84.990 seconds and the surface leg took
+86.485 seconds. Existing gate predicates, deadlines and numerical bounds
+remain in force; the new surface leg has a 600-second deadline.
+
+The fresh measurement ran five interleaved rounds in 28.753 seconds, within
+the unchanged one-minute limit. It is archived as
+`dev/measurements/2026-09-12-m1-surface.json`. Initial load was 68.31;
+the frozen M0 contract corpus measured 1240.772 ms/kloc and the fixed-cost
+proxy measured 12.790 ms. These are informational M0 measurements, with
+no subtraction and no M1 performance claim. Every earlier report remains
+available. The surface module is priced within the existing emitter bound.
+
+Proof-producing guards, erased proof binders, invariant declarations,
+typed custom reverts, the source overflow-freedom theorem and the M1
+performance bound remain unfinished. Nullary-only entry tables retain
+the stated erasure limitation. M0 and M1 exit ratifications remain the
+user's decisions. This slice is staged without a commit.
+
+### Review round 2026-09-12 (M1 surface)
+
+A 13-agent workflow reviewed the staged slice (349 paths on c7e721e) on four lenses (lowering, gate and harness, prose and freeze, integration), verified each finding, judged, ran two fix rounds and a check stage. Two findings were confirmed, none refuted. Both are in emit/contract.ml, a frozen timing input (a row of dev/DENOMINATORS.sha256), so the review carries them with ready patches instead of moving a frozen row without a new timing run.
+
+- A-1 (medium, carried, NEEDS-NEW-FREEZE). The CONSTRUCTOR refusals for a `pure v` ending, a `revert` ending and a `guard` step report line 1, column 1 instead of the offending token (`here []` at emit/contract.ml lines 202 and 211). The CONTRACT-SURFACE leg checks only the `line ` prefix and the code, so the position is untested. Ready patch: /Users/oobi/Documents/assay-m1-surface-review/patches/A-1.patch (carries the token through `Revert of token`, anchors the three refusals, and adds the expected position to the covering test cases).
+- D-1 (low, carried, NEEDS-NEW-FREEZE). `lower` converts the whole source to a char list before it decides whether the file is a contract, so every core file pays one list cell per byte (about 2 s on a 20 MiB file). Ready patch: /Users/oobi/Documents/assay-m1-surface-review/patches/D-1.patch (routes on a lazy scan of the string; applies after A-1).
+
+No source file changed in this round. Ladders on fresh copies of the staged tree: baseline 38 of 39 legs PASS with one inner 120 s timeout of dev/m1-emit-test.py at host load 60 to 209 (a leg outside the slice); baseline rerun 39 PASS at load 66; two fix-round ladders 39 PASS; each green run printed STAGE-M1-SURFACE OK, M0-VALIDATION OK and 94 DENOMINATORS rows OK. The close ladder after this block runs on a fresh copy; its log is /Users/oobi/Documents/assay-m1-surface-review/gates-final.log. SOURCES.json is refreshed for this log and for the commit text.
+
 ## 2026-09-11: source model and public run
 
 This fourth M1 slice builds on `ef22665`. The public `run` command checks,

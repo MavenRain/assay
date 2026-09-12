@@ -1,0 +1,10 @@
+{
+  "argv": [
+    "/Users/oobi/Documents/gpt1/assay-m1-surface/_build/default/bin/assay.exe",
+    "axioms",
+    "/Users/oobi/Documents/gpt1/assay-m1-surface/examples/CounterSurface.asy"
+  ],
+  "exit": 0,
+  "stdout": "EvmOpcodes\n",
+  "stderr": ""
+}

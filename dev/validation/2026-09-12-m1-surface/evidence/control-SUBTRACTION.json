@@ -1,0 +1,12 @@
+{
+  "argv": [
+    "python3",
+    "-P",
+    "dev/contract-test.py",
+    "witness",
+    "decrement-success"
+  ],
+  "exit": 0,
+  "stdout": "",
+  "stderr": ""
+}

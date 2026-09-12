@@ -1,0 +1,10 @@
+{
+  "argv": [
+    "/Users/oobi/Documents/gpt1/assay-m1-surface/_build/default/bin/assay.exe",
+    "run",
+    "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-contract-driver-e25rw5pf/unknown-declaration.asy"
+  ],
+  "exit": 1,
+  "stdout": "",
+  "stderr": "line 3, column 1: SURFACE_DECLARATION: expected entry, constructor or end of input\n"
+}

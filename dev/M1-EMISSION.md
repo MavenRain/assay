@@ -14,10 +14,11 @@ _build/default/bin/assay.exe diff examples/Counter.asy --calldata 0x6d4ce63c
 ```
 
 This slice uses the carried grammar. It adds no kernel former and changes
-no file under `lib/` or `surface/`. The P1 `contract`, `storage`, `entry`
-and `do` sugar, the source overflow-freedom theorem and M1
-performance threshold remain open. The subsequent [source model](M1-RUN.md)
-adds public `run`. These tests are not a proof of the
+no file under `lib/` or `surface/`. The subsequent [contract surface](M1-SURFACE.md)
+adds bounded `contract`, `storage`, `entry` and `do` sugar. Proof-producing
+guards, the source overflow-freedom theorem and M1 performance threshold
+remain open. The [source model](M1-RUN.md) adds public `run`.
+These tests are not a proof of the
 OCaml compiler. The two executors are geth entry points, not independent
 client implementations.
 
@@ -47,6 +48,9 @@ name, and its field aliases become ABI argument names. Empty argument
 records describe zero-argument functions. The recognizer permits at most
 32 entries and 32 arguments per entry, and rejects duplicate names within
 a collection. This explicit naming protocol precedes surface sugar.
+The carried erasure drops the entry tag when every argument record is
+empty. The current emitter therefore requires at least one entry with a
+Word argument; zero-argument entries work in such a mixed table.
 
 The selected export must have an explicit `Entry -> Tx` type. The emitter
 specializes it once for each checked variant leg, injecting symbolic

@@ -1,0 +1,11 @@
+{
+  "argv": [
+    "zsh",
+    "-f",
+    "dev/dunecho.sh",
+    "build"
+  ],
+  "exit": 0,
+  "stdout": "OK build: 0 errors, 0 warnings\n",
+  "stderr": ""
+}
