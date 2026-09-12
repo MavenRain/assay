@@ -1,0 +1,22 @@
+M1: prove checked source arithmetic and test correspondence
+
+Add a reusable Lean transaction model with erased arithmetic
+certificates and eleven public theorem reports. Compare source
+execution at uint256 boundaries, explicit error recovery, snapshots
+and rollback, including six proof/adapter mutations and emitted
+execution under Cancun.
+
+Fix constructor diagnostic positions and avoid whole-source allocation
+when routing core files. Refresh the frozen measurement and archive the
+complete 41-leg validation without changing trusted-line bounds.
+
+Review pass 1 (2026-09-12) fixed 6 findings: B-1, A-1, C-2, B-2,
+C-3, C-1; the gate item GATE-1 changed no file.
+B-1: route a third 1 MiB input so the keyword walk is measured.
+A-1: write the adapter error to stderr before exit 74.
+C-2: document the adapter exit codes 0, 2 and 74.
+B-2: name the accepted axiom set and the observed inventory.
+C-3: rewrap the 94 column validation line at 80 columns.
+C-1: rewrap the commit body at 72 columns.
+GATE-1: the round 1 gate reading said RED on an all-green ladder;
+the rerun ladder is GREEN-FULL, 41 PASS and 0 FAIL.

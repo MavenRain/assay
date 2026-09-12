@@ -1,6 +1,6 @@
 (tests
  (names main sl_surface)
- (modules (:standard \ keccak_vec asm_cases emit_cases))
+ (modules (:standard \ keccak_vec asm_cases emit_cases contract_route))
  (libraries kanon_kernel kanon_surface))
 
 (executable
@@ -17,3 +17,8 @@
  (name emit_cases)
  (modules emit_cases)
  (libraries assay_emit assay_abi kanon_kernel zarith))
+
+(executable
+ (name contract_route)
+ (modules contract_route)
+ (libraries assay_emit))

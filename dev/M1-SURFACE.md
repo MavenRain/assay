@@ -95,10 +95,12 @@ bounds still apply after lowering.
 Surface refusals print `SURFACE_*` diagnostics and exit 1, before output
 creation. Existing backend refusals exit 2 and driver misuse exits 64.
 The P1 proof-producing guard forms, erased proof binders, invariant
-declarations, typed custom reverts and the source overflow-freedom theorem
+declarations and typed custom reverts
 remain unfinished. These keywords are refused; no proof annotation is
 discarded. The M1 performance bound also remains open. This slice uses the
-checked Result/error path of the design, without claiming a source theorem.
+checked Result/error path of the design. The following
+[source-proof slice](M1-PROOFS.md) proves overflow freedom for a Lean model
+of that path and tests its correspondence with the OCaml implementation.
 
 ## Validation
 
@@ -107,12 +109,17 @@ with the core source and executes all 30 frozen counter rows against the
 source model, emitted runtime and committed reference. Both geth execution
 paths run. The test also checks both creation outcomes, all 216 emitted
 runtime instructions, 13 additional cases, three-way disassembly,
-35 refusals through three public commands, four accepted boundary programs
+37 refusals through three public commands, four accepted boundary programs
 and a model invocation with no tools on PATH.
 
 Seven compiler mutations must fail their named semantic or refusal witness
 and pass after restoration. See [the mutation ledger](M1-SURFACE-MUTATIONS.md).
-The complete 39-leg battery ends in `STAGE-M1-SURFACE OK`. Evidence is
-archived under `dev/validation/2026-09-12-m1-surface/`. These gates test the
-OCaml implementation; they do not prove it, and the two executors are
-entry points of geth rather than independent client implementations.
+The `--m1-surface` mode has 39 legs and ends in `STAGE-M1-SURFACE OK`.
+Its initial evidence is archived under
+`dev/validation/2026-09-12-m1-surface/`. These gates test the OCaml
+implementation; they do not prove it, and the two executors are entry
+points of geth rather than independent client implementations.
+
+The source-proof slice fixes constructor result, revert and guard positions
+and pins all three through check, emit and run. Core routing scans the
+contract keyword lazily, including an early exit for a large first identifier.

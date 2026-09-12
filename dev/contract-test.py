@@ -140,6 +140,8 @@ def refusals():
         ('no-entry', 'contract Empty where storage State := { cell : Word }', 'SURFACE_ENTRY'),
         ('nullary-only', program('pure (word 0)', args='()'), 'SURFACE_ENTRY'),
         ('constructor-result', simple + 'constructor := do pure (word 0)', 'SURFACE_CONSTRUCTOR'),
+        ('constructor-revert', simple + 'constructor := do revert', 'SURFACE_CONSTRUCTOR'),
+        ('constructor-guard', simple + 'constructor := do guard le (word 0) (word 1) ; pure ()', 'SURFACE_CONSTRUCTOR'),
         ('constructor-load', simple + 'constructor := do x <- sload cell ; pure ()', 'SURFACE_CONSTRUCTOR'),
         ('constructor-variable', simple + 'constructor := do sstore cell a ; pure ()', 'SURFACE_CONSTRUCTOR'),
         ('constructor-duplicate', counter + 'constructor := do pure ()', 'SURFACE_DUPLICATE'),
@@ -154,15 +156,22 @@ def refusals():
     ]
 
 
-def refusal(name, source, marker, folder):
+# A refusal that carries the offending token reports that token, not the sentinel line 1, column 1.
+POSITIONS = {'constructor-result': 'line 3, column 30:',
+             'constructor-revert': 'line 3, column 19:',
+             'constructor-guard': 'line 3, column 34:'}
+
+
+def refusal(name, source, marker, folder, expected=None):
     path = folder / (name + '.asy')
     path.write_text(source)
+    prefix = expected or POSITIONS.get(name) or 'line '
     for command in ('check', 'emit', 'run'):
         output = folder / (name + '-out')
         args = ['-o', output] if command == 'emit' else []
         result = M.capture('invalid-' + name + '-' + command, [BINARY, command, path, *args])
         require(result.returncode == 1 and marker + ':' in result.stderr and not result.stdout and
-                result.stderr.startswith('line ') and not output.exists(), 'SURFACE-REFUSAL ' + name)
+                result.stderr.startswith(prefix) and not output.exists(), 'SURFACE-REFUSAL ' + name)
 
 
 def driver():

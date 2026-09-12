@@ -1,0 +1,11 @@
+{
+  "argv": [
+    "leancho",
+    "--warn",
+    "-C",
+    "/Users/oobi/Documents/gpt1/assay-m1-proofs/verification"
+  ],
+  "exit": 0,
+  "stdout": "OK lake: 0 errors, 0 sorries, 0 warnings\n",
+  "stderr": ""
+}

@@ -1,5 +1,128 @@
 # Assay M1 build log
 
+## 2026-09-12: source arithmetic proofs
+
+This sixth M1 slice builds on `7954843`. The new dependency-free
+`verification/` Lake package exports checked uint256 arithmetic and a
+finite transaction interpreter. Arithmetic produces an explicit Result
+with erased exactness evidence. The interpreter accumulates an erased
+certificate for its observable arithmetic trace; `source_overflow_free`
+proves the trace satisfies exact, bounded addition and ordered subtraction.
+All new proofs use pure terms. The 28 carried `proofs/` files are unchanged.
+
+The statement concerns the Lean source semantics. Its correspondence with
+the checked OCaml source pipeline and EVM output is tested. This slice
+does not prove compiler correctness or an EVM refinement theorem. The
+scope, import recipe and remaining work are in `dev/M1-PROOFS.md`.
+
+The surface review's A-1 and D-1 findings are fixed with this new freeze.
+Constructor result, revert and guard refusals retain the offending token
+and all three positions are checked through check, emit and run. Core
+routing scans lazily and stops early on a non-contract first identifier.
+Three 1 MiB inputs allocate 1472 bytes in the routing test, below its
+131072 byte ceiling, and return the original strings by identity.
+
+### Validation
+
+The full battery passed 41 of 41 legs with zero failures, ending in
+`STAGE-M1-PROOFS OK` and `M0-VALIDATION OK`. Evidence is archived under
+`dev/validation/2026-09-12-m1-proofs/`, with source and artifact hashes.
+
+| Check | Result |
+| --- | --- |
+| OCaml and new Lean builds | Zero errors or warnings; zero unfinished proofs |
+| New theorem reports | Eleven reports; nine without axioms and two using only propext |
+| Arithmetic correspondence | 226 Lean/OCaml cases with exact Python integer expectations |
+| Emitted arithmetic | 16 boundary cases under both Cancun execution paths |
+| Recovery and effects | Six explicit recovery cases and seven snapshot/comparison/storage cases |
+| Proof adapter refusals | Thirteen malformed inputs rejected |
+| Proof mutations | Six named kills, each with a restored build and execution control |
+| Report controls | Four forbidden, missing or duplicate axiom reports rejected |
+| Surface | 30 counter rows, 13 variants, 37 refusals through three commands, seven mutations |
+| Carry and proof seed | 31 source files byte-identical; 28 proof files and 42 reports pass without a skip |
+| Trusted lines | Emitter 1033/1800, total 1446/3550, kernel 3997/4000 |
+| Measurement identity | 109 frozen input rows, with every earlier row retained |
+
+The source-proof leg took 85.066 seconds. Every existing predicate,
+deadline and numerical bound remains in force. The new source-proof leg
+has a 600-second deadline and requires the installed pinned Lean toolchain.
+Existing local proof dependencies were copied into the validation checkout;
+the inherited proof gate verified their manifest revisions offline.
+
+The fresh five-round measurement completed in 26.770 seconds, within the
+unchanged one-minute window, and is archived in
+`dev/measurements/2026-09-12-m1-proofs.json`. Initial load was 21.78. The
+frozen M0 contract corpus measured 947.003 ms/kloc and the fixed invocation
+proxy measured 15.312 ms. These are informational M0 measurements, with
+no subtraction or M1 performance claim. Earlier reports remain available.
+
+Proof-producing surface guards, erased source proof binders, invariants,
+typed custom reverts, nullary-only entry tables and the M1 performance
+bound remain unfinished. M0 and M1 exit ratifications remain the user's
+decisions. This slice is staged without a commit.
+
+### Review round 2026-09-12 (M1 proofs)
+
+A multi-agent workflow reviewed the staged slice (121 paths on 7954843) on four lenses (proofs and adapter, gate and harness, prose and freeze, integration), verified each finding, judged and ran one fix round. Six findings were confirmed, none refuted, and all six are low severity. The baseline ladder was 41 PASS, 0 FAIL, EXIT 0.
+
+- B-1 (low, fixed). The CONTRACT-ROUTE test routed two inputs that both stop the router at the first byte, so the keyword walk was never measured. test/contract_route.ml now routes a third 1 MiB input that starts with the eight bytes of `contract` and continues into a longer identifier. The three inputs allocate 1472 bytes, below the unchanged 131072 byte ceiling, and the leg line reads `core=3`.
+- A-1 (low, fixed). The adapter branch for a failed stdout write bound a detail string that it never used and exited 74 without a diagnostic. verification/Main.lean now writes the error to stderr through `toBaseIO`, which keeps the exit code and never raises a second failure. Every proof stays a pure term.
+- C-2 (low, fixed). dev/M1-PROOFS.md now names the three adapter exit codes: 0 with a JSON result, 2 with an `{"error": ...}` object, and 74 when the adapter cannot write its output.
+- B-2 (low, fixed). dev/M1-PROOFS.md now names the accepted assumption set (`propext`, `Quot.sound`, `Classical.choice`) and the current inventory (nine theorems with no axiom, two with `propext` alone). The gate set in dev/source-proof-test.py is unchanged.
+- C-3 (low, fixed). The 94-column validation line of dev/M1-SURFACE.md is rewrapped at 80 columns with the wording unchanged.
+- C-1 (low, fixed). The first body paragraph of dev/STAGE-M1-PROOFS-COMMIT.txt is rewrapped at 72 columns, the width every earlier stage text keeps.
+
+Four frozen rows were refreshed for the edited paths: dev/M1-PROOFS.md, dev/M1-SURFACE.md, test/contract_route.ml and verification/Main.lean. dev/DENOMINATORS.sha256 keeps 109 rows in the same order, and `shasum -a 256 -c` prints OK for every row. No timing input was re-measured, and dev/denominators.json, dev/measurements/ and corpus/MANIFEST.json are untouched. The fix ladder on a fresh copy of the staged tree printed 41 PASS, 0 FAIL, `STAGE-M1-PROOFS OK`, `M0-VALIDATION OK`, EXIT 0 and no failed DENOMINATORS row; its log is /Users/oobi/Documents/assay-m1-proofs-review/fix-M1-1-smoke.log. The CONTRACT-ROUTE evidence log comes from that run, and ARTIFACTS.json and SOURCES.json are refreshed for it.
+
+Kept findings of the round, as closed:
+
+| id | sev | one line | files |
+| --- | --- | --- | --- |
+| B-1 | low | CONTRACT-ROUTE allocation bound is exercised only by first-byte mismatches, so skip_space, skip_comment and the keyword walk are never measured | test/contract_route.ml |
+| A-1 | low | The stdout-failure branch binds a detail string it never uses and exits 74 with no diagnostic | verification/Main.lean |
+| C-2 | low | The sourceModel adapter exit codes 0, 2 and 74 are documented nowhere | dev/M1-PROOFS.md |
+| B-2 | low | Docs claim the gate rejects unlisted assumptions but never name the allowed axiom set, which is wider than the observed inventory | dev/M1-PROOFS.md |
+| C-3 | low | Slice-edited validation line is 94 columns in a file wrapped at 80 | dev/M1-SURFACE.md |
+| C-1 | low | Commit body line 3 is 73 columns, above the 72-column body width every earlier stage text kept | dev/STAGE-M1-PROOFS-COMMIT.txt |
+| GATE-1 | high | the M1 proofs ladder is RED | (gate) |
+
+GATE-1 changed no file. The round 1 gate reading said RED, but every row of that ladder was green (41 PASS, 0 FAIL). The round 2 ladder reproduced GREEN-FULL.
+
+Refuted: 0.
+
+Merged and dropped: 1. A-1-doc-half: Merged into C-2. The finder A-1 detail carried both a code defect (dead `_detail` binder, silent 74 branch) and the claim that exit 74 is named in no document; the documentation claim is the same defect as C-2, which states it for all three adapter codes 0, 2 and 74. A-1 is kept as the code half only, C-2 owns the doc fix.
+
+Gate result of the last round, log
+/Users/oobi/Documents/assay-m1-proofs-review/gates-M1-2.log, verdict
+GREEN-FULL because every one of the 41 legs is PASS, no FAIL row, no failed
+frozen row, the mutant legs killed their mutants and the wrapper exited 0:
+
+- STAGE-M1-LINE: STAGE-M1-PROOFS OK
+- M0-LINE: M0-VALIDATION OK; M0-EXIT requires the user commit and ratification
+- EXIT 0 | LADDER-WRAPPER-EXIT 0 13:05:54
+- PASS-COUNT: 41
+- FAIL-LINES:
+- DENOM-FAILED-ROWS:
+- MUTANTS-TAIL: MUTANT TRUSTED-BOUND killed exit=1 MUTANTS killed=13/13 OK
+- SOURCE-PROOFS-TAIL: SOURCE-PROOF-MUTANT ERROR-BRANCH killed control=OK SOURCE-PROOFS theorems=11 arithmetic=226 evm=16 recovery=6 effects=7 invalid=13 mutants=6 controls=4 OK
+- CONTRACT-ROUTE-TAIL: CONTRACT-ROUTE core=3 identity=true allocated_bytes=1472 bound=131072 OK
+- CONTRACT-SURFACE-TAIL: SURFACE-MUTANTS killed=7/7 controls=7 OK CONTRACT-SURFACE counter=30 variants=13 refusals=37 mutants=7 OK
+- SOURCE-MODEL-TAIL: MODEL-MUTANTS killed=8/8 controls=8 OK SOURCE-MODEL counter=30 variants=10 corpus=11 invalid=28 refusals=6 mutants=8 OK
+- DIFF-EXECUTOR-TAIL: DIFF-CHECKS killed=24/24 controls=1 OK DIFF-EXECUTOR live=20 driver=28 rejected=24 OK
+- M1-EMISSION-TAIL: M1-MUTANTS killed=8/8 controls=8 OK M1-EMISSION counter=30 sources=8 refusals=11 mutants=8 OK
+- COUNTER-REFERENCE-TAIL: COUNTER-MUTANT SELECTOR witness=increment-success killed control=OK COUNTER-REFERENCE cases=30 creates=2 mutants=8 value_rejected=5 covered=120 scope=reference OK
+- DRIVER-TAIL: DRIVER cases=24 OK
+- DENOMINATORS-TAIL: verification/lakefile.lean: OK verification/lean-toolchain: OK
+- M0-RATIO-TAIL: M0-PROOF-RATIO ms_per_kloc=881.963 files=3 separate=true M0-RATIO provenance=dev/denominators.json fixed=spec-count-proxy subtraction=none OK
+- PROOF-BUILD-TAIL: OK lake: 0 errors, 0 sorries, 0 warnings
+- PROOF-REPORT-LINES: 42
+
+DENOMINATORS and M0-RATIO both passed on the new 109 row freeze; the fixes refreshed exactly four rows: dev/M1-PROOFS.md, dev/M1-SURFACE.md, test/contract_route.ml and verification/Main.lean.
+
+gate: GREEN-FULL (pass=41 of 41 legs, fail=[], denom rows=[], mutants=true, timeout legs only=false, wrapper exit ok=true, stage=STAGE-M1-LINE: STAGE-M1-PROOFS OK, m0=M0-LINE: M0-VALIDATION OK; M0-EXIT requires the user commit and ratification, exit=EXIT 0 | LADDER-WRAPPER-EXIT 0 13:05:54)
+
+Agent tiers: the finders ran fable/medium with one opus/medium fallback, and the builder and the closer ran opus/medium. The Fable tier probe of session claude1, 2026-09-12 02:46, wf-mechanical, answered PROBE OK 123, but a death in fix or close forces a resume, so the builder and closer rulings are reported unmet.
+
 ## 2026-09-12: checked contract surface
 
 This fifth M1 slice builds on `c7e721e`. It adds contract/storage/entry/do

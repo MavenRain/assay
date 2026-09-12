@@ -1,0 +1,12 @@
+{
+  "argv": [
+    "/Users/oobi/Documents/gpt1/assay-m1-proofs/_build/default/bin/assay.exe",
+    "emit",
+    "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-contract-driver-c1cxyfpq/constructor-result.asy",
+    "-o",
+    "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-contract-driver-c1cxyfpq/constructor-result-out"
+  ],
+  "exit": 1,
+  "stdout": "",
+  "stderr": "line 3, column 30: SURFACE_CONSTRUCTOR: constructor must end in pure ()\n"
+}

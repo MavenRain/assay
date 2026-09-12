@@ -18,6 +18,8 @@ The fourth adds the [source model](dev/M1-RUN.md) and public `run` command,
 with checked arithmetic, storage snapshots and rollback on revert.
 The fifth adds [contract surface syntax](dev/M1-SURFACE.md), lowering
 word storage, entries and sequential effects to that checked core.
+The sixth adds [source arithmetic proofs](dev/M1-PROOFS.md), with a reusable
+Lean transaction model and executable comparisons against assay and Cancun.
 
 ```sh
 zsh -f dev/dunecho.sh build
@@ -32,6 +34,7 @@ _build/default/bin/assay.exe emit examples/Counter.asy -o Counter-out
 _build/default/bin/assay.exe diff examples/Counter.asy --calldata 0x6d4ce63c
 _build/default/bin/assay.exe run examples/Counter.asy --calldata 0x6d4ce63c --storage 0=7 --storage 1=100
 _build/default/bin/assay.exe emit examples/CounterSurface.asy -o Surface-out
+leancho -C verification
 zsh -f dev/gates.sh
 ```
 

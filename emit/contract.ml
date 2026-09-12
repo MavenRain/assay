@@ -12,7 +12,7 @@ type step =
   | Store of token * word
   | Guard of word * word
   | Bind of token * word
-type ending = Return of word | Unit of token | Revert
+type ending = Return of word | Unit of token | Revert of token
 type body = step list * ending
 type entry = { name : token; args : token list; body : body }
 
@@ -98,7 +98,7 @@ let body tokens =
       Ok ((List.rev acc, Unit at), rest)
     | { text = "pure"; _ } :: rest ->
       let* word, rest = value 0 rest in Ok ((List.rev acc, Return word), rest)
-    | { text = "revert"; _ } :: rest -> Ok ((List.rev acc, Revert), rest)
+    | ({ text = "revert"; _ } as at) :: rest -> Ok ((List.rev acc, Revert at), rest)
     | { text = "sstore"; _ } :: rest ->
       let* slot, rest = identifier rest in
       let* word, rest = value 0 rest in next (Store (slot, word)) rest
@@ -168,7 +168,7 @@ let transaction fields env (steps, ending) =
   let rec lower index env = function
     | [] -> (match ending with
       | Return v -> let* v = word env v in Ok (app "done" [v])
-      | Revert -> Ok "abort"
+      | Revert _at -> Ok "abort"
       | Unit at -> fail at "RETURN" "an entry must return Word")
     | step :: rest ->
       let fresh = "_assay_v" ^ string_of_int index in
@@ -199,7 +199,8 @@ let transaction fields env (steps, ending) =
 let constructor fields (steps, ending) =
   let* () = match ending with
     | Unit _ -> Ok ()
-    | Return _ | Revert -> fail (here []) "CONSTRUCTOR" "constructor must end in pure ()" in
+    | Return (Literal at | Local at) | Revert at ->
+      fail at "CONSTRUCTOR" "constructor must end in pure ()" in
   List.fold_right (fun step result ->
     let* next = result in
     match step with
@@ -208,7 +209,8 @@ let constructor fields (steps, ending) =
       Ok (app "put" [field; v; next])
     | Store (at, Local _) | Load (at, _) | Add (at, _, _) | Sub (at, _, _) | Bind (at, _) ->
       fail at "CONSTRUCTOR" "constructor accepts literal stores only"
-    | Guard _ -> fail (here []) "CONSTRUCTOR" "constructor accepts literal stores only")
+    | Guard ((Literal at | Local at), _) ->
+      fail at "CONSTRUCTOR" "constructor accepts literal stores only")
     steps (Ok "(ret (word 256 0))")
 
 let generate state fields entries init =
@@ -266,10 +268,29 @@ let parse tokens =
     | [] | _ :: _ -> fail (here tokens) "DECLARATION" "expected entry, constructor or end of input" in
   declarations [] None tokens
 
+(* The route is decided on the byte sequence, so a core file never pays a list cell per byte. *)
+let rec skip_comment seq = match seq () with
+  | Seq.Nil -> seq
+  | Seq.Cons ('\n', _rest) -> seq
+  | Seq.Cons (_c, rest) -> skip_comment rest
+let rec skip_space seq = match seq () with
+  | Seq.Nil -> seq
+  | Seq.Cons ((' ' | '\t' | '\r' | '\n'), rest) -> skip_space rest
+  | Seq.Cons ('-', rest) -> skip_dashes seq rest
+  | Seq.Cons (_c, _rest) -> seq
+and skip_dashes seq rest = match rest () with
+  | Seq.Cons ('-', tail) -> skip_space (skip_comment tail)
+  | Seq.Nil -> seq
+  | Seq.Cons (_c, _rest) -> seq
+
+let rec keyword expected seq = match expected, seq () with
+  | [], Seq.Nil -> true
+  | [], Seq.Cons (c, _rest) -> not (word_char c)
+  | want :: rest, Seq.Cons (c, tail) -> c = want && keyword rest tail
+  | _ :: _, Seq.Nil -> false
+
 let lower source =
-  let chars = List.of_seq (String.to_seq source) in
-  let _line, _col, rest = space 1 1 chars in
-  let first, _rest = span word_char [] rest in
-  if first <> "contract" then Ok (None, source)
+  let contract = keyword ['c'; 'o'; 'n'; 't'; 'r'; 'a'; 'c'; 't'] (skip_space (String.to_seq source)) in
+  if not contract then Ok (None, source)
   else if String.length source > 65536 then fail (here []) "LIMIT" "contract source exceeds 65536 bytes"
-  else let* tokens = lex chars in parse tokens
+  else let* tokens = lex (List.of_seq (String.to_seq source)) in parse tokens
