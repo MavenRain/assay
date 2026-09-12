@@ -12,6 +12,8 @@ The first M1 slice adds offline differential execution through geth's
 `evm run` and `evm t8n` entry points.
 The second M1 slice adds the [bounded counter reference](reference/counter/README.md)
 with a dispatcher, ABI/layout fixtures and 30 execution cases.
+The third M1 slice compiles [core counter source](dev/M1-EMISSION.md),
+with a source-derived dispatcher, ABI and named storage layout.
 
 ```sh
 zsh -f dev/dunecho.sh build
@@ -22,6 +24,8 @@ _build/default/bin/assay.exe spec-count
 _build/default/bin/assay.exe emit examples/Ref20.asy -o Ref20-out
 _build/default/bin/assay.exe trace examples/Ref20.asy --calldata 0x
 _build/default/bin/assay.exe diff examples/Ref20.asy --calldata 0x
+_build/default/bin/assay.exe emit examples/Counter.asy -o Counter-out
+_build/default/bin/assay.exe diff examples/Counter.asy --calldata 0x6d4ce63c
 zsh -f dev/gates.sh
 ```
 
@@ -31,11 +35,12 @@ grammar is unchanged.  `check --print FILE` prints the checked declarations.
 A valid file exits 0, a rejected file exits 1, and invalid arguments, an
 unaccepted suffix or a missing path exit 64.
 
-`emit FILE -o DIR` checks, erases and specializes a closed M0 effect program.
+`emit FILE -o DIR` checks, erases and specializes an M0 effect program or
+an [M1 core entry program](dev/M1-EMISSION.md).
 It writes `runtime.hex`, `init.hex`, `abi.json`, `layout.json` and `axioms.txt`.
 Use a new directory under an existing parent.  A named compiler refusal
 exits 2 and writes nothing.  `--export NAME` selects a closed export in place
-of `main`.  [The emission contract](dev/EMISSION.md) defines the source
+of `main`. [The M0 emission contract](dev/EMISSION.md) defines its source
 protocol, supported constructors, bounds and I/O behavior.
 
 `trace FILE --calldata HEX` compiles the source and prints geth's JSON
@@ -112,7 +117,7 @@ comment per instruction.  All execution gates pass the explicit prestate in
 The creation gate checks both returned and installed runtime bytes.
 
 Stage E checks Word unboxing and closure-free storage before assembly.
-The source fixture emits the exact committed reference bytes.  Its ABI is
+The M0 source fixture emits the exact committed reference bytes. Its ABI is
 empty, and its layout declares one full-word slot.  The carried proof seed
 is hash-pinned and retains its original fidelity statement.
 The [frozen corpus](corpus/README.md) has eight contracts and three
@@ -149,16 +154,18 @@ selection and failures.
 The executor gate adds 20 live cases, 28 driver cases and 24 rejection
 witnesses. The counter reference adds 30 cases, two constructor probes,
 eight bytecode mutations and five call-value refusals. Every runtime
-instruction is exercised. `STAGE-M1-COUNTER OK` means all 36 legs pass.
+instruction is exercised. The core emitter adds 30 source/reference
+comparisons on both executor paths, eight general source cases, eleven
+refusals and eight compiler mutations with restored controls.
+`STAGE-M1-EMISSION OK` means all 37 legs pass.
 The final M0-EXIT stamp still requires explicit user ratification.
-Counter source emission, the source entry dispatcher, ABI/layout emission,
-surface sugar, `run`, the complete M1-DIFF gate and the M1 performance
-bound remain unfinished M1 work. The hand-assembled
-reference must be committed before the emitter targets it.
-The current battery passes 34 of 36 legs. DENOMINATORS and M0-RATIO
-still reject four source hashes left stale by the prior executor slice.
-Both new timing attempts exceeded the one-minute measurement bound.
-The [M1 build log](dev/ASSAY-M1-BUILD-LOG.md) records the retained evidence.
+The core counter source, dispatcher, ABI/layout emission and differential
+gate are implemented. Surface sugar, `run`, the source overflow-freedom
+theorem and the M1 performance bound remain unfinished M1 work.
+The core source keeps the inherited grammar and specializes continuations;
+it emits no general-purpose closures. The reference was committed before
+this emitter targeted it. The [M1 build log](dev/ASSAY-M1-BUILD-LOG.md)
+records the current battery and measurement evidence.
 
 The gates require Python 3.11 or newer (`-P`), Foundry `cast` and geth `evm`
 on PATH.  The oracles are `cast` 0.3.0 and geth 1.14.12.

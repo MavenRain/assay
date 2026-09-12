@@ -1,0 +1,27 @@
+M1: compile core counter entries and checked arithmetic
+
+Compile the bounded counter against its committed reference. Derive
+the dispatcher, selectors and ABI from checked entry rows, and print
+named full-word storage fields. Lower static continuations, load
+snapshots, checked arithmetic and nonpayable creation.
+
+Compare all 30 reference cases on both geth paths. Add eight general
+source cases, eleven refusals and eight compiler mutations, each with
+a passing restored control. Exercise every emitted runtime opcode.
+
+Refresh the measurement freeze after a 26.440-second timing window,
+preserving the prior report and resolving the two stale hash gates.
+The full battery passed 36 of 37 legs; the unchanged proof check passed
+on retry after its report timed out. Retain both results and all 42
+axiom reports. No gate or timeout was weakened.
+
+Keep the kernel, inherited surface and proof seed unchanged. Surface
+sugar, run, the source theorem and M1 performance bound remain open.
+
+Review pass 1 (2026-09-11) fixed 5 findings: A-2, B-1, C-1, C-3, ND-1-1.
+A-2: document the Entry backend routing rule in dev/M1-EMISSION.md.
+B-1: restore 60 dropped manifest inputs, correct the archive README.
+C-1: drop the unsupported retry time, relabel the trusted-line total.
+C-3: list the ninth frozen path, widen the startup caveat.
+ND-1-1: add the three prose files, manifest now 185 entries.
+A-1, A-3 and B-2 stay open until the next measurement freeze.

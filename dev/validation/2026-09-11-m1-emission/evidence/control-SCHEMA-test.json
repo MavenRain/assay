@@ -1,0 +1,11 @@
+{
+  "argv": [
+    "python3",
+    "-P",
+    "dev/m1-emit-test.py",
+    "sources"
+  ],
+  "exit": 0,
+  "stdout": "M1-SOURCES live=8 refusals=11 exports=2 OK\n",
+  "stderr": ""
+}

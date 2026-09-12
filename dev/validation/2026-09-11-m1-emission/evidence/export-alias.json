@@ -1,0 +1,14 @@
+{
+  "argv": [
+    "/Users/oobi/Documents/gpt1/assay-m1-emission/_build/default/bin/assay.exe",
+    "emit",
+    "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-m1-sources-6gs40xnf/alias.asy",
+    "-o",
+    "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-m1-sources-6gs40xnf/alias",
+    "--export",
+    "handle"
+  ],
+  "exit": 0,
+  "stdout": "",
+  "stderr": ""
+}

@@ -1,0 +1,3 @@
+M0-RATIO assay_ms_per_kloc=1116.482 ocamlopt=754.186 ocamlc=98.818 ratio=1.480380 fixed_ms=14.017 load=24.02 informational=true
+M0-PROOF-RATIO ms_per_kloc=804.638 files=3 separate=true
+M0-RATIO provenance=dev/denominators.json fixed=spec-count-proxy subtraction=none OK

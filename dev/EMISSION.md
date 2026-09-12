@@ -1,5 +1,9 @@
 # M0 source emission
 
+This document describes the preserved M0 mode. [M1 core emission](M1-EMISSION.md)
+adds source entries, runtime operations, checked arithmetic and constructors
+when a source declares `Entry`.
+
 Stage E compiles closed first-order `Eff` programs.  The source grammar is
 the carried Kanon grammar.  `examples/Ref20.asy` is the complete minimal
 example.  The inherited `examples/m0-spine.kan` exercises the checker; it is

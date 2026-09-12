@@ -1,0 +1,11 @@
+{
+  "argv": [
+    "python3",
+    "-P",
+    "dev/m1-emit-test.py",
+    "counter"
+  ],
+  "exit": 0,
+  "stdout": "M1-DIFF cases=30 creates=2 covered=216 five_files=5 scope=core OK\n",
+  "stderr": ""
+}

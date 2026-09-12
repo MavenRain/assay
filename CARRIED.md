@@ -50,3 +50,12 @@ Stage E replaces the driver's emission refusal with the checked M0 backend
 and adds the `assay_emit` and `assay_abi` libraries.  No carried kernel or
 surface file changes.  The seed proves statements about its Lean embedding;
 it supplies no proof of the new OCaml emitter.
+
+## M1 core emission
+
+The third M1 slice adds source entry specialization, static continuations,
+checked arithmetic, named ABI/layout emission and constructor lowering in
+the existing `assay_emit` and `assay_abi` libraries. `assay_emit` now links
+the existing Keccak library to derive selectors. The kernel, inherited
+surface and carried proofs remain byte-identical. The new source fixture
+uses their existing collection and recursive-family constructors.

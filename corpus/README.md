@@ -40,19 +40,23 @@ dev/DENOMINATORS.sha256`.  A change to `dev/ratio.py` also needs a fresh
 measurement script.  A compiler or driver change also needs a new timing
 run before the active source hashes are updated.  Preserve the old report
 in `dev/measurements/`, retain the new dated report there, then copy the
-new report to `dev/denominators.json`.  Include new compiler and driver
-source paths in the manifest before regenerating its hashes.  The pending
-M1 executor freeze must add `bin/differential.ml`, `evm/diff.py`,
-`dev/diff-test.py` and both dated reports.  Two measurement attempts on
-2026-09-11 exceeded the one-minute bound, so the old hashes remain active
-and correctly reject the changed driver sources.
-The counter reference slice also requires `dev/counter-test.py` and both
-dated reports in the next source freeze. The `reference/counter/` fixture
+new report to `dev/denominators.json`. Include new compiler and driver
+source paths in the manifest before regenerating its hashes.
+The active M1 core-emission freeze adds `bin/differential.ml`, `evm/diff.py`,
+`dev/diff-test.py`, `dev/counter-test.py`, `dev/m1-emit-test.py`,
+`test/emit_cases.ml`, the core counter source and both dated reports. It
+covers 83 paths.
+The `reference/counter/` fixture
 files stay outside this manifest, like `reference/ref20.evm`, because
 `reference/counter/MANIFEST.json` already pins their hashes and a fixture
-edit changes no compiled source and no measured interval. Both fresh
-measurements again exceeded the one-minute window. Existing source
-hashes must stay unchanged until a timing run passes that same bound.
+edit changes no compiled source and no measured interval. Earlier executor
+and counter measurements exceeded the one-minute window, so those slices
+retained stale hashes and two failing gates. The final core-emission build
+completed five measured rounds in 26.440 seconds under the unchanged bound.
+The old Stage F report is preserved in
+`dev/measurements/2026-09-11-m0-stage-f.json`, and the active report is
+`dev/measurements/2026-09-11-m1-emission.json`. This times the frozen M0
+corpus on the new compiler; it does not establish the M1 performance bound.
 
 The method uses one warm run and five interleaved measured rounds in
 less than one minute.  Each assay interval starts before process launch
@@ -70,7 +74,13 @@ measured interval is no
 larger than the declared startup proxy and the ratio does not isolate
 parse or emission work.  Proof timings use three and print separately.
 In that report, the three proof processes total 31.2 ms against three proxies of
-10.07 ms each.  Host load,
+10.07 ms each.  The active report gives the same caveat with different
+numbers: its eight contract processes total 150.7 ms against eight fixed-cost
+proxies of 14.02 ms each, so the measured contract interval is now above the
+declared startup proxy, and its three proof processes total 38.6 ms against
+three proxies of 14.02 ms each, so the measured proof interval is now below
+that proxy total.  The ratio 1.480380 of `M0-RATIO.log` comes from the active
+report.  Host load,
 sample vectors, versions and complete commands are in the dated report.
 
 The ratio is informational at M0.  M1 owns its performance threshold.

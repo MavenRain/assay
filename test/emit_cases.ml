@@ -51,7 +51,7 @@ let leak result = Result.fold ~ok:(fun _ -> 1) ~error:(fun _ -> 0) result
 
 let is_word value = match value with
   | R.Word _ -> true
-  | R.Nat _ | R.Erased | R.Struct _ | R.Tag _ -> false
+  | R.Nat _ | R.Erased | R.Struct _ | R.Tag _ | R.Runtime_word _ | R.Closure _ -> false
 
 let words () =
   let high = Z.pred (Z.shift_left Z.one 256) in

@@ -42,6 +42,7 @@ let schema globals =
 
 type value =
   | Nat of Z.t | Word of Z.t | Erased
+  | Runtime_word of int | Closure of string * int * value list
   | Struct of Eterm.tid * value list | Tag of Eterm.tid * int * value list
 
 let tag tid index fields =
@@ -56,7 +57,9 @@ let struct_value tid fields =
   if tid = word_tid then Error Word_boxed else Ok (Struct (tid, fields))
 
 let rec unboxed = function
-  | Nat _ | Word _ | Erased -> Ok ()
+  | Nat _ | Word _ | Runtime_word _ | Erased -> Ok ()
+  | Closure (_, _, fields) ->
+    List.fold_left (fun result field -> let* () = result in unboxed field) (Ok ()) fields
   | Struct (tid, fields) | Tag (tid, _, fields) ->
     if tid = word_tid then Error Word_boxed
     else List.fold_left (fun result field -> let* () = result in unboxed field) (Ok ()) fields
@@ -87,8 +90,8 @@ let storage = function
       | Word slot when Z.equal slot (Z.of_int (List.length names)) ->
         Ok (names @ ["field" ^ string_of_int (List.length names)])
       | Word _ -> Error Storage_slot
-      | Nat _ | Erased | Struct _ | Tag _ -> Error Storage_shape) (Ok []) fields
-  | Nat _ | Word _ | Erased | Tag _ -> Error Storage_shape
+      | Nat _ | Erased | Struct _ | Tag _ | Runtime_word _ | Closure _ -> Error Storage_shape) (Ok []) fields
+  | Nat _ | Word _ | Erased | Tag _ | Runtime_word _ | Closure _ -> Error Storage_shape
 
 let storage_type globals count =
   let source = protocol ^ "def Storage : Type 0 := prod (" ^
@@ -99,3 +102,90 @@ let storage_type globals count =
     |> Option.fold ~none:false ~some:(fun d -> d.Global.ty = Term.Global "Storage") in
   if annotated && Global.find "Storage" globals = Global.find "Storage" expected
   then Ok () else Error Storage_shape
+
+(* M1 arithmetic exposes only a success Word or an empty error leg.
+   Continuations are specialized before assembly. *)
+let m1_protocol = protocol ^ {|def ResultWord : Type 0 := sum (Word 256, prod ())
+mu Tx : Type 0 :=
+  | done : Word 256 -> Tx
+  | store : Word 256 -> Word 256 -> Tx -> Tx
+  | load : Word 256 -> (Word 256 -> Tx) -> Tx
+  | add : Word 256 -> Word 256 -> (ResultWord -> Tx) -> Tx
+  | sub : Word 256 -> Word 256 -> (ResultWord -> Tx) -> Tx
+  | le : Word 256 -> Word 256 -> Tx -> Tx -> Tx
+  | abort : Tx
+|}
+
+let checked_schema globals source =
+  let* expected, rows = Kanon_surface.Elab.check_in Global.initial source
+    |> Result.map_error (fun _error -> Protocol "M1 schema") in
+  let* () = List.fold_left (fun result (name, _entry) ->
+    let* () = result in
+    if Global.find name globals = Global.find name expected then Ok ()
+    else Error (Protocol ("M1 " ^ name))) (Ok ()) rows in
+  if Global.find_family "Tx" globals = Global.find_family "Tx" expected
+  then Ok () else Error (Protocol "M1 Tx family")
+
+let definition globals name =
+  Global.find_def name globals |> Option.to_result ~none:(Protocol ("M1 " ^ name))
+
+let identifier name =
+  let initial c = (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c = '_' in
+  let rest c = initial c || (c >= '0' && c <= '9') in
+  match List.of_seq (String.to_seq name) with
+  | [] -> false
+  | head :: tail -> initial head && List.for_all rest tail
+
+let names_in_diagram name count = function
+  | Term.Sec (Shape.SColl actual, legs) when actual = count && List.length legs = count ->
+    List.fold_left (fun result leg ->
+      let* names = result in
+      match leg.Term.l_binders, leg.Term.l_body with
+      | [], Term.Global field when identifier field && not (List.mem field names) ->
+        Ok (names @ [field])
+      | [], _ | _ :: _, _ -> Error (Protocol ("M1 " ^ name))) (Ok []) legs
+  | Term.Var _ | Term.Univ _ | Term.Lan _ | Term.Ran _ | Term.In _ | Term.Elim _
+  | Term.Sec _ | Term.Out _ | Term.Let _ | Term.Ann _ | Term.Global _ | Term.Lit _ | Term.Auto ->
+    Error (Protocol ("M1 " ^ name))
+
+let collection globals ~variant name =
+  let* decl = definition globals name in
+  match decl.Global.def with
+  | Term.Lan (Shape.SColl count, diagram) when variant && count > 0 && count <= 32 ->
+    names_in_diagram name count diagram
+  | Term.Ran (Shape.SColl count, diagram) when not variant && count >= 0 && count <= 32 ->
+    names_in_diagram name count diagram
+  | Term.Var _ | Term.Univ _ | Term.Lan _ | Term.Ran _ | Term.In _ | Term.Elim _
+  | Term.Sec _ | Term.Out _ | Term.Let _ | Term.Ann _ | Term.Global _ | Term.Lit _ | Term.Auto ->
+    Error (Protocol ("M1 " ^ name))
+
+let declaration name body = "def " ^ name ^ " : Type 0 := " ^ body ^ "\n"
+let collection_source former names = former ^ " (" ^ String.concat ", " names ^ ")"
+
+let m1_schema globals =
+  let* () = schema globals in
+  let* fields = collection globals ~variant:false "Storage" in
+  let* entries = collection globals ~variant:true "Entry" in
+  let* entries = List.fold_left (fun result name ->
+    let* entries = result in
+    let* args = collection globals ~variant:false name in
+    Ok (entries @ [name, args])) (Ok []) entries in
+  let words = List.sort_uniq String.compare (fields @ List.concat_map snd entries) in
+  let source = m1_protocol ^
+    String.concat "" (List.map (fun name -> declaration name "Word 256") words) ^
+    declaration "Storage" (collection_source "prod" fields) ^
+    String.concat "" (List.map (fun (name, args) -> declaration name (collection_source "prod" args)) entries) ^
+    declaration "Entry" (collection_source "sum" (List.map fst entries)) in
+  let* () = checked_schema globals source in
+  let* storage = definition globals "storage" in
+  if storage.Global.ty = Term.Global "Storage" then Ok (fields, entries)
+  else Error Storage_shape
+
+let m1_export globals name =
+  let* decl = definition globals name in
+  match decl.Global.ty with
+  | Term.Ran (Shape.SPi ((Quantity.Many | Quantity.One), _, Term.Global "Entry"),
+      Term.Lan (Shape.SMu ("Tx", []), Term.Sec (Shape.SColl 0, []))) -> Ok ()
+  | Term.Var _ | Term.Univ _ | Term.Lan _ | Term.Ran _ | Term.In _ | Term.Elim _
+  | Term.Sec _ | Term.Out _ | Term.Let _ | Term.Ann _ | Term.Global _ | Term.Lit _ | Term.Auto ->
+    Error (Protocol "M1 export must have type Entry -> Tx")

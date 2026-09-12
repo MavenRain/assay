@@ -1,0 +1,11 @@
+{
+  "argv": [
+    "python3",
+    "-P",
+    "dev/m1-emit-test.py",
+    "counter"
+  ],
+  "exit": 1,
+  "stdout": "M1-EMISSION FAIL: COUNTER-EXPECTED increment-success\n",
+  "stderr": ""
+}

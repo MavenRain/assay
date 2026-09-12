@@ -1,0 +1,12 @@
+{
+  "argv": [
+    "/Users/oobi/Documents/gpt1/assay-m1-emission/_build/default/bin/assay.exe",
+    "emit",
+    "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-m1-sources-6gs40xnf/runtime-nat.asy",
+    "-o",
+    "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-m1-sources-6gs40xnf/runtime-nat"
+  ],
+  "exit": 2,
+  "stdout": "",
+  "stderr": "assay: emit: NAT_REFUSE: unbounded Nat cannot reach runtime\n"
+}

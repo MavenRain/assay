@@ -1,0 +1,42 @@
+PASS BUILD exit=0 elapsed_ms=1734.0
+PASS PIN-CARRY exit=0 elapsed_ms=3913.7
+PASS R0-COUNT exit=0 elapsed_ms=895.1
+PASS R0-AUDIT exit=0 elapsed_ms=225.2
+PASS HOUSE exit=0 elapsed_ms=1071.1
+PASS TRUSTED-LINES exit=0 elapsed_ms=94.0
+PASS SUITE-KERNEL exit=0 elapsed_ms=3344.4
+PASS SUITE-SURFACE exit=0 elapsed_ms=487.0
+PASS DRIVER exit=0 elapsed_ms=451.2
+PASS MUTANTS exit=0 elapsed_ms=30630.3
+PASS DENOMINATORS exit=0 elapsed_ms=156.5
+PASS KECCAK-VEC exit=0 elapsed_ms=5245.4
+PASS KECCAK-MUTANTS exit=0 elapsed_ms=27631.0
+PASS STACK-HEIGHT exit=0 elapsed_ms=11530.5
+PASS DISASM-3WAY exit=0 elapsed_ms=5387.3
+PASS ASM-MUTANTS exit=0 elapsed_ms=43135.8
+PASS FORK-DRIFT exit=0 elapsed_ms=1560.4
+PASS M0-TRACE exit=0 elapsed_ms=920.6
+PASS CREATE-EQ exit=0 elapsed_ms=1275.2
+PASS REFERENCE-CHECKS exit=0 elapsed_ms=3817.8
+PASS REFERENCE-MUTANTS exit=0 elapsed_ms=34034.4
+PASS EMIT-CONSTRUCTORS exit=0 elapsed_ms=524.2
+PASS WORD-UNBOX exit=0 elapsed_ms=24.5
+PASS STORAGE-NOCLOS exit=0 elapsed_ms=46.6
+PASS ABI-GOLD exit=0 elapsed_ms=3788.3
+PASS EMITTED-TRACE exit=0 elapsed_ms=2551.5
+PASS EMIT-SOURCES exit=0 elapsed_ms=27050.8
+PASS EMIT-MUTANTS exit=0 elapsed_ms=308161.1
+FAIL AXIOMS exit=1 elapsed_ms=211283.4
+AXIOMS FAIL Command '['lake', 'env', 'lean', 'Axioms.lean']' timed out after 120 seconds
+AXIOMS-HOST elan present, skip refused
+
+PASS TRACE-DRIVER exit=0 elapsed_ms=26425.6
+PASS CORPUS exit=0 elapsed_ms=33077.7
+PASS ERASED-BYTES exit=0 elapsed_ms=3618.9
+PASS M0-RATIO exit=0 elapsed_ms=4907.4
+PASS F-MUTANTS exit=0 elapsed_ms=9507.1
+PASS DIFF-EXECUTOR exit=0 elapsed_ms=164275.4
+PASS COUNTER-REFERENCE exit=0 elapsed_ms=23181.6
+PASS M1-EMISSION exit=0 elapsed_ms=294838.2
+M0-VALIDATION FAIL; M0-EXIT requires the user commit and ratification
+STAGE-M1-EMISSION FAIL

@@ -1,0 +1,14 @@
+{
+  "argv": [
+    "/Users/oobi/Documents/gpt1/assay-m1-emission/_build/default/bin/assay.exe",
+    "diff",
+    "/Users/oobi/Documents/gpt1/assay-m1-emission/examples/Counter.asy",
+    "--calldata",
+    "7cf5dab00000000000000000000000000000000000000000000000000000000000000005",
+    "--prestate",
+    "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-m1-cli-cvioyv9f/prestate.json"
+  ],
+  "exit": 0,
+  "stdout": "{\"fork\":\"Cancun\",\"intrinsic_gas\":21204,\"output\":\"0x000000000000000000000000000000000000000000000000000000000000000c\",\"run_gas\":7463,\"status\":\"success\",\"storage\":{\"0000000000000000000000007265636569766572\":{\"0\":\"0xc\",\"1\":\"0x64\",\"7\":\"0xb\"}},\"t8n_execution_gas\":7463,\"t8n_transaction_gas\":28667}\nDIFF OK\n",
+  "stderr": ""
+}

@@ -54,7 +54,8 @@ reused reference parser writes its listing captures to
 `.gatework/reference/counter/`.
 
 Both executor paths use geth 1.14.12. This reference is not a proof of
-the future compiler, an independent EVM implementation, or the complete
-M1-DIFF gate. After this reference is committed, the next slice can add
-counter source emission and compare its bytes and behavior against these
-frozen fixtures. Entry sugar, real ABI/layout emission and `run` remain.
+the compiler, an independent EVM implementation, or the complete M1 milestone.
+This reference was committed at `850aa68`. The [core source emitter](../../dev/M1-EMISSION.md)
+now compares its emitted counter with these fixtures. Runtime bytes differ
+because its generic lowering uses more blocks; ABI/layout JSON and behavior
+match. Entry sugar, `run`, the source theorem and M1 performance bound remain.

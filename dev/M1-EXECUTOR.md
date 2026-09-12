@@ -100,19 +100,15 @@ Damaged captures must fail for each compared field, missing results,
 missing or unrelated traces, receipt corruption, EVM faults and malformed
 state.  A restored capture must pass.  Evidence retains the raw captures.
 
-The public source path still supports closed M0 programs.  Raw revert and
-calldata probes exercise the executor adapter, not new source constructs.
-The bounded counter source and entry dispatcher,
-real ABI and layout printers, `contract`, `storage`, `entry` and `do` sugar,
-CALLVALUE guard and complete M1-DIFF gate remain.  The Stage F timing report
-and its hash manifest remain unchanged.  Two replacement measurement runs
-exceeded the one-minute bound under high host load and were rejected.
-DENOMINATORS and M0-RATIO therefore fail on the changed driver sources.
-They require a fresh measurement and freeze by the recipe in
-`corpus/README.md`.  All other 33 legs passed.  This slice does not satisfy
-the M1 ratio bound, and its full gate battery is not yet green.
+The first executor slice accepted closed M0 programs. Its original
+validation passed 33 of 35 legs, with DENOMINATORS and M0-RATIO failed on
+stale hashes after two timing attempts exceeded the one-minute bound.
+The current [M1 core emitter](M1-EMISSION.md) also compiles the counter
+dispatcher and arithmetic effects. The same public `diff` command now
+executes those source programs with calldata. Surface sugar, `run`, the
+source overflow-freedom theorem and the M1 performance bound remain open.
 
 The [hand-assembled counter reference](../reference/counter/README.md) is the
 second M1 slice in this tree, including its nonpayable guard and offline
 call-value probes. Its current
-validation and measurement status are recorded in `dev/ASSAY-M1-BUILD-LOG.md`.
+validation and measurement history are recorded in `dev/ASSAY-M1-BUILD-LOG.md`.

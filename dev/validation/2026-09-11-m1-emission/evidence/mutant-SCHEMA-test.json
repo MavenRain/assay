@@ -1,0 +1,11 @@
+{
+  "argv": [
+    "python3",
+    "-P",
+    "dev/m1-emit-test.py",
+    "sources"
+  ],
+  "exit": 1,
+  "stdout": "M1-EMISSION FAIL: M1-REFUSAL schema: \n",
+  "stderr": ""
+}
