@@ -1,0 +1,12 @@
+{
+  "argv": [
+    "python3",
+    "-P",
+    "dev/model-test.py",
+    "witness",
+    "increment-at-limit"
+  ],
+  "exit": 1,
+  "stdout": "SOURCE-MODEL FAIL: MODEL-EXPECTED increment-at-limit\n",
+  "stderr": ""
+}

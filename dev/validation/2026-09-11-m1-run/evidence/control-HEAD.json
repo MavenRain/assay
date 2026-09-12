@@ -1,0 +1,12 @@
+{
+  "argv": [
+    "python3",
+    "-P",
+    "dev/model-test.py",
+    "witness",
+    "short-two"
+  ],
+  "exit": 0,
+  "stdout": "",
+  "stderr": ""
+}

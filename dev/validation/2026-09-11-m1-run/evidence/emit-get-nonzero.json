@@ -1,0 +1,12 @@
+{
+  "argv": [
+    "/Users/oobi/Documents/gpt1/assay-m1-run/_build/default/bin/assay.exe",
+    "emit",
+    "/Users/oobi/Documents/gpt1/assay-m1-run/examples/Counter.asy",
+    "-o",
+    "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-model-k9ahyqq2/get-nonzero"
+  ],
+  "exit": 0,
+  "stdout": "",
+  "stderr": ""
+}

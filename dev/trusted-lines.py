@@ -6,7 +6,7 @@ import sys
 
 KERNEL = "shape term rules check value eval conv totality positivity global order bignum".split()
 ARTIFACTS = (
-    ("emitter", 1800, "emit", ("emit.ml", "recognize.ml")),
+    ("emitter", 1800, "emit", ("emit.ml", "recognize.ml", "model.ml", "model.mli")),
     ("assembler", 600, "asm", ("asm.ml",)),
     ("keccak", 250, "keccak", ("keccak.ml",)),
     ("abi", 400, "abi", ("abi.ml",)),

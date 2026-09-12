@@ -43,7 +43,7 @@ def driver(root):
             (("check", str(unaccepted)), 64, "", "expected a .asy or .kan source"),
             (("trace", str(source)), 64, "", "usage: assay"),
             (("diff", str(source)), 64, "", "usage: assay"),
-            (("run", str(source)), 3, "", "assay: run: PENDING"),
+            (("run", str(source)), 2, "", "M0_PROTOCOL"),
             (("deploy", str(source)), 3, "", "assay: deploy: PENDING"),
             (("test", str(source)), 3, "", "assay: test: PENDING"),
             (("build", str(source)), 64, "", "usage: assay"),

@@ -1,0 +1,14 @@
+{
+  "argv": [
+    "/Users/oobi/Documents/gpt1/assay-m1-run/_build/default/bin/assay.exe",
+    "run",
+    "/Users/oobi/Documents/gpt1/assay-m1-run/examples/Counter.asy",
+    "--export",
+    "main",
+    "--export",
+    "main"
+  ],
+  "exit": 64,
+  "stdout": "",
+  "stderr": "usage: assay check [--print|--erased] FILE | axioms FILE | spec-count | emit FILE -o DIR | trace FILE --calldata HEX [--prestate FILE] | diff FILE --calldata HEX [--prestate FILE] | run FILE [--calldata HEX] [--storage SLOT=WORD]... [--value WORD] [--export NAME] | deploy FILE | test FILE\n"
+}

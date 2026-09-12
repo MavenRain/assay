@@ -1,0 +1,12 @@
+{
+  "argv": [
+    "/Users/oobi/Documents/gpt1/assay-m1-run/_build/default/bin/assay.exe",
+    "run",
+    "/Users/oobi/Documents/gpt1/assay-m1-run/examples/Counter.asy",
+    "--calldata",
+    "0x1"
+  ],
+  "exit": 64,
+  "stdout": "",
+  "stderr": "assay: run: RUN_INPUT: calldata requires at most 32768 whole hex bytes\n"
+}

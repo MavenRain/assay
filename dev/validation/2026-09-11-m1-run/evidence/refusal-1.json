@@ -1,0 +1,10 @@
+{
+  "argv": [
+    "/Users/oobi/Documents/gpt1/assay-m1-run/_build/default/bin/assay.exe",
+    "run",
+    "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay model paths cbwvakog/Counter $literal.asy"
+  ],
+  "exit": 2,
+  "stdout": "",
+  "stderr": "assay: run: STORAGE_SLOT: effect references a slot outside storage\n"
+}

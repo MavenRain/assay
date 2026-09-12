@@ -1,0 +1,14 @@
+{
+  "argv": [
+    "/Users/oobi/Documents/gpt1/assay-m1-run/_build/default/bin/assay.exe",
+    "run",
+    "/Users/oobi/Documents/gpt1/assay-m1-run/examples/Counter.asy",
+    "--storage",
+    "1=0",
+    "--storage",
+    "0x01=3"
+  ],
+  "exit": 64,
+  "stdout": "",
+  "stderr": "assay: run: RUN_INPUT: duplicate storage slot\n"
+}

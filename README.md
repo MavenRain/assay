@@ -14,6 +14,8 @@ The second M1 slice adds the [bounded counter reference](reference/counter/READM
 with a dispatcher, ABI/layout fixtures and 30 execution cases.
 The third M1 slice compiles [core counter source](dev/M1-EMISSION.md),
 with a source-derived dispatcher, ABI and named storage layout.
+The fourth adds the [source model](dev/M1-RUN.md) and public `run` command,
+with checked arithmetic, storage snapshots and rollback on revert.
 
 ```sh
 zsh -f dev/dunecho.sh build
@@ -26,6 +28,7 @@ _build/default/bin/assay.exe trace examples/Ref20.asy --calldata 0x
 _build/default/bin/assay.exe diff examples/Ref20.asy --calldata 0x
 _build/default/bin/assay.exe emit examples/Counter.asy -o Counter-out
 _build/default/bin/assay.exe diff examples/Counter.asy --calldata 0x6d4ce63c
+_build/default/bin/assay.exe run examples/Counter.asy --calldata 0x6d4ce63c --storage 0=7 --storage 1=100
 zsh -f dev/gates.sh
 ```
 
@@ -63,8 +66,17 @@ The [executor contract](dev/M1-EXECUTOR.md) defines the supported prestate,
 the gas adjustment and the remaining M1 work.  Both entry points use geth;
 this provides no independent client implementation.
 
-`run`, `deploy` and `test` still exit 3 with named `PENDING` diagnostics.
-`run` arrives in M1.  `deploy` and `test`
+`run FILE [--calldata HEX] [--storage SLOT=WORD]... [--value WORD]
+[--export NAME]`
+interprets specialized source effects and prints JSON containing status,
+returned bytes and storage. It needs no external tools and writes no files.
+Storage defaults to empty and describes an already deployed contract.
+Constructors are checked but not run. `--export NAME` selects an alternate
+entry function. A modeled revert exits zero. Invalid input exits 64 and a
+named source refusal exits 2. The [source model contract](dev/M1-RUN.md)
+defines the numeric formats, bounds and shared specialization boundary.
+
+`deploy` and `test` still exit 3 with named `PENDING` diagnostics. They
 print `PENDING (M1)` today and gain behavior at M4 (R-8a).
 
 M4 deployment support targets anvil, Adiri (Telcoin testnet, chain ID
@@ -157,10 +169,13 @@ eight bytecode mutations and five call-value refusals. Every runtime
 instruction is exercised. The core emitter adds 30 source/reference
 comparisons on both executor paths, eight general source cases, eleven
 refusals and eight compiler mutations with restored controls.
-`STAGE-M1-EMISSION OK` means all 37 legs pass.
+The source model adds 30 counter comparisons against both executors and
+the reference, ten extra cases, all eleven M0 corpus programs, driver
+and source refusals, and eight mutations with restored controls.
+`STAGE-M1-RUN OK` means all 38 legs pass.
 The final M0-EXIT stamp still requires explicit user ratification.
-The core counter source, dispatcher, ABI/layout emission and differential
-gate are implemented. Surface sugar, `run`, the source overflow-freedom
+The core counter source, dispatcher, ABI/layout emission, differential gate
+and source model are implemented. Surface sugar, the source overflow-freedom
 theorem and the M1 performance bound remain unfinished M1 work.
 The core source keeps the inherited grammar and specializes continuations;
 it emits no general-purpose closures. The reference was committed before

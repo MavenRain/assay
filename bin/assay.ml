@@ -7,7 +7,8 @@
 let usage () : unit =
   prerr_endline
     "usage: assay check [--print|--erased] FILE | axioms FILE | spec-count | \
-     emit FILE -o DIR | trace FILE --calldata HEX [--prestate FILE] | diff FILE --calldata HEX [--prestate FILE] | run FILE | deploy FILE | \
+     emit FILE -o DIR | trace FILE --calldata HEX [--prestate FILE] | diff FILE --calldata HEX [--prestate FILE] | \
+     run FILE [--calldata HEX] [--storage SLOT=WORD]... [--value WORD] [--export NAME] | deploy FILE | \
      test FILE"
 
 let bad_usage () : unit = usage (); exit 64
@@ -53,12 +54,16 @@ let run_axioms (path : string) : unit =
   List.iter print_endline
     (Kanon_surface.Elab.axiom_names (snd (checked_in path)))
 
-let compile (command : string) (path : string) (export : string) : Assay_emit.Emit.output =
+let checked_erased path =
   let globals, rows = checked_in path in
   let erased = Kanon_kernel.Erase.program globals rows
     |> Result.fold ~ok:Fun.id
        ~error:(fun e ->
-         prerr_endline (Kanon_kernel.Error.to_string e); exit 1) in
+          prerr_endline (Kanon_kernel.Error.to_string e); exit 1) in
+  globals, rows, erased
+
+let compile (command : string) (path : string) (export : string) : Assay_emit.Emit.output =
+  let globals, rows, erased = checked_erased path in
   let contract = Filename.remove_extension (Filename.basename path) in
   Assay_emit.Emit.program ~contract ~export globals rows erased
     |> Result.fold ~ok:Fun.id ~error:(fun e ->
@@ -111,6 +116,30 @@ let dispatch_diff (args : string list) : unit =
   | [ path; "--calldata"; input; "--prestate"; prestate ] -> run_diff path input prestate
   | [] | _ :: _ -> bad_usage ()
 
+let run_model path options storage =
+  let module M = Assay_emit.Model in
+  let option name fallback = List.assoc_opt name options |> Option.value ~default:fallback in
+  let refuse code e = prerr_endline ("assay: run: " ^ M.error e); exit code in
+  let input = M.inputs ~data:(option "--calldata" "") ~value:(option "--value" "0") ~storage
+    |> Result.fold ~ok:Fun.id ~error:(refuse 64) in
+  let globals, _rows, erased = checked_erased path in
+  let program = M.prepare ~export:(option "--export" "main") globals erased
+    |> Result.fold ~ok:Fun.id ~error:(refuse 2) in
+  M.run program input
+  |> Result.fold ~ok:(fun outcome -> print_string (M.print outcome)) ~error:(refuse 2)
+
+let dispatch_run args =
+  let rec options path seen storage = function
+    | [] -> run_model path seen storage
+    | "--storage" :: row :: rest -> options path seen (row :: storage) rest
+    | ("--calldata" | "--value" | "--export" as flag) :: value :: rest ->
+      if List.mem_assoc flag seen then bad_usage ()
+      else options path ((flag, value) :: seen) storage rest
+    | _ :: _ -> bad_usage () in
+  match args with
+  | path :: rest when not (String.starts_with ~prefix:"-" path) -> options path [] [] rest
+  | [] | _ :: _ -> bad_usage ()
+
 let dispatch_emit (args : string list) : unit =
   match args with
   | [ path; "-o"; directory ] -> run_emit path directory "main"
@@ -143,7 +172,8 @@ let dispatch (cmd : string) (args : string list) : unit =
   | "emit" -> dispatch_emit args
   | "trace" -> dispatch_trace args
   | "diff" -> dispatch_diff args
-  | "run" | "deploy" | "test" -> run_pending cmd "M1"
+  | "run" -> dispatch_run args
+  | "deploy" | "test" -> run_pending cmd "M1"
   | _unknown -> bad_usage ()
 
 let () =

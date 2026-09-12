@@ -1,0 +1,12 @@
+{
+  "argv": [
+    "/Users/oobi/Documents/gpt1/assay-m1-run/_build/default/bin/assay.exe",
+    "run",
+    "/Users/oobi/Documents/gpt1/assay-m1-run/examples/Counter.asy",
+    "--value",
+    "0o7"
+  ],
+  "exit": 64,
+  "stdout": "",
+  "stderr": "assay: run: RUN_INPUT: expected a decimal or 0x-prefixed uint256\n"
+}

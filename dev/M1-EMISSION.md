@@ -15,8 +15,9 @@ _build/default/bin/assay.exe diff examples/Counter.asy --calldata 0x6d4ce63c
 
 This slice uses the carried grammar. It adds no kernel former and changes
 no file under `lib/` or `surface/`. The P1 `contract`, `storage`, `entry`
-and `do` sugar, public `run`, the source overflow-freedom theorem and M1
-performance threshold remain open. These tests are not a proof of the
+and `do` sugar, the source overflow-freedom theorem and M1
+performance threshold remain open. The subsequent [source model](M1-RUN.md)
+adds public `run`. These tests are not a proof of the
 OCaml compiler. The two executors are geth entry points, not independent
 client implementations.
 

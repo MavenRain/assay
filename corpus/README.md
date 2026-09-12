@@ -42,10 +42,12 @@ run before the active source hashes are updated.  Preserve the old report
 in `dev/measurements/`, retain the new dated report there, then copy the
 new report to `dev/denominators.json`. Include new compiler and driver
 source paths in the manifest before regenerating its hashes.
-The active M1 core-emission freeze adds `bin/differential.ml`, `evm/diff.py`,
+The M1 core-emission freeze added `bin/differential.ml`, `evm/diff.py`,
 `dev/diff-test.py`, `dev/counter-test.py`, `dev/m1-emit-test.py`,
 `test/emit_cases.ml`, the core counter source and both dated reports. It
-covers 83 paths.
+covers 83 paths. The source-model freeze additionally includes
+`emit/model.ml`, `emit/model.mli`, `dev/model-test.py` and its dated report,
+bringing the active manifest to 87 paths.
 The `reference/counter/` fixture
 files stay outside this manifest, like `reference/ref20.evm`, because
 `reference/counter/MANIFEST.json` already pins their hashes and a fixture
@@ -54,8 +56,11 @@ and counter measurements exceeded the one-minute window, so those slices
 retained stale hashes and two failing gates. The final core-emission build
 completed five measured rounds in 26.440 seconds under the unchanged bound.
 The old Stage F report is preserved in
-`dev/measurements/2026-09-11-m0-stage-f.json`, and the active report is
-`dev/measurements/2026-09-11-m1-emission.json`. This times the frozen M0
+`dev/measurements/2026-09-11-m0-stage-f.json`, and the core-emission report is
+`dev/measurements/2026-09-11-m1-emission.json`. The active source-model
+report is `dev/measurements/2026-09-12-m1-run.json`, measured at 21:26 PDT
+on September 11 (September 12 UTC). Its five rounds took 15.133 seconds
+under the unchanged one-minute bound. This times the frozen M0
 corpus on the new compiler; it does not establish the M1 performance bound.
 
 The method uses one warm run and five interleaved measured rounds in
@@ -74,13 +79,16 @@ measured interval is no
 larger than the declared startup proxy and the ratio does not isolate
 parse or emission work.  Proof timings use three and print separately.
 In that report, the three proof processes total 31.2 ms against three proxies of
-10.07 ms each.  The active report gives the same caveat with different
+10.07 ms each. The core-emission report gives the same caveat with different
 numbers: its eight contract processes total 150.7 ms against eight fixed-cost
 proxies of 14.02 ms each, so the measured contract interval is now above the
 declared startup proxy, and its three proof processes total 38.6 ms against
 three proxies of 14.02 ms each, so the measured proof interval is now below
-that proxy total.  The ratio 1.480380 of `M0-RATIO.log` comes from the active
-report.  Host load,
+that proxy total. The active source-model report measures 75.2 ms for
+eight contract processes against eight proxies of 9.34 ms each. The three
+proof processes total 26.2 ms against three such proxies. No fixed cost is
+subtracted. These measurements do not isolate compiler work from process
+startup. Host load,
 sample vectors, versions and complete commands are in the dated report.
 
 The ratio is informational at M0.  M1 owns its performance threshold.

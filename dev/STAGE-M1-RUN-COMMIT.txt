@@ -1,0 +1,19 @@
+M1: interpret checked source effects with offline run
+
+Add a sealed source model with immutable storage, checked arithmetic,
+calldata dispatch, load snapshots and rollback on revert. Share checking
+and specialization with emission while interpreting effects directly.
+
+Expose run with explicit storage, calldata, call value and export
+inputs. Compare 30 counter cases, ten effect programs and eleven frozen
+corpus programs with both Cancun executor paths. Cover input and source
+refusals and require eight model mutations plus restored controls.
+
+Keep the trusted-line bounds and frozen corpus unchanged. Preserve prior
+measurements and freeze a new five-round measurement of the final build.
+
+Review pass 1 (2026-09-11) fixed 4 findings: A-1, B-1, C-1, C-2.
+A-1 low: document RUN_MEMORY as an internal invariant, not a refusal.
+B-1 low: label a witness that cannot run apart from a survived mutant.
+C-1 low: rewrap this commit text within 72 columns.
+C-2 low: add [--export NAME] to the README run synopsis.

@@ -1,0 +1,58 @@
+PASS BUILD exit=0 elapsed_ms=586.6
+PASS PIN-CARRY exit=0 elapsed_ms=851.9
+FAIL R0-COUNT exit=1 elapsed_ms=263.1
+R0-COUNT FAIL: SPEC.md has no '## R0 counts' heading
+dev/r0-count.sh:25: command not found: rg
+
+PASS R0-AUDIT exit=0 elapsed_ms=265.2
+FAIL HOUSE exit=1 elapsed_ms=243.3
+HOUSE no-exception FAIL
+HOUSE named catch-all scan failed: [Errno 2] No such file or directory: 'rg'
+HOUSE no-mutable-state OK
+HOUSE no-mutable-state roots=lib emit asm keccak abi
+HOUSE one-catch-site FAIL
+
+HOUSE no-bool-match OK
+HOUSE no-em-dash OK
+HOUSE no-loop-keyword OK
+HOUSE no-bare-division OK
+HOUSE FAIL
+scan:4: command not found: rg
+scan:5: command not found: rg
+dev/house.sh:85: command not found: rg
+scan:4: command not found: rg
+scan:5: command not found: rg
+dev/house.sh:91: command not found: rg
+scan:4: command not found: rg
+scan:5: command not found: rg
+dev/house.sh:106: command not found: rg
+scan:4: command not found: rg
+scan:5: command not found: rg
+scan:4: command not found: rg
+scan:5: command not found: rg
+
+PASS TRUSTED-LINES exit=0 elapsed_ms=108.3
+PASS SUITE-KERNEL exit=0 elapsed_ms=698.7
+PASS SUITE-SURFACE exit=0 elapsed_ms=324.7
+PASS DRIVER exit=0 elapsed_ms=243.8
+FAIL MUTANTS exit=1 elapsed_ms=3630.8
+MUTANT PIN killed exit=1
+MUTANT CARRY killed exit=1
+MUTANT CARRY-NEW killed exit=1
+MUTANT CARRY-GONE killed exit=1
+MUTANT R0-COUNT killed exit=1
+MUTANT R0-AUDIT killed exit=1
+MUTANT R0-AUDIT-SPEC killed exit=1
+MUTANT HOUSE killed exit=1
+MUTANT HOUSE-LOOP FAIL exit=1 stdout="HOUSE no-exception FAIL\nHOUSE named catch-all scan failed: [Errno 2] No such file or directory: 'rg'\nHOUSE no-mutable-state OK\nHOUSE no-mutable-state roots=lib\nHOUSE one-catch-site FAIL\n\nHOUSE no-bool-match OK\nHOUSE no-em-dash OK\nHOUSE no-loop-keyword OK\nHOUSE no-bare-division OK\nHOUSE FAIL\n" stderr='scan:4: command not found: rg\nscan:5: command not found: rg\n/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-mutants-928kik5i/dev/house.sh:85: command not found: rg\nscan:4: command not found: rg\nscan:5: command not found: rg\n/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-mutants-928kik5i/dev/house.sh:91: command not found: rg\nscan:4: command not found: rg\nscan:5: command not found: rg\n/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-mutants-928kik5i/dev/house.sh:106: command not found: rg\nscan:4: command not found: rg\nscan:5: command not found: rg\nscan:4: command not found: rg\nscan:5: command not found: rg\n'
+
+PASS DENOMINATORS exit=0 elapsed_ms=93.4
+PASS KECCAK-VEC exit=0 elapsed_ms=1397.2
+PASS KECCAK-MUTANTS exit=0 elapsed_ms=7608.7
+PASS STACK-HEIGHT exit=0 elapsed_ms=4865.9
+PASS DISASM-3WAY exit=0 elapsed_ms=1109.7
+PASS ASM-MUTANTS exit=0 elapsed_ms=13961.8
+PASS FORK-DRIFT exit=0 elapsed_ms=592.7
+PASS M0-TRACE exit=0 elapsed_ms=517.9
+PASS CREATE-EQ exit=0 elapsed_ms=755.8
+PASS REFERENCE-CHECKS exit=0 elapsed_ms=1716.1

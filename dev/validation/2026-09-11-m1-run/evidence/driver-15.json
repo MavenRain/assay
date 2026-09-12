@@ -1,0 +1,10 @@
+{
+  "argv": [
+    "/Users/oobi/Documents/gpt1/assay-m1-run/_build/default/bin/assay.exe",
+    "run",
+    "/Users/oobi/Documents/gpt1/assay-m1-run/examples/m0-spine.kan"
+  ],
+  "exit": 2,
+  "stdout": "",
+  "stderr": "assay: run: M0_PROTOCOL: EvmOpcodes\n"
+}

@@ -1,0 +1,12 @@
+{
+  "argv": [
+    "python3",
+    "-P",
+    "dev/model-test.py",
+    "witness",
+    "m0-write"
+  ],
+  "exit": 1,
+  "stdout": "SOURCE-MODEL FAIL: MODEL-EXPECTED m0-write\n",
+  "stderr": ""
+}

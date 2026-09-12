@@ -105,8 +105,10 @@ validation passed 33 of 35 legs, with DENOMINATORS and M0-RATIO failed on
 stale hashes after two timing attempts exceeded the one-minute bound.
 The current [M1 core emitter](M1-EMISSION.md) also compiles the counter
 dispatcher and arithmetic effects. The same public `diff` command now
-executes those source programs with calldata. Surface sugar, `run`, the
-source overflow-freedom theorem and the M1 performance bound remain open.
+executes those source programs with calldata. The [source model](M1-RUN.md)
+also interprets their specialized effects through public `run`.
+Surface sugar, the source overflow-freedom theorem and the M1 performance
+bound remain open.
 
 The [hand-assembled counter reference](../reference/counter/README.md) is the
 second M1 slice in this tree, including its nonpayable guard and offline

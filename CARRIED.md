@@ -59,3 +59,12 @@ the existing `assay_emit` and `assay_abi` libraries. `assay_emit` now links
 the existing Keccak library to derive selectors. The kernel, inherited
 surface and carried proofs remain byte-identical. The new source fixture
 uses their existing collection and recursive-family constructors.
+
+## M1 source model
+
+The fourth M1 slice factors the existing specialization entry points and
+adds an immutable effect interpreter in `emit/model.ml`. The public `run`
+command replaces its pending diagnostic. The model is counted within the
+existing emitter budget. It shares the checked source protocol with emission
+and uses its own arithmetic, dispatch and storage execution. Kernel, surface,
+proof seed and frozen contract sources remain byte-identical.

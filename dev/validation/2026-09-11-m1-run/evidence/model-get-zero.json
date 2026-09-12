@@ -1,0 +1,20 @@
+{
+  "argv": [
+    "/Users/oobi/Documents/gpt1/assay-m1-run/_build/default/bin/assay.exe",
+    "run",
+    "/Users/oobi/Documents/gpt1/assay-m1-run/examples/Counter.asy",
+    "--calldata",
+    "6d4ce63c",
+    "--value",
+    "0",
+    "--storage",
+    "0=0x0",
+    "--storage",
+    "1=0x64",
+    "--storage",
+    "7=0xb"
+  ],
+  "exit": 0,
+  "stdout": "{\"status\":\"success\",\"output\":\"0x0000000000000000000000000000000000000000000000000000000000000000\",\"storage\":{\"1\":\"0x64\",\"7\":\"0xb\"}}\n",
+  "stderr": ""
+}

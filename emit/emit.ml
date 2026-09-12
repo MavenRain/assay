@@ -183,7 +183,7 @@ let init runtime =
 type output = { runtime : string; init : string; abi : string; layout : string;
                 axioms : string; listing : string; fields : int }
 
-let program_m0 ~contract ~export globals rows erased =
+let prepare_m0 ~export globals erased =
   let* () = recognize (R.schema globals) in
   let env = environment erased in
   let lookup name = Option.map (fun fn -> fn.body) (List.assoc_opt name env.functions) in
@@ -195,6 +195,10 @@ let program_m0 ~contract ~export globals rows erased =
   let* value, _fuel = call env fuel export [] in
   let* () = recognize (R.unboxed value) in
   let* effect = effect (List.length fields) value in
+  Ok (effect, fields)
+
+let program_m0 ~contract ~export globals rows erased =
+  let* effect, fields = prepare_m0 ~export globals erased in
   let* wide = assemble (blocks 2 0 false effect) in
   let size = String.length (A.hex wide) lsr 1 in
   let* program = if size <= 255 then assemble (blocks 1 0 false effect) else Ok wide in
@@ -371,7 +375,7 @@ let init_m1 runtime constructor =
     if actual = offset then Ok (hex ^ runtime) else settle fuel actual in
   settle 4 0
 
-let program_m1 ~contract ~export globals rows erased =
+let prepare_m1 ~export globals erased =
   let* fields, declarations = recognize (R.m1_schema globals) in
   let* () = recognize (R.m1_export globals export) in
   let env = environment erased in
@@ -384,6 +388,10 @@ let program_m1 ~contract ~export globals rows erased =
   let* constructor, fuel = call env fuel "constructor" [] in
   let* constructor = effect (List.length fields) constructor in
   let* entries, _fuel = entries {env with runtime = true} (List.length fields) fuel export declarations in
+  Ok (entries, constructor, fields)
+
+let program_m1 ~contract ~export globals rows erased =
+  let* entries, constructor, fields = prepare_m1 ~export globals erased in
   let* program = assemble (dispatch_blocks entries) in
   let runtime = A.hex program in
   let* () = if String.length runtime > 2 * 24576 then Error Budget else Ok () in

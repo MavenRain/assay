@@ -1,5 +1,157 @@
 # Assay M1 build log
 
+## 2026-09-11: source model and public run
+
+This fourth M1 slice builds on `ef22665`. The public `run` command checks,
+erases and specializes a source program, then interprets its effects with
+immutable storage. It accepts explicit calldata, initial slots, call value
+and an alternate export, and prints a single JSON outcome. It starts no
+external process and writes no files. Source checking and specialization
+are shared with emission; arithmetic, dispatch and storage execution use
+no opcode or assembler. The sealed API admits only validated inputs and
+prepared programs. `dev/M1-RUN.md` defines this boundary and the bounds.
+
+An abort restores the complete input storage image. Arithmetic errors
+follow their source continuations without exposing wrapped words. Loads
+retain snapshots across later writes. Constructors are validated but
+never applied to an already deployed storage image. M0 retains its value
+and calldata behavior; M1 applies its common nonpayable guard and decoder.
+
+### Validation
+
+The complete battery passed all 38 legs, ending in `STAGE-M1-RUN OK`
+and `M0-VALIDATION OK`. The archive is
+`dev/validation/2026-09-11-m1-run/`, including every leg, raw model and
+executor captures, source hashes and an artifact manifest.
+
+| Check | Result |
+| --- | --- |
+| Build, inherited kernel and surface suites | Pass, zero build errors and warnings |
+| Pin and carry | 31 of 31 sources unchanged |
+| Counter model | All 30 frozen rows agree with both executors and the reference |
+| Additional effects | Ten cases, including recovery, snapshots, clearing and rollback |
+| M0 model corpus | All eleven cases agree, all five output hashes remain exact |
+| Driver | 28 invalid inputs, six accepted invocations, six source refusals |
+| Model mutations | Eight named kills and eight restored controls |
+| Keccak, assembler, emission and existing executors | All legs pass, including mutations |
+| Proof seed | 28 carried files, 42 axiom reports, no sorryAx, no skip |
+| Trusted lines | Emitter 734/1800; six artifact total 1147/3550; kernel 3997/4000 |
+| DENOMINATORS and M0-RATIO | Pass after a new measurement and source freeze |
+
+The full battery first launched with an incomplete tool PATH. That attempt
+was cancelled and its raw log retained. The passing run used the normal
+tool PATH. Compiler code, gate predicates and timeouts did not change
+between those invocations.
+
+The final executable was measured in five interleaved rounds over 15.133
+seconds, within the unchanged one-minute limit. The UTC-dated report is
+`dev/measurements/2026-09-12-m1-run.json`; it was collected at 21:26 PDT on
+September 11. All prior reports are retained. The active denominator
+manifest covers 87 paths, including the new model, sealed interface and
+test runner. The measurement uses the frozen M0 corpus and does not claim
+the M1 performance bound. The model remains within the existing emitter
+allocation, including its interface. No carried kernel, surface, proof
+source, contract fixture or reference byte changed.
+
+The next M1 work is the P1 contract/entry/do surface, the source
+overflow-freedom theorem and the M1 performance bound. The source model
+does not yet model external calls, balances, nonces, logs or gas. M0 and
+M1 exit ratifications remain the user's decisions. No commit is made.
+
+### Review round 2026-09-11 (M1 run)
+
+Scope: the source model and public run slice recorded above, 327 paths,
++11842/-311, staged on head ef22665.  Four lenses raised four findings.
+The judge kept all four.  A-1, C-1 and C-2 were fixed in fix round 1.
+B-1 was fixed in fix round 3, by hand after the workflow run.
+
+| id | sev | path:line | one line | fix |
+| --- | --- | --- | --- | --- |
+| A-1 | low | `dev/M1-RUN.md:88` | RUN_MEMORY exit 2 is an unreachable internal invariant documented as a named source refusal | three sentences state that RUN_MEMORY reports an internal invariant, not a source refusal |
+| B-1 | low | `dev/model-test.py:228` | one require labels every witness outcome that is not MODEL-EXPECTED as a survived mutant | the require is split, and a witness that cannot run gets its own label |
+| C-1 | low | `dev/STAGE-M1-RUN-COMMIT.txt:7` | commit text lines 7 and 9 are 73 columns, over the 72-column limit | the second paragraph is rewrapped, maximum column 72 |
+| C-2 | low | `README.md:69` | README run synopsis omits `[--export NAME]` that the binary usage and `dev/M1-RUN.md` document | the synopsis gains `[--export NAME]` |
+
+B-1 fix: `dev/model-test.py` now runs two requires after the mutant
+witness.  `require(result.returncode != 0, 'MODEL-MUTANT-SURVIVED ')`
+holds when the witness passed against the mutant, which is the exact
+condition of a survived mutant.  The second require keeps the exit 1
+and `MODEL-EXPECTED NAME` test under the new label
+`MODEL-MUTANT-WITNESS`, which reports a witness that did not run to its
+expected failure.  The leg stays red in both cases, so the old gate was
+not vacuous, only the printed cause was wrong.  `dev/M1-RUN-MUTATIONS.md`
+documents both labels.  No printed marker of the happy path moved:
+SOURCE-MODEL keeps counter=30 variants=10 corpus=11 invalid=28
+refusals=6 mutants=8, so `dev/stage-a-gates.py` is untouched.
+
+The file is pinned at `dev/DENOMINATORS.sha256` row 39.  Fix round 3
+refreshed that one row in place, from
+`254816593d99219926da206baafebcd5570643eb0e7aba70166b4c189faa1941` to
+`c9c8ba99d3138a34fd8d193273a00ada67fad15f4234858eac6e996353f9b693`.
+The freeze keeps 87 rows.  `shasum -a 256 -c dev/DENOMINATORS.sha256`
+reports 87 OK and 0 FAILED, and the DENOMINATORS and M0-RATIO legs stay
+green, because row 39 names a test script and no compiler input.
+
+Refuted: 0 of the four raised findings.
+
+Merged and dropped: 0.  The four findings name four different files and
+four different defects, so no merge applies.
+
+The round 1 gate ladder was a process event, not a finding.  That run
+was killed mid-run at 23:05 inside M1-EMISSION with 36 of 38 legs green
+and no failure, so no leg of the slice went red and no file changed for
+it.  The rerun on a fresh copy went GREEN-FULL at 38 of 38 legs.
+
+Gate ladder `/Users/oobi/Documents/assay-m1-run-review/gates-M1-2.log`,
+verdict GREEN-FULL: pass=38 of 38 legs, fail=[], denom rows=[],
+mutants=true, timeout legs only=false, wrapper exit ok=true.
+
+    STAGE-M1-LINE: STAGE-M1-RUN OK
+    M0-LINE: M0-VALIDATION OK; M0-EXIT requires the user commit and ratification
+    EXIT 0
+    PASS-COUNT: 38
+    FAIL-LINES:
+    DENOM-FAILED-ROWS:
+    MUTANTS-TAIL: MUTANT TRUSTED-BOUND killed exit=1 MUTANTS killed=13/13 OK
+    SOURCE-MODEL-TAIL: MODEL-MUTANTS killed=8/8 controls=8 OK SOURCE-MODEL counter=30 variants=10 corpus=11 invalid=28 refusals=6 mutants=8 OK
+    DIFF-EXECUTOR-TAIL: DIFF-CHECKS killed=24/24 controls=1 OK DIFF-EXECUTOR live=20 driver=28 rejected=24 OK
+    M1-EMISSION-TAIL: M1-MUTANTS killed=8/8 controls=8 OK M1-EMISSION counter=30 sources=8 refusals=11 mutants=8 OK
+    COUNTER-REFERENCE-TAIL: COUNTER-MUTANT SELECTOR witness=increment-success killed control=OK COUNTER-REFERENCE cases=30 creates=2 mutants=8 value_rejected=5 covered=120 scope=reference OK
+    DRIVER-TAIL: DRIVER cases=24 OK
+    DENOMINATORS-TAIL: surface/token.ml: OK test/emit_cases.ml: OK
+    M0-RATIO-TAIL: M0-PROOF-RATIO ms_per_kloc=546.221 files=3 separate=true M0-RATIO provenance=dev/denominators.json fixed=spec-count-proxy subtraction=none OK
+    PROOF-BUILD-TAIL: OK lake: 0 errors, 0 sorries, 0 warnings
+    PROOF-REPORT-LINES: 42
+
+The fix round 3 smoke ladder ran on a fresh copy after the B-1 fix and
+the row 39 refresh.  Log
+`/Users/oobi/Documents/assay-m1-run-review/fix-M1-3-smoke.log`, verdict
+GREEN-FULL.
+
+    STAGE-M1-LINE: STAGE-M1-RUN OK
+    M0-LINE: M0-VALIDATION OK; M0-EXIT requires the user commit and ratification
+    EXIT 0
+    PASS-COUNT: 38
+    FAIL-COUNT: 0
+    FAIL-LINES:
+    DENOM-FAILED-ROWS:
+    SOURCE-MODEL-TAIL: MODEL-MUTANTS killed=8/8 controls=8 OK SOURCE-MODEL counter=30 variants=10 corpus=11 invalid=28 refusals=6 mutants=8 OK
+    LADDER-WRAPPER-EXIT 0
+
+gate: GREEN-FULL (pass=38 of 38 legs, fail=[], denom rows=[],
+mutants=true, timeout legs only=false, wrapper exit ok=true,
+stage=STAGE-M1-LINE: STAGE-M1-RUN OK, m0=M0-LINE: M0-VALIDATION OK;
+M0-EXIT requires the user commit and ratification, exit=EXIT 0).  A
+RED-LOAD status would mean that the failing ladder legs are deadline
+legs at a high host load and that the verify-final ladder decides; this
+round is not that case.
+
+The finders, the builder and the closer of this round ran opus/medium.
+The Fable tier probe of 2026-09-11 21:4x, session claude1, is DEAD on
+the `reasoning_extraction` classifier, so this run keeps the opus pin
+and the Fable tier rulings are reported unmet.
+
+
 ## 2026-09-11: core counter source emission
 
 Base: `850aa68fa5ac5f71254948d2ece24157c4c17267`, the committed bounded

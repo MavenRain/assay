@@ -10,10 +10,11 @@ import time
 
 def main():
     root = Path(__file__).resolve().parent.parent
-    if sys.argv[1:] not in ([], ["--keccak"], ["--asm"], ["--reference"], ["--emit"], ["--m0"], ["--m1-executor"], ["--m1-counter"], ["--m1-emission"]):
-        print("usage: stage-a-gates.py [--keccak|--asm|--reference|--emit|--m0|--m1-executor|--m1-counter|--m1-emission]")
+    if sys.argv[1:] not in ([], ["--keccak"], ["--asm"], ["--reference"], ["--emit"], ["--m0"], ["--m1-executor"], ["--m1-counter"], ["--m1-emission"], ["--m1-run"]):
+        print("usage: stage-a-gates.py [--keccak|--asm|--reference|--emit|--m0|--m1-executor|--m1-counter|--m1-emission|--m1-run]")
         return 64
-    m1_emission = sys.argv[1:] == ["--m1-emission"]
+    model = sys.argv[1:] == ["--m1-run"]
+    m1_emission = model or sys.argv[1:] == ["--m1-emission"]
     counter = m1_emission or sys.argv[1:] == ["--m1-counter"]
     executor = counter or sys.argv[1:] == ["--m1-executor"]
     corpus = executor or sys.argv[1:] == ["--m0"]
@@ -103,11 +104,14 @@ def main():
     if m1_emission:
         legs.append(("M1-EMISSION", 600, ("python3", "-P", "dev/m1-emit-test.py"),
                      "M1-EMISSION counter=30 sources=8 refusals=11 mutants=8 OK"))
+    if model:
+        legs.append(("SOURCE-MODEL", 600, ("python3", "-P", "dev/model-test.py"),
+                     "SOURCE-MODEL counter=30 variants=10 corpus=11 invalid=28 refusals=6 mutants=8 OK"))
     # Review round 2026-09-11 (D-1):  the M0 verdict reads the legs of
     # M0-PLAN section 8 only.  A leg that this mode appends is an M1 leg,
     # so its failure moves the stage line and the exit code, not M0.
-    m1_names = {"DIFF-EXECUTOR", "COUNTER-REFERENCE", "M1-EMISSION"}
-    stage = "M1-EMISSION" if m1_emission else "M1-COUNTER" if counter else "M1-EXECUTOR" if executor else "F" if corpus else "E" if emission else "D" if reference else "C" if assembler else "B" if keccak else "A"
+    m1_names = {"DIFF-EXECUTOR", "COUNTER-REFERENCE", "M1-EMISSION", "SOURCE-MODEL"}
+    stage = "M1-RUN" if model else "M1-EMISSION" if m1_emission else "M1-COUNTER" if counter else "M1-EXECUTOR" if executor else "F" if corpus else "E" if emission else "D" if reference else "C" if assembler else "B" if keccak else "A"
     work = root / (".gatework/stage-" + stage.lower())
     work.mkdir(parents=True, exist_ok=True)
     failed = False

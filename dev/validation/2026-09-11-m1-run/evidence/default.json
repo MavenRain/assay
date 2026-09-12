@@ -1,0 +1,10 @@
+{
+  "argv": [
+    "/Users/oobi/Documents/gpt1/assay-m1-run/_build/default/bin/assay.exe",
+    "run",
+    "/Users/oobi/Documents/gpt1/assay-m1-run/examples/Ref20.asy"
+  ],
+  "exit": 0,
+  "stdout": "{\"status\":\"success\",\"output\":\"0x000000000000000000000000000000000000000000000000000000000000002a\",\"storage\":{\"0\":\"0x2a\"}}\n",
+  "stderr": ""
+}
