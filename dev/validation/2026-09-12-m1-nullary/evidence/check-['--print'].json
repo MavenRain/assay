@@ -1,0 +1,11 @@
+{
+  "argv": [
+    "/Users/oobi/Documents/gpt1/assay-m1-nullary/_build/default/bin/assay.exe",
+    "check",
+    "--print",
+    "/Users/oobi/Documents/gpt1/assay-m1-nullary/examples/Nullary.asy"
+  ],
+  "exit": 0,
+  "stdout": "axiom EvmOpcodes : Type 0\ndef ResultWord : Type 1 := (Lan SColl 2 (Sec SColl 2 [ => (Lan SMu Word [256] (Sec SColl 0 []));  => (Ran SColl 0 (Sec SColl 0 []))]))\ndef count : Type 1 := (Lan SMu Word [256] (Sec SColl 0 []))\ndef Storage : Type 1 := (Ran SColl 1 (Sec SColl 1 [ => count]))\ndef State : Type 1 := Storage\ndef storage : Storage := (Sec SColl 1 [ => (In SMu Word [256] (ACtor word) [256; 0])])\ndef get : Type 1 := ((Ran SColl 0 (Sec SColl 0 [])) : Type 1)\ndef increment : Type 1 := ((Ran SColl 0 (Sec SColl 0 [])) : Type 1)\ndef reset : Type 1 := ((Ran SColl 0 (Sec SColl 0 [])) : Type 1)\ndef Entry : Type 1 := (Lan SColl 3 (Sec SColl 3 [ => get;  => increment;  => reset]))\ndef constructor : (Lan SMu Eff [] (Sec SColl 0 [])) := (In SMu Eff [] (ACtor put) [(Out SColl 1 (ALeg 0) storage); (In SMu Word [256] (ACtor word) [256; 7]); (In SMu Eff [] (ACtor ret) [(In SMu Word [256] (ACtor word) [256; 0])])])\ndef main : (Ran SPi w _ Entry (Lan SMu Tx [] (Sec SColl 0 []))) := (Sec SPi w _assay_entry Entry [_assay_entry => (Elim SColl 3 _assay_entry with | (ALeg 0) _assay_args => (In SMu Tx [] (ACtor load) [(Out SColl 1 (ALeg 0) storage); (Sec SPi w _assay_v0 (Lan SMu Word [256] (Sec SColl 0 [])) [_assay_v0 => (In SMu Tx [] (ACtor done) [_assay_v0])])]) | (ALeg 1) _assay_args => (In SMu Tx [] (ACtor load) [(Out SColl 1 (ALeg 0) storage); (Sec SPi w _assay_v0 (Lan SMu Word [256] (Sec SColl 0 [])) [_assay_v0 => (In SMu Tx [] (ACtor add) [_assay_v0; (In SMu Word [256] (ACtor word) [256; 1]); (Sec SPi w _assay_result ResultWord [_assay_result => (Elim SColl 2 _assay_result with | (ALeg 0) _assay_v1 => (In SMu Tx [] (ACtor store) [(Out SColl 1 (ALeg 0) storage); _assay_v1; (In SMu Tx [] (ACtor done) [_assay_v1])]) | (ALeg 1) _assay_error => (In SMu Tx [] (ACtor abort) []))])])])]) | (ALeg 2) _assay_args => (In SMu Tx [] (ACtor store) [(Out SColl 1 (ALeg 0) storage); (In SMu Word [256] (ACtor word) [256; 0]); (In SMu Tx [] (ACtor done) [(In SMu Word [256] (ACtor word) [256; 0])])]))])\n",
+  "stderr": ""
+}

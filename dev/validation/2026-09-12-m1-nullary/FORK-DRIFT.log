@@ -1,0 +1,8 @@
+REFERENCE-ORACLE evm version 1.14.12-stable
+REFERENCE-ORACLE cast 0.3.0 (5a8bd89 2024-12-20T08:45:53.135759000Z)
+FORK-PROBE PUSH0 OK steps=2 gas=2
+FORK-PROBE TLOAD OK steps=3 gas=102
+FORK-PROBE TSTORE OK steps=6 gas=207
+FORK-PROBE MCOPY OK steps=10 gas=34
+FORK-PROBE CLZ INVALID invalid opcode: opcode 0x1e not defined
+FORK-DRIFT push0=OK tload=OK tstore=OK mcopy=OK clz=INVALID OK

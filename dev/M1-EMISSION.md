@@ -16,8 +16,9 @@ _build/default/bin/assay.exe diff examples/Counter.asy --calldata 0x6d4ce63c
 This slice uses the carried grammar. It adds no kernel former and changes
 no file under `lib/` or `surface/`. The subsequent [contract surface](M1-SURFACE.md)
 adds bounded `contract`, `storage`, `entry` and `do` sugar. Proof-producing
-guards, the source overflow-freedom theorem and M1 performance threshold
-remain open. The [source model](M1-RUN.md) adds public `run`.
+guards and the M1 performance threshold remain open. The
+[source model](M1-RUN.md) adds public `run`, and the
+[source proofs](M1-PROOFS.md) establish overflow freedom for its Lean model.
 These tests are not a proof of the
 OCaml compiler. The two executors are geth entry points, not independent
 client implementations.
@@ -48,9 +49,12 @@ name, and its field aliases become ABI argument names. Empty argument
 records describe zero-argument functions. The recognizer permits at most
 32 entries and 32 arguments per entry, and rejects duplicate names within
 a collection. This explicit naming protocol precedes surface sugar.
-The carried erasure drops the entry tag when every argument record is
-empty. The current emitter therefore requires at least one entry with a
-Word argument; zero-argument entries work in such a mixed table.
+When every argument record is empty, at least one must use the explicit
+form `def get : Type 0 := (prod () : Type 0)`. The annotation keeps the
+entry sum in `Type 0` while its empty payload erases. A table of only bare
+`prod ()` records receives a named backend refusal. Mixed tables keep
+their existing form. The [nullary contract](M1-NULLARY.md) documents the
+accepted schema and its validation.
 
 The selected export must have an explicit `Entry -> Tx` type. The emitter
 specializes it once for each checked variant leg, injecting symbolic

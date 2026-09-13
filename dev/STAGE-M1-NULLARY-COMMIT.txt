@@ -1,0 +1,15 @@
+M1: compile entry tables with no arguments
+
+Keep nullary entry tags through erasure with explicitly typed empty
+argument records. Recognize their exact checked schema and retain the
+existing mixed-entry lowering and ABI behavior.
+
+Add a nullary counter example, 53 source/EVM comparisons, constructor
+checks, four schema refusals and three mutations with restored controls.
+Promote the old nullary refusal to a successful surface boundary case.
+Refresh the frozen measurement and archive the complete gate battery.
+
+Review pass 1 (2026-09-12) fixed 2 findings: A-1, B-1.
+A-1 low emit/recognize.ml: a constructor pattern replaces the guarded
+arm; the mutant anchor and the compiler freeze follow.
+B-1 low dev/nullary-test.py: a bad argument exits 64, not 1.

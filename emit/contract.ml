@@ -231,12 +231,15 @@ let generate state fields entries init =
     (Ok []) (List.mapi (fun i row -> i, row) entries) in
   let decl = Recognize.declaration in
   let collection former ats = Recognize.collection_source former (List.map (fun at -> at.text) ats) in
+  let nullary = List.for_all (fun row -> row.args = []) entries in
+  let arguments row =
+    if nullary then "(prod () : Type 0)" else collection "prod" row.args in
   Ok (Recognize.m1_protocol ^
     String.concat "" (List.map (fun name -> decl name "Word 256") aliases) ^
     decl "Storage" (collection "prod" fields) ^ decl state.text "Storage" ^
     "def storage : Storage := tuple (" ^ String.concat ", "
       (List.mapi (fun i _at -> "word 256 " ^ string_of_int i) fields) ^ ")\n" ^
-    String.concat "" (List.map (fun row -> decl row.name.text (collection "prod" row.args)) entries) ^
+    String.concat "" (List.map (fun row -> decl row.name.text (arguments row)) entries) ^
     decl "Entry" (collection "sum" (List.map (fun row -> row.name) entries)) ^
     "def constructor : Eff := " ^ init ^ "\n" ^
     "def main : Entry -> Tx := fun (_assay_entry : Entry) => case _assay_entry with\n" ^
@@ -262,8 +265,6 @@ let parse tokens =
       let* init, rest = body rest in declarations entries (Some init) rest
     | [{ text = ""; _ }] ->
       if entries = [] then fail name "ENTRY" "at least one entry is required"
-      else if List.for_all (fun row -> row.args = []) entries then
-        fail name "ENTRY" "the carried erasure requires at least one entry with a Word argument"
       else let* core = generate state fields entries init in Ok (Some name.text, core)
     | [] | _ :: _ -> fail (here tokens) "DECLARATION" "expected entry, constructor or end of input" in
   declarations [] None tokens

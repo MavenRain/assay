@@ -80,11 +80,11 @@ non-unit returns are refused. Runtime `pure ()` is also refused.
 
 Names are ASCII identifiers of at most 64 characters. Language and protocol
 names, `_`, and the `_assay` prefix are reserved. Storage has 1 to 32 fields;
-the table has 1 to 32 entries, each with 0 to 32 arguments. At least one
-entry must take a Word argument: the carried erasure removes the entry tag
-when every argument record is empty. Such a table receives `SURFACE_ENTRY`
-before checking. A zero-argument entry in a mixed table works, including
-the counter's `get()`.
+the table has 1 to 32 entries, each with 0 to 32 arguments. Every entry may
+be nullary. The [nullary slice](M1-NULLARY.md) gives empty argument records
+an explicit `Type 0` annotation when the complete table has no arguments.
+This preserves selector tags through the carried erasure. Mixed tables,
+including the counter's `get()`, retain their original checked form.
 
 Each body has at most 128 effect or let steps. Value parentheses nest at
 most 128 levels. Contract files contain at most 65536 bytes and 8192
@@ -109,7 +109,7 @@ with the core source and executes all 30 frozen counter rows against the
 source model, emitted runtime and committed reference. Both geth execution
 paths run. The test also checks both creation outcomes, all 216 emitted
 runtime instructions, 13 additional cases, three-way disassembly,
-37 refusals through three public commands, four accepted boundary programs
+36 refusals through three public commands, five accepted boundary programs
 and a model invocation with no tools on PATH.
 
 Seven compiler mutations must fail their named semantic or refusal witness
@@ -123,3 +123,5 @@ points of geth rather than independent client implementations.
 The source-proof slice fixes constructor result, revert and guard positions
 and pins all three through check, emit and run. Core routing scans the
 contract keyword lazily, including an early exit for a large first identifier.
+The nullary slice promotes the former nullary-only refusal to an accepted
+boundary program and adds its own dispatch and execution gate.

@@ -85,5 +85,6 @@ the complete keyword walk before the router returns the source unchanged.
 The changed compiler receives a fresh frozen M0 timing report, using the
 existing one-minute method and unchanged bounds. No M1 performance verdict
 is inferred from that report. Proof-producing surface guards, erased source
-proof binders, invariant declarations, typed custom reverts and nullary-only
-entry tables remain unfinished. M1 exit remains the user's ratification.
+proof binders, invariant declarations and typed custom reverts remain
+unfinished. The [following slice](M1-NULLARY.md) implements nullary-only
+entry tables. M1 exit remains the user's ratification.

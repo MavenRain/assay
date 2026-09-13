@@ -1,0 +1,22 @@
+{
+  "argv": [
+    "evm",
+    "--verbosity",
+    "0",
+    "run",
+    "--prestate",
+    "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-nullary-o24irl75/prestate.json",
+    "--sender",
+    "0x7e5f4552091a69125d5dfcb7b8c2659029395bdf",
+    "--code",
+    "3461001857610009565b60075f5560ee601c5f3960ee5ff35b5f5ffd346100ea57610009565b600436106100ea57610016565b5f3560e01c5f52610022565b5f51636d4ce63c1461005557610033565b5f5163d09de08a1461007b57610044565b5f5163d826f88f146100c8576100ea565b600436106100ea57610062565b610067565b5f54602052610071565b6020515f5260205ff35b600436106100ea57610088565b61008d565b5f54602052610097565b602051600101604052602051604051106100c4576100b0565b6040515f556100ba565b6040515f5260205ff35b5f5ffd5b600436106100ea576100d5565b6100da565b5f5f556100e2565b5f5f5260205ff35b5f5ffd",
+    "--value",
+    "1",
+    "--create",
+    "--json",
+    "--dump"
+  ],
+  "exit": 0,
+  "stdout": "{\"pc\":0,\"op\":52,\"gas\":\"0x1000000\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"CALLVALUE\"}\n{\"pc\":1,\"op\":97,\"gas\":\"0xfffffe\",\"gasCost\":\"0x3\",\"memSize\":0,\"stack\":[\"0x1\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH2\"}\n{\"pc\":4,\"op\":87,\"gas\":\"0xfffffb\",\"gasCost\":\"0xa\",\"memSize\":0,\"stack\":[\"0x1\",\"0x18\"],\"depth\":1,\"refund\":0,\"opName\":\"JUMPI\"}\n{\"pc\":24,\"op\":91,\"gas\":\"0xfffff1\",\"gasCost\":\"0x1\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"JUMPDEST\"}\n{\"pc\":25,\"op\":95,\"gas\":\"0xfffff0\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":26,\"op\":95,\"gas\":\"0xffffee\",\"gasCost\":\"0x2\",\"memSize\":0,\"stack\":[\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"PUSH0\"}\n{\"pc\":27,\"op\":253,\"gas\":\"0xffffec\",\"gasCost\":\"0x0\",\"memSize\":0,\"stack\":[\"0x0\",\"0x0\"],\"depth\":1,\"refund\":0,\"opName\":\"REVERT\"}\n{\"pc\":27,\"op\":253,\"gas\":\"0xffffec\",\"gasCost\":\"0x0\",\"memSize\":0,\"stack\":[],\"depth\":1,\"refund\":0,\"opName\":\"REVERT\",\"error\":\"execution reverted\"}\n{\"output\":\"\",\"gasUsed\":\"0x14\",\"error\":\"execution reverted\"}\n{\n    \"root\": \"7d62d5b31c1e7fa110a5483b7f4e0f01cf3e75a7e49a00ff7789e446a60f9a43\",\n    \"accounts\": {\n        \"0x7E5F4552091A69125d5DfCb7b8C2659029395Bdf\": {\n            \"balance\": \"10\",\n            \"nonce\": 1,\n            \"root\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\",\n            \"codeHash\": \"0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470\",\n            \"address\": \"0x7e5f4552091a69125d5dfcb7b8c2659029395bdf\",\n            \"key\": \"0x3322f33946a3c503c916c8fc29768a547f01fa665e1eb22f9f66cf7e5a262012\"\n        }\n    }\n}\n",
+  "stderr": ""
+}

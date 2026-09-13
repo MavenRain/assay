@@ -138,7 +138,6 @@ def refusals():
         ('proof-guard', program('(0 p : Prop) <- guard Proof ; pure a'), 'SURFACE_NAME'),
         ('empty-storage', program('pure a', fields=''), 'SURFACE_NAME'),
         ('no-entry', 'contract Empty where storage State := { cell : Word }', 'SURFACE_ENTRY'),
-        ('nullary-only', program('pure (word 0)', args='()'), 'SURFACE_ENTRY'),
         ('constructor-result', simple + 'constructor := do pure (word 0)', 'SURFACE_CONSTRUCTOR'),
         ('constructor-revert', simple + 'constructor := do revert', 'SURFACE_CONSTRUCTOR'),
         ('constructor-guard', simple + 'constructor := do guard le (word 0) (word 1) ; pure ()', 'SURFACE_CONSTRUCTOR'),
@@ -193,6 +192,7 @@ def driver():
         source.write_text('\n -- contract Wrong where\n\t' + SOURCE.read_text())
         M.model('comments', source, row)
         limits = [
+            program('pure (word 0)', args='()'),
             program('pure a31', fields=' ; '.join(f'f{i} : Word' for i in range(32)),
                     args=' '.join(f'(a{i} : Word)' for i in range(32))),
             'contract Many where storage State := { cell : Word }\n' +

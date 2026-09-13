@@ -1,0 +1,12 @@
+{
+  "argv": [
+    "python3",
+    "-P",
+    "dev/nullary-test.py",
+    "witness",
+    "core"
+  ],
+  "exit": 1,
+  "stdout": "NULLARY-ENTRIES FAIL: NULLARY-WITNESS core\n",
+  "stderr": ""
+}

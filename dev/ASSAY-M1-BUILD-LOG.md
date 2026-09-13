@@ -1,5 +1,152 @@
 # Assay M1 build log
 
+## 2026-09-12: nullary entry tables
+
+This slice starts at `cd884ff35cfa8b5da9bee4ff0ff86e5e7f903344` and
+accepts contracts whose complete entry table has no Word arguments.
+The surface supplies an explicit `Type 0` annotation on each empty
+argument record. The schema recognizer accepts that exact checked form
+and preserves the existing mixed-entry representation. The carried
+kernel erasure then retains the entry tag and drops the empty payload.
+
+`examples/Nullary.asy` supplies `get()`, `increment()` and `reset()`.
+Its runtime is 238 bytes and creation is 266 bytes.
+The source model and both Cancun executor paths agree on 53 cases,
+including every selector in tables with 1, 2 and 32 entries. All
+156 runtime instructions in the example execute. Two constructor
+cases cover installation, initial storage and call-value refusal.
+Two manually written core variants match all five surface output files.
+Four checked schema refusals run through emit and run before file
+creation. Three compiler mutations are killed, with restored controls.
+
+The old nullary-only surface refusal becomes an accepted boundary
+program. The surface suite now has 36 refusals and five accepted bounds;
+the new gate provides the complete dispatch and execution evidence.
+The accepted core schema and remaining M1 scope are in `M1-NULLARY.md`.
+
+### Validation
+
+The complete 42-leg battery passes in
+`/Users/oobi/Documents/gpt1/assay-m1-nullary`. The literal command is
+recorded in `validation/2026-09-12-m1-nullary/RUN.json`. Full gate logs,
+execution captures, mutation witnesses, source hashes and artifact
+hashes are archived beside it.
+
+The carried proof cache was reused after matching 26 source/configuration
+files and both dependency revisions. The newer verification package built
+fresh because the earlier cache's adapter source differed. Both axiom
+gates ran, including all 42 carried and eleven source theorem reports.
+
+```
+NULLARY-LIVE cases=18 widths=35 creates=2 covered=156 OK
+NULLARY-MUTANT SURFACE-UNIVERSE killed control=OK
+NULLARY-MUTANT UNIT-RECOGNIZER killed control=OK
+NULLARY-MUTANT UNIT-SCHEMA killed control=OK
+NULLARY-ENTRIES cases=53 creates=2 refusals=4 mutants=3 OK
+TRUSTED-LINES kernel=3997 want=3997 bound=4000
+TRUSTED-LINES emitter=1046/1800
+TRUSTED-LINES assembler=238/600
+TRUSTED-LINES keccak=89/250
+TRUSTED-LINES abi=24/400
+TRUSTED-LINES layout=8/250
+TRUSTED-LINES listing=54/250
+TRUSTED-LINES total=1459/3550 ratified=3550
+TRUSTED-LINES OK
+STAGE-M1-NULLARY OK
+M0-VALIDATION OK
+```
+
+The frozen M0 measurement completed in 19.433 seconds
+at starting load 28.16. Its dated report is
+`measurements/2026-09-12-m1-nullary.json`; the previous report remains
+preserved. Compiler timing stays informational at M0 and establishes
+no M1 performance result. M1 exit still requires user ratification.
+
+### Review round 2026-09-12 (M1 nullary)
+
+A review pass read the staged slice and kept two findings. This review
+fixed 2 findings: A-1, B-1. `dev/nullary-test.py` refuses an unknown
+argument with a
+usage line on standard error and exit code 64. That code agrees with
+`dev/source-proof-test.py` and with `dev/gates.sh`. Exit code 1 stays
+the code of a real test failure. No gate leg gives the script an
+argument, so no leg marker moves. The refreshed freeze row is row 50 of
+`DENOMINATORS.sha256` for `dev/nullary-test.py`.
+
+A-1 low `emit/recognize.ml`: the `collection` recognizer matched an
+empty argument record with a guarded variable arm that compared the
+body with `Rules.unit_ty Level.one`. This review replaces the arm with
+the constructor pattern `Term.Ann (Term.Ran (Shape.SColl 0, Term.Sec
+(Shape.SColl 0, [])), Term.Univ level)`, guarded by `not variant &&
+level = Level.one`. The two forms accept the same terms, because
+`Rules.unit_ty Level.one` is that exact term. The recognizer is a
+frozen compiler source, so the fix comes with a compiler refreeze after
+`corpus/README.md`: a new five-round timing measurement of
+`dev/measurements/2026-09-12-m1-nullary.json` (window 19.433 seconds at
+starting load 28.16, executable hash prefix fb0752b5203c), copied to
+`dev/denominators.json`, all 114 rows of `dev/DENOMINATORS.sha256`
+regenerated, and `zsh -f dev/ratio.sh` reports OK. The mutation anchor
+UNIT-RECOGNIZER in `dev/nullary-test.py` now targets the new arm text,
+and the gate still kills that mutant.
+
+Kept findings:
+
+| id | severity | one line | files |
+| --- | --- | --- | --- |
+| B-1 | low | Bad argument exits 1 with NULLARY-USAGE where the sibling M1P script exits 64 | dev/nullary-test.py, dev/DENOMINATORS.sha256, dev/ASSAY-M1-BUILD-LOG.md, dev/validation/2026-09-12-m1-nullary/SOURCES.json |
+| A-1 | low | Guarded variable arm on the closed Term.t variant in `collection` | emit/recognize.ml, dev/denominators.json, dev/measurements/2026-09-12-m1-nullary.json, dev/nullary-test.py, dev/DENOMINATORS.sha256 |
+
+Refuted: 0 findings. The verifiers refuted no finding of this round.
+Close ladder after the refreeze: 42 legs PASS, STAGE-M1-NULLARY OK,
+M0-VALIDATION OK, at starting load 31.
+
+Merged and dropped: 0 merged and 0 dropped. The two survivors touch
+different files and different defects, so no merge applied and no
+finding lost its evidence.
+
+Gate result, log
+`/Users/oobi/Documents/assay-m1-nullary-review/gates-M1-1.log`, verdict
+GREEN-FULL (pass=42 of 42 legs, fail=[], denom rows=[], mutants=true,
+timeout legs only=false, wrapper exit ok=true):
+
+```
+STAGE-M1-LINE: STAGE-M1-NULLARY OK
+M0-LINE: M0-VALIDATION OK; M0-EXIT requires the user commit and ratification
+EXIT 0 | LADDER-WRAPPER-EXIT 0 15:40:40
+PASS-COUNT: 42
+FAIL-LINES:
+DENOM-FAILED-ROWS:
+MUTANTS-TAIL: MUTANT TRUSTED-BOUND killed exit=1 MUTANTS killed=13/13 OK
+NULLARY-ENTRIES-TAIL: NULLARY-MUTANT UNIT-SCHEMA killed control=OK NULLARY-ENTRIES cases=53 creates=2 refusals=4 mutants=3 OK
+SOURCE-PROOFS-TAIL: SOURCE-PROOF-MUTANT ERROR-BRANCH killed control=OK SOURCE-PROOFS theorems=11 arithmetic=226 evm=16 recovery=6 effects=7 invalid=13 mutants=6 controls=4 OK
+CONTRACT-ROUTE-TAIL: CONTRACT-ROUTE core=3 identity=true allocated_bytes=1472 bound=131072 OK
+CONTRACT-SURFACE-TAIL: SURFACE-MUTANTS killed=7/7 controls=7 OK CONTRACT-SURFACE counter=30 variants=13 refusals=36 mutants=7 OK
+SOURCE-MODEL-TAIL: MODEL-MUTANTS killed=8/8 controls=8 OK SOURCE-MODEL counter=30 variants=10 corpus=11 invalid=28 refusals=6 mutants=8 OK
+DIFF-EXECUTOR-TAIL: DIFF-CHECKS killed=24/24 controls=1 OK DIFF-EXECUTOR live=20 driver=28 rejected=24 OK
+M1-EMISSION-TAIL: M1-MUTANTS killed=8/8 controls=8 OK M1-EMISSION counter=30 sources=8 refusals=11 mutants=8 OK
+COUNTER-REFERENCE-TAIL: COUNTER-MUTANT SELECTOR witness=increment-success killed control=OK COUNTER-REFERENCE cases=30 creates=2 mutants=8 value_rejected=5 covered=120 scope=reference OK
+DRIVER-TAIL: DRIVER cases=24 OK
+DENOMINATORS-TAIL: verification/lakefile.lean: OK verification/lean-toolchain: OK
+M0-RATIO-TAIL: M0-PROOF-RATIO ms_per_kloc=640.638 files=3 separate=true M0-RATIO provenance=dev/denominators.json fixed=spec-count-proxy subtraction=none OK
+PROOF-BUILD-TAIL: OK lake: 0 errors, 0 sorries, 0 warnings
+PROOF-REPORT-LINES: 42
+```
+
+DENOMINATORS and M0-RATIO both passed on the new 114 row freeze, and the
+only row a fix refreshed is row 50, `dev/nullary-test.py`.
+
+gate: GREEN-FULL (pass=42 of 42 legs, fail=[], denom rows=[],
+mutants=true, timeout legs only=false, wrapper exit ok=true,
+stage=STAGE-M1-LINE: STAGE-M1-NULLARY OK, m0=M0-LINE: M0-VALIDATION OK;
+M0-EXIT requires the user commit and ratification, exit=EXIT 0 |
+LADDER-WRAPPER-EXIT 0 15:40:40)
+
+The finders ran fable/medium with one opus/medium fallback, and the
+builder and the closer ran opus/medium. The Fable tier probe of session
+claude1, 2026-09-12 02:46, wf-mechanical, answered PROBE OK 123, and a
+death in fix or close forces a resume, so the builder ruling and the
+closer ruling are reported unmet.
+
 ## 2026-09-12: source arithmetic proofs
 
 This sixth M1 slice builds on `7954843`. The new dependency-free

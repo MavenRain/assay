@@ -155,12 +155,22 @@ let collection globals ~variant name =
     names_in_diagram name count diagram
   | Term.Ran (Shape.SColl count, diagram) when not variant && count >= 0 && count <= 32 ->
     names_in_diagram name count diagram
+  | Term.Ann (Term.Ran (Shape.SColl 0, Term.Sec (Shape.SColl 0, [])), Term.Univ level)
+    when not variant && level = Level.one -> Ok []
   | Term.Var _ | Term.Univ _ | Term.Lan _ | Term.Ran _ | Term.In _ | Term.Elim _
   | Term.Sec _ | Term.Out _ | Term.Let _ | Term.Ann _ | Term.Global _ | Term.Lit _ | Term.Auto ->
     Error (Protocol ("M1 " ^ name))
 
 let declaration name body = "def " ^ name ^ " : Type 0 := " ^ body ^ "\n"
 let collection_source former names = former ^ " (" ^ String.concat ", " names ^ ")"
+
+(* An explicit universe on an empty argument record keeps an all-nullary
+   Entry sum at Type 0. Its payload still erases by the width-zero rule. *)
+let typed_unit globals name = Global.find_def name globals
+  |> Option.fold ~none:false ~some:(fun d -> d.Global.def = Rules.unit_ty Level.one)
+let argument_source globals (name, args) =
+  let body = collection_source "prod" args in
+  declaration name (if typed_unit globals name then "(" ^ body ^ " : Type 0)" else body)
 
 let m1_schema globals =
   let* () = schema globals in
@@ -174,9 +184,12 @@ let m1_schema globals =
   let source = m1_protocol ^
     String.concat "" (List.map (fun name -> declaration name "Word 256") words) ^
     declaration "Storage" (collection_source "prod" fields) ^
-    String.concat "" (List.map (fun (name, args) -> declaration name (collection_source "prod" args)) entries) ^
+    String.concat "" (List.map (argument_source globals) entries) ^
     declaration "Entry" (collection_source "sum" (List.map fst entries)) in
   let* () = checked_schema globals source in
+  let* () = if List.for_all (fun (name, args) -> args = [] && not (typed_unit globals name)) entries
+    then Error (Protocol "M1 nullary Entry needs an explicit (prod () : Type 0) argument record")
+    else Ok () in
   let* storage = definition globals "storage" in
   if storage.Global.ty = Term.Global "Storage" then Ok (fields, entries)
   else Error Storage_shape

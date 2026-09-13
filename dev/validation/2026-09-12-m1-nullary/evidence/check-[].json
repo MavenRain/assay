@@ -1,0 +1,10 @@
+{
+  "argv": [
+    "/Users/oobi/Documents/gpt1/assay-m1-nullary/_build/default/bin/assay.exe",
+    "check",
+    "/Users/oobi/Documents/gpt1/assay-m1-nullary/examples/Nullary.asy"
+  ],
+  "exit": 0,
+  "stdout": "",
+  "stderr": ""
+}

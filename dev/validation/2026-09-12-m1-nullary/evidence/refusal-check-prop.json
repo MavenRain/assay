@@ -1,0 +1,10 @@
+{
+  "argv": [
+    "/Users/oobi/Documents/gpt1/assay-m1-nullary/_build/default/bin/assay.exe",
+    "check",
+    "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-nullary-refusals-909_p4_s/prop.asy"
+  ],
+  "exit": 0,
+  "stdout": "",
+  "stderr": ""
+}

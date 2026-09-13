@@ -20,6 +20,8 @@ The fifth adds [contract surface syntax](dev/M1-SURFACE.md), lowering
 word storage, entries and sequential effects to that checked core.
 The sixth adds [source arithmetic proofs](dev/M1-PROOFS.md), with a reusable
 Lean transaction model and executable comparisons against assay and Cancun.
+The seventh adds [entry tables without arguments](dev/M1-NULLARY.md),
+including checked dispatch for contracts containing only nullary entries.
 
 ```sh
 zsh -f dev/dunecho.sh build
@@ -34,6 +36,7 @@ _build/default/bin/assay.exe emit examples/Counter.asy -o Counter-out
 _build/default/bin/assay.exe diff examples/Counter.asy --calldata 0x6d4ce63c
 _build/default/bin/assay.exe run examples/Counter.asy --calldata 0x6d4ce63c --storage 0=7 --storage 1=100
 _build/default/bin/assay.exe emit examples/CounterSurface.asy -o Surface-out
+_build/default/bin/assay.exe emit examples/Nullary.asy -o Nullary-out
 leancho -C verification
 zsh -f dev/gates.sh
 ```
@@ -181,14 +184,17 @@ The source model adds 30 counter comparisons against both executors and
 the reference, ten extra cases, all eleven M0 corpus programs, driver
 and source refusals, and eight mutations with restored controls.
 The surface counter has exact five-file equality with the core source.
-Its gate adds 30 counter rows, 13 additional execution cases, 35 refusals
+Its gate adds 30 counter rows, 13 additional execution cases, 36 refusals
 through three commands, accepted size boundaries and seven compiler mutations.
-`STAGE-M1-SURFACE OK` means all 39 legs pass.
+The nullary gate adds 53 source/EVM comparisons, two constructor cases,
+four checked schema refusals and three mutations with restored controls.
+`STAGE-M1-NULLARY OK` means all 42 legs pass, including the source proofs.
 The final M0-EXIT stamp still requires explicit user ratification.
 The core counter source, dispatcher, ABI/layout emission, differential gate
 and source model are implemented, along with bounded contract/entry/do
-sugar. Proof-producing guards, invariant declarations, the source
-overflow-freedom theorem and the M1 performance bound remain unfinished.
+sugar. Proof-producing guards, invariant declarations, typed custom
+reverts and the M1 performance bound remain unfinished. The Lean source
+model has an overflow-freedom theorem with tested compiler correspondence.
 The core source keeps the inherited grammar and specializes continuations;
 it emits no general-purpose closures. The reference was committed before
 this emitter targeted it. The [M1 build log](dev/ASSAY-M1-BUILD-LOG.md)
