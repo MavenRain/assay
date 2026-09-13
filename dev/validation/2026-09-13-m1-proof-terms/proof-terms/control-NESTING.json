@@ -1,0 +1,12 @@
+{
+  "argv": [
+    "python3",
+    "-P",
+    "dev/proof-term-test.py",
+    "witness",
+    "nesting"
+  ],
+  "exit": 0,
+  "stdout": "TERM-REFUSALS cases=1 commands=3 OK\n",
+  "stderr": ""
+}

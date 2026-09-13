@@ -6,6 +6,11 @@ let ( let* ) = Result.bind
 type token = { text : string; line : int; col : int }
 type word = Literal of token | Local of token
 type predicate = Ordered of word * word | Fits of word * word
+type proof =
+  | Proof_unit
+  | Proof_name of token
+  | Proof_ann of proof * predicate
+  | Proof_let of token * predicate * proof * proof
 type binding = Word_value of string | Proof_value of string
 type step =
   | Load of token * token
@@ -15,7 +20,8 @@ type step =
   | Guard of word * word
   | Bind of token * word
   | Prove of token * predicate * (token * word list) option * predicate
-  | Proven of token * token * word * word * token
+  | Proven of token * token * word * word * proof
+  | Proof_bind of token * predicate * proof
 type ending = Return of word | Unit of token | Revert of token | Reject of token * word list
 type body = step list * ending
 type entry = { name : token; args : token list; body : body }
@@ -119,11 +125,33 @@ let predicate runtime tokens = match tokens with
     let* (a, b), rest = binary rest in
     let* rest = expect ")" rest in Ok (Fits (a, b), rest)
   | [] | _ :: _ -> fail (here tokens) "PROOF" "expected an ordering or addition bound"
-let proof_guard tokens =
+let proof_binder tokens =
   let* rest = sequence ["("; "0"] tokens in
   let* name, rest = identifier rest in let* rest = expect ":" rest in
   let* claim, rest = predicate false rest in
-  let* rest = sequence [")"; "<-"; "guard"] rest in
+  let* rest = expect ")" rest in Ok ((name, claim), rest)
+let rec proof_term depth tokens =
+  if depth > 128 then fail (here tokens) "LIMIT" "proof nesting exceeds 128" else
+  match tokens with
+  | { text = "("; _ } :: { text = ")"; _ } :: rest -> Ok (Proof_unit, rest)
+  | { text = "("; _ } :: rest ->
+    let* term, rest = proof_term (depth + 1) rest in
+    let* term, rest = match rest with
+      | { text = ":"; _ } :: rest ->
+        let* claim, rest = predicate false rest in Ok (Proof_ann (term, claim), rest)
+      | [] | _ :: _ -> Ok (term, rest) in
+    let* rest = expect ")" rest in Ok (term, rest)
+  | { text = "let"; _ } :: rest ->
+    let* (name, claim), rest = proof_binder rest in
+    let* rest = expect ":=" rest in
+    let* value, rest = proof_term (depth + 1) rest in
+    let* rest = expect "in" rest in
+    let* body, rest = proof_term (depth + 1) rest in
+    Ok (Proof_let (name, claim, value, body), rest)
+  | [] | _ :: _ -> let* name, rest = identifier tokens in Ok (Proof_name name, rest)
+let proof_guard tokens =
+  let* (name, claim), rest = proof_binder tokens in
+  let* rest = sequence ["<-"; "guard"] rest in
   let* error, rest = match rest with
     | { text = "("; _ } :: _tail -> Ok (None, rest)
     | [] | _ :: _ ->
@@ -172,12 +200,16 @@ let body tokens =
     | { text = "guard"; _ } :: rest ->
       let* rest = expect "le" rest in
       let* (a, b), rest = binary rest in next (Guard (a, b)) rest
+    | { text = "let"; _ } :: ({ text = "("; _ } :: _tail as rest) ->
+      let* (name, claim), rest = proof_binder rest in
+      let* rest = expect ":=" rest in
+      let* proof, rest = proof_term 0 rest in next (Proof_bind (name, claim, proof)) rest
     | { text = "let"; _ } :: rest ->
       let* name, rest = identifier rest in
       let* rest = sequence [":"; "Word"; ":="] rest in
       (match rest with
        | op :: rest when op.text = "addLt" || op.text = "subLe" ->
-         let* (a, b), rest = binary rest in let* proof, rest = identifier rest in
+         let* (a, b), rest = binary rest in let* proof, rest = proof_term 0 rest in
          next (Proven (op, name, a, b, proof)) rest
        | [] | _ :: _ -> let* word, rest = value 0 rest in next (Bind (name, word)) rest)
     | { text = "("; _ } :: _rest ->
@@ -253,6 +285,26 @@ let transaction fields errors env (steps, ending) =
       | Ordered (a, b) -> a, b, "Le", "guardLe"
       | Fits (a, b) -> a, b, "AddFits", "guardAdd" in
     let* a = word env a in let* b = word env b in Ok (app ty [a; b], op, a, b) in
+  let erased_apply name ty result value body =
+    app ("(" ^ lambda ("0 " ^ name) ty body ^ " : (0 " ^ name ^ " : " ^ ty ^ ") -> " ^ result ^ ")") [value] in
+  (* Keep every annotation and unused binding in the checked core. Only the
+     carried erasure may discard a proof after its claim has been checked. *)
+  let rec proof depth env expected term =
+    let* term = match term with
+      | Proof_unit -> Ok "(tuple ())"
+      | Proof_name at ->
+        let refusal = fail at "PROOF" "expected an in-scope erased proof" in
+        Option.fold ~none:refusal ~some:(function
+          | Proof_value p -> Ok p | Word_value _ -> refusal) (List.assoc_opt at.text env)
+      | Proof_ann (term, claim) ->
+        let* ty, _op, _a, _b = predicate env claim in proof (depth + 1) env ty term
+      | Proof_let (name, claim, value, body) ->
+        let* ty, _op, _a, _b = predicate env claim in
+        let* value = proof (depth + 1) env ty value in
+        let fresh = "_assay_p" ^ string_of_int depth in
+        let* body = proof (depth + 1) ((name.text, Proof_value fresh) :: env) expected body in
+        Ok (erased_apply fresh ty expected value body) in
+    Ok ("(" ^ term ^ " : " ^ expected ^ ")") in
   let rec lower index env = function
     | [] -> (match ending with
       | Return v -> let* v = word env v in Ok (app "done" [v])
@@ -281,12 +333,16 @@ let transaction fields errors env (steps, ending) =
         let* yes = lower (index + 1) ((name.text, Proof_value fresh) :: env) rest in
         let success = "(" ^ lambda ("0 " ^ fresh) ty yes ^ " : (0 " ^ fresh ^ " : " ^ ty ^ ") -> Tx)" in
         Ok (app op [a; b; success; no])
-      | Proven (op, name, a, b, proof) ->
+      | Proof_bind (name, claim, term) ->
+        let* ty, _op, _a, _b = predicate env claim in
+        let* term = proof 0 env ty term in
+        let* next = lower (index + 1) ((name.text, Proof_value fresh) :: env) rest in
+        Ok (erased_apply fresh ty "Tx" term next)
+      | Proven (op, name, a, b, term) ->
         let* a = word env a in let* b = word env b in
-        let refusal = fail proof "PROOF" "expected an in-scope erased proof" in
-        let* proof = Option.fold ~none:refusal ~some:(function
-          | Proof_value p -> Ok p | Word_value _ -> refusal) (List.assoc_opt proof.text env) in
-        let* next = bind name in Ok (app op.text [a; b; proof; lambda fresh "Word 256" next])
+        let ty = if op.text = "addLt" then app "AddFits" [a; b] else app "Le" [b; a] in
+        let* term = proof 0 env ty term in
+        let* next = bind name in Ok (app op.text [a; b; term; lambda fresh "Word 256" next])
       | Bind (name, v) ->
         let* v = word env v in let* next = bind name in
         Ok ("(let " ^ fresh ^ " : Word 256 := " ^ v ^ " in " ^ next ^ ")")
@@ -310,7 +366,7 @@ let constructor fields (steps, ending) =
       let* field = slot fields field in let* v = word [] (Literal at) in
       Ok (app "put" [field; v; next])
     | Store (at, Local _) | Load (at, _) | Add (at, _, _) | Sub (at, _, _) | Bind (at, _)
-    | Prove (at, _, _, _) | Proven (at, _, _, _, _) ->
+    | Prove (at, _, _, _) | Proven (at, _, _, _, _) | Proof_bind (at, _, _) ->
       fail at "CONSTRUCTOR" "constructor accepts literal stores only"
     | Guard ((Literal at | Local at), _) ->
       fail at "CONSTRUCTOR" "constructor accepts literal stores only")
@@ -344,7 +400,7 @@ let generate state fields entries errors init =
       else collection "prod" row.error_args)) errors) ^
     decl "Error" (collection "sum" (List.map (fun row -> row.error_name) errors)) in
   let proofs = List.exists (fun row -> List.exists (function
-    | Prove _ | Proven _ -> true
+    | Prove _ | Proven _ | Proof_bind _ -> true
     | Load _ | Add _ | Sub _ | Store _ | Guard _ | Bind _ -> false) (fst row.body)) entries in
   Ok ((if errors = [] then Recognize.m1_protocol_for ~proofs "" ^ aliases
     else Recognize.m1_protocol_for ~proofs (aliases ^ error_source)) ^

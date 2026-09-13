@@ -1,0 +1,12 @@
+{
+  "argv": [
+    "/Users/oobi/Documents/gpt1/assay-m1-proof-terms/_build/default/bin/assay.exe",
+    "emit",
+    "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-term-refusals-eorxs386/runtime.asy",
+    "-o",
+    "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-term-refusals-eorxs386/runtime-out"
+  ],
+  "exit": 1,
+  "stdout": "",
+  "stderr": "line 3, column 182: SURFACE_PROOF: an erased proof is not a Word\n"
+}

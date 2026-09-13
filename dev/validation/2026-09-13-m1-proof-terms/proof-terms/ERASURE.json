@@ -1,0 +1,12 @@
+{
+  "variants": 5,
+  "files": {
+    "axioms.txt": "61f8b9f0cb83fe5250e13b39b40e705d106caa92810d60168dfe5f4c3a89a302",
+    "init.hex": "42b2cf56ab1635b00e507885c02b47fa221e4db422267546227afad063aec7db",
+    "runtime.hex": "23f348df35d831dd6093cedc1fa0034452a9e0c331718ea2f46edd861f57f922",
+    "layout.json": "8d50dadb408ff1c157c899df49b8d229fd1abe17ffa97344d0f2ba42e44d794a",
+    "abi.json": "adcc493b81533e8999724097df78589bb2aae8a20b3b6752bc30904bc7b51d53"
+  },
+  "proved_jumpi": 4,
+  "checked_jumpi": 5
+}

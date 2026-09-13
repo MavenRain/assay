@@ -95,7 +95,9 @@ bounds still apply after lowering.
 Surface refusals print `SURFACE_*` diagnostics and exit 1, before output
 creation. Existing backend refusals exit 2 and driver misuse exits 64.
 The [proof guard slice](M1-GUARDS.md) adds the P1 bound guards and erased
-proof binders. Invariant declarations remain unfinished and are refused.
+proof binders. The [supplied proof slice](M1-PROOF-TERMS.md) adds checked
+closed bounds, erased proof aliases and proof-local bindings. Invariant
+declarations remain unfinished and are refused.
 The M1 performance bound also remains open. The original surface uses the
 checked Result/error path of the design. The following
 [source-proof slice](M1-PROOFS.md) proves overflow freedom for a Lean model

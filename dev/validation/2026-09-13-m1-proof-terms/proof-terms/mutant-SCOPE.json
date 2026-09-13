@@ -1,0 +1,12 @@
+{
+  "argv": [
+    "python3",
+    "-P",
+    "dev/proof-term-test.py",
+    "witness",
+    "shadow"
+  ],
+  "exit": 1,
+  "stdout": "PROOF-TERMS FAIL: ERROR-REFUSAL shadow\n",
+  "stderr": ""
+}

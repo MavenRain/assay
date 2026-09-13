@@ -1,0 +1,12 @@
+{
+  "argv": [
+    "/Users/oobi/Documents/gpt1/assay-m1-proof-terms/_build/default/bin/assay.exe",
+    "emit",
+    "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-term-refusals-eorxs386/cross-entry.asy",
+    "-o",
+    "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-term-refusals-eorxs386/cross-entry-out"
+  ],
+  "exit": 1,
+  "stdout": "",
+  "stderr": "line 4, column 73: SURFACE_PROOF: expected an in-scope erased proof\n"
+}

@@ -1,0 +1,10 @@
+{
+  "argv": [
+    "/Users/oobi/Documents/gpt1/assay-m1-proof-terms/_build/default/bin/assay.exe",
+    "check",
+    "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-term-refusals-eorxs386/steps.asy"
+  ],
+  "exit": 1,
+  "stdout": "",
+  "stderr": "line 3, column 5343: SURFACE_LIMIT: at most 128 effect steps\n"
+}

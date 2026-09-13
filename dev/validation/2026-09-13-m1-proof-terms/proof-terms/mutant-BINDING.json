@@ -1,0 +1,12 @@
+{
+  "argv": [
+    "python3",
+    "-P",
+    "dev/proof-term-test.py",
+    "witness",
+    "unused-binding"
+  ],
+  "exit": 1,
+  "stdout": "PROOF-TERMS FAIL: ERROR-REFUSAL unused-binding\n",
+  "stderr": ""
+}

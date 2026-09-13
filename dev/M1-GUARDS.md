@@ -115,4 +115,7 @@ battery has 44 legs. Timing remains paused as recorded in
 measurement remain preserved, so `DENOMINATORS` and `M0-RATIO` are
 expected to fail on the new compiler. No fresh performance or complete
 battery pass is claimed. Invariant declarations, surface-supplied proof
-terms and the M1 performance bound remain unfinished.
+terms and the M1 performance bound remain unfinished at this slice.
+The following [supplied proof slice](M1-PROOF-TERMS.md) adds a bounded
+surface grammar for closed proofs, aliases, annotations and proof-local
+bindings using the same checked protocol.

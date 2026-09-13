@@ -1,0 +1,34 @@
+{
+  "source_hashes": 177,
+  "whitespace": "pass",
+  "punctuation": "pass",
+  "whitespace_scope": "changed lines and new source files",
+  "protected_inputs_unchanged": true,
+  "protected_paths": [
+    "lib",
+    "surface",
+    "asm",
+    "abi",
+    "keccak",
+    "proofs",
+    "verification",
+    "emit/emit.ml",
+    "emit/model.ml",
+    "emit/recognize.ml",
+    "dev/ratio.py",
+    "dev/ratio.sh",
+    "dev/DENOMINATORS.sha256",
+    "dev/denominators.json",
+    "dev/TIMING-DEBUG.md"
+  ],
+  "binary_sha256": "fa19d1a57eb0f70b3e442e8924a7000530763c2e1053b4f8f157f849df7fede1",
+  "commit_draft_width": "at most 72",
+  "head": "ccf78afcbe76f11234f82e36fa553fecd6ff2ef7",
+  "copied_lean_cache_sources": 35,
+  "gate_count": 45,
+  "passed": 43,
+  "failed": [
+    "DENOMINATORS",
+    "M0-RATIO"
+  ]
+}

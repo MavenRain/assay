@@ -1,0 +1,12 @@
+{
+  "argv": [
+    "/Users/oobi/Documents/gpt1/assay-m1-proof-terms/_build/default/bin/assay.exe",
+    "emit",
+    "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-proof-terms-dkcrdxph/sub-1.asy",
+    "-o",
+    "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-proof-terms-dkcrdxph/sub-1"
+  ],
+  "exit": 0,
+  "stdout": "",
+  "stderr": ""
+}

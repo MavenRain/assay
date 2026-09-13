@@ -26,6 +26,8 @@ The eighth adds [typed custom reverts](dev/M1-ERRORS.md), including checked
 error declarations, derived ABI rows and Word payloads with storage rollback.
 The ninth adds [proof-producing guards](dev/M1-GUARDS.md), erased bound
 proofs and proof-supplied arithmetic without a second runtime check.
+The tenth adds [supplied proof terms](dev/M1-PROOF-TERMS.md), with checked
+closed bounds, erased aliases and proof-local bindings.
 
 ```sh
 zsh -f dev/dunecho.sh build
@@ -43,6 +45,7 @@ _build/default/bin/assay.exe emit examples/CounterSurface.asy -o Surface-out
 _build/default/bin/assay.exe emit examples/Nullary.asy -o Nullary-out
 _build/default/bin/assay.exe emit examples/Errors.asy -o Errors-out
 _build/default/bin/assay.exe emit examples/CounterProofs.asy -o ProofCounter-out
+_build/default/bin/assay.exe emit examples/ProofTerms.asy -o ProofTerms-out
 leancho -C verification
 zsh -f dev/gates.sh
 ```
@@ -197,7 +200,9 @@ four checked schema refusals and three mutations with restored controls.
 The custom error gate adds 66 source/EVM cases, 26 refusals and five
 mutations with restored controls. The proof guard gate adds 83 cases,
 26 refusals, three erased proof variants and six mutations with controls.
-`STAGE-M1-GUARDS OK` requires all 44 legs to pass, including source proofs.
+The supplied proof gate adds 98 cases, 25 refusals, five closed proof
+variants and four mutations with controls. `STAGE-M1-PROOF-TERMS OK`
+requires all 45 legs to pass, including source proofs.
 The current slice's timing gate is paused following the
 [measurement diagnosis](dev/TIMING-DEBUG.md); it has no fresh timing verdict.
 The preserved denominator manifest and measurement describe an older
@@ -205,9 +210,9 @@ compiler, so `DENOMINATORS` and `M0-RATIO` currently fail.
 The final M0-EXIT stamp still requires explicit user ratification.
 The core counter source, dispatcher, ABI/layout emission, differential gate
 and source model are implemented, along with bounded contract/entry/do
-sugar, typed custom reverts and proof-producing guards. Invariant
-declarations, surface-supplied proof terms and the M1 performance bound
-remain unfinished. The Lean source
+sugar, typed custom reverts, proof-producing guards and bounded supplied
+proof terms. Invariant declarations and the M1 performance bound remain
+unfinished. The Lean source
 model has an overflow-freedom theorem with tested compiler correspondence.
 The core source keeps the inherited grammar and specializes continuations;
 it emits no general-purpose closures. The reference was committed before

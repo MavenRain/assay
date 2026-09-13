@@ -1,0 +1,7 @@
+{
+  "cases": 98,
+  "creates": 2,
+  "guarded_erasure": 6,
+  "runtime_bytes": 246,
+  "init_bytes": 274
+}

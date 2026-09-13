@@ -1,0 +1,16 @@
+M1: check supplied surface proof terms and erased bindings
+
+Add closed proof terms, explicit annotations, erased aliases and scoped
+proof-local bindings to the contract surface. Check every claim before
+erasure, including unused bindings, and accept direct proof arguments
+for addLt and subLe through the existing canonical protocol.
+
+Exercise arithmetic, rollback, lexical scope, nesting bounds and five
+identical output files with 98 source/EVM cases, 25 refusals and four
+compiler mutations with restored controls. Preserve the paused timing
+measurement and denominator manifest without claiming a full gate pass.
+
+Review pass 1 (2026-09-13) fixed 3 findings: B-1, C-1, D-1.
+B-1: TERM-ERASURE prints the variant counts it measured.
+C-1: The archive holds one run only, without 14 stale captures.
+D-1: The new build-log section wraps at 72 columns.

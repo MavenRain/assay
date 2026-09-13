@@ -1,0 +1,18 @@
+{
+  "argv": [
+    "/Users/oobi/Documents/gpt1/assay-m1-proof-terms/_build/default/bin/assay.exe",
+    "run",
+    "/Users/oobi/Documents/gpt1/assay-m1-proof-terms/examples/ProofTerms.asy",
+    "--calldata",
+    "0x3ef5e44500000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000",
+    "--value",
+    "0",
+    "--storage",
+    "0=0x7",
+    "--storage",
+    "2=0xabc"
+  ],
+  "exit": 0,
+  "stdout": "{\"status\":\"success\",\"output\":\"0x0000000000000000000000000000000000000000000000000000000000000001\",\"storage\":{\"0\":\"0x1\",\"2\":\"0xabc\"}}\n",
+  "stderr": ""
+}

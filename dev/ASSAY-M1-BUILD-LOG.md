@@ -1,5 +1,142 @@
 # Assay M1 build log
 
+## 2026-09-13: supplied surface proof terms and erased bindings
+
+The tenth slice starts at `ccf78afcbe76f11234f82e36fa553fecd6ff2ef7`.
+The contract surface accepts closed unit proofs, explicit annotations,
+erased proof aliases and bindings inside proof expressions. `addLt` and
+`subLe` accept these expressions directly. Every declared claim remains
+in the checked core, including unused false claims. Fresh core names
+preserve lexical scope and shadowing. The existing proof protocol,
+kernel, carried surface, runtime arithmetic and Lean sources are
+unchanged.
+
+`examples/ProofTerms.asy` demonstrates closed addition and a guarded
+subtraction with proof aliases, typed failure data and rollback. It
+emits 246 runtime bytes and 274 creation bytes. The supplied proof gate
+passes 98 source-model/Cancun cases and both constructor outcomes. Its
+25 refusal cases run through check, emit and run and require failure
+before output creation. Cases include false annotations, unused false
+bindings, escaped names, Word/proof shadowing, snapshot reloads and
+proof nesting above 128. Positive cases include literal aliases,
+snapshot reuse and nesting at 128.
+
+Five closed proof shapes produce identical five-file outputs. Three
+guard-derived proof shapes for each arithmetic operation also preserve
+all five files. Supplied arithmetic evidence removes one conditional
+jump compared with the checked Result form. Four compiler mutations are
+killed by their named refusal witnesses, with restored controls. The
+earlier guard CLAIM mutation is anchored to its Prove branch now that
+other branches also resolve claims; all six existing mutations pass.
+
+Validation ran in `/Users/oobi/Documents/gpt1/assay-m1-proof-terms`. The
+complete 45-leg battery passes 43 legs. Its only failures are
+DENOMINATORS and M0-RATIO, against the preserved manifest and
+measurement from the preceding compiler. Timing remains paused, and
+neither its window nor its bounds were changed. No complete battery pass
+or fresh performance verdict is claimed. All functional gates pass,
+including the existing 11 Lean theorems, 226 arithmetic cases and six
+proof-model mutations. Cached Lean artifacts were copied only after
+matching 35 source files and two pinned dependencies; the full proof
+gates still ran.
+
+Trusted lines are kernel 3997/4000, emitter 1322/1800 and total new code
+1740/3550. No trusted-line limit, test deadline or earlier case count
+changed. Evidence under `validation/2026-09-13-m1-proof-terms/` retains
+the complete battery, new execution and refusal captures, erasure
+hashes, mutation controls and final source/archive identities. Invariant
+declarations and the M1 performance bound remain unfinished. General
+proof functions and user-defined surface predicates remain outside the
+bounded proof expression grammar documented in `M1-PROOF-TERMS.md`.
+
+### Review round 2026-09-13 (M1 proof terms)
+
+A review pass read the staged slice, kept three findings, and the fix
+round fixed all three. The erasure check now prints the counts it
+measured, the archive holds one run only, and the new section wraps at
+72 columns.
+
+Kept findings:
+
+| id | severity | one line | files |
+| --- | --- | --- | --- |
+| B-1 | medium | `TERM-ERASURE` and the run summary printed literal variant counts, so a deleted erasure variant kept the leg green | dev/proof-term-test.py |
+| C-1 | medium | The archived `proof-terms/` mixed two runs: 14 captures of an earlier script version inflated the file and artifact counts | dev/proof-term-test.py, dev/validation/2026-09-13-m1-proof-terms/README.md, dev/validation/2026-09-13-m1-proof-terms/ARTIFACTS.json, dev/validation/2026-09-13-m1-proof-terms/proof-terms/ |
+| D-1 | low | The new build-log section had 10 prose lines above 72 columns | dev/ASSAY-M1-BUILD-LOG.md |
+
+Refuted: 0 findings. Merged and dropped: 0 and 0.
+
+The printed lines keep their staged text on the staged tree, because
+`variants`, `five_files`, `removed_checks`, `erasure` and
+`guarded_erasure` measure 5, 5, 1, 5 and 6 again. The gate marker in
+`dev/stage-a-gates.py` is unchanged. The archive now holds 318 capture
+files and `ARTIFACTS.json` holds 372 entries. No pinned denominator row
+was refrozen, so `dev/DENOMINATORS.sha256` keeps its 119 rows and the
+12 mismatching rows it already had at HEAD ccf78af. This slice rewrites
+four of those 12 paths again: `dev/M1-SURFACE.md`, `dev/gates.sh`,
+`dev/stage-a-gates.py` and `emit/contract.ml`. `DENOMINATORS` and
+`M0-RATIO` stay red while the timing gate is paused.
+
+Gate result. The ladder log of the last round is
+`/Users/oobi/Documents/assay-m1-proof-terms-review/gates-M1PT-1.log`
+and the verdict is GREEN-FUNCTIONAL, because every red row is
+DENOMINATORS or M0-RATIO, the disclosed state of this slice while the
+timing gate is paused: pass=43 of 45 legs, fail=[DENOMINATORS,
+M0-RATIO], mutants=true, timeout legs only=false, disclosed reds
+only=true, wrapper exit ok=true.
+
+    STAGE-M1-LINE: STAGE-M1-PROOF-TERMS FAIL
+    M0-LINE: M0-VALIDATION FAIL; M0-EXIT requires the user commit and ratification
+    EXIT 1 LADDER-WRAPPER-EXIT 0 12:44:39
+    PASS-COUNT: 43
+    FAIL-LINES: FAIL DENOMINATORS exit=1 elapsed_ms=110.3 FAIL M0-RATIO exit=1 elapsed_ms=371.0
+    DENOM-FAILED-ROWS: dev/M1-ERRORS.md: FAILED dev/M1-PROOFS.md: FAILED dev/M1-SURFACE.md: FAILED dev/contract-test.py: FAILED dev/gates.sh: FAILED dev/m1-emit-test.py: FAILED dev/model-test.py: FAILED dev/stage-a-gates.py: FAILED emit/contract.ml: FAILED emit/emit.ml: FAILED emit/model.ml: FAILED emit/recognize.ml: FAILED
+
+Leg tails of the same log:
+
+    MUTANTS-TAIL: MUTANT TRUSTED-BOUND killed exit=1 MUTANTS killed=13/13 OK
+    CUSTOM-ERRORS-TAIL: ERROR-MUTANT ABI killed control=OK CUSTOM-ERRORS cases=66 creates=2 refusals=26 mutants=5 OK
+    SOURCE-PROOFS-TAIL: SOURCE-PROOF-MUTANT ERROR-BRANCH killed control=OK SOURCE-PROOFS theorems=11 arithmetic=226 evm=16 recovery=6 effects=7 invalid=13 mutants=6 controls=4 OK
+    CONTRACT-ROUTE-TAIL: CONTRACT-ROUTE core=3 identity=true allocated_bytes=1472 bound=131072 OK
+    CONTRACT-SURFACE-TAIL: SURFACE-MUTANTS killed=7/7 controls=7 OK CONTRACT-SURFACE counter=30 variants=13 refusals=36 mutants=7 OK
+    SOURCE-MODEL-TAIL: MODEL-MUTANTS killed=8/8 controls=8 OK SOURCE-MODEL counter=30 variants=10 corpus=11 invalid=28 refusals=6 mutants=8 OK
+    DIFF-EXECUTOR-TAIL: DIFF-CHECKS killed=24/24 controls=1 OK DIFF-EXECUTOR live=20 driver=28 rejected=24 OK
+    M1-EMISSION-TAIL: M1-MUTANTS killed=8/8 controls=8 OK M1-EMISSION counter=30 sources=8 refusals=11 mutants=8 OK
+    COUNTER-REFERENCE-TAIL: COUNTER-MUTANT SELECTOR witness=increment-success killed control=OK COUNTER-REFERENCE cases=30 creates=2 mutants=8 value_rejected=5 covered=120 scope=reference OK
+    DRIVER-TAIL: DRIVER cases=24 OK
+    DENOMINATORS-TAIL: verification/lean-toolchain: OK shasum: WARNING: 12 computed checksums did NOT match
+    M0-RATIO-TAIL: shasum: WARNING: 12 computed checksums did NOT match
+    PROOF-BUILD-TAIL: OK lake: 0 errors, 0 sorries, 0 warnings
+    PROOF-REPORT-LINES: 42
+
+DENOMINATORS stayed red on the kept 119 row manifest: no pinned path
+was refrozen, and no rows-only refreeze was made on this tree. The
+rows that a fix refreshed are `dev/ASSAY-M1-BUILD-LOG.md` and
+`dev/proof-term-test.py` in `SOURCES.json` (entries=177 changed=2),
+and `README.md` and `SOURCES.json` in `ARTIFACTS.json` (entries=372
+moved=2 missing=0), which also lost the 14 stale capture rows. The
+M0-RATIO remeasure is CARRIED to a calm host; `dev/denominators.json`
+and `dev/measurements` are never edited in this review.
+
+gate: GREEN-FUNCTIONAL (GREEN-FUNCTIONAL: every red row is
+DENOMINATORS or M0-RATIO, the disclosed state of this slice while the
+timing gate is paused: pass=43 of 45 legs, fail=[DENOMINATORS,
+M0-RATIO], denom rows=[dev/M1-ERRORS.md,dev/M1-PROOFS.md,
+dev/M1-SURFACE.md,dev/contract-test.py,dev/gates.sh,
+dev/m1-emit-test.py,dev/model-test.py,dev/stage-a-gates.py,
+emit/contract.ml,emit/emit.ml,emit/model.ml,emit/recognize.ml],
+mutants=true, timeout legs only=false, disclosed reds only=true,
+wrapper exit ok=true, stage=STAGE-M1-LINE: STAGE-M1-PROOF-TERMS FAIL,
+m0=M0-LINE: M0-VALIDATION FAIL; M0-EXIT requires the user commit and
+ratification, exit=EXIT 1 LADDER-WRAPPER-EXIT 0 12:44:39)
+
+Agent tiers: the four finders, the builder, the gate runner and the
+closer ran opus/medium, the three verifiers ran sonnet/high, and the
+judge and the check ran opus/high. The Fable tier probe of this review
+died on the `[reasoning_extraction]` classifier before the launch, so
+no stage ran fable/medium, and the finder, builder and closer tier
+rulings are all reported unmet.
+
 ## 2026-09-13: proof-producing guards and erased arithmetic bounds
 
 The ninth slice starts at `77b24f7a354f916ebf388759b678476f38129ae9`.
