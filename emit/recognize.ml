@@ -116,9 +116,26 @@ mu Tx : Type 0 :=
   | abort : Tx
 |}
 let m1_protocol = protocol ^ tx_protocol
-let m1_protocol_for error_source =
-  if error_source = "" then m1_protocol
-  else protocol ^ error_source ^ tx_protocol ^ "  | reject : Error -> Tx\n"
+let proof_protocol = {|def wordNat : Word 256 -> Nat := fun (w : Word 256) =>
+  case w as x in Word bits return Nat with | word 0 bits n => n
+def Le : Word 256 -> Word 256 -> Prop := fun (a : Word 256) (b : Word 256) =>
+  case natLt (wordNat b) (wordNat a) as flag return Prop with
+  | 0 (_u : prod ()) => prod () | 1 (_u : prod ()) => sum ()
+def AddFits : Word 256 -> Word 256 -> Prop := fun (a : Word 256) (b : Word 256) =>
+  case natLt (natAdd (wordNat a) (wordNat b)) 115792089237316195423570985008687907853269984665640564039457584007913129639936 as flag return Prop with
+  | 0 (_u : prod ()) => sum () | 1 (_u : prod ()) => prod ()
+|}
+let proof_effects = {|  | guardLe : (a : Word 256) -> (b : Word 256) -> ((0 p : Le a b) -> Tx) -> Tx -> Tx
+  | guardAdd : (a : Word 256) -> (b : Word 256) -> ((0 p : AddFits a b) -> Tx) -> Tx -> Tx
+  | addLt : (a : Word 256) -> (b : Word 256) -> (0 p : AddFits a b) -> (Word 256 -> Tx) -> Tx
+  | subLe : (a : Word 256) -> (b : Word 256) -> (0 p : Le b a) -> (Word 256 -> Tx) -> Tx
+|}
+let proof_names = ["wordNat"; "Le"; "AddFits"; "guardLe"; "guardAdd"; "addLt"; "subLe"]
+let has_proofs globals = List.exists (fun name -> Option.is_some (Global.find name globals)) proof_names
+let m1_protocol_for ?(proofs=false) error_source =
+  protocol ^ (if proofs then proof_protocol else "") ^ error_source ^ tx_protocol ^
+  (if error_source = "" then "" else "  | reject : Error -> Tx\n") ^
+  (if proofs then proof_effects else "")
 
 let checked_schema globals source =
   let* expected, rows = Kanon_surface.Elab.check_in Global.initial source
@@ -193,8 +210,14 @@ let m1_schema globals =
     then variant globals "Error" else Ok [] in
   let words = List.sort_uniq String.compare (fields @ List.concat_map snd (entries @ errors)) in
   let aliases = String.concat "" (List.map (fun name -> declaration name "Word 256") words) in
-  let source = (if errors = [] then m1_protocol ^ aliases
-    else m1_protocol_for (aliases ^ variant_source globals "Error" errors)) ^
+  let proofs = has_proofs globals in
+  let* () = Global.StringMap.fold (fun name entry result -> let* () = result in
+    match entry with
+    | Global.Axiom _ when proofs && name <> "Nat" && name <> "EvmOpcodes" ->
+      Error (Protocol ("M1 proof assumption " ^ name))
+    | Global.Axiom _ | Global.Def _ | Global.Prim _ -> Ok ()) globals.Global.entries (Ok ()) in
+  let source = (if errors = [] then m1_protocol_for ~proofs "" ^ aliases
+    else m1_protocol_for ~proofs (aliases ^ variant_source globals "Error" errors)) ^
     declaration "Storage" (collection_source "prod" fields) ^
     variant_source globals "Entry" entries in
   let* () = checked_schema globals source in

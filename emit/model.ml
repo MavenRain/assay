@@ -92,6 +92,11 @@ let rec transaction initial storage memory = function
   | E.Compare (left, right, yes, no) ->
     let* left = operand memory left in let* right = operand memory right in
     transaction initial storage memory (if Z.leq left right then yes else no)
+  | E.Compute (operation, left, right, index, next) ->
+    let* left = operand memory left in let* right = operand memory right in
+    let result = match operation with E.Add -> Z.add left right | E.Sub -> Z.sub left right in
+    if Z.sign result < 0 || Z.numbits result > 256 then Error (Source (E.M1_shape "proved arithmetic bound"))
+    else transaction initial storage ((index, result) :: memory) next
 
 let prepare ~export globals erased =
   let source result = Result.map_error (fun e -> Source e) result in

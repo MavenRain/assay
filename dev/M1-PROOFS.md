@@ -84,8 +84,10 @@ the complete keyword walk before the router returns the source unchanged.
 
 The changed compiler receives a fresh frozen M0 timing report, using the
 existing one-minute method and unchanged bounds. No M1 performance verdict
-is inferred from that report. Proof-producing surface guards, erased source
-proof binders and invariant declarations remain unfinished. The
+is inferred from that report. The [guard slice](M1-GUARDS.md) adds
+proof-producing surface guards and erased source proof binders. Its new
+constructors are outside this Lean model. Invariant declarations remain
+unfinished. The
 [nullary slice](M1-NULLARY.md) implements entry tables without arguments.
 The [typed error slice](M1-ERRORS.md) tests custom revert encoding and
 rollback; its payloads are outside this Lean model. M1 exit remains

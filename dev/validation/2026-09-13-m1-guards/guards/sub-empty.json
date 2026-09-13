@@ -1,0 +1,12 @@
+{
+  "argv": [
+    "/Users/oobi/Documents/gpt1/assay-m1-guards/_build/default/bin/assay.exe",
+    "emit",
+    "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-guards-7u6c_mcp/sub-empty.asy",
+    "-o",
+    "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-guards-7u6c_mcp/sub-empty"
+  ],
+  "exit": 0,
+  "stdout": "",
+  "stderr": ""
+}

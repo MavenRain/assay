@@ -1,5 +1,170 @@
 # Assay M1 build log
 
+## 2026-09-13: proof-producing guards and erased arithmetic bounds
+
+The ninth slice starts at `77b24f7a354f916ebf388759b678476f38129ae9`.
+The surface now accepts quantity-zero ordering and overflow guards,
+typed error payloads on failure, and `addLt`/`subLe` proof consumers.
+The checked core defines Le and AddFits using the carried eliminators
+and Nat primitives. Its complete predicate and effect schema is pinned
+by recognition, and additional proof assumptions are refused by emit
+and run. No kernel, carried surface or Lean source is changed.
+
+`CounterProofs.asy` emits 405 runtime bytes and 436 creation bytes.
+The source model and both Cancun execution paths agree on 83 cases,
+including uint256 boundaries, empty and custom failures, rollback,
+aliases, proof reuse and storage snapshots. Both constructor outcomes
+pass, and every one of its 252 instructions executes. Eighteen source
+refusals and six checked schema refusals cover claim/condition mismatch,
+operand shadowing, erased proof misuse and assumed or altered bounds.
+
+The success continuation has an explicit function type annotation:
+the claim must be checked against the condition even when unused.
+Three structurally different closed proofs emit identical five-file
+outputs. Supplying the proof removes one arithmetic JUMPI. The overflow
+guard still computes a temporary sum, and addLt recomputes its result.
+Six compiler mutants fail their named witnesses and pass after restoring
+the original source. `dev/M1-GUARDS.md` defines the accepted grammar,
+core protocol and remaining scope.
+
+Validation ran in `/Users/oobi/Documents/gpt1/assay-m1-guards`.
+The complete 44-leg battery initially passed 39 legs. Three mutation
+anchors needed updates after adding a second arithmetic path and typed
+local bindings. The repaired M1 emission, source-model and surface
+gates pass in full, including their original 8, 8 and 7 mutations and
+restored controls. No witness, case count or deadline was weakened.
+The compiler binary is identical across the battery and those rechecks.
+
+The combined result is 42 passing legs, with DENOMINATORS and M0-RATIO
+still failing against the preserved source manifest and timing report.
+Timing remains paused, with no fresh measurement or complete-battery
+pass claimed. The existing Lean gate passes 11 theorems, 226 arithmetic
+cases and six mutations. Its model covers the earlier Result protocol;
+this slice adds no Lean theorem about the new constructors or compiler.
+
+Trusted lines are kernel 3997/4000, emitter 1266/1800 and total new
+code 1684/3550. All original bounds remain enforced. Evidence under
+`validation/2026-09-13-m1-guards/` retains the original battery, scoped
+rechecks, proof and EVM reports, cache identities, source hashes and
+final documentation checks. Invariant declarations, surface-supplied
+proof terms and the M1 performance bound remain unfinished.
+
+### Review round 2026-09-13 (M1 guards)
+
+A review pass read the staged slice, kept three findings, and the fix
+round fixed all three. The guard payload walk now carries the rule of
+the earlier empty-payload fix, the OVERFLOW mutation requires the full
+`MODEL-EXEC` label, and the commit draft wraps at 72 columns.
+
+Kept findings:
+
+| id | severity | one line | files |
+| --- | --- | --- | --- |
+| A-1 | medium | The guard payload walk accepted `()` beside a value, so `guard Denied (a) ()` reported SURFACE_NAME and `guard Denied () (a)` reported SURFACE_PROOF instead of the wrong argument count refusal | emit/contract.ml, dev/guard-test.py, dev/stage-a-gates.py, dev/M1-GUARDS.md, README.md |
+| D-1 | medium | The OVERFLOW mutation required the bare prefix `MODEL-`, which every MODEL-family label satisfies; the swapped continuations raise `MODEL-EXEC` | dev/guard-test.py, dev/M1-GUARD-MUTATIONS.md |
+| D-2 | low | The commit draft line 4 measured 73 columns against the 72-column body width of the earlier stage drafts | dev/STAGE-M1-GUARDS-COMMIT.txt |
+| ND-1-1 | medium | New defect from the fixes: the archive row that names `SOURCES.json` still carried the old hash after round 1 refreshed that file | dev/validation/2026-09-13-m1-guards/ARTIFACTS.json, dev/validation/2026-09-13-m1-guards/SOURCES.json, dev/ASSAY-M1-BUILD-LOG.md |
+
+Refuted: 0 findings.
+
+Merged and dropped: 0 merged and 1 dropped. C-1 was dropped on its
+mechanism: the claim that a missing emitted output file is not detected
+is false, because each erasure variant goes through the shared emit
+helper, which requires the exact five output names, so a missing output
+file turns the leg red. Only a mutation of the gate script itself
+reached green, which is not a product regression class, and the residual
+`five_files=5` print is at most a style nit. No kept finding lost its
+evidence.
+
+Fixes and their proof. A-1 adds `opens_condition` beside `opens_value`
+and gives the guard payload walk the refusal that the ending payload
+walk already had. Two refusal cases, `error-empty-last` and
+`error-empty-first`, now cover `Denied (a) ()` and `Denied () (b)`, so
+`GUARD-REFUSALS` prints `surface=20` and `PROOF-GUARDS` prints
+`refusals=26`. The marker in `dev/stage-a-gates.py` and the counts in
+`README.md` and `M1-GUARDS.md` move with it. D-1 sets the OVERFLOW
+marker to `MODEL-EXEC`: on the fix copy the documented mutation builds
+with 0 errors and 0 warnings, `dev/guard-test.py witness overflow`
+exits 1 with `MODEL-EXEC witness: assay: run: M1_EMIT: proved
+arithmetic bound`, and the restored control exits 0. Trusted lines move
+to emitter 1266/1800 and total new code 1684/3550.
+
+`emit/contract.ml` and `dev/stage-a-gates.py` are pinned by the old
+denominator manifest, so `DENOMINATORS` and `M0-RATIO` stay red, as
+this slice already discloses. The rows-only refreeze on the final tree
+is the only repair, and no stage of the review ran a timing
+measurement. The archived battery under
+`validation/2026-09-13-m1-guards/` keeps the original run and its 24
+refusals; only its `SOURCES.json` hashes were refreshed. A second fix
+round refreshed the one `ARTIFACTS.json` row that names
+`SOURCES.json`, because the two archive files move together. The
+archive now hashes all 406 retained files exactly, and it still
+excludes itself.
+
+Gate result, log
+`/Users/oobi/Documents/assay-m1-guards-review/gates-M1G-2.log`, verdict
+GREEN-FUNCTIONAL: every red row is DENOMINATORS or M0-RATIO, the
+disclosed state of this slice while the timing gate is paused: pass=42
+of 44 legs, fail=[DENOMINATORS,M0-RATIO], denom
+rows=[dev/M1-ERRORS.md, dev/M1-PROOFS.md, dev/M1-SURFACE.md,
+dev/contract-test.py, dev/gates.sh, dev/m1-emit-test.py,
+dev/model-test.py, dev/stage-a-gates.py, emit/contract.ml,
+emit/emit.ml, emit/model.ml, emit/recognize.ml], mutants=true, timeout
+legs only=false, disclosed reds only=true, wrapper exit ok=true,
+stage=STAGE-M1-LINE: STAGE-M1-GUARDS FAIL, m0=M0-LINE: M0-VALIDATION
+FAIL; M0-EXIT requires the user commit and ratification, exit=EXIT 1 |
+LADDER-WRAPPER-EXIT 0 04:10:31. Host load at the run: 4:05 28 users,
+load averages: 21.04 20.95 20.20.
+
+```
+STAGE-M1-LINE: STAGE-M1-GUARDS FAIL
+M0-LINE: M0-VALIDATION FAIL; M0-EXIT requires the user commit and ratification
+EXIT 1 | LADDER-WRAPPER-EXIT 0 04:10:31
+PASS-COUNT: 42
+FAIL-LINES: FAIL DENOMINATORS exit=1 elapsed_ms=42.7 FAIL M0-RATIO exit=1 elapsed_ms=106.0
+DENOM-FAILED-ROWS: dev/M1-ERRORS.md: FAILED dev/M1-PROOFS.md: FAILED dev/M1-SURFACE.md: FAILED dev/contract-test.py: FAILED dev/gates.sh: FAILED dev/m1-emit-test.py: FAILED dev/model-test.py: FAILED dev/stage-a-gates.py: FAILED emit/contract.ml: FAILED emit/emit.ml: FAILED emit/model.ml: FAILED emit/recognize.ml: FAILED
+MUTANTS-TAIL: MUTANT TRUSTED-BOUND killed exit=1 MUTANTS killed=13/13 OK
+CUSTOM-ERRORS-TAIL: ERROR-MUTANT ABI killed control=OK CUSTOM-ERRORS cases=66 creates=2 refusals=26 mutants=5 OK
+SOURCE-PROOFS-TAIL: SOURCE-PROOF-MUTANT ERROR-BRANCH killed control=OK SOURCE-PROOFS theorems=11 arithmetic=226 evm=16 recovery=6 effects=7 invalid=13 mutants=6 controls=4 OK
+CONTRACT-ROUTE-TAIL: CONTRACT-ROUTE core=3 identity=true allocated_bytes=1472 bound=131072 OK
+CONTRACT-SURFACE-TAIL: SURFACE-MUTANTS killed=7/7 controls=7 OK CONTRACT-SURFACE counter=30 variants=13 refusals=36 mutants=7 OK
+SOURCE-MODEL-TAIL: MODEL-MUTANTS killed=8/8 controls=8 OK SOURCE-MODEL counter=30 variants=10 corpus=11 invalid=28 refusals=6 mutants=8 OK
+DIFF-EXECUTOR-TAIL: DIFF-CHECKS killed=24/24 controls=1 OK DIFF-EXECUTOR live=20 driver=28 rejected=24 OK
+M1-EMISSION-TAIL: M1-MUTANTS killed=8/8 controls=8 OK M1-EMISSION counter=30 sources=8 refusals=11 mutants=8 OK
+COUNTER-REFERENCE-TAIL: COUNTER-MUTANT SELECTOR witness=increment-success killed control=OK COUNTER-REFERENCE cases=30 creates=2 mutants=8 value_rejected=5 covered=120 scope=reference OK
+DRIVER-TAIL: DRIVER cases=24 OK
+DENOMINATORS-TAIL: verification/lean-toolchain: OK shasum: WARNING: 12 computed checksums did NOT match
+M0-RATIO-TAIL: shasum: WARNING: 12 computed checksums did NOT match
+PROOF-BUILD-TAIL: OK lake: 0 errors, 0 sorries, 0 warnings
+PROOF-REPORT-LINES: 42
+```
+
+DENOMINATORS stayed red on the kept 119 row manifest: no stage of this
+review refroze a row of `dev/DENOMINATORS.sha256`, and the rows-only
+refreeze stays a task of the final tree. The rows that the fixes
+refreshed are the eight `SOURCES.json` entries of round 1, the single
+`SOURCES.json` entry `dev/ASSAY-M1-BUILD-LOG.md` of round 2 and the one
+`ARTIFACTS.json` row that names `SOURCES.json`. The close step refreshed
+the same pair once more, for its own edits to this build log and to
+`dev/STAGE-M1-GUARDS-COMMIT.txt`. The M0-RATIO remeasure
+is CARRIED to a calm host: `dev/denominators.json` and
+`dev/measurements/` are never edited in this review.
+
+gate: GREEN-FUNCTIONAL (GREEN-FUNCTIONAL: every red row is DENOMINATORS
+or M0-RATIO, the disclosed state of this slice while the timing gate is
+paused: pass=42 of 44 legs, fail=[DENOMINATORS,M0-RATIO], denom
+rows=[dev/M1-ERRORS.md,dev/M1-PROOFS.md,dev/M1-SURFACE.md,dev/contract-test.py,dev/gates.sh,dev/m1-emit-test.py,dev/model-test.py,dev/stage-a-gates.py,emit/contract.ml,emit/emit.ml,emit/model.ml,emit/recognize.ml],
+mutants=true, timeout legs only=false, disclosed reds only=true, wrapper
+exit ok=true, stage=STAGE-M1-LINE: STAGE-M1-GUARDS FAIL, m0=M0-LINE:
+M0-VALIDATION FAIL; M0-EXIT requires the user commit and ratification,
+exit=EXIT 1 | LADDER-WRAPPER-EXIT 0 04:10:31)
+
+Agent models: the finders ran fable/medium with one opus/medium
+fallback, and the builder and the closer ran opus/medium, because a
+Fable subagent dies on the [reasoning_extraction] classifier on this
+host and a death in fix or close forces a resume. Both tier rulings are
+reported unmet.
+
 ## 2026-09-12: typed custom reverts and timing diagnostics
 
 This eighth slice starts at `2077c4a98903803cfc92cd14a6f4aaac34b76ab0`.

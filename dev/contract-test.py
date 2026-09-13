@@ -135,7 +135,7 @@ def refusals():
         ('missing-separator', program('sstore cell a pure a'), 'SURFACE_SYNTAX'),
         ('unknown-declaration', simple + 'axiom Forged : Prop', 'SURFACE_DECLARATION'),
         ('second-contract', simple + simple, 'SURFACE_DECLARATION'),
-        ('proof-guard', program('(0 p : Prop) <- guard Proof ; pure a'), 'SURFACE_NAME'),
+        ('proof-guard', program('(0 p : Prop) <- guard Proof ; pure a'), 'SURFACE_PROOF'),
         ('empty-storage', program('pure a', fields=''), 'SURFACE_NAME'),
         ('no-entry', 'contract Empty where storage State := { cell : Word }', 'SURFACE_ENTRY'),
         ('constructor-result', simple + 'constructor := do pure (word 0)', 'SURFACE_CONSTRUCTOR'),
@@ -236,7 +236,7 @@ def mutants():
         ('GUARD', 'app "le" [a; b; next; "abort"]', 'app "le" [b; a; next; "abort"]', 'increment-success'),
         ('STORE', 'app "store" [field; v; next]',
          'app "store" [field; (if v = "" then v else "(word 256 0)"); next]', 'increment-success'),
-        ('SHADOW', '((name.text, fresh) :: env)', '(env @ [(name.text, fresh)])', 'shadow'),
+        ('SHADOW', '((name.text, Word_value fresh) :: env)', '(env @ [(name.text, Word_value fresh)])', 'shadow'),
         ('LITERAL', 'Z.shift_left Z.one 256', 'Z.shift_left Z.one 257', 'word-range'),
     ]
     with tempfile.TemporaryDirectory(prefix='assay-contract-mutants-') as temporary:

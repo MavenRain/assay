@@ -5,6 +5,8 @@ open Kanon_kernel
 let ( let* ) = Result.bind
 type token = { text : string; line : int; col : int }
 type word = Literal of token | Local of token
+type predicate = Ordered of word * word | Fits of word * word
+type binding = Word_value of string | Proof_value of string
 type step =
   | Load of token * token
   | Add of token * word * word
@@ -12,6 +14,8 @@ type step =
   | Store of token * word
   | Guard of word * word
   | Bind of token * word
+  | Prove of token * predicate * (token * word list) option * predicate
+  | Proven of token * token * word * word * token
 type ending = Return of word | Unit of token | Revert of token | Reject of token * word list
 type body = step list * ending
 type entry = { name : token; args : token list; body : body }
@@ -56,7 +60,7 @@ let lex chars =
   scan 0 1 1 [] chars
 
 let reserved = String.split_on_char ' '
-  "contract where storage entry constructor error do sload sstore add sub guard le let pure revert Word Eff Sig Tx ResultWord Storage Entry Error main word ret put read EvmOpcodes done store load abort reject def axiom fun inj of case match as return with tuple sum prod absurd Prop Type in auto mu mutual end nu and rec natAdd natSub natMul natEq natLt"
+  "contract where storage entry constructor error do sload sstore add sub guard le let pure revert Word Eff Sig Tx ResultWord Storage Entry Error main word ret put read EvmOpcodes done store load abort reject def axiom fun inj of case match as return with tuple sum prod absurd Prop Type in auto mu mutual end nu and rec natAdd natSub natMul natEq natLt Le Lt256 AddFits leWord lt256 wordNat guardLe guardAdd addLt subLe"
 let identifier tokens = match tokens with
   | at :: rest when Recognize.identifier at.text && at.text <> "_" &&
       String.length at.text <= 64 && not (List.mem at.text reserved) &&
@@ -90,6 +94,9 @@ let binary tokens =
 let opens_value tokens = match tokens with
   | { text = "("; _ } :: _rest -> true
   | [] | _ :: _ -> false
+let opens_condition tokens = match tokens with
+  | { text = "("; _ } :: at :: _rest -> at.text = "leWord" || at.text = "lt256"
+  | [] | _ :: _ -> false
 (* Review round 2026-09-12 (B-1):  `()` is the empty payload only when it is the
    whole payload.  A `()` beside values, in any position, is the same wrong
    argument count refusal that a plain count mismatch raises. *)
@@ -103,6 +110,44 @@ let error_values tokens =
       let* v, rest = value 0 tokens in more (v :: acc) rest
     | [] | _ :: _ -> Ok (List.rev acc, tokens) in
   more [] tokens
+
+let predicate runtime tokens = match tokens with
+  | at :: rest when at.text = (if runtime then "leWord" else "Le") ->
+    let* (a, b), rest = binary rest in Ok (Ordered (a, b), rest)
+  | at :: rest when at.text = (if runtime then "lt256" else "Lt256") ->
+    let* rest = sequence ["("; "add"] rest in
+    let* (a, b), rest = binary rest in
+    let* rest = expect ")" rest in Ok (Fits (a, b), rest)
+  | [] | _ :: _ -> fail (here tokens) "PROOF" "expected an ordering or addition bound"
+let proof_guard tokens =
+  let* rest = sequence ["("; "0"] tokens in
+  let* name, rest = identifier rest in let* rest = expect ":" rest in
+  let* claim, rest = predicate false rest in
+  let* rest = sequence [")"; "<-"; "guard"] rest in
+  let* error, rest = match rest with
+    | { text = "("; _ } :: _tail -> Ok (None, rest)
+    | [] | _ :: _ ->
+      let* name, rest = identifier rest in
+      let rec args acc rest = match rest with
+        | { text = "("; _ } :: at :: _tail when at.text = "leWord" || at.text = "lt256" ->
+          Ok (Some (name, List.rev acc), rest)
+        (* Review round 2026-09-13 (A-1):  a guard payload carries the same rule
+           as an ending payload.  `()` is the empty payload only when the runtime
+           condition follows it, so a `()` beside a value, in either position, is
+           the wrong argument count refusal. *)
+        | { text = "("; _ } :: { text = ")"; _ } :: tail when acc = [] ->
+          if opens_value tail && not (opens_condition tail)
+          then fail (here rest) "ERROR" "wrong error argument count"
+          else Ok (Some (name, []), tail)
+        | { text = "("; _ } :: { text = ")"; _ } :: _tail ->
+          fail (here rest) "ERROR" "wrong error argument count"
+        | [] | _ :: _ ->
+          if List.length acc >= 32 then fail (here rest) "LIMIT" "at most 32 error arguments" else
+          let* rest = expect "(" rest in let* v, rest = value 0 rest in
+          let* rest = expect ")" rest in args (v :: acc) rest in
+      args [] rest in
+  let* rest = expect "(" rest in let* condition, rest = predicate true rest in
+  let* rest = expect ")" rest in Ok (Prove (name, claim, error, condition), rest)
 
 let body tokens =
   let* tokens = expect "do" tokens in
@@ -130,7 +175,13 @@ let body tokens =
     | { text = "let"; _ } :: rest ->
       let* name, rest = identifier rest in
       let* rest = sequence [":"; "Word"; ":="] rest in
-      let* word, rest = value 0 rest in next (Bind (name, word)) rest
+      (match rest with
+       | op :: rest when op.text = "addLt" || op.text = "subLe" ->
+         let* (a, b), rest = binary rest in let* proof, rest = identifier rest in
+         next (Proven (op, name, a, b, proof)) rest
+       | [] | _ :: _ -> let* word, rest = value 0 rest in next (Bind (name, word)) rest)
+    | { text = "("; _ } :: _rest ->
+      let* proof, rest = proof_guard tokens in next proof rest
     | [] | _ :: _ ->
       let* name, rest = identifier tokens in
       let* rest = expect "<-" rest in
@@ -182,28 +233,35 @@ let slot fields name =
 let word env = function
   | Literal at -> Ok ("(word 256 " ^ at.text ^ ")")
   | Local at ->
-    List.assoc_opt at.text env
-    |> Option.to_result ~none:(Error.Parse ("SURFACE_SCOPE: unbound word " ^ at.text, at.line, at.col))
+    let* binding = List.assoc_opt at.text env
+      |> Option.to_result ~none:(Error.Parse ("SURFACE_SCOPE: unbound word " ^ at.text, at.line, at.col)) in
+    (match binding with Word_value v -> Ok v | Proof_value _ -> fail at "PROOF" "an erased proof is not a Word")
 let app name args = "(" ^ name ^ " " ^ String.concat " " args ^ ")"
 let lambda name ty term = "(fun (" ^ name ^ " : " ^ ty ^ ") => " ^ term ^ ")"
 let transaction fields errors env (steps, ending) =
+  let reject env (name, args) =
+    let* index, row = List.find_opt (fun (_i, row) -> row.error_name.text = name.text)
+      (List.mapi (fun i row -> i, row) errors)
+      |> Option.to_result ~none:(Error.Parse ("SURFACE_ERROR: unknown error " ^ name.text, name.line, name.col)) in
+    if List.length args <> List.length row.error_args then fail name "ERROR" "wrong error argument count" else
+    let* args = List.fold_left (fun result v -> let* args = result in
+      let* v = word env v in Ok (args @ [v])) (Ok []) args in
+    Ok (app "reject" ["(inj " ^ string_of_int index ^ " of " ^ string_of_int (List.length errors) ^
+      " (tuple (" ^ String.concat ", " args ^ ")) : Error)"]) in
+  let predicate env condition =
+    let a, b, ty, op = match condition with
+      | Ordered (a, b) -> a, b, "Le", "guardLe"
+      | Fits (a, b) -> a, b, "AddFits", "guardAdd" in
+    let* a = word env a in let* b = word env b in Ok (app ty [a; b], op, a, b) in
   let rec lower index env = function
     | [] -> (match ending with
       | Return v -> let* v = word env v in Ok (app "done" [v])
       | Revert _at -> Ok "abort"
-      | Reject (name, args) ->
-        let* index, row = List.find_opt (fun (_i, row) -> row.error_name.text = name.text)
-          (List.mapi (fun i row -> i, row) errors)
-          |> Option.to_result ~none:(Error.Parse ("SURFACE_ERROR: unknown error " ^ name.text, name.line, name.col)) in
-        if List.length args <> List.length row.error_args then fail name "ERROR" "wrong error argument count" else
-        let* args = List.fold_left (fun result v -> let* args = result in
-          let* v = word env v in Ok (args @ [v])) (Ok []) args in
-        Ok (app "reject" ["(inj " ^ string_of_int index ^ " of " ^ string_of_int (List.length errors) ^
-          " (tuple (" ^ String.concat ", " args ^ ")) : Error)"])
+      | Reject (name, args) -> reject env (name, args)
       | Unit at -> fail at "RETURN" "an entry must return Word")
     | step :: rest ->
       let fresh = "_assay_v" ^ string_of_int index in
-      let bind name = lower (index + 1) ((name.text, fresh) :: env) rest in
+      let bind name = lower (index + 1) ((name.text, Word_value fresh) :: env) rest in
       let arithmetic op name a b =
         let* a = word env a in let* b = word env b in
         let* next = bind name in
@@ -216,6 +274,19 @@ let transaction fields errors env (steps, ending) =
         Ok (app "load" [field; lambda fresh "Word 256" next])
       | Add (name, a, b) -> arithmetic "add" name a b
       | Sub (name, a, b) -> arithmetic "sub" name a b
+      | Prove (name, claim, error, condition) ->
+        let* ty, _op, _a, _b = predicate env claim in
+        let* _ty, op, a, b = predicate env condition in
+        let* no = Option.fold ~none:(Ok "abort") ~some:(reject env) error in
+        let* yes = lower (index + 1) ((name.text, Proof_value fresh) :: env) rest in
+        let success = "(" ^ lambda ("0 " ^ fresh) ty yes ^ " : (0 " ^ fresh ^ " : " ^ ty ^ ") -> Tx)" in
+        Ok (app op [a; b; success; no])
+      | Proven (op, name, a, b, proof) ->
+        let* a = word env a in let* b = word env b in
+        let refusal = fail proof "PROOF" "expected an in-scope erased proof" in
+        let* proof = Option.fold ~none:refusal ~some:(function
+          | Proof_value p -> Ok p | Word_value _ -> refusal) (List.assoc_opt proof.text env) in
+        let* next = bind name in Ok (app op.text [a; b; proof; lambda fresh "Word 256" next])
       | Bind (name, v) ->
         let* v = word env v in let* next = bind name in
         Ok ("(let " ^ fresh ^ " : Word 256 := " ^ v ^ " in " ^ next ^ ")")
@@ -238,7 +309,8 @@ let constructor fields (steps, ending) =
     | Store (field, Literal at) ->
       let* field = slot fields field in let* v = word [] (Literal at) in
       Ok (app "put" [field; v; next])
-    | Store (at, Local _) | Load (at, _) | Add (at, _, _) | Sub (at, _, _) | Bind (at, _) ->
+    | Store (at, Local _) | Load (at, _) | Add (at, _, _) | Sub (at, _, _) | Bind (at, _)
+    | Prove (at, _, _, _) | Proven (at, _, _, _, _) ->
       fail at "CONSTRUCTOR" "constructor accepts literal stores only"
     | Guard ((Literal at | Local at), _) ->
       fail at "CONSTRUCTOR" "constructor accepts literal stores only")
@@ -257,7 +329,7 @@ let generate state fields entries errors init =
   let* init = Option.fold ~none:(Ok "(ret (word 256 0))") ~some:(constructor field_slots) init in
   let* branches = List.fold_left (fun result (i, row) ->
     let* branches = result in
-    let env = List.mapi (fun i at -> at.text, "_assay_args." ^ string_of_int i) row.args in
+    let env = List.mapi (fun i at -> at.text, Word_value ("_assay_args." ^ string_of_int i)) row.args in
     let* term = transaction field_slots errors env row.body in
     Ok (branches @ ["| " ^ string_of_int i ^ " (_assay_args : " ^ row.name.text ^ ") => " ^ term]))
     (Ok []) (List.mapi (fun i row -> i, row) entries) in
@@ -271,8 +343,11 @@ let generate state fields entries errors init =
     decl row.error_name.text (if row.error_args = [] then "(prod () : Type 0)"
       else collection "prod" row.error_args)) errors) ^
     decl "Error" (collection "sum" (List.map (fun row -> row.error_name) errors)) in
-  Ok ((if errors = [] then Recognize.m1_protocol ^ aliases
-    else Recognize.m1_protocol_for (aliases ^ error_source)) ^
+  let proofs = List.exists (fun row -> List.exists (function
+    | Prove _ | Proven _ -> true
+    | Load _ | Add _ | Sub _ | Store _ | Guard _ | Bind _ -> false) (fst row.body)) entries in
+  Ok ((if errors = [] then Recognize.m1_protocol_for ~proofs "" ^ aliases
+    else Recognize.m1_protocol_for ~proofs (aliases ^ error_source)) ^
     decl "Storage" (collection "prod" fields) ^ decl state.text "Storage" ^
     "def storage : Storage := tuple (" ^ String.concat ", "
       (List.mapi (fun i _at -> "word 256 " ^ string_of_int i) fields) ^ ")\n" ^

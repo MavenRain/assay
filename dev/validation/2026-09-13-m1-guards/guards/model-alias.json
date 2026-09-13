@@ -1,0 +1,18 @@
+{
+  "argv": [
+    "/Users/oobi/Documents/gpt1/assay-m1-guards/_build/default/bin/assay.exe",
+    "run",
+    "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-guards-7u6c_mcp/alias.asy",
+    "--calldata",
+    "0xb4bb58fb00000000000000000000000000000000000000000000000000000000000000090000000000000000000000000000000000000000000000000000000000000004",
+    "--value",
+    "0",
+    "--storage",
+    "0=0x7",
+    "--storage",
+    "2=0xabc"
+  ],
+  "exit": 0,
+  "stdout": "{\"status\":\"success\",\"output\":\"0x0000000000000000000000000000000000000000000000000000000000000005\",\"storage\":{\"0\":\"0x5\",\"2\":\"0xabc\"}}\n",
+  "stderr": ""
+}

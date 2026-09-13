@@ -1,0 +1,17 @@
+M1: compile proof-producing guards and erased arithmetic bounds
+
+Lower erased surface guard binders to checked Le and AddFits predicates.
+Require canonical predicate and effect schemas, refuse proof
+assumptions, and specialize addLt/subLe without a second runtime
+arithmetic check. Keep failure payloads typed and preserve storage
+rollback and snapshots.
+
+Add a proof counter, a closed core proof, differential execution,
+proof-scope refusals, erasure equality and compiler mutation witnesses.
+Preserve the paused timing evidence and its old denominator manifest.
+
+Review pass 1 (2026-09-13) fixed 4 findings: A-1, D-1, D-2, ND-1-1.
+A-1 medium: a guard payload `()` beside a value now refuses.
+D-1 medium: the OVERFLOW mutation requires the MODEL-EXEC label.
+D-2 low: the commit draft body wraps at 72 columns.
+ND-1-1 medium: the ARTIFACTS.json row of SOURCES.json is refreshed.

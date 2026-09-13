@@ -1,0 +1,10 @@
+{
+  "argv": [
+    "cast",
+    "sig",
+    "OverflowRevert()"
+  ],
+  "exit": 0,
+  "stdout": "0x70549d83\n",
+  "stderr": ""
+}

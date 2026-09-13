@@ -1,0 +1,328 @@
+{
+  "base": "77b24f7a354f916ebf388759b678476f38129ae9",
+  "cwd": "/Users/oobi/Documents/gpt1/assay-m1-guards",
+  "command": [
+    "zsh",
+    "-f",
+    "dev/gates.sh"
+  ],
+  "archived_utc": "2026-09-13T07:22:12.937354+00:00",
+  "legs": 44,
+  "passed": 42,
+  "failed": [
+    "DENOMINATORS",
+    "M0-RATIO"
+  ],
+  "exit": 1,
+  "binary_sha256": "0e0bf23666b9a0b51834c4144d2c63849fd80322ed433c4ea4ddca4987feb43f",
+  "timing": "paused; prior measurement and denominator manifest preserved",
+  "scope": "completed battery plus scoped rechecks",
+  "initial": {
+    "passed": 39,
+    "failed": [
+      "DENOMINATORS",
+      "M0-RATIO",
+      "M1-EMISSION",
+      "SOURCE-MODEL",
+      "CONTRACT-SURFACE"
+    ],
+    "exit": 1
+  },
+  "results": [
+    {
+      "name": "BUILD",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 2358.0
+    },
+    {
+      "name": "PIN-CARRY",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 5338.6
+    },
+    {
+      "name": "R0-COUNT",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 313.2
+    },
+    {
+      "name": "R0-AUDIT",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 168.8
+    },
+    {
+      "name": "HOUSE",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 10287.5
+    },
+    {
+      "name": "TRUSTED-LINES",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 269.7
+    },
+    {
+      "name": "SUITE-KERNEL",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 7564.6
+    },
+    {
+      "name": "SUITE-SURFACE",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 510.6
+    },
+    {
+      "name": "DRIVER",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 1755.4
+    },
+    {
+      "name": "MUTANTS",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 38876.2
+    },
+    {
+      "name": "DENOMINATORS",
+      "passed": false,
+      "exit": 1,
+      "elapsed_ms": 703.9
+    },
+    {
+      "name": "KECCAK-VEC",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 13135.4
+    },
+    {
+      "name": "KECCAK-MUTANTS",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 31399.7
+    },
+    {
+      "name": "STACK-HEIGHT",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 12122.8
+    },
+    {
+      "name": "DISASM-3WAY",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 3395.9
+    },
+    {
+      "name": "ASM-MUTANTS",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 21023.0
+    },
+    {
+      "name": "FORK-DRIFT",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 382.1
+    },
+    {
+      "name": "M0-TRACE",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 180.5
+    },
+    {
+      "name": "CREATE-EQ",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 150.1
+    },
+    {
+      "name": "REFERENCE-CHECKS",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 234.9
+    },
+    {
+      "name": "REFERENCE-MUTANTS",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 4482.1
+    },
+    {
+      "name": "EMIT-CONSTRUCTORS",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 452.5
+    },
+    {
+      "name": "WORD-UNBOX",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 14.7
+    },
+    {
+      "name": "STORAGE-NOCLOS",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 18.5
+    },
+    {
+      "name": "ABI-GOLD",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 897.0
+    },
+    {
+      "name": "EMITTED-TRACE",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 611.4
+    },
+    {
+      "name": "EMIT-SOURCES",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 3033.7
+    },
+    {
+      "name": "EMIT-MUTANTS",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 81384.9
+    },
+    {
+      "name": "AXIOMS",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 23023.3
+    },
+    {
+      "name": "TRACE-DRIVER",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 4192.8
+    },
+    {
+      "name": "CORPUS",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 5995.5
+    },
+    {
+      "name": "ERASED-BYTES",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 294.2
+    },
+    {
+      "name": "M0-RATIO",
+      "passed": false,
+      "exit": 1,
+      "elapsed_ms": 312.7
+    },
+    {
+      "name": "F-MUTANTS",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 1245.1
+    },
+    {
+      "name": "DIFF-EXECUTOR",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 12576.7
+    },
+    {
+      "name": "COUNTER-REFERENCE",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 29393.1
+    },
+    {
+      "name": "M1-EMISSION",
+      "command": [
+        "python3",
+        "-P",
+        "dev/m1-emit-test.py"
+      ],
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 485595.6216249615
+    },
+    {
+      "name": "SOURCE-MODEL",
+      "command": [
+        "python3",
+        "-P",
+        "dev/model-test.py"
+      ],
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 107626.32895912975
+    },
+    {
+      "name": "CONTRACT-SURFACE",
+      "command": [
+        "python3",
+        "-P",
+        "dev/contract-test.py"
+      ],
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 109571.28708390519
+    },
+    {
+      "name": "CONTRACT-ROUTE",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 682.1
+    },
+    {
+      "name": "SOURCE-PROOFS",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 328751.2
+    },
+    {
+      "name": "NULLARY-ENTRIES",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 61227.3
+    },
+    {
+      "name": "CUSTOM-ERRORS",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 250722.0
+    },
+    {
+      "name": "PROOF-GUARDS",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 148179.3
+    }
+  ],
+  "final_checks": {
+    "capture": "final-checks/manifest.json",
+    "expected_exit_codes": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "observed_exit_codes": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "protected_inputs_unchanged": true
+  }
+}

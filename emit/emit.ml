@@ -221,6 +221,7 @@ type transaction =
   | Store of Z.t * operand * transaction
   | Load of Z.t * int * transaction
   | Arithmetic of arithmetic * operand * operand * int * transaction * transaction
+  | Compute of arithmetic * operand * operand * int * transaction
   | Compare of operand * operand * transaction * transaction
 
 let operand = function
@@ -297,6 +298,20 @@ let rec transaction env errors slots depth fuel fresh value =
        let* no, fuel, fresh = lower fuel fresh no in Ok (Compare (left, right, yes, no), fuel, fresh)
      | 6, [] -> Ok (Abort, fuel, fresh)
      | 7, [value] -> let* tx = error_value errors value in Ok (tx, fuel, fresh)
+     | tag, [left; right; fn; no] when tag = (if errors = [] then 7 else 8) || tag = (if errors = [] then 8 else 9) ->
+       let addition = tag = (if errors = [] then 8 else 9) in
+       let* left = operand left in let* right = operand right in
+       let* value, fuel = apply env fuel fn [] in
+       let index = fresh in
+       let* yes, fuel, fresh = lower fuel (fresh + if addition then 1 else 0) value in
+       let* no, fuel, fresh = lower fuel fresh no in
+       Ok ((if addition then Arithmetic (Add, left, right, index, yes, no)
+         else Compare (left, right, yes, no)), fuel, fresh)
+     | tag, [left; right; fn] when tag = (if errors = [] then 9 else 10) || tag = (if errors = [] then 10 else 11) ->
+       let op = if tag = (if errors = [] then 9 else 10) then Add else Sub in
+       let* left = operand left in let* right = operand right in
+       let* next, fuel, next_fresh = continuation fuel (fresh + 1) fn (R.Runtime_word fresh) in
+       Ok (Compute (op, left, right, fresh, next), fuel, next_fresh)
      | _, [] | _, _ :: _ -> Error (M1_shape "Tx constructor"))
   | R.Nat _ -> Error Nat_runtime
   | R.Word _ | R.Runtime_word _ | R.Struct _ | R.Tag _ | R.Erased | R.Closure _ ->
@@ -327,6 +342,11 @@ let rec transaction_blocks label = function
   | Load (slot, index, next) ->
     marked label ([push slot; A.Op "SLOAD"] @ save index) (goto (label ^ "n")) ::
     transaction_blocks (label ^ "n") next
+  | Compute (op, left, right, index, next) ->
+    let compute = match op with
+      | Add -> read_operand left @ read_operand right @ [A.Op "ADD"]
+      | Sub -> read_operand right @ read_operand left @ [A.Op "SUB"] in
+    marked label (compute @ save index) (goto (label ^ "n")) :: transaction_blocks (label ^ "n") next
   | Arithmetic (op, left, right, index, yes, no) ->
     let compute, rejected = match op with
       | Add -> read_operand left @ read_operand right @ [A.Op "ADD"],
@@ -344,6 +364,7 @@ let rec readonly = function
   | Finish _ | Abort | Reject _ -> true
   | Store _ -> false
   | Load (_, _, next) -> readonly next
+  | Compute (_, _, _, _, next) -> readonly next
   | Arithmetic (_, _, _, _, yes, no) | Compare (_, _, yes, no) -> readonly yes && readonly no
 
 type entry = { abi_entry : Assay_abi.Abi.entry; selector : string; tx : transaction }

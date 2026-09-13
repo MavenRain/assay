@@ -1,0 +1,38 @@
+{
+  "binary_sha256": "0e0bf23666b9a0b51834c4144d2c63849fd80322ed433c4ea4ddca4987feb43f",
+  "results": [
+    {
+      "name": "M1-EMISSION",
+      "command": [
+        "python3",
+        "-P",
+        "dev/m1-emit-test.py"
+      ],
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 485595.6216249615
+    },
+    {
+      "name": "SOURCE-MODEL",
+      "command": [
+        "python3",
+        "-P",
+        "dev/model-test.py"
+      ],
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 107626.32895912975
+    },
+    {
+      "name": "CONTRACT-SURFACE",
+      "command": [
+        "python3",
+        "-P",
+        "dev/contract-test.py"
+      ],
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 109571.28708390519
+    }
+  ]
+}

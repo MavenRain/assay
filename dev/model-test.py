@@ -205,8 +205,10 @@ def driver():
 def mutants():
     cases = [
         ('VALUE', 'not (Z.equal input.value Z.zero)', 'false', 'value-get'),
-        ('OVERFLOW', 'Z.numbits result > 256', 'Z.numbits result > 257', 'add-recovery'),
-        ('UNDERFLOW', 'Z.sign result < 0', 'Z.sign result < -1', 'sub-recovery'),
+        ('OVERFLOW', 'if Z.sign result < 0 || Z.numbits result > 256\n    then transaction',
+         'if Z.sign result < 0 || Z.numbits result > 257\n    then transaction', 'add-recovery'),
+        ('UNDERFLOW', 'if Z.sign result < 0 || Z.numbits result > 256\n    then transaction',
+         'if Z.sign result < -1 || Z.numbits result > 256\n    then transaction', 'sub-recovery'),
         ('BOUND', 'Z.leq left right', 'Z.lt left right', 'increment-at-limit'),
         ('SNAPSHOT', '(index, get storage slot)', '(index, Z.mul (get storage slot) Z.zero)', 'snapshot'),
         ('ROLLBACK', 'Ok (revert initial)', 'Ok (revert storage)', 'write-abort'),

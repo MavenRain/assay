@@ -1,0 +1,12 @@
+{
+  "argv": [
+    "python3",
+    "-P",
+    "dev/guard-test.py",
+    "witness",
+    "model"
+  ],
+  "exit": 0,
+  "stdout": "",
+  "stderr": ""
+}

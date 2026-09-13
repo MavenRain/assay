@@ -1,0 +1,10 @@
+{
+  "argv": [
+    "/Users/oobi/Documents/gpt1/assay-m1-guards/_build/default/bin/assay.exe",
+    "check",
+    "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-guard-refusals-cb029ny1/claim.asy"
+  ],
+  "exit": 1,
+  "stdout": "",
+  "stderr": "mismatch: the term has type (Elim SColl 2 (Out SPi w b Nat (APt w (Elim SMu Word [256] (Out SColl 2 (ALeg 0) _assay_args) as x return Nat with | (ACtor word) bits n => n)) (Out SPi w a Nat (APt w (Elim SMu Word [256] (Out SColl 2 (ALeg 1) _assay_args) as x return Nat with | (ACtor word) bits n => n)) natLt)) as flag return Type 0 with | (ALeg 0) _u => (Ran SColl 0 (Sec SColl 0 [])) | (ALeg 1) _u => (Lan SColl 0 (Sec SColl 0 []))) and the expected type is (Elim SColl 2 (Out SPi w b Nat (APt w (Elim SMu Word [256] (Out SColl 2 (ALeg 1) _assay_args) as x return Nat with | (ACtor word) bits n => n)) (Out SPi w a Nat (APt w (Elim SMu Word [256] (Out SColl 2 (ALeg 0) _assay_args) as x return Nat with | (ACtor word) bits n => n)) natLt)) as flag return Type 0 with | (ALeg 0) _u => (Ran SColl 0 (Sec SColl 0 [])) | (ALeg 1) _u => (Lan SColl 0 (Sec SColl 0 [])))\n"
+}

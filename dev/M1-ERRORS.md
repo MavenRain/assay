@@ -101,5 +101,6 @@ The Lean source proof model still covers the preceding arithmetic and
 empty-abort subset described in [M1-PROOFS.md](M1-PROOFS.md). This slice
 tests typed payload correspondence; it adds no theorem about the compiler
 or the new payload encoding. Both EVM executors are geth entry points.
-Proof-producing guards, invariant declarations and the M1 performance
-bound remain unfinished. Milestone exit ratification remains with the user.
+The [proof guard slice](M1-GUARDS.md) adds typed errors on guard failure.
+Invariant declarations and the M1 performance bound remain unfinished.
+Milestone exit ratification remains with the user.

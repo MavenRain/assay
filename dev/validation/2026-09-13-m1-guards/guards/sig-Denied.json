@@ -1,0 +1,10 @@
+{
+  "argv": [
+    "cast",
+    "sig",
+    "Denied(uint256,uint256)"
+  ],
+  "exit": 0,
+  "stdout": "0x8f130409\n",
+  "stderr": ""
+}

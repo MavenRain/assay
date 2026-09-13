@@ -1,0 +1,13 @@
+{
+  "runtime_bytes": 405,
+  "init_bytes": 436,
+  "covered": 252,
+  "cases": 83,
+  "files": {
+    "axioms.txt": "61f8b9f0cb83fe5250e13b39b40e705d106caa92810d60168dfe5f4c3a89a302",
+    "init.hex": "a4ab8d9223664c78024c4f5e5852960c0c1f2081649855ba2b3a687dcf6cb561",
+    "runtime.hex": "3f0df9efa667022f5944a9f877d2562818e9b4add922012d150c0c7ab2f6e5aa",
+    "layout.json": "64c266a462f6866f024a14eb72eeabade66aa437a0c675e581023616e32cd2b7",
+    "abi.json": "b434d23d505714ef973740b3cfef114a92d30be8c45265988e794519f0cd962c"
+  }
+}

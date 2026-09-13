@@ -1,0 +1,12 @@
+{
+  "argv": [
+    "/Users/oobi/Documents/gpt1/assay-m1-guards/_build/default/bin/assay.exe",
+    "emit",
+    "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-guard-refusals-cb029ny1/meaning.asy",
+    "-o",
+    "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-guard-refusals-cb029ny1/meaning-out"
+  ],
+  "exit": 2,
+  "stdout": "",
+  "stderr": "assay: emit: M0_PROTOCOL: M1 wordNat\n"
+}
