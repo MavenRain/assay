@@ -1,0 +1,10 @@
+{
+  "argv": [
+    "cast",
+    "sig",
+    "E4()"
+  ],
+  "exit": 0,
+  "stdout": "0xde8c50c8\n",
+  "stderr": ""
+}

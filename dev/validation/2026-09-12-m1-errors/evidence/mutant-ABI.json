@@ -1,0 +1,12 @@
+{
+  "argv": [
+    "python3",
+    "-P",
+    "dev/errors-test.py",
+    "witness",
+    "abi"
+  ],
+  "exit": 1,
+  "stdout": "CUSTOM-ERRORS FAIL: ERROR-WITNESS abi\n",
+  "stderr": ""
+}

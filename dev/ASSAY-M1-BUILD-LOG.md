@@ -1,5 +1,178 @@
 # Assay M1 build log
 
+## 2026-09-12: typed custom reverts and timing diagnostics
+
+This eighth slice starts at `2077c4a98903803cfc92cd14a6f4aaac34b76ab0`.
+Named Word errors lower to a checked Error sum and
+`reject : Error -> Tx`. The checked schema supplies ABI rows and
+in-tree Keccak selectors. Reserved and colliding selectors are
+refused before output creation, including unused declarations.
+Existing programs retain their prior output files.
+
+`examples/Errors.asy` emits 358 runtime bytes and 388 creation bytes.
+All 215 runtime instructions execute. The source model and both Cancun
+entry points agree on 66 cases, including rollback, loaded snapshots,
+repeated arguments, maximum uint256 values, tables of 1, 2 and 32
+errors, and a 32-word payload. Two constructor cases check installation
+and call-value refusal. Sixteen surface refusals, eight checked backend
+refusals and five mutations pass their expected witnesses.
+
+The kernel, surface, assembler and Lean sources are unchanged. Both
+proof gates ran. Typed payload encoding is tested and remains outside
+the existing Lean arithmetic proof model. See `dev/M1-ERRORS.md` for
+the accepted source/core contracts and remaining M1 scope.
+
+### Validation and timing status
+
+All 42 non-performance legs passed across an interrupted battery and a
+separate functional remainder. The timing gate was stopped at the user's
+request after three measurement windows exceeded the existing 60-second
+limit. No complete 43-leg verdict or fresh timing report is claimed.
+The previous frozen report remains preserved and does not validate the
+current compiler and measurement script.
+
+The diagnostic comparison used 146 ms of child CPU for the old compiler
+and 149 ms for the new compiler over the same 11 programs, with
+identical outputs. A separate workload sample found that five rounds of
+reference compilation alone would consume about 60.65 seconds at the
+observed rate. These are diagnostic samples, not performance gate
+results. Host CPU contention was observed; the wall/CPU gap does not
+isolate its causes. `dev/TIMING-DEBUG.md` records the evidence and its
+limits.
+
+The measurement failure path now preserves completed samples in a
+unique rejected report and prints workload totals. Synthetic tests
+cover the exact boundary, an over-limit window, retained reports and a
+valid control. The threshold and five-round method are unchanged.
+
+```
+ERROR-LIVE cases=66 creates=2 covered=215 OK
+ERROR-REFUSALS surface=16 schema=8 OK
+ERROR-MUTANT SELECTOR killed control=OK
+ERROR-MUTANT MEMORY killed control=OK
+ERROR-MUTANT LENGTH killed control=OK
+ERROR-MUTANT ROLLBACK killed control=OK
+ERROR-MUTANT ABI killed control=OK
+CUSTOM-ERRORS cases=66 creates=2 refusals=24 mutants=5 OK
+TRUSTED-LINES kernel=3997 want=3997 bound=4000
+TRUSTED-LINES emitter=1134/1800
+TRUSTED-LINES assembler=238/600
+TRUSTED-LINES keccak=89/250
+TRUSTED-LINES abi=29/400
+TRUSTED-LINES layout=8/250
+TRUSTED-LINES listing=54/250
+TRUSTED-LINES total=1552/3550 ratified=3550
+TRUSTED-LINES OK
+RATIO-DIAGNOSTICS rejected=2 retained=2 control=1 limit=60 OK
+```
+
+`validation/2026-09-12-m1-errors/` retains the interrupted and completed
+commands, 42 leg logs, functional runner, proof reports, matching cache
+identities, custom-error execution and mutation evidence, diagnostics,
+and source/artifact hashes. Final house and denominator checks are
+recorded separately because the diagnostics and documentation changed
+after the initial checks. Timing validation is still paused. M0 and M1
+exit ratification remain the user's decision.
+
+### Review round 2026-09-12 (M1 errors)
+
+A review pass read the staged slice, kept one finding, and the fix round
+fixed it: the new build-log block is rewrapped at 72 columns. The words
+are the same set, no earlier block moved and no gate marker moved.
+
+Kept findings:
+
+| id | severity | one line | files |
+| --- | --- | --- | --- |
+| D-4 | low | New build-log block has 7 lines over 72 columns (max 82) while the commit message of the slice wraps at 71 | dev/ASSAY-M1-BUILD-LOG.md, dev/validation/2026-09-12-m1-errors/SOURCES.json |
+
+Refuted: 0 findings. The verifiers refuted no finding of this round.
+
+Merged and dropped: 0 merged and 0 dropped, so no finding lost its
+evidence.
+
+Ruled to the close-step refreeze: 5 findings. B-1 medium
+`emit/contract.ml`: `error_values` accepts `()` only in first position,
+so `revert Denied () (x)` and `revert Two (x) ()` give
+SURFACE_DECLARATION or SURFACE_NAME instead of the documented
+wrong-argument-count refusal. C-1 low `dev/ratio.py`: `validate` never
+reads the rejection marker, so a rejected report passes `validate` once
+its window seconds are edited under 60. D-2 low `dev/M1-ERRORS.md`: the
+battery sentence reads as a result claim while the archived battery
+ended interrupted at exit 143. D-3 low `dev/M1-ERROR-MUTATIONS.md`: the
+mutation transcripts are said to be archived with the complete battery,
+and no complete battery exists for this slice. D-1 low
+`dev/TIMING-DEBUG.md`: the resource snapshot numbers have no archived
+source. Each repair edits a file pinned by the 119 row
+`dev/DENOMINATORS.sha256`, which no stage of this review may regenerate,
+so all five ride the close-step refreeze.
+
+Gate result, log
+`/Users/oobi/Documents/assay-m1-errors-review/gates-M1E-1.log`, verdict
+GREEN-FUNCTIONAL, because `FAIL M0-RATIO` is the only red row, which this
+slice expects until the close-step remeasure: pass=42 of 43 legs,
+fail=[M0-RATIO], denom rows=[], mutants=true, timeout legs only=false,
+ratio only=true, wrapper exit ok=true.
+
+```
+STAGE-M1-LINE: STAGE-M1-ERRORS FAIL
+M0-LINE: M0-VALIDATION FAIL; M0-EXIT requires the user commit and ratification
+EXIT 1
+PASS-COUNT: 42
+FAIL-LINES: FAIL M0-RATIO exit=1 elapsed_ms=364.3
+DENOM-FAILED-ROWS:
+MUTANTS-TAIL: MUTANT TRUSTED-BOUND killed exit=1 MUTANTS killed=13/13 OK
+CUSTOM-ERRORS-TAIL: ERROR-MUTANT ABI killed control=OK CUSTOM-ERRORS cases=66 creates=2 refusals=24 mutants=5 OK
+SOURCE-PROOFS-TAIL: SOURCE-PROOF-MUTANT ERROR-BRANCH killed control=OK SOURCE-PROOFS theorems=11 arithmetic=226 evm=16 recovery=6 effects=7 invalid=13 mutants=6 controls=4 OK
+CONTRACT-ROUTE-TAIL: CONTRACT-ROUTE core=3 identity=true allocated_bytes=1472 bound=131072 OK
+CONTRACT-SURFACE-TAIL: SURFACE-MUTANTS killed=7/7 controls=7 OK CONTRACT-SURFACE counter=30 variants=13 refusals=36 mutants=7 OK
+SOURCE-MODEL-TAIL: MODEL-MUTANTS killed=8/8 controls=8 OK SOURCE-MODEL counter=30 variants=10 corpus=11 invalid=28 refusals=6 mutants=8 OK
+DIFF-EXECUTOR-TAIL: DIFF-CHECKS killed=24/24 controls=1 OK DIFF-EXECUTOR live=20 driver=28 rejected=24 OK
+M1-EMISSION-TAIL: M1-MUTANTS killed=8/8 controls=8 OK M1-EMISSION counter=30 sources=8 refusals=11 mutants=8 OK
+COUNTER-REFERENCE-TAIL: COUNTER-MUTANT SELECTOR witness=increment-success killed control=OK COUNTER-REFERENCE cases=30 creates=2 mutants=8 value_rejected=5 covered=120 scope=reference OK
+DRIVER-TAIL: DRIVER cases=24 OK
+DENOMINATORS-TAIL: verification/lakefile.lean: OK verification/lean-toolchain: OK
+M0-RATIO-TAIL: M0-RATIO FAIL RATIO-METHOD
+PROOF-BUILD-TAIL: OK lake: 0 errors, 0 sorries, 0 warnings
+PROOF-REPORT-LINES: 42
+```
+
+DENOMINATORS passed on the new 119 row freeze, `PASS DENOMINATORS exit=0`.
+The fix refreshed no row of `dev/DENOMINATORS.sha256`, because
+`dev/ASSAY-M1-BUILD-LOG.md` has no row in that freeze file; the fix
+refreshed one entry of
+`dev/validation/2026-09-12-m1-errors/SOURCES.json`, the
+`dev/ASSAY-M1-BUILD-LOG.md` hash, old=cf93f1dd0805 new=b1c7627b9024.
+The M0-RATIO remeasure is CARRIED to the refreeze on a calm host:
+`dev/denominators.json` and `dev/measurements` are never edited in this
+review.
+
+gate: GREEN-FUNCTIONAL (GREEN-FUNCTIONAL: FAIL M0-RATIO is the only red
+row, which this slice expects until the close-step remeasure: pass=42 of
+43 legs, fail=[M0-RATIO], denom rows=[], mutants=true, timeout legs
+only=false, ratio only=true, wrapper exit ok=true,
+stage=STAGE-M1-LINE: STAGE-M1-ERRORS FAIL, m0=M0-LINE: M0-VALIDATION
+FAIL; M0-EXIT requires the user commit and ratification, exit=EXIT 1 |
+LADDER-WRAPPER-EXIT 0 21:54:34)
+
+The finders ran fable/medium with one opus/medium fallback, and the
+builder and the closer ran opus/medium. A Fable subagent dies on the
+[reasoning_extraction] classifier on this host, and a death in fix or
+close forces a resume, so the builder and the closer keep the opus pin
+and both rulings are reported unmet.
+
+Close step 2026-09-12: six findings are fixed and staged. The fix round
+fixed D-4. The carried close step fixed B-1, C-1, D-1, D-2 and D-3 as
+patches. The custom error leg now prints `CUSTOM-ERRORS cases=66
+creates=2 refusals=26 mutants=5 OK`, and the surface refusal count is
+18. The corpus mutant run now prints `RATIO-DIAGNOSTICS rejected=2
+retained=2 repaired=1 control=1 limit=60 OK`. The 119 freeze rows of
+`dev/DENOMINATORS.sha256` are refreshed for the patched files. The
+M0-RATIO remeasure is NOT FIXED: `dev/denominators.json` still pins the
+old `dev/ratio.py` hash, and the remeasure needs a calm host. The
+one-minute load stayed at 31.87 or more through four readings, so
+`refreeze-m1e.sh` did not run.
+
 ## 2026-09-12: nullary entry tables
 
 This slice starts at `cd884ff35cfa8b5da9bee4ff0ff86e5e7f903344` and

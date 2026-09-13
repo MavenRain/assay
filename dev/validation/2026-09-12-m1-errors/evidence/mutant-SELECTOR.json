@@ -1,0 +1,12 @@
+{
+  "argv": [
+    "python3",
+    "-P",
+    "dev/errors-test.py",
+    "witness",
+    "bytes"
+  ],
+  "exit": 1,
+  "stdout": "CUSTOM-ERRORS FAIL: COUNTER-EXPECTED snapshot-1\n",
+  "stderr": ""
+}

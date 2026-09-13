@@ -1,0 +1,149 @@
+{
+  "method": "One alternating diagnostic corpus pass, no gate verdict.",
+  "prior_sha256": "fb0752b5203c7debcc1698f87de4ebc7a85130258a7c6aa1d106e193d59081f6",
+  "current_sha256": "afbbdd60e16a0382151b06907c409792e5a00ed956dc86dcc4863896cc28e0bf",
+  "summary": {
+    "prior": {
+      "wall_seconds": 0.42803054163232446,
+      "cpu_seconds": 0.146024
+    },
+    "current": {
+      "wall_seconds": 0.4661400830373168,
+      "cpu_seconds": 0.14896500000000001
+    }
+  },
+  "records": [
+    {
+      "compiler": "prior",
+      "source": "corpus/contracts/Ref20.asy",
+      "wall_seconds": 0.04524499969556928,
+      "cpu_seconds": 0.016227
+    },
+    {
+      "compiler": "current",
+      "source": "corpus/contracts/Ref20.asy",
+      "wall_seconds": 0.06522537488490343,
+      "cpu_seconds": 0.017474999999999994
+    },
+    {
+      "compiler": "current",
+      "source": "corpus/contracts/Return.asy",
+      "wall_seconds": 0.05730400001630187,
+      "cpu_seconds": 0.013662999999999998
+    },
+    {
+      "compiler": "prior",
+      "source": "corpus/contracts/Return.asy",
+      "wall_seconds": 0.06989604188129306,
+      "cpu_seconds": 0.010935
+    },
+    {
+      "compiler": "prior",
+      "source": "corpus/contracts/Zero.asy",
+      "wall_seconds": 0.04236383317038417,
+      "cpu_seconds": 0.013003999999999995
+    },
+    {
+      "compiler": "current",
+      "source": "corpus/contracts/Zero.asy",
+      "wall_seconds": 0.03413008386269212,
+      "cpu_seconds": 0.011728000000000002
+    },
+    {
+      "compiler": "current",
+      "source": "corpus/contracts/Maximum.asy",
+      "wall_seconds": 0.022994084283709526,
+      "cpu_seconds": 0.012114999999999994
+    },
+    {
+      "compiler": "prior",
+      "source": "corpus/contracts/Maximum.asy",
+      "wall_seconds": 0.02345925010740757,
+      "cpu_seconds": 0.012650000000000008
+    },
+    {
+      "compiler": "prior",
+      "source": "corpus/contracts/Arithmetic.asy",
+      "wall_seconds": 0.020182291977107525,
+      "cpu_seconds": 0.010763999999999996
+    },
+    {
+      "compiler": "current",
+      "source": "corpus/contracts/Arithmetic.asy",
+      "wall_seconds": 0.022283833008259535,
+      "cpu_seconds": 0.012327000000000005
+    },
+    {
+      "compiler": "current",
+      "source": "corpus/contracts/Pair.asy",
+      "wall_seconds": 0.038910916075110435,
+      "cpu_seconds": 0.011554999999999996
+    },
+    {
+      "compiler": "prior",
+      "source": "corpus/contracts/Pair.asy",
+      "wall_seconds": 0.029379958752542734,
+      "cpu_seconds": 0.01305499999999997
+    },
+    {
+      "compiler": "prior",
+      "source": "corpus/contracts/TwoSlots.asy",
+      "wall_seconds": 0.025048541836440563,
+      "cpu_seconds": 0.013591000000000006
+    },
+    {
+      "compiler": "current",
+      "source": "corpus/contracts/TwoSlots.asy",
+      "wall_seconds": 0.027406082954257727,
+      "cpu_seconds": 0.013623999999999997
+    },
+    {
+      "compiler": "current",
+      "source": "corpus/contracts/WideLabel.asy",
+      "wall_seconds": 0.049610457848757505,
+      "cpu_seconds": 0.017760000000000012
+    },
+    {
+      "compiler": "prior",
+      "source": "corpus/contracts/WideLabel.asy",
+      "wall_seconds": 0.08867008378729224,
+      "cpu_seconds": 0.019773000000000027
+    },
+    {
+      "compiler": "prior",
+      "source": "corpus/proofs/Leaf.asy",
+      "wall_seconds": 0.024357082787901163,
+      "cpu_seconds": 0.011374999999999996
+    },
+    {
+      "compiler": "current",
+      "source": "corpus/proofs/Leaf.asy",
+      "wall_seconds": 0.028580083046108484,
+      "cpu_seconds": 0.012146000000000018
+    },
+    {
+      "compiler": "current",
+      "source": "corpus/proofs/Apply.asy",
+      "wall_seconds": 0.02137641701847315,
+      "cpu_seconds": 0.012219999999999981
+    },
+    {
+      "compiler": "prior",
+      "source": "corpus/proofs/Apply.asy",
+      "wall_seconds": 0.021105541847646236,
+      "cpu_seconds": 0.012252999999999986
+    },
+    {
+      "compiler": "prior",
+      "source": "corpus/proofs/Let.asy",
+      "wall_seconds": 0.03832291578873992,
+      "cpu_seconds": 0.012396999999999991
+    },
+    {
+      "compiler": "current",
+      "source": "corpus/proofs/Let.asy",
+      "wall_seconds": 0.09831875003874302,
+      "cpu_seconds": 0.014352000000000004
+    }
+  ]
+}

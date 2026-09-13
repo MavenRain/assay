@@ -1,0 +1,10 @@
+{
+  "argv": [
+    "cast",
+    "sig",
+    "E17()"
+  ],
+  "exit": 0,
+  "stdout": "0xb70be912\n",
+  "stderr": ""
+}

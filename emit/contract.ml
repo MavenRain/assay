@@ -12,9 +12,10 @@ type step =
   | Store of token * word
   | Guard of word * word
   | Bind of token * word
-type ending = Return of word | Unit of token | Revert of token
+type ending = Return of word | Unit of token | Revert of token | Reject of token * word list
 type body = step list * ending
 type entry = { name : token; args : token list; body : body }
+type error_row = { error_name : token; error_args : token list }
 
 let fail at code detail =
   Error (Error.Parse ("SURFACE_" ^ code ^ ": " ^ detail, at.line, at.col))
@@ -55,7 +56,7 @@ let lex chars =
   scan 0 1 1 [] chars
 
 let reserved = String.split_on_char ' '
-  "contract where storage entry constructor do sload sstore add sub guard le let pure revert Word Eff Sig Tx ResultWord Storage Entry main word ret put read EvmOpcodes done store load abort def axiom fun inj of case match as return with tuple sum prod absurd Prop Type in auto mu mutual end nu and rec natAdd natSub natMul natEq natLt"
+  "contract where storage entry constructor error do sload sstore add sub guard le let pure revert Word Eff Sig Tx ResultWord Storage Entry Error main word ret put read EvmOpcodes done store load abort reject def axiom fun inj of case match as return with tuple sum prod absurd Prop Type in auto mu mutual end nu and rec natAdd natSub natMul natEq natLt"
 let identifier tokens = match tokens with
   | at :: rest when Recognize.identifier at.text && at.text <> "_" &&
       String.length at.text <= 64 && not (List.mem at.text reserved) &&
@@ -86,6 +87,22 @@ let rec value depth tokens =
 let binary tokens =
   let* a, rest = value 0 tokens in
   let* b, rest = value 0 rest in Ok ((a, b), rest)
+let opens_value tokens = match tokens with
+  | { text = "("; _ } :: _rest -> true
+  | [] | _ :: _ -> false
+(* Review round 2026-09-12 (B-1):  `()` is the empty payload only when it is the
+   whole payload.  A `()` beside values, in any position, is the same wrong
+   argument count refusal that a plain count mismatch raises. *)
+let error_values tokens =
+  let rec more acc tokens = match tokens with
+    | { text = "("; _ } :: { text = ")"; _ } :: rest ->
+      if acc = [] && not (opens_value rest) then Ok ([], rest)
+      else fail (here tokens) "ERROR" "wrong error argument count"
+    | { text = "("; _ } :: _rest ->
+      if List.length acc >= 32 then fail (here tokens) "LIMIT" "at most 32 error arguments" else
+      let* v, rest = value 0 tokens in more (v :: acc) rest
+    | [] | _ :: _ -> Ok (List.rev acc, tokens) in
+  more [] tokens
 
 let body tokens =
   let* tokens = expect "do" tokens in
@@ -98,7 +115,12 @@ let body tokens =
       Ok ((List.rev acc, Unit at), rest)
     | { text = "pure"; _ } :: rest ->
       let* word, rest = value 0 rest in Ok ((List.rev acc, Return word), rest)
-    | ({ text = "revert"; _ } as at) :: rest -> Ok ((List.rev acc, Revert at), rest)
+    | ({ text = "revert"; _ } as at) :: rest ->
+      (match rest with
+       | name :: _tail when Recognize.identifier name.text && not (List.mem name.text reserved) ->
+         let* name, rest = identifier rest in
+         let* args, rest = error_values rest in Ok ((List.rev acc, Reject (name, args)), rest)
+       | [] | _ :: _ -> Ok ((List.rev acc, Revert at), rest))
     | { text = "sstore"; _ } :: rest ->
       let* slot, rest = identifier rest in
       let* word, rest = value 0 rest in next (Store (slot, word)) rest
@@ -164,11 +186,20 @@ let word env = function
     |> Option.to_result ~none:(Error.Parse ("SURFACE_SCOPE: unbound word " ^ at.text, at.line, at.col))
 let app name args = "(" ^ name ^ " " ^ String.concat " " args ^ ")"
 let lambda name ty term = "(fun (" ^ name ^ " : " ^ ty ^ ") => " ^ term ^ ")"
-let transaction fields env (steps, ending) =
+let transaction fields errors env (steps, ending) =
   let rec lower index env = function
     | [] -> (match ending with
       | Return v -> let* v = word env v in Ok (app "done" [v])
       | Revert _at -> Ok "abort"
+      | Reject (name, args) ->
+        let* index, row = List.find_opt (fun (_i, row) -> row.error_name.text = name.text)
+          (List.mapi (fun i row -> i, row) errors)
+          |> Option.to_result ~none:(Error.Parse ("SURFACE_ERROR: unknown error " ^ name.text, name.line, name.col)) in
+        if List.length args <> List.length row.error_args then fail name "ERROR" "wrong error argument count" else
+        let* args = List.fold_left (fun result v -> let* args = result in
+          let* v = word env v in Ok (args @ [v])) (Ok []) args in
+        Ok (app "reject" ["(inj " ^ string_of_int index ^ " of " ^ string_of_int (List.length errors) ^
+          " (tuple (" ^ String.concat ", " args ^ ")) : Error)"])
       | Unit at -> fail at "RETURN" "an entry must return Word")
     | step :: rest ->
       let fresh = "_assay_v" ^ string_of_int index in
@@ -199,7 +230,7 @@ let transaction fields env (steps, ending) =
 let constructor fields (steps, ending) =
   let* () = match ending with
     | Unit _ -> Ok ()
-    | Return (Literal at | Local at) | Revert at ->
+    | Return (Literal at | Local at) | Revert at | Reject (at, _) ->
       fail at "CONSTRUCTOR" "constructor must end in pure ()" in
   List.fold_right (fun step result ->
     let* next = result in
@@ -213,10 +244,11 @@ let constructor fields (steps, ending) =
       fail at "CONSTRUCTOR" "constructor accepts literal stores only")
     steps (Ok "(ret (word 256 0))")
 
-let generate state fields entries init =
+let generate state fields entries errors init =
   let aliases = List.sort_uniq String.compare
-    (List.map (fun at -> at.text) (fields @ List.concat_map (fun row -> row.args) entries)) in
-  let names = state :: List.map (fun row -> row.name) entries in
+    (List.map (fun at -> at.text) (fields @ List.concat_map (fun row -> row.args) entries @
+      List.concat_map (fun row -> row.error_args) errors)) in
+  let names = state :: List.map (fun row -> row.name) entries @ List.map (fun row -> row.error_name) errors in
   let* _names = List.fold_left (fun result name ->
     let* seen = result in
     if List.mem name.text (aliases @ seen) then fail name "DUPLICATE" ("conflicting global " ^ name.text)
@@ -226,7 +258,7 @@ let generate state fields entries init =
   let* branches = List.fold_left (fun result (i, row) ->
     let* branches = result in
     let env = List.mapi (fun i at -> at.text, "_assay_args." ^ string_of_int i) row.args in
-    let* term = transaction field_slots env row.body in
+    let* term = transaction field_slots errors env row.body in
     Ok (branches @ ["| " ^ string_of_int i ^ " (_assay_args : " ^ row.name.text ^ ") => " ^ term]))
     (Ok []) (List.mapi (fun i row -> i, row) entries) in
   let decl = Recognize.declaration in
@@ -234,8 +266,13 @@ let generate state fields entries init =
   let nullary = List.for_all (fun row -> row.args = []) entries in
   let arguments row =
     if nullary then "(prod () : Type 0)" else collection "prod" row.args in
-  Ok (Recognize.m1_protocol ^
-    String.concat "" (List.map (fun name -> decl name "Word 256") aliases) ^
+  let aliases = String.concat "" (List.map (fun name -> decl name "Word 256") aliases) in
+  let error_source = String.concat "" (List.map (fun row ->
+    decl row.error_name.text (if row.error_args = [] then "(prod () : Type 0)"
+      else collection "prod" row.error_args)) errors) ^
+    decl "Error" (collection "sum" (List.map (fun row -> row.error_name) errors)) in
+  Ok ((if errors = [] then Recognize.m1_protocol ^ aliases
+    else Recognize.m1_protocol_for (aliases ^ error_source)) ^
     decl "Storage" (collection "prod" fields) ^ decl state.text "Storage" ^
     "def storage : Storage := tuple (" ^ String.concat ", "
       (List.mapi (fun i _at -> "word 256 " ^ string_of_int i) fields) ^ ")\n" ^
@@ -252,22 +289,27 @@ let parse tokens =
   let* state, tokens = identifier tokens in
   let* tokens = expect ":=" tokens in
   let* fields, tokens = fields tokens in
-  let rec declarations entries init tokens = match tokens with
+  let rec declarations entries errors init tokens = match tokens with
     | { text = "entry"; _ } :: rest ->
       let* name, rest = identifier rest in
       let* _names = add_name name (List.map (fun row -> row.name) entries) in
       let* args, rest = arguments rest in
       let* rest = sequence [":"; "Eff"; "Sig"; "Word"; ":="] rest in
-      let* body, rest = body rest in declarations (entries @ [{ name; args; body }]) init rest
+      let* body, rest = body rest in declarations (entries @ [{ name; args; body }]) errors init rest
+    | { text = "error"; _ } :: rest ->
+      let* error_name, rest = identifier rest in
+      let* _names = add_name error_name (List.map (fun row -> row.error_name) errors) in
+      let* error_args, rest = arguments rest in
+      declarations entries (errors @ [{error_name; error_args}]) init rest
     | ({ text = "constructor"; _ } as at) :: rest ->
       if Option.is_some init then fail at "DUPLICATE" "duplicate constructor" else
       let* rest = expect ":=" rest in
-      let* init, rest = body rest in declarations entries (Some init) rest
+      let* init, rest = body rest in declarations entries errors (Some init) rest
     | [{ text = ""; _ }] ->
       if entries = [] then fail name "ENTRY" "at least one entry is required"
-      else let* core = generate state fields entries init in Ok (Some name.text, core)
-    | [] | _ :: _ -> fail (here tokens) "DECLARATION" "expected entry, constructor or end of input" in
-  declarations [] None tokens
+      else let* core = generate state fields entries errors init in Ok (Some name.text, core)
+    | [] | _ :: _ -> fail (here tokens) "DECLARATION" "expected entry, error, constructor or end of input" in
+  declarations [] [] None tokens
 
 (* The route is decided on the byte sequence, so a core file never pays a list cell per byte. *)
 let rec skip_comment seq = match seq () with

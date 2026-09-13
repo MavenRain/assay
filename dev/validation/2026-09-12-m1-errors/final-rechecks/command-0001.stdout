@@ -1,0 +1,3 @@
+PASS FINAL-HOUSE exit=0
+PASS FINAL-DENOMINATORS exit=0
+FINAL-RECHECKS 2/2 OK; timing remains paused

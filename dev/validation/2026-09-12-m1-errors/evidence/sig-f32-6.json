@@ -1,0 +1,10 @@
+{
+  "argv": [
+    "cast",
+    "sig",
+    "f6()"
+  ],
+  "exit": 0,
+  "stdout": "0x7c396b83\n",
+  "stderr": ""
+}

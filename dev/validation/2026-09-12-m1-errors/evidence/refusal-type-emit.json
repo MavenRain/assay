@@ -1,0 +1,12 @@
+{
+  "argv": [
+    "/Users/oobi/Documents/gpt1/assay-m1-errors/_build/default/bin/assay.exe",
+    "emit",
+    "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-errors-refusals-ecikn54w/type.asy",
+    "-o",
+    "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-errors-refusals-ecikn54w/type-out"
+  ],
+  "exit": 1,
+  "stdout": "",
+  "stderr": "line 2, column 19: SURFACE_SYNTAX: expected Word\n"
+}

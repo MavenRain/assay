@@ -1,0 +1,12 @@
+{
+  "argv": [
+    "python3",
+    "-P",
+    "dev/errors-test.py",
+    "witness",
+    "rollback"
+  ],
+  "exit": 1,
+  "stdout": "CUSTOM-ERRORS FAIL: MODEL-EXPECTED witness\n",
+  "stderr": ""
+}

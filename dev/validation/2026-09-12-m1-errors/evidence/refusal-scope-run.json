@@ -1,0 +1,10 @@
+{
+  "argv": [
+    "/Users/oobi/Documents/gpt1/assay-m1-errors/_build/default/bin/assay.exe",
+    "run",
+    "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-errors-refusals-ecikn54w/scope.asy"
+  ],
+  "exit": 1,
+  "stdout": "",
+  "stderr": "line 3, column 64: SURFACE_SCOPE: unbound word missing\n"
+}

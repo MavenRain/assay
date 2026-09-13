@@ -1,0 +1,18 @@
+{
+  "argv": [
+    "/Users/oobi/Documents/gpt1/assay-m1-errors/_build/default/bin/assay.exe",
+    "run",
+    "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-errors-7mctqv_s/Width32.asy",
+    "--calldata",
+    "0x1f49dbe7",
+    "--value",
+    "0",
+    "--storage",
+    "0=0x7",
+    "--storage",
+    "2=0xabc"
+  ],
+  "exit": 0,
+  "stdout": "{\"status\":\"revert\",\"output\":\"0x0f214112\",\"storage\":{\"0\":\"0x7\",\"2\":\"0xabc\"}}\n",
+  "stderr": ""
+}

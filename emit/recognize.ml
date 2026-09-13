@@ -105,7 +105,7 @@ let storage_type globals count =
 
 (* M1 arithmetic exposes only a success Word or an empty error leg.
    Continuations are specialized before assembly. *)
-let m1_protocol = protocol ^ {|def ResultWord : Type 0 := sum (Word 256, prod ())
+let tx_protocol = {|def ResultWord : Type 0 := sum (Word 256, prod ())
 mu Tx : Type 0 :=
   | done : Word 256 -> Tx
   | store : Word 256 -> Word 256 -> Tx -> Tx
@@ -115,6 +115,10 @@ mu Tx : Type 0 :=
   | le : Word 256 -> Word 256 -> Tx -> Tx -> Tx
   | abort : Tx
 |}
+let m1_protocol = protocol ^ tx_protocol
+let m1_protocol_for error_source =
+  if error_source = "" then m1_protocol
+  else protocol ^ error_source ^ tx_protocol ^ "  | reject : Error -> Tx\n"
 
 let checked_schema globals source =
   let* expected, rows = Kanon_surface.Elab.check_in Global.initial source
@@ -172,26 +176,36 @@ let argument_source globals (name, args) =
   let body = collection_source "prod" args in
   declaration name (if typed_unit globals name then "(" ^ body ^ " : Type 0)" else body)
 
+let variant globals name =
+  let* names = collection globals ~variant:true name in
+  List.fold_left (fun result name ->
+    let* entries = result in
+    let* args = collection globals ~variant:false name in
+    Ok (entries @ [name, args])) (Ok []) names
+let variant_source globals name rows =
+  String.concat "" (List.map (argument_source globals) rows) ^
+  declaration name (collection_source "sum" (List.map fst rows))
 let m1_schema globals =
   let* () = schema globals in
   let* fields = collection globals ~variant:false "Storage" in
-  let* entries = collection globals ~variant:true "Entry" in
-  let* entries = List.fold_left (fun result name ->
-    let* entries = result in
-    let* args = collection globals ~variant:false name in
-    Ok (entries @ [name, args])) (Ok []) entries in
-  let words = List.sort_uniq String.compare (fields @ List.concat_map snd entries) in
-  let source = m1_protocol ^
-    String.concat "" (List.map (fun name -> declaration name "Word 256") words) ^
+  let* entries = variant globals "Entry" in
+  let* errors = if Option.is_some (Global.find "Error" globals)
+    then variant globals "Error" else Ok [] in
+  let words = List.sort_uniq String.compare (fields @ List.concat_map snd (entries @ errors)) in
+  let aliases = String.concat "" (List.map (fun name -> declaration name "Word 256") words) in
+  let source = (if errors = [] then m1_protocol ^ aliases
+    else m1_protocol_for (aliases ^ variant_source globals "Error" errors)) ^
     declaration "Storage" (collection_source "prod" fields) ^
-    String.concat "" (List.map (argument_source globals) entries) ^
-    declaration "Entry" (collection_source "sum" (List.map fst entries)) in
+    variant_source globals "Entry" entries in
   let* () = checked_schema globals source in
   let* () = if List.for_all (fun (name, args) -> args = [] && not (typed_unit globals name)) entries
     then Error (Protocol "M1 nullary Entry needs an explicit (prod () : Type 0) argument record")
     else Ok () in
+  let* () = if errors <> [] && List.for_all (fun (name, args) -> args = [] && not (typed_unit globals name)) errors
+    then Error (Protocol "M1 nullary Error needs an explicit (prod () : Type 0) argument record")
+    else Ok () in
   let* storage = definition globals "storage" in
-  if storage.Global.ty = Term.Global "Storage" then Ok (fields, entries)
+  if storage.Global.ty = Term.Global "Storage" then Ok (fields, entries, errors)
   else Error Storage_shape
 
 let m1_export globals name =

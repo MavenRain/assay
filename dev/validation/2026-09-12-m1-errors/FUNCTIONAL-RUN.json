@@ -1,0 +1,203 @@
+{
+  "binary_sha256": "afbbdd60e16a0382151b06907c409792e5a00ed956dc86dcc4863896cc28e0bf",
+  "timing_gate": "paused by user",
+  "legs": [
+    {
+      "name": "EMIT-MUTANTS",
+      "argv": [
+        "python3",
+        "-P",
+        "dev/emit-test.py",
+        "mutants"
+      ],
+      "cwd": "/Users/oobi/Documents/gpt1/assay-m1-errors",
+      "exit": 0,
+      "passed": true,
+      "elapsed_seconds": 47.720190833788365,
+      "sha256": "21f8d1edbd0aaa11357a0d9c52aaa1a5e9f2a378b013c1cfe1e5cdf908d2c4c1"
+    },
+    {
+      "name": "AXIOMS",
+      "argv": [
+        "python3",
+        "-P",
+        "dev/proofs-test.py"
+      ],
+      "cwd": "/Users/oobi/Documents/gpt1/assay-m1-errors",
+      "exit": 0,
+      "passed": true,
+      "elapsed_seconds": 14.887868458405137,
+      "sha256": "d89d115d45ea6cf3bb9c95a61bf28b04803a94024b85298f3cf43fbf795091ac"
+    },
+    {
+      "name": "TRACE-DRIVER",
+      "argv": [
+        "python3",
+        "-P",
+        "dev/trace-test.py"
+      ],
+      "cwd": "/Users/oobi/Documents/gpt1/assay-m1-errors",
+      "exit": 0,
+      "passed": true,
+      "elapsed_seconds": 1.6111602080054581,
+      "sha256": "dc3089cbebbc689d87cb5489e2443b97c1da9f9acae4afd02db71ce356a2f32a"
+    },
+    {
+      "name": "CORPUS",
+      "argv": [
+        "python3",
+        "-P",
+        "dev/corpus-test.py",
+        "corpus"
+      ],
+      "cwd": "/Users/oobi/Documents/gpt1/assay-m1-errors",
+      "exit": 0,
+      "passed": true,
+      "elapsed_seconds": 2.6552851661108434,
+      "sha256": "3035cea269a2a8137d6e232a253aec44d36b0179ee22d684c38575b9da068223"
+    },
+    {
+      "name": "ERASED-BYTES",
+      "argv": [
+        "python3",
+        "-P",
+        "dev/corpus-test.py",
+        "erased"
+      ],
+      "cwd": "/Users/oobi/Documents/gpt1/assay-m1-errors",
+      "exit": 0,
+      "passed": true,
+      "elapsed_seconds": 0.3346374579705298,
+      "sha256": "ebf1270bbc035ca6eb0de9a07a7750e9cf64bbafd22ae5b2722f7dab5087272e"
+    },
+    {
+      "name": "F-MUTANTS",
+      "argv": [
+        "python3",
+        "-P",
+        "dev/corpus-test.py",
+        "mutants"
+      ],
+      "cwd": "/Users/oobi/Documents/gpt1/assay-m1-errors",
+      "exit": 0,
+      "passed": true,
+      "elapsed_seconds": 0.8338776249438524,
+      "sha256": "06ea17fe2051b043282da5f6d4e2031a26704052d7d189707b26c247d7fd3d63"
+    },
+    {
+      "name": "DIFF-EXECUTOR",
+      "argv": [
+        "python3",
+        "-P",
+        "dev/diff-test.py"
+      ],
+      "cwd": "/Users/oobi/Documents/gpt1/assay-m1-errors",
+      "exit": 0,
+      "passed": true,
+      "elapsed_seconds": 19.709814749658108,
+      "sha256": "456d19a41db39eb4fe26a2f727577311868043ddb3421211edb26d060d7613f2"
+    },
+    {
+      "name": "COUNTER-REFERENCE",
+      "argv": [
+        "python3",
+        "-P",
+        "dev/counter-test.py"
+      ],
+      "cwd": "/Users/oobi/Documents/gpt1/assay-m1-errors",
+      "exit": 0,
+      "passed": true,
+      "elapsed_seconds": 9.969456332735717,
+      "sha256": "8001063b33f6fef9ccdf48752e3418d22386a9f7797f881e06fdb4ac050af678"
+    },
+    {
+      "name": "M1-EMISSION",
+      "argv": [
+        "python3",
+        "-P",
+        "dev/m1-emit-test.py"
+      ],
+      "cwd": "/Users/oobi/Documents/gpt1/assay-m1-errors",
+      "exit": 0,
+      "passed": true,
+      "elapsed_seconds": 179.39062920818105,
+      "sha256": "7a0e40089f68400c8bf88bbef0adea02b29f1ffe3ea5a0e2d1e50bfe97415fca"
+    },
+    {
+      "name": "SOURCE-MODEL",
+      "argv": [
+        "python3",
+        "-P",
+        "dev/model-test.py"
+      ],
+      "cwd": "/Users/oobi/Documents/gpt1/assay-m1-errors",
+      "exit": 0,
+      "passed": true,
+      "elapsed_seconds": 189.4090706249699,
+      "sha256": "18bb9b0450553c09cf546dc7cc8a22c76613ee874342ac9a99efe393f927973d"
+    },
+    {
+      "name": "CONTRACT-SURFACE",
+      "argv": [
+        "python3",
+        "-P",
+        "dev/contract-test.py"
+      ],
+      "cwd": "/Users/oobi/Documents/gpt1/assay-m1-errors",
+      "exit": 0,
+      "passed": true,
+      "elapsed_seconds": 73.05937470914796,
+      "sha256": "ba2f60a29040ab65f4f5513b12666fe9ec072b18d6861a968b6e95f595586f67"
+    },
+    {
+      "name": "CONTRACT-ROUTE",
+      "argv": [
+        "_build/default/test/contract_route.exe"
+      ],
+      "cwd": "/Users/oobi/Documents/gpt1/assay-m1-errors",
+      "exit": 0,
+      "passed": true,
+      "elapsed_seconds": 0.47258358309045434,
+      "sha256": "5734853b1482158a82259a03932da60ce15dd6853ff6a7be1a51047480c4f467"
+    },
+    {
+      "name": "SOURCE-PROOFS",
+      "argv": [
+        "python3",
+        "-P",
+        "dev/source-proof-test.py"
+      ],
+      "cwd": "/Users/oobi/Documents/gpt1/assay-m1-errors",
+      "exit": 0,
+      "passed": true,
+      "elapsed_seconds": 136.0446110838093,
+      "sha256": "4bcdfb07f19b7f57759ae72212d008789b1c84efe85339ad79505b095f203b2d"
+    },
+    {
+      "name": "NULLARY-ENTRIES",
+      "argv": [
+        "python3",
+        "-P",
+        "dev/nullary-test.py"
+      ],
+      "cwd": "/Users/oobi/Documents/gpt1/assay-m1-errors",
+      "exit": 0,
+      "passed": true,
+      "elapsed_seconds": 21.983673375099897,
+      "sha256": "692fac3c8e124276ea4351c631f1ae74ad8d62a95dd88b06d6f86c73ab2da327"
+    },
+    {
+      "name": "CUSTOM-ERRORS",
+      "argv": [
+        "python3",
+        "-P",
+        "dev/errors-test.py"
+      ],
+      "cwd": "/Users/oobi/Documents/gpt1/assay-m1-errors",
+      "exit": 0,
+      "passed": true,
+      "elapsed_seconds": 32.76536004059017,
+      "sha256": "6c416bdb3da6f80493e62a2728107102d6fae3949cb75634d504b2c12e664771"
+    }
+  ]
+}

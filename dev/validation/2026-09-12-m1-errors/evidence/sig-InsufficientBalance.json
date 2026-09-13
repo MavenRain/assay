@@ -1,0 +1,10 @@
+{
+  "argv": [
+    "cast",
+    "sig",
+    "InsufficientBalance(uint256,uint256)"
+  ],
+  "exit": 0,
+  "stdout": "0xcf479181\n",
+  "stderr": ""
+}

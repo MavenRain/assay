@@ -1,0 +1,12 @@
+{
+  "argv": [
+    "cast",
+    "calldata",
+    "InsufficientBalance(uint256,uint256)",
+    "0",
+    "115792089237316195423570985008687907853269984665640564039457584007913129639935"
+  ],
+  "exit": 0,
+  "stdout": "0xcf4791810000000000000000000000000000000000000000000000000000000000000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff\n",
+  "stderr": ""
+}

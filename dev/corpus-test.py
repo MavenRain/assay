@@ -182,6 +182,41 @@ def mutations(root):
         reject(name, 'RATIO-SUMMARY', lambda: ratio.validate(damaged, frozen))
     ratio.validate(original, frozen)
     controls += 1
+    # A failed timing window must preserve samples without publishing a usable report.
+    with tempfile.TemporaryDirectory(prefix='assay-ratio-diagnostics-') as temporary:
+        target = Path(temporary) / 'measurement.json'
+        retained = []
+        for seconds in (60.0, 61.0):
+            damaged = copy.deepcopy(original)
+            damaged['window']['seconds'] = seconds
+            caught = False
+            try:
+                ratio.save_measurement(target, damaged)
+            except ValueError as error:
+                caught = 'RATIO-WINDOW' in str(error) and 'ocamlopt=' in str(error) and 'rejected_report=' in str(error)
+            data.require(caught and not target.exists(), 'RATIO-DIAGNOSTICS accepted a failed window')
+            paths = set(Path(temporary).glob('measurement.json.rejected-*.json')) - set(retained)
+            data.require(len(paths) == 1, 'RATIO-DIAGNOSTICS missing capture')
+            path = next(iter(paths))
+            saved = json.loads(path.read_text())
+            data.require(saved == dict(damaged, rejection='RATIO-WINDOW', window_limit_seconds=60),
+                         'RATIO-DIAGNOSTICS lost samples')
+            retained.append(path)
+        # Review round 2026-09-12 (C-1):  a rejected capture stays unusable after an
+        # edit that puts its window seconds back under the limit.
+        repaired = json.loads(retained[-1].read_text())
+        repaired['window']['seconds'] = 30.0
+        refused = False
+        try:
+            ratio.validate(repaired, frozen)
+        except ValueError as error:
+            refused = 'RATIO-REJECTED' in str(error)
+        data.require(refused, 'RATIO-DIAGNOSTICS accepted a rejected report')
+        prior = [path.read_bytes() for path in retained]
+        ratio.save_measurement(target, original)
+        data.require(json.loads(target.read_text()) == original and
+                     [path.read_bytes() for path in retained] == prior, 'RATIO-DIAGNOSTICS control')
+    print('RATIO-DIAGNOSTICS rejected=2 retained=2 repaired=1 control=1 limit=60 OK')
     data.require(tuple(killed) == expected, 'F-MUTANT-ROSTER ' + str(killed))
     data.require(controls == 5, 'F-MUTANT-CONTROLS ' + str(controls))
     print(f'F-MUTANTS killed={len(killed)}/{len(expected)} controls={controls} OK')

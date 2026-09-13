@@ -36,6 +36,18 @@ def summary(samples, lines, invocations):
                 ms_per_kloc=median * 1000 / lines if lines else None)
 
 
+def save_measurement(target, report):
+    duration = report['window']['seconds']
+    valid_window = 0 < duration < 60
+    path = target if valid_window else target.with_name(target.name + f'.rejected-{time.time_ns()}.json')
+    retained = report if valid_window else dict(report, rejection='RATIO-WINDOW', window_limit_seconds=60)
+    with path.open('x') as output:
+        output.write(json.dumps(retained, indent=2) + '\n')
+    if not valid_window:
+        totals = ' '.join(f'{name}={sum(row["samples_ms"]):.1f}ms' for name, row in report['rows'].items())
+        raise ValueError(f'RATIO-WINDOW seconds={duration:.3f} limit=60 {totals}; rejected_report={path}')
+
+
 def measure(root, target):
     data = module(root)
     data.require(not target.exists(), 'RATIO-OUTPUT exists')
@@ -104,7 +116,6 @@ def measure(root, target):
                                      cwd=str(folder if name in ('ocamlopt', 'ocamlc') else root), elapsed_ms=elapsed))
         duration = time.monotonic() - start_wall
         ended = datetime.datetime.now(datetime.timezone.utc).isoformat()
-        data.require(duration < 60, 'RATIO-WINDOW measured rounds exceeded one minute; rerun when host load permits')
     # Recheck the inputs after the run.  No run can bless changed sources.
     data.manifest(root)
     data.require(all(data.digest(root / path) == expected for path, expected in identities.items()),
@@ -122,14 +133,17 @@ def measure(root, target):
                   versions=versions, executable_sha256=identities['_build/default/bin/assay.exe'],
                   corpus_sha256=identities['corpus/MANIFEST.json'],
                   measurement_sha256=identities['dev/ratio.py'], rows=rows, commands=runs)
-    with target.open('x') as output:
-        output.write(json.dumps(report, indent=2) + '\n')
+    save_measurement(target, report)
     print(f'M0-MEASURE file={target} rounds=5 window_seconds={duration:.3f}; freeze before reporting ratios')
 
 
 def validate(report, frozen):
     require = module(Path(__file__).resolve().parent.parent).require
     require(report['version'] == 1 and report['stage'] == 'M0 Stage F', 'RATIO-VERSION')
+    # Review round 2026-09-12 (C-1):  save_measurement marks a rejected window in the
+    # retained report.  A report that carries the marker fails here, whatever its
+    # window values say, so edited window seconds cannot publish it.
+    require('rejection' not in report and 'window_limit_seconds' not in report, 'RATIO-REJECTED')
     require(0 < report['window']['seconds'] < 60, 'RATIO-WINDOW')
     for name in ('contracts', 'proofs', 'ocamlopt', 'ocamlc', 'fixed'):
         row = report['rows'][name]

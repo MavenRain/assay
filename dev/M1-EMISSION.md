@@ -81,6 +81,10 @@ CALLVALUE guard rejects value before dispatch, including fallback calls.
 | `le a b yes no` | Choose `yes` exactly when `a <= b` |
 | `abort` | Revert with empty data and roll back writes |
 
+The [typed error protocol](M1-ERRORS.md) optionally adds an `Error` sum
+and `reject : Error -> Tx`, with ABI-encoded revert payloads. Existing
+core programs without `Error` keep the protocol above.
+
 `ResultWord` is the existing collection sum of `Word 256` and unit. The
 success leg contains the arithmetic result. The error leg contains no
 word. The source can revert or recover from an error; a recovered error

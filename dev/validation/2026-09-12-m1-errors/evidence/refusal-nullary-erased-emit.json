@@ -1,0 +1,12 @@
+{
+  "argv": [
+    "/Users/oobi/Documents/gpt1/assay-m1-errors/_build/default/bin/assay.exe",
+    "emit",
+    "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-errors-refusals-ecikn54w/nullary-erased.asy",
+    "-o",
+    "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-errors-refusals-ecikn54w/nullary-erased-out"
+  ],
+  "exit": 2,
+  "stdout": "",
+  "stderr": "assay: emit: M0_PROTOCOL: M1 nullary Error needs an explicit (prod () : Type 0) argument record\n"
+}

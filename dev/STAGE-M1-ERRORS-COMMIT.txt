@@ -1,0 +1,26 @@
+M1: compile typed custom reverts and error ABI rows
+
+Lower named Word errors to a checked variant and a typed reject effect.
+Derive selectors and ABI rows from the schema, encode payloads beyond
+live snapshots, and preserve storage rollback in the source model.
+
+Add source and Cancun comparisons, schema refusals, reserved and
+colliding selectors, argument bounds and five mutation controls.
+Preserve failed timing samples with a workload breakdown and retain
+the existing proof gates. The full timing run remains paused.
+
+Review pass 1 (2026-09-12) fixed 1 findings: D-4.
+- D-4 low: rewrap the new build-log block at 72 columns.
+Close step (2026-09-12) fixed 5 findings: B-1, C-1, D-1, D-2, D-3.
+- B-1 medium: refuse a unit payload that is mixed with values.
+- C-1 low: refuse a rejected timing report in validate.
+- D-1 low: state the source of the resource figures.
+- D-2 low: state that the archived battery was interrupted.
+- D-3 low: name the archived mutation transcripts.
+Six findings are fixed and staged. The custom error leg prints
+CUSTOM-ERRORS cases=66 creates=2 refusals=26 mutants=5 OK
+with 18 surface refusals. The corpus mutant run prints
+RATIO-DIAGNOSTICS rejected=2 retained=2 repaired=1 control=1 limit=60 OK
+The 119 freeze rows of dev/DENOMINATORS.sha256 are refreshed.
+The M0-RATIO remeasure is NOT FIXED: dev/denominators.json still pins
+the old dev/ratio.py hash, and the remeasure needs a calm host.

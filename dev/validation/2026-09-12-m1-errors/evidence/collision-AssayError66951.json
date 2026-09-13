@@ -1,0 +1,10 @@
+{
+  "argv": [
+    "cast",
+    "sig",
+    "AssayError66951(uint256)"
+  ],
+  "exit": 0,
+  "stdout": "0x3387398a\n",
+  "stderr": ""
+}

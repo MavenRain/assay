@@ -74,6 +74,11 @@ let operand memory = function
 let rec transaction initial storage memory = function
   | E.Finish value -> let* value = operand memory value in Ok (success storage value)
   | E.Abort -> Ok (revert initial)
+  | E.Reject (selector, values) ->
+    let* words = List.fold_left (fun result value ->
+      let* words = result in let* value = operand memory value in
+      Ok (words ^ Z.format "%064x" value)) (Ok "") values in
+    Ok {reverted = true; output = "0x" ^ selector ^ words; storage = initial}
   | E.Store (slot, value, next) ->
     let* value = operand memory value in transaction initial (put storage slot value) memory next
   | E.Load (slot, index, next) ->
@@ -91,7 +96,7 @@ let rec transaction initial storage memory = function
 let prepare ~export globals erased =
   let source result = Result.map_error (fun e -> Source e) result in
   if Option.is_some (Kanon_kernel.Global.find "Entry" globals) then
-    let* entries, constructor, _fields = source (E.prepare_m1 ~export globals erased) in
+    let* entries, constructor, _fields, _errors = source (E.prepare_m1 ~export globals erased) in
     let rec valid = function
       | E.Return value when Z.equal value Z.zero -> Ok ()
       | E.Put (_, _, next) -> valid next

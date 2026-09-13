@@ -1,0 +1,159 @@
+{
+  "runtime_bytes": 358,
+  "init_bytes": 388,
+  "covered": 215,
+  "gas": [
+    {
+      "name": "denied",
+      "run_gas": 5306,
+      "t8n_execution_gas": 5306
+    },
+    {
+      "name": "balance-0-0",
+      "run_gas": 7632,
+      "t8n_execution_gas": 7632
+    },
+    {
+      "name": "balance-0-1",
+      "run_gas": 27532,
+      "t8n_execution_gas": 27532
+    },
+    {
+      "name": "balance-0-2",
+      "run_gas": 27532,
+      "t8n_execution_gas": 27532
+    },
+    {
+      "name": "balance-1-0",
+      "run_gas": 10432,
+      "t8n_execution_gas": 10432
+    },
+    {
+      "name": "balance-1-1",
+      "run_gas": 10432,
+      "t8n_execution_gas": 10432
+    },
+    {
+      "name": "balance-1-2",
+      "run_gas": 10432,
+      "t8n_execution_gas": 10432
+    },
+    {
+      "name": "balance-2-0",
+      "run_gas": 10432,
+      "t8n_execution_gas": 10432
+    },
+    {
+      "name": "balance-2-1",
+      "run_gas": 10432,
+      "t8n_execution_gas": 10432
+    },
+    {
+      "name": "balance-2-2",
+      "run_gas": 7632,
+      "t8n_execution_gas": 7632
+    },
+    {
+      "name": "snapshot-0",
+      "run_gas": 5520,
+      "t8n_execution_gas": 5520
+    },
+    {
+      "name": "snapshot-1",
+      "run_gas": 5520,
+      "t8n_execution_gas": 5520
+    },
+    {
+      "name": "snapshot-2",
+      "run_gas": 5520,
+      "t8n_execution_gas": 5520
+    },
+    {
+      "name": "snapshot-3",
+      "run_gas": 320,
+      "t8n_execution_gas": 320
+    },
+    {
+      "name": "snapshot-4",
+      "run_gas": 5520,
+      "t8n_execution_gas": 5520
+    },
+    {
+      "name": "get-0",
+      "run_gas": 2408,
+      "t8n_execution_gas": 2408
+    },
+    {
+      "name": "get-1",
+      "run_gas": 2408,
+      "t8n_execution_gas": 2408
+    },
+    {
+      "name": "get-2",
+      "run_gas": 2408,
+      "t8n_execution_gas": 2408
+    },
+    {
+      "name": "short-0",
+      "run_gas": 53,
+      "t8n_execution_gas": 53
+    },
+    {
+      "name": "short-1",
+      "run_gas": 53,
+      "t8n_execution_gas": 53
+    },
+    {
+      "name": "short-2",
+      "run_gas": 53,
+      "t8n_execution_gas": 53
+    },
+    {
+      "name": "short-3",
+      "run_gas": 53,
+      "t8n_execution_gas": 53
+    },
+    {
+      "name": "unknown",
+      "run_gas": 239,
+      "t8n_execution_gas": 239
+    },
+    {
+      "name": "short-argument",
+      "run_gas": 178,
+      "t8n_execution_gas": 178
+    },
+    {
+      "name": "trailing",
+      "run_gas": 10432,
+      "t8n_execution_gas": 10432
+    },
+    {
+      "name": "value-deny",
+      "run_gas": 20,
+      "t8n_execution_gas": 20
+    },
+    {
+      "name": "value-fail",
+      "run_gas": 20,
+      "t8n_execution_gas": 20
+    },
+    {
+      "name": "value-snapshot",
+      "run_gas": 20,
+      "t8n_execution_gas": 20
+    },
+    {
+      "name": "value-get",
+      "run_gas": 20,
+      "t8n_execution_gas": 20
+    }
+  ],
+  "files": {
+    "axioms.txt": "61f8b9f0cb83fe5250e13b39b40e705d106caa92810d60168dfe5f4c3a89a302",
+    "init.hex": "58c8345f8e8786b1b58d2f8202ca383df72482460d759ac305c30b42f5047a52",
+    "runtime.hex": "886a01ad63f1c63b6e42274d02e6b22bfafa3030169a18368178b533182aaf15",
+    "layout.json": "f97a4aff0a2fc2d57ac8aac47c37574816d1b135795e62ac48e9ac86592d5700",
+    "abi.json": "6aa276da8b309d54bf7c9c70c90667e427aa66a098852d9f31b0dda945c86def"
+  }
+}

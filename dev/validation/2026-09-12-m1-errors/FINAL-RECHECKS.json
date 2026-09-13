@@ -1,0 +1,32 @@
+[
+  {
+    "name": "HOUSE",
+    "argv": [
+      "zsh",
+      "-f",
+      "dev/house.sh"
+    ],
+    "timeout_seconds": 30,
+    "cwd": "/Users/oobi/Documents/gpt1/assay-m1-errors",
+    "exit": 0,
+    "passed": true,
+    "elapsed_seconds": 1.0712313340045512,
+    "sha256": "ae1e36f1abdc0223cf98e268605016d2fba16bc270908c0d43096801d3e2349b"
+  },
+  {
+    "name": "DENOMINATORS",
+    "argv": [
+      "shasum",
+      "-a",
+      "256",
+      "-c",
+      "dev/DENOMINATORS.sha256"
+    ],
+    "timeout_seconds": 10,
+    "cwd": "/Users/oobi/Documents/gpt1/assay-m1-errors",
+    "exit": 0,
+    "passed": true,
+    "elapsed_seconds": 0.08479512482881546,
+    "sha256": "d3d08286954f0c988d054cd6fec8472128e9c8479ae14973c3ac5d7f6624c21e"
+  }
+]

@@ -1,0 +1,11 @@
+{
+  "argv": [
+    "lake",
+    "env",
+    "lean",
+    "Axioms.lean"
+  ],
+  "exit": 0,
+  "stdout": "'AssayProofs.checked_meaning' does not depend on any axioms\n'AssayProofs.checked_add_exact' does not depend on any axioms\n'AssayProofs.checked_sub_exact' does not depend on any axioms\n'AssayProofs.checked_add_rejects' does not depend on any axioms\n'AssayProofs.checked_sub_rejects' does not depend on any axioms\n'AssayProofs.word_bounded' does not depend on any axioms\n'AssayProofs.execution_overflow_free' does not depend on any axioms\n'AssayProofs.source_overflow_free' depends on axioms: [propext]\n'AssayProofs.abort_restores' depends on axioms: [propext]\n'AssayProofs.event_add_exact' does not depend on any axioms\n'AssayProofs.event_sub_exact' does not depend on any axioms\n",
+  "stderr": ""
+}

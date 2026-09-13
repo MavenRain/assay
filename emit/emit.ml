@@ -217,6 +217,7 @@ type operand = Constant of Z.t | Memory of int
 type arithmetic = Add | Sub
 type transaction =
   | Finish of operand | Abort
+  | Reject of string * operand list
   | Store of Z.t * operand * transaction
   | Load of Z.t * int * transaction
   | Arithmetic of arithmetic * operand * operand * int * transaction * transaction
@@ -234,13 +235,43 @@ let static_slot slots = function
     Error Unknown_slot
 
 let result_tid = Eterm.Tid "sum<union mu<Word>|unit>"
+let tuple_tid count = Eterm.Tid ("tuple<" ^
+  String.concat "," (List.init count (fun _index -> "union mu<Word>")) ^ ">")
+let entry_tid entries = Eterm.Tid ("sum<" ^ String.concat "|"
+  (List.map (fun (_name, inputs) -> if inputs = [] then "unit"
+    else "struct " ^ Eterm.tid_text (tuple_tid (List.length inputs))) entries) ^ ">")
+
+let error_table declarations =
+  List.fold_left (fun result (error_name, arguments) ->
+    let* errors = result in
+    let row : Assay_abi.Abi.custom_error = {error_name; arguments} in
+    let selector = Assay_keccak.Keccak.selector (Assay_abi.Abi.error_signature row) in
+    if selector = "00000000" || selector = "ffffffff" then Error (M1_shape "reserved error selector")
+    else if List.exists (fun (_row, prior) -> prior = selector) errors then Error (Selector_collision selector)
+    else Ok (errors @ [row, selector])) (Ok []) declarations
+
+let error_value errors = function
+  | R.Tag (tid, index, fields) ->
+    let declarations = List.map (fun (row, _selector) -> row.Assay_abi.Abi.error_name, row.arguments) errors in
+    if tid <> entry_tid declarations then Error (M1_shape "Error variant") else
+    let* row, selector = at index errors in
+    let count = List.length row.Assay_abi.Abi.arguments in
+    let* values = match fields with
+      | [] when count = 0 -> Ok []
+      | [R.Struct (tid, values)] when tid = tuple_tid count && List.length values = count -> Ok values
+      | [] | _ :: _ -> Error (M1_shape "Error arguments") in
+    let* values = List.fold_left (fun result value ->
+      let* values = result in let* value = operand value in Ok (values @ [value])) (Ok []) values in
+    Ok (Reject (selector, values))
+  | R.Word _ | R.Runtime_word _ | R.Struct _ | R.Nat _ | R.Erased | R.Closure _ ->
+    Error (M1_shape "expected Error variant")
 
 (* Both result legs are specialized. Fresh memory words hold snapshots,
    so a later store cannot change the value of an earlier load. *)
-let rec transaction env slots depth fuel fresh value =
+let rec transaction env errors slots depth fuel fresh value =
   let* fuel = tick fuel in
   if depth > 128 || fresh > 1024 then Error Budget else
-  let lower = transaction env slots (depth + 1) in
+  let lower = transaction env errors slots (depth + 1) in
   let continuation fuel fresh fn arg =
     let* value, fuel = apply env fuel fn [arg] in lower fuel fresh value in
   match value with
@@ -265,6 +296,7 @@ let rec transaction env slots depth fuel fresh value =
        let* yes, fuel, fresh = lower fuel fresh yes in
        let* no, fuel, fresh = lower fuel fresh no in Ok (Compare (left, right, yes, no), fuel, fresh)
      | 6, [] -> Ok (Abort, fuel, fresh)
+     | 7, [value] -> let* tx = error_value errors value in Ok (tx, fuel, fresh)
      | _, [] | _, _ :: _ -> Error (M1_shape "Tx constructor"))
   | R.Nat _ -> Error Nat_runtime
   | R.Word _ | R.Runtime_word _ | R.Struct _ | R.Tag _ | R.Erased | R.Closure _ ->
@@ -282,6 +314,13 @@ let marked label body ending = block ~destination:true label body ending
 let rec transaction_blocks label = function
   | Finish value -> [marked label (return_body (read_operand value)) (A.Halt A.Return)]
   | Abort -> [marked label [number 0; number 0] (A.Halt A.Revert)]
+  | Reject (selector, values) ->
+    (* The error buffer follows all 1024 snapshot words, including aliased arguments. *)
+    let base = 32 * 1024 in
+    let header = [A.Push selector; number 224; A.Op "SHL"; number base; A.Op "MSTORE"] in
+    let payload = List.concat (List.mapi (fun index value ->
+      read_operand value @ [number (base + 4 + 32 * index); A.Op "MSTORE"]) values) in
+    [marked label (header @ payload @ [number (4 + 32 * List.length values); number base]) (A.Halt A.Revert)]
   | Store (slot, value, next) ->
     marked label (read_operand value @ [push slot; A.Op "SSTORE"]) (goto (label ^ "n")) ::
     transaction_blocks (label ^ "n") next
@@ -302,20 +341,14 @@ let rec transaction_blocks label = function
     transaction_blocks (label ^ "v") yes @ transaction_blocks (label ^ "e") no
 
 let rec readonly = function
-  | Finish _ | Abort -> true
+  | Finish _ | Abort | Reject _ -> true
   | Store _ -> false
   | Load (_, _, next) -> readonly next
   | Arithmetic (_, _, _, _, yes, no) | Compare (_, _, yes, no) -> readonly yes && readonly no
 
-let tuple_tid count = Eterm.Tid ("tuple<" ^
-  String.concat "," (List.init count (fun _index -> "union mu<Word>")) ^ ">")
-let entry_tid entries = Eterm.Tid ("sum<" ^ String.concat "|"
-  (List.map (fun (_name, inputs) -> if inputs = [] then "unit"
-    else "struct " ^ Eterm.tid_text (tuple_tid (List.length inputs))) entries) ^ ">")
-
 type entry = { abi_entry : Assay_abi.Abi.entry; selector : string; tx : transaction }
 
-let entries env slots fuel export declarations =
+let entries env errors slots fuel export declarations =
   let tid = entry_tid declarations in
   let* fn = List.assoc_opt export env.functions |> Option.to_result ~none:(Missing export) in
   if fn.params <> [Eterm.RUnion tid] || fn.result <> Eterm.RUnion (Eterm.Tid "mu<Tx>")
@@ -326,7 +359,7 @@ let entries env slots fuel export declarations =
     let payload = if args = [] then [] else [R.Struct (tuple_tid (List.length args), args)] in
     let* value, fuel = call env fuel export [R.Tag (tid, index, payload)] in
     let* () = recognize (R.unboxed value) in
-    let* tx, fuel, _fresh = transaction env slots 0 fuel (List.length args + 1) value in
+    let* tx, fuel, _fresh = transaction env errors slots 0 fuel (List.length args + 1) value in
     let abi_entry : Assay_abi.Abi.entry = { name; inputs; readonly = readonly tx } in
     let selector = Assay_keccak.Keccak.selector (Assay_abi.Abi.signature abi_entry) in
     if List.exists (fun entry -> entry.selector = selector) entries then Error (Selector_collision selector)
@@ -376,7 +409,8 @@ let init_m1 runtime constructor =
   settle 4 0
 
 let prepare_m1 ~export globals erased =
-  let* fields, declarations = recognize (R.m1_schema globals) in
+  let* fields, declarations, errors = recognize (R.m1_schema globals) in
+  let* errors = error_table errors in
   let* () = recognize (R.m1_export globals export) in
   let env = environment erased in
   let lookup name = Option.map (fun fn -> fn.body) (List.assoc_opt name env.functions) in
@@ -387,11 +421,11 @@ let prepare_m1 ~export globals erased =
   if List.length slots <> List.length fields then Error (Recognizer R.Storage_shape) else
   let* constructor, fuel = call env fuel "constructor" [] in
   let* constructor = effect (List.length fields) constructor in
-  let* entries, _fuel = entries {env with runtime = true} (List.length fields) fuel export declarations in
-  Ok (entries, constructor, fields)
+  let* entries, _fuel = entries {env with runtime = true} errors (List.length fields) fuel export declarations in
+  Ok (entries, constructor, fields, errors)
 
 let program_m1 ~contract ~export globals rows erased =
-  let* entries, constructor, fields = prepare_m1 ~export globals erased in
+  let* entries, constructor, fields, errors = prepare_m1 ~export globals erased in
   let* program = assemble (dispatch_blocks entries) in
   let runtime = A.hex program in
   let* () = if String.length runtime > 2 * 24576 then Error Budget else Ok () in
@@ -399,7 +433,7 @@ let program_m1 ~contract ~export globals rows erased =
   let* listing = Assay_asm.Listing.render runtime
     |> Result.map_error (fun _error -> Invalid_ir "generated M1 listing") in
   Ok {runtime; init; listing; fields = List.length fields;
-      abi = Assay_abi.Abi.print (List.map (fun entry -> entry.abi_entry) entries);
+      abi = Assay_abi.Abi.print ~errors:(List.map fst errors) (List.map (fun entry -> entry.abi_entry) entries);
       layout = Assay_abi.Layout.print ~contract fields;
       axioms = String.concat "" (List.map (fun name -> name ^ "\n") (Kanon_surface.Elab.axiom_names rows))}
 

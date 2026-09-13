@@ -1,0 +1,439 @@
+[
+  {
+    "label": "assay-corpus/contracts/Ref20.asy",
+    "argv": [
+      "/Users/oobi/Documents/gpt1/assay-m1-errors/_build/default/bin/assay.exe",
+      "emit",
+      "/Users/oobi/Documents/gpt1/assay-m1-errors/corpus/contracts/Ref20.asy",
+      "-o",
+      "/Users/oobi/Documents/gpt1/assay-m1-errors/.gatework/timing-debug/Ref20"
+    ],
+    "cwd": "/Users/oobi/Documents/gpt1/assay-m1-errors",
+    "exit": 0,
+    "wall_seconds": 0.13160512503236532,
+    "cpu_seconds": 0.014307,
+    "cpu_over_wall": 0.1087115718060487,
+    "stdout": "",
+    "stderr": "",
+    "load": [
+      350.7607421875,
+      161.67138671875,
+      107.49853515625
+    ]
+  },
+  {
+    "label": "assay-corpus/contracts/Return.asy",
+    "argv": [
+      "/Users/oobi/Documents/gpt1/assay-m1-errors/_build/default/bin/assay.exe",
+      "emit",
+      "/Users/oobi/Documents/gpt1/assay-m1-errors/corpus/contracts/Return.asy",
+      "-o",
+      "/Users/oobi/Documents/gpt1/assay-m1-errors/.gatework/timing-debug/Return"
+    ],
+    "cwd": "/Users/oobi/Documents/gpt1/assay-m1-errors",
+    "exit": 0,
+    "wall_seconds": 0.035145957954227924,
+    "cpu_seconds": 0.011283999999999999,
+    "cpu_over_wall": 0.3210611022381473,
+    "stdout": "",
+    "stderr": "",
+    "load": [
+      350.7607421875,
+      161.67138671875,
+      107.49853515625
+    ]
+  },
+  {
+    "label": "assay-corpus/contracts/Zero.asy",
+    "argv": [
+      "/Users/oobi/Documents/gpt1/assay-m1-errors/_build/default/bin/assay.exe",
+      "emit",
+      "/Users/oobi/Documents/gpt1/assay-m1-errors/corpus/contracts/Zero.asy",
+      "-o",
+      "/Users/oobi/Documents/gpt1/assay-m1-errors/.gatework/timing-debug/Zero"
+    ],
+    "cwd": "/Users/oobi/Documents/gpt1/assay-m1-errors",
+    "exit": 0,
+    "wall_seconds": 0.050359166227281094,
+    "cpu_seconds": 0.010227999999999998,
+    "cpu_over_wall": 0.2031010591763765,
+    "stdout": "",
+    "stderr": "",
+    "load": [
+      350.7607421875,
+      161.67138671875,
+      107.49853515625
+    ]
+  },
+  {
+    "label": "assay-corpus/contracts/Maximum.asy",
+    "argv": [
+      "/Users/oobi/Documents/gpt1/assay-m1-errors/_build/default/bin/assay.exe",
+      "emit",
+      "/Users/oobi/Documents/gpt1/assay-m1-errors/corpus/contracts/Maximum.asy",
+      "-o",
+      "/Users/oobi/Documents/gpt1/assay-m1-errors/.gatework/timing-debug/Maximum"
+    ],
+    "cwd": "/Users/oobi/Documents/gpt1/assay-m1-errors",
+    "exit": 0,
+    "wall_seconds": 0.02823354210704565,
+    "cpu_seconds": 0.009494000000000002,
+    "cpu_over_wall": 0.3362666988082514,
+    "stdout": "",
+    "stderr": "",
+    "load": [
+      350.7607421875,
+      161.67138671875,
+      107.49853515625
+    ]
+  },
+  {
+    "label": "assay-corpus/contracts/Arithmetic.asy",
+    "argv": [
+      "/Users/oobi/Documents/gpt1/assay-m1-errors/_build/default/bin/assay.exe",
+      "emit",
+      "/Users/oobi/Documents/gpt1/assay-m1-errors/corpus/contracts/Arithmetic.asy",
+      "-o",
+      "/Users/oobi/Documents/gpt1/assay-m1-errors/.gatework/timing-debug/Arithmetic"
+    ],
+    "cwd": "/Users/oobi/Documents/gpt1/assay-m1-errors",
+    "exit": 0,
+    "wall_seconds": 0.062017792370170355,
+    "cpu_seconds": 0.010239999999999992,
+    "cpu_over_wall": 0.16511390697172385,
+    "stdout": "",
+    "stderr": "",
+    "load": [
+      350.7607421875,
+      161.67138671875,
+      107.49853515625
+    ]
+  },
+  {
+    "label": "assay-corpus/contracts/Pair.asy",
+    "argv": [
+      "/Users/oobi/Documents/gpt1/assay-m1-errors/_build/default/bin/assay.exe",
+      "emit",
+      "/Users/oobi/Documents/gpt1/assay-m1-errors/corpus/contracts/Pair.asy",
+      "-o",
+      "/Users/oobi/Documents/gpt1/assay-m1-errors/.gatework/timing-debug/Pair"
+    ],
+    "cwd": "/Users/oobi/Documents/gpt1/assay-m1-errors",
+    "exit": 0,
+    "wall_seconds": 0.05720012495294213,
+    "cpu_seconds": 0.010019999999999994,
+    "cpu_over_wall": 0.17517444250765762,
+    "stdout": "",
+    "stderr": "",
+    "load": [
+      350.7607421875,
+      161.67138671875,
+      107.49853515625
+    ]
+  },
+  {
+    "label": "assay-corpus/contracts/TwoSlots.asy",
+    "argv": [
+      "/Users/oobi/Documents/gpt1/assay-m1-errors/_build/default/bin/assay.exe",
+      "emit",
+      "/Users/oobi/Documents/gpt1/assay-m1-errors/corpus/contracts/TwoSlots.asy",
+      "-o",
+      "/Users/oobi/Documents/gpt1/assay-m1-errors/.gatework/timing-debug/TwoSlots"
+    ],
+    "cwd": "/Users/oobi/Documents/gpt1/assay-m1-errors",
+    "exit": 0,
+    "wall_seconds": 0.037440750282257795,
+    "cpu_seconds": 0.009556000000000009,
+    "cpu_over_wall": 0.2552299280318736,
+    "stdout": "",
+    "stderr": "",
+    "load": [
+      350.7607421875,
+      161.67138671875,
+      107.49853515625
+    ]
+  },
+  {
+    "label": "assay-corpus/contracts/WideLabel.asy",
+    "argv": [
+      "/Users/oobi/Documents/gpt1/assay-m1-errors/_build/default/bin/assay.exe",
+      "emit",
+      "/Users/oobi/Documents/gpt1/assay-m1-errors/corpus/contracts/WideLabel.asy",
+      "-o",
+      "/Users/oobi/Documents/gpt1/assay-m1-errors/.gatework/timing-debug/WideLabel"
+    ],
+    "cwd": "/Users/oobi/Documents/gpt1/assay-m1-errors",
+    "exit": 0,
+    "wall_seconds": 0.08307070890441537,
+    "cpu_seconds": 0.014614999999999989,
+    "cpu_over_wall": 0.17593445623314252,
+    "stdout": "",
+    "stderr": "",
+    "load": [
+      350.7607421875,
+      161.67138671875,
+      107.49853515625
+    ]
+  },
+  {
+    "label": "assay-corpus/proofs/Leaf.asy",
+    "argv": [
+      "/Users/oobi/Documents/gpt1/assay-m1-errors/_build/default/bin/assay.exe",
+      "emit",
+      "/Users/oobi/Documents/gpt1/assay-m1-errors/corpus/proofs/Leaf.asy",
+      "-o",
+      "/Users/oobi/Documents/gpt1/assay-m1-errors/.gatework/timing-debug/Leaf"
+    ],
+    "cwd": "/Users/oobi/Documents/gpt1/assay-m1-errors",
+    "exit": 0,
+    "wall_seconds": 0.07158508384600282,
+    "cpu_seconds": 0.011366999999999995,
+    "cpu_over_wall": 0.15879006336645798,
+    "stdout": "",
+    "stderr": "",
+    "load": [
+      350.7607421875,
+      161.67138671875,
+      107.49853515625
+    ]
+  },
+  {
+    "label": "assay-corpus/proofs/Apply.asy",
+    "argv": [
+      "/Users/oobi/Documents/gpt1/assay-m1-errors/_build/default/bin/assay.exe",
+      "emit",
+      "/Users/oobi/Documents/gpt1/assay-m1-errors/corpus/proofs/Apply.asy",
+      "-o",
+      "/Users/oobi/Documents/gpt1/assay-m1-errors/.gatework/timing-debug/Apply"
+    ],
+    "cwd": "/Users/oobi/Documents/gpt1/assay-m1-errors",
+    "exit": 0,
+    "wall_seconds": 0.07771579222753644,
+    "cpu_seconds": 0.013804999999999998,
+    "cpu_over_wall": 0.17763442415386688,
+    "stdout": "",
+    "stderr": "",
+    "load": [
+      350.7607421875,
+      161.67138671875,
+      107.49853515625
+    ]
+  },
+  {
+    "label": "assay-corpus/proofs/Let.asy",
+    "argv": [
+      "/Users/oobi/Documents/gpt1/assay-m1-errors/_build/default/bin/assay.exe",
+      "emit",
+      "/Users/oobi/Documents/gpt1/assay-m1-errors/corpus/proofs/Let.asy",
+      "-o",
+      "/Users/oobi/Documents/gpt1/assay-m1-errors/.gatework/timing-debug/Let"
+    ],
+    "cwd": "/Users/oobi/Documents/gpt1/assay-m1-errors",
+    "exit": 0,
+    "wall_seconds": 0.17399816680699587,
+    "cpu_seconds": 0.012887999999999983,
+    "cpu_over_wall": 0.07406974588586183,
+    "stdout": "",
+    "stderr": "",
+    "load": [
+      350.7607421875,
+      161.67138671875,
+      107.49853515625
+    ]
+  },
+  {
+    "label": "fixed",
+    "argv": [
+      "/Users/oobi/Documents/gpt1/assay-m1-errors/_build/default/bin/assay.exe",
+      "spec-count"
+    ],
+    "cwd": "/Users/oobi/Documents/gpt1/assay-m1-errors",
+    "exit": 0,
+    "wall_seconds": 0.05825183400884271,
+    "cpu_seconds": 0.00880400000000002,
+    "cpu_over_wall": 0.15113687233716214,
+    "stdout": "formers 2: Lan Ran\nschema constructors 4: In Elim Sec Out\nshapes declared 5: SPi SColl SPar SMu SNu\nshapes admitted 3: SPi SColl SMu\nnamed rules declared 3: proof-irrelevance subsingleton-large-elimination literal-fast-path\nnamed rules present 3: proof-irrelevance subsingleton-large-elimination literal-fast-path\neta rows 3: Ran-SPi Lan-SPi Ran-SColl\nno eta 3: Lan-SColl Ran-SMu Lan-SMu\n",
+    "stderr": "",
+    "load": [
+      350.7607421875,
+      161.67138671875,
+      107.49853515625
+    ]
+  },
+  {
+    "label": "ocamlopt-order",
+    "argv": [
+      "/Users/oobi/.opam/zxcaml-p1/bin/ocamldep",
+      "-sort",
+      "bignum.ml",
+      "budget.ml",
+      "budget.mli",
+      "check.ml",
+      "conv.ml",
+      "erase.ml",
+      "error.ml",
+      "eterm.ml",
+      "eval.ml",
+      "global.ml",
+      "level.ml",
+      "level.mli",
+      "literal.ml",
+      "order.ml",
+      "positivity.ml",
+      "pp.ml",
+      "prim.ml",
+      "quantity.ml",
+      "rules.ml",
+      "shape.ml",
+      "spec_count.ml",
+      "term.ml",
+      "totality.ml",
+      "value.ml"
+    ],
+    "cwd": "/Users/oobi/Documents/gpt1/assay-m1-errors/.gatework/timing-debug/ocamlopt",
+    "exit": 0,
+    "wall_seconds": 1.250605583190918,
+    "cpu_seconds": 0.09012599999999998,
+    "cpu_over_wall": 0.0720658864884032,
+    "stdout": "bignum.ml budget.mli error.ml level.mli literal.ml quantity.ml shape.ml level.ml eterm.ml budget.ml term.ml value.ml pp.ml positivity.ml rules.ml spec_count.ml prim.ml order.ml global.ml eval.ml conv.ml check.ml erase.ml totality.ml \n",
+    "stderr": "",
+    "load": [
+      333.32275390625,
+      161.1953125,
+      107.64794921875
+    ]
+  },
+  {
+    "label": "ocamlopt",
+    "argv": [
+      "/Users/oobi/.opam/zxcaml-p1/bin/ocamlopt",
+      "-c",
+      "-I",
+      "/Users/oobi/.opam/zxcaml-p1/lib/zarith",
+      "bignum.ml",
+      "budget.mli",
+      "error.ml",
+      "level.mli",
+      "literal.ml",
+      "quantity.ml",
+      "shape.ml",
+      "level.ml",
+      "eterm.ml",
+      "budget.ml",
+      "term.ml",
+      "value.ml",
+      "pp.ml",
+      "positivity.ml",
+      "rules.ml",
+      "spec_count.ml",
+      "prim.ml",
+      "order.ml",
+      "global.ml",
+      "eval.ml",
+      "conv.ml",
+      "check.ml",
+      "erase.ml",
+      "totality.ml"
+    ],
+    "cwd": "/Users/oobi/Documents/gpt1/assay-m1-errors/.gatework/timing-debug/ocamlopt",
+    "exit": 0,
+    "wall_seconds": 9.083663625176996,
+    "cpu_seconds": 3.0529819999999996,
+    "cpu_over_wall": 0.3360958888369793,
+    "stdout": "",
+    "stderr": "",
+    "load": [
+      314.958984375,
+      160.24560546875,
+      107.62646484375
+    ]
+  },
+  {
+    "label": "ocamlc-order",
+    "argv": [
+      "/Users/oobi/.opam/zxcaml-p1/bin/ocamldep",
+      "-sort",
+      "bignum.ml",
+      "budget.ml",
+      "budget.mli",
+      "check.ml",
+      "conv.ml",
+      "erase.ml",
+      "error.ml",
+      "eterm.ml",
+      "eval.ml",
+      "global.ml",
+      "level.ml",
+      "level.mli",
+      "literal.ml",
+      "order.ml",
+      "positivity.ml",
+      "pp.ml",
+      "prim.ml",
+      "quantity.ml",
+      "rules.ml",
+      "shape.ml",
+      "spec_count.ml",
+      "term.ml",
+      "totality.ml",
+      "value.ml"
+    ],
+    "cwd": "/Users/oobi/Documents/gpt1/assay-m1-errors/.gatework/timing-debug/ocamlc",
+    "exit": 0,
+    "wall_seconds": 0.10447366582229733,
+    "cpu_seconds": 0.06684400000000035,
+    "cpu_over_wall": 0.6398167372981579,
+    "stdout": "bignum.ml budget.mli error.ml level.mli literal.ml quantity.ml shape.ml level.ml eterm.ml budget.ml term.ml value.ml pp.ml positivity.ml rules.ml spec_count.ml prim.ml order.ml global.ml eval.ml conv.ml check.ml erase.ml totality.ml \n",
+    "stderr": "",
+    "load": [
+      314.958984375,
+      160.24560546875,
+      107.62646484375
+    ]
+  },
+  {
+    "label": "ocamlc",
+    "argv": [
+      "/Users/oobi/.opam/zxcaml-p1/bin/ocamlc",
+      "-c",
+      "-I",
+      "/Users/oobi/.opam/zxcaml-p1/lib/zarith",
+      "bignum.ml",
+      "budget.mli",
+      "error.ml",
+      "level.mli",
+      "literal.ml",
+      "quantity.ml",
+      "shape.ml",
+      "level.ml",
+      "eterm.ml",
+      "budget.ml",
+      "term.ml",
+      "value.ml",
+      "pp.ml",
+      "positivity.ml",
+      "rules.ml",
+      "spec_count.ml",
+      "prim.ml",
+      "order.ml",
+      "global.ml",
+      "eval.ml",
+      "conv.ml",
+      "check.ml",
+      "erase.ml",
+      "totality.ml"
+    ],
+    "cwd": "/Users/oobi/Documents/gpt1/assay-m1-errors/.gatework/timing-debug/ocamlc",
+    "exit": 0,
+    "wall_seconds": 3.046379125211388,
+    "cpu_seconds": 0.5737949999999998,
+    "cpu_over_wall": 0.18835311575350433,
+    "stdout": "",
+    "stderr": "",
+    "load": [
+      294.2216796875,
+      158.5146484375,
+      107.32373046875
+    ]
+  }
+]

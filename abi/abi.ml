@@ -11,14 +11,19 @@ let empty = "[]\n"
 
 (* These rows also drive specialization and selector dispatch. *)
 type entry = { name : string; inputs : string list; readonly : bool }
+type custom_error = { error_name : string; arguments : string list }
 let signature entry = entry.name ^ "(" ^
   String.concat "," (List.map (fun _name -> "uint256") entry.inputs) ^ ")"
+let error_signature row = row.error_name ^ "(" ^
+  String.concat "," (List.map (fun _name -> "uint256") row.arguments) ^ ")"
 
-let print entries =
+let print ?(errors=[]) entries =
   let argument name = "{\"name\":" ^ quote name ^ ",\"type\":\"uint256\"}" in
   let row entry = "{\"type\":\"function\",\"name\":" ^ quote entry.name ^
     ",\"inputs\":[" ^ String.concat "," (List.map argument entry.inputs) ^
     "],\"outputs\":[" ^ argument "" ^ "],\"stateMutability\":" ^
     quote (if entry.readonly then "view" else "nonpayable") ^ "}" in
   let constructor = "{\"type\":\"constructor\",\"inputs\":[],\"stateMutability\":\"nonpayable\"}" in
-  "[" ^ String.concat "," (constructor :: List.map row entries) ^ "]\n"
+  let error row = "{\"type\":\"error\",\"name\":" ^ quote row.error_name ^
+    ",\"inputs\":[" ^ String.concat "," (List.map argument row.arguments) ^ "]}" in
+  "[" ^ String.concat "," (constructor :: List.map row entries @ List.map error errors) ^ "]\n"

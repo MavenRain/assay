@@ -1,0 +1,18 @@
+{
+  "argv": [
+    "/Users/oobi/Documents/gpt1/assay-m1-errors/_build/default/bin/assay.exe",
+    "run",
+    "/Users/oobi/Documents/gpt1/assay-m1-errors/examples/Errors.asy",
+    "--calldata",
+    "0x132e4f3c0000000000000000000000000000000000000000000000000000000000000000",
+    "--value",
+    "0",
+    "--storage",
+    "0=0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+    "--storage",
+    "2=0xabc"
+  ],
+  "exit": 0,
+  "stdout": "{\"status\":\"revert\",\"output\":\"0xcf479181ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff0000000000000000000000000000000000000000000000000000000000000000\",\"storage\":{\"0\":\"0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff\",\"2\":\"0xabc\"}}\n",
+  "stderr": ""
+}

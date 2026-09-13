@@ -94,9 +94,8 @@ bounds still apply after lowering.
 
 Surface refusals print `SURFACE_*` diagnostics and exit 1, before output
 creation. Existing backend refusals exit 2 and driver misuse exits 64.
-The P1 proof-producing guard forms, erased proof binders, invariant
-declarations and typed custom reverts
-remain unfinished. These keywords are refused; no proof annotation is
+The P1 proof-producing guard forms, erased proof binders and invariant
+declarations remain unfinished. These forms are refused; no proof annotation is
 discarded. The M1 performance bound also remains open. This slice uses the
 checked Result/error path of the design. The following
 [source-proof slice](M1-PROOFS.md) proves overflow freedom for a Lean model
@@ -125,3 +124,6 @@ and pins all three through check, emit and run. Core routing scans the
 contract keyword lazily, including an early exit for a large first identifier.
 The nullary slice promotes the former nullary-only refusal to an accepted
 boundary program and adds its own dispatch and execution gate.
+
+The [typed error slice](M1-ERRORS.md) adds `error` declarations and named
+`revert` payloads. Its checked error sum supplies both the ABI and encoding.

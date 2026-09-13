@@ -1,0 +1,12 @@
+{
+  "argv": [
+    "/Users/oobi/Documents/gpt1/assay-m1-errors/_build/default/bin/assay.exe",
+    "emit",
+    "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-errors-refusals-ecikn54w/constructor.asy",
+    "-o",
+    "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-errors-refusals-ecikn54w/constructor-out"
+  ],
+  "exit": 1,
+  "stdout": "",
+  "stderr": "line 4, column 26: SURFACE_CONSTRUCTOR: constructor must end in pure ()\n"
+}
