@@ -1,0 +1,12 @@
+{
+  "argv": [
+    "python3",
+    "-P",
+    "dev/invariant-test.py",
+    "witness",
+    "constructor"
+  ],
+  "exit": 0,
+  "stdout": "INVARIANT-REFUSALS cases=1 OK\n",
+  "stderr": ""
+}

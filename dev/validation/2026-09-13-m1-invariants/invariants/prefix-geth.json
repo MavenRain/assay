@@ -1,0 +1,10 @@
+{
+  "argv": [
+    "evm",
+    "disasm",
+    "/Users/oobi/Documents/assay-m1-invariants-review/fix-copy-2/.gatework/invariants/prefix.hex"
+  ],
+  "exit": 0,
+  "stdout": "3461001b57610009565b60646001556101d1601f5f396101d15ff35b5f5ffd\n00000: CALLVALUE\n00001: PUSH2 0x001b\n00004: JUMPI\n00005: PUSH2 0x0009\n00008: JUMP\n00009: JUMPDEST\n0000a: PUSH1 0x64\n0000c: PUSH1 0x01\n0000e: SSTORE\n0000f: PUSH2 0x01d1\n00012: PUSH1 0x1f\n00014: PUSH0\n00015: CODECOPY\n00016: PUSH2 0x01d1\n00019: PUSH0\n0001a: RETURN\n0001b: JUMPDEST\n0001c: PUSH0\n0001d: PUSH0\n0001e: REVERT\n",
+  "stderr": ""
+}

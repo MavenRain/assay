@@ -93,7 +93,8 @@ denominator manifest and measurement remain preserved, so `DENOMINATORS`
 and `M0-RATIO` are expected to fail on this compiler. No complete battery
 pass or fresh performance verdict is claimed.
 
-Invariant declarations and the M1 performance bound remain unfinished.
+Invariant declarations and the M1 performance bound remain unfinished at
+this slice.
 General proof functions, induction and user-defined surface predicates
 are outside this bounded expression grammar. Core source remains
 available for the existing checked proof language.

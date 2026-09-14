@@ -1,0 +1,20 @@
+{
+  "argv": [
+    "/Users/oobi/Documents/assay-m1-invariants-review/fix-copy-2/_build/default/bin/assay.exe",
+    "run",
+    "/Users/oobi/Documents/assay-m1-invariants-review/fix-copy-2/examples/CounterInvariant.asy",
+    "--calldata",
+    "0xdeadbeef",
+    "--value",
+    "0",
+    "--storage",
+    "0=0x0",
+    "--storage",
+    "1=0x64",
+    "--storage",
+    "2=0xabc"
+  ],
+  "exit": 0,
+  "stdout": "{\"status\":\"revert\",\"output\":\"0x\",\"storage\":{\"1\":\"0x64\",\"2\":\"0xabc\"}}\n",
+  "stderr": ""
+}

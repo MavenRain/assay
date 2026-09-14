@@ -1,5 +1,91 @@
 # Assay M1 build log
 
+## 2026-09-13: storage invariant declarations
+
+The eleventh slice starts at `b35c17d00c17b8864475d9a65b282d2ae5567b4c`.
+It adds `invariant NAME (s : State) : Prop := CLAIM` declarations for
+ordering and addition bounds over storage fields and Word literals.
+Construction checks every claim against zero storage followed by its
+literal stores. Successful entry returns check affected invariants
+against the final loaded or stored values. Unchanged fields preserve
+their claims, and reverting paths retain the existing rollback behavior.
+
+The compiler uses matching guard or supplied proofs, or a unit proof
+for a closed true claim. Each obligation remains in the checked core
+until erasure. Constructor obligations live in its type annotation,
+which keeps proof closures out of the closed Eff backend. General
+preservation lemmas are not inferred. The carried kernel, surface,
+proof protocol, runtime arithmetic, assembler and Lean sources are
+unchanged. No new axiom or compiler theorem is claimed.
+
+`CounterInvariant.asy` states the counter bound and proves both update
+paths. It emits 465 runtime bytes and 496 creation bytes. The new gate
+passes 52 source-model/Cancun cases, both constructor outcomes and 30
+refusals through check, emit and run. It covers sequential calls,
+overflow, underflow, invalid prestates, rollback, stale storage proofs,
+multiple claims and accepted nesting/member boundaries. Four variants
+produce identical five-file outputs, including the version with the
+declaration removed. Four compiler mutations are detected, each with
+a restored control.
+
+Validation ran in `/Users/oobi/Documents/gpt1/assay-m1-invariants`.
+The complete 46-leg battery passed 43 legs. CONTRACT-SURFACE stopped
+at its old STORE mutation anchor. The store key was renamed, and the
+Word binding expression now appears at separate load and local binding
+sites. Its STORE and SHADOW anchors were updated to the corresponding
+sites without changing the witnesses or expected outcomes. The complete
+CONTRACT-SURFACE gate then passed: 30 counter cases, 13 variants, 36
+refusals and all seven mutations with restored controls. The review
+round below adds one variant and one mutation to that gate. The compiler
+was unchanged, so the other functional legs retain their passing runs.
+
+All 44 functional legs are validated across the full battery and that
+scoped rerun. DENOMINATORS and M0-RATIO remain failed against the
+preserved manifest and measurement. Timing is still paused. No complete
+battery pass or fresh performance verdict is claimed. All existing
+proof gates pass, including 11 Lean theorems, 226 arithmetic cases and
+six proof-model mutations. Cache reuse matched 35 source files and two
+pinned dependencies before the proof gates ran.
+
+Trusted lines are kernel 3997/4000, emitter 1379/1800 and total new code
+1797/3550. No trusted-line bound, gate deadline or prior case count was
+changed. `validation/2026-09-13-m1-invariants/` retains the original
+battery, the corrected gate, the exact harness correction, new execution
+captures, erasure hashes, mutation controls and source identities. The
+M1 performance bound remains open; broader proof functions and
+epoch-indexed invariants remain outside this bounded M1 slice.
+
+### Review round 2026-09-13 (M1 invariants)
+
+A review of this slice kept six findings. All six are fixed here.
+
+- `invariant` is a reserved word of the surface. A field, entry, error or
+  argument of that name is refused with SURFACE_NAME. `M1-INVARIANTS.md`
+  records the reservation, and the new `reserved-word` case checks it.
+- The lexer returns `.` as a token everywhere, so a stray projection outside
+  an invariant claim is refused with SURFACE_SYNTAX, not SURFACE_TOKEN.
+  `M1-SURFACE.md` records the token, and the new `stray-dot` case checks it.
+- The contract surface gate gains the `shadow-load` variant and the
+  SHADOW-LOAD mutation, which anchors the separate load binding site that
+  this slice split out of the shared binding helper.
+- The invariant chain classifies overflow, underflow and bound reverts, runs
+  three more steps, and reads the storage of each executed step instead of a
+  derived Python tuple.
+- `README.md` documents the `CounterInvariant.asy` emit command.
+- `M1-PROOF-TERMS.md`, `M1-ERRORS.md` and `M1-PROOFS.md` scope the sentence
+  about unfinished invariant declarations to their own slice.
+
+The gates now print
+`INVARIANTS cases=52 creates=2 refusals=30 erasure=4 mutants=4 OK` and
+`CONTRACT-SURFACE counter=30 variants=14 refusals=36 mutants=8 OK`.
+The review ladder passed the 44 functional legs. DENOMINATORS and M0-RATIO
+stay failed against the preserved manifest and measurement, as disclosed
+above. `validation/2026-09-13-m1-invariants/INVARIANTS.log`,
+`CONTRACT-SURFACE.log` and `invariants/` hold the review ladder run, and
+`GATES.log` keeps the first complete battery. `dev/DENOMINATORS.sha256` is
+unchanged, so the timing freeze of the parent commit stays in place. No
+trusted-line bound, gate deadline or frozen measurement input moved.
+
 ## 2026-09-13: supplied surface proof terms and erased bindings
 
 The tenth slice starts at `ccf78afcbe76f11234f82e36fa553fecd6ff2ef7`.

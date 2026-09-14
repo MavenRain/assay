@@ -1,0 +1,12 @@
+{
+  "argv": [
+    "python3",
+    "-P",
+    "dev/invariant-test.py",
+    "witness",
+    "stale-store"
+  ],
+  "exit": 1,
+  "stdout": "INVARIANTS FAIL: ERROR-REFUSAL stale-store\n",
+  "stderr": ""
+}

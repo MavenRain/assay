@@ -1,0 +1,14 @@
+{
+  "cases": 52,
+  "creates": 2,
+  "erasure": 4,
+  "runtime_bytes": 465,
+  "init_bytes": 496,
+  "files": {
+    "axioms.txt": "61f8b9f0cb83fe5250e13b39b40e705d106caa92810d60168dfe5f4c3a89a302",
+    "init.hex": "e67ccb0e2f75078ff5ff26c8ef12c29c49040b363811da603e094a9c28eaf9d7",
+    "runtime.hex": "00671710c10937904f56f423541e606744896f416eb3192a11599510e0957707",
+    "layout.json": "8b0a280fd1ccba708406f966e0b260815777ab0a24a5026da3b52678d6f64762",
+    "abi.json": "b434d23d505714ef973740b3cfef114a92d30be8c45265988e794519f0cd962c"
+  }
+}

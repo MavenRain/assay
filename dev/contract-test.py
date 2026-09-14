@@ -54,6 +54,10 @@ def variants():
          P.row('shared-alias', data, 5, after='0x7')),
         ('clear', program('sstore cell (word 0) ; pure a'),
          P.row('clear', data, 5, after='0x0')),
+        # Review round 2026-09-13 (B-5):  an sload binding shadows the argument
+        # of the same name, so the SHADOW-LOAD mutation has a live witness.
+        ('shadow-load', program('a <- sload cell ; pure a'),
+         P.row('shadow-load', data, 7, after='0x7')),
     ]
 
 
@@ -234,9 +238,12 @@ def mutants():
         ('ARGUMENT', '"_assay_args." ^ string_of_int i', '"_assay_args." ^ string_of_int (1 - i)', 'two-args'),
         ('SUBTRACTION', 'arithmetic "sub" name a b', 'arithmetic "add" name a b', 'decrement-success'),
         ('GUARD', 'app "le" [a; b; next; "abort"]', 'app "le" [b; a; next; "abort"]', 'increment-success'),
-        ('STORE', 'app "store" [field; v; next]',
-         'app "store" [field; (if v = "" then v else "(word 256 0)"); next]', 'increment-success'),
-        ('SHADOW', '((name.text, Word_value fresh) :: env)', '(env @ [(name.text, Word_value fresh)])', 'shadow'),
+        ('STORE', 'app "store" [key; v; next]',
+         'app "store" [key; (if v = "" then v else "(word 256 0)"); next]', 'increment-success'),
+        ('SHADOW', 'let bind name = lower (index + 1) ((name.text, Word_value fresh) :: env)',
+         'let bind name = lower (index + 1) (env @ [(name.text, Word_value fresh)])', 'shadow'),
+        ('SHADOW-LOAD', 'let* next = lower (index + 1) ((name.text, Word_value fresh) :: env)',
+         'let* next = lower (index + 1) (env @ [(name.text, Word_value fresh)])', 'shadow-load'),
         ('LITERAL', 'Z.shift_left Z.one 256', 'Z.shift_left Z.one 257', 'word-range'),
     ]
     with tempfile.TemporaryDirectory(prefix='assay-contract-mutants-') as temporary:

@@ -26,6 +26,7 @@ type ending = Return of word | Unit of token | Revert of token | Reject of token
 type body = step list * ending
 type entry = { name : token; args : token list; body : body }
 type error_row = { error_name : token; error_args : token list }
+type invariant = { invariant_name : token; claim : predicate }
 
 let fail at code detail =
   Error (Error.Parse ("SURFACE_" ^ code ^ ": " ^ detail, at.line, at.col))
@@ -61,12 +62,12 @@ let lex chars =
       let text, rest = span word_char [c] rest in next text rest
     | ':' :: '=' :: rest -> next ":=" rest
     | '<' :: '-' :: rest -> next "<-" rest
-    | ('(' | ')' | '{' | '}' | ':' | ';' as c) :: rest -> next (String.make 1 c) rest
+    | ('(' | ')' | '{' | '}' | ':' | ';' | '.' as c) :: rest -> next (String.make 1 c) rest
     | _c :: _rest -> fail (at "") "TOKEN" "unexpected character" in
   scan 0 1 1 [] chars
 
 let reserved = String.split_on_char ' '
-  "contract where storage entry constructor error do sload sstore add sub guard le let pure revert Word Eff Sig Tx ResultWord Storage Entry Error main word ret put read EvmOpcodes done store load abort reject def axiom fun inj of case match as return with tuple sum prod absurd Prop Type in auto mu mutual end nu and rec natAdd natSub natMul natEq natLt Le Lt256 AddFits leWord lt256 wordNat guardLe guardAdd addLt subLe"
+  "contract where storage entry constructor error invariant do sload sstore add sub guard le let pure revert Word Eff Sig Tx ResultWord Storage Entry Error main word ret put read EvmOpcodes done store load abort reject def axiom fun inj of case match as return with tuple sum prod absurd Prop Type in auto mu mutual end nu and rec natAdd natSub natMul natEq natLt Le Lt256 AddFits leWord lt256 wordNat guardLe guardAdd addLt subLe"
 let identifier tokens = match tokens with
   | at :: rest when Recognize.identifier at.text && at.text <> "_" &&
       String.length at.text <= 64 && not (List.mem at.text reserved) &&
@@ -117,7 +118,10 @@ let error_values tokens =
     | [] | _ :: _ -> Ok (List.rev acc, tokens) in
   more [] tokens
 
-let predicate runtime tokens = match tokens with
+let bound operand runtime tokens =
+  let binary tokens = let* a, rest = operand tokens in
+    let* b, rest = operand rest in Ok ((a, b), rest) in
+  match tokens with
   | at :: rest when at.text = (if runtime then "leWord" else "Le") ->
     let* (a, b), rest = binary rest in Ok (Ordered (a, b), rest)
   | at :: rest when at.text = (if runtime then "lt256" else "Lt256") ->
@@ -125,6 +129,7 @@ let predicate runtime tokens = match tokens with
     let* (a, b), rest = binary rest in
     let* rest = expect ")" rest in Ok (Fits (a, b), rest)
   | [] | _ :: _ -> fail (here tokens) "PROOF" "expected an ordering or addition bound"
+let predicate runtime tokens = bound (value 0) runtime tokens
 let proof_binder tokens =
   let* rest = sequence ["("; "0"] tokens in
   let* name, rest = identifier rest in let* rest = expect ":" rest in
@@ -259,6 +264,23 @@ let arguments tokens =
        | [] | _ :: _ -> Ok (List.rev acc, rest)) in
   more [] tokens
 
+let invariant state fields tokens =
+  let* invariant_name, rest = identifier tokens in
+  let* rest = expect "(" rest in let* snapshot, rest = identifier rest in
+  let* rest = sequence [":"; state.text; ")"; ":"; "Prop"; ":="] rest in
+  let rec operand depth tokens =
+    if depth > 128 then fail (here tokens) "LIMIT" "invariant nesting exceeds 128" else
+    match tokens with
+    | { text = "("; _ } :: rest ->
+      let* v, rest = operand (depth + 1) rest in let* rest = expect ")" rest in Ok (v, rest)
+    | { text = "word"; _ } :: at :: rest -> let* v = literal at in Ok (v, rest)
+    | at :: { text = "."; _ } :: rest when at.text = snapshot.text ->
+      let* field, rest = identifier rest in
+      if List.exists (fun at -> at.text = field.text) fields then Ok (Local field, rest)
+      else fail field "SLOT" ("unknown invariant field " ^ field.text)
+    | [] | _ :: _ -> fail (here tokens) "INVARIANT" "expected a snapshot field or literal" in
+  let* claim, rest = bound (operand 0) false rest in Ok ({ invariant_name; claim }, rest)
+
 let slot fields name =
   List.assoc_opt name.text fields
   |> Option.to_result ~none:(Error.Parse ("SURFACE_SLOT: unknown field " ^ name.text, name.line, name.col))
@@ -270,7 +292,27 @@ let word env = function
     (match binding with Word_value v -> Ok v | Proof_value _ -> fail at "PROOF" "an erased proof is not a Word")
 let app name args = "(" ^ name ^ " " ^ String.concat " " args ^ ")"
 let lambda name ty term = "(fun (" ^ name ^ " : " ^ ty ^ ") => " ^ term ^ ")"
-let transaction fields errors env (steps, ending) =
+let erased_apply name ty result value body =
+  app ("(" ^ lambda ("0 " ^ name) ty body ^ " : (0 " ^ name ^ " : " ^ ty ^ ") -> " ^ result ^ ")") [value]
+let resolved_predicate env condition =
+  let a, b, ty, op = match condition with
+    | Ordered (a, b) -> a, b, "Le", "guardLe"
+    | Fits (a, b) -> a, b, "AddFits", "guardAdd" in
+  let* a = word env a in let* b = word env b in Ok (app ty [a; b], op, a, b)
+let invariant_fields row =
+  let a, b = match row.claim with Ordered (a, b) | Fits (a, b) -> a, b in
+  List.filter_map (function Literal _ -> None | Local at -> Some at.text) [a; b]
+let obligations invariants state evidence result next =
+  List.fold_right (fun row result_body ->
+    let* body = result_body in
+    let* () = List.fold_left (fun result field -> let* () = result in
+      if List.mem_assoc field state then Ok () else
+      fail row.invariant_name "INVARIANT" ("load or store field " ^ field ^ " before proving the final state"))
+      (Ok ()) (invariant_fields row) in
+    let* ty, _op, _a, _b = resolved_predicate state row.claim in
+    let proof = Option.value (List.assoc_opt ty evidence) ~default:"(tuple ())" in
+    Ok (erased_apply ("_assay_inv_" ^ row.invariant_name.text) ty result proof body)) invariants (Ok next)
+let transaction fields errors invariants env (steps, ending) =
   let reject env (name, args) =
     let* index, row = List.find_opt (fun (_i, row) -> row.error_name.text = name.text)
       (List.mapi (fun i row -> i, row) errors)
@@ -280,13 +322,7 @@ let transaction fields errors env (steps, ending) =
       let* v = word env v in Ok (args @ [v])) (Ok []) args in
     Ok (app "reject" ["(inj " ^ string_of_int index ^ " of " ^ string_of_int (List.length errors) ^
       " (tuple (" ^ String.concat ", " args ^ ")) : Error)"]) in
-  let predicate env condition =
-    let a, b, ty, op = match condition with
-      | Ordered (a, b) -> a, b, "Le", "guardLe"
-      | Fits (a, b) -> a, b, "AddFits", "guardAdd" in
-    let* a = word env a in let* b = word env b in Ok (app ty [a; b], op, a, b) in
-  let erased_apply name ty result value body =
-    app ("(" ^ lambda ("0 " ^ name) ty body ^ " : (0 " ^ name ^ " : " ^ ty ^ ") -> " ^ result ^ ")") [value] in
+  let predicate = resolved_predicate in
   (* Keep every annotation and unused binding in the checked core. Only the
      carried erasure may discard a proof after its claim has been checked. *)
   let rec proof depth env expected term =
@@ -305,15 +341,18 @@ let transaction fields errors env (steps, ending) =
         let* body = proof (depth + 1) ((name.text, Proof_value fresh) :: env) expected body in
         Ok (erased_apply fresh ty expected value body) in
     Ok ("(" ^ term ^ " : " ^ expected ^ ")") in
-  let rec lower index env = function
+  let rec lower index env state written evidence = function
     | [] -> (match ending with
-      | Return v -> let* v = word env v in Ok (app "done" [v])
+      | Return v -> let* v = word env v in
+        let changed = List.filter (fun row -> List.exists (fun field -> List.mem field written)
+          (invariant_fields row)) invariants in
+        obligations changed state evidence "Tx" (app "done" [v])
       | Revert _at -> Ok "abort"
       | Reject (name, args) -> reject env (name, args)
       | Unit at -> fail at "RETURN" "an entry must return Word")
     | step :: rest ->
       let fresh = "_assay_v" ^ string_of_int index in
-      let bind name = lower (index + 1) ((name.text, Word_value fresh) :: env) rest in
+      let bind name = lower (index + 1) ((name.text, Word_value fresh) :: env) state written evidence rest in
       let arithmetic op name a b =
         let* a = word env a in let* b = word env b in
         let* next = bind name in
@@ -322,21 +361,23 @@ let transaction fields errors env (steps, ending) =
            " | 1 (_assay_error : prod ()) => abort")]) in
       match step with
       | Load (name, field) ->
-        let* field = slot fields field in let* next = bind name in
-        Ok (app "load" [field; lambda fresh "Word 256" next])
+        let* key = slot fields field in
+        let* next = lower (index + 1) ((name.text, Word_value fresh) :: env)
+          ((field.text, Word_value fresh) :: List.remove_assoc field.text state) written evidence rest in
+        Ok (app "load" [key; lambda fresh "Word 256" next])
       | Add (name, a, b) -> arithmetic "add" name a b
       | Sub (name, a, b) -> arithmetic "sub" name a b
       | Prove (name, claim, error, condition) ->
         let* ty, _op, _a, _b = predicate env claim in
         let* _ty, op, a, b = predicate env condition in
         let* no = Option.fold ~none:(Ok "abort") ~some:(reject env) error in
-        let* yes = lower (index + 1) ((name.text, Proof_value fresh) :: env) rest in
+        let* yes = lower (index + 1) ((name.text, Proof_value fresh) :: env) state written ((ty, fresh) :: evidence) rest in
         let success = "(" ^ lambda ("0 " ^ fresh) ty yes ^ " : (0 " ^ fresh ^ " : " ^ ty ^ ") -> Tx)" in
         Ok (app op [a; b; success; no])
       | Proof_bind (name, claim, term) ->
         let* ty, _op, _a, _b = predicate env claim in
         let* term = proof 0 env ty term in
-        let* next = lower (index + 1) ((name.text, Proof_value fresh) :: env) rest in
+        let* next = lower (index + 1) ((name.text, Proof_value fresh) :: env) state written ((ty, fresh) :: evidence) rest in
         Ok (erased_apply fresh ty "Tx" term next)
       | Proven (op, name, a, b, term) ->
         let* a = word env a in let* b = word env b in
@@ -347,12 +388,13 @@ let transaction fields errors env (steps, ending) =
         let* v = word env v in let* next = bind name in
         Ok ("(let " ^ fresh ^ " : Word 256 := " ^ v ^ " in " ^ next ^ ")")
       | Store (field, v) ->
-        let* field = slot fields field in let* v = word env v in
-        let* next = lower index env rest in Ok (app "store" [field; v; next])
+        let* key = slot fields field in let* v = word env v in
+        let* next = lower index env ((field.text, Word_value v) :: List.remove_assoc field.text state)
+          (field.text :: written) evidence rest in Ok (app "store" [key; v; next])
       | Guard (a, b) ->
         let* a = word env a in let* b = word env b in
-        let* next = lower index env rest in Ok (app "le" [a; b; next; "abort"]) in
-  lower 0 env steps
+        let* next = lower index env state written evidence rest in Ok (app "le" [a; b; next; "abort"]) in
+  lower 0 env [] [] [] steps
 
 let constructor fields (steps, ending) =
   let* () = match ending with
@@ -372,21 +414,32 @@ let constructor fields (steps, ending) =
       fail at "CONSTRUCTOR" "constructor accepts literal stores only")
     steps (Ok "(ret (word 256 0))")
 
-let generate state fields entries errors init =
+let generate state fields entries errors invariants init =
   let aliases = List.sort_uniq String.compare
     (List.map (fun at -> at.text) (fields @ List.concat_map (fun row -> row.args) entries @
       List.concat_map (fun row -> row.error_args) errors)) in
-  let names = state :: List.map (fun row -> row.name) entries @ List.map (fun row -> row.error_name) errors in
+  let names = state :: List.map (fun row -> row.name) entries @ List.map (fun row -> row.error_name) errors @
+    List.map (fun row -> row.invariant_name) invariants in
   let* _names = List.fold_left (fun result name ->
     let* seen = result in
     if List.mem name.text (aliases @ seen) then fail name "DUPLICATE" ("conflicting global " ^ name.text)
     else Ok (name.text :: seen)) (Ok []) names in
   let field_slots = List.mapi (fun i at -> at.text, "storage." ^ string_of_int i) fields in
-  let* init = Option.fold ~none:(Ok "(ret (word 256 0))") ~some:(constructor field_slots) init in
+  let* init_term = Option.fold ~none:(Ok "(ret (word 256 0))") ~some:(constructor field_slots) init in
+  let initial = List.map (fun at -> at.text, Word_value "(word 256 0)") fields in
+  let* initial = List.fold_left (fun result step -> let* state = result in match step with
+    | Store (field, v) -> let* v = word [] v in
+      Ok ((field.text, Word_value v) :: List.remove_assoc field.text state)
+    | Load _ | Add _ | Sub _ | Guard _ | Bind _ | Prove _ | Proven _ | Proof_bind _ -> Ok state)
+    (Ok initial) (Option.fold ~none:[] ~some:fst init) in
+  (* Constructor obligations live in its type, so the closed Eff backend never
+     receives a proof closure. The kernel checks them before type erasure. *)
+  let* init_ty = obligations invariants initial [] "Type 0" "Eff" in
+  let init = "(" ^ init_term ^ " : " ^ init_ty ^ ")" in
   let* branches = List.fold_left (fun result (i, row) ->
     let* branches = result in
     let env = List.mapi (fun i at -> at.text, Word_value ("_assay_args." ^ string_of_int i)) row.args in
-    let* term = transaction field_slots errors env row.body in
+    let* term = transaction field_slots errors invariants env row.body in
     Ok (branches @ ["| " ^ string_of_int i ^ " (_assay_args : " ^ row.name.text ^ ") => " ^ term]))
     (Ok []) (List.mapi (fun i row -> i, row) entries) in
   let decl = Recognize.declaration in
@@ -399,7 +452,7 @@ let generate state fields entries errors init =
     decl row.error_name.text (if row.error_args = [] then "(prod () : Type 0)"
       else collection "prod" row.error_args)) errors) ^
     decl "Error" (collection "sum" (List.map (fun row -> row.error_name) errors)) in
-  let proofs = List.exists (fun row -> List.exists (function
+  let proofs = invariants <> [] || List.exists (fun row -> List.exists (function
     | Prove _ | Proven _ | Proof_bind _ -> true
     | Load _ | Add _ | Sub _ | Store _ | Guard _ | Bind _ -> false) (fst row.body)) entries in
   Ok ((if errors = [] then Recognize.m1_protocol_for ~proofs "" ^ aliases
@@ -420,27 +473,31 @@ let parse tokens =
   let* state, tokens = identifier tokens in
   let* tokens = expect ":=" tokens in
   let* fields, tokens = fields tokens in
-  let rec declarations entries errors init tokens = match tokens with
+  let rec declarations entries errors invariants init tokens = match tokens with
     | { text = "entry"; _ } :: rest ->
       let* name, rest = identifier rest in
       let* _names = add_name name (List.map (fun row -> row.name) entries) in
       let* args, rest = arguments rest in
       let* rest = sequence [":"; "Eff"; "Sig"; "Word"; ":="] rest in
-      let* body, rest = body rest in declarations (entries @ [{ name; args; body }]) errors init rest
+      let* body, rest = body rest in declarations (entries @ [{ name; args; body }]) errors invariants init rest
     | { text = "error"; _ } :: rest ->
       let* error_name, rest = identifier rest in
       let* _names = add_name error_name (List.map (fun row -> row.error_name) errors) in
       let* error_args, rest = arguments rest in
-      declarations entries (errors @ [{error_name; error_args}]) init rest
+      declarations entries (errors @ [{error_name; error_args}]) invariants init rest
+    | { text = "invariant"; _ } :: rest ->
+      let* row, rest = invariant state fields rest in
+      let* _names = add_name row.invariant_name (List.map (fun row -> row.invariant_name) invariants) in
+      declarations entries errors (invariants @ [row]) init rest
     | ({ text = "constructor"; _ } as at) :: rest ->
       if Option.is_some init then fail at "DUPLICATE" "duplicate constructor" else
       let* rest = expect ":=" rest in
-      let* init, rest = body rest in declarations entries errors (Some init) rest
+      let* init, rest = body rest in declarations entries errors invariants (Some init) rest
     | [{ text = ""; _ }] ->
       if entries = [] then fail name "ENTRY" "at least one entry is required"
-      else let* core = generate state fields entries errors init in Ok (Some name.text, core)
-    | [] | _ :: _ -> fail (here tokens) "DECLARATION" "expected entry, error, constructor or end of input" in
-  declarations [] [] None tokens
+      else let* core = generate state fields entries errors invariants init in Ok (Some name.text, core)
+    | [] | _ :: _ -> fail (here tokens) "DECLARATION" "expected entry, error, invariant, constructor or end of input" in
+  declarations [] [] [] None tokens
 
 (* The route is decided on the byte sequence, so a core file never pays a list cell per byte. *)
 let rec skip_comment seq = match seq () with

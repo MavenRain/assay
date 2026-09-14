@@ -1,0 +1,10 @@
+{
+  "argv": [
+    "cast",
+    "sig",
+    "BoundRevert(uint256,uint256)"
+  ],
+  "exit": 0,
+  "stdout": "0xa9eb3d7b\n",
+  "stderr": ""
+}

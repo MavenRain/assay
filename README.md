@@ -28,6 +28,8 @@ The ninth adds [proof-producing guards](dev/M1-GUARDS.md), erased bound
 proofs and proof-supplied arithmetic without a second runtime check.
 The tenth adds [supplied proof terms](dev/M1-PROOF-TERMS.md), with checked
 closed bounds, erased aliases and proof-local bindings.
+The eleventh adds [storage invariants](dev/M1-INVARIANTS.md), checked at
+construction and successful writes, with erased proof obligations.
 
 ```sh
 zsh -f dev/dunecho.sh build
@@ -46,6 +48,7 @@ _build/default/bin/assay.exe emit examples/Nullary.asy -o Nullary-out
 _build/default/bin/assay.exe emit examples/Errors.asy -o Errors-out
 _build/default/bin/assay.exe emit examples/CounterProofs.asy -o ProofCounter-out
 _build/default/bin/assay.exe emit examples/ProofTerms.asy -o ProofTerms-out
+_build/default/bin/assay.exe emit examples/CounterInvariant.asy -o CounterInvariant-out
 leancho -C verification
 zsh -f dev/gates.sh
 ```
@@ -193,16 +196,18 @@ The source model adds 30 counter comparisons against both executors and
 the reference, ten extra cases, all eleven M0 corpus programs, driver
 and source refusals, and eight mutations with restored controls.
 The surface counter has exact five-file equality with the core source.
-Its gate adds 30 counter rows, 13 additional execution cases, 36 refusals
-through three commands, accepted size boundaries and seven compiler mutations.
+Its gate adds 30 counter rows, 14 additional execution cases, 36 refusals
+through three commands, accepted size boundaries and eight compiler mutations.
 The nullary gate adds 53 source/EVM comparisons, two constructor cases,
 four checked schema refusals and three mutations with restored controls.
 The custom error gate adds 66 source/EVM cases, 26 refusals and five
 mutations with restored controls. The proof guard gate adds 83 cases,
 26 refusals, three erased proof variants and six mutations with controls.
 The supplied proof gate adds 98 cases, 25 refusals, five closed proof
-variants and four mutations with controls. `STAGE-M1-PROOF-TERMS OK`
-requires all 45 legs to pass, including source proofs.
+variants and four mutations with controls. The invariant gate adds 52
+cases, 30 refusals, four erased variants and four mutations with controls.
+`STAGE-M1-INVARIANTS OK` requires all 46 legs to pass, including source
+proofs.
 The current slice's timing gate is paused following the
 [measurement diagnosis](dev/TIMING-DEBUG.md); it has no fresh timing verdict.
 The preserved denominator manifest and measurement describe an older
@@ -211,8 +216,8 @@ The final M0-EXIT stamp still requires explicit user ratification.
 The core counter source, dispatcher, ABI/layout emission, differential gate
 and source model are implemented, along with bounded contract/entry/do
 sugar, typed custom reverts, proof-producing guards and bounded supplied
-proof terms. Invariant declarations and the M1 performance bound remain
-unfinished. The Lean source
+proof terms and bounded storage invariant declarations. The M1 performance
+bound remains unfinished. The Lean source
 model has an overflow-freedom theorem with tested compiler correspondence.
 The core source keeps the inherited grammar and specializes continuations;
 it emits no general-purpose closures. The reference was committed before

@@ -1,0 +1,8 @@
+{
+  "base": "b35c17d00c17b8864475d9a65b282d2ae5567b4c",
+  "source_hashes": 182,
+  "protected_inputs_unchanged": true,
+  "binary_sha256": "459058c385cb620728b763a41b8f476cc7b01eb5b876aea1405d6611c5100f73",
+  "functional_legs": 44,
+  "total_legs": 46
+}

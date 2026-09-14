@@ -1,0 +1,12 @@
+{
+  "argv": [
+    "/Users/oobi/Documents/assay-m1-invariants-review/fix-copy-2/_build/default/bin/assay.exe",
+    "emit",
+    "/tmp/claude-501/assay-invariant-refusals-42m0aubo/missing-proof.asy",
+    "-o",
+    "/tmp/claude-501/assay-invariant-refusals-42m0aubo/missing-proof-out"
+  ],
+  "exit": 1,
+  "stdout": "",
+  "stderr": "mismatch: a tuple needs a right former as its expected type\n"
+}

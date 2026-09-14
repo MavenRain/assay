@@ -90,14 +90,17 @@ Each body has at most 128 effect or let steps. Value parentheses nest at
 most 128 levels. Contract files contain at most 65536 bytes and 8192
 non-comment tokens. Literals must be decimal values below `2^256`, with at
 most 78 digits. Existing core specialization, depth, memory and bytecode
-bounds still apply after lowering.
+bounds still apply after lowering. `.` is a punctuation token of the
+surface and is valid only inside an invariant claim. A `.` in any other
+position is refused as `SURFACE_SYNTAX`, not as `SURFACE_TOKEN`.
 
 Surface refusals print `SURFACE_*` diagnostics and exit 1, before output
 creation. Existing backend refusals exit 2 and driver misuse exits 64.
 The [proof guard slice](M1-GUARDS.md) adds the P1 bound guards and erased
 proof binders. The [supplied proof slice](M1-PROOF-TERMS.md) adds checked
-closed bounds, erased proof aliases and proof-local bindings. Invariant
-declarations remain unfinished and are refused.
+closed bounds, erased proof aliases and proof-local bindings. The
+[invariant slice](M1-INVARIANTS.md) adds storage bound declarations and
+checked obligations for construction and affected successful writes.
 The M1 performance bound also remains open. The original surface uses the
 checked Result/error path of the design. The following
 [source-proof slice](M1-PROOFS.md) proves overflow freedom for a Lean model
@@ -109,11 +112,11 @@ of that path and tests its correspondence with the OCaml implementation.
 with the core source and executes all 30 frozen counter rows against the
 source model, emitted runtime and committed reference. Both geth execution
 paths run. The test also checks both creation outcomes, all 216 emitted
-runtime instructions, 13 additional cases, three-way disassembly,
+runtime instructions, 14 additional cases, three-way disassembly,
 36 refusals through three public commands, five accepted boundary programs
 and a model invocation with no tools on PATH.
 
-Seven compiler mutations must fail their named semantic or refusal witness
+Eight compiler mutations must fail their named semantic or refusal witness
 and pass after restoration. See [the mutation ledger](M1-SURFACE-MUTATIONS.md).
 The `--m1-surface` mode has 39 legs and ends in `STAGE-M1-SURFACE OK`.
 Its initial evidence is archived under

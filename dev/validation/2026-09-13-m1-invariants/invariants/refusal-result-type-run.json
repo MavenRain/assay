@@ -1,0 +1,10 @@
+{
+  "argv": [
+    "/Users/oobi/Documents/assay-m1-invariants-review/fix-copy-2/_build/default/bin/assay.exe",
+    "run",
+    "/tmp/claude-501/assay-invariant-refusals-42m0aubo/result-type.asy"
+  ],
+  "exit": 1,
+  "stdout": "",
+  "stderr": "line 2, column 33: SURFACE_SYNTAX: expected Prop\n"
+}

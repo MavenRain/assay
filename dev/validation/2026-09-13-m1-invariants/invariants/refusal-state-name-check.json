@@ -1,0 +1,10 @@
+{
+  "argv": [
+    "/Users/oobi/Documents/assay-m1-invariants-review/fix-copy-2/_build/default/bin/assay.exe",
+    "check",
+    "/tmp/claude-501/assay-invariant-refusals-42m0aubo/state-name.asy"
+  ],
+  "exit": 1,
+  "stdout": "",
+  "stderr": "line 2, column 11: SURFACE_DUPLICATE: conflicting global State\n"
+}

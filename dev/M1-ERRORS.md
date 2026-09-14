@@ -102,5 +102,6 @@ empty-abort subset described in [M1-PROOFS.md](M1-PROOFS.md). This slice
 tests typed payload correspondence; it adds no theorem about the compiler
 or the new payload encoding. Both EVM executors are geth entry points.
 The [proof guard slice](M1-GUARDS.md) adds typed errors on guard failure.
-Invariant declarations and the M1 performance bound remain unfinished.
+Invariant declarations and the M1 performance bound remain unfinished at
+this slice.
 Milestone exit ratification remains with the user.

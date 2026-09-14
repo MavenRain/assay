@@ -1,0 +1,12 @@
+{
+  "argv": [
+    "/Users/oobi/Documents/assay-m1-invariants-review/fix-copy-2/_build/default/bin/assay.exe",
+    "emit",
+    "/tmp/claude-501/assay-invariants-xxqwb8h0/erasure-1.asy",
+    "-o",
+    "/tmp/claude-501/assay-invariants-xxqwb8h0/erasure-1"
+  ],
+  "exit": 0,
+  "stdout": "",
+  "stderr": ""
+}

@@ -1,0 +1,12 @@
+{
+  "argv": [
+    "/Users/oobi/Documents/assay-m1-invariants-review/fix-copy-2/_build/default/bin/assay.exe",
+    "emit",
+    "/tmp/claude-501/assay-invariant-refusals-42m0aubo/unsupported-predicate.asy",
+    "-o",
+    "/tmp/claude-501/assay-invariant-refusals-42m0aubo/unsupported-predicate-out"
+  ],
+  "exit": 1,
+  "stdout": "",
+  "stderr": "line 2, column 41: SURFACE_PROOF: expected an ordering or addition bound\n"
+}

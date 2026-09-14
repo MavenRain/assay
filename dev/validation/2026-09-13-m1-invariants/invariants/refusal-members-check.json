@@ -1,0 +1,10 @@
+{
+  "argv": [
+    "/Users/oobi/Documents/assay-m1-invariants-review/fix-copy-2/_build/default/bin/assay.exe",
+    "check",
+    "/tmp/claude-501/assay-invariant-refusals-42m0aubo/members.asy"
+  ],
+  "exit": 1,
+  "stdout": "",
+  "stderr": "line 34, column 11: SURFACE_LIMIT: at most 32 members\n"
+}

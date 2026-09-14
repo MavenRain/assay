@@ -1,0 +1,20 @@
+M1: check storage invariant declarations and final state obligations
+
+Add bounded invariant declarations over storage snapshots. Check every
+constructor claim and require evidence for affected successful writes.
+Keep obligations in the checked core until erasure, track later stores,
+and preserve unchanged fields and reverting paths.
+
+Add a counter example and 52 source-model/Cancun cases, two constructor
+outcomes, 30 refusals, four equal-output variants and four compiler
+mutations with restored controls. Preserve the paused timing measurement
+and denominator manifest without claiming a complete gate pass.
+
+Review pass 1 (2026-09-13) fixed 6 findings: A-1 A-2 B-5 B-2 D-2 D-1.
+A-1: `invariant` is a reserved word, recorded and refused in a case.
+A-2: A stray `.` outside a claim is refused as SURFACE_SYNTAX.
+B-5: The SHADOW-LOAD mutation anchors the separate load binding site.
+B-2: The invariant chain checks storage reports and can fail.
+D-2: README.md shows the CounterInvariant.asy emit command.
+D-1: Three carried docs scope the unfinished sentence to their slice.
+The archive keeps review ladder INVARIANTS and CONTRACT-SURFACE logs.
