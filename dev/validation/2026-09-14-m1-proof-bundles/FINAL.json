@@ -1,0 +1,28 @@
+{
+  "protected_inputs_unchanged": true,
+  "protected_paths": [
+    "lib",
+    "surface",
+    "proofs",
+    "verification",
+    "asm",
+    "keccak",
+    "abi",
+    "emit/emit.ml",
+    "emit/model.ml",
+    "emit/recognize.ml",
+    "dev/DENOMINATORS.sha256",
+    "dev/denominators.json",
+    "dev/denominators-m1.json",
+    "dev/ratio.py",
+    "dev/TIMING-DEBUG.md",
+    "dev/measurements"
+  ],
+  "functional_legs": 46,
+  "full_battery_pass": false,
+  "pending": [
+    "DENOMINATORS",
+    "M0-RATIO",
+    "M1 performance bound"
+  ]
+}

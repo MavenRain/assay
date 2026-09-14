@@ -6,16 +6,20 @@ let ( let* ) = Result.bind
 type token = { text : string; line : int; col : int }
 type word = Literal of token | Local of token
 type predicate = Ordered of word * word | Fits of word * word
+type claim = Bound of predicate | Both of claim * claim
+type resolved_claim = Atomic of string | Bundle of resolved_claim * resolved_claim
 type proof =
   | Proof_unit
   | Proof_name of token
   | Proof_word of word
   | Proof_call of token * proof list
-  | Proof_ann of proof * predicate
-  | Proof_let of token * predicate * proof * proof
-type parameter = Word_parameter of token | Proof_parameter of token * predicate
-type helper = { helper_name : token; parameters : parameter list; conclusion : predicate; proof_body : proof }
-type binding = Word_value of string | Proof_value of string
+  | Proof_ann of proof * claim
+  | Proof_let of token * claim * proof * proof
+  | Proof_pair of token * proof * proof
+  | Proof_project of token * bool * proof
+type parameter = Word_parameter of token | Proof_parameter of token * claim
+type helper = { helper_name : token; parameters : parameter list; conclusion : claim; proof_body : proof }
+type binding = Word_value of string | Proof_value of string * resolved_claim
 type step =
   | Load of token * token
   | Add of token * word * word
@@ -25,7 +29,7 @@ type step =
   | Bind of token * word
   | Prove of token * predicate * (token * word list) option * predicate
   | Proven of token * token * word * word * proof
-  | Proof_bind of token * predicate * proof
+  | Proof_bind of token * claim * proof
 type ending = Return of word | Unit of token | Revert of token | Reject of token * word list
 type body = step list * ending
 type entry = { name : token; args : token list; body : body }
@@ -70,7 +74,7 @@ let lex chars =
     | _c :: _rest -> fail (at "") "TOKEN" "unexpected character" in
   scan 0 1 1 [] chars
 
-let reserved = String.split_on_char ' '
+let reserved = ["Both"] @ String.split_on_char ' '
   "contract where storage entry constructor error invariant proof do sload sstore add sub guard le let pure revert Word Eff Sig Tx ResultWord Storage Entry Error main word ret put read EvmOpcodes done store load abort reject def axiom fun inj of case match as return with tuple sum prod absurd Prop Type in auto mu mutual end nu and rec natAdd natSub natMul natEq natLt Le Lt256 AddFits leWord lt256 wordNat guardLe guardAdd addLt subLe"
 let identifier tokens = match tokens with
   | at :: rest when Recognize.identifier at.text && at.text <> "_" &&
@@ -134,10 +138,18 @@ let bound operand runtime tokens =
     let* rest = expect ")" rest in Ok (Fits (a, b), rest)
   | [] | _ :: _ -> fail (here tokens) "PROOF" "expected an ordering or addition bound"
 let predicate runtime tokens = bound (value 0) runtime tokens
+let rec claim depth tokens =
+  if depth > 32 then fail (here tokens) "LIMIT" "claim nesting exceeds 32" else
+  match tokens with
+  | { text = "Both"; _ } :: rest ->
+    let component tokens = let* rest = expect "(" tokens in
+      let* c, rest = claim (depth + 1) rest in let* rest = expect ")" rest in Ok (c, rest) in
+    let* a, rest = component rest in let* b, rest = component rest in Ok (Both (a, b), rest)
+  | [] | _ :: _ -> let* p, rest = predicate false tokens in Ok (Bound p, rest)
 let proof_binder tokens =
   let* rest = sequence ["("; "0"] tokens in
   let* name, rest = identifier rest in let* rest = expect ":" rest in
-  let* claim, rest = predicate false rest in
+  let* claim, rest = claim 0 rest in
   let* rest = expect ")" rest in Ok ((name, claim), rest)
 let rec proof_term depth tokens =
   if depth > 128 then fail (here tokens) "LIMIT" "proof nesting exceeds 128" else
@@ -147,7 +159,7 @@ let rec proof_term depth tokens =
     let* term, rest = proof_term (depth + 1) rest in
     let* term, rest = match rest with
       | { text = ":"; _ } :: rest ->
-        let* claim, rest = predicate false rest in Ok (Proof_ann (term, claim), rest)
+        let* claim, rest = claim 0 rest in Ok (Proof_ann (term, claim), rest)
       | [] | _ :: _ -> Ok (term, rest) in
     let* rest = expect ")" rest in Ok (term, rest)
   | { text = "let"; _ } :: rest ->
@@ -181,6 +193,8 @@ let rec proof_term depth tokens =
      | [] | _ :: _ -> Ok (Proof_name name, rest))
 let proof_guard tokens =
   let* (name, claim), rest = proof_binder tokens in
+  let* claim = match claim with Bound p -> Ok p
+    | Both _ -> fail name "PROOF" "a guard establishes one bound" in
   let* rest = sequence ["<-"; "guard"] rest in
   let* error, rest = match rest with
     | { text = "("; _ } :: _tail -> Ok (None, rest)
@@ -298,11 +312,11 @@ let helper tokens =
       let* names = add_name name names in let* rest = expect ":" rest in
       let* parameter, rest = match rest with
         | { text = "Word"; _ } :: rest -> Ok (Word_parameter name, rest)
-        | [] | _ :: _ -> let* claim, rest = predicate false rest in Ok (Proof_parameter (name, claim), rest) in
+        | [] | _ :: _ -> let* claim, rest = claim 0 rest in Ok (Proof_parameter (name, claim), rest) in
       let* rest = expect ")" rest in parameters names (acc @ [parameter]) rest
     | [] | _ :: _ -> Ok (acc, tokens) in
   let* parameters, rest = parameters [] [] rest in
-  let* rest = expect ":" rest in let* conclusion, rest = predicate false rest in
+  let* rest = expect ":" rest in let* conclusion, rest = claim 0 rest in
   let* rest = expect ":=" rest in let* proof_body, rest = proof_term 0 rest in
   Ok ({ helper_name; parameters; conclusion; proof_body }, rest)
 
@@ -341,45 +355,76 @@ let resolved_predicate env condition =
     | Ordered (a, b) -> a, b, "Le", "guardLe"
     | Fits (a, b) -> a, b, "AddFits", "guardAdd" in
   let* a = word env a in let* b = word env b in Ok (app ty [a; b], op, a, b)
+let rec claim_type = function
+  | Atomic ty -> ty
+  | Bundle (a, b) -> "(prod (" ^ claim_type a ^ ", " ^ claim_type b ^ ") : Prop)"
+let rec resolved_claim env = function
+  | Bound p -> let* ty, _op, _a, _b = resolved_predicate env p in Ok (Atomic ty)
+  | Both (a, b) -> let* a = resolved_claim env a in let* b = resolved_claim env b in Ok (Bundle (a, b))
+let project first term = "(" ^ term ^ ")." ^ (if first then "0" else "1")
 (* Annotations preserve obligations even for unused erased arguments and
    declarations. Only kernel erasure may discard their checked terms. *)
 let rec proof ?(erased=true) helpers depth env expected term =
-  let* term = match term with
-    | Proof_unit -> Ok "(tuple ())"
+  let* actual, term = match term with
+    | Proof_unit -> Ok (Atomic "(prod ())", "(tuple ())")
     | Proof_word (Literal at | Local at) -> fail at "PROOF" "a Word is not an erased proof"
     | Proof_name at ->
       let refusal = fail at "PROOF" "expected an in-scope erased proof" in
       Option.fold ~none:refusal ~some:(function
-        | Proof_value p -> Ok p | Word_value _ -> refusal) (List.assoc_opt at.text env)
+        | Proof_value (p, ty) -> Ok (ty, p) | Word_value _ -> refusal) (List.assoc_opt at.text env)
     | Proof_ann (term, claim) ->
-      let* ty, _op, _a, _b = resolved_predicate env claim in proof ~erased helpers (depth + 1) env ty term
+      let* ty = resolved_claim env claim in proof ~erased helpers (depth + 1) env (Some ty) term
     | Proof_let (name, claim, value, body) ->
-      let* ty, _op, _a, _b = resolved_predicate env claim in
-      let* value = proof ~erased helpers (depth + 1) env ty value in
+      let* claim = resolved_claim env claim in let ty = claim_type claim in
+      let* _claim, value = proof ~erased helpers (depth + 1) env (Some claim) value in
       let fresh = "_assay_p" ^ string_of_int depth in
-      let* body = proof ~erased helpers (depth + 1) ((name.text, Proof_value fresh) :: env) expected body in
-      Ok (if erased then erased_apply fresh ty expected value body else
-        app ("(" ^ lambda fresh ty body ^ " : (" ^ fresh ^ " : " ^ ty ^ ") -> " ^ expected ^ ")") [value])
+      let* result, body = proof ~erased helpers (depth + 1) ((name.text, Proof_value (fresh, claim)) :: env) expected body in
+      let result_type = claim_type result in
+      Ok (result, if erased then erased_apply fresh ty result_type value body else
+        app ("(" ^ lambda fresh ty body ^ " : (" ^ fresh ^ " : " ^ ty ^ ") -> " ^ result_type ^ ")") [value])
+    | Proof_pair (at, a, b) ->
+      let* a_type, b_type = Option.fold ~none:(Ok (None, None)) ~some:(function
+        | Bundle (a, b) -> Ok (Some a, Some b)
+        | Atomic _ -> fail at "PROOF" "a proof pair requires a Both claim") expected in
+      let* a_type, a = proof ~erased helpers (depth + 1) env a_type a in
+      let* b_type, b = proof ~erased helpers (depth + 1) env b_type b in
+      Ok (Bundle (a_type, b_type), "(tuple (" ^ a ^ ", " ^ b ^ "))")
+    | Proof_project (at, first, term) ->
+      let* ty, term = proof ~erased helpers (depth + 1) env None term in
+      (match ty with
+       | Bundle (a, b) -> Ok ((if first then a else b), project first term)
+       | Atomic _ -> fail at "PROOF" "a proof projection requires a Both claim")
+    | Proof_call (at, args) when not (List.mem_assoc at.text helpers) &&
+        List.mem at.text ["pair"; "first"; "second"] ->
+      if List.mem_assoc at.text env then fail at "PROOF" "a local binding shadows this proof operation" else
+      let* term = match at.text, args with
+        | "pair", [a; b] -> Ok (Proof_pair (at, a, b))
+        | ("first" | "second"), [term] -> Ok (Proof_project (at, at.text = "first", term))
+        | _, ([] | _ :: _) -> fail at "PROOF" "wrong proof operation argument count" in
+      proof ~erased helpers depth env expected term
     | Proof_call (at, args) ->
       let* core_name, row = List.assoc_opt at.text helpers
         |> Option.to_result ~none:(Error.Parse ("SURFACE_PROOF: unknown or forward proof helper " ^ at.text, at.line, at.col)) in
       if List.mem_assoc at.text env then fail at "PROOF" "a local binding shadows this proof helper" else
       let rec arguments substitution values parameters args = match parameters, args with
-        | [], [] -> Ok (List.rev values)
+        | [], [] -> Ok (substitution, List.rev values)
         | Word_parameter name :: parameters, arg :: args ->
           let* v = match arg with
             | Proof_word v -> word env v
             | Proof_name at -> word env (Local at)
-            | Proof_unit | Proof_call _ | Proof_ann _ | Proof_let _ -> fail at "PROOF" "expected a Word helper argument" in
+            | Proof_unit | Proof_call _ | Proof_ann _ | Proof_let _ | Proof_pair _ | Proof_project _ ->
+              fail at "PROOF" "expected a Word helper argument" in
           arguments ((name.text, Word_value v) :: substitution) (v :: values) parameters args
         | Proof_parameter (_name, claim) :: parameters, arg :: args ->
-          let* ty, _op, _a, _b = resolved_predicate substitution claim in
-          let* v = proof ~erased helpers (depth + 1) env ty arg in
+          let* ty = resolved_claim substitution claim in
+          let* _ty, v = proof ~erased helpers (depth + 1) env (Some ty) arg in
           arguments substitution (v :: values) parameters args
         | [], _ :: _ | _ :: _, [] -> fail at "PROOF" "wrong proof helper argument count" in
-      let* args = arguments [] [] row.parameters args in
-      Ok (if args = [] then core_name else app core_name args) in
-  Ok ("(" ^ term ^ " : " ^ expected ^ ")")
+      let* substitution, args = arguments [] [] row.parameters args in
+      let* ty = resolved_claim substitution row.conclusion in
+      Ok (ty, if args = [] then core_name else app core_name args) in
+  let ty = Option.value expected ~default:actual in
+  Ok (ty, "(" ^ term ^ " : " ^ claim_type ty ^ ")")
 
 let helpers_source rows =
   let rec lower index helpers source = function
@@ -387,14 +432,14 @@ let helpers_source rows =
     | row :: rest ->
       let rec parameters index env = function
         | [] ->
-          let* ty, _op, _a, _b = resolved_predicate env row.conclusion in
-          let* term = proof ~erased:false helpers 0 env ty row.proof_body in Ok (ty, term)
+          let* ty = resolved_claim env row.conclusion in
+          let* _ty, term = proof ~erased:false helpers 0 env (Some ty) row.proof_body in Ok (claim_type ty, term)
         | parameter :: rest ->
           let fresh = "_assay_harg" ^ string_of_int index in
           let* name, ty, binding = match parameter with
             | Word_parameter name -> Ok (name, "Word 256", Word_value fresh)
             | Proof_parameter (name, claim) ->
-              let* ty, _op, _a, _b = resolved_predicate env claim in Ok (name, ty, Proof_value fresh) in
+              let* ty = resolved_claim env claim in Ok (name, claim_type ty, Proof_value (fresh, ty)) in
           let* result, term = parameters (index + 1) ((name.text, binding) :: env) rest in
           (* Top-level core definitions check in runtime mode. These pure
              functions have ordinary core parameters, and the surface only
@@ -409,6 +454,11 @@ let helpers_source rows =
 let invariant_fields row =
   let a, b = match row.claim with Ordered (a, b) | Fits (a, b) -> a, b in
   List.filter_map (function Literal _ -> None | Local at -> Some at.text) [a; b]
+let rec evidence_for term ty evidence =
+  let evidence = (claim_type ty, term) :: evidence in
+  match ty with
+  | Atomic _ -> evidence
+  | Bundle (a, b) -> evidence_for (project false term) b (evidence_for (project true term) a evidence)
 let obligations invariants state evidence result next =
   List.fold_right (fun row result_body ->
     let* body = result_body in
@@ -461,18 +511,18 @@ let transaction fields errors invariants helpers env (steps, ending) =
         let* ty, _op, _a, _b = predicate env claim in
         let* _ty, op, a, b = predicate env condition in
         let* no = Option.fold ~none:(Ok "abort") ~some:(reject env) error in
-        let* yes = lower (index + 1) ((name.text, Proof_value fresh) :: env) state written ((ty, fresh) :: evidence) rest in
+        let* yes = lower (index + 1) ((name.text, Proof_value (fresh, Atomic ty)) :: env) state written ((ty, fresh) :: evidence) rest in
         let success = "(" ^ lambda ("0 " ^ fresh) ty yes ^ " : (0 " ^ fresh ^ " : " ^ ty ^ ") -> Tx)" in
         Ok (app op [a; b; success; no])
       | Proof_bind (name, claim, term) ->
-        let* ty, _op, _a, _b = predicate env claim in
-        let* term = proof 0 env ty term in
-        let* next = lower (index + 1) ((name.text, Proof_value fresh) :: env) state written ((ty, fresh) :: evidence) rest in
-        Ok (erased_apply fresh ty "Tx" term next)
+        let* ty = resolved_claim env claim in
+        let* _ty, term = proof 0 env (Some ty) term in
+        let* next = lower (index + 1) ((name.text, Proof_value (fresh, ty)) :: env) state written (evidence_for fresh ty evidence) rest in
+        Ok (erased_apply fresh (claim_type ty) "Tx" term next)
       | Proven (op, name, a, b, term) ->
         let* a = word env a in let* b = word env b in
         let ty = if op.text = "addLt" then app "AddFits" [a; b] else app "Le" [b; a] in
-        let* term = proof 0 env ty term in
+        let* _ty, term = proof 0 env (Some (Atomic ty)) term in
         let* next = bind name in Ok (app op.text [a; b; term; lambda fresh "Word 256" next])
       | Bind (name, v) ->
         let* v = word env v in let* next = bind name in

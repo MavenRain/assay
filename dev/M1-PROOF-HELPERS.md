@@ -25,6 +25,10 @@ is `(0 NAME : Word)` or `(0 NAME : CLAIM)`. Claims retain the existing
 their types see only preceding parameters. The conclusion and body see
 all parameters. Word and proof names retain distinct roles.
 
+The later [proof bundle slice](M1-PROOF-BUNDLES.md) adds
+`Both (CLAIM) (CLAIM)` to parameters, conclusions and annotations.
+Guards keep their atomic bounds.
+
 `NAME(ARGUMENTS)` calls a helper inside a proof expression. Arguments
 are comma-separated and supplied in declaration order. A Word argument
 is a local Word or `word N`, with optional parentheses. A proof argument

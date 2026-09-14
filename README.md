@@ -32,6 +32,9 @@ The eleventh adds [storage invariants](dev/M1-INVARIANTS.md), checked at
 construction and successful writes, with erased proof obligations.
 The twelfth adds [reusable proof helpers](dev/M1-PROOF-HELPERS.md), with
 dependent Word and proof arguments checked before erasure.
+The thirteenth adds [proof bundles](dev/M1-PROOF-BUNDLES.md), with
+checked pairs, projections and component evidence for storage
+invariants.
 
 ```sh
 zsh -f dev/dunecho.sh build
@@ -52,6 +55,7 @@ _build/default/bin/assay.exe emit examples/CounterProofs.asy -o ProofCounter-out
 _build/default/bin/assay.exe emit examples/ProofTerms.asy -o ProofTerms-out
 _build/default/bin/assay.exe emit examples/CounterInvariant.asy -o CounterInvariant-out
 _build/default/bin/assay.exe emit examples/ProofHelpers.asy -o ProofHelpers-out
+_build/default/bin/assay.exe emit examples/ProofBundles.asy -o ProofBundles-out
 leancho -C verification
 zsh -f dev/gates.sh
 ```

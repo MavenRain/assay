@@ -1,0 +1,8 @@
+HELPER-LIVE cases=104 creates=2 guarded_erasure=6 OK
+HELPER-REFUSALS cases=50 commands=3 OK
+HELPER-ERASURE variants=7 five_files=5 boundaries=6 OK
+HELPER-MUTANT DECLARATION killed control=OK
+HELPER-MUTANT SHADOW killed control=OK
+HELPER-MUTANT MEMBERS killed control=OK
+HELPER-MUTANT ARGUMENTS killed control=OK
+PROOF-HELPERS cases=104 creates=2 refusals=50 erasure=7 mutants=4 OK

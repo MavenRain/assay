@@ -193,12 +193,12 @@ def erasure():
 
 def mutants():
     cases = [
-        ('BINDING', 'Ok (erased_apply fresh ty "Tx" term next)',
+        ('BINDING', 'Ok (erased_apply fresh (claim_type ty) "Tx" term next)',
          'let _ignored = ty, term in Ok next', 'unused-binding'),
-        ('ANNOTATION', '| Proof_ann (term, claim) ->\n      let* ty, _op, _a, _b = resolved_predicate env claim in proof ~erased helpers (depth + 1) env ty term',
+        ('ANNOTATION', '| Proof_ann (term, claim) ->\n      let* ty = resolved_claim env claim in proof ~erased helpers (depth + 1) env (Some ty) term',
          '| Proof_ann (term, _claim) -> proof ~erased helpers (depth + 1) env expected term', 'annotation'),
-        ('SCOPE', '| Proof_value p -> Ok p | Word_value _ -> refusal) (List.assoc_opt at.text env)',
-         '| Proof_value p -> Ok p | Word_value _ -> refusal) (List.assoc_opt at.text (List.rev env))', 'shadow'),
+        ('SCOPE', '| Proof_value (p, ty) -> Ok (ty, p) | Word_value _ -> refusal) (List.assoc_opt at.text env)',
+         '| Proof_value (p, ty) -> Ok (ty, p) | Word_value _ -> refusal) (List.assoc_opt at.text (List.rev env))', 'shadow'),
         ('NESTING', 'if depth > 128 then fail (here tokens) "LIMIT" "proof nesting exceeds 128"',
          'if depth > 8192 then fail (here tokens) "LIMIT" "proof nesting exceeds 128"', 'nesting'),
     ]

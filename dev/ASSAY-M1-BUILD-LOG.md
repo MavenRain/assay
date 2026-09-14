@@ -1,5 +1,169 @@
 # Assay M1 build log
 
+## 2026-09-14: checked proof bundles
+
+The thirteenth M1 slice starts at
+`0abfe27e4b38138577737773b49c4e93a3370c80`.
+It adds `Both` claims, proof pairs and projections. Helpers can accept,
+return and compose multiple bounds. Named entry-local bundles supply
+their checked component evidence to final storage-invariant obligations.
+The existing kernel checks every component, annotation, helper argument
+and unused binding before erasure. Guards still establish atomic bounds.
+
+The lowering uses products in Prop, tuples and existing projections. It
+records resolved proof types and instantiates helper conclusions with
+their supplied Word arguments. Claim syntax has a 32-level nesting
+limit; the existing 128-level proof nesting limit also covers pairs and
+projections. The carried kernel, surface, proof protocol, arithmetic,
+backend, assembler and Lean sources are unchanged. No axiom is added.
+
+The new gate passes 102 source-model/Cancun cases, two creation
+outcomes, 41 refusals through check/emit/run, eight variants with
+identical five-file outputs and eleven accepted boundary programs. An
+additional refused boundary checks the existing proof-depth limit. Four
+mutations are killed with passing restored controls. Prior proof-term
+and helper mutation anchors follow the new representation without
+changing their witnesses. Contextual proof operations preserve existing
+Word, proof, field, argument and helper names, with regression cases for
+each role.
+
+Validation ran in `/Users/oobi/Documents/gpt1/assay-m1-proof-bundles`.
+All 46 functional legs of the 48-leg battery passed. DENOMINATORS and
+M0-RATIO failed against the preserved manifest and old measurement.
+Timing remains paused. No full battery pass, performance result or
+milestone exit is claimed. Proof cache reuse first verified 35 source
+files and two pinned dependencies, then both proof gates ran. Existing
+gate counts, deadlines and trusted-line allowances are unchanged.
+
+Trusted lines are kernel 3997/4000, emitter 1524/1800 and total new code
+1942/3550. `validation/2026-09-14-m1-proof-bundles/` retains the
+battery, new captures, mutation controls, output hashes and exact source
+identities. `M1-PROOF-BUNDLES.md` specifies the grammar, inference and
+erasure rules. Symbolic arithmetic lemmas and the M1 performance bound
+remain open.
+
+### Review round 2026-09-14 (M1 proof bundles)
+
+Review pass 1 fixed four low findings. No gate count, deadline, frozen
+bound or measurement moved.
+
+A-1: `M1-PROOF-BUNDLES.md` now states that a helper takes precedence
+over a built-in operation from its declaration point onward, and that a
+helper body sees only the helpers above it. One accepted boundary form
+declares a helper named `pair` after a helper body that uses the
+built-in reading.
+
+B-1: the accepted boundary form that keeps `pair` as a storage field and
+`first` and `second` as custom-error arguments now builds and projects a
+bundle in the same entry. The form count stays eleven, so the
+`PROOF-BUNDLES` gate line keeps `boundaries=11` and every other count.
+
+D-1: fourteen new prose lines in `README.md`, this log,
+`M1-PROOF-BUNDLES.md` and `STAGE-M1-PROOF-BUNDLES-COMMIT.txt` were
+rewrapped to 72 columns. No word or number changed.
+
+D-2: `M1-PROOF-HELPERS.md` and `M1-SURFACE.md` gained one cross-link
+each to the proof bundle slice. Both paths join the staged set.
+
+`dev/DENOMINATORS.sha256` is not refreshed here. The rows for
+`dev/M1-PROOF-BUNDLES.md`, `dev/M1-PROOF-HELPERS.md`,
+`dev/M1-SURFACE.md` and `dev/proof-bundle-test.py` need a refresh on the
+final tree, with the rows-only recipe. DENOMINATORS and M0-RATIO stay
+red while timing is paused.
+
+### Closer bookkeeping
+
+Kept findings, all fixed:
+
+| id | sev | one line | files |
+| --- | --- | --- | --- |
+| A-1 | low | forward helper named pair, first or second silently reinterpreted as the built-in | dev/M1-PROOF-BUNDLES.md, dev/proof-bundle-test.py |
+| B-1 | low | no accepted boundary form mixed a Word-role pair/first/second name with a live bundle | dev/proof-bundle-test.py, dev/M1-PROOF-BUNDLES.md |
+| D-1 | low | 14 new prose lines exceeded the 72-column width the prior round fixed | README.md, dev/ASSAY-M1-BUILD-LOG.md, dev/M1-PROOF-BUNDLES.md, dev/STAGE-M1-PROOF-BUNDLES-COMMIT.txt |
+| D-2 | low | claim grammar widened this slice, no cross-link paragraph in the carried docs | dev/M1-PROOF-HELPERS.md, dev/M1-SURFACE.md |
+
+Refuted: 0. Merged and dropped: 0 (no merge reason applies, four
+findings touch four different files and four different defects).
+
+Gate log:
+/Users/oobi/Documents/assay-m1-proof-bundles-review/gates-M1PB-1.log
+
+STAGE-M1-LINE: STAGE-M1-PROOF-BUNDLES FAIL
+M0-LINE: M0-VALIDATION FAIL; M0-EXIT requires the user commit and
+ratification
+EXIT 1 | LADDER-WRAPPER-EXIT 0 10:12:24
+PASS-COUNT: 46
+FAIL-LINES: FAIL DENOMINATORS exit=1 elapsed_ms=61.8 FAIL M0-RATIO
+exit=1 elapsed_ms=144.7
+DENOM-FAILED-ROWS: dev/M1-ERRORS.md: FAILED dev/M1-PROOFS.md: FAILED
+dev/M1-SURFACE-MUTATIONS.md: FAILED dev/M1-SURFACE.md: FAILED
+dev/contract-test.py: FAILED dev/gates.sh: FAILED dev/m1-emit-test.py:
+FAILED dev/model-test.py: FAILED dev/stage-a-gates.py: FAILED
+emit/contract.ml: FAILED emit/emit.ml: FAILED emit/model.ml: FAILED
+emit/recognize.ml: FAILED
+
+MUTANTS-TAIL: MUTANT TRUSTED-BOUND killed exit=1 MUTANTS killed=13/13 OK
+CUSTOM-ERRORS-TAIL: ERROR-MUTANT ABI killed control=OK CUSTOM-ERRORS
+cases=66 creates=2 refusals=26 mutants=5 OK
+SOURCE-PROOFS-TAIL: SOURCE-PROOF-MUTANT ERROR-BRANCH killed control=OK
+SOURCE-PROOFS theorems=11 arithmetic=226 evm=16 recovery=6 effects=7
+invalid=13 mutants=6 controls=4 OK
+CONTRACT-ROUTE-TAIL: CONTRACT-ROUTE core=3 identity=true
+allocated_bytes=1472 bound=131072 OK
+CONTRACT-SURFACE-TAIL: SURFACE-MUTANTS killed=8/8 controls=8 OK
+CONTRACT-SURFACE counter=30 variants=14 refusals=36 mutants=8 OK
+SOURCE-MODEL-TAIL: MODEL-MUTANTS killed=8/8 controls=8 OK SOURCE-MODEL
+counter=30 variants=10 corpus=11 invalid=28 refusals=6 mutants=8 OK
+DIFF-EXECUTOR-TAIL: DIFF-CHECKS killed=24/24 controls=1 OK
+DIFF-EXECUTOR live=20 driver=28 rejected=24 OK
+M1-EMISSION-TAIL: M1-MUTANTS killed=8/8 controls=8 OK M1-EMISSION
+counter=30 sources=8 refusals=11 mutants=8 OK
+COUNTER-REFERENCE-TAIL: COUNTER-MUTANT SELECTOR
+witness=increment-success killed control=OK COUNTER-REFERENCE cases=30
+creates=2 mutants=8 value_rejected=5 covered=120 scope=reference OK
+DRIVER-TAIL: DRIVER cases=24 OK
+DENOMINATORS-TAIL: verification/lean-toolchain: OK shasum: WARNING: 13
+computed checksums did NOT match
+M0-RATIO-TAIL: shasum: WARNING: 13 computed checksums did NOT match
+PROOF-BUILD-TAIL: OK lake: 0 errors, 0 sorries, 0 warnings
+PROOF-REPORT-LINES: 42
+
+DENOMINATORS stayed red on the kept 119-row manifest; it was not
+refrozen rows-only in this review round. Fixes refreshed these rows:
+dev/M1-PROOF-BUNDLES.md, dev/M1-PROOF-HELPERS.md, dev/M1-SURFACE.md,
+dev/proof-bundle-test.py. The M0-RATIO remeasure is CARRIED to a calm
+host; dev/denominators.json and dev/measurements are never edited in
+this review.
+
+```
+PROOF-BUNDLES cases=102 creates=2 refusals=41 erasure=8 boundaries=11 mutants=4 OK
+```
+
+The closing ladder log is
+/Users/oobi/Documents/assay-m1-proof-bundles-review/gates-final.log,
+expected GREEN-FUNCTIONAL (46 PASS, FAIL rows DENOMINATORS and
+M0-RATIO only under the timing pause). verify-final reports bad=0.
+
+gate: GREEN-FUNCTIONAL (every red row is DENOMINATORS or M0-RATIO, the
+disclosed state of this slice while the timing gate is paused: pass=46
+of 48 legs, fail=[DENOMINATORS,M0-RATIO], denom rows=[dev/M1-ERRORS.md,
+dev/M1-PROOFS.md, dev/M1-SURFACE-MUTATIONS.md, dev/M1-SURFACE.md,
+dev/contract-test.py, dev/gates.sh, dev/m1-emit-test.py,
+dev/model-test.py, dev/stage-a-gates.py, emit/contract.ml, emit/emit.ml,
+emit/model.ml, emit/recognize.ml], mutants=true, marker tails ok=true
+(PROOF-BUNDLES true, PROOF-HELPERS true, INVARIANTS true, PROOF-TERMS
+true, PROOF-GUARDS true), timeout legs only=false, disclosed reds
+only=true, wrapper exit ok=true, stage=STAGE-M1-LINE:
+STAGE-M1-PROOF-BUNDLES FAIL, m0=M0-LINE: M0-VALIDATION FAIL; M0-EXIT
+requires the user commit and ratification, exit=EXIT 1 |
+LADDER-WRAPPER-EXIT 0 10:12:24)
+
+Staffing: finders ran fable/medium with one opus/medium fallback. The
+builder and the closer ran opus/medium. A Fable subagent dies on the
+[reasoning_extraction] classifier on this host, and a death in fix or
+close forces a resume, so the builder and the closer keep the opus pin
+and both rulings are reported unmet.
+
 ## 2026-09-13: reusable proof helpers
 
 The twelfth slice starts at `9b5c46ece4fd792ca46ee8d4a0abe8cc872fb2ee`.

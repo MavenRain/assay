@@ -1,0 +1,25 @@
+M1: check erased proof bundles and component invariant evidence
+
+Add Both claims, checked pairs and projections to proof helpers and
+local bindings. Check unused components and annotations with the
+existing kernel. Reuse bundle components for final storage-invariant
+obligations. Preserve emitted bytes, ABI, layout and axiom disclosure
+after erasure.
+
+Add 102 execution cases, two creation outcomes, 41 refusals, eight
+erasure variants, eleven accepted boundaries and four mutations with
+controls. Retarget prior mutation anchors and keep their expected
+outcomes.
+
+All 46 functional legs pass. Timing remains paused; DENOMINATORS and
+M0-RATIO fail against the preserved manifest and measurement. Archive
+the full 48-leg battery without claiming a fresh performance result.
+
+Review pass 1 (2026-09-14) fixed 4 findings: A-1, B-1, D-1, D-2.
+A-1: forward helper named pair, first or second is no longer
+silently reinterpreted as the built-in operation.
+B-1: an accepted boundary form now mixes a Word-role name with a
+live bundle build and projection.
+D-1: 14 new prose lines rewrapped to the 72-column width.
+D-2: M1-PROOF-HELPERS.md and M1-SURFACE.md gained a cross-link to
+the widened claim grammar.

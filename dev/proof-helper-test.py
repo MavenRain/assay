@@ -256,7 +256,7 @@ def mutants():
          'if false then fail at "PROOF" "a local binding shadows this proof helper" else', 'word-shadow', 'ERROR-REFUSAL word-shadow'),
         ('MEMBERS', 'let* _names = add_name row.helper_name (List.map (fun row -> row.helper_name) helpers) in',
          'let* _names = Ok [] in', 'helpers', 'ERROR-REFUSAL helpers'),
-        ('ARGUMENTS', '| [], [] -> Ok (List.rev values)', '| [], [] -> Ok values', 'apply-order', 'M1-TOOL apply-order'),
+        ('ARGUMENTS', '| [], [] -> Ok (substitution, List.rev values)', '| [], [] -> Ok (substitution, values)', 'apply-order', 'M1-TOOL apply-order'),
     ]
     with tempfile.TemporaryDirectory(prefix='assay-helper-mutants-') as temporary:
         copy = Path(temporary) / 'copy'
