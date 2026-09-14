@@ -1,0 +1,595 @@
+{
+  "base": "9b5c46ece4fd792ca46ee8d4a0abe8cc872fb2ee",
+  "cwd": "/Users/oobi/Documents/gpt1/assay-m1-proof-helpers",
+  "command": [
+    "zsh",
+    "-f",
+    "dev/gates.sh"
+  ],
+  "archived_utc": "2026-09-14T04:36:30.616655+00:00",
+  "legs": 47,
+  "passed": 45,
+  "failed": [
+    "DENOMINATORS",
+    "M0-RATIO"
+  ],
+  "exit": 1,
+  "validation": "47-leg battery plus scoped SOURCE-PROOFS rerun",
+  "initial_failed": [
+    "DENOMINATORS",
+    "M0-RATIO",
+    "SOURCE-PROOFS"
+  ],
+  "initial_passed": 44,
+  "binary_sha256": "438d32010ca3f1b8fa8897f67e86d77939b43d103d2c46b3536dfce645134e23",
+  "timing": "paused; prior measurement and denominator manifest preserved",
+  "initial_results": [
+    {
+      "name": "BUILD",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 291.4
+    },
+    {
+      "name": "PIN-CARRY",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 703.1
+    },
+    {
+      "name": "R0-COUNT",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 122.2
+    },
+    {
+      "name": "R0-AUDIT",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 70.4
+    },
+    {
+      "name": "HOUSE",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 889.9
+    },
+    {
+      "name": "TRUSTED-LINES",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 42.3
+    },
+    {
+      "name": "SUITE-KERNEL",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 873.2
+    },
+    {
+      "name": "SUITE-SURFACE",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 375.2
+    },
+    {
+      "name": "DRIVER",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 402.6
+    },
+    {
+      "name": "MUTANTS",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 39236.4
+    },
+    {
+      "name": "DENOMINATORS",
+      "passed": false,
+      "exit": 1,
+      "elapsed_ms": 136.9
+    },
+    {
+      "name": "KECCAK-VEC",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 7466.7
+    },
+    {
+      "name": "KECCAK-MUTANTS",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 15570.3
+    },
+    {
+      "name": "STACK-HEIGHT",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 6525.2
+    },
+    {
+      "name": "DISASM-3WAY",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 7832.8
+    },
+    {
+      "name": "ASM-MUTANTS",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 48935.4
+    },
+    {
+      "name": "FORK-DRIFT",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 1386.4
+    },
+    {
+      "name": "M0-TRACE",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 476.6
+    },
+    {
+      "name": "CREATE-EQ",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 275.7
+    },
+    {
+      "name": "REFERENCE-CHECKS",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 555.5
+    },
+    {
+      "name": "REFERENCE-MUTANTS",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 12581.9
+    },
+    {
+      "name": "EMIT-CONSTRUCTORS",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 595.8
+    },
+    {
+      "name": "WORD-UNBOX",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 89.7
+    },
+    {
+      "name": "STORAGE-NOCLOS",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 49.9
+    },
+    {
+      "name": "ABI-GOLD",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 1058.4
+    },
+    {
+      "name": "EMITTED-TRACE",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 237.5
+    },
+    {
+      "name": "EMIT-SOURCES",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 2082.4
+    },
+    {
+      "name": "EMIT-MUTANTS",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 103483.8
+    },
+    {
+      "name": "AXIOMS",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 37486.1
+    },
+    {
+      "name": "TRACE-DRIVER",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 9246.7
+    },
+    {
+      "name": "CORPUS",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 14982.2
+    },
+    {
+      "name": "ERASED-BYTES",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 4057.2
+    },
+    {
+      "name": "M0-RATIO",
+      "passed": false,
+      "exit": 1,
+      "elapsed_ms": 1882.2
+    },
+    {
+      "name": "F-MUTANTS",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 2442.9
+    },
+    {
+      "name": "DIFF-EXECUTOR",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 43278.9
+    },
+    {
+      "name": "COUNTER-REFERENCE",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 20822.9
+    },
+    {
+      "name": "M1-EMISSION",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 187199.6
+    },
+    {
+      "name": "SOURCE-MODEL",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 84674.9
+    },
+    {
+      "name": "CONTRACT-SURFACE",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 130390.3
+    },
+    {
+      "name": "CONTRACT-ROUTE",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 535.8
+    },
+    {
+      "name": "SOURCE-PROOFS",
+      "passed": false,
+      "exit": 1,
+      "elapsed_ms": 544111.4
+    },
+    {
+      "name": "NULLARY-ENTRIES",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 200367.1
+    },
+    {
+      "name": "CUSTOM-ERRORS",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 110346.2
+    },
+    {
+      "name": "PROOF-GUARDS",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 165554.9
+    },
+    {
+      "name": "PROOF-TERMS",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 147870.9
+    },
+    {
+      "name": "INVARIANTS",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 92983.4
+    },
+    {
+      "name": "PROOF-HELPERS",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 107056.1
+    }
+  ],
+  "results": [
+    {
+      "name": "BUILD",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 291.4
+    },
+    {
+      "name": "PIN-CARRY",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 703.1
+    },
+    {
+      "name": "R0-COUNT",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 122.2
+    },
+    {
+      "name": "R0-AUDIT",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 70.4
+    },
+    {
+      "name": "HOUSE",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 889.9
+    },
+    {
+      "name": "TRUSTED-LINES",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 42.3
+    },
+    {
+      "name": "SUITE-KERNEL",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 873.2
+    },
+    {
+      "name": "SUITE-SURFACE",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 375.2
+    },
+    {
+      "name": "DRIVER",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 402.6
+    },
+    {
+      "name": "MUTANTS",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 39236.4
+    },
+    {
+      "name": "DENOMINATORS",
+      "passed": false,
+      "exit": 1,
+      "elapsed_ms": 136.9
+    },
+    {
+      "name": "KECCAK-VEC",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 7466.7
+    },
+    {
+      "name": "KECCAK-MUTANTS",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 15570.3
+    },
+    {
+      "name": "STACK-HEIGHT",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 6525.2
+    },
+    {
+      "name": "DISASM-3WAY",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 7832.8
+    },
+    {
+      "name": "ASM-MUTANTS",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 48935.4
+    },
+    {
+      "name": "FORK-DRIFT",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 1386.4
+    },
+    {
+      "name": "M0-TRACE",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 476.6
+    },
+    {
+      "name": "CREATE-EQ",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 275.7
+    },
+    {
+      "name": "REFERENCE-CHECKS",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 555.5
+    },
+    {
+      "name": "REFERENCE-MUTANTS",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 12581.9
+    },
+    {
+      "name": "EMIT-CONSTRUCTORS",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 595.8
+    },
+    {
+      "name": "WORD-UNBOX",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 89.7
+    },
+    {
+      "name": "STORAGE-NOCLOS",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 49.9
+    },
+    {
+      "name": "ABI-GOLD",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 1058.4
+    },
+    {
+      "name": "EMITTED-TRACE",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 237.5
+    },
+    {
+      "name": "EMIT-SOURCES",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 2082.4
+    },
+    {
+      "name": "EMIT-MUTANTS",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 103483.8
+    },
+    {
+      "name": "AXIOMS",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 37486.1
+    },
+    {
+      "name": "TRACE-DRIVER",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 9246.7
+    },
+    {
+      "name": "CORPUS",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 14982.2
+    },
+    {
+      "name": "ERASED-BYTES",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 4057.2
+    },
+    {
+      "name": "M0-RATIO",
+      "passed": false,
+      "exit": 1,
+      "elapsed_ms": 1882.2
+    },
+    {
+      "name": "F-MUTANTS",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 2442.9
+    },
+    {
+      "name": "DIFF-EXECUTOR",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 43278.9
+    },
+    {
+      "name": "COUNTER-REFERENCE",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 20822.9
+    },
+    {
+      "name": "M1-EMISSION",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 187199.6
+    },
+    {
+      "name": "SOURCE-MODEL",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 84674.9
+    },
+    {
+      "name": "CONTRACT-SURFACE",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 130390.3
+    },
+    {
+      "name": "CONTRACT-ROUTE",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 535.8
+    },
+    {
+      "name": "SOURCE-PROOFS",
+      "passed": true,
+      "exit": 0,
+      "rerun": true,
+      "evidence": "SOURCE-PROOFS.log"
+    },
+    {
+      "name": "NULLARY-ENTRIES",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 200367.1
+    },
+    {
+      "name": "CUSTOM-ERRORS",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 110346.2
+    },
+    {
+      "name": "PROOF-GUARDS",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 165554.9
+    },
+    {
+      "name": "PROOF-TERMS",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 147870.9
+    },
+    {
+      "name": "INVARIANTS",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 92983.4
+    },
+    {
+      "name": "PROOF-HELPERS",
+      "passed": true,
+      "exit": 0,
+      "elapsed_ms": 107056.1
+    }
+  ]
+}

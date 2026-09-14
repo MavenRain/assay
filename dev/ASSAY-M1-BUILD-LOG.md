@@ -1,5 +1,173 @@
 # Assay M1 build log
 
+## 2026-09-13: reusable proof helpers
+
+The twelfth slice starts at `9b5c46ece4fd792ca46ee8d4a0abe8cc872fb2ee`.
+It adds named proof helpers with dependent Word and proof arguments.
+Helpers can call earlier helpers, and entries can use any helper in
+arithmetic proofs, erased bindings and final invariant obligations.
+Every helper declaration is checked, including unused declarations.
+
+The source requires zero parameters and permits only pure proof bodies
+and proof-position calls. The carried kernel checks top-level functions
+in runtime mode, so lowering uses ordinary core binders within helper
+definitions. Entry proof applications and bindings erase the entire
+call. The existing kernel checks generic helper bodies, instantiated
+argument claims, annotations and unused evidence before erasure.
+
+There are at most 32 helpers and 16 parameters or arguments per helper.
+The existing 128-level proof nesting bound applies to calls. Recursion,
+forward helper references, runtime use, role confusion and name
+collisions are refused. No kernel, carried surface, backend, arithmetic,
+assembler, proof protocol or Lean source changes are required.
+
+The new example emits 387 runtime bytes and 417 creation bytes. The new
+gate passes 104 source-model/Cancun cases, both creation outcomes, and
+50 refusals through check, emit and run. Six guarded variants and seven
+closed variants retain equal five-file outputs. All seven closed
+variants execute, and six accepted boundary programs compile. Four
+compiler mutations are killed with restored controls. The existing proof
+annotation mutation follows its moved function and keeps its witness.
+
+Validation ran in `/Users/oobi/Documents/gpt1/assay-m1-proof-helpers`.
+The complete 47-leg battery passed 44 functional legs. SOURCE-PROOFS hit
+its existing 180-second mutation build timeout, then passed a scoped
+rerun with the same limits. All 45 functional legs are validated across
+those runs. DENOMINATORS and M0-RATIO failed against the preserved
+manifest and measurement. Both proof runs are retained in the archive.
+Timing remains paused. No full battery pass or fresh performance verdict
+is claimed. The proof gates ran after cache reuse checked 35 source
+files and two pinned dependencies. No existing gate count, deadline or
+trusted line allowance was reduced or increased.
+
+Trusted lines are kernel 3997/4000, emitter 1468/1800 and total new code
+1886/3550. `validation/2026-09-13-m1-proof-helpers/` retains the
+battery, new captures, mutation controls, erasure hashes and source
+identities. The working copy occupied 77 MiB before proof cache reuse,
+and the two verified proof caches occupied 128 MiB. These bounded copies
+and local tests used the documented disk-floor exception with about 29
+GiB free.
+
+The M1 performance bound remains open. These bounded helpers do not add
+induction, new surface predicates, automatic preservation lemmas,
+epoch-indexed invariants, or a new compiler theorem. See
+`M1-PROOF-HELPERS.md` for the accepted grammar and core lowering
+contract.
+
+### Review round 2026-09-13 (M1 proof helpers)
+
+A review of this slice kept five findings. All five are fixed here.
+Round one fixed four. Round two applied the fifth, which changes the
+compiler, because that manifest row is already stale.
+
+- `README.md` now names `STAGE-M1-PROOF-HELPERS OK` and 47 legs, and
+  records the helper gate counts: 104 cases, 50 refusals, seven closed
+  erasure variants and four mutations with controls.
+- `M1-SURFACE.md` records `,` as a punctuation token of the surface
+  beside the `.` rule, with the classes that refuse it elsewhere. The
+  exit code paragraph is whole again, and the helper cross-link is last
+  in the chronological slice chain.
+- The commit draft `STAGE-M1-PROOF-HELPERS-COMMIT.txt` wraps at 72
+  columns, the width of the three prior slice drafts. Every number is
+  unchanged.
+- The new prose of this section and of `M1-PROOF-HELPERS.md` wraps at
+  72 columns. The mutation ledger tables keep their existing width.
+- A comma with no argument after it inside a proof helper call was
+  refused as SURFACE_NAME, where the neighbouring missing comma is
+  refused as SURFACE_SYNTAX. The argument loop of `emit/contract.ml`
+  now refuses a leading, a double and a trailing comma directly with
+  the message `expected a proof helper argument after ,` or
+  `expected a proof helper argument before ,`, and the
+  `trailing-comma` case of `proof-helper-test.py` reads
+  `SURFACE_SYNTAX`. No new case is added, so the refusal count holds.
+
+No gate count, printed leg marker, trusted-line bound, gate deadline or
+frozen measurement input moved.
+`PROOF-HELPERS cases=104 creates=2 refusals=50 erasure=7 mutants=4 OK`,
+`PROOF-TERMS cases=98 creates=2 refusals=25 erasure=5 mutants=4 OK`,
+`INVARIANTS cases=52 creates=2 refusals=30 erasure=4 mutants=4 OK`,
+`PROOF-GUARDS cases=83 creates=2 refusals=26 erasure=3 mutants=6 OK` and
+`NULLARY-ENTRIES cases=53 creates=2 refusals=4 mutants=3 OK` all hold
+after the compiler change, with a build of 0 errors and 0 warnings.
+`dev/DENOMINATORS.sha256` is
+unchanged, so the timing freeze of the parent commit stays in place;
+the `emit/contract.ml` and `dev/M1-SURFACE.md` rows of that manifest
+were already stale before this round. DENOMINATORS and M0-RATIO stay
+failed against the preserved manifest and measurement, as disclosed
+above.
+
+| id | sev | one line | files |
+| --- | --- | --- | --- |
+| D-1 | medium | stale gate sentence, no helper counts | README.md |
+| A-1 | low | comma error reported as identifier error | emit/contract.ml |
+| D-2 | low | commit body lines over 72 columns | dev/STAGE-M1-PROOF-HELPERS-COMMIT.txt |
+| D-3 | low | new prose lines over 72 columns | dev/ASSAY-M1-BUILD-LOG.md, dev/M1-PROOF-HELPERS.md |
+| D-4 | low | cross-link split a paragraph, no diagnostic class named | dev/M1-SURFACE.md |
+
+Three findings were refuted (A-2, C-1, C-2): reasons are recorded in
+review-M1PH-report.md and are not repeated here. Zero findings were
+merged and zero were dropped; the judge cap of seven was not reached.
+
+Closing gate log is
+`/Users/oobi/Documents/assay-m1-proof-helpers-review/gates-M1PH-2.log`.
+STAGE-M1-LINE: STAGE-M1-PROOF-HELPERS FAIL. M0-LINE: M0-VALIDATION
+FAIL; M0-EXIT requires the user commit and ratification. EXIT 1.
+PASS-COUNT: 45. FAIL-LINES: FAIL DENOMINATORS exit=1 elapsed_ms=51.9
+FAIL M0-RATIO exit=1 elapsed_ms=159.8. DENOM-FAILED-ROWS: dev/M1-ERRORS.md:
+FAILED dev/M1-PROOFS.md: FAILED dev/M1-SURFACE-MUTATIONS.md: FAILED
+dev/M1-SURFACE.md: FAILED dev/contract-test.py: FAILED dev/gates.sh:
+FAILED dev/m1-emit-test.py: FAILED dev/model-test.py: FAILED
+dev/stage-a-gates.py: FAILED emit/contract.ml: FAILED emit/emit.ml:
+FAILED emit/model.ml: FAILED emit/recognize.ml: FAILED. MUTANTS-TAIL:
+MUTANT TRUSTED-BOUND killed exit=1 MUTANTS killed=13/13 OK.
+CUSTOM-ERRORS-TAIL: ERROR-MUTANT ABI killed control=OK CUSTOM-ERRORS
+cases=66 creates=2 refusals=26 mutants=5 OK. SOURCE-PROOFS-TAIL:
+SOURCE-PROOF-MUTANT ERROR-BRANCH killed control=OK SOURCE-PROOFS
+theorems=11 arithmetic=226 evm=16 recovery=6 effects=7 invalid=13
+mutants=6 controls=4 OK. CONTRACT-ROUTE-TAIL: CONTRACT-ROUTE core=3
+identity=true allocated_bytes=1472 bound=131072 OK. CONTRACT-SURFACE-TAIL:
+SURFACE-MUTANTS killed=8/8 controls=8 OK CONTRACT-SURFACE counter=30
+variants=14 refusals=36 mutants=8 OK. SOURCE-MODEL-TAIL: MODEL-MUTANTS
+killed=8/8 controls=8 OK SOURCE-MODEL counter=30 variants=10 corpus=11
+invalid=28 refusals=6 mutants=8 OK. DIFF-EXECUTOR-TAIL: DIFF-CHECKS
+killed=24/24 controls=1 OK DIFF-EXECUTOR live=20 driver=28 rejected=24
+OK. M1-EMISSION-TAIL: M1-MUTANTS killed=8/8 controls=8 OK M1-EMISSION
+counter=30 sources=8 refusals=11 mutants=8 OK. COUNTER-REFERENCE-TAIL:
+COUNTER-MUTANT SELECTOR witness=increment-success killed control=OK
+COUNTER-REFERENCE cases=30 creates=2 mutants=8 value_rejected=5
+covered=120 scope=reference OK. DRIVER-TAIL: DRIVER cases=24 OK.
+DENOMINATORS-TAIL: verification/lean-toolchain: OK shasum: WARNING: 13
+computed checksums did NOT match. M0-RATIO-TAIL: shasum: WARNING: 13
+computed checksums did NOT match. PROOF-BUILD-TAIL: OK lake: 0 errors,
+0 sorries, 0 warnings. PROOF-REPORT-LINES: 42.
+
+DENOMINATORS stays red on the kept 119-row manifest; no rows-only
+refreeze happened in this review, and none belongs here. Fix round 1
+refreshed SOURCES.json entries=914 changed=5; fix round 2 refreshed
+entries=914 changed=3 for dev/ASSAY-M1-BUILD-LOG.md,
+dev/proof-helper-test.py and emit/contract.ml. `dev/denominators.json`
+and `dev/measurements/` were not touched. The M0-RATIO remeasure is
+CARRIED to a calm host.
+
+gate: GREEN-FUNCTIONAL (every red row is DENOMINATORS or M0-RATIO,
+the disclosed state of this slice while the timing gate is paused:
+pass=45 of 47 legs, fail=[DENOMINATORS,M0-RATIO], denom rows=[dev/M1-ERRORS.md,
+dev/M1-PROOFS.md,dev/M1-SURFACE-MUTATIONS.md,dev/M1-SURFACE.md,
+dev/contract-test.py,dev/gates.sh,dev/m1-emit-test.py,dev/model-test.py,
+dev/stage-a-gates.py,emit/contract.ml,emit/emit.ml,emit/model.ml,
+emit/recognize.ml], mutants=true, marker tails ok=true (PROOF-HELPERS
+true, INVARIANTS true, PROOF-TERMS true, PROOF-GUARDS true), timeout
+legs only=false, disclosed reds only=true, wrapper exit ok=true,
+stage=STAGE-M1-LINE: STAGE-M1-PROOF-HELPERS FAIL, m0=M0-LINE:
+M0-VALIDATION FAIL; M0-EXIT requires the user commit and ratification,
+exit=EXIT 1 | LADDER-WRAPPER-EXIT 0 02:05:52).
+
+Finders ran fable/medium with one opus/medium fallback. The builder
+and the closer ran opus/medium: a Fable subagent dies on the
+[reasoning_extraction] classifier on this host, and a death in fix or
+close forces a resume, so both stages keep the opus pin. Both the
+builder and the closer tier rulings are reported unmet.
+
 ## 2026-09-13: storage invariant declarations
 
 The eleventh slice starts at `b35c17d00c17b8864475d9a65b282d2ae5567b4c`.

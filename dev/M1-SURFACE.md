@@ -92,7 +92,11 @@ non-comment tokens. Literals must be decimal values below `2^256`, with at
 most 78 digits. Existing core specialization, depth, memory and bytecode
 bounds still apply after lowering. `.` is a punctuation token of the
 surface and is valid only inside an invariant claim. A `.` in any other
-position is refused as `SURFACE_SYNTAX`, not as `SURFACE_TOKEN`.
+position is refused as `SURFACE_SYNTAX`, not as `SURFACE_TOKEN`. `,` is
+a punctuation token of the surface and is valid only inside a proof
+helper call argument list. A `,` outside such a list is refused as
+`SURFACE_SYNTAX`, or as `SURFACE_DECLARATION` after a declaration body,
+and never as `SURFACE_TOKEN`.
 
 Surface refusals print `SURFACE_*` diagnostics and exit 1, before output
 creation. Existing backend refusals exit 2 and driver misuse exits 64.
@@ -100,7 +104,9 @@ The [proof guard slice](M1-GUARDS.md) adds the P1 bound guards and erased
 proof binders. The [supplied proof slice](M1-PROOF-TERMS.md) adds checked
 closed bounds, erased proof aliases and proof-local bindings. The
 [invariant slice](M1-INVARIANTS.md) adds storage bound declarations and
-checked obligations for construction and affected successful writes.
+checked obligations for construction and affected successful writes. The
+[proof helper slice](M1-PROOF-HELPERS.md) reserves `proof` for pure
+helper declarations and adds comma-separated calls in proof expressions.
 The M1 performance bound also remains open. The original surface uses the
 checked Result/error path of the design. The following
 [source-proof slice](M1-PROOFS.md) proves overflow freedom for a Lean model

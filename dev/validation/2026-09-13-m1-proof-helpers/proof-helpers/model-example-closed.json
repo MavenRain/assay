@@ -1,0 +1,18 @@
+{
+  "argv": [
+    "/Users/oobi/Documents/gpt1/assay-m1-proof-helpers/_build/default/bin/assay.exe",
+    "run",
+    "/Users/oobi/Documents/gpt1/assay-m1-proof-helpers/examples/ProofHelpers.asy",
+    "--calldata",
+    "0x597e1fb5",
+    "--value",
+    "0",
+    "--storage",
+    "0=0x7",
+    "--storage",
+    "2=0xabc"
+  ],
+  "exit": 0,
+  "stdout": "{\"status\":\"success\",\"output\":\"0x0000000000000000000000000000000000000000000000000000000000000005\",\"storage\":{\"0\":\"0x5\",\"2\":\"0xabc\"}}\n",
+  "stderr": ""
+}

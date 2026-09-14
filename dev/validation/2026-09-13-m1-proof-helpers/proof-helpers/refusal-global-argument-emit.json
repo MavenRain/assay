@@ -1,0 +1,12 @@
+{
+  "argv": [
+    "/Users/oobi/Documents/gpt1/assay-m1-proof-helpers/_build/default/bin/assay.exe",
+    "emit",
+    "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-helper-refusals-2okwzz31/global-argument.asy",
+    "-o",
+    "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-helper-refusals-2okwzz31/global-argument-out"
+  ],
+  "exit": 1,
+  "stdout": "",
+  "stderr": "line 3, column 7: SURFACE_DUPLICATE: conflicting global a\n"
+}

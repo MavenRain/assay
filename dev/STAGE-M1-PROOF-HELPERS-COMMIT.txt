@@ -1,0 +1,24 @@
+M1: check reusable erased proof helpers and dependent calls
+
+Add bounded proof declarations, dependent Word and proof arguments, and
+calls in erased proof positions. Check unused declarations and argument
+claims with the existing kernel. Preserve output bytes and axiom scope.
+
+Add the example, 104 execution cases, two creation outcomes, 50
+refusals, seven closed erasure variants, six boundary programs and four
+mutations. Retarget the existing proof annotation mutation without
+changing its witness. Archive the complete 47-leg battery and exact
+source identities.
+
+All 45 functional legs pass across the battery and a scoped rerun of the
+source-proof gate after its mutation build timed out. Limits are
+unchanged. Timing remains paused; DENOMINATORS and M0-RATIO fail against
+the preserved manifest and measurement. No performance verdict or exit
+is claimed.
+
+Review pass 1 (2026-09-13) fixed 5 findings: D-1, A-1, D-2, D-3, D-4.
+D-1: rewrote the stale gate sentence and added helper gate counts.
+A-1: refused a misplaced comma in a helper call as SYNTAX, not NAME.
+D-2: rewrapped the commit body to 72 columns, keeping every number.
+D-3: rewrapped eight new prose lines in the log and helpers doc.
+D-4: restored the exit-code paragraph and named the comma class.

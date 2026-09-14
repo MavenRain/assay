@@ -1,0 +1,20 @@
+{
+  "argv": [
+    "/Users/oobi/Documents/gpt1/assay-m1-proof-helpers/_build/default/bin/assay.exe",
+    "run",
+    "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-helper-live-z6qxx4uo/invariant.asy",
+    "--calldata",
+    "0x60fe47b10000000000000000000000000000000000000000000000000000000000000065",
+    "--value",
+    "0",
+    "--storage",
+    "0=0x7",
+    "--storage",
+    "1=0x64",
+    "--storage",
+    "2=0xabc"
+  ],
+  "exit": 0,
+  "stdout": "{\"status\":\"revert\",\"output\":\"0x\",\"storage\":{\"0\":\"0x7\",\"1\":\"0x64\",\"2\":\"0xabc\"}}\n",
+  "stderr": ""
+}

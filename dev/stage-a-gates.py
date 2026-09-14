@@ -10,10 +10,11 @@ import time
 
 def main():
     root = Path(__file__).resolve().parent.parent
-    if sys.argv[1:] not in ([], ["--keccak"], ["--asm"], ["--reference"], ["--emit"], ["--m0"], ["--m1-executor"], ["--m1-counter"], ["--m1-emission"], ["--m1-run"], ["--m1-surface"], ["--m1-proofs"], ["--m1-nullary"], ["--m1-errors"], ["--m1-guards"], ["--m1-proof-terms"], ["--m1-invariants"]):
-        print("usage: stage-a-gates.py [--keccak|--asm|--reference|--emit|--m0|--m1-executor|--m1-counter|--m1-emission|--m1-run|--m1-surface|--m1-proofs|--m1-nullary|--m1-errors|--m1-guards|--m1-proof-terms|--m1-invariants]")
+    if sys.argv[1:] not in ([], ["--keccak"], ["--asm"], ["--reference"], ["--emit"], ["--m0"], ["--m1-executor"], ["--m1-counter"], ["--m1-emission"], ["--m1-run"], ["--m1-surface"], ["--m1-proofs"], ["--m1-nullary"], ["--m1-errors"], ["--m1-guards"], ["--m1-proof-terms"], ["--m1-invariants"], ["--m1-proof-helpers"]):
+        print("usage: stage-a-gates.py [--keccak|--asm|--reference|--emit|--m0|--m1-executor|--m1-counter|--m1-emission|--m1-run|--m1-surface|--m1-proofs|--m1-nullary|--m1-errors|--m1-guards|--m1-proof-terms|--m1-invariants|--m1-proof-helpers]")
         return 64
-    invariants = sys.argv[1:] == ["--m1-invariants"]
+    helpers = sys.argv[1:] == ["--m1-proof-helpers"]
+    invariants = helpers or sys.argv[1:] == ["--m1-invariants"]
     proof_terms = invariants or sys.argv[1:] == ["--m1-proof-terms"]
     guards = proof_terms or sys.argv[1:] == ["--m1-guards"]
     errors = guards or sys.argv[1:] == ["--m1-errors"]
@@ -138,11 +139,14 @@ def main():
     if invariants:
         legs.append(("INVARIANTS", 600, ("python3", "-P", "dev/invariant-test.py"),
                      "INVARIANTS cases=52 creates=2 refusals=30 erasure=4 mutants=4 OK"))
+    if helpers:
+        legs.append(("PROOF-HELPERS", 600, ("python3", "-P", "dev/proof-helper-test.py"),
+                     "PROOF-HELPERS cases=104 creates=2 refusals=50 erasure=7 mutants=4 OK"))
     # Review round 2026-09-11 (D-1):  the M0 verdict reads the legs of
     # M0-PLAN section 8 only.  A leg that this mode appends is an M1 leg,
     # so its failure moves the stage line and the exit code, not M0.
-    m1_names = {"DIFF-EXECUTOR", "COUNTER-REFERENCE", "M1-EMISSION", "SOURCE-MODEL", "CONTRACT-SURFACE", "CONTRACT-ROUTE", "SOURCE-PROOFS", "NULLARY-ENTRIES", "CUSTOM-ERRORS", "PROOF-GUARDS", "PROOF-TERMS", "INVARIANTS"}
-    stage = "M1-INVARIANTS" if invariants else "M1-PROOF-TERMS" if proof_terms else "M1-GUARDS" if guards else "M1-ERRORS" if errors else "M1-NULLARY" if nullary else "M1-PROOFS" if proofs else "M1-SURFACE" if surface else "M1-RUN" if model else "M1-EMISSION" if m1_emission else "M1-COUNTER" if counter else "M1-EXECUTOR" if executor else "F" if corpus else "E" if emission else "D" if reference else "C" if assembler else "B" if keccak else "A"
+    m1_names = {"DIFF-EXECUTOR", "COUNTER-REFERENCE", "M1-EMISSION", "SOURCE-MODEL", "CONTRACT-SURFACE", "CONTRACT-ROUTE", "SOURCE-PROOFS", "NULLARY-ENTRIES", "CUSTOM-ERRORS", "PROOF-GUARDS", "PROOF-TERMS", "INVARIANTS", "PROOF-HELPERS"}
+    stage = "M1-PROOF-HELPERS" if helpers else "M1-INVARIANTS" if invariants else "M1-PROOF-TERMS" if proof_terms else "M1-GUARDS" if guards else "M1-ERRORS" if errors else "M1-NULLARY" if nullary else "M1-PROOFS" if proofs else "M1-SURFACE" if surface else "M1-RUN" if model else "M1-EMISSION" if m1_emission else "M1-COUNTER" if counter else "M1-EXECUTOR" if executor else "F" if corpus else "E" if emission else "D" if reference else "C" if assembler else "B" if keccak else "A"
     work = root / (".gatework/stage-" + stage.lower())
     work.mkdir(parents=True, exist_ok=True)
     failed = False

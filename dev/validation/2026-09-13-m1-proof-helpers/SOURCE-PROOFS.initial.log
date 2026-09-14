@@ -1,0 +1,5 @@
+SOURCE-PROOF-MUTANT EXACT-ADD killed control=OK
+SOURCE-PROOF-MUTANT UPPER-BOUND killed control=OK
+SOURCE-PROOF-MUTANT SUB-ORDER killed control=OK
+SOURCE-PROOF-MUTANT TRACE killed control=OK
+SOURCE-PROOFS FAIL Command '['leancho', '--warn', '-C', '/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-proof-mutants-btjpcssw/verification']' timed out after 180 seconds

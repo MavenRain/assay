@@ -1,0 +1,12 @@
+{
+  "argv": [
+    "python3",
+    "-P",
+    "dev/proof-helper-test.py",
+    "witness",
+    "apply-order"
+  ],
+  "exit": 1,
+  "stdout": "M1-TOOL apply-order: mismatch: the term has type (Elim SColl 2 (Out SPi w b Nat (APt w (Elim SMu Word [256] (Out SColl 2 (ALeg 1) _assay_args) as x return Nat with | (ACtor word) bits n => n)) (Out SPi w a Nat (APt w (Elim SMu Word [256] (Out SColl 2 (ALeg 0) _assay_args) as x return Nat with | (ACtor word) bits n => n)) natLt)) as flag return Type 0 with | (ALeg 0) _u => (Ran SColl 0 (Sec SColl 0 [])) | (ALeg 1) _u => (Lan SColl 0 (Sec SColl 0 []))) and the expected type is (Lan SMu Word [256] (Sec SColl 0 []))\n\n",
+  "stderr": ""
+}

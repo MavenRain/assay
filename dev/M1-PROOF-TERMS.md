@@ -98,3 +98,7 @@ this slice.
 General proof functions, induction and user-defined surface predicates
 are outside this bounded expression grammar. Core source remains
 available for the existing checked proof language.
+
+The later [proof helper slice](M1-PROOF-HELPERS.md) adds named, bounded
+proof functions and calls to this grammar. Induction and user-defined
+surface predicates remain outside that extension.

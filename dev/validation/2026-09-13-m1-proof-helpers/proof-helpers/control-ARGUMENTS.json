@@ -1,0 +1,12 @@
+{
+  "argv": [
+    "python3",
+    "-P",
+    "dev/proof-helper-test.py",
+    "witness",
+    "apply-order"
+  ],
+  "exit": 0,
+  "stdout": "",
+  "stderr": ""
+}

@@ -30,6 +30,8 @@ The tenth adds [supplied proof terms](dev/M1-PROOF-TERMS.md), with checked
 closed bounds, erased aliases and proof-local bindings.
 The eleventh adds [storage invariants](dev/M1-INVARIANTS.md), checked at
 construction and successful writes, with erased proof obligations.
+The twelfth adds [reusable proof helpers](dev/M1-PROOF-HELPERS.md), with
+dependent Word and proof arguments checked before erasure.
 
 ```sh
 zsh -f dev/dunecho.sh build
@@ -49,6 +51,7 @@ _build/default/bin/assay.exe emit examples/Errors.asy -o Errors-out
 _build/default/bin/assay.exe emit examples/CounterProofs.asy -o ProofCounter-out
 _build/default/bin/assay.exe emit examples/ProofTerms.asy -o ProofTerms-out
 _build/default/bin/assay.exe emit examples/CounterInvariant.asy -o CounterInvariant-out
+_build/default/bin/assay.exe emit examples/ProofHelpers.asy -o ProofHelpers-out
 leancho -C verification
 zsh -f dev/gates.sh
 ```
@@ -206,8 +209,10 @@ mutations with restored controls. The proof guard gate adds 83 cases,
 The supplied proof gate adds 98 cases, 25 refusals, five closed proof
 variants and four mutations with controls. The invariant gate adds 52
 cases, 30 refusals, four erased variants and four mutations with controls.
-`STAGE-M1-INVARIANTS OK` requires all 46 legs to pass, including source
-proofs.
+The proof helper gate adds 104 cases, 50 refusals, seven closed erasure
+variants and four mutations with controls.
+`STAGE-M1-PROOF-HELPERS OK` requires all 47 legs to pass, including
+source proofs.
 The current slice's timing gate is paused following the
 [measurement diagnosis](dev/TIMING-DEBUG.md); it has no fresh timing verdict.
 The preserved denominator manifest and measurement describe an older

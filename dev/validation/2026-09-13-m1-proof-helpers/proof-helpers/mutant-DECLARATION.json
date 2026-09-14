@@ -1,0 +1,12 @@
+{
+  "argv": [
+    "python3",
+    "-P",
+    "dev/proof-helper-test.py",
+    "witness",
+    "unused-false"
+  ],
+  "exit": 1,
+  "stdout": "ERROR-REFUSAL unused-false\n",
+  "stderr": ""
+}

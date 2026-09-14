@@ -1,0 +1,12 @@
+{
+  "argv": [
+    "/Users/oobi/Documents/gpt1/assay-m1-proof-helpers/_build/default/bin/assay.exe",
+    "emit",
+    "/Users/oobi/Documents/gpt1/assay-m1-proof-helpers/examples/ProofHelpers.asy",
+    "-o",
+    "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-helper-live-z6qxx4uo/example"
+  ],
+  "exit": 0,
+  "stdout": "",
+  "stderr": ""
+}
