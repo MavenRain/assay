@@ -45,6 +45,10 @@ The sixteenth adds [compound proof guards](dev/M1-COMPOUND-GUARDS.md),
 checking nested conditions in order and producing erased proof bundles.
 The seventeenth adds [named runtime guards](dev/M1-NAMED-GUARDS.md),
 reusing predicates in runtime conditions with checked expansion limits.
+The eighteenth adds [inferred guard
+evidence](dev/M1-INFERRED-GUARDS.md), checking conditions without a
+repeated proof annotation and retaining their erased evidence for
+final-state invariants.
 
 ```sh
 zsh -f dev/dunecho.sh build
@@ -65,6 +69,7 @@ _build/default/bin/assay.exe emit examples/CounterProofs.asy -o ProofCounter-out
 _build/default/bin/assay.exe emit examples/ProofTerms.asy -o ProofTerms-out
 _build/default/bin/assay.exe emit examples/CompoundInvariants.asy -o Bounds-out
 _build/default/bin/assay.exe emit examples/NamedGuards.asy -o NamedGuards-out
+_build/default/bin/assay.exe emit examples/InferredGuards.asy -o InferredGuards-out
 _build/default/bin/assay.exe emit examples/CounterInvariant.asy -o CounterInvariant-out
 _build/default/bin/assay.exe emit examples/ProofHelpers.asy -o ProofHelpers-out
 _build/default/bin/assay.exe emit examples/ProofBundles.asy -o ProofBundles-out
@@ -229,14 +234,18 @@ The proof helper gate adds 104 cases, 50 refusals, seven closed erasure
 variants and four mutations with controls.
 `STAGE-M1-PROOF-HELPERS OK` requires all 47 legs to pass, including
 source proofs.
-`dev/gates.sh` now selects `--m1-compound-guards`. Its 51 legs
-include the proof-bundle, named-predicate and compound-invariant suites.
+`dev/gates.sh` selects `--m1-inferred-guards`. Its 53 legs include the
+proof-bundle, named-predicate, compound-invariant and named-guard
+suites.
 The compound gate checks 64 execution cases, 24 refusals, eight erasure
 variants, ten boundary forms and four mutations with restored controls.
 The [compound guard gate](dev/M1-COMPOUND-GUARDS.md) adds 88 execution
 cases, 26 refusals, seven erasure variants, seven boundary forms and
 four mutations with restored controls. A compound guard checks nested
 bounds in source order and supplies their erased proof bundle.
+The inferred guard gate adds 112 execution comparisons, two creation
+outcomes, 24 refusals, 14 pairs of equivalent five-file outputs, six
+boundary forms and four mutations with restored controls.
 The current slice's timing gate is paused following the
 [measurement diagnosis](dev/TIMING-DEBUG.md); it has no fresh timing verdict.
 The preserved denominator manifest and measurement describe an older

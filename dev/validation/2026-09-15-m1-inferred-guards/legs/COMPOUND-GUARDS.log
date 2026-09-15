@@ -1,0 +1,9 @@
+CG-LIVE cases=88 OK
+CG-ERASURE variants=7 groups=2 OK
+CG-REFUSALS cases=26 commands=3 OK
+CG-BOUNDARIES accepted=7 OK
+CG-MUTANT PAIR-ORDER killed control=OK
+CG-MUTANT ERROR-PAYLOAD killed control=OK
+CG-MUTANT COMPONENT-EVIDENCE killed control=OK
+CG-MUTANT CHECK-ORDER killed control=OK
+COMPOUND-GUARDS cases=88 creates=2 refusals=26 erasure=7 boundaries=7 mutants=4 OK

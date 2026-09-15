@@ -1,5 +1,138 @@
 # Assay M1 build log
 
+## 2026-09-15: inferred guard evidence
+
+The eighteenth M1 slice starts at
+`4649376468d808f908ea6148f8c40ae7e213a7d7`.
+Guards accept atomic, compound and named conditions without repeating
+their claims in proof annotations. The parser derives the annotation
+and lowers to the existing checked proof-guard path. Its internal name
+cannot be used by source identifiers. Collected evidence supports
+final-state invariant obligations, including components from separate
+guards, while preserving the snapshots at which it was established.
+
+The new suite passes 112 source-model/Cancun comparisons, two creation
+outcomes, 24 refusals through three commands, 14 inferred/explicit
+pairs comparing all five emitted files, six accepted boundary forms
+and four compiler mutations with restored passing controls. The
+refusals include overwritten and reloaded state, inaccessible internal
+evidence, incorrect payloads and expansion and effect-step limits.
+
+All 51 functional legs pass in the default 53-leg battery, including
+both proof gates and every previous guard and predicate mutation suite.
+The run took 429.3 seconds in total. All 52 prior commands, deadlines
+and success markers are unchanged. Proof-cache reuse checks matched
+35 source files and two pinned dependency revisions. The carried
+kernel, surface, proof sources, protocol and backend are unchanged.
+
+DENOMINATORS and M0-RATIO retain their existing failures against
+preserved older inputs. Timing remains paused, and the M1 performance
+bound and milestone exit remain pending. The
+[validation archive](validation/2026-09-15-m1-inferred-guards/README.md)
+records every leg, source and artifact hashes, individual test
+captures, mutation witnesses and gate compatibility checks.
+
+### Review round 2026-09-15 (M1 inferred guards)
+
+Lenses: 4. Kept 1, refuted 0, merged and dropped 0.
+
+| id | severity | summary | files |
+| --- | --- | --- | --- |
+| D-1 | medium | Five added prose rows over 72 columns failed the close gate WIDTH-OVER-72 | README.md, dev/M1-INFERRED-GUARDS.md, dev/M1-INFERRED-GUARD-MUTATIONS.md |
+
+Refuted: 0, no lens finding was refuted at verification.
+
+Merged and dropped: 0, one finding reached the judge, so there was no
+duplicate to merge and no item over the cap of 7.
+
+Gate result, log gates-M1IG-1.log:
+
+- Verdict GREEN-FUNCTIONAL: every red row is DENOMINATORS or M0-RATIO,
+  the disclosed state of this slice while the timing gate is paused,
+  pass=51 of 53 legs, fail=[DENOMINATORS,M0-RATIO], mutants=true,
+  marker tails ok=true for INFERRED-GUARDS, NAMED-GUARDS,
+  COMPOUND-GUARDS, COMPOUND-INVARIANTS, PREDICATES, PROOF-BUNDLES,
+  PROOF-HELPERS, INVARIANTS, PROOF-TERMS, PROOF-GUARDS, timeout legs
+  only=false, disclosed reds only=true, wrapper exit ok=true.
+- STAGE-M1-LINE: STAGE-M1-INFERRED-GUARDS FAIL
+- M0-LINE: M0-VALIDATION FAIL; M0-EXIT requires the user commit and
+  ratification
+- EXIT 1 | LADDER-WRAPPER-EXIT 0 14:45:01
+- PASS-COUNT: 51
+- FAIL-LINES: FAIL DENOMINATORS exit=1 elapsed_ms=39.0 FAIL M0-RATIO
+  exit=1 elapsed_ms=119.1
+- DENOM-FAILED-ROWS: dev/M1-ERRORS.md: FAILED dev/M1-PROOFS.md: FAILED
+  dev/M1-SURFACE-MUTATIONS.md: FAILED dev/M1-SURFACE.md: FAILED
+  dev/contract-test.py: FAILED dev/errors-test.py: FAILED
+  dev/gates.sh: FAILED dev/m1-emit-test.py: FAILED dev/model-test.py:
+  FAILED dev/stage-a-gates.py: FAILED emit/contract.ml: FAILED
+  emit/emit.ml: FAILED emit/model.ml: FAILED emit/recognize.ml: FAILED
+- MUTANTS-TAIL: MUTANT TRUSTED-BOUND killed exit=1 MUTANTS
+  killed=13/13 OK
+- CUSTOM-ERRORS-TAIL: ERROR-MUTANT ABI killed control=OK CUSTOM-ERRORS
+  cases=66 creates=2 refusals=26 mutants=5 OK
+- SOURCE-PROOFS-TAIL: SOURCE-PROOF-MUTANT ERROR-BRANCH killed
+  control=OK SOURCE-PROOFS theorems=11 arithmetic=226 evm=16
+  recovery=6 effects=7 invalid=13 mutants=6 controls=4 OK
+- CONTRACT-ROUTE-TAIL: CONTRACT-ROUTE core=3 identity=true
+  allocated_bytes=1472 bound=131072 OK
+- CONTRACT-SURFACE-TAIL: SURFACE-MUTANTS killed=8/8 controls=8 OK
+  CONTRACT-SURFACE counter=30 variants=14 refusals=36 mutants=8 OK
+- SOURCE-MODEL-TAIL: MODEL-MUTANTS killed=8/8 controls=8 OK
+  SOURCE-MODEL counter=30 variants=10 corpus=11 invalid=28 refusals=6
+  mutants=8 OK
+- DIFF-EXECUTOR-TAIL: DIFF-CHECKS killed=24/24 controls=1 OK
+  DIFF-EXECUTOR live=20 driver=28 rejected=24 OK
+- M1-EMISSION-TAIL: M1-MUTANTS killed=8/8 controls=8 OK M1-EMISSION
+  counter=30 sources=8 refusals=11 mutants=8 OK
+- COUNTER-REFERENCE-TAIL: COUNTER-MUTANT SELECTOR
+  witness=increment-success killed control=OK COUNTER-REFERENCE
+  cases=30 creates=2 mutants=8 value_rejected=5 covered=120
+  scope=reference OK
+- DRIVER-TAIL: DRIVER cases=24 OK
+- DENOMINATORS-TAIL: verification/lean-toolchain: OK shasum: WARNING:
+  14 computed checksums did NOT match
+- M0-RATIO-TAIL: shasum: WARNING: 14 computed checksums did NOT match
+- PROOF-BUILD-TAIL: OK lake: 0 errors, 0 sorries, 0 warnings
+- PROOF-REPORT-LINES: 42
+
+The new leg marker, unchanged by the fix:
+
+```
+INFERRED-GUARDS cases=112 creates=2 refusals=24 erasure_pairs=14 boundaries=6 mutants=4 OK
+```
+
+DENOMINATORS stayed red on the kept 119 row manifest; it was not
+refrozen rows-only. The row refresh belongs to the FINAL tree. Rows a
+fix refreshed: README.md, dev/M1-INFERRED-GUARDS.md,
+dev/M1-INFERRED-GUARD-MUTATIONS.md,
+dev/validation/2026-09-15-m1-inferred-guards/SOURCES.json (refreshed),
+dev/validation/2026-09-15-m1-inferred-guards/ARTIFACTS.json
+(regenerated). The M0-RATIO remeasure is CARRIED to a calm host;
+dev/denominators.json and dev/measurements/ are never edited in this
+review.
+
+gate: GREEN-FUNCTIONAL (GREEN-FUNCTIONAL: every red row is
+DENOMINATORS or M0-RATIO, the disclosed state of this slice while the
+timing gate is paused: pass=51 of 53 legs, fail=[DENOMINATORS,M0-RATIO],
+denom rows=[dev/M1-ERRORS.md,dev/M1-PROOFS.md,
+dev/M1-SURFACE-MUTATIONS.md,dev/M1-SURFACE.md,dev/contract-test.py,
+dev/errors-test.py,dev/gates.sh,dev/m1-emit-test.py,dev/model-test.py,
+dev/stage-a-gates.py,emit/contract.ml,emit/emit.ml,emit/model.ml,
+emit/recognize.ml], mutants=true, marker tails ok=true (INFERRED-GUARDS
+true, NAMED-GUARDS true, COMPOUND-GUARDS true, COMPOUND-INVARIANTS
+true, PREDICATES true, PROOF-BUNDLES true, PROOF-HELPERS true,
+INVARIANTS true, PROOF-TERMS true, PROOF-GUARDS true), timeout legs
+only=false, disclosed reds only=true, wrapper exit ok=true, stage=STAGE-
+M1-LINE: STAGE-M1-INFERRED-GUARDS FAIL, m0=M0-LINE: M0-VALIDATION FAIL;
+M0-EXIT requires the user commit and ratification, exit=EXIT 1 |
+LADDER-WRAPPER-EXIT 0 14:45:01)
+
+The finders and the builder ran fable/medium on the first attempt, with
+an opus/medium fallback when the first attempt returned null. The gate
+runner ran opus/medium. The verifiers, the judge and the check stage ran
+opus/high. The closer ran sonnet/medium, never opus.
+
 ## 2026-09-15: named runtime guards
 
 The seventeenth M1 slice starts at

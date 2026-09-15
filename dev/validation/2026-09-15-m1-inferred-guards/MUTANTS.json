@@ -1,0 +1,58 @@
+[
+  {
+    "name": "mutant-CLAIM",
+    "witness": "separate-evidence",
+    "expected_marker": "M1-TOOL separate-evidence",
+    "returncode": 1,
+    "source_sha256": "ab7e05c16b174594b2ecb3be4a1cea234f3a5d39106b9f9472cd89ac5c79a9db"
+  },
+  {
+    "name": "control-CLAIM",
+    "witness": "separate-evidence",
+    "expected_marker": "M1-TOOL separate-evidence",
+    "returncode": 0,
+    "source_sha256": "f9b8372f6ee8a913d464892928fb438cd53c73b2163a338444889344171a435a"
+  },
+  {
+    "name": "mutant-NAMED-ARGUMENTS",
+    "witness": "named",
+    "expected_marker": "M1-TOOL named",
+    "returncode": 1,
+    "source_sha256": "f6b035007c34de16f81bdf8e18f70e93ed19891350e462c3a0e1c9ec3ecfd984"
+  },
+  {
+    "name": "control-NAMED-ARGUMENTS",
+    "witness": "named",
+    "expected_marker": "M1-TOOL named",
+    "returncode": 0,
+    "source_sha256": "f9b8372f6ee8a913d464892928fb438cd53c73b2163a338444889344171a435a"
+  },
+  {
+    "name": "mutant-EVIDENCE",
+    "witness": "invariant",
+    "expected_marker": "M1-TOOL invariant",
+    "returncode": 1,
+    "source_sha256": "5125618168a46e2ffff7bbf5ae6762320f2c048fd938337ba37c35cc17d82a58"
+  },
+  {
+    "name": "control-EVIDENCE",
+    "witness": "invariant",
+    "expected_marker": "M1-TOOL invariant",
+    "returncode": 0,
+    "source_sha256": "f9b8372f6ee8a913d464892928fb438cd53c73b2163a338444889344171a435a"
+  },
+  {
+    "name": "mutant-STALE-STATE",
+    "witness": "stale-invariant",
+    "expected_marker": "ERROR-REFUSAL ig-stale-invariant",
+    "returncode": 1,
+    "source_sha256": "077161771eab03379ba6e0aafb2445e3b574000b03cf5b5d8243593d9693c63f"
+  },
+  {
+    "name": "control-STALE-STATE",
+    "witness": "stale-invariant",
+    "expected_marker": "ERROR-REFUSAL ig-stale-invariant",
+    "returncode": 0,
+    "source_sha256": "f9b8372f6ee8a913d464892928fb438cd53c73b2163a338444889344171a435a"
+  }
+]

@@ -1,0 +1,12 @@
+M1: infer erased evidence for runtime guards
+
+Accept atomic, compound and named guards without repeated proof
+annotations. Check their inferred claims through the existing kernel
+path and retain snapshot evidence for final-state storage invariants.
+
+Add Cancun comparisons, scope and stale-state refusals, five-file
+erasure pairs, boundary checks and four mutations with controls.
+Preserve the prior gates and paused measurement inputs.
+
+Review pass 1 (2026-09-15) fixed 1 findings: D-1.
+D-1: five added prose rows over 72 columns fixed WIDTH-OVER-72.

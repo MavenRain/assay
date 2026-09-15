@@ -230,9 +230,7 @@ let rec proof_term depth tokens =
           fail (here rest) "SYNTAX" "expected a proof helper argument before ,"
         | [] | _ :: _ -> arguments [] rest)
      | [] | _ :: _ -> Ok (Proof_name name, rest))
-let proof_guard tokens =
-  let* (name, claim), rest = proof_binder tokens in
-  let* rest = sequence ["<-"; "guard"] rest in
+let guard_condition rest =
   let* error, rest = match rest with
     | { text = "("; _ } :: _tail -> Ok (None, rest)
     | [] | _ :: _ ->
@@ -256,7 +254,18 @@ let proof_guard tokens =
           let* rest = expect ")" rest in args (v :: acc) rest in
       args [] rest in
   let* rest = expect "(" rest in let* condition, rest = condition rest in
-  let* rest = expect ")" rest in Ok (Prove (name, claim, error, condition), rest)
+  let* rest = expect ")" rest in Ok ((error, condition), rest)
+
+let proof_guard tokens =
+  let* (name, claim), rest = proof_binder tokens in
+  let* rest = sequence ["<-"; "guard"] rest in
+  let* (error, condition), rest = guard_condition rest in
+  Ok (Prove (name, claim, error, condition), rest)
+
+let rec condition_claim = function
+  | Check predicate -> Bound predicate
+  | Conjoin (left, right) -> Both (condition_claim left, condition_claim right)
+  | Satisfy (name, args) -> Named (name, args)
 
 let body tokens =
   let* tokens = expect "do" tokens in
@@ -278,9 +287,14 @@ let body tokens =
     | { text = "sstore"; _ } :: rest ->
       let* slot, rest = identifier rest in
       let* word, rest = value 0 rest in next (Store (slot, word)) rest
-    | { text = "guard"; _ } :: rest ->
-      let* rest = expect "le" rest in
+    | { text = "guard"; _ } :: { text = "le"; _ } :: rest ->
       let* (a, b), rest = binary rest in next (Guard (a, b)) rest
+    | ({ text = "guard"; _ } as at) :: rest ->
+      let* (error, condition), rest = guard_condition rest in
+      (* Source identifiers cannot use this prefix. The checked evidence stays
+         available to final-state obligations without adding a source binding. *)
+      let name = { at with text = "_assay_guard" } in
+      next (Prove (name, condition_claim condition, error, condition)) rest
     | { text = "let"; _ } :: ({ text = "("; _ } :: _tail as rest) ->
       let* (name, claim), rest = proof_binder rest in
       let* rest = expect ":=" rest in
