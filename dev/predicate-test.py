@@ -139,7 +139,7 @@ def refusals(only=None):
         ('leading-comma', closed(claim='Below(,word 0, word 1)'), 'SURFACE_NAME'),
         ('nested-word-call', closed(claim='Below(Below(word 0, word 1), word 1)'), 'SURFACE_SYNTAX'),
         ('guard-bundle', program().replace(': Below(b, a)', ': Bounds(a, b)'), 'SURFACE_PROOF'),
-        ('invariant-bundle', invariant().replace('Below(s.low, s.high)', 'Bounds(s.high, s.low)'), 'SURFACE_INVARIANT'),
+        ('invariant-bundle', invariant().replace('Below(s.low, s.high)', 'Bounds(s.low, s.high)'), 'mismatch'),
         ('constructor', invariant() + '\nconstructor := do sstore low (word 1) ; pure ()', 'mismatch'),
         ('final-state', invariant().replace('sstore low x', 'sstore low b'), 'mismatch'),
         ('reload', invariant().replace('sstore low x', 'x <- sload low ; sstore low x'), 'mismatch'),

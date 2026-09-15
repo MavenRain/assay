@@ -1,5 +1,74 @@
 # Assay M1 build log
 
+## 2026-09-14: compound storage invariants
+
+The fifteenth M1 slice starts at
+`012e7312f2c02958ec85f5a6ad09e60f8d34b30e`.
+Storage invariants now accept nested products and named predicates that
+expand to products. Lowering uses matching bundle evidence or builds a
+pair from checked components. The kernel checks the complete obligation
+against final tracked values at construction and successful writes.
+Both branches participate in field tracking, including unused supplied
+predicate arguments. The carried kernel and surface are unchanged.
+
+The new suite covers 64 source-model/Cancun execution cases, two
+creation outcomes, 24 refused programs through three commands, eight
+five-file erasure variants, ten accepted boundary forms and four
+compiler mutations with restored controls. The new example collects
+guard proofs through a named helper. The prior predicate witness now
+rejects a wrongly ordered bundle instead of rejecting all bundles.
+
+The default battery gains `COMPOUND-INVARIANTS`, bringing it to 50 legs.
+Timing remains paused. Frozen denominator and measurement inputs remain
+preserved, and no current performance result or milestone exit is
+claimed. The [validation archive][compound]
+records all 50 legs. The initial run passes 47 and fails DENOMINATORS,
+M0-RATIO and AXIOMS. AXIOMS initially lacks its preprovisioned cache.
+After verifying all 28 proof files and both dependency revisions, cache
+reuse and a scoped recheck pass all 42 theorem reports and controls.
+All 48 functional legs pass; the two preserved measurement failures
+remain visible. No existing deadline or passing marker was weakened.
+
+[compound]: validation/2026-09-14-m1-compound-invariants/README.md
+### Review round 2026-09-14 (M1 compound invariants)
+
+Review pass 1 (2026-09-14) fixed 2 findings, both low. No gate count,
+deadline, frozen bound or measurement moved.
+
+C-1: the archive now ships `ARTIFACTS.json`, the SHA-256 manifest of
+every other archive file, computed last, and its README names it. The
+prior M1 archives since 2026-09-11 carry the same file. No leg reads
+it; no gate count moved.
+
+D-1: four prose rows over 72 columns were rewrapped, `README.md:227`,
+`dev/M1-COMPOUND-INVARIANTS.md:57` and `dev/M1-INVARIANTS.md:27` and
+`:33`. No word or number changed.
+
+### Closer bookkeeping
+
+Kept findings, both fixed:
+
+| id | sev | one line | files |
+| --- | --- | --- | --- |
+| C-1 | low | archive ships ARTIFACTS.json, named in its README | dev/validation/2026-09-14-m1-compound-invariants/ARTIFACTS.json, dev/validation/2026-09-14-m1-compound-invariants/README.md |
+| D-1 | low | four prose rows over 72 columns rewrapped | README.md, dev/M1-COMPOUND-INVARIANTS.md, dev/M1-INVARIANTS.md |
+
+Refuted: 0.
+Merged and dropped: 0.
+
+Gate log:
+```
+/Users/oobi/Documents/assay-m1-compound-invariants-review/gates-M1CI-1.log
+```
+
+```
+COMPOUND-INVARIANTS cases=64 creates=2 refusals=24 erasure=8 boundaries=10 mutants=4 OK
+```
+
+LOAD-AT-RUN 43, GATES-START 21:17:04, GATES-END 21:35:21, 48 PASS,
+FAIL only DENOMINATORS and M0-RATIO (timing paused, by design),
+PORCELAIN 81, UNSTAGED 0.
+
 ## 2026-09-14: named predicates
 
 The fourteenth M1 slice starts at

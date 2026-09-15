@@ -55,8 +55,9 @@ cannot be returned, stored, passed as a Word helper argument or placed
 in a revert payload. Shadowing and storage snapshots keep their existing
 rules.
 
-Runtime guards still establish one atomic bound. Invariant declarations
-retain their atomic grammar. Every named entry-local proof bundle adds
+Runtime guards still establish one atomic bound. The later
+[compound invariant slice](M1-COMPOUND-INVARIANTS.md) extends invariant
+declarations to products. Every named entry-local proof bundle adds
 its checked component bounds to the evidence available at successful
 returns, recursively through nested bundles. The existing final-state
 check still requires the bound's resolved Word values to match the

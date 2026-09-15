@@ -92,7 +92,8 @@ def nullary_core():
         'tuple (before, args.0)', 'tuple ()')
 
 
-def creation(runtime, init, folder):
+def creation(runtime, init, folder, *, expected_storage=None):
+    expected_storage = {D.RECEIVER: {'0': '0x7'}} if expected_storage is None else expected_storage
     state = json.loads((ROOT / 'evm/fixtures/cancun.json').read_text())
     state['alloc'] = {D.SENDER: dict(balance='0xa')}
     prestate = folder / 'prestate.json'
@@ -105,7 +106,7 @@ def creation(runtime, init, folder):
         require(outcome['status'] == ('success' if value == 0 else 'revert'), 'ERROR-CREATE status')
         if value == 0:
             require(outcome['output'] == runtime and len(installed) == 1 and installed[0]['code'] == '0x' + runtime and
-                    D.storage({D.RECEIVER: installed[0]}) == {D.RECEIVER: {'0': '0x7'}}, 'ERROR-CREATE install')
+                    D.storage({D.RECEIVER: installed[0]}) == expected_storage, 'ERROR-CREATE install')
         else:
             require(outcome['output'] == '' and not installed, 'ERROR-CREATE rollback')
 

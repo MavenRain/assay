@@ -38,6 +38,9 @@ invariants.
 The fourteenth adds [named predicates](dev/M1-PREDICATES.md), reusable
 claims in proof helpers, guard annotations and storage invariants.
 Definitions expand to the existing checked propositions before erasure.
+The fifteenth adds
+[compound storage invariants](dev/M1-COMPOUND-INVARIANTS.md),
+with checked evidence for every component of a nested or named bundle.
 
 ```sh
 zsh -f dev/dunecho.sh build
@@ -56,6 +59,7 @@ _build/default/bin/assay.exe emit examples/Nullary.asy -o Nullary-out
 _build/default/bin/assay.exe emit examples/Errors.asy -o Errors-out
 _build/default/bin/assay.exe emit examples/CounterProofs.asy -o ProofCounter-out
 _build/default/bin/assay.exe emit examples/ProofTerms.asy -o ProofTerms-out
+_build/default/bin/assay.exe emit examples/CompoundInvariants.asy -o Bounds-out
 _build/default/bin/assay.exe emit examples/CounterInvariant.asy -o CounterInvariant-out
 _build/default/bin/assay.exe emit examples/ProofHelpers.asy -o ProofHelpers-out
 _build/default/bin/assay.exe emit examples/ProofBundles.asy -o ProofBundles-out
@@ -220,6 +224,10 @@ The proof helper gate adds 104 cases, 50 refusals, seven closed erasure
 variants and four mutations with controls.
 `STAGE-M1-PROOF-HELPERS OK` requires all 47 legs to pass, including
 source proofs.
+`dev/gates.sh` now selects `--m1-compound-invariants`. Its 50 legs
+include the proof-bundle, named-predicate and compound-invariant suites.
+The compound gate checks 64 execution cases, 24 refusals, eight erasure
+variants, ten boundary forms and four mutations with restored controls.
 The current slice's timing gate is paused following the
 [measurement diagnosis](dev/TIMING-DEBUG.md); it has no fresh timing verdict.
 The preserved denominator manifest and measurement describe an older

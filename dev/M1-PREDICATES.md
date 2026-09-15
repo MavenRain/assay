@@ -61,10 +61,11 @@ can be proved with pairs and used through checked projections. All
 components and annotations remain obligations, including discarded ones.
 Helpers instantiate named conclusions with their supplied Word values.
 
-A guard annotation or storage invariant may use a predicate that expands
-to one atomic bound. A product in either position is refused. The
-runtime guard syntax remains `leWord` or `lt256`; it is checked against
-the expanded annotation. A predicate adds no runtime test.
+A guard annotation must expand to one atomic bound. The runtime guard
+syntax remains `leWord` or `lt256`; it is checked against the expanded
+annotation. Storage invariants also accept products after the
+[compound invariant slice](M1-COMPOUND-INVARIANTS.md). Every component
+remains an obligation. A predicate adds no runtime test.
 
 ```
 invariant bounded (s : State) : Prop := Below(s.count, s.limit)

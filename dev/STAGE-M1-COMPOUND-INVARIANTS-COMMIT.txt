@@ -1,0 +1,20 @@
+M1: check compound storage invariants and component evidence
+
+Accept nested Both claims and named bundle predicates in storage
+invariants. Check every component against construction and final storage
+values, using whole-bundle evidence or recursively composed proofs.
+Preserve field tracking, erased output and atomic guard requirements.
+
+Add 64 execution cases, two creation outcomes, 24 refusals, eight
+five-file comparisons, ten boundaries and four mutations with controls.
+Update the earlier predicate refusal to exercise an incorrect component
+and parameterize the shared creation helper's expected storage map.
+
+All 48 functional checks pass after a scoped proof-cache recheck.
+DENOMINATORS and M0-RATIO still fail against the preserved manifest and
+measurement. Timing remains paused, with no fresh performance result or
+milestone exit claim. Archive the full 50-leg run and the recheck.
+
+Review pass 1 (2026-09-14) fixed 2 findings: C-1, D-1.
+C-1 low: the archive now ships ARTIFACTS.json, named in its README.
+D-1 low: four prose rows over 72 columns rewrapped, no word changed.

@@ -23,13 +23,16 @@ sstore count value ; pure value
 ## Grammar and scope
 
 An invariant has the form `invariant NAME (S : STATE) : Prop := CLAIM`.
-`STATE` must name the contract's storage declaration. A claim is either
-`Le A B` or `Lt256 (add A B)`. Operands are decimal `word N` literals or
-projections `S.FIELD`, optionally parenthesized. The snapshot binder is
-local to this declaration and each field must exist in that storage
+`STATE` must name the contract's storage declaration. Atomic claims are
+`Le A B` and `Lt256 (add A B)`. Operands are decimal `word N` literals
+or projections `S.FIELD`, optionally parenthesized. The snapshot binder
+is local to this declaration and each field must exist in that storage
 record. The declaration may appear before or after entries and errors.
-The [named predicate slice](M1-PREDICATES.md) permits a predicate call
-over snapshot fields and literals when it expands to one atomic bound.
+The [named predicate slice](M1-PREDICATES.md) permits predicate calls
+over snapshot fields and literals. The later
+[compound invariant slice](M1-COMPOUND-INVARIANTS.md) also accepts
+nested `Both` claims and names expanding to them, checking every
+component.
 
 There are at most 32 invariants. Names obey the existing identifier
 rules, cannot repeat, and cannot conflict with storage, entry, error,

@@ -361,8 +361,6 @@ let invariant state fields tokens =
       else fail field "SLOT" ("unknown invariant field " ^ field.text)
     | [] | _ :: _ -> fail (here tokens) "INVARIANT" "expected a snapshot field or literal" in
   let* claim, rest = claim_with (operand 0) 0 rest in
-  let* () = match claim with Bound _ | Named _ -> Ok ()
-    | Both _ -> fail invariant_name "INVARIANT" "an invariant requires one bound" in
   Ok ({ invariant_name; claim }, rest)
 
 let slot fields name =
@@ -527,6 +525,12 @@ let rec evidence_for term ty evidence =
   match ty with
   | Atomic _ -> evidence
   | Bundle (a, b) -> evidence_for (project false term) b (evidence_for (project true term) a evidence)
+let rec invariant_proof evidence ty =
+  let components () = match ty with
+    | Atomic _ -> "(tuple ())"
+    | Bundle (a, b) -> "(tuple (" ^ invariant_proof evidence a ^ ", " ^ invariant_proof evidence b ^ "))" in
+  Option.fold ~none:components ~some:(fun term () -> term)
+    (List.assoc_opt (claim_type ty) evidence) ()
 let obligations predicates invariants state evidence result next =
   List.fold_right (fun row result_body ->
     let* body = result_body in
@@ -535,10 +539,8 @@ let obligations predicates invariants state evidence result next =
       fail row.invariant_name "INVARIANT" ("load or store field " ^ field ^ " before proving the final state"))
       (Ok ()) (invariant_fields row) in
     let* ty = resolved_claim predicates state row.claim in
-    let* ty = match ty with Atomic ty -> Ok ty
-      | Bundle _ -> fail row.invariant_name "INVARIANT" "an invariant requires one bound" in
-    let proof = Option.value (List.assoc_opt ty evidence) ~default:"(tuple ())" in
-    Ok (erased_apply ("_assay_inv_" ^ row.invariant_name.text) ty result proof body)) invariants (Ok next)
+    let proof = invariant_proof evidence ty in
+    Ok (erased_apply ("_assay_inv_" ^ row.invariant_name.text) (claim_type ty) result proof body)) invariants (Ok next)
 let transaction fields errors invariants predicates helpers env (steps, ending) =
   let resolved_claim = resolved_claim predicates in
   let obligations = obligations predicates in
