@@ -1,0 +1,25 @@
+EMIT-SOURCE reference OK
+EMIT-SOURCE different OK
+EMIT-SOURCE zero OK
+EMIT-SOURCE maximum OK
+EMIT-SOURCE return OK
+EMIT-SOURCE let OK
+EMIT-SOURCE first-order OK
+EMIT-SOURCE pair OK
+EMIT-SOURCE equal OK
+EMIT-SOURCE not-equal OK
+EMIT-SOURCE less OK
+EMIT-SOURCE not-less OK
+EMIT-SOURCE two-slots OK
+EMIT-SOURCE wide-label OK
+EMIT-SOURCE quantity-zero OK
+EMIT-REFUSE overflow OK
+EMIT-REFUSE bad-slot OK
+EMIT-REFUSE slot-gap OK
+EMIT-REFUSE storage-width OK
+EMIT-REFUSE storage-closure OK
+EMIT-REFUSE higher-order OK
+EMIT-REFUSE postulate OK
+EMIT-REFUSE protocol OK
+EMIT-REFUSE runtime-nat OK
+EMIT-SOURCES success=15 refusal=9 driver=3 OK

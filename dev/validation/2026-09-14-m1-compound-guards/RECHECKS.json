@@ -1,0 +1,30 @@
+[
+  {
+    "name": "PROOF-GUARDS",
+    "command": [
+      "python3",
+      "-P",
+      "dev/guard-test.py"
+    ],
+    "timeout": 600,
+    "marker": "PROOF-GUARDS cases=83 creates=2 refusals=26 erasure=3 mutants=6 OK",
+    "exit": 0,
+    "stdout": "GUARD-LIVE cases=83 creates=2 covered=252 OK\nGUARD-REFUSALS surface=20 schema=6 OK\nGUARD-ERASURE variants=3 five_files=5 removed_checks=1 OK\nGUARD-MUTANT CLAIM killed control=OK\nGUARD-MUTANT SCHEMA killed control=OK\nGUARD-MUTANT SUB killed control=OK\nGUARD-MUTANT OVERFLOW killed control=OK\nGUARD-MUTANT MODEL killed control=OK\nGUARD-MUTANT OPCODE killed control=OK\nPROOF-GUARDS cases=83 creates=2 refusals=26 erasure=3 mutants=6 OK\n",
+    "stderr": "",
+    "passed": true
+  },
+  {
+    "name": "PREDICATES",
+    "command": [
+      "python3",
+      "-P",
+      "dev/predicate-test.py"
+    ],
+    "timeout": 600,
+    "marker": "PREDICATES cases=72 creates=2 refusals=44 erasure=7 boundaries=12 mutants=4 OK",
+    "exit": 0,
+    "stdout": "PREDICATE-LIVE cases=72 creates=2 erasure=7 OK\nPREDICATE-REFUSALS cases=44 commands=3 OK\nPREDICATE-BOUNDARIES accepted=12 OK\nPREDICATE-MUTANT UNUSED-DECLARATION killed control=OK\nPREDICATE-MUTANT UNUSED-ARGUMENT killed control=OK\nPREDICATE-MUTANT ARGUMENT-ORDER killed control=OK\nPREDICATE-MUTANT EXPANSION killed control=OK\nPREDICATES cases=72 creates=2 refusals=44 erasure=7 boundaries=12 mutants=4 OK\n",
+    "stderr": "",
+    "passed": true
+  }
+]

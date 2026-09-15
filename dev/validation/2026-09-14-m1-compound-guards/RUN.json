@@ -1,0 +1,357 @@
+{
+  "base": "09a9b8c3d7f44328a4244da7382c05bbab40a3a9",
+  "checkout": "/Users/oobi/Documents/gpt1/assay-m1-compound-guards",
+  "command": [
+    "zsh",
+    "-f",
+    "dev/gates.sh"
+  ],
+  "legs": 51,
+  "initial_passed": 47,
+  "initial_failed": [
+    "DENOMINATORS",
+    "M0-RATIO",
+    "PROOF-GUARDS",
+    "PREDICATES"
+  ],
+  "exit": 1,
+  "functional_passed": 49,
+  "pending": [
+    "DENOMINATORS",
+    "M0-RATIO"
+  ],
+  "full_battery_pass": false,
+  "results": [
+    {
+      "status": "PASS",
+      "name": "BUILD",
+      "exit": 0,
+      "elapsed_ms": 683.9
+    },
+    {
+      "status": "PASS",
+      "name": "PIN-CARRY",
+      "exit": 0,
+      "elapsed_ms": 3466.9
+    },
+    {
+      "status": "PASS",
+      "name": "R0-COUNT",
+      "exit": 0,
+      "elapsed_ms": 350.8
+    },
+    {
+      "status": "PASS",
+      "name": "R0-AUDIT",
+      "exit": 0,
+      "elapsed_ms": 131.6
+    },
+    {
+      "status": "PASS",
+      "name": "HOUSE",
+      "exit": 0,
+      "elapsed_ms": 1584.5
+    },
+    {
+      "status": "PASS",
+      "name": "TRUSTED-LINES",
+      "exit": 0,
+      "elapsed_ms": 112.0
+    },
+    {
+      "status": "PASS",
+      "name": "SUITE-KERNEL",
+      "exit": 0,
+      "elapsed_ms": 1529.7
+    },
+    {
+      "status": "PASS",
+      "name": "SUITE-SURFACE",
+      "exit": 0,
+      "elapsed_ms": 823.1
+    },
+    {
+      "status": "PASS",
+      "name": "DRIVER",
+      "exit": 0,
+      "elapsed_ms": 414.5
+    },
+    {
+      "status": "PASS",
+      "name": "MUTANTS",
+      "exit": 0,
+      "elapsed_ms": 85676.6
+    },
+    {
+      "status": "FAIL",
+      "name": "DENOMINATORS",
+      "exit": 1,
+      "elapsed_ms": 107.0
+    },
+    {
+      "status": "PASS",
+      "name": "KECCAK-VEC",
+      "exit": 0,
+      "elapsed_ms": 3213.1
+    },
+    {
+      "status": "PASS",
+      "name": "KECCAK-MUTANTS",
+      "exit": 0,
+      "elapsed_ms": 31715.0
+    },
+    {
+      "status": "PASS",
+      "name": "STACK-HEIGHT",
+      "exit": 0,
+      "elapsed_ms": 13896.0
+    },
+    {
+      "status": "PASS",
+      "name": "DISASM-3WAY",
+      "exit": 0,
+      "elapsed_ms": 3000.4
+    },
+    {
+      "status": "PASS",
+      "name": "ASM-MUTANTS",
+      "exit": 0,
+      "elapsed_ms": 48763.5
+    },
+    {
+      "status": "PASS",
+      "name": "FORK-DRIFT",
+      "exit": 0,
+      "elapsed_ms": 1559.2
+    },
+    {
+      "status": "PASS",
+      "name": "M0-TRACE",
+      "exit": 0,
+      "elapsed_ms": 761.2
+    },
+    {
+      "status": "PASS",
+      "name": "CREATE-EQ",
+      "exit": 0,
+      "elapsed_ms": 625.7
+    },
+    {
+      "status": "PASS",
+      "name": "REFERENCE-CHECKS",
+      "exit": 0,
+      "elapsed_ms": 835.1
+    },
+    {
+      "status": "PASS",
+      "name": "REFERENCE-MUTANTS",
+      "exit": 0,
+      "elapsed_ms": 6933.5
+    },
+    {
+      "status": "PASS",
+      "name": "EMIT-CONSTRUCTORS",
+      "exit": 0,
+      "elapsed_ms": 474.5
+    },
+    {
+      "status": "PASS",
+      "name": "WORD-UNBOX",
+      "exit": 0,
+      "elapsed_ms": 10.8
+    },
+    {
+      "status": "PASS",
+      "name": "STORAGE-NOCLOS",
+      "exit": 0,
+      "elapsed_ms": 10.1
+    },
+    {
+      "status": "PASS",
+      "name": "ABI-GOLD",
+      "exit": 0,
+      "elapsed_ms": 598.0
+    },
+    {
+      "status": "PASS",
+      "name": "EMITTED-TRACE",
+      "exit": 0,
+      "elapsed_ms": 310.2
+    },
+    {
+      "status": "PASS",
+      "name": "EMIT-SOURCES",
+      "exit": 0,
+      "elapsed_ms": 3278.4
+    },
+    {
+      "status": "PASS",
+      "name": "EMIT-MUTANTS",
+      "exit": 0,
+      "elapsed_ms": 50122.7
+    },
+    {
+      "status": "PASS",
+      "name": "AXIOMS",
+      "exit": 0,
+      "elapsed_ms": 11300.5
+    },
+    {
+      "status": "PASS",
+      "name": "TRACE-DRIVER",
+      "exit": 0,
+      "elapsed_ms": 1304.6
+    },
+    {
+      "status": "PASS",
+      "name": "CORPUS",
+      "exit": 0,
+      "elapsed_ms": 2124.9
+    },
+    {
+      "status": "PASS",
+      "name": "ERASED-BYTES",
+      "exit": 0,
+      "elapsed_ms": 237.3
+    },
+    {
+      "status": "FAIL",
+      "name": "M0-RATIO",
+      "exit": 1,
+      "elapsed_ms": 215.0
+    },
+    {
+      "status": "PASS",
+      "name": "F-MUTANTS",
+      "exit": 0,
+      "elapsed_ms": 488.5
+    },
+    {
+      "status": "PASS",
+      "name": "DIFF-EXECUTOR",
+      "exit": 0,
+      "elapsed_ms": 9245.7
+    },
+    {
+      "status": "PASS",
+      "name": "COUNTER-REFERENCE",
+      "exit": 0,
+      "elapsed_ms": 5390.1
+    },
+    {
+      "status": "PASS",
+      "name": "M1-EMISSION",
+      "exit": 0,
+      "elapsed_ms": 220844.6
+    },
+    {
+      "status": "PASS",
+      "name": "SOURCE-MODEL",
+      "exit": 0,
+      "elapsed_ms": 58847.3
+    },
+    {
+      "status": "PASS",
+      "name": "CONTRACT-SURFACE",
+      "exit": 0,
+      "elapsed_ms": 71467.8
+    },
+    {
+      "status": "PASS",
+      "name": "CONTRACT-ROUTE",
+      "exit": 0,
+      "elapsed_ms": 410.1
+    },
+    {
+      "status": "PASS",
+      "name": "SOURCE-PROOFS",
+      "exit": 0,
+      "elapsed_ms": 138364.8
+    },
+    {
+      "status": "PASS",
+      "name": "NULLARY-ENTRIES",
+      "exit": 0,
+      "elapsed_ms": 35907.2
+    },
+    {
+      "status": "PASS",
+      "name": "CUSTOM-ERRORS",
+      "exit": 0,
+      "elapsed_ms": 75426.6
+    },
+    {
+      "status": "FAIL",
+      "name": "PROOF-GUARDS",
+      "exit": 1,
+      "elapsed_ms": 33083.7
+    },
+    {
+      "status": "PASS",
+      "name": "PROOF-TERMS",
+      "exit": 0,
+      "elapsed_ms": 49123.2
+    },
+    {
+      "status": "PASS",
+      "name": "INVARIANTS",
+      "exit": 0,
+      "elapsed_ms": 45310.3
+    },
+    {
+      "status": "PASS",
+      "name": "PROOF-HELPERS",
+      "exit": 0,
+      "elapsed_ms": 55340.8
+    },
+    {
+      "status": "PASS",
+      "name": "PROOF-BUNDLES",
+      "exit": 0,
+      "elapsed_ms": 90859.8
+    },
+    {
+      "status": "FAIL",
+      "name": "PREDICATES",
+      "exit": 1,
+      "elapsed_ms": 52817.2
+    },
+    {
+      "status": "PASS",
+      "name": "COMPOUND-INVARIANTS",
+      "exit": 0,
+      "elapsed_ms": 45882.7
+    },
+    {
+      "status": "PASS",
+      "name": "COMPOUND-GUARDS",
+      "exit": 0,
+      "elapsed_ms": 215009.1
+    }
+  ],
+  "rechecks": [
+    {
+      "name": "PROOF-GUARDS",
+      "command": [
+        "python3",
+        "-P",
+        "dev/guard-test.py"
+      ],
+      "timeout": 600,
+      "exit": 0,
+      "marker": "PROOF-GUARDS cases=83 creates=2 refusals=26 erasure=3 mutants=6 OK"
+    },
+    {
+      "name": "PREDICATES",
+      "command": [
+        "python3",
+        "-P",
+        "dev/predicate-test.py"
+      ],
+      "timeout": 600,
+      "exit": 0,
+      "marker": "PREDICATES cases=72 creates=2 refusals=44 erasure=7 boundaries=12 mutants=4 OK"
+    }
+  ],
+  "binary_sha256": "7f8f53638a3aa3826c4c8be4910360cd96640c25780d3d767c0ee02122bfe1bf"
+}

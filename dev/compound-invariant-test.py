@@ -117,7 +117,7 @@ def negative_cases():
                                  'pair(pair(p, q), ()) ; ' + STORES), 'mismatch'),
         ('unknown-right-field', program(DECL.replace('add s.low s.high', 'add s.low s.missing')), 'SURFACE_SLOT'),
         ('wrong-snapshot', program(DECL.replace('add s.low s.high', 'add old.low s.high')), 'SURFACE_INVARIANT'),
-        ('guard-still-atomic', program(body=GUARDS.replace(': Le a b)', f': {LOCAL})') + STORES), 'SURFACE_PROOF'),
+        ('guard-shape', program(body=GUARDS.replace(': Le a b)', f': {LOCAL})') + STORES), 'SURFACE_PROOF'),
         ('depth', closed(nested(33)), 'SURFACE_LIMIT'),
         ('expanded-depth', closed(f'Both ({TRUE}) (P31())', definitions=N.chain(32)), 'SURFACE_LIMIT'),
         ('expanded-nodes', closed('P11()', definitions=N.tree(11)), 'SURFACE_LIMIT'),

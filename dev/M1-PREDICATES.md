@@ -61,9 +61,11 @@ can be proved with pairs and used through checked projections. All
 components and annotations remain obligations, including discarded ones.
 Helpers instantiate named conclusions with their supplied Word values.
 
-A guard annotation must expand to one atomic bound. The runtime guard
-syntax remains `leWord` or `lt256`; it is checked against the expanded
-annotation. Storage invariants also accept products after the
+A guard annotation may expand to a product after the
+[compound guard slice](M1-COMPOUND-GUARDS.md). Runtime `both` conditions
+combine `leWord` and `lt256` checks with the same product structure.
+Every check must establish its expanded annotation component.
+Storage invariants also accept products after the
 [compound invariant slice](M1-COMPOUND-INVARIANTS.md). Every component
 remains an obligation. A predicate adds no runtime test.
 

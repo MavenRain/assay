@@ -40,7 +40,8 @@ about its earlier value cannot establish a different final state.
 Read-only entries and writes to fields outside an invariant retain the
 existing behavior. Reverting paths have no final-state obligation.
 Declaring an invariant introduces no runtime test or initial-state
-assumption. A guard still establishes exactly one atomic bound.
+assumption. The later [compound guard slice](M1-COMPOUND-GUARDS.md)
+also lets a guard establish the whole checked bundle.
 
 ## Bounds and erasure
 

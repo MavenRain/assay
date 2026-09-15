@@ -205,7 +205,8 @@ def mutants():
          'unused-argument', 'ERROR-REFUSAL unused-argument'),
         ('ARGUMENT-ORDER', 'arguments [] row.words args', 'arguments [] row.words (List.rev args)',
          'argument-order', 'M1-TOOL argument-order'),
-        ('EXPANSION', 'remaining = 0', 'remaining = min_int',
+        ('EXPANSION', '(expanded && depth > 32) || remaining = 0',
+         '(expanded && depth > 32) || remaining = min_int',
          'expanded-nodes', 'ERROR-REFUSAL expanded-nodes'),
     ]
     with tempfile.TemporaryDirectory(prefix='assay-predicate-mutants-') as temporary:

@@ -6,6 +6,7 @@ let ( let* ) = Result.bind
 type token = { text : string; line : int; col : int }
 type word = Literal of token | Local of token
 type predicate = Ordered of word * word | Fits of word * word
+type condition = Check of predicate | Conjoin of condition * condition
 type claim = Bound of predicate | Both of claim * claim | Named of token * word list
 type predicate_row = { predicate_name : token; words : token list; definition : claim }
 type resolved_claim = Atomic of string | Bundle of resolved_claim * resolved_claim
@@ -28,7 +29,7 @@ type step =
   | Store of token * word
   | Guard of word * word
   | Bind of token * word
-  | Prove of token * claim * (token * word list) option * predicate
+  | Prove of token * claim * (token * word list) option * condition
   | Proven of token * token * word * word * proof
   | Proof_bind of token * claim * proof
 type ending = Return of word | Unit of token | Revert of token | Reject of token * word list
@@ -111,6 +112,7 @@ let opens_value tokens = match tokens with
   | { text = "("; _ } :: _rest -> true
   | [] | _ :: _ -> false
 let opens_condition tokens = match tokens with
+  | { text = "("; _ } :: { text = "both"; _ } :: { text = "("; _ } :: _rest -> true
   | { text = "("; _ } :: at :: _rest -> at.text = "leWord" || at.text = "lt256"
   | [] | _ :: _ -> false
 (* Review round 2026-09-12 (B-1):  `()` is the empty payload only when it is the
@@ -139,6 +141,22 @@ let bound operand runtime tokens =
     let* rest = expect ")" rest in Ok (Fits (a, b), rest)
   | [] | _ :: _ -> fail (here tokens) "PROOF" "expected an ordering or addition bound"
 let predicate runtime tokens = bound (value 0) runtime tokens
+let condition tokens =
+  let rec parse depth remaining tokens =
+    if depth > 32 || remaining = 0 then
+      fail (here tokens) "LIMIT" "guard condition exceeds depth 32 or 64 bounds" else
+    match tokens with
+    | { text = "both"; _ } :: rest ->
+      let component remaining tokens =
+        let* rest = expect "(" tokens in
+        let* c, remaining, rest = parse (depth + 1) remaining rest in
+        let* rest = expect ")" rest in Ok (c, remaining, rest) in
+      let* a, remaining, rest = component remaining rest in
+      let* b, remaining, rest = component remaining rest in
+      Ok (Conjoin (a, b), remaining, rest)
+    | [] | _ :: _ ->
+      let* p, rest = predicate true tokens in Ok (Check p, remaining - 1, rest) in
+  let* c, _remaining, rest = parse 0 64 tokens in Ok (c, rest)
 let rec claim_with operand depth tokens =
   if depth > 32 then fail (here tokens) "LIMIT" "claim nesting exceeds 32" else
   match tokens with
@@ -206,15 +224,13 @@ let rec proof_term depth tokens =
      | [] | _ :: _ -> Ok (Proof_name name, rest))
 let proof_guard tokens =
   let* (name, claim), rest = proof_binder tokens in
-  let* () = match claim with Bound _ | Named _ -> Ok ()
-    | Both _ -> fail name "PROOF" "a guard establishes one bound" in
   let* rest = sequence ["<-"; "guard"] rest in
   let* error, rest = match rest with
     | { text = "("; _ } :: _tail -> Ok (None, rest)
     | [] | _ :: _ ->
       let* name, rest = identifier rest in
       let rec args acc rest = match rest with
-        | { text = "("; _ } :: at :: _tail when at.text = "leWord" || at.text = "lt256" ->
+        | _ when opens_condition rest ->
           Ok (Some (name, List.rev acc), rest)
         (* Review round 2026-09-13 (A-1):  a guard payload carries the same rule
            as an ending payload.  `()` is the empty payload only when the runtime
@@ -231,7 +247,7 @@ let proof_guard tokens =
           let* rest = expect "(" rest in let* v, rest = value 0 rest in
           let* rest = expect ")" rest in args (v :: acc) rest in
       args [] rest in
-  let* rest = expect "(" rest in let* condition, rest = predicate true rest in
+  let* rest = expect "(" rest in let* condition, rest = condition rest in
   let* rest = expect ")" rest in Ok (Prove (name, claim, error, condition), rest)
 
 let body tokens =
@@ -583,13 +599,23 @@ let transaction fields errors invariants predicates helpers env (steps, ending) 
       | Sub (name, a, b) -> arithmetic "sub" name a b
       | Prove (name, claim, error, condition) ->
         let* ty = resolved_claim env claim in
-        let* ty = match ty with Atomic ty -> Ok ty
-          | Bundle _ -> fail name "PROOF" "a guard establishes one bound" in
-        let* _ty, op, a, b = predicate env condition in
         let* no = Option.fold ~none:(Ok "abort") ~some:(reject env) error in
-        let* yes = lower (index + 1) ((name.text, Proof_value (fresh, Atomic ty)) :: env) state written ((ty, fresh) :: evidence) rest in
-        let success = "(" ^ lambda ("0 " ^ fresh) ty yes ^ " : (0 " ^ fresh ^ " : " ^ ty ^ ") -> Tx)" in
-        Ok (app op [a; b; success; no])
+        let* yes = lower (index + 1) ((name.text, Proof_value (fresh, ty)) :: env)
+          state written (evidence_for fresh ty evidence) rest in
+        let rec guards ty condition local continue = match ty, condition with
+          | Atomic ty, Check condition ->
+            let* _ty, op, a, b = predicate env condition in
+            let* next = continue local in
+            let success = "(" ^ lambda ("0 " ^ local) ty next ^ " : (0 " ^ local ^ " : " ^ ty ^ ") -> Tx)" in
+            Ok (app op [a; b; success; no])
+          | Bundle (a, b), Conjoin (left, right) ->
+            guards a left (local ^ "a") (fun p ->
+              guards b right (local ^ "b") (fun q ->
+                continue ("(tuple (" ^ p ^ ", " ^ q ^ "))")))
+          | Atomic _, Conjoin _ | Bundle _, Check _ ->
+            fail name "PROOF" "guard condition and proof bundle have different shapes" in
+        guards ty condition (fresh ^ "_guard") (fun term ->
+          Ok (erased_apply fresh (claim_type ty) "Tx" term yes))
       | Proof_bind (name, claim, term) ->
         let* ty = resolved_claim env claim in
         let* _ty, term = proof 0 env (Some ty) term in

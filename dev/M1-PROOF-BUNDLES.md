@@ -55,7 +55,8 @@ cannot be returned, stored, passed as a Word helper argument or placed
 in a revert payload. Shadowing and storage snapshots keep their existing
 rules.
 
-Runtime guards still establish one atomic bound. The later
+The later [compound guard slice](M1-COMPOUND-GUARDS.md) lets runtime
+guards establish nested bundles. The
 [compound invariant slice](M1-COMPOUND-INVARIANTS.md) extends invariant
 declarations to products. Every named entry-local proof bundle adds
 its checked component bounds to the evidence available at successful

@@ -27,7 +27,8 @@ all parameters. Word and proof names retain distinct roles.
 
 The later [proof bundle slice](M1-PROOF-BUNDLES.md) adds
 `Both (CLAIM) (CLAIM)` to parameters, conclusions and annotations.
-Guards keep their atomic bounds.
+The [compound guard slice](M1-COMPOUND-GUARDS.md) supplies these bundles
+from nested runtime checks.
 The [named predicate slice](M1-PREDICATES.md) also permits parameterized
 claim names in signatures and annotations.
 

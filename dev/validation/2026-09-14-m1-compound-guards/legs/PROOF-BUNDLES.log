@@ -1,0 +1,8 @@
+BUNDLE-LIVE cases=102 creates=2 erasure=8 OK
+BUNDLE-REFUSALS cases=41 commands=3 OK
+BUNDLE-BOUNDARIES accepted=11 rejected=1 OK
+BUNDLE-MUTANT SECOND-CHECK killed control=OK
+BUNDLE-MUTANT PROJECTION killed control=OK
+BUNDLE-MUTANT CLAIM-DEPTH killed control=OK
+BUNDLE-MUTANT INVARIANT-COMPONENTS killed control=OK
+PROOF-BUNDLES cases=102 creates=2 refusals=41 erasure=8 boundaries=11 mutants=4 OK

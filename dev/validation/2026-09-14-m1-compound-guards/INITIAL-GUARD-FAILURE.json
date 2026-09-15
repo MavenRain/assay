@@ -1,0 +1,11 @@
+{
+  "argv": [
+    "zsh",
+    "-f",
+    "dev/dunecho.sh",
+    "build"
+  ],
+  "exit": 1,
+  "stdout": "E emit/contract.ml:601:44  -  This expression has type \"condition\" but an expression was expected of type \"predicate\"\nFAIL build: 1 error, 0 warnings\n",
+  "stderr": ""
+}

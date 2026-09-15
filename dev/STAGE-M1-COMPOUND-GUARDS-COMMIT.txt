@@ -1,0 +1,17 @@
+M1: check compound proof guards and invariant evidence
+
+Lower nested runtime conditions through checked atomic guards and
+collect their erased proofs into a bundle. Preserve source order,
+custom revert payloads, Word snapshots and final-state obligations.
+Keep both contextual and bound condition depth and atomic checks.
+
+Add an example, execution and refusal cases, byte-exact erasure
+comparisons, boundary checks and four compiler mutation controls.
+Update the existing guard and predicate mutations for the expanded
+condition syntax while preserving their witnesses and kill criteria.
+Extend the default gate battery to 51 legs. Preserve the pending
+measurement checks and paused timing policy.
+
+Review pass 1 (2026-09-15) fixed 2 findings: D-1, D-2.
+D-1: prose row over 72 columns in M1-COMPOUND-GUARDS.md rewrapped.
+D-2: orphan mutation doc now linked from M1-COMPOUND-GUARDS.md.

@@ -224,10 +224,14 @@ The proof helper gate adds 104 cases, 50 refusals, seven closed erasure
 variants and four mutations with controls.
 `STAGE-M1-PROOF-HELPERS OK` requires all 47 legs to pass, including
 source proofs.
-`dev/gates.sh` now selects `--m1-compound-invariants`. Its 50 legs
+`dev/gates.sh` now selects `--m1-compound-guards`. Its 51 legs
 include the proof-bundle, named-predicate and compound-invariant suites.
 The compound gate checks 64 execution cases, 24 refusals, eight erasure
 variants, ten boundary forms and four mutations with restored controls.
+The [compound guard gate](dev/M1-COMPOUND-GUARDS.md) adds 88 execution
+cases, 26 refusals, seven erasure variants, seven boundary forms and
+four mutations with restored controls. A compound guard checks nested
+bounds in source order and supplies their erased proof bundle.
 The current slice's timing gate is paused following the
 [measurement diagnosis](dev/TIMING-DEBUG.md); it has no fresh timing verdict.
 The preserved denominator manifest and measurement describe an older

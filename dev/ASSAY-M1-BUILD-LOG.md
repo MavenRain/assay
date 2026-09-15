@@ -1,5 +1,161 @@
 # Assay M1 build log
 
+## 2026-09-14: compound proof guards
+
+Validation and archive checks completed on 2026-09-15.
+
+The sixteenth M1 slice starts at
+`09a9b8c3d7f44328a4244da7382c05bbab40a3a9`.
+Runtime `both` conditions establish nested proof bundles through checked
+atomic guards. Lowering preserves source order and custom failures,
+registers the whole bundle and its components for final-state
+obligations, and erases the evidence before bytecode emission. Condition
+syntax is bounded by depth 32 and 64 atomic checks. `both` remains
+contextual, preserving ordinary names and payload parsing.
+
+The new suite passes 88 source-model/Cancun cases, two creation
+outcomes, 26 refusals through three commands, seven five-file erasure
+variants, seven accepted boundary forms, and four compiler mutations
+with restored passing controls. The invariant example checks a named
+bundle and rolls back an earlier write on either failed condition.
+The prior invariant refusal now describes its mismatched guard shape;
+its program and expected rejection are unchanged.
+
+The full default battery has 51 legs. After scoped proof-guard and
+predicate rechecks, all 49 functional legs pass, including the carried
+42-theorem reports and the source proof checks. The initial proof-guard
+run passed its 83 execution cases, 26 refusals and erasure comparisons,
+but its CLAIM mutant still constructed the former atomic predicate type.
+The mutant now reconstructs a claim from both condition constructors.
+Its false-claim witness, all six kill criteria and all restored controls
+are unchanged; the full proof-guard suite passes on recheck.
+The predicate EXPANSION mutant's short anchor also matched the new
+condition budget. Its anchor now selects the expanded-claim budget
+specifically, preserving its expanded-node witness and rejection.
+Both suites pass sequentially after an earlier concurrent proof-guard
+retry hit the unchanged 30-second geth timeout. That retry is retained.
+Proof caches were reused after verifying 35 source files and two pinned
+dependency revisions. All 50 prior gate commands, deadlines and success
+markers are unchanged. The carried kernel, surface, proof sources,
+effect protocol and bytecode backend are unchanged.
+
+DENOMINATORS and M0-RATIO retain their failures against the preserved
+older measurement inputs. Timing remains paused; the M1 performance
+bound and milestone exit remain pending. The
+[validation archive](validation/2026-09-14-m1-compound-guards/README.md)
+contains the full battery, individual captures, source hashes, gate
+comparison and an archive artifact manifest.
+
+### Review round 2026-09-15 (M1 compound guards)
+
+A review pass over the staged slice fixed two low documentation
+findings in dev/M1-COMPOUND-GUARDS.md. The gate battery row that
+names dev/gates.sh was 74 columns; it is rewrapped to 72 columns
+with the same words. The validation bullet for the mutation
+controls now links dev/M1-COMPOUND-GUARD-MUTATIONS.md, which had
+no referrer outside the archive hash list.
+
+No compiler file, gate script, gate marker or count changed, so
+every leg row and every printed marker is unchanged. The archive
+source hashes are refreshed for the edited document, and the
+archive artifact manifest is rebuilt from the refreshed files.
+The baseline ladder and the fix ladder both report 49 of 51 legs
+passing, with DENOMINATORS and M0-RATIO red as disclosed.
+
+Kept findings from the review:
+
+file: dev/M1-COMPOUND-GUARDS.md
+
+| id | sev | one line |
+| --- | --- | --- |
+| D-1 | low | prose row over 72 columns, rewrapped |
+| D-2 | low | orphan mutation doc, now linked |
+
+Refuted: 1 (A-1, coverage gap confirmed harmless by a probe rebuild
+that pinned the shape check to the resolved type, not to a claim
+name; dev/compound-guard-test.py:160 stands as written).
+
+Merged and dropped: 0. No two findings named the same defect and
+none was cut; D-3 stays a ruled archive convention, not a fix.
+
+Gate result, log gates-M1CG-1.log:
+verdict GREEN-FUNCTIONAL: every red row is DENOMINATORS or
+M0-RATIO, the disclosed state of this slice while the timing gate
+is paused: pass=49 of 51 legs, fail=[DENOMINATORS,M0-RATIO],
+marker tails ok=true, timeout legs only=false, disclosed reds
+only=true, wrapper exit ok=true.
+STAGE-M1-LINE: STAGE-M1-COMPOUND-GUARDS FAIL
+M0-LINE: M0-VALIDATION FAIL; M0-EXIT requires the user commit and
+ratification
+EXIT 1 | LADDER-WRAPPER-EXIT 0 06:31:52
+PASS-COUNT: 49
+FAIL-LINES: FAIL DENOMINATORS exit=1 elapsed_ms=62.5 FAIL M0-RATIO
+exit=1 elapsed_ms=222.6
+DENOM-FAILED-ROWS: dev/M1-ERRORS.md: FAILED dev/M1-PROOFS.md:
+FAILED dev/M1-SURFACE-MUTATIONS.md: FAILED dev/M1-SURFACE.md:
+FAILED dev/contract-test.py: FAILED dev/errors-test.py: FAILED
+dev/gates.sh: FAILED dev/m1-emit-test.py: FAILED dev/model-test.py:
+FAILED dev/stage-a-gates.py: FAILED emit/contract.ml: FAILED
+emit/emit.ml: FAILED emit/model.ml: FAILED emit/recognize.ml:
+FAILED
+MUTANTS-TAIL: MUTANT TRUSTED-BOUND killed exit=1 MUTANTS
+killed=13/13 OK
+CUSTOM-ERRORS-TAIL: ERROR-MUTANT ABI killed control=OK
+CUSTOM-ERRORS cases=66 creates=2 refusals=26 mutants=5 OK
+SOURCE-PROOFS-TAIL: SOURCE-PROOF-MUTANT ERROR-BRANCH killed
+control=OK SOURCE-PROOFS theorems=11 arithmetic=226 evm=16
+recovery=6 effects=7 invalid=13 mutants=6 controls=4 OK
+CONTRACT-ROUTE-TAIL: CONTRACT-ROUTE core=3 identity=true
+allocated_bytes=1472 bound=131072 OK
+CONTRACT-SURFACE-TAIL: SURFACE-MUTANTS killed=8/8 controls=8 OK
+CONTRACT-SURFACE counter=30 variants=14 refusals=36 mutants=8 OK
+SOURCE-MODEL-TAIL: MODEL-MUTANTS killed=8/8 controls=8 OK
+SOURCE-MODEL counter=30 variants=10 corpus=11 invalid=28
+refusals=6 mutants=8 OK
+DIFF-EXECUTOR-TAIL: DIFF-CHECKS killed=24/24 controls=1 OK
+DIFF-EXECUTOR live=20 driver=28 rejected=24 OK
+M1-EMISSION-TAIL: M1-MUTANTS killed=8/8 controls=8 OK M1-EMISSION
+counter=30 sources=8 refusals=11 mutants=8 OK
+COUNTER-REFERENCE-TAIL: COUNTER-MUTANT SELECTOR
+witness=increment-success killed control=OK COUNTER-REFERENCE
+cases=30 creates=2 mutants=8 value_rejected=5 covered=120
+scope=reference OK
+DRIVER-TAIL: DRIVER cases=24 OK
+DENOMINATORS-TAIL: verification/lean-toolchain: OK shasum: WARNING:
+14 computed checksums did NOT match
+M0-RATIO-TAIL: shasum: WARNING: 14 computed checksums did NOT
+match
+PROOF-BUILD-TAIL: OK lake: 0 errors, 0 sorries, 0 warnings
+PROOF-REPORT-LINES: 42
+
+```
+COMPOUND-GUARDS cases=88 creates=2 refusals=26 erasure=7 boundaries=7 mutants=4 OK
+```
+
+DENOMINATORS stays red on the kept 119-row manifest; no rows-only
+refreeze ran in this round, and no FINAL tree exists yet. Rows
+refreshed by the fix: dev/M1-COMPOUND-GUARDS.md (lines 69 and 71).
+dev/ASSAY-M1-BUILD-LOG.md gained this block. The archive
+SOURCES.json and ARTIFACTS.json were refreshed to match. The
+M0-RATIO remeasure is CARRIED to a calm host; dev/denominators.json
+and dev/measurements are unedited in this review.
+
+gate: GREEN-FUNCTIONAL (every red row is DENOMINATORS or M0-RATIO,
+the disclosed state of this slice while the timing gate is paused:
+pass=49 of 51 legs, fail=[DENOMINATORS,M0-RATIO], mutants=true,
+marker tails ok=true, timeout legs only=false, disclosed reds
+only=true, wrapper exit ok=true, stage=STAGE-M1-LINE:
+STAGE-M1-COMPOUND-GUARDS FAIL, m0=M0-LINE: M0-VALIDATION FAIL;
+M0-EXIT requires the user commit and ratification, exit=EXIT 1 |
+LADDER-WRAPPER-EXIT 0 06:31:52)
+
+The finders, the builder and the gate runner ran opus/medium. The
+verifiers, the judge and the check stage ran opus/high. The closer
+ran sonnet/medium. A Fable subagent dies on the [reasoning_extraction]
+classifier on this host, so the finder and builder rulings are
+reported unmet, and the closer kept the sonnet fallback ruling,
+never opus.
+
 ## 2026-09-14: compound storage invariants
 
 The fifteenth M1 slice starts at
