@@ -1,0 +1,486 @@
+{
+  "unchanged": {
+    "BUILD": {
+      "timeout": 120,
+      "command": [
+        "zsh",
+        "-f",
+        "dev/dunecho.sh",
+        "build"
+      ],
+      "marker_expression": "'0 errors, 0 warnings'"
+    },
+    "PIN-CARRY": {
+      "timeout": 30,
+      "command": [
+        "zsh",
+        "-f",
+        "dev/carry-check.sh"
+      ],
+      "marker_expression": "'diff=0 unlisted=0'"
+    },
+    "R0-COUNT": {
+      "timeout": 10,
+      "command": [
+        "zsh",
+        "-f",
+        "dev/r0-count.sh"
+      ],
+      "marker_expression": "'R0-COUNT OK'"
+    },
+    "R0-AUDIT": {
+      "timeout": 10,
+      "command": [
+        "zsh",
+        "-f",
+        "dev/r0-audit.sh"
+      ],
+      "marker_expression": "'R0-AUDIT OK'"
+    },
+    "HOUSE": {
+      "timeout": 30,
+      "command": [
+        "zsh",
+        "-f",
+        "dev/house.sh"
+      ],
+      "marker_expression": "'HOUSE OK'"
+    },
+    "TRUSTED-LINES": {
+      "timeout": 10,
+      "command": [
+        "zsh",
+        "-f",
+        "dev/trusted-lines.sh"
+      ],
+      "marker_expression": "'TRUSTED-LINES OK'"
+    },
+    "SUITE-KERNEL": {
+      "timeout": 300,
+      "command": [
+        "_build/default/test/main.exe",
+        "test"
+      ],
+      "marker_expression": "'SUITE-KERNEL OK'"
+    },
+    "SUITE-SURFACE": {
+      "timeout": 60,
+      "command": [
+        "_build/default/test/sl_surface.exe"
+      ],
+      "marker_expression": "'SL-SURFACE OK'"
+    },
+    "DRIVER": {
+      "timeout": 30,
+      "command": [
+        "python3",
+        "-P",
+        "dev/stage-a-test.py",
+        "driver"
+      ],
+      "marker_expression": "'DRIVER cases=24 OK'"
+    },
+    "MUTANTS": {
+      "timeout": 300,
+      "command": [
+        "python3",
+        "-P",
+        "dev/stage-a-test.py",
+        "mutants"
+      ],
+      "marker_expression": "'MUTANTS killed=13/13 OK'"
+    },
+    "DENOMINATORS": {
+      "timeout": 10,
+      "command": [
+        "shasum",
+        "-a",
+        "256",
+        "-c",
+        "dev/DENOMINATORS.sha256"
+      ],
+      "marker_expression": "'dev/denominators.json: OK'"
+    },
+    "DIFF-EXECUTOR": {
+      "timeout": 180,
+      "command": [
+        "python3",
+        "-P",
+        "dev/diff-test.py"
+      ],
+      "marker_expression": "'DIFF-EXECUTOR live=20 driver=28 rejected=24 OK'"
+    },
+    "COUNTER-REFERENCE": {
+      "timeout": 300,
+      "command": [
+        "python3",
+        "-P",
+        "dev/counter-test.py"
+      ],
+      "marker_expression": "'COUNTER-REFERENCE cases=30 creates=2 mutants=8 value_rejected=5 covered=120 scope=reference OK'"
+    },
+    "M1-EMISSION": {
+      "timeout": 600,
+      "command": [
+        "python3",
+        "-P",
+        "dev/m1-emit-test.py"
+      ],
+      "marker_expression": "'M1-EMISSION counter=30 sources=8 refusals=11 mutants=8 OK'"
+    },
+    "SOURCE-MODEL": {
+      "timeout": 600,
+      "command": [
+        "python3",
+        "-P",
+        "dev/model-test.py"
+      ],
+      "marker_expression": "'SOURCE-MODEL counter=30 variants=10 corpus=11 invalid=28 refusals=6 mutants=8 OK'"
+    },
+    "CONTRACT-SURFACE": {
+      "timeout": 600,
+      "command": [
+        "python3",
+        "-P",
+        "dev/contract-test.py"
+      ],
+      "marker_expression": "'CONTRACT-SURFACE counter=30 variants=14 refusals=36 mutants=8 OK'"
+    },
+    "NULLARY-ENTRIES": {
+      "timeout": 600,
+      "command": [
+        "python3",
+        "-P",
+        "dev/nullary-test.py"
+      ],
+      "marker_expression": "'NULLARY-ENTRIES cases=53 creates=2 refusals=4 mutants=3 OK'"
+    },
+    "CUSTOM-ERRORS": {
+      "timeout": 600,
+      "command": [
+        "python3",
+        "-P",
+        "dev/errors-test.py"
+      ],
+      "marker_expression": "'CUSTOM-ERRORS cases=66 creates=2 refusals=26 mutants=5 OK'"
+    },
+    "PROOF-GUARDS": {
+      "timeout": 600,
+      "command": [
+        "python3",
+        "-P",
+        "dev/guard-test.py"
+      ],
+      "marker_expression": "'PROOF-GUARDS cases=83 creates=2 refusals=26 erasure=3 mutants=6 OK'"
+    },
+    "PROOF-TERMS": {
+      "timeout": 600,
+      "command": [
+        "python3",
+        "-P",
+        "dev/proof-term-test.py"
+      ],
+      "marker_expression": "'PROOF-TERMS cases=98 creates=2 refusals=25 erasure=5 mutants=4 OK'"
+    },
+    "INVARIANTS": {
+      "timeout": 600,
+      "command": [
+        "python3",
+        "-P",
+        "dev/invariant-test.py"
+      ],
+      "marker_expression": "'INVARIANTS cases=52 creates=2 refusals=30 erasure=4 mutants=4 OK'"
+    },
+    "PROOF-HELPERS": {
+      "timeout": 600,
+      "command": [
+        "python3",
+        "-P",
+        "dev/proof-helper-test.py"
+      ],
+      "marker_expression": "'PROOF-HELPERS cases=104 creates=2 refusals=50 erasure=7 mutants=4 OK'"
+    },
+    "PROOF-BUNDLES": {
+      "timeout": 600,
+      "command": [
+        "python3",
+        "-P",
+        "dev/proof-bundle-test.py"
+      ],
+      "marker_expression": "'PROOF-BUNDLES cases=102 creates=2 refusals=41 erasure=8 boundaries=11 mutants=4 OK'"
+    },
+    "PREDICATES": {
+      "timeout": 600,
+      "command": [
+        "python3",
+        "-P",
+        "dev/predicate-test.py"
+      ],
+      "marker_expression": "'PREDICATES cases=72 creates=2 refusals=44 erasure=7 boundaries=12 mutants=4 OK'"
+    },
+    "COMPOUND-INVARIANTS": {
+      "timeout": 600,
+      "command": [
+        "python3",
+        "-P",
+        "dev/compound-invariant-test.py"
+      ],
+      "marker_expression": "'COMPOUND-INVARIANTS cases=64 creates=2 refusals=24 erasure=8 boundaries=10 mutants=4 OK'"
+    },
+    "COMPOUND-GUARDS": {
+      "timeout": 600,
+      "command": [
+        "python3",
+        "-P",
+        "dev/compound-guard-test.py"
+      ],
+      "marker_expression": "'COMPOUND-GUARDS cases=88 creates=2 refusals=26 erasure=7 boundaries=7 mutants=4 OK'"
+    },
+    "KECCAK-VEC": {
+      "timeout": 120,
+      "command": [
+        "python3",
+        "-P",
+        "dev/keccak-test.py",
+        "vectors"
+      ],
+      "marker_expression": "'KECCAK-VEC vectors=35 ok=35 adapter=5 OK'"
+    },
+    "KECCAK-MUTANTS": {
+      "timeout": 660,
+      "command": [
+        "python3",
+        "-P",
+        "dev/keccak-test.py",
+        "mutants"
+      ],
+      "marker_expression": "'KECCAK-MUTANTS killed=4/4 control=OK'"
+    },
+    "STACK-HEIGHT": {
+      "timeout": 240,
+      "command": [
+        "python3",
+        "-P",
+        "dev/asm-test.py",
+        "stack"
+      ],
+      "marker_expression": "'STACK-HEIGHT blocks=30 cases=64 opcodes=149 effect_cases=370 OK'"
+    },
+    "DISASM-3WAY": {
+      "timeout": 120,
+      "command": [
+        "python3",
+        "-P",
+        "dev/asm-test.py",
+        "disasm"
+      ],
+      "marker_expression": "'DISASM-3WAY ours=272 cast=272 evm=272 fixtures=7 negative=38 OK'"
+    },
+    "ASM-MUTANTS": {
+      "timeout": 1200,
+      "command": [
+        "python3",
+        "-P",
+        "dev/asm-test.py",
+        "mutants"
+      ],
+      "marker_expression": "'ASM-MUTANTS killed=6/6 control=OK'"
+    },
+    "FORK-DRIFT": {
+      "timeout": 120,
+      "command": [
+        "zsh",
+        "-f",
+        "dev/fork-check.sh"
+      ],
+      "marker_expression": "'FORK-DRIFT push0=OK tload=OK tstore=OK mcopy=OK clz=INVALID OK'"
+    },
+    "M0-TRACE": {
+      "timeout": 120,
+      "command": [
+        "python3",
+        "-P",
+        "dev/reference-test.py",
+        "trace"
+      ],
+      "marker_expression": "'M0-TRACE scope=reference bytes=20 listing=17 cast=17 evm=13 skipped=4 storage=42 return=42 OK'"
+    },
+    "CREATE-EQ": {
+      "timeout": 120,
+      "command": [
+        "python3",
+        "-P",
+        "dev/reference-test.py",
+        "create"
+      ],
+      "marker_expression": "'CREATE-EQ bytes=20 returned=20 installed=1 OK'"
+    },
+    "REFERENCE-CHECKS": {
+      "timeout": 180,
+      "command": [
+        "python3",
+        "-P",
+        "dev/reference-test.py",
+        "checks"
+      ],
+      "marker_expression": "'REFERENCE-CHECKS cases=32 controls=2 OK'"
+    },
+    "REFERENCE-MUTANTS": {
+      "timeout": 1200,
+      "command": [
+        "python3",
+        "-P",
+        "dev/reference-test.py",
+        "mutants"
+      ],
+      "marker_expression": "'REFERENCE-MUTANTS killed=8/8 controls=3 OK'"
+    },
+    "EMIT-CONSTRUCTORS": {
+      "timeout": 30,
+      "command": [
+        "_build/default/test/emit_cases.exe",
+        "constructors"
+      ],
+      "marker_expression": "'EMIT-CONSTRUCTORS cases=22 OK'"
+    },
+    "WORD-UNBOX": {
+      "timeout": 30,
+      "command": [
+        "_build/default/test/emit_cases.exe",
+        "words"
+      ],
+      "marker_expression": "'WORD-UNBOX ktag=0 kstruct=0 words=3 cases=9 OK'"
+    },
+    "STORAGE-NOCLOS": {
+      "timeout": 30,
+      "command": [
+        "_build/default/test/emit_cases.exe",
+        "storage"
+      ],
+      "marker_expression": "'STORAGE-NOCLOS kclos=0 ktail=0 fields=2 cases=9 OK'"
+    },
+    "ABI-GOLD": {
+      "timeout": 60,
+      "command": [
+        "zsh",
+        "-f",
+        "dev/abi-gold.sh"
+      ],
+      "marker_expression": "'ABI-GOLD jq_sorted=equal provenance=dev/ABI-PROVENANCE.md controls=4 OK'"
+    },
+    "EMITTED-TRACE": {
+      "timeout": 120,
+      "command": [
+        "python3",
+        "-P",
+        "dev/emit-test.py",
+        "trace"
+      ],
+      "marker_expression": "'M0-TRACE offsets=13 listing=17 cast=17 evm=13 five_files=5 OK' if corpus else 'M0-TRACE scope=emitted bytes=20 listing=17 cast=17 evm=13 skipped=4 storage=42 return=42 OK'"
+    },
+    "EMIT-SOURCES": {
+      "timeout": 600,
+      "command": [
+        "python3",
+        "-P",
+        "dev/emit-test.py",
+        "sources"
+      ],
+      "marker_expression": "'EMIT-SOURCES success=15 refusal=9 driver=3 OK'"
+    },
+    "EMIT-MUTANTS": {
+      "timeout": 1200,
+      "command": [
+        "python3",
+        "-P",
+        "dev/emit-test.py",
+        "mutants"
+      ],
+      "marker_expression": "'EMIT-MUTANTS killed=7/7 controls=4 OK'"
+    },
+    "AXIOMS": {
+      "timeout": 480,
+      "command": [
+        "python3",
+        "-P",
+        "dev/proofs-test.py"
+      ],
+      "marker_expression": "'AXIOMS sorryAx=0 theorems=42 carried_files=28 controls=3 OK'"
+    },
+    "TRACE-DRIVER": {
+      "timeout": 120,
+      "command": [
+        "python3",
+        "-P",
+        "dev/trace-test.py"
+      ],
+      "marker_expression": "'TRACE-DRIVER cases=20 explicit_prestate=true literal_argv=true OK'"
+    },
+    "CORPUS": {
+      "timeout": 600,
+      "command": [
+        "python3",
+        "-P",
+        "dev/corpus-test.py",
+        "corpus"
+      ],
+      "marker_expression": "'CORPUS cases=11 five_files=5 OK'"
+    },
+    "ERASED-BYTES": {
+      "timeout": 120,
+      "command": [
+        "python3",
+        "-P",
+        "dev/corpus-test.py",
+        "erased"
+      ],
+      "marker_expression": "'ERASED-BYTES mutants=2 caught=1 equal=2 scope=M0-seed OK'"
+    },
+    "M0-RATIO": {
+      "timeout": 60,
+      "command": [
+        "zsh",
+        "-f",
+        "dev/ratio.sh"
+      ],
+      "marker_expression": "'M0-RATIO provenance=dev/denominators.json fixed=spec-count-proxy subtraction=none OK'"
+    },
+    "F-MUTANTS": {
+      "timeout": 180,
+      "command": [
+        "python3",
+        "-P",
+        "dev/corpus-test.py",
+        "mutants"
+      ],
+      "marker_expression": "'F-MUTANTS killed=7/7 controls=5 OK'"
+    },
+    "CONTRACT-ROUTE": {
+      "timeout": 30,
+      "command": [
+        "_build/default/test/contract_route.exe"
+      ],
+      "marker_expression": "'bound=131072 OK'"
+    },
+    "SOURCE-PROOFS": {
+      "timeout": 600,
+      "command": [
+        "python3",
+        "-P",
+        "dev/source-proof-test.py"
+      ],
+      "marker_expression": "'SOURCE-PROOFS theorems=11 arithmetic=226 evm=16 recovery=6 effects=7 invalid=13 mutants=6 controls=4 OK'"
+    }
+  },
+  "added": {
+    "NAMED-GUARDS": {
+      "timeout": 600,
+      "command": [
+        "python3",
+        "-P",
+        "dev/named-guard-test.py"
+      ],
+      "marker_expression": "'NAMED-GUARDS cases=96 creates=2 refusals=27 erasure=10 boundaries=6 mutants=4 OK'"
+    }
+  }
+}

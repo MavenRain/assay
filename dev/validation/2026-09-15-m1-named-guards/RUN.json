@@ -1,0 +1,332 @@
+{
+  "base": "f8e4206e13fe732dbc13f1f46d93fefcde1cafc2",
+  "checkout": "/Users/oobi/Documents/gpt1/assay-m1-named-guards",
+  "command": [
+    "zsh",
+    "-f",
+    "dev/gates.sh"
+  ],
+  "legs": 52,
+  "functional_passed": 50,
+  "exit": 1,
+  "pending": [
+    "DENOMINATORS",
+    "M0-RATIO"
+  ],
+  "full_battery_pass": false,
+  "results": [
+    {
+      "status": "PASS",
+      "name": "BUILD",
+      "exit": 0,
+      "elapsed_ms": 289.9
+    },
+    {
+      "status": "PASS",
+      "name": "PIN-CARRY",
+      "exit": 0,
+      "elapsed_ms": 768.8
+    },
+    {
+      "status": "PASS",
+      "name": "R0-COUNT",
+      "exit": 0,
+      "elapsed_ms": 74.5
+    },
+    {
+      "status": "PASS",
+      "name": "R0-AUDIT",
+      "exit": 0,
+      "elapsed_ms": 55.1
+    },
+    {
+      "status": "PASS",
+      "name": "HOUSE",
+      "exit": 0,
+      "elapsed_ms": 713.1
+    },
+    {
+      "status": "PASS",
+      "name": "TRUSTED-LINES",
+      "exit": 0,
+      "elapsed_ms": 68.5
+    },
+    {
+      "status": "PASS",
+      "name": "SUITE-KERNEL",
+      "exit": 0,
+      "elapsed_ms": 932.7
+    },
+    {
+      "status": "PASS",
+      "name": "SUITE-SURFACE",
+      "exit": 0,
+      "elapsed_ms": 377.9
+    },
+    {
+      "status": "PASS",
+      "name": "DRIVER",
+      "exit": 0,
+      "elapsed_ms": 317.7
+    },
+    {
+      "status": "PASS",
+      "name": "MUTANTS",
+      "exit": 0,
+      "elapsed_ms": 6170.3
+    },
+    {
+      "status": "FAIL",
+      "name": "DENOMINATORS",
+      "exit": 1,
+      "elapsed_ms": 34.8
+    },
+    {
+      "status": "PASS",
+      "name": "KECCAK-VEC",
+      "exit": 0,
+      "elapsed_ms": 939.0
+    },
+    {
+      "status": "PASS",
+      "name": "KECCAK-MUTANTS",
+      "exit": 0,
+      "elapsed_ms": 4709.4
+    },
+    {
+      "status": "PASS",
+      "name": "STACK-HEIGHT",
+      "exit": 0,
+      "elapsed_ms": 2875.6
+    },
+    {
+      "status": "PASS",
+      "name": "DISASM-3WAY",
+      "exit": 0,
+      "elapsed_ms": 539.4
+    },
+    {
+      "status": "PASS",
+      "name": "ASM-MUTANTS",
+      "exit": 0,
+      "elapsed_ms": 11026.4
+    },
+    {
+      "status": "PASS",
+      "name": "FORK-DRIFT",
+      "exit": 0,
+      "elapsed_ms": 512.9
+    },
+    {
+      "status": "PASS",
+      "name": "M0-TRACE",
+      "exit": 0,
+      "elapsed_ms": 227.2
+    },
+    {
+      "status": "PASS",
+      "name": "CREATE-EQ",
+      "exit": 0,
+      "elapsed_ms": 129.0
+    },
+    {
+      "status": "PASS",
+      "name": "REFERENCE-CHECKS",
+      "exit": 0,
+      "elapsed_ms": 176.9
+    },
+    {
+      "status": "PASS",
+      "name": "REFERENCE-MUTANTS",
+      "exit": 0,
+      "elapsed_ms": 1720.4
+    },
+    {
+      "status": "PASS",
+      "name": "EMIT-CONSTRUCTORS",
+      "exit": 0,
+      "elapsed_ms": 321.9
+    },
+    {
+      "status": "PASS",
+      "name": "WORD-UNBOX",
+      "exit": 0,
+      "elapsed_ms": 5.2
+    },
+    {
+      "status": "PASS",
+      "name": "STORAGE-NOCLOS",
+      "exit": 0,
+      "elapsed_ms": 4.5
+    },
+    {
+      "status": "PASS",
+      "name": "ABI-GOLD",
+      "exit": 0,
+      "elapsed_ms": 225.0
+    },
+    {
+      "status": "PASS",
+      "name": "EMITTED-TRACE",
+      "exit": 0,
+      "elapsed_ms": 116.0
+    },
+    {
+      "status": "PASS",
+      "name": "EMIT-SOURCES",
+      "exit": 0,
+      "elapsed_ms": 876.3
+    },
+    {
+      "status": "PASS",
+      "name": "EMIT-MUTANTS",
+      "exit": 0,
+      "elapsed_ms": 14769.2
+    },
+    {
+      "status": "PASS",
+      "name": "AXIOMS",
+      "exit": 0,
+      "elapsed_ms": 10817.8
+    },
+    {
+      "status": "PASS",
+      "name": "TRACE-DRIVER",
+      "exit": 0,
+      "elapsed_ms": 1582.8
+    },
+    {
+      "status": "PASS",
+      "name": "CORPUS",
+      "exit": 0,
+      "elapsed_ms": 1490.2
+    },
+    {
+      "status": "PASS",
+      "name": "ERASED-BYTES",
+      "exit": 0,
+      "elapsed_ms": 164.2
+    },
+    {
+      "status": "FAIL",
+      "name": "M0-RATIO",
+      "exit": 1,
+      "elapsed_ms": 162.5
+    },
+    {
+      "status": "PASS",
+      "name": "F-MUTANTS",
+      "exit": 0,
+      "elapsed_ms": 348.7
+    },
+    {
+      "status": "PASS",
+      "name": "DIFF-EXECUTOR",
+      "exit": 0,
+      "elapsed_ms": 10009.9
+    },
+    {
+      "status": "PASS",
+      "name": "COUNTER-REFERENCE",
+      "exit": 0,
+      "elapsed_ms": 8143.3
+    },
+    {
+      "status": "PASS",
+      "name": "M1-EMISSION",
+      "exit": 0,
+      "elapsed_ms": 107617.4
+    },
+    {
+      "status": "PASS",
+      "name": "SOURCE-MODEL",
+      "exit": 0,
+      "elapsed_ms": 37485.6
+    },
+    {
+      "status": "PASS",
+      "name": "CONTRACT-SURFACE",
+      "exit": 0,
+      "elapsed_ms": 36460.2
+    },
+    {
+      "status": "PASS",
+      "name": "CONTRACT-ROUTE",
+      "exit": 0,
+      "elapsed_ms": 380.4
+    },
+    {
+      "status": "PASS",
+      "name": "SOURCE-PROOFS",
+      "exit": 0,
+      "elapsed_ms": 191081.6
+    },
+    {
+      "status": "PASS",
+      "name": "NULLARY-ENTRIES",
+      "exit": 0,
+      "elapsed_ms": 43509.6
+    },
+    {
+      "status": "PASS",
+      "name": "CUSTOM-ERRORS",
+      "exit": 0,
+      "elapsed_ms": 53864.1
+    },
+    {
+      "status": "PASS",
+      "name": "PROOF-GUARDS",
+      "exit": 0,
+      "elapsed_ms": 66187.0
+    },
+    {
+      "status": "PASS",
+      "name": "PROOF-TERMS",
+      "exit": 0,
+      "elapsed_ms": 52029.1
+    },
+    {
+      "status": "PASS",
+      "name": "INVARIANTS",
+      "exit": 0,
+      "elapsed_ms": 38623.5
+    },
+    {
+      "status": "PASS",
+      "name": "PROOF-HELPERS",
+      "exit": 0,
+      "elapsed_ms": 62101.8
+    },
+    {
+      "status": "PASS",
+      "name": "PROOF-BUNDLES",
+      "exit": 0,
+      "elapsed_ms": 52157.1
+    },
+    {
+      "status": "PASS",
+      "name": "PREDICATES",
+      "exit": 0,
+      "elapsed_ms": 48248.8
+    },
+    {
+      "status": "PASS",
+      "name": "COMPOUND-INVARIANTS",
+      "exit": 0,
+      "elapsed_ms": 41127.0
+    },
+    {
+      "status": "PASS",
+      "name": "COMPOUND-GUARDS",
+      "exit": 0,
+      "elapsed_ms": 38516.7
+    },
+    {
+      "status": "PASS",
+      "name": "NAMED-GUARDS",
+      "exit": 0,
+      "elapsed_ms": 37268.4
+    }
+  ],
+  "binary_sha256": "d5cb7d62830051c40a41d95f6e816804a91a1f294887123e59fc6caa1d767294"
+}

@@ -65,9 +65,11 @@ A guard annotation may expand to a product after the
 [compound guard slice](M1-COMPOUND-GUARDS.md). Runtime `both` conditions
 combine `leWord` and `lt256` checks with the same product structure.
 Every check must establish its expanded annotation component.
+The [named guard slice](M1-NAMED-GUARDS.md) also accepts predicate calls
+in runtime conditions and checks their expanded atomic bounds.
 Storage invariants also accept products after the
 [compound invariant slice](M1-COMPOUND-INVARIANTS.md). Every component
-remains an obligation. A predicate adds no runtime test.
+remains an obligation. Declaring a predicate adds no runtime test.
 
 ```
 invariant bounded (s : State) : Prop := Below(s.count, s.limit)

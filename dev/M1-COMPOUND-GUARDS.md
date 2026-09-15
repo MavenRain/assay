@@ -24,8 +24,9 @@ when either condition fails.
 The runtime grammar is `leWord A B`, `lt256 (add A B)`, or
 `both (CONDITION) (CONDITION)`. Conditions nest at most 32 levels, with
 an atomic condition at depth zero, and contain at most 64 atomic bounds.
-Each operand remains a bounded Word expression. A named predicate is
-expanded in the proof annotation; it is not a runtime condition.
+Each operand remains a bounded Word expression. The subsequent
+[named guard slice](M1-NAMED-GUARDS.md) also accepts predicate calls in
+runtime conditions and applies these limits after expansion.
 
 The annotation and condition must have the same product structure.
 Lowering builds a proof pair in that order. The kernel checks each

@@ -1,0 +1,21 @@
+M1: check named runtime guards and their evidence
+
+Expand named predicate calls in runtime guard conditions through the
+same scoped, simultaneous substitution as proof annotations. Preserve
+condition order, custom failure payloads, erased evidence and
+final-state invariant obligations. Share one 64-bound budget across
+the whole expanded condition, with the existing depth and node limits.
+Keep contextual names, `both` included, usable as predicate names.
+
+Add an example, 96 source-model comparisons, two creation outcomes,
+27 refusals through three commands, ten five-file erasure variants,
+six boundary forms and four compiler mutation controls. Extend the
+default gate battery to 52 legs, of which 50 functional legs pass.
+Keep all 51 previous gate commands, deadlines and success markers
+unchanged. DENOMINATORS and M0-RATIO retain their existing failures
+against preserved older measurement inputs. Timing remains paused.
+
+Review pass 1 (2026-09-15) fixed 2 findings: D-1, D-2.
+D-1: added dev/STAGE-M1-NAMED-GUARDS-COMMIT.txt, absent while every
+earlier M1 slice ships one.
+D-2: rewrapped a 73-column prose row of dev/M1-NAMED-GUARDS.md.

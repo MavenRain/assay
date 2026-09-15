@@ -6,7 +6,8 @@ let ( let* ) = Result.bind
 type token = { text : string; line : int; col : int }
 type word = Literal of token | Local of token
 type predicate = Ordered of word * word | Fits of word * word
-type condition = Check of predicate | Conjoin of condition * condition
+type condition = Check of predicate | Conjoin of condition * condition | Satisfy of token * word list
+type runtime_condition = Runtime_check of string * string * string | Runtime_both of runtime_condition * runtime_condition
 type claim = Bound of predicate | Both of claim * claim | Named of token * word list
 type predicate_row = { predicate_name : token; words : token list; definition : claim }
 type resolved_claim = Atomic of string | Bundle of resolved_claim * resolved_claim
@@ -113,6 +114,8 @@ let opens_value tokens = match tokens with
   | [] | _ :: _ -> false
 let opens_condition tokens = match tokens with
   | { text = "("; _ } :: { text = "both"; _ } :: { text = "("; _ } :: _rest -> true
+  | { text = "("; _ } :: name :: { text = "("; _ } :: _rest
+    when Recognize.identifier name.text && not (List.mem name.text reserved) -> true
   | { text = "("; _ } :: at :: _rest -> at.text = "leWord" || at.text = "lt256"
   | [] | _ :: _ -> false
 (* Review round 2026-09-12 (B-1):  `()` is the empty payload only when it is the
@@ -141,12 +144,23 @@ let bound operand runtime tokens =
     let* rest = expect ")" rest in Ok (Fits (a, b), rest)
   | [] | _ :: _ -> fail (here tokens) "PROOF" "expected an ordering or addition bound"
 let predicate runtime tokens = bound (value 0) runtime tokens
+let predicate_arguments operand name tokens =
+  let* name, _rest = identifier [name] in
+  let rec arguments acc tokens =
+    if List.length acc >= 16 then fail name "LIMIT" "at most 16 predicate arguments" else
+    let* v, rest = operand tokens in
+    match rest with
+    | { text = ","; _ } :: rest -> arguments (v :: acc) rest
+    | [] | _ :: _ -> let* rest = expect ")" rest in Ok (List.rev (v :: acc), rest) in
+  match tokens with
+  | { text = ")"; _ } :: rest -> Ok ([], rest)
+  | [] | _ :: _ -> arguments [] tokens
 let condition tokens =
   let rec parse depth remaining tokens =
     if depth > 32 || remaining = 0 then
       fail (here tokens) "LIMIT" "guard condition exceeds depth 32 or 64 bounds" else
     match tokens with
-    | { text = "both"; _ } :: rest ->
+    | { text = "both"; _ } :: rest when opens_condition rest || not (opens_value rest) ->
       let component remaining tokens =
         let* rest = expect "(" tokens in
         let* c, remaining, rest = parse (depth + 1) remaining rest in
@@ -154,6 +168,9 @@ let condition tokens =
       let* a, remaining, rest = component remaining rest in
       let* b, remaining, rest = component remaining rest in
       Ok (Conjoin (a, b), remaining, rest)
+    | name :: { text = "("; _ } :: rest when not (List.mem name.text reserved) ->
+      let* args, rest = predicate_arguments (value 0) name rest in
+      Ok (Satisfy (name, args), remaining - 1, rest)
     | [] | _ :: _ ->
       let* p, rest = predicate true tokens in Ok (Check p, remaining - 1, rest) in
   let* c, _remaining, rest = parse 0 64 tokens in Ok (c, rest)
@@ -165,16 +182,7 @@ let rec claim_with operand depth tokens =
       let* c, rest = claim_with operand (depth + 1) rest in let* rest = expect ")" rest in Ok (c, rest) in
     let* a, rest = component rest in let* b, rest = component rest in Ok (Both (a, b), rest)
   | name :: { text = "("; _ } :: rest when name.text <> "Le" && name.text <> "Lt256" ->
-    let* name, _rest = identifier [name] in
-    let rec arguments acc tokens =
-      if List.length acc >= 16 then fail name "LIMIT" "at most 16 predicate arguments" else
-      let* v, rest = operand tokens in
-      match rest with
-      | { text = ","; _ } :: rest -> arguments (v :: acc) rest
-      | [] | _ :: _ -> let* rest = expect ")" rest in Ok (Named (name, List.rev (v :: acc)), rest) in
-    (match rest with
-     | { text = ")"; _ } :: rest -> Ok (Named (name, []), rest)
-     | [] | _ :: _ -> arguments [] rest)
+    let* args, rest = predicate_arguments operand name rest in Ok (Named (name, args), rest)
   | [] | _ :: _ -> let* p, rest = bound operand false tokens in Ok (Bound p, rest)
 let claim = claim_with (value 0)
 let proof_binder tokens =
@@ -400,7 +408,7 @@ let resolved_predicate env condition =
 let rec claim_type = function
   | Atomic ty -> ty
   | Bundle (a, b) -> "(prod (" ^ claim_type a ^ ", " ^ claim_type b ^ ") : Prop)"
-let resolved_claim predicates env claim =
+let resolve_claim leaf pair predicates env claim =
   let rec site = function
     | Named (at, _) -> Some at
     | Bound _ -> None
@@ -410,10 +418,10 @@ let resolved_claim predicates env claim =
     if (expanded && depth > 32) || remaining = 0 then fail at "LIMIT" "expanded claim exceeds depth 32 or 4096 nodes" else
     let remaining = remaining - 1 in
     match claim with
-    | Bound p -> let* ty, _op, _a, _b = resolved_predicate env p in Ok (Atomic ty, remaining)
+    | Bound p -> let* ty, op, a, b = resolved_predicate env p in Ok (leaf ty op a b, remaining)
     | Both (a, b) ->
       let* a, remaining = resolve predicates env expanded enclosing (depth + 1) remaining a in
-      let* b, remaining = resolve predicates env expanded enclosing (depth + 1) remaining b in Ok (Bundle (a, b), remaining)
+      let* b, remaining = resolve predicates env expanded enclosing (depth + 1) remaining b in Ok (pair a b, remaining)
     | Named (at, args) ->
       if List.mem_assoc at.text env then fail at "PREDICATE" "a local binding shadows this predicate" else
       let rec lookup = function
@@ -430,6 +438,25 @@ let resolved_claim predicates env claim =
       resolve earlier substitution true at (depth + 1) remaining row.definition in
   let start = Option.value (site claim) ~default:(here []) in
   let* ty, _remaining = resolve predicates env false start 0 4096 claim in Ok ty
+
+let resolved_claim predicates env claim =
+  resolve_claim (fun ty _op _a _b -> Atomic ty) (fun a b -> Bundle (a, b)) predicates env claim
+
+let resolved_condition predicates env at condition =
+  let rec claim = function
+    | Check p -> Bound p
+    | Conjoin (a, b) -> Both (claim a, claim b)
+    | Satisfy (name, args) -> Named (name, args) in
+  let* condition = resolve_claim (fun _ty op a b -> Runtime_check (op, a, b))
+    (fun a b -> Runtime_both (a, b)) predicates env (claim condition) in
+  let rec budget depth remaining condition =
+    if depth > 32 || remaining = 0 then
+      fail at "LIMIT" "expanded guard condition exceeds depth 32 or 64 bounds" else
+    match condition with
+    | Runtime_check _ -> Ok (remaining - 1)
+    | Runtime_both (a, b) ->
+      let* remaining = budget (depth + 1) remaining a in budget (depth + 1) remaining b in
+  let* _remaining = budget 0 64 condition in Ok condition
 
 let predicates_scope rows =
   List.fold_left (fun result row ->
@@ -569,7 +596,6 @@ let transaction fields errors invariants predicates helpers env (steps, ending) 
       let* v = word env v in Ok (args @ [v])) (Ok []) args in
     Ok (app "reject" ["(inj " ^ string_of_int index ^ " of " ^ string_of_int (List.length errors) ^
       " (tuple (" ^ String.concat ", " args ^ ")) : Error)"]) in
-  let predicate = resolved_predicate in
   let proof = proof predicates helpers in
   let rec lower index env state written evidence = function
     | [] -> (match ending with
@@ -598,21 +624,21 @@ let transaction fields errors invariants predicates helpers env (steps, ending) 
       | Add (name, a, b) -> arithmetic "add" name a b
       | Sub (name, a, b) -> arithmetic "sub" name a b
       | Prove (name, claim, error, condition) ->
+        let* condition = resolved_condition predicates env name condition in
         let* ty = resolved_claim env claim in
         let* no = Option.fold ~none:(Ok "abort") ~some:(reject env) error in
         let* yes = lower (index + 1) ((name.text, Proof_value (fresh, ty)) :: env)
           state written (evidence_for fresh ty evidence) rest in
         let rec guards ty condition local continue = match ty, condition with
-          | Atomic ty, Check condition ->
-            let* _ty, op, a, b = predicate env condition in
+          | Atomic ty, Runtime_check (op, a, b) ->
             let* next = continue local in
             let success = "(" ^ lambda ("0 " ^ local) ty next ^ " : (0 " ^ local ^ " : " ^ ty ^ ") -> Tx)" in
             Ok (app op [a; b; success; no])
-          | Bundle (a, b), Conjoin (left, right) ->
+          | Bundle (a, b), Runtime_both (left, right) ->
             guards a left (local ^ "a") (fun p ->
               guards b right (local ^ "b") (fun q ->
                 continue ("(tuple (" ^ p ^ ", " ^ q ^ "))")))
-          | Atomic _, Conjoin _ | Bundle _, Check _ ->
+          | Atomic _, Runtime_both _ | Bundle _, Runtime_check _ ->
             fail name "PROOF" "guard condition and proof bundle have different shapes" in
         guards ty condition (fresh ^ "_guard") (fun term ->
           Ok (erased_apply fresh (claim_type ty) "Tx" term yes))

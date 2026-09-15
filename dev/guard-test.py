@@ -233,11 +233,11 @@ def witness(name):
 
 def mutants():
     cases = [
-        ('CLAIM', 'emit/contract.ml', '| Prove (name, claim, error, condition) ->\n        let* ty = resolved_claim env claim in',
-         '| Prove (name, claim, error, condition) ->\n        let rec inferred_claim = function\n'
-         '          | Check p -> Bound p\n'
-         '          | Conjoin (a, b) -> Both (inferred_claim a, inferred_claim b) in\n'
-         '        let* ty = resolved_claim env (inferred_claim condition) in\n        let _claim = claim in',
+        ('CLAIM', 'emit/contract.ml', 'let* condition = resolved_condition predicates env name condition in\n        let* ty = resolved_claim env claim in',
+         'let* condition = resolved_condition predicates env name condition in\n        let rec inferred_claim = function\n'
+         '          | Runtime_check (op, a, b) -> Atomic (app (if op = "guardLe" then "Le" else "AddFits") [a; b])\n'
+         '          | Runtime_both (a, b) -> Bundle (inferred_claim a, inferred_claim b) in\n'
+         '        let ty = inferred_claim condition in\n        let _claim = claim in',
          'proof', 'ERROR-REFUSAL'),
         ('SCHEMA', 'emit/recognize.ml', 'Global.find name globals = Global.find name expected then Ok ()',
          '(name = "wordNat" || Global.find name globals = Global.find name expected) then Ok ()', 'schema', 'ERROR-REFUSAL'),

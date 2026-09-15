@@ -1,5 +1,149 @@
 # Assay M1 build log
 
+## 2026-09-15: named runtime guards
+
+The seventeenth M1 slice starts at
+`f8e4206e13fe732dbc13f1f46d93fefcde1cafc2`.
+Runtime conditions accept named predicates and expand them through the
+same scoped, simultaneous substitution as proof annotations. Expansion
+preserves condition order, custom failure payloads, erased evidence
+and final-state invariant obligations. Expanded runtime conditions
+share a 64-bound budget, with the existing predicate depth and node
+limits. Contextual predicate names, including `both`, remain usable.
+
+The new suite passes 96 source-model/Cancun comparisons, two creation
+outcomes, 27 refusals through three commands, ten five-file erasure
+variants, six accepted boundary forms and four compiler mutations with
+restored passing controls. The argument-order mutation uses a direct
+definition so nested reversals cannot cancel one another. The existing
+proof-guard CLAIM mutation now handles resolved runtime conditions;
+its witness and kill criterion are unchanged. The compound suite now
+rejects an unknown named runtime predicate in place of the formerly
+unsupported named-runtime form. Its count remains 26 refusals.
+
+All 50 functional legs pass in the default 52-leg battery, including
+both proof gates and the prior guard and predicate mutation suites.
+All 51 previous gate commands, deadlines and success markers are
+unchanged. Proof-cache reuse checks 35 source files and two pinned
+dependency revisions. The carried kernel, surface, proof sources,
+effect protocol and bytecode backend are unchanged.
+
+DENOMINATORS and M0-RATIO retain their existing failures against
+preserved older measurement inputs. Timing remains paused; the M1
+performance bound and milestone exit remain pending. The
+[validation archive](validation/2026-09-15-m1-named-guards/README.md)
+contains the battery, individual captures, source hashes and archive
+artifact manifest.
+
+
+### Review round 2026-09-15 (M1 named guards)
+
+A four-lens review of the staged slice kept two low findings. The fix
+round corrected both. The stage commit message file
+dev/STAGE-M1-NAMED-GUARDS-COMMIT.txt was absent, while every earlier
+M1 slice ships one. It is added with the claims of this slice. One
+prose row of dev/M1-NAMED-GUARDS.md was 73 columns. That paragraph is
+rewrapped with no word changed. No code, suite, count or gate marker
+moved, so every printed leg marker stays as measured. No row of
+dev/DENOMINATORS.sha256 needed a refresh. The gate result stays 50
+functional legs of 52, with DENOMINATORS and M0-RATIO red as staged.
+
+| id | sev | title | files |
+| --- | --- | --- | --- |
+| D-1 | low | missing commit message file | dev/STAGE-*-COMMIT.txt |
+| D-2 | low | prose row over 72 columns | dev/M1-NAMED-GUARDS.md |
+
+Refuted: 0. Merged and dropped: 0; D-1 and D-2 name different files
+and different defects, so no duplicate pair existed to merge.
+
+Gate log: gates-M1NG-1.log. Verdict GREEN-FUNCTIONAL: every red row
+is DENOMINATORS or M0-RATIO, the disclosed state of this slice while
+the timing gate is paused; pass=50 of 52 legs, fail=[DENOMINATORS,
+M0-RATIO], denom rows=[dev/M1-ERRORS.md, dev/M1-PROOFS.md,
+dev/M1-SURFACE-MUTATIONS.md, dev/M1-SURFACE.md, dev/contract-test.py,
+dev/errors-test.py, dev/gates.sh, dev/m1-emit-test.py,
+dev/model-test.py, dev/stage-a-gates.py, emit/contract.ml,
+emit/emit.ml, emit/model.ml, emit/recognize.ml], mutants=true,
+marker tails ok=true, timeout legs only=false, disclosed reds
+only=true, wrapper exit ok=true.
+
+STAGE-M1-LINE: STAGE-M1-NAMED-GUARDS FAIL
+M0-LINE: M0-VALIDATION FAIL; M0-EXIT requires the user commit and
+ratification
+EXIT 1 | LADDER-WRAPPER-EXIT 0 09:59:27
+PASS-COUNT: 50
+FAIL-LINES: FAIL DENOMINATORS exit=1 elapsed_ms=46.2 FAIL M0-RATIO
+exit=1 elapsed_ms=155.3
+DENOM-FAILED-ROWS: dev/M1-ERRORS.md: FAILED dev/M1-PROOFS.md: FAILED
+dev/M1-SURFACE-MUTATIONS.md: FAILED dev/M1-SURFACE.md: FAILED
+dev/contract-test.py: FAILED dev/errors-test.py: FAILED
+dev/gates.sh: FAILED dev/m1-emit-test.py: FAILED
+dev/model-test.py: FAILED dev/stage-a-gates.py: FAILED
+emit/contract.ml: FAILED emit/emit.ml: FAILED emit/model.ml: FAILED
+emit/recognize.ml: FAILED
+MUTANTS-TAIL: MUTANT TRUSTED-BOUND killed exit=1 MUTANTS killed=13/13
+OK
+CUSTOM-ERRORS-TAIL: ERROR-MUTANT ABI killed control=OK CUSTOM-ERRORS
+cases=66 creates=2 refusals=26 mutants=5 OK
+SOURCE-PROOFS-TAIL: SOURCE-PROOF-MUTANT ERROR-BRANCH killed
+control=OK SOURCE-PROOFS theorems=11 arithmetic=226 evm=16
+recovery=6 effects=7 invalid=13 mutants=6 controls=4 OK
+CONTRACT-ROUTE-TAIL: CONTRACT-ROUTE core=3 identity=true
+allocated_bytes=1472 bound=131072 OK
+CONTRACT-SURFACE-TAIL: SURFACE-MUTANTS killed=8/8 controls=8 OK
+CONTRACT-SURFACE counter=30 variants=14 refusals=36 mutants=8 OK
+SOURCE-MODEL-TAIL: MODEL-MUTANTS killed=8/8 controls=8 OK
+SOURCE-MODEL counter=30 variants=10 corpus=11 invalid=28 refusals=6
+mutants=8 OK
+DIFF-EXECUTOR-TAIL: DIFF-CHECKS killed=24/24 controls=1 OK
+DIFF-EXECUTOR live=20 driver=28 rejected=24 OK
+M1-EMISSION-TAIL: M1-MUTANTS killed=8/8 controls=8 OK M1-EMISSION
+counter=30 sources=8 refusals=11 mutants=8 OK
+COUNTER-REFERENCE-TAIL: COUNTER-MUTANT SELECTOR
+witness=increment-success killed control=OK COUNTER-REFERENCE
+cases=30 creates=2 mutants=8 value_rejected=5 covered=120
+scope=reference OK
+DRIVER-TAIL: DRIVER cases=24 OK
+DENOMINATORS-TAIL: verification/lean-toolchain: OK shasum: WARNING:
+14 computed checksums did NOT match
+M0-RATIO-TAIL: shasum: WARNING: 14 computed checksums did NOT match
+PROOF-BUILD-TAIL: OK lake: 0 errors, 0 sorries, 0 warnings
+PROOF-REPORT-LINES: 42
+
+```
+NAMED-GUARDS cases=96 creates=2 refusals=27 erasure=10 boundaries=6 mutants=4 OK
+```
+
+DENOMINATORS stayed red on the kept 119-row manifest; no rows-only
+refreeze ran in this review, and none belongs here. Rows refreshed
+by the fix: dev/validation/2026-09-15-m1-named-guards/SOURCES.json
+(939 entries after the refresh) and
+dev/validation/2026-09-15-m1-named-guards/ARTIFACTS.json (64 rows).
+The M0-RATIO remeasure is CARRIED to a calm host; dev/denominators
+.json and dev/measurements are never edited in this review.
+
+gate: GREEN-FUNCTIONAL (GREEN-FUNCTIONAL: every red row is
+DENOMINATORS or M0-RATIO, the disclosed state of this slice while
+the timing gate is paused: pass=50 of 52 legs, fail=[DENOMINATORS,
+M0-RATIO], denom rows=[dev/M1-ERRORS.md,dev/M1-PROOFS.md,
+dev/M1-SURFACE-MUTATIONS.md,dev/M1-SURFACE.md,dev/contract-test.py,
+dev/errors-test.py,dev/gates.sh,dev/m1-emit-test.py,
+dev/model-test.py,dev/stage-a-gates.py,emit/contract.ml,
+emit/emit.ml,emit/model.ml,emit/recognize.ml], mutants=true, marker
+tails ok=true (NAMED-GUARDS true, COMPOUND-GUARDS true,
+COMPOUND-INVARIANTS true, PREDICATES true, PROOF-BUNDLES true,
+PROOF-HELPERS true, INVARIANTS true, PROOF-TERMS true, PROOF-GUARDS
+true), timeout legs only=false, disclosed reds only=true, wrapper
+exit ok=true, stage=STAGE-M1-LINE: STAGE-M1-NAMED-GUARDS FAIL,
+m0=M0-LINE: M0-VALIDATION FAIL; M0-EXIT requires the user commit and
+ratification, exit=EXIT 1 | LADDER-WRAPPER-EXIT 0 09:59:27)
+
+The finders, the builder and the gate runner ran opus/medium. The
+verifiers, the judge and the check stage ran opus/high. The closer ran
+sonnet/medium. A Fable subagent dies on the [reasoning_extraction]
+classifier on this host, so the finder and builder rulings are reported
+unmet, and the closer kept the sonnet fallback ruling, never opus.
+
 ## 2026-09-14: compound proof guards
 
 Validation and archive checks completed on 2026-09-15.

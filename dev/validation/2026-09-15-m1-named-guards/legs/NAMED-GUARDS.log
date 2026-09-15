@@ -1,0 +1,9 @@
+NG-LIVE cases=96 OK
+NG-ERASURE variants=10 groups=3 OK
+NG-REFUSALS cases=27 commands=3 OK
+NG-BOUNDARIES accepted=6 OK
+NG-MUTANT ARGUMENT-ORDER killed control=OK
+NG-MUTANT SHADOW killed control=OK
+NG-MUTANT EXPANDED-BOUNDS killed control=OK
+NG-MUTANT SHARED-BUDGET killed control=OK
+NAMED-GUARDS cases=96 creates=2 refusals=27 erasure=10 boundaries=6 mutants=4 OK

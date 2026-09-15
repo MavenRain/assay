@@ -157,7 +157,7 @@ def negative_cases():
         ('extra-component', program(guard(condition=CONDITION + ' (leWord a b)')), 'SURFACE_SYNTAX'),
         ('missing-parens', program(guard(condition='both leWord a b (lt256 (add a b))')), 'SURFACE_SYNTAX'),
         ('uppercase-condition', program(guard(condition=CONDITION.replace('both', 'Both'), failure='')), 'SURFACE_PROOF'),
-        ('named-runtime', program(guard(condition='Bounds(a, b)', failure=''), definitions=I.NAMED), 'SURFACE_PROOF'),
+        ('unknown-named-runtime', program(guard(condition='Unknown(a, b)', failure=''), definitions=I.NAMED), 'SURFACE_PREDICATE'),
         ('runtime-depth', program(guard(condition=nested(33)[1])), 'SURFACE_LIMIT'),
         ('runtime-bounds', program(guard(*tree(65))), 'SURFACE_LIMIT'),
     ]

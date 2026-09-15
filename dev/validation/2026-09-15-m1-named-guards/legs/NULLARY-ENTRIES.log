@@ -1,0 +1,5 @@
+NULLARY-LIVE cases=18 widths=35 creates=2 covered=156 OK
+NULLARY-MUTANT SURFACE-UNIVERSE killed control=OK
+NULLARY-MUTANT UNIT-RECOGNIZER killed control=OK
+NULLARY-MUTANT UNIT-SCHEMA killed control=OK
+NULLARY-ENTRIES cases=53 creates=2 refusals=4 mutants=3 OK

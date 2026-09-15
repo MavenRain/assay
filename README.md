@@ -41,6 +41,10 @@ Definitions expand to the existing checked propositions before erasure.
 The fifteenth adds
 [compound storage invariants](dev/M1-COMPOUND-INVARIANTS.md),
 with checked evidence for every component of a nested or named bundle.
+The sixteenth adds [compound proof guards](dev/M1-COMPOUND-GUARDS.md),
+checking nested conditions in order and producing erased proof bundles.
+The seventeenth adds [named runtime guards](dev/M1-NAMED-GUARDS.md),
+reusing predicates in runtime conditions with checked expansion limits.
 
 ```sh
 zsh -f dev/dunecho.sh build
@@ -60,6 +64,7 @@ _build/default/bin/assay.exe emit examples/Errors.asy -o Errors-out
 _build/default/bin/assay.exe emit examples/CounterProofs.asy -o ProofCounter-out
 _build/default/bin/assay.exe emit examples/ProofTerms.asy -o ProofTerms-out
 _build/default/bin/assay.exe emit examples/CompoundInvariants.asy -o Bounds-out
+_build/default/bin/assay.exe emit examples/NamedGuards.asy -o NamedGuards-out
 _build/default/bin/assay.exe emit examples/CounterInvariant.asy -o CounterInvariant-out
 _build/default/bin/assay.exe emit examples/ProofHelpers.asy -o ProofHelpers-out
 _build/default/bin/assay.exe emit examples/ProofBundles.asy -o ProofBundles-out
