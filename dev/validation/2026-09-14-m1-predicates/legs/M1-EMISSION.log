@@ -1,0 +1,8 @@
+M1-DIFF cases=30 creates=2 covered=216 five_files=5 scope=core OK
+M1-SOURCES live=8 refusals=11 exports=2 OK
+M1-MUTANT CALLVALUE killed, restored control passed
+M1-MUTANT OVERFLOW killed, restored control passed
+M1-MUTANT BOUND killed, restored control passed
+M1-MUTANT SUBTRACTION killed, restored control passed
+M1-MUTANT HEAD killed, restored control passed
+M1-EMISSION FAIL: M1-CONTROL INIT-VALUEM1-EMISSION FAIL: Command '['/opt/homebrew/bin/evm', '--verbosity', '0', 'run', '--prestate', '/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-diff-vjudiph6/prestate.json', '--gas', '16777216', '--sender', '0x7e5f4552091a69125d5dfcb7b8c2659029395bdf', '--receiver', '0x0000000000000000000000007265636569766572', '--code', '346100ad57600436106100ad575f3560e01c5f525f51637cf5dab01461003c575f51633a9ebefd14610074575f51636d4ce63c1461009b576100ad565b602436106100ad576004356020525f545f525f51602051016040525f51604051106100ad57600154604051116100ad576040516100a2565b602436106100ad576004356020525f545f525f51602051116100ad576020515f51036100a2565b5f546100a6565b805f555b5f5260205ff35b5f5ffd', '--input', '6d4ce63c', '--value', '0', '--json', '--dump']' timed out after 30 seconds

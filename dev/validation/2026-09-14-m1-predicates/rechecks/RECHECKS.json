@@ -1,0 +1,35 @@
+{
+  "identity": {
+    "binary": "ede059b1a79ea4489a795bcf18d52fefe8f44f00ba636380e79687f7e6d2df59",
+    "compiler": "d47412738196e0f229651b1279524acbf7a2acb4dc004da991cff2ffdec71df5",
+    "gates": "ed4502e7a5f458c408e83c57124e1c6514c5a752f5d73c7018b917066f92730a"
+  },
+  "results": [
+    {
+      "name": "M1-EMISSION",
+      "command": [
+        "python3",
+        "-P",
+        "dev/m1-emit-test.py"
+      ],
+      "deadline_seconds": 600,
+      "marker": "M1-EMISSION counter=30 sources=8 refusals=11 mutants=8 OK",
+      "exit": 0,
+      "elapsed_ms": 184691.85412488878,
+      "passed": true
+    },
+    {
+      "name": "SOURCE-PROOFS",
+      "command": [
+        "python3",
+        "-P",
+        "dev/source-proof-test.py"
+      ],
+      "deadline_seconds": 600,
+      "marker": "SOURCE-PROOFS theorems=11 arithmetic=226 evm=16 recovery=6 effects=7 invalid=13 mutants=6 controls=4 OK",
+      "exit": 0,
+      "elapsed_ms": 132375.27108425274,
+      "passed": true
+    }
+  ]
+}

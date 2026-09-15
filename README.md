@@ -35,6 +35,9 @@ dependent Word and proof arguments checked before erasure.
 The thirteenth adds [proof bundles](dev/M1-PROOF-BUNDLES.md), with
 checked pairs, projections and component evidence for storage
 invariants.
+The fourteenth adds [named predicates](dev/M1-PREDICATES.md), reusable
+claims in proof helpers, guard annotations and storage invariants.
+Definitions expand to the existing checked propositions before erasure.
 
 ```sh
 zsh -f dev/dunecho.sh build

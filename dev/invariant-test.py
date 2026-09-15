@@ -216,8 +216,8 @@ def refusals(only=None):
 
 def mutants():
     cases = [
-        ('CONSTRUCTOR', 'obligations invariants initial [] "Type 0" "Eff"',
-         'obligations [] initial [] "Type 0" "Eff"', 'constructor'),
+        ('CONSTRUCTOR', 'obligations predicates invariants initial [] "Type 0" "Eff"',
+         'obligations predicates [] initial [] "Type 0" "Eff"', 'constructor'),
         ('FINAL', 'obligations changed state evidence "Tx" (app "done" [v])',
          'let _ = changed in obligations [] state evidence "Tx" (app "done" [v])', 'final'),
         ('STORE', 'lower index env ((field.text, Word_value v) :: List.remove_assoc field.text state)',

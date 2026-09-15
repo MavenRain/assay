@@ -83,8 +83,10 @@ or arguments, and the example discloses only `EvmOpcodes`.
 
 This slice changes no kernel, carried surface, proof protocol,
 arithmetic, assembler or Lean source. It adds no axiom or compiler
-theorem. Symbolic arithmetic lemmas, induction, user-defined predicates
-and epoch-indexed invariants remain separate work.
+theorem. Symbolic arithmetic lemmas, induction and epoch-indexed
+invariants remain separate work.
+The later [named predicate slice](M1-PREDICATES.md) supplies reusable
+names for atomic claims and bundles.
 
 ## Validation
 

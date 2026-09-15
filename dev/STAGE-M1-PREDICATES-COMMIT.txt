@@ -1,0 +1,26 @@
+M1: expand named predicates in erased proofs and storage invariants
+
+Add parameterized claims with bounded expansion and lexical scope.
+Validate unused definitions and arguments. Check expanded proof claims
+with the existing kernel and preserve the emitted bytes after erasure.
+
+Add 72 execution cases, two creation outcomes, 44 refusals, seven
+five-file comparisons, 12 boundaries and four mutations with controls.
+Retarget two prior mutation anchors without changing their witnesses.
+
+All 47 functional checks pass after scoped geth and Lean rechecks.
+Timing remains paused; DENOMINATORS and M0-RATIO fail against the
+preserved manifest and measurement. Archive the 49-leg battery and
+recheck without claiming a full battery pass or fresh performance
+result.
+
+Review pass 1 (2026-09-14) fixed 2 findings, both low. No gate count,
+deadline, frozen bound or measurement moved.
+A-1: the expansion LIMIT refusal now names the claim site instead of
+the sentinel line 1, column 1 for every Bound or Both node. resolve now
+carries an enclosing token, seeded from the outermost claim's first
+Named token and from each expansion's Named token, so the refusal
+names the claim site. Diagnostic only; no emitted byte changed.
+D-1: two prose rows over 72 columns were rewrapped,
+dev/M1-PREDICATES.md:91 and this file's Timing paragraph. No word or
+number changed.

@@ -1,5 +1,89 @@
 # Assay M1 build log
 
+## 2026-09-14: named predicates
+
+The fourteenth M1 slice starts at
+`21ee13539340b7bebf8e43c140c60898186d585a`.
+It adds parameterized predicates that expand to the existing bound and
+bundle claims. Helpers, annotations, guards and storage invariants can
+use the names. Every definition and supplied Word argument is validated,
+including unused ones. Substitution preserves scope and argument order.
+Recursive and forward predicate dependencies are refused. Expansion
+has a depth limit of 32 and a shared budget of 4096 visited nodes.
+
+Predicates add no core declaration, axiom or runtime object. The kernel
+continues to check every proof before erasure. Guards and invariants
+require one atomic expanded bound. Existing snapshot matching prevents
+old evidence from justifying an overwritten field or a fresh load.
+The carried kernel, surface, proof protocol, backend, assembler and
+Lean sources are unchanged.
+
+The new gate passes 72 source-model/Cancun cases, two creation outcomes,
+44 refusals through check/emit/run, seven five-file erasure comparisons,
+12 accepted boundaries and four mutations with passing restored
+controls. Guard and constructor mutation anchors follow the changed
+function calls without changing their witnesses, counts or outcomes.
+
+Validation ran in `/Users/oobi/Documents/gpt1/assay-m1-predicates`.
+All 47 functional checks passed after scoped rechecks. The initial
+49-leg battery recorded a geth timeout in M1-EMISSION and a Lean
+timeout in SOURCE-PROOFS. Both passed on recheck with their original
+commands and deadlines. The initial and recheck results are preserved.
+DENOMINATORS and M0-RATIO failed against the preserved
+manifest and measurement. Timing remains paused. No full battery pass
+or milestone exit is claimed.
+The proof cache check matched 35 source files and two pinned
+dependencies before reuse, and both proof gates subsequently ran.
+
+Trusted lines are kernel 3997/4000, emitter 1600/1800 and total new code
+2018/3550. `validation/2026-09-14-m1-predicates/` retains the complete
+battery, feature captures, controls, hashes and source identities.
+`M1-PREDICATES.md` specifies scope, expansion and erasure. Symbolic
+arithmetic lemmas and the M1 performance bound remain open.
+
+### Review round 2026-09-14 (M1 predicates)
+
+Review pass 1 (2026-09-14) fixed 2 findings, both low. No gate count,
+deadline, frozen bound or measurement moved.
+
+A-1: the expansion LIMIT refusal now names the claim site instead of
+the sentinel line 1, column 1 for every Bound or Both node. `resolve`
+now carries an enclosing token, seeded from the outermost claim's first
+Named token and from each expansion's Named token, so the refusal
+names the claim site. The sentinel stays for a claim tree with no
+Named node. Diagnostic only; no emitted byte changed, no gate count
+moved.
+
+D-1: two prose rows over 72 columns were rewrapped,
+`dev/M1-PREDICATES.md:91` and the Timing paragraph in
+`dev/STAGE-M1-PREDICATES-COMMIT.txt:11`. No word or number changed.
+
+### Closer bookkeeping
+
+Kept findings, both fixed:
+
+| id | sev | one line | files |
+| --- | --- | --- | --- |
+| A-1 | low | expansion LIMIT refusal named the sentinel line 1, column 1 for every Bound or Both node | emit/contract.ml |
+| D-1 | low | two prose rows exceeded the 72-column width | dev/M1-PREDICATES.md, dev/STAGE-M1-PREDICATES-COMMIT.txt |
+
+Refuted: 1 (D-2, the cited sentence is true as written and the
+grammar-widening premise is contradicted by the prior round).
+Merged and dropped: 1 (D-1-archive-rows, merged into D-1 with the
+scope cut; the dev/validation archive rows are dropped, matching the
+committed 2026-09-14-m1-proof-bundles archive).
+
+Gate log:
+/Users/oobi/Documents/assay-m1-predicates-review/gates-baseline.log
+
+```
+PREDICATES cases=72 creates=2 refusals=44 erasure=7 boundaries=12 mutants=4 OK
+```
+
+LOAD-AT-RUN 42, GATES-START 15:46:10, GATES-END 16:01:51, 47 PASS,
+FAIL only DENOMINATORS and M0-RATIO (timing paused, by design),
+PORCELAIN 85, UNSTAGED 0.
+
 ## 2026-09-14: checked proof bundles
 
 The thirteenth M1 slice starts at

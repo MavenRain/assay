@@ -6,7 +6,8 @@ let ( let* ) = Result.bind
 type token = { text : string; line : int; col : int }
 type word = Literal of token | Local of token
 type predicate = Ordered of word * word | Fits of word * word
-type claim = Bound of predicate | Both of claim * claim
+type claim = Bound of predicate | Both of claim * claim | Named of token * word list
+type predicate_row = { predicate_name : token; words : token list; definition : claim }
 type resolved_claim = Atomic of string | Bundle of resolved_claim * resolved_claim
 type proof =
   | Proof_unit
@@ -27,14 +28,14 @@ type step =
   | Store of token * word
   | Guard of word * word
   | Bind of token * word
-  | Prove of token * predicate * (token * word list) option * predicate
+  | Prove of token * claim * (token * word list) option * predicate
   | Proven of token * token * word * word * proof
   | Proof_bind of token * claim * proof
 type ending = Return of word | Unit of token | Revert of token | Reject of token * word list
 type body = step list * ending
 type entry = { name : token; args : token list; body : body }
 type error_row = { error_name : token; error_args : token list }
-type invariant = { invariant_name : token; claim : predicate }
+type invariant = { invariant_name : token; claim : claim }
 
 let fail at code detail =
   Error (Error.Parse ("SURFACE_" ^ code ^ ": " ^ detail, at.line, at.col))
@@ -74,7 +75,7 @@ let lex chars =
     | _c :: _rest -> fail (at "") "TOKEN" "unexpected character" in
   scan 0 1 1 [] chars
 
-let reserved = ["Both"] @ String.split_on_char ' '
+let reserved = ["Both"; "predicate"] @ String.split_on_char ' '
   "contract where storage entry constructor error invariant proof do sload sstore add sub guard le let pure revert Word Eff Sig Tx ResultWord Storage Entry Error main word ret put read EvmOpcodes done store load abort reject def axiom fun inj of case match as return with tuple sum prod absurd Prop Type in auto mu mutual end nu and rec natAdd natSub natMul natEq natLt Le Lt256 AddFits leWord lt256 wordNat guardLe guardAdd addLt subLe"
 let identifier tokens = match tokens with
   | at :: rest when Recognize.identifier at.text && at.text <> "_" &&
@@ -138,14 +139,26 @@ let bound operand runtime tokens =
     let* rest = expect ")" rest in Ok (Fits (a, b), rest)
   | [] | _ :: _ -> fail (here tokens) "PROOF" "expected an ordering or addition bound"
 let predicate runtime tokens = bound (value 0) runtime tokens
-let rec claim depth tokens =
+let rec claim_with operand depth tokens =
   if depth > 32 then fail (here tokens) "LIMIT" "claim nesting exceeds 32" else
   match tokens with
   | { text = "Both"; _ } :: rest ->
     let component tokens = let* rest = expect "(" tokens in
-      let* c, rest = claim (depth + 1) rest in let* rest = expect ")" rest in Ok (c, rest) in
+      let* c, rest = claim_with operand (depth + 1) rest in let* rest = expect ")" rest in Ok (c, rest) in
     let* a, rest = component rest in let* b, rest = component rest in Ok (Both (a, b), rest)
-  | [] | _ :: _ -> let* p, rest = predicate false tokens in Ok (Bound p, rest)
+  | name :: { text = "("; _ } :: rest when name.text <> "Le" && name.text <> "Lt256" ->
+    let* name, _rest = identifier [name] in
+    let rec arguments acc tokens =
+      if List.length acc >= 16 then fail name "LIMIT" "at most 16 predicate arguments" else
+      let* v, rest = operand tokens in
+      match rest with
+      | { text = ","; _ } :: rest -> arguments (v :: acc) rest
+      | [] | _ :: _ -> let* rest = expect ")" rest in Ok (Named (name, List.rev (v :: acc)), rest) in
+    (match rest with
+     | { text = ")"; _ } :: rest -> Ok (Named (name, []), rest)
+     | [] | _ :: _ -> arguments [] rest)
+  | [] | _ :: _ -> let* p, rest = bound operand false tokens in Ok (Bound p, rest)
+let claim = claim_with (value 0)
 let proof_binder tokens =
   let* rest = sequence ["("; "0"] tokens in
   let* name, rest = identifier rest in let* rest = expect ":" rest in
@@ -193,7 +206,7 @@ let rec proof_term depth tokens =
      | [] | _ :: _ -> Ok (Proof_name name, rest))
 let proof_guard tokens =
   let* (name, claim), rest = proof_binder tokens in
-  let* claim = match claim with Bound p -> Ok p
+  let* () = match claim with Bound _ | Named _ -> Ok ()
     | Both _ -> fail name "PROOF" "a guard establishes one bound" in
   let* rest = sequence ["<-"; "guard"] rest in
   let* error, rest = match rest with
@@ -320,6 +333,18 @@ let helper tokens =
   let* rest = expect ":=" rest in let* proof_body, rest = proof_term 0 rest in
   Ok ({ helper_name; parameters; conclusion; proof_body }, rest)
 
+let predicate_declaration tokens =
+  let* predicate_name, rest = identifier tokens in
+  let rec parameters names tokens = match tokens with
+    | { text = "("; _ } :: rest ->
+      if List.length names >= 16 then fail predicate_name "LIMIT" "at most 16 predicate parameters" else
+      let* rest = expect "0" rest in let* name, rest = named_word rest in
+      let* names = add_name name names in let* rest = expect ")" rest in parameters names rest
+    | [] | _ :: _ -> Ok (List.rev names, tokens) in
+  let* words, rest = parameters [] rest in
+  let* rest = sequence [":"; "Prop"; ":="] rest in
+  let* definition, rest = claim 0 rest in Ok ({ predicate_name; words; definition }, rest)
+
 let invariant state fields tokens =
   let* invariant_name, rest = identifier tokens in
   let* rest = expect "(" rest in let* snapshot, rest = identifier rest in
@@ -335,7 +360,10 @@ let invariant state fields tokens =
       if List.exists (fun at -> at.text = field.text) fields then Ok (Local field, rest)
       else fail field "SLOT" ("unknown invariant field " ^ field.text)
     | [] | _ :: _ -> fail (here tokens) "INVARIANT" "expected a snapshot field or literal" in
-  let* claim, rest = bound (operand 0) false rest in Ok ({ invariant_name; claim }, rest)
+  let* claim, rest = claim_with (operand 0) 0 rest in
+  let* () = match claim with Bound _ | Named _ -> Ok ()
+    | Both _ -> fail invariant_name "INVARIANT" "an invariant requires one bound" in
+  Ok ({ invariant_name; claim }, rest)
 
 let slot fields name =
   List.assoc_opt name.text fields
@@ -358,13 +386,48 @@ let resolved_predicate env condition =
 let rec claim_type = function
   | Atomic ty -> ty
   | Bundle (a, b) -> "(prod (" ^ claim_type a ^ ", " ^ claim_type b ^ ") : Prop)"
-let rec resolved_claim env = function
-  | Bound p -> let* ty, _op, _a, _b = resolved_predicate env p in Ok (Atomic ty)
-  | Both (a, b) -> let* a = resolved_claim env a in let* b = resolved_claim env b in Ok (Bundle (a, b))
+let resolved_claim predicates env claim =
+  let rec site = function
+    | Named (at, _) -> Some at
+    | Bound _ -> None
+    | Both (a, b) -> let left = site a in if Option.is_none left then site b else left in
+  let rec resolve predicates env expanded enclosing depth remaining claim =
+    let at = match claim with Named (at, _) -> at | Bound _ | Both _ -> enclosing in
+    if (expanded && depth > 32) || remaining = 0 then fail at "LIMIT" "expanded claim exceeds depth 32 or 4096 nodes" else
+    let remaining = remaining - 1 in
+    match claim with
+    | Bound p -> let* ty, _op, _a, _b = resolved_predicate env p in Ok (Atomic ty, remaining)
+    | Both (a, b) ->
+      let* a, remaining = resolve predicates env expanded enclosing (depth + 1) remaining a in
+      let* b, remaining = resolve predicates env expanded enclosing (depth + 1) remaining b in Ok (Bundle (a, b), remaining)
+    | Named (at, args) ->
+      if List.mem_assoc at.text env then fail at "PREDICATE" "a local binding shadows this predicate" else
+      let rec lookup = function
+        | [] -> fail at "PREDICATE" ("unknown or forward predicate " ^ at.text)
+        | row :: earlier when row.predicate_name.text = at.text -> Ok (row, earlier)
+        | _row :: earlier -> lookup earlier in
+      let* row, earlier = lookup predicates in
+      let rec arguments substitution parameters args = match parameters, args with
+        | [], [] -> Ok substitution
+        | name :: parameters, arg :: args ->
+          let* v = word env arg in arguments ((name.text, Word_value v) :: substitution) parameters args
+        | [], _ :: _ | _ :: _, [] -> fail at "PREDICATE" "wrong predicate argument count" in
+      let* substitution = arguments [] row.words args in
+      resolve earlier substitution true at (depth + 1) remaining row.definition in
+  let start = Option.value (site claim) ~default:(here []) in
+  let* ty, _remaining = resolve predicates env false start 0 4096 claim in Ok ty
+
+let predicates_scope rows =
+  List.fold_left (fun result row ->
+    let* earlier = result in
+    let env = List.mapi (fun i name -> name.text, Word_value ("_assay_pred" ^ string_of_int i)) row.words in
+    let* _ty = resolved_claim earlier env row.definition in Ok (row :: earlier)) (Ok []) rows
 let project first term = "(" ^ term ^ ")." ^ (if first then "0" else "1")
 (* Annotations preserve obligations even for unused erased arguments and
    declarations. Only kernel erasure may discard their checked terms. *)
-let rec proof ?(erased=true) helpers depth env expected term =
+let rec proof ?(erased=true) predicates helpers depth env expected term =
+  let resolved_claim = resolved_claim predicates in
+  let proof ~erased = proof ~erased predicates in
   let* actual, term = match term with
     | Proof_unit -> Ok (Atomic "(prod ())", "(tuple ())")
     | Proof_word (Literal at | Local at) -> fail at "PROOF" "a Word is not an erased proof"
@@ -426,7 +489,9 @@ let rec proof ?(erased=true) helpers depth env expected term =
   let ty = Option.value expected ~default:actual in
   Ok (ty, "(" ^ term ^ " : " ^ claim_type ty ^ ")")
 
-let helpers_source rows =
+let helpers_source predicates rows =
+  let resolved_claim = resolved_claim predicates in
+  let proof ~erased = proof ~erased predicates in
   let rec lower index helpers source = function
     | [] -> Ok (helpers, String.concat "" (List.rev source))
     | row :: rest ->
@@ -452,24 +517,31 @@ let helpers_source rows =
   lower 0 [] [] rows
 
 let invariant_fields row =
-  let a, b = match row.claim with Ordered (a, b) | Fits (a, b) -> a, b in
-  List.filter_map (function Literal _ -> None | Local at -> Some at.text) [a; b]
+  let rec operands = function
+    | Bound (Ordered (a, b) | Fits (a, b)) -> [a; b]
+    | Named (_at, args) -> args
+    | Both (a, b) -> operands a @ operands b in
+  List.filter_map (function Literal _ -> None | Local at -> Some at.text) (operands row.claim)
 let rec evidence_for term ty evidence =
   let evidence = (claim_type ty, term) :: evidence in
   match ty with
   | Atomic _ -> evidence
   | Bundle (a, b) -> evidence_for (project false term) b (evidence_for (project true term) a evidence)
-let obligations invariants state evidence result next =
+let obligations predicates invariants state evidence result next =
   List.fold_right (fun row result_body ->
     let* body = result_body in
     let* () = List.fold_left (fun result field -> let* () = result in
       if List.mem_assoc field state then Ok () else
       fail row.invariant_name "INVARIANT" ("load or store field " ^ field ^ " before proving the final state"))
       (Ok ()) (invariant_fields row) in
-    let* ty, _op, _a, _b = resolved_predicate state row.claim in
+    let* ty = resolved_claim predicates state row.claim in
+    let* ty = match ty with Atomic ty -> Ok ty
+      | Bundle _ -> fail row.invariant_name "INVARIANT" "an invariant requires one bound" in
     let proof = Option.value (List.assoc_opt ty evidence) ~default:"(tuple ())" in
     Ok (erased_apply ("_assay_inv_" ^ row.invariant_name.text) ty result proof body)) invariants (Ok next)
-let transaction fields errors invariants helpers env (steps, ending) =
+let transaction fields errors invariants predicates helpers env (steps, ending) =
+  let resolved_claim = resolved_claim predicates in
+  let obligations = obligations predicates in
   let reject env (name, args) =
     let* index, row = List.find_opt (fun (_i, row) -> row.error_name.text = name.text)
       (List.mapi (fun i row -> i, row) errors)
@@ -480,7 +552,7 @@ let transaction fields errors invariants helpers env (steps, ending) =
     Ok (app "reject" ["(inj " ^ string_of_int index ^ " of " ^ string_of_int (List.length errors) ^
       " (tuple (" ^ String.concat ", " args ^ ")) : Error)"]) in
   let predicate = resolved_predicate in
-  let proof = proof helpers in
+  let proof = proof predicates helpers in
   let rec lower index env state written evidence = function
     | [] -> (match ending with
       | Return v -> let* v = word env v in
@@ -508,7 +580,9 @@ let transaction fields errors invariants helpers env (steps, ending) =
       | Add (name, a, b) -> arithmetic "add" name a b
       | Sub (name, a, b) -> arithmetic "sub" name a b
       | Prove (name, claim, error, condition) ->
-        let* ty, _op, _a, _b = predicate env claim in
+        let* ty = resolved_claim env claim in
+        let* ty = match ty with Atomic ty -> Ok ty
+          | Bundle _ -> fail name "PROOF" "a guard establishes one bound" in
         let* _ty, op, a, b = predicate env condition in
         let* no = Option.fold ~none:(Ok "abort") ~some:(reject env) error in
         let* yes = lower (index + 1) ((name.text, Proof_value (fresh, Atomic ty)) :: env) state written ((ty, fresh) :: evidence) rest in
@@ -554,18 +628,20 @@ let constructor fields (steps, ending) =
       fail at "CONSTRUCTOR" "constructor accepts literal stores only")
     steps (Ok "(ret (word 256 0))")
 
-let generate state fields entries errors invariants helpers init =
+let generate state fields entries errors invariants predicates helpers init =
   let aliases = List.sort_uniq String.compare
     (List.map (fun at -> at.text) (fields @ List.concat_map (fun row -> row.args) entries @
       List.concat_map (fun row -> row.error_args) errors)) in
   let names = state :: List.map (fun row -> row.name) entries @ List.map (fun row -> row.error_name) errors @
-    List.map (fun row -> row.invariant_name) invariants @ List.map (fun row -> row.helper_name) helpers in
+    List.map (fun row -> row.invariant_name) invariants @ List.map (fun row -> row.helper_name) helpers @
+    List.map (fun row -> row.predicate_name) predicates in
   let* _names = List.fold_left (fun result name ->
     let* seen = result in
     if List.mem name.text (aliases @ seen) then fail name "DUPLICATE" ("conflicting global " ^ name.text)
     else Ok (name.text :: seen)) (Ok []) names in
   let field_slots = List.mapi (fun i at -> at.text, "storage." ^ string_of_int i) fields in
-  let* helper_scope, helper_source = helpers_source helpers in
+  let* predicates = predicates_scope predicates in
+  let* helper_scope, helper_source = helpers_source predicates helpers in
   let* init_term = Option.fold ~none:(Ok "(ret (word 256 0))") ~some:(constructor field_slots) init in
   let initial = List.map (fun at -> at.text, Word_value "(word 256 0)") fields in
   let* initial = List.fold_left (fun result step -> let* state = result in match step with
@@ -575,12 +651,12 @@ let generate state fields entries errors invariants helpers init =
     (Ok initial) (Option.fold ~none:[] ~some:fst init) in
   (* Constructor obligations live in its type, so the closed Eff backend never
      receives a proof closure. The kernel checks them before type erasure. *)
-  let* init_ty = obligations invariants initial [] "Type 0" "Eff" in
+  let* init_ty = obligations predicates invariants initial [] "Type 0" "Eff" in
   let init = "(" ^ init_term ^ " : " ^ init_ty ^ ")" in
   let* branches = List.fold_left (fun result (i, row) ->
     let* branches = result in
     let env = List.mapi (fun i at -> at.text, Word_value ("_assay_args." ^ string_of_int i)) row.args in
-    let* term = transaction field_slots errors invariants helper_scope env row.body in
+    let* term = transaction field_slots errors invariants predicates helper_scope env row.body in
     Ok (branches @ ["| " ^ string_of_int i ^ " (_assay_args : " ^ row.name.text ^ ") => " ^ term]))
     (Ok []) (List.mapi (fun i row -> i, row) entries) in
   let decl = Recognize.declaration in
@@ -614,35 +690,40 @@ let parse tokens =
   let* state, tokens = identifier tokens in
   let* tokens = expect ":=" tokens in
   let* fields, tokens = fields tokens in
-  let rec declarations entries errors invariants helpers init tokens = match tokens with
+  let rec declarations entries errors invariants predicates helpers init tokens =
+    let continue = declarations in match tokens with
     | { text = "entry"; _ } :: rest ->
       let* name, rest = identifier rest in
       let* _names = add_name name (List.map (fun row -> row.name) entries) in
       let* args, rest = arguments rest in
       let* rest = sequence [":"; "Eff"; "Sig"; "Word"; ":="] rest in
-      let* body, rest = body rest in declarations (entries @ [{ name; args; body }]) errors invariants helpers init rest
+      let* body, rest = body rest in continue (entries @ [{ name; args; body }]) errors invariants predicates helpers init rest
     | { text = "error"; _ } :: rest ->
       let* error_name, rest = identifier rest in
       let* _names = add_name error_name (List.map (fun row -> row.error_name) errors) in
       let* error_args, rest = arguments rest in
-      declarations entries (errors @ [{error_name; error_args}]) invariants helpers init rest
+      continue entries (errors @ [{error_name; error_args}]) invariants predicates helpers init rest
     | { text = "invariant"; _ } :: rest ->
       let* row, rest = invariant state fields rest in
       let* _names = add_name row.invariant_name (List.map (fun row -> row.invariant_name) invariants) in
-      declarations entries errors (invariants @ [row]) helpers init rest
+      continue entries errors (invariants @ [row]) predicates helpers init rest
+    | { text = "predicate"; _ } :: rest ->
+      let* row, rest = predicate_declaration rest in
+      let* _names = add_name row.predicate_name (List.map (fun row -> row.predicate_name) predicates) in
+      continue entries errors invariants (predicates @ [row]) helpers init rest
     | { text = "proof"; _ } :: rest ->
       let* row, rest = helper rest in
       let* _names = add_name row.helper_name (List.map (fun row -> row.helper_name) helpers) in
-      declarations entries errors invariants (helpers @ [row]) init rest
+      continue entries errors invariants predicates (helpers @ [row]) init rest
     | ({ text = "constructor"; _ } as at) :: rest ->
       if Option.is_some init then fail at "DUPLICATE" "duplicate constructor" else
       let* rest = expect ":=" rest in
-      let* init, rest = body rest in declarations entries errors invariants helpers (Some init) rest
+      let* init, rest = body rest in continue entries errors invariants predicates helpers (Some init) rest
     | [{ text = ""; _ }] ->
       if entries = [] then fail name "ENTRY" "at least one entry is required"
-      else let* core = generate state fields entries errors invariants helpers init in Ok (Some name.text, core)
-    | [] | _ :: _ -> fail (here tokens) "DECLARATION" "expected entry, error, invariant, proof, constructor or end of input" in
-  declarations [] [] [] [] None tokens
+      else let* core = generate state fields entries errors invariants predicates helpers init in Ok (Some name.text, core)
+    | [] | _ :: _ -> fail (here tokens) "DECLARATION" "expected entry, error, invariant, predicate, proof, constructor or end of input" in
+  declarations [] [] [] [] [] None tokens
 
 (* The route is decided on the byte sequence, so a core file never pays a list cell per byte. *)
 let rec skip_comment seq = match seq () with

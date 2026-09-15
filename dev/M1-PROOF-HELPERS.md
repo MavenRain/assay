@@ -28,6 +28,8 @@ all parameters. Word and proof names retain distinct roles.
 The later [proof bundle slice](M1-PROOF-BUNDLES.md) adds
 `Both (CLAIM) (CLAIM)` to parameters, conclusions and annotations.
 Guards keep their atomic bounds.
+The [named predicate slice](M1-PREDICATES.md) also permits parameterized
+claim names in signatures and annotations.
 
 `NAME(ARGUMENTS)` calls a helper inside a proof expression. Arguments
 are comma-separated and supplied in declaration order. A Word argument

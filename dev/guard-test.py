@@ -233,8 +233,8 @@ def witness(name):
 
 def mutants():
     cases = [
-        ('CLAIM', 'emit/contract.ml', '| Prove (name, claim, error, condition) ->\n        let* ty, _op, _a, _b = predicate env claim in',
-         '| Prove (name, claim, error, condition) ->\n        let* ty, _op, _a, _b = predicate env condition in\n        let _claim = claim in', 'proof', 'ERROR-REFUSAL'),
+        ('CLAIM', 'emit/contract.ml', '| Prove (name, claim, error, condition) ->\n        let* ty = resolved_claim env claim in',
+         '| Prove (name, claim, error, condition) ->\n        let* ty = resolved_claim env (Bound condition) in\n        let _claim = claim in', 'proof', 'ERROR-REFUSAL'),
         ('SCHEMA', 'emit/recognize.ml', 'Global.find name globals = Global.find name expected then Ok ()',
          '(name = "wordNat" || Global.find name globals = Global.find name expected) then Ok ()', 'schema', 'ERROR-REFUSAL'),
         ('SUB', 'emit/emit.ml', 'let op = if tag = (if errors = [] then 9 else 10) then Add else Sub in',
