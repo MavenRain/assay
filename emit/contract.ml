@@ -31,7 +31,7 @@ type step =
   | Guard of word * word
   | Bind of token * word
   | Prove of token * claim * (token * word list) option * condition
-  | Proven of token * token * word * word * proof
+  | Proven of token * token * word * word * proof option
   | Proof_bind of token * claim * proof
 type ending = Return of word | Unit of token | Revert of token | Reject of token * word list
 type body = step list * ending
@@ -292,7 +292,7 @@ let body tokens =
     | ({ text = "guard"; _ } as at) :: rest ->
       let* (error, condition), rest = guard_condition rest in
       (* Source identifiers cannot use this prefix. The checked evidence stays
-         available to final-state obligations without adding a source binding. *)
+         available to checked obligations without adding a source binding. *)
       let name = { at with text = "_assay_guard" } in
       next (Prove (name, condition_claim condition, error, condition)) rest
     | { text = "let"; _ } :: ({ text = "("; _ } :: _tail as rest) ->
@@ -304,7 +304,10 @@ let body tokens =
       let* rest = sequence [":"; "Word"; ":="] rest in
       (match rest with
        | op :: rest when op.text = "addLt" || op.text = "subLe" ->
-         let* (a, b), rest = binary rest in let* proof, rest = proof_term 0 rest in
+         let* (a, b), rest = binary rest in
+         let* proof, rest = match rest with
+           | { text = ";"; _ } :: _tail -> Ok (None, rest)
+           | [] | _ :: _ -> let* term, rest = proof_term 0 rest in Ok (Some term, rest) in
          next (Proven (op, name, a, b, proof)) rest
        | [] | _ :: _ -> let* word, rest = value 0 rest in next (Bind (name, word)) rest)
     | { text = "("; _ } :: _rest ->
@@ -664,7 +667,11 @@ let transaction fields errors invariants predicates helpers env (steps, ending) 
       | Proven (op, name, a, b, term) ->
         let* a = word env a in let* b = word env b in
         let ty = if op.text = "addLt" then app "AddFits" [a; b] else app "Le" [b; a] in
-        let* _ty, term = proof 0 env (Some (Atomic ty)) term in
+        (* The kernel checks the selected evidence against these operands.
+           A unit witness succeeds only when the bound reduces to true. *)
+        let* term = Option.fold
+          ~none:(fun () -> Ok ("(" ^ invariant_proof evidence (Atomic ty) ^ " : " ^ ty ^ ")"))
+          ~some:(fun term () -> let* _ty, term = proof 0 env (Some (Atomic ty)) term in Ok term) term () in
         let* next = bind name in Ok (app op.text [a; b; term; lambda fresh "Word 256" next])
       | Bind (name, v) ->
         let* v = word env v in let* next = bind name in

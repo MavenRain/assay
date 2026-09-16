@@ -1,0 +1,58 @@
+[
+  {
+    "name": "mutant-EVIDENCE",
+    "witness": "anonymous-add",
+    "expected_marker": "M1-TOOL anonymous-add",
+    "returncode": 1,
+    "source_sha256": "88b12d6a04b3225a78fdf13839953539ae30fb35401d3fca6edab4cdefb3f575"
+  },
+  {
+    "name": "control-EVIDENCE",
+    "witness": "anonymous-add",
+    "expected_marker": "M1-TOOL anonymous-add",
+    "returncode": 0,
+    "source_sha256": "3285a0d1435a23664724cc3fb718fadb1627d0cec7384efad4e654fb72f8c3c6"
+  },
+  {
+    "name": "mutant-SUB-ORDER",
+    "witness": "bound-sub",
+    "expected_marker": "M1-TOOL bound-sub",
+    "returncode": 1,
+    "source_sha256": "0c20991483e68563ef5ea1b9ab0c8f6d02f51d899a5842845c89a133c774416c"
+  },
+  {
+    "name": "control-SUB-ORDER",
+    "witness": "bound-sub",
+    "expected_marker": "M1-TOOL bound-sub",
+    "returncode": 0,
+    "source_sha256": "3285a0d1435a23664724cc3fb718fadb1627d0cec7384efad4e654fb72f8c3c6"
+  },
+  {
+    "name": "mutant-BUNDLE",
+    "witness": "bundle",
+    "expected_marker": "M1-TOOL bundle",
+    "returncode": 1,
+    "source_sha256": "7b9c0fccdc32d55e07a16369566eae378bdffe4aeb6fc0acced94883e2ec38c8"
+  },
+  {
+    "name": "control-BUNDLE",
+    "witness": "bundle",
+    "expected_marker": "M1-TOOL bundle",
+    "returncode": 0,
+    "source_sha256": "3285a0d1435a23664724cc3fb718fadb1627d0cec7384efad4e654fb72f8c3c6"
+  },
+  {
+    "name": "mutant-SUPPLIED",
+    "witness": "explicit-invalid",
+    "expected_marker": "ERROR-REFUSAL ia-explicit-invalid",
+    "returncode": 1,
+    "source_sha256": "3e19b9ee76cc68f649c1cbfed5e603bee83e8d42a25a107ff8281117025a7a3a"
+  },
+  {
+    "name": "control-SUPPLIED",
+    "witness": "explicit-invalid",
+    "expected_marker": "ERROR-REFUSAL ia-explicit-invalid",
+    "returncode": 0,
+    "source_sha256": "3285a0d1435a23664724cc3fb718fadb1627d0cec7384efad4e654fb72f8c3c6"
+  }
+]

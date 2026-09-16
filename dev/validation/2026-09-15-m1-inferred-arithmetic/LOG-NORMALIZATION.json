@@ -1,0 +1,7 @@
+{
+  "path": "legs/M0-RATIO.log",
+  "removed_bytes": 1,
+  "original_sha256": "ec85e15e82b74d0e3cd1c953654f0c1172ebde8e0de291bc692e2910eeb12b6c",
+  "archived_sha256": "73c325277a3d86c0775f7b76277ad65438669a45704051be6dd552b8240bdb0d",
+  "change": "Removed one trailing blank line; all other bytes match the raw leg log."
+}

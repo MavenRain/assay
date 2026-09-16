@@ -1,5 +1,120 @@
 # Assay M1 build log
 
+## 2026-09-15: inferred arithmetic proofs
+
+The nineteenth M1 slice starts at
+`ddeb22c5ce3ea1ceb4a50a7ece3d8ca4a04c1f7e`.
+`addLt` and `subLe` accept an omitted proof argument and reuse evidence
+for their resolved operands. The existing evidence table supplies
+named, anonymous, nested and proof-helper-produced bounds. A missing
+match becomes a unit witness whose expected type the kernel checks.
+Explicit proof arguments retain their checks, even when valid
+alternative evidence exists. Operand rebinding and storage reloads
+do not transfer evidence to a new value.
+
+The new suite passes 158 source-model/Cancun execution comparisons,
+two constructor outcomes, 24 refusals through three commands and
+16 inferred/explicit pairs comparing all five emitted files. Four
+compiler mutations are killed with restored passing controls.
+`InferredArithmetic.asy` expresses the bounded counter with anonymous
+guards and omitted arithmetic proofs.
+
+All 52 functional legs pass in the default 54-leg battery. The run
+took 416.1 seconds. Every prior command, deadline and success marker
+is unchanged. Both proof gates ran after cache reuse checks matched
+35 source files and two pinned dependency revisions. The carried
+kernel, surface, proof sources, protocol and backend are unchanged.
+
+DENOMINATORS and M0-RATIO retain their existing failures against
+preserved older measurement inputs. Timing remains paused; the M1
+performance bound and milestone exit remain pending. The new
+[validation archive](validation/2026-09-15-m1-inferred-arithmetic/)
+records each leg, execution and refusal captures, mutation controls,
+gate compatibility, source hashes and artifact hashes.
+
+### Review round 2026-09-15 (M1 inferred arithmetic)
+
+Kept findings:
+
+| id | severity | title | files |
+| --- | --- | --- | --- |
+| D-1 | medium | README battery paragraph named the removed | README.md |
+|     |        | `--m1-inferred-guards` selector and 53 legs |               |
+|     |        | instead of `--m1-inferred-arithmetic` and 54 | |
+
+Refuted: 1 (D-2, dev/M1-INFERRED-GUARDS.md:42, the forward-reference
+phrasing matches the repository's own convention in three earlier
+slices, so the row states no false fact).
+Merged and dropped: 0. No two lens findings named the same file and
+defect, and no kept item was cut for the 7-finding cap.
+
+Gate result (log gates-M1IA-1.log):
+verdict GREEN-FUNCTIONAL: every red row is DENOMINATORS or M0-RATIO,
+the disclosed state of this slice while the timing gate is paused.
+STAGE-M1-LINE: STAGE-M1-INFERRED-ARITHMETIC FAIL
+M0-LINE: M0-VALIDATION FAIL; M0-EXIT requires the user commit and
+ratification
+EXIT 1 | LADDER-WRAPPER-EXIT 0 20:53:52
+PASS-COUNT: 52
+FAIL-LINES: FAIL DENOMINATORS exit=1 elapsed_ms=63.9 FAIL M0-RATIO
+exit=1 elapsed_ms=198.8
+DENOM-FAILED-ROWS: dev/M1-ERRORS.md, dev/M1-PROOFS.md,
+dev/M1-SURFACE-MUTATIONS.md, dev/M1-SURFACE.md, dev/contract-test.py,
+dev/errors-test.py, dev/gates.sh, dev/m1-emit-test.py,
+dev/model-test.py, dev/stage-a-gates.py, emit/contract.ml,
+emit/emit.ml, emit/model.ml, emit/recognize.ml, all FAILED.
+MUTANTS-TAIL: MUTANT TRUSTED-BOUND killed exit=1 MUTANTS killed=13/13
+OK
+CUSTOM-ERRORS-TAIL: ERROR-MUTANT ABI killed control=OK CUSTOM-ERRORS
+cases=66 creates=2 refusals=26 mutants=5 OK
+SOURCE-PROOFS-TAIL: SOURCE-PROOF-MUTANT ERROR-BRANCH killed
+control=OK SOURCE-PROOFS theorems=11 arithmetic=226 evm=16
+recovery=6 effects=7 invalid=13 mutants=6 controls=4 OK
+CONTRACT-ROUTE-TAIL: CONTRACT-ROUTE core=3 identity=true
+allocated_bytes=1472 bound=131072 OK
+CONTRACT-SURFACE-TAIL: SURFACE-MUTANTS killed=8/8 controls=8 OK
+CONTRACT-SURFACE counter=30 variants=14 refusals=36 mutants=8 OK
+SOURCE-MODEL-TAIL: MODEL-MUTANTS killed=8/8 controls=8 OK
+SOURCE-MODEL counter=30 variants=10 corpus=11 invalid=28 refusals=6
+mutants=8 OK
+DIFF-EXECUTOR-TAIL: DIFF-CHECKS killed=24/24 controls=1 OK
+DIFF-EXECUTOR live=20 driver=28 rejected=24 OK
+M1-EMISSION-TAIL: M1-MUTANTS killed=8/8 controls=8 OK M1-EMISSION
+counter=30 sources=8 refusals=11 mutants=8 OK
+COUNTER-REFERENCE-TAIL: COUNTER-MUTANT SELECTOR
+witness=increment-success killed control=OK COUNTER-REFERENCE
+cases=30 creates=2 mutants=8 value_rejected=5 covered=120
+scope=reference OK
+DRIVER-TAIL: DRIVER cases=24 OK
+DENOMINATORS-TAIL: verification/lean-toolchain: OK shasum: WARNING:
+14 computed checksums did NOT match
+M0-RATIO-TAIL: shasum: WARNING: 14 computed checksums did NOT match
+PROOF-BUILD-TAIL: OK lake: 0 errors, 0 sorries, 0 warnings
+PROOF-REPORT-LINES: 42
+
+DENOMINATORS stayed red on the kept 119-row manifest; it was not
+refrozen rows-only, and dev/denominators.json and dev/measurements
+were not edited in this review. Rows refreshed by the fix: README.md
+and dev/validation/2026-09-15-m1-inferred-arithmetic/SOURCES.json
+(refresh-sources.py, entries=949 changed=1 added=0). The M0-RATIO
+remeasure is CARRIED to a calm host; it belongs to the close step,
+never to a fix round.
+
+gate: GREEN-FUNCTIONAL (every red row is DENOMINATORS or M0-RATIO,
+the disclosed state of this slice while the timing gate is paused:
+pass=52 of 54 legs, fail=[DENOMINATORS,M0-RATIO], mutants=true,
+marker tails ok=true, timeout legs only=false, disclosed reds
+only=true, wrapper exit ok=true)
+
+```
+INFERRED-ARITHMETIC cases=158 creates=2 refusals=24 erasure_pairs=16 mutants=4 OK
+```
+
+The finders and the builder ran fable/medium on the first attempt, with
+an opus/medium fallback when the first attempt returned null. The gate
+runner ran opus/medium. The verifiers, the judge and the check stage ran
+opus/high. The closer ran sonnet/medium, never opus.
+
 ## 2026-09-15: inferred guard evidence
 
 The eighteenth M1 slice starts at

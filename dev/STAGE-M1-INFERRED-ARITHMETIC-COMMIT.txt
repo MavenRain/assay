@@ -1,0 +1,13 @@
+M1: infer erased evidence for arithmetic operations
+
+Allow addLt and subLe to omit their proof argument and reuse checked
+evidence for the resolved operands. Keep explicit proof checking and
+kernel validation of every inferred obligation before erasure.
+
+Add the inferred counter, execution and refusal coverage, five-file
+erasure comparisons, and four compiler mutations with controls.
+Extend the gate battery while preserving every previous gate.
+
+Review pass 1 (2026-09-15) fixed 1 findings: D-1.
+D-1: README battery paragraph updated to name the
+--m1-inferred-arithmetic selector and the 54-leg battery.

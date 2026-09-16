@@ -39,6 +39,10 @@ use the internal `_assay` prefix. Use an explicit `(0 p : CLAIM)` binder
 when a later arithmetic operation or proof helper needs to name the
 evidence. The older `guard le a b` form retains its existing behavior.
 
+The next slice also supports [inferred arithmetic
+proofs](M1-INFERRED-ARITHMETIC.md). `addLt` and `subLe` can reuse this
+evidence without a source name when their proof argument is omitted.
+
 ## Invariants and limits
 
 Inferred evidence participates in final-state invariant checking,

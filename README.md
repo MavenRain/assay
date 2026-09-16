@@ -49,6 +49,9 @@ The eighteenth adds [inferred guard
 evidence](dev/M1-INFERRED-GUARDS.md), checking conditions without a
 repeated proof annotation and retaining their erased evidence for
 final-state invariants.
+The nineteenth adds [inferred arithmetic
+proofs](dev/M1-INFERRED-ARITHMETIC.md), letting `addLt` and `subLe`
+reuse checked evidence without an explicit proof argument.
 
 ```sh
 zsh -f dev/dunecho.sh build
@@ -234,9 +237,9 @@ The proof helper gate adds 104 cases, 50 refusals, seven closed erasure
 variants and four mutations with controls.
 `STAGE-M1-PROOF-HELPERS OK` requires all 47 legs to pass, including
 source proofs.
-`dev/gates.sh` selects `--m1-inferred-guards`. Its 53 legs include the
-proof-bundle, named-predicate, compound-invariant and named-guard
-suites.
+`dev/gates.sh` selects `--m1-inferred-arithmetic`. Its 54 legs
+include the proof-bundle, named-predicate, compound-invariant,
+named-guard and inferred-guard suites.
 The compound gate checks 64 execution cases, 24 refusals, eight erasure
 variants, ten boundary forms and four mutations with restored controls.
 The [compound guard gate](dev/M1-COMPOUND-GUARDS.md) adds 88 execution
@@ -246,6 +249,9 @@ bounds in source order and supplies their erased proof bundle.
 The inferred guard gate adds 112 execution comparisons, two creation
 outcomes, 24 refusals, 14 pairs of equivalent five-file outputs, six
 boundary forms and four mutations with restored controls.
+The inferred arithmetic gate adds 158 execution comparisons, two
+creation outcomes, 24 refusals, 16 pairs of equivalent five-file
+outputs and four mutations with restored controls.
 The current slice's timing gate is paused following the
 [measurement diagnosis](dev/TIMING-DEBUG.md); it has no fresh timing verdict.
 The preserved denominator manifest and measurement describe an older
