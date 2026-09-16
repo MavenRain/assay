@@ -1,5 +1,45 @@
 # Assay M1 build log
 
+## 2026-09-16: inferred proof-helper arguments
+
+The twentieth M1 slice starts at
+`aa8c433ce7bfc1882897e8ab6c93e29ae898a3b2`.
+Proof helper calls can omit trailing proof arguments and reuse checked
+evidence for their instantiated claims. Evidence includes transaction
+guards, proof bindings, bundle components, helper parameters and
+proof-local bindings. Supplied proof arguments contribute to later
+arguments of the same call. Word parameters remain explicit.
+
+Every supplied and inferred proof keeps its kernel obligation before
+erasure, including unused arguments and reverting continuations.
+Proofs reused within a call receive a checked local binding so nested
+calls reuse names instead of copying growing proof expressions. The
+depth-128 regression generates 179,202 bytes of checked core and emits
+the same five files as its simple counterpart.
+
+The new suite passes 254 source-model/Cancun comparisons, two
+constructor outcomes, 26 refusals through three commands, 24
+inferred/explicit erasure pairs and six accepted boundary forms. Five
+compiler mutations are killed with restored passing controls,
+including a mutation restoring proof-expression duplication.
+`InferredHelpers.asy` uses omitted helper proofs for the counter.
+
+The older helper suite now tests a missing Word argument, since a
+missing trailing proof can be inferred. Its argument-order mutation
+targets the extended lowering result while retaining its original
+witness. All 54 earlier commands, deadlines and markers are unchanged.
+
+All 53 functional legs pass in the default 55-leg battery, which took
+824.0 seconds. Both proof gates ran after cache checks matched 35
+source files and two pinned dependency revisions. The
+[validation archive](validation/2026-09-16-m1-inferred-helpers/)
+records each leg, execution and refusal captures, mutation controls,
+nesting bounds, gate compatibility and source and artifact hashes.
+
+Timing remains paused. The preserved measurement inputs retain their
+existing DENOMINATORS and M0-RATIO failures; the M1 performance bound
+and milestone exit remain pending.
+
 ## 2026-09-15: inferred arithmetic proofs
 
 The nineteenth M1 slice starts at

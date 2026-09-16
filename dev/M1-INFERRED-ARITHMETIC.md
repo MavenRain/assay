@@ -51,9 +51,10 @@ explicit proof when kernel conversion can justify an alias that this
 lookup does not recognize. The older `guard le a b` statement does
 not introduce erased evidence.
 
-Proof helper arguments still require explicit terms. Constructors
-still accept literal stores only. Existing effect, expression and
-predicate expansion limits apply.
+The later [inferred helper slice](M1-INFERRED-HELPERS.md) permits
+omitted trailing proof arguments in helper calls. Constructors still
+accept literal stores only. Existing effect, expression and predicate
+expansion limits apply.
 
 ## Validation
 
@@ -67,7 +68,7 @@ predicate expansion limits apply.
 - Four [compiler mutations](M1-INFERRED-ARITHMETIC-MUTATIONS.md)
   with restored passing controls.
 
-`dev/gates.sh` selects `--m1-inferred-arithmetic`, adding one leg to
+The `--m1-inferred-arithmetic` selector adds one leg to
 the previous 53-leg battery. Prior commands, deadlines and success
 markers remain unchanged. The kernel, carried surface, proof sources,
 effect protocol and backend are unchanged.

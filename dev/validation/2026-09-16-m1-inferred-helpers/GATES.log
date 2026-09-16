@@ -1,0 +1,300 @@
+PASS BUILD exit=0 elapsed_ms=213.9
+PASS PIN-CARRY exit=0 elapsed_ms=1411.4
+PASS R0-COUNT exit=0 elapsed_ms=378.2
+PASS R0-AUDIT exit=0 elapsed_ms=137.1
+PASS HOUSE exit=0 elapsed_ms=2556.8
+PASS TRUSTED-LINES exit=0 elapsed_ms=47.7
+PASS SUITE-KERNEL exit=0 elapsed_ms=326.5
+PASS SUITE-SURFACE exit=0 elapsed_ms=15.9
+PASS DRIVER exit=0 elapsed_ms=246.3
+PASS MUTANTS exit=0 elapsed_ms=8733.8
+FAIL DENOMINATORS exit=1 elapsed_ms=72.8
+abi/abi.ml: OK
+abi/dune: OK
+abi/layout.ml: OK
+asm/asm.ml: OK
+asm/dune: OK
+asm/listing.ml: OK
+bin/assay.ml: OK
+bin/differential.ml: OK
+bin/dune: OK
+bin/trace.ml: OK
+corpus/MANIFEST.json: OK
+corpus/contracts/Arithmetic.asy: OK
+corpus/contracts/Maximum.asy: OK
+corpus/contracts/Pair.asy: OK
+corpus/contracts/Ref20.asy: OK
+corpus/contracts/Return.asy: OK
+corpus/contracts/TwoSlots.asy: OK
+corpus/contracts/WideLabel.asy: OK
+corpus/contracts/Zero.asy: OK
+corpus/proofs/Apply.asy: OK
+corpus/proofs/Leaf.asy: OK
+corpus/proofs/Let.asy: OK
+dev/M1-ERROR-MUTATIONS.md: OK
+dev/M1-ERRORS.md: FAILED
+dev/M1-NULLARY-MUTATIONS.md: OK
+dev/M1-NULLARY.md: OK
+dev/M1-PROOF-MUTATIONS.md: OK
+dev/M1-PROOFS.md: FAILED
+dev/M1-SURFACE-MUTATIONS.md: FAILED
+dev/M1-SURFACE.md: FAILED
+dev/PIN: OK
+dev/TIMING-DEBUG.md: OK
+dev/contract-test.py: FAILED
+dev/corpus-data.py: OK
+dev/corpus-test.py: OK
+dev/counter-test.py: OK
+dev/denominator.sh: OK
+dev/denominators-stage-0.json: OK
+dev/denominators.json: OK
+dev/diff-test.py: OK
+dev/dunecho.sh: OK
+dev/emit-test.py: OK
+dev/errors-test.py: FAILED
+dev/gates.sh: FAILED
+dev/import-check.sh: OK
+dev/m1-emit-test.py: FAILED
+dev/measurements/2026-09-11-m0-stage-f.json: OK
+dev/measurements/2026-09-11-m1-emission.json: OK
+dev/measurements/2026-09-12-m1-nullary.json: OK
+dev/measurements/2026-09-12-m1-proofs.json: OK
+dev/measurements/2026-09-12-m1-run.json: OK
+dev/measurements/2026-09-12-m1-surface.json: OK
+dev/model-test.py: FAILED
+dev/nullary-test.py: OK
+dev/ratio.py: OK
+dev/ratio.sh: OK
+dev/source-proof-test.py: OK
+dev/stage-a-gates.py: FAILED
+dev/stage-a-test.py: OK
+dev/trace-test.py: OK
+dune: OK
+dune-project: OK
+emit/contract.ml: FAILED
+emit/contract.mli: OK
+emit/dune: OK
+emit/emit.ml: FAILED
+emit/model.ml: FAILED
+emit/model.mli: OK
+emit/recognize.ml: FAILED
+evm/diff.py: OK
+examples/Counter.asy: OK
+examples/CounterSurface.asy: OK
+examples/Errors.asy: OK
+examples/Nullary.asy: OK
+keccak/dune: OK
+keccak/keccak.ml: OK
+lib/bignum.ml: OK
+lib/budget.ml: OK
+lib/budget.mli: OK
+lib/check.ml: OK
+lib/conv.ml: OK
+lib/dune: OK
+lib/erase.ml: OK
+lib/error.ml: OK
+lib/eterm.ml: OK
+lib/eval.ml: OK
+lib/global.ml: OK
+lib/level.ml: OK
+lib/level.mli: OK
+lib/literal.ml: OK
+lib/order.ml: OK
+lib/positivity.ml: OK
+lib/pp.ml: OK
+lib/prim.ml: OK
+lib/quantity.ml: OK
+lib/rules.ml: OK
+lib/shape.ml: OK
+lib/spec_count.ml: OK
+lib/term.ml: OK
+lib/totality.ml: OK
+lib/value.ml: OK
+surface/dune: OK
+surface/elab.ml: OK
+surface/lexer.ml: OK
+surface/parser.ml: OK
+surface/syntax.ml: OK
+surface/token.ml: OK
+test/contract_route.ml: OK
+test/emit_cases.ml: OK
+verification/.gitignore: OK
+verification/AssayProofs.lean: OK
+verification/AssayProofs/Arithmetic.lean: OK
+verification/AssayProofs/Source.lean: OK
+verification/Axioms.lean: OK
+verification/Main.lean: OK
+verification/README.md: OK
+verification/lake-manifest.json: OK
+verification/lakefile.lean: OK
+verification/lean-toolchain: OK
+shasum: WARNING: 14 computed checksums did NOT match
+
+PASS KECCAK-VEC exit=0 elapsed_ms=1488.8
+PASS KECCAK-MUTANTS exit=0 elapsed_ms=8678.4
+PASS STACK-HEIGHT exit=0 elapsed_ms=2861.9
+PASS DISASM-3WAY exit=0 elapsed_ms=757.2
+PASS ASM-MUTANTS exit=0 elapsed_ms=14967.2
+PASS FORK-DRIFT exit=0 elapsed_ms=248.7
+PASS M0-TRACE exit=0 elapsed_ms=163.9
+PASS CREATE-EQ exit=0 elapsed_ms=137.6
+PASS REFERENCE-CHECKS exit=0 elapsed_ms=204.1
+PASS REFERENCE-MUTANTS exit=0 elapsed_ms=1931.5
+PASS EMIT-CONSTRUCTORS exit=0 elapsed_ms=309.8
+PASS WORD-UNBOX exit=0 elapsed_ms=6.2
+PASS STORAGE-NOCLOS exit=0 elapsed_ms=7.7
+PASS ABI-GOLD exit=0 elapsed_ms=254.6
+PASS EMITTED-TRACE exit=0 elapsed_ms=144.4
+PASS EMIT-SOURCES exit=0 elapsed_ms=1197.7
+PASS EMIT-MUTANTS exit=0 elapsed_ms=22520.0
+PASS AXIOMS exit=0 elapsed_ms=10938.4
+PASS TRACE-DRIVER exit=0 elapsed_ms=1496.3
+PASS CORPUS exit=0 elapsed_ms=3524.2
+PASS ERASED-BYTES exit=0 elapsed_ms=188.5
+FAIL M0-RATIO exit=1 elapsed_ms=424.9
+M0-RATIO FAIL RATIO-COMMAND exit=1: ['shasum', '-a', '256', '-c', 'dev/DENOMINATORS.sha256']: abi/abi.ml: OK
+abi/dune: OK
+abi/layout.ml: OK
+asm/asm.ml: OK
+asm/dune: OK
+asm/listing.ml: OK
+bin/assay.ml: OK
+bin/differential.ml: OK
+bin/dune: OK
+bin/trace.ml: OK
+corpus/MANIFEST.json: OK
+corpus/contracts/Arithmetic.asy: OK
+corpus/contracts/Maximum.asy: OK
+corpus/contracts/Pair.asy: OK
+corpus/contracts/Ref20.asy: OK
+corpus/contracts/Return.asy: OK
+corpus/contracts/TwoSlots.asy: OK
+corpus/contracts/WideLabel.asy: OK
+corpus/contracts/Zero.asy: OK
+corpus/proofs/Apply.asy: OK
+corpus/proofs/Leaf.asy: OK
+corpus/proofs/Let.asy: OK
+dev/M1-ERROR-MUTATIONS.md: OK
+dev/M1-ERRORS.md: FAILED
+dev/M1-NULLARY-MUTATIONS.md: OK
+dev/M1-NULLARY.md: OK
+dev/M1-PROOF-MUTATIONS.md: OK
+dev/M1-PROOFS.md: FAILED
+dev/M1-SURFACE-MUTATIONS.md: FAILED
+dev/M1-SURFACE.md: FAILED
+dev/PIN: OK
+dev/TIMING-DEBUG.md: OK
+dev/contract-test.py: FAILED
+dev/corpus-data.py: OK
+dev/corpus-test.py: OK
+dev/counter-test.py: OK
+dev/denominator.sh: OK
+dev/denominators-stage-0.json: OK
+dev/denominators.json: OK
+dev/diff-test.py: OK
+dev/dunecho.sh: OK
+dev/emit-test.py: OK
+dev/errors-test.py: FAILED
+dev/gates.sh: FAILED
+dev/import-check.sh: OK
+dev/m1-emit-test.py: FAILED
+dev/measurements/2026-09-11-m0-stage-f.json: OK
+dev/measurements/2026-09-11-m1-emission.json: OK
+dev/measurements/2026-09-12-m1-nullary.json: OK
+dev/measurements/2026-09-12-m1-proofs.json: OK
+dev/measurements/2026-09-12-m1-run.json: OK
+dev/measurements/2026-09-12-m1-surface.json: OK
+dev/model-test.py: FAILED
+dev/nullary-test.py: OK
+dev/ratio.py: OK
+dev/ratio.sh: OK
+dev/source-proof-test.py: OK
+dev/stage-a-gates.py: FAILED
+dev/stage-a-test.py: OK
+dev/trace-test.py: OK
+dune: OK
+dune-project: OK
+emit/contract.ml: FAILED
+emit/contract.mli: OK
+emit/dune: OK
+emit/emit.ml: FAILED
+emit/model.ml: FAILED
+emit/model.mli: OK
+emit/recognize.ml: FAILED
+evm/diff.py: OK
+examples/Counter.asy: OK
+examples/CounterSurface.asy: OK
+examples/Errors.asy: OK
+examples/Nullary.asy: OK
+keccak/dune: OK
+keccak/keccak.ml: OK
+lib/bignum.ml: OK
+lib/budget.ml: OK
+lib/budget.mli: OK
+lib/check.ml: OK
+lib/conv.ml: OK
+lib/dune: OK
+lib/erase.ml: OK
+lib/error.ml: OK
+lib/eterm.ml: OK
+lib/eval.ml: OK
+lib/global.ml: OK
+lib/level.ml: OK
+lib/level.mli: OK
+lib/literal.ml: OK
+lib/order.ml: OK
+lib/positivity.ml: OK
+lib/pp.ml: OK
+lib/prim.ml: OK
+lib/quantity.ml: OK
+lib/rules.ml: OK
+lib/shape.ml: OK
+lib/spec_count.ml: OK
+lib/term.ml: OK
+lib/totality.ml: OK
+lib/value.ml: OK
+surface/dune: OK
+surface/elab.ml: OK
+surface/lexer.ml: OK
+surface/parser.ml: OK
+surface/syntax.ml: OK
+surface/token.ml: OK
+test/contract_route.ml: OK
+test/emit_cases.ml: OK
+verification/.gitignore: OK
+verification/AssayProofs.lean: OK
+verification/AssayProofs/Arithmetic.lean: OK
+verification/AssayProofs/Source.lean: OK
+verification/Axioms.lean: OK
+verification/Main.lean: OK
+verification/README.md: OK
+verification/lake-manifest.json: OK
+verification/lakefile.lean: OK
+verification/lean-toolchain: OK
+shasum: WARNING: 14 computed checksums did NOT match
+
+
+PASS F-MUTANTS exit=0 elapsed_ms=486.5
+PASS DIFF-EXECUTOR exit=0 elapsed_ms=8495.1
+PASS COUNTER-REFERENCE exit=0 elapsed_ms=3884.9
+PASS M1-EMISSION exit=0 elapsed_ms=74039.3
+PASS SOURCE-MODEL exit=0 elapsed_ms=37843.4
+PASS CONTRACT-SURFACE exit=0 elapsed_ms=44032.8
+PASS CONTRACT-ROUTE exit=0 elapsed_ms=352.5
+PASS SOURCE-PROOFS exit=0 elapsed_ms=77725.4
+PASS NULLARY-ENTRIES exit=0 elapsed_ms=21686.6
+PASS CUSTOM-ERRORS exit=0 elapsed_ms=46093.0
+PASS PROOF-GUARDS exit=0 elapsed_ms=34042.9
+PASS PROOF-TERMS exit=0 elapsed_ms=34112.5
+PASS INVARIANTS exit=0 elapsed_ms=38551.8
+PASS PROOF-HELPERS exit=0 elapsed_ms=41750.7
+PASS PROOF-BUNDLES exit=0 elapsed_ms=38723.5
+PASS PREDICATES exit=0 elapsed_ms=21269.8
+PASS COMPOUND-INVARIANTS exit=0 elapsed_ms=21079.6
+PASS COMPOUND-GUARDS exit=0 elapsed_ms=22872.7
+PASS NAMED-GUARDS exit=0 elapsed_ms=22971.7
+PASS INFERRED-GUARDS exit=0 elapsed_ms=55770.2
+PASS INFERRED-ARITHMETIC exit=0 elapsed_ms=40546.2
+PASS INFERRED-HELPERS exit=0 elapsed_ms=51111.4
+M0-VALIDATION FAIL; M0-EXIT requires the user commit and ratification
+STAGE-M1-INFERRED-HELPERS FAIL

@@ -37,6 +37,9 @@ are comma-separated and supplied in declaration order. A Word argument
 is a local Word or `word N`, with optional parentheses. A proof argument
 uses the existing proof-expression grammar, including nested calls.
 Constants have no parameters and are called with `NAME()`.
+The later [inferred helper slice](M1-INFERRED-HELPERS.md) also permits
+omitting a trailing sequence of proof arguments, using checked evidence
+for their instantiated claims. Word arguments remain explicit.
 
 Helpers can call earlier helpers. Recursion and forward references
 between helpers are refused. Entries can call any declared helper,

@@ -1,0 +1,12 @@
+M1: infer trailing proof-helper arguments
+
+Reuse checked evidence for omitted trailing helper proof arguments,
+including bundles, helper parameters and proof-local bindings. Keep
+Word arguments explicit and validate supplied and inferred proofs
+before erasure.
+
+Bind reused proofs once to keep nested call lowering from expanding
+their syntax exponentially. Add execution, scope, refusal, boundary
+and five-file erasure coverage, plus five mutations with controls.
+Extend the gate battery while preserving previous commands, deadlines
+and markers.

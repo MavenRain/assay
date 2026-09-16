@@ -153,7 +153,7 @@ def negative_cases():
         ('argument-word', good.replace('ordered(b, a, p)', 'ordered(b, a, a)'), 'SURFACE_PROOF'),
         ('word-proof', good.replace('ordered(b, a, p)', 'ordered(p, a, p)'), 'SURFACE_PROOF'),
         ('word-expression', good.replace('ordered(b, a, p)', 'ordered((), a, p)'), 'SURFACE_PROOF'),
-        ('missing-argument', good.replace('ordered(b, a, p)', 'ordered(b, a)'), 'SURFACE_PROOF'),
+        ('missing-argument', good.replace('ordered(b, a, p)', 'ordered(b)'), 'SURFACE_PROOF'),
         ('extra-argument', good.replace('ordered(b, a, p)', 'ordered(b, a, p, p)'), 'SURFACE_PROOF'),
         ('empty-arguments', good.replace('ordered(b, a, p)', 'ordered()'), 'SURFACE_PROOF'),
         ('constant-argument', no_args.replace('five()', 'five(())'), 'SURFACE_PROOF'),
@@ -256,7 +256,8 @@ def mutants():
          'if false then fail at "PROOF" "a local binding shadows this proof helper" else', 'word-shadow', 'ERROR-REFUSAL word-shadow'),
         ('MEMBERS', 'let* _names = add_name row.helper_name (List.map (fun row -> row.helper_name) helpers) in',
          'let* _names = Ok [] in', 'helpers', 'ERROR-REFUSAL helpers'),
-        ('ARGUMENTS', '| [], [] -> Ok (substitution, List.rev values)', '| [], [] -> Ok (substitution, values)', 'apply-order', 'M1-TOOL apply-order'),
+        ('ARGUMENTS', '| [], [] -> Ok (substitution, List.rev values, List.rev bindings)',
+         '| [], [] -> Ok (substitution, values, List.rev bindings)', 'apply-order', 'M1-TOOL apply-order'),
     ]
     with tempfile.TemporaryDirectory(prefix='assay-helper-mutants-') as temporary:
         copy = Path(temporary) / 'copy'

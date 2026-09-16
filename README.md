@@ -52,6 +52,9 @@ final-state invariants.
 The nineteenth adds [inferred arithmetic
 proofs](dev/M1-INFERRED-ARITHMETIC.md), letting `addLt` and `subLe`
 reuse checked evidence without an explicit proof argument.
+The twentieth adds [inferred helper
+arguments](dev/M1-INFERRED-HELPERS.md), letting proof helpers reuse
+checked evidence for omitted trailing proof arguments.
 
 ```sh
 zsh -f dev/dunecho.sh build
@@ -73,6 +76,7 @@ _build/default/bin/assay.exe emit examples/ProofTerms.asy -o ProofTerms-out
 _build/default/bin/assay.exe emit examples/CompoundInvariants.asy -o Bounds-out
 _build/default/bin/assay.exe emit examples/NamedGuards.asy -o NamedGuards-out
 _build/default/bin/assay.exe emit examples/InferredGuards.asy -o InferredGuards-out
+_build/default/bin/assay.exe emit examples/InferredHelpers.asy -o InferredHelpers-out
 _build/default/bin/assay.exe emit examples/CounterInvariant.asy -o CounterInvariant-out
 _build/default/bin/assay.exe emit examples/ProofHelpers.asy -o ProofHelpers-out
 _build/default/bin/assay.exe emit examples/ProofBundles.asy -o ProofBundles-out
@@ -237,9 +241,12 @@ The proof helper gate adds 104 cases, 50 refusals, seven closed erasure
 variants and four mutations with controls.
 `STAGE-M1-PROOF-HELPERS OK` requires all 47 legs to pass, including
 source proofs.
-`dev/gates.sh` selects `--m1-inferred-arithmetic`. Its 54 legs
+`dev/gates.sh` selects `--m1-inferred-helpers`. Its 55 legs
 include the proof-bundle, named-predicate, compound-invariant,
-named-guard and inferred-guard suites.
+named-guard, inferred-guard and inferred-arithmetic suites.
+The inferred-helper gate adds 254 source/EVM comparisons, two creation
+outcomes, 26 refusals, 24 five-file erasure pairs, six accepted boundary
+forms and five mutations with restored controls.
 The compound gate checks 64 execution cases, 24 refusals, eight erasure
 variants, ten boundary forms and four mutations with restored controls.
 The [compound guard gate](dev/M1-COMPOUND-GUARDS.md) adds 88 execution

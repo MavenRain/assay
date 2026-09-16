@@ -1,0 +1,72 @@
+[
+  {
+    "name": "mutant-EVIDENCE",
+    "witness": "anonymous-add",
+    "expected_marker": "M1-TOOL anonymous-add",
+    "returncode": 1,
+    "source_sha256": "592523191368610029d4e4166afc92fd878d3317694da1d065dfe015f3da6990"
+  },
+  {
+    "name": "control-EVIDENCE",
+    "witness": "anonymous-add",
+    "expected_marker": "M1-TOOL anonymous-add",
+    "returncode": 0,
+    "source_sha256": "6a54608e90661c4e7d8b3d246958dba71230740df93530ed16856c5e1c920d36"
+  },
+  {
+    "name": "mutant-LOCAL",
+    "witness": "proof-local-add",
+    "expected_marker": "M1-TOOL proof-local-add",
+    "returncode": 1,
+    "source_sha256": "b6693ebc277cc9e7d34cb649022e20a1d7b942097b61a50a8bada113e58e6b7f"
+  },
+  {
+    "name": "control-LOCAL",
+    "witness": "proof-local-add",
+    "expected_marker": "M1-TOOL proof-local-add",
+    "returncode": 0,
+    "source_sha256": "6a54608e90661c4e7d8b3d246958dba71230740df93530ed16856c5e1c920d36"
+  },
+  {
+    "name": "mutant-PARAMETER",
+    "witness": "helper-body-add",
+    "expected_marker": "M1-TOOL helper-body-add",
+    "returncode": 1,
+    "source_sha256": "037649634e26174ec16598f3b0b1996b5c409c5402c23c06c4d87b4b00b57484"
+  },
+  {
+    "name": "control-PARAMETER",
+    "witness": "helper-body-add",
+    "expected_marker": "M1-TOOL helper-body-add",
+    "returncode": 0,
+    "source_sha256": "6a54608e90661c4e7d8b3d246958dba71230740df93530ed16856c5e1c920d36"
+  },
+  {
+    "name": "mutant-SUPPLIED",
+    "witness": "explicit-invalid",
+    "expected_marker": "ERROR-REFUSAL ih-explicit-invalid",
+    "returncode": 1,
+    "source_sha256": "c87f3929a1f3b274c359c4f88f0045b96eb2cbe6dbbd8459e9e6b41f64731aa1"
+  },
+  {
+    "name": "control-SUPPLIED",
+    "witness": "explicit-invalid",
+    "expected_marker": "ERROR-REFUSAL ih-explicit-invalid",
+    "returncode": 0,
+    "source_sha256": "6a54608e90661c4e7d8b3d246958dba71230740df93530ed16856c5e1c920d36"
+  },
+  {
+    "name": "mutant-SHARING",
+    "witness": "boundaries",
+    "expected_marker": "IH-NESTED proof expression growth",
+    "returncode": 1,
+    "source_sha256": "430b4cf2e706f0c3e731712bc7d250edfd676efd9623bd4cc7527964f5f2acae"
+  },
+  {
+    "name": "control-SHARING",
+    "witness": "boundaries",
+    "expected_marker": "IH-NESTED proof expression growth",
+    "returncode": 0,
+    "source_sha256": "6a54608e90661c4e7d8b3d246958dba71230740df93530ed16856c5e1c920d36"
+  }
+]
