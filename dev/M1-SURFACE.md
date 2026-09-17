@@ -111,6 +111,9 @@ The [proof bundle slice](M1-PROOF-BUNDLES.md) reserves `Both` and adds
 contextual `pair`, `first` and `second` inside proof calls.
 The [proof-placeholder slice](M1-PROOF-HOLES.md) accepts `_` as a proof
 expression with an expected claim. It remains reserved as an identifier.
+The [inferred-binding slice](M1-INFERRED-BINDINGS.md) accepts
+`let (0 p) := PROOF` in entries and proof-local expressions, deriving
+the binding's type from its checked initializer.
 The M1 performance bound also remains open. The original surface uses the
 checked Result/error path of the design. The following
 [source-proof slice](M1-PROOFS.md) proves overflow freedom for a Lean model

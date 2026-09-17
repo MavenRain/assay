@@ -1,0 +1,14 @@
+MUTANT PIN killed exit=1
+MUTANT CARRY killed exit=1
+MUTANT CARRY-NEW killed exit=1
+MUTANT CARRY-GONE killed exit=1
+MUTANT R0-COUNT killed exit=1
+MUTANT R0-AUDIT killed exit=1
+MUTANT R0-AUDIT-SPEC killed exit=1
+MUTANT HOUSE killed exit=1
+MUTANT HOUSE-LOOP killed exit=1
+MUTANT HOUSE-DIVISION killed exit=1
+MUTANT TRUSTED-LINES killed exit=1
+MUTANT TRUSTED-UNPRICED killed exit=1
+MUTANT TRUSTED-BOUND killed exit=1
+MUTANTS killed=13/13 OK

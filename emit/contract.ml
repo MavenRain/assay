@@ -18,7 +18,7 @@ type proof =
   | Proof_word of word
   | Proof_call of token * proof list
   | Proof_ann of proof * claim
-  | Proof_let of token * claim * proof * proof
+  | Proof_let of token * claim option * proof * proof
   | Proof_pair of token * proof * proof
   | Proof_project of token * bool * proof
 type parameter = Word_parameter of token | Proof_parameter of token * claim
@@ -33,7 +33,7 @@ type step =
   | Bind of token * word
   | Prove of token * claim * (token * word list) option * condition
   | Proven of token * token * word * word * proof option
-  | Proof_bind of token * claim * proof
+  | Proof_bind of token * claim option * proof
 type ending = Return of word | Unit of token | Revert of token | Reject of token * word list
 type body = step list * ending
 type entry = { name : token; args : token list; body : body }
@@ -191,6 +191,13 @@ let proof_binder tokens =
   let* name, rest = identifier rest in let* rest = expect ":" rest in
   let* claim, rest = claim 0 rest in
   let* rest = expect ")" rest in Ok ((name, claim), rest)
+let proof_binding tokens =
+  let* rest = sequence ["("; "0"] tokens in
+  let* name, rest = identifier rest in
+  let* claim, rest = match rest with
+    | { text = ":"; _ } :: rest -> let* ty, rest = claim 0 rest in Ok (Some ty, rest)
+    | [] | _ :: _ -> Ok (None, rest) in
+  let* rest = expect ")" rest in Ok ((name, claim), rest)
 let rec proof_term depth tokens =
   if depth > 128 then fail (here tokens) "LIMIT" "proof nesting exceeds 128" else
   match tokens with
@@ -204,7 +211,7 @@ let rec proof_term depth tokens =
       | [] | _ :: _ -> Ok (term, rest) in
     let* rest = expect ")" rest in Ok (term, rest)
   | { text = "let"; _ } :: rest ->
-    let* (name, claim), rest = proof_binder rest in
+    let* (name, claim), rest = proof_binding rest in
     let* rest = expect ":=" rest in
     let* value, rest = proof_term (depth + 1) rest in
     let* rest = expect "in" rest in
@@ -298,7 +305,7 @@ let body tokens =
       let name = { at with text = "_assay_guard" } in
       next (Prove (name, condition_claim condition, error, condition)) rest
     | { text = "let"; _ } :: ({ text = "("; _ } :: _tail as rest) ->
-      let* (name, claim), rest = proof_binder rest in
+      let* (name, claim), rest = proof_binding rest in
       let* rest = expect ":=" rest in
       let* proof, rest = proof_term 0 rest in next (Proof_bind (name, claim, proof)) rest
     | { text = "let"; _ } :: rest ->
@@ -427,6 +434,14 @@ let resolved_predicate env condition =
 let rec claim_type = function
   | Atomic ty -> ty
   | Bundle (a, b) -> "(prod (" ^ claim_type a ^ ", " ^ claim_type b ^ ") : Prop)"
+let proof_claim_limit at inferred ty =
+  let rec count depth remaining ty =
+    if (inferred && depth > 32) || remaining = 0 then fail at "LIMIT" "inferred proof claim exceeds depth 32 or 4096 nodes" else
+    match ty with
+    | Atomic _ -> Ok (remaining - 1)
+    | Bundle (a, b) ->
+      let* remaining = count (depth + 1) (remaining - 1) a in count (depth + 1) remaining b in
+  let* _remaining = count 0 4096 ty in Ok ty
 let resolve_claim leaf pair predicates env claim =
   let rec site = function
     | Named (at, _) -> Some at
@@ -460,6 +475,10 @@ let resolve_claim leaf pair predicates env claim =
 
 let resolved_claim predicates env claim =
   resolve_claim (fun ty _op _a _b -> Atomic ty) (fun a b -> Bundle (a, b)) predicates env claim
+
+let optional_claim predicates env claim =
+  Option.fold ~none:(Ok None)
+    ~some:(fun claim -> let* ty = resolved_claim predicates env claim in Ok (Some ty)) claim
 
 let resolved_condition predicates env at condition =
   let rec claim = function
@@ -513,8 +532,9 @@ let rec proof ?(erased=true) ?(evidence=[]) predicates helpers depth env expecte
     | Proof_ann (term, claim) ->
       let* ty = resolved_claim env claim in proof ~erased helpers (depth + 1) env (Some ty) term
     | Proof_let (name, claim, value, body) ->
-      let* claim = resolved_claim env claim in let ty = claim_type claim in
-      let* _claim, value = proof ~erased helpers (depth + 1) env (Some claim) value in
+      let* expected_value = optional_claim predicates env claim in
+      let* claim, value = proof ~erased helpers (depth + 1) env expected_value value in
+      let ty = claim_type claim in
       let fresh = "_assay_p" ^ string_of_int depth in
       let* result, body = proof ~erased ~evidence:(evidence_for fresh claim evidence)
         helpers (depth + 1) ((name.text, Proof_value (fresh, claim)) :: env) expected body in
@@ -527,7 +547,8 @@ let rec proof ?(erased=true) ?(evidence=[]) predicates helpers depth env expecte
         | Atomic _ -> fail at "PROOF" "a proof pair requires a Both claim") expected in
       let* a_type, a = proof ~erased helpers (depth + 1) env a_type a in
       let* b_type, b = proof ~erased helpers (depth + 1) env b_type b in
-      Ok (Bundle (a_type, b_type), "(tuple (" ^ a ^ ", " ^ b ^ "))")
+      let* ty = proof_claim_limit at (Option.is_none expected) (Bundle (a_type, b_type)) in
+      Ok (ty, "(tuple (" ^ a ^ ", " ^ b ^ "))")
     | Proof_project (at, first, term) ->
       let* ty, term = proof ~erased helpers (depth + 1) env None term in
       (match ty with
@@ -689,8 +710,8 @@ let transaction fields errors invariants predicates helpers env (steps, ending) 
         guards ty condition (fresh ^ "_guard") (fun term ->
           Ok (erased_apply fresh (claim_type ty) "Tx" term yes))
       | Proof_bind (name, claim, term) ->
-        let* ty = resolved_claim env claim in
-        let* _ty, term = proof 0 env (Some ty) term in
+        let* expected_value = optional_claim predicates env claim in
+        let* ty, term = proof 0 env expected_value term in
         let* next = lower (index + 1) ((name.text, Proof_value (fresh, ty)) :: env) state written (evidence_for fresh ty evidence) rest in
         Ok (erased_apply fresh (claim_type ty) "Tx" term next)
       | Proven (op, name, a, b, term) ->

@@ -1,0 +1,86 @@
+[
+  {
+    "name": "mutant-ENTRY-EVIDENCE",
+    "witness": "binding-evidence",
+    "expected_marker": "M1-TOOL binding-evidence",
+    "returncode": 1,
+    "source_sha256": "398378c242d807a4a40f7bab53f44b4c89279c0cf80acb3026af2aa8dd80111a"
+  },
+  {
+    "name": "control-ENTRY-EVIDENCE",
+    "witness": "binding-evidence",
+    "expected_marker": "M1-TOOL binding-evidence",
+    "returncode": 0,
+    "source_sha256": "ca9c13d1d3862eb47e1b19ca2e1607437f1d64193ccc198d8eb882232f0a2874"
+  },
+  {
+    "name": "mutant-LOCAL-EVIDENCE",
+    "witness": "local-evidence",
+    "expected_marker": "M1-TOOL local-evidence",
+    "returncode": 1,
+    "source_sha256": "1f243207d3bac0996d03662d714c70b2676a911e3fbbad635e30b00af8c3f00e"
+  },
+  {
+    "name": "control-LOCAL-EVIDENCE",
+    "witness": "local-evidence",
+    "expected_marker": "M1-TOOL local-evidence",
+    "returncode": 0,
+    "source_sha256": "ca9c13d1d3862eb47e1b19ca2e1607437f1d64193ccc198d8eb882232f0a2874"
+  },
+  {
+    "name": "mutant-ANNOTATION",
+    "witness": "wrong-annotation",
+    "expected_marker": "ERROR-REFUSAL ib-wrong-annotation",
+    "returncode": 1,
+    "source_sha256": "1a857019b2b4b73880fb31b5fb933336c5afaf6d743dca7e946f771f0e49a0d5"
+  },
+  {
+    "name": "control-ANNOTATION",
+    "witness": "wrong-annotation",
+    "expected_marker": "ERROR-REFUSAL ib-wrong-annotation",
+    "returncode": 0,
+    "source_sha256": "ca9c13d1d3862eb47e1b19ca2e1607437f1d64193ccc198d8eb882232f0a2874"
+  },
+  {
+    "name": "mutant-UNUSED",
+    "witness": "unused-false",
+    "expected_marker": "ERROR-REFUSAL ib-unused-false",
+    "returncode": 1,
+    "source_sha256": "b1a529862a5949e876ca68394bcc8e5cd000a57cee346356cc414b14120a5cff"
+  },
+  {
+    "name": "control-UNUSED",
+    "witness": "unused-false",
+    "expected_marker": "ERROR-REFUSAL ib-unused-false",
+    "returncode": 0,
+    "source_sha256": "ca9c13d1d3862eb47e1b19ca2e1607437f1d64193ccc198d8eb882232f0a2874"
+  },
+  {
+    "name": "mutant-BUNDLE-LIMIT",
+    "witness": "bundle-expansion",
+    "expected_marker": "ERROR-REFUSAL ib-bundle-expansion",
+    "returncode": 1,
+    "source_sha256": "59214bdaf89a0ccd6b2a22791bd2eb49889ea8c46572c547b00eb27122efaf72"
+  },
+  {
+    "name": "control-BUNDLE-LIMIT",
+    "witness": "bundle-expansion",
+    "expected_marker": "ERROR-REFUSAL ib-bundle-expansion",
+    "returncode": 0,
+    "source_sha256": "ca9c13d1d3862eb47e1b19ca2e1607437f1d64193ccc198d8eb882232f0a2874"
+  },
+  {
+    "name": "mutant-DEPTH-LIMIT",
+    "witness": "spine-depth",
+    "expected_marker": "ERROR-REFUSAL ib-spine-depth",
+    "returncode": 1,
+    "source_sha256": "f002545f2a5a386232621e205d6114b55c61d99b24bbd96254b19f1c953017ad"
+  },
+  {
+    "name": "control-DEPTH-LIMIT",
+    "witness": "spine-depth",
+    "expected_marker": "ERROR-REFUSAL ib-spine-depth",
+    "returncode": 0,
+    "source_sha256": "ca9c13d1d3862eb47e1b19ca2e1607437f1d64193ccc198d8eb882232f0a2874"
+  }
+]

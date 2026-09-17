@@ -58,6 +58,9 @@ checked evidence for omitted trailing proof arguments.
 The twenty-first adds [contextual proof
 placeholders](dev/M1-PROOF-HOLES.md), using `_` for checked inference
 inside proof expressions and interleaved helper arguments.
+The twenty-second adds [inferred proof
+bindings](dev/M1-INFERRED-BINDINGS.md), deriving erased binding types
+from checked proof expressions in entries and proof-local scopes.
 
 ```sh
 zsh -f dev/dunecho.sh build
@@ -81,6 +84,7 @@ _build/default/bin/assay.exe emit examples/NamedGuards.asy -o NamedGuards-out
 _build/default/bin/assay.exe emit examples/InferredGuards.asy -o InferredGuards-out
 _build/default/bin/assay.exe emit examples/InferredHelpers.asy -o InferredHelpers-out
 _build/default/bin/assay.exe emit examples/ProofHoles.asy -o ProofHoles-out
+_build/default/bin/assay.exe emit examples/InferredBindings.asy -o InferredBindings-out
 _build/default/bin/assay.exe emit examples/CounterInvariant.asy -o CounterInvariant-out
 _build/default/bin/assay.exe emit examples/ProofHelpers.asy -o ProofHelpers-out
 _build/default/bin/assay.exe emit examples/ProofBundles.asy -o ProofBundles-out

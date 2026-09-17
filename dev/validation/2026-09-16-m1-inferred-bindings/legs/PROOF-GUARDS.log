@@ -1,0 +1,4 @@
+GUARD-LIVE cases=83 creates=2 covered=252 OK
+GUARD-REFUSALS surface=20 schema=6 OK
+GUARD-ERASURE variants=3 five_files=5 removed_checks=1 OK
+PROOF-GUARDS FAIL: GUARD-MUTANT-BUILD mutant-CLAIM

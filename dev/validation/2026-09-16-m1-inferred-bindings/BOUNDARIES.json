@@ -1,0 +1,30 @@
+[
+  {
+    "depth": 4,
+    "sha256": "317f5aa18f8e378cfeadc8976ca9f37d435f27475e6195fd7609c8b512622954",
+    "typed_sha256": "c1451bff1944e613a66a39f24635cc4e08963aee5a5b055bf231f17da84e823b"
+  },
+  {
+    "depth": 16,
+    "sha256": "2566dda0f6f01f880b00b18f9f854022db77b1cc70f619b4f2ff681e0ad4463d",
+    "typed_sha256": "92cab3a04b669442d3cc3aa457487a1f1555b55b95e1aafb11fb1815d08a65fd"
+  },
+  {
+    "depth": 64,
+    "sha256": "bfa5482669083f248e4e32b2f888436680f0a29a5b6132a14fe13b641ac48d2d",
+    "typed_sha256": "0566e9d783f950a2e6abba2aa3d410efa97ae9097e22c5066512961275fb1628"
+  },
+  {
+    "depth": 128,
+    "sha256": "654546be19f6eb39c6cc6d2d865e2a5ddd037fca7d060e2a34f56227c6e5b46f",
+    "typed_sha256": "913080128d5d9268454bc17263a2ae5b1aec5bdc39992a2d92348d5c8f9ae08e"
+  },
+  {
+    "bundle_nodes": 4095,
+    "source_sha256": "ac3490532fdf70d8ad9d891256194dd1d04aae1d526c5bffa5f66271ba3f2b61"
+  },
+  {
+    "spine_depth": 32,
+    "source_sha256": "2d1376288bddfa23bfabe3d722c32c7688b0917de631b27bade6d6e278671904"
+  }
+]

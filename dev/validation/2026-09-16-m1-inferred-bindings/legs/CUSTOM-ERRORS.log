@@ -1,0 +1,8 @@
+ERROR-LIVE cases=66 creates=2 covered=215 OK
+ERROR-REFUSALS surface=18 schema=8 OK
+ERROR-MUTANT SELECTOR killed control=OK
+ERROR-MUTANT MEMORY killed control=OK
+ERROR-MUTANT LENGTH killed control=OK
+ERROR-MUTANT ROLLBACK killed control=OK
+ERROR-MUTANT ABI killed control=OK
+CUSTOM-ERRORS cases=66 creates=2 refusals=26 mutants=5 OK

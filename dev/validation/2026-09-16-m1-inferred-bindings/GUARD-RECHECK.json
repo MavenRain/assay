@@ -1,0 +1,47 @@
+{
+  "manifest": {
+    "schemaVersion": 2,
+    "artifact": "/Users/oobi/Documents/gpt1/assay-m1-inferred-bindings/.kanon-exec/run-wqcwOC",
+    "status": "complete",
+    "exitCode": 0,
+    "counts": {
+      "stdout_bytes": 433,
+      "stderr_bytes": 0,
+      "stdout_lines": 10,
+      "stderr_lines": 0,
+      "error_lines": 0,
+      "warning_lines": 0
+    },
+    "commands": [
+      {
+        "index": 1,
+        "argv": [
+          "python3",
+          "-P",
+          "dev/guard-test.py"
+        ],
+        "cwd": "/Users/oobi/Documents/gpt1/assay-m1-inferred-bindings",
+        "exitCode": 0,
+        "signal": 0,
+        "timedOut": false,
+        "spawnError": "",
+        "stdout": {
+          "path": "/Users/oobi/Documents/gpt1/assay-m1-inferred-bindings/.kanon-exec/run-wqcwOC/command-0001.stdout",
+          "bytes": 433,
+          "lines": 10
+        },
+        "stderr": {
+          "path": "/Users/oobi/Documents/gpt1/assay-m1-inferred-bindings/.kanon-exec/run-wqcwOC/command-0001.stderr",
+          "bytes": 0,
+          "lines": 0
+        }
+      }
+    ]
+  },
+  "source_changes": {
+    "dev/guard-test.py": {
+      "before": "78178ccff8b37017fa844ec40c7abc54717088953b019e69541bd42784ab5318",
+      "after": "54616b531b008bbd79469b81b2b7130c8c7c2b8afe3f0b8776422998459d0b5d"
+    }
+  }
+}

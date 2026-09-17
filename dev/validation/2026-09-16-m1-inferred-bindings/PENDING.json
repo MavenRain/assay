@@ -1,0 +1,40 @@
+{
+  "DENOMINATORS": {
+    "same_as_base": true,
+    "failed_hashes": [
+      "dev/M1-ERRORS.md: FAILED",
+      "dev/M1-PROOFS.md: FAILED",
+      "dev/M1-SURFACE-MUTATIONS.md: FAILED",
+      "dev/M1-SURFACE.md: FAILED",
+      "dev/contract-test.py: FAILED",
+      "dev/errors-test.py: FAILED",
+      "dev/gates.sh: FAILED",
+      "dev/m1-emit-test.py: FAILED",
+      "dev/model-test.py: FAILED",
+      "dev/stage-a-gates.py: FAILED",
+      "emit/contract.ml: FAILED",
+      "emit/emit.ml: FAILED",
+      "emit/model.ml: FAILED",
+      "emit/recognize.ml: FAILED"
+    ]
+  },
+  "M0-RATIO": {
+    "same_as_base": true,
+    "failed_hashes": [
+      "dev/M1-ERRORS.md: FAILED",
+      "dev/M1-PROOFS.md: FAILED",
+      "dev/M1-SURFACE-MUTATIONS.md: FAILED",
+      "dev/M1-SURFACE.md: FAILED",
+      "dev/contract-test.py: FAILED",
+      "dev/errors-test.py: FAILED",
+      "dev/gates.sh: FAILED",
+      "dev/m1-emit-test.py: FAILED",
+      "dev/model-test.py: FAILED",
+      "dev/stage-a-gates.py: FAILED",
+      "emit/contract.ml: FAILED",
+      "emit/emit.ml: FAILED",
+      "emit/model.ml: FAILED",
+      "emit/recognize.ml: FAILED"
+    ]
+  }
+}

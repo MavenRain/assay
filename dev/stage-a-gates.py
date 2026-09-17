@@ -10,10 +10,11 @@ import time
 
 def main():
     root = Path(__file__).resolve().parent.parent
-    if sys.argv[1:] not in ([], ["--keccak"], ["--asm"], ["--reference"], ["--emit"], ["--m0"], ["--m1-executor"], ["--m1-counter"], ["--m1-emission"], ["--m1-run"], ["--m1-surface"], ["--m1-proofs"], ["--m1-nullary"], ["--m1-errors"], ["--m1-guards"], ["--m1-proof-terms"], ["--m1-invariants"], ["--m1-proof-helpers"], ["--m1-proof-bundles"], ["--m1-predicates"], ["--m1-compound-invariants"], ["--m1-compound-guards"], ["--m1-named-guards"], ["--m1-inferred-guards"], ["--m1-inferred-arithmetic"], ["--m1-inferred-helpers"], ["--m1-proof-holes"]):
-        print("usage: stage-a-gates.py [--keccak|--asm|--reference|--emit|--m0|--m1-executor|--m1-counter|--m1-emission|--m1-run|--m1-surface|--m1-proofs|--m1-nullary|--m1-errors|--m1-guards|--m1-proof-terms|--m1-invariants|--m1-proof-helpers|--m1-proof-bundles|--m1-predicates|--m1-compound-invariants|--m1-compound-guards|--m1-named-guards|--m1-inferred-guards|--m1-inferred-arithmetic|--m1-inferred-helpers|--m1-proof-holes]")
+    if sys.argv[1:] not in ([], ["--keccak"], ["--asm"], ["--reference"], ["--emit"], ["--m0"], ["--m1-executor"], ["--m1-counter"], ["--m1-emission"], ["--m1-run"], ["--m1-surface"], ["--m1-proofs"], ["--m1-nullary"], ["--m1-errors"], ["--m1-guards"], ["--m1-proof-terms"], ["--m1-invariants"], ["--m1-proof-helpers"], ["--m1-proof-bundles"], ["--m1-predicates"], ["--m1-compound-invariants"], ["--m1-compound-guards"], ["--m1-named-guards"], ["--m1-inferred-guards"], ["--m1-inferred-arithmetic"], ["--m1-inferred-helpers"], ["--m1-proof-holes"], ["--m1-inferred-bindings"]):
+        print("usage: stage-a-gates.py [--keccak|--asm|--reference|--emit|--m0|--m1-executor|--m1-counter|--m1-emission|--m1-run|--m1-surface|--m1-proofs|--m1-nullary|--m1-errors|--m1-guards|--m1-proof-terms|--m1-invariants|--m1-proof-helpers|--m1-proof-bundles|--m1-predicates|--m1-compound-invariants|--m1-compound-guards|--m1-named-guards|--m1-inferred-guards|--m1-inferred-arithmetic|--m1-inferred-helpers|--m1-proof-holes|--m1-inferred-bindings]")
         return 64
-    proof_holes = sys.argv[1:] == ["--m1-proof-holes"]
+    inferred_bindings = sys.argv[1:] == ["--m1-inferred-bindings"]
+    proof_holes = inferred_bindings or sys.argv[1:] == ["--m1-proof-holes"]
     inferred_helpers = proof_holes or sys.argv[1:] == ["--m1-inferred-helpers"]
     inferred_arithmetic = inferred_helpers or sys.argv[1:] == ["--m1-inferred-arithmetic"]
     inferred_guards = inferred_arithmetic or sys.argv[1:] == ["--m1-inferred-guards"]
@@ -178,6 +179,9 @@ def main():
     if proof_holes:
         legs.append(("PROOF-HOLES", 600, ("python3", "-P", "dev/proof-hole-test.py"),
                      "PROOF-HOLES cases=242 creates=2 refusals=25 erasure_pairs=23 boundaries=6 mutants=4 OK"))
+    if inferred_bindings:
+        legs.append(("INFERRED-BINDINGS", 600, ("python3", "-P", "dev/inferred-binding-test.py"),
+                     "INFERRED-BINDINGS cases=229 creates=2 refusals=25 erasure_pairs=21 boundaries=6 mutants=6 OK"))
     # Review round 2026-09-11 (D-1):  the M0 verdict reads the legs of
     # M0-PLAN section 8 only.  A leg that this mode appends is an M1 leg,
     # so its failure moves the stage line and the exit code, not M0.
@@ -186,6 +190,9 @@ def main():
     if proof_holes:
         stage = "M1-PROOF-HOLES"
         m1_names.add("PROOF-HOLES")
+    if inferred_bindings:
+        stage = "M1-INFERRED-BINDINGS"
+        m1_names.add("INFERRED-BINDINGS")
     work = root / (".gatework/stage-" + stage.lower())
     work.mkdir(parents=True, exist_ok=True)
     failed = False

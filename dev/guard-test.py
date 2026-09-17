@@ -237,7 +237,7 @@ def mutants():
          'let* condition = resolved_condition predicates env name condition in\n        let rec inferred_claim = function\n'
          '          | Runtime_check (op, a, b) -> Atomic (app (if op = "guardLe" then "Le" else "AddFits") [a; b])\n'
          '          | Runtime_both (a, b) -> Bundle (inferred_claim a, inferred_claim b) in\n'
-         '        let ty = inferred_claim condition in\n        let _claim = claim in',
+         '        let ty = inferred_claim condition in\n        let _claim = claim in\n        let _ = resolved_claim in',
          'proof', 'ERROR-REFUSAL'),
         ('SCHEMA', 'emit/recognize.ml', 'Global.find name globals = Global.find name expected then Ok ()',
          '(name = "wordNat" || Global.find name globals = Global.find name expected) then Ok ()', 'schema', 'ERROR-REFUSAL'),

@@ -1,5 +1,123 @@
 # Assay M1 build log
 
+## 2026-09-16: inferred proof binding types
+
+The twenty-second M1 slice starts at
+`c74a4ee3558b45b1cca52ef1921581365e11d202`.
+Erased entry and proof-local bindings can omit their claim when the
+initializer supplies one. Names, helper results, pairs, projections
+and annotated expressions retain their checked types and evidence.
+Explicit annotations remain obligations, and a bare placeholder still
+requires an expected claim. `InferredBindings.asy` demonstrates the
+bounded counter with inferred bindings in entries and helper bodies.
+
+The lowering annotates inferred initializers before kernel checking.
+Unused declarations and reverting continuations retain those checks.
+Constructed proof bundles use the existing claim budget of 32 depth
+levels and 4096 nodes before type serialization. The depth arm of
+that budget applies to an inferred pair claim only, because a written
+claim already obeys the surface depth bound. This bounds repeated
+pairing of earlier bindings, which otherwise doubles the inferred type
+at each step, and it also bounds a spine that adds one level per step
+while staying far below the node budget.
+
+The focused suite passes 229 source-model/Cancun comparisons, two
+creation outcomes, 25 refusals through three public commands and 21
+inferred/annotated pairs comparing all five emitted files. It accepts
+proof nesting through 128 and rejects 129. A 4095-node inferred bundle
+and a 32-level inferred claim spine erase identically to a program
+without proofs; 4097 nodes, repeated doubling and a 33-level spine are
+refused. Six compiler mutations fail their witnesses
+and pass after restoration. The compiler builds without errors or
+warnings, and the static scan reports no findings.
+
+The existing guard CLAIM mutant required a harness adjustment: the
+new inference path left its local resolver unused after mutation,
+causing the mutant build to fail before its refusal witness. The
+mutant now consumes that binding and retains its invalid claim and
+witness. The complete guard recheck passes 83 execution cases, two
+creation outcomes, 26 refusals, three erasure variants and all six
+mutations with restored controls. No production source or compiler
+binary changed after the complete battery began.
+
+Validation passes all 55 functional legs after that guard recheck.
+The complete 57-leg run initially passed 54 legs; its failed guard
+attempt remains recorded. All 56 prior gate commands, deadlines and
+success markers are unchanged. Both proof gates ran after verifying
+35 cache source files and two pinned dependency revisions.
+
+The [validation archive](validation/2026-09-16-m1-inferred-bindings/)
+retains the original battery, corrected guard recheck, focused captures,
+mutation controls, boundaries, source hashes and artifact hashes.
+DENOMINATORS and M0-RATIO report the same 14 stale hashes as the
+committed baseline. The carried kernel and surface, proof sources and
+measurement inputs are unchanged. Timing remains paused, and the M1
+performance bound and milestone exit remain pending.
+
+### Review round 2026-09-16 (M1 inferred bindings)
+
+| id | severity | note | files |
+| --- | --- | --- | --- |
+| A-1 | medium | inferred-claim budget counted nodes only; now bounds depth 32 too | emit/contract.ml, dev/inferred-binding-test.py, dev/stage-a-gates.py |
+| C-1 | low | seven prose rows over 72 columns; rewrapped | dev/validation/2026-09-16-m1-inferred-bindings/README.md, README.md, dev/M1-SURFACE.md |
+| D-1 | low | BOUNDARIES.json hashed the annotated twin; now hashes the inferred source | dev/inferred-binding-test.py |
+| ND-1-1 | medium | round-1 depth bound also constrained written claims, un-killing the PROOF-BUNDLES CLAIM-DEPTH mutant; round 2 bounds an inferred pair claim only | emit/contract.ml |
+| ND-1-2 | medium | archive JSONs not regenerated after the round-1 driver change | dev/validation/2026-09-16-m1-inferred-bindings/BOUNDARIES.json, MUTANTS.json, LIVE.json, ERASURE.json, INFERRED-BINDING-CAPTURES.json, legs/INFERRED-BINDINGS.log, ARTIFACTS.json |
+
+Refuted: 0.
+
+Merged and dropped: 0; the five findings name five distinct review
+findings. Fix round 2 grouped A-1 with ND-1-1 (one code cause in
+emit/contract.ml) and D-1 with ND-1-2 (one archive cause), but no
+finding was merged or cut from the report.
+
+Gate result, from
+/Users/oobi/Documents/assay-m1-inferred-bindings-review/
+gates-M1IB-2.log:
+
+```
+STAGE-M1-LINE: STAGE-M1-INFERRED-BINDINGS FAIL
+EXIT 1 | LADDER-WRAPPER-EXIT 0 23:47:20
+PASS-COUNT: 55
+FAIL-COUNT: 2
+FAIL-LINES: FAIL DENOMINATORS exit=1 elapsed_ms=216.0 FAIL M0-RATIO exit=1 elapsed_ms=178.8
+```
+
+```
+INFERRED-BINDINGS cases=229 creates=2 refusals=25 erasure_pairs=21 boundaries=6 mutants=6 OK
+PROOF-HOLES cases=242 creates=2 refusals=25 erasure_pairs=23 boundaries=6 mutants=4 OK
+INFERRED-HELPERS cases=254 creates=2 refusals=26 erasure_pairs=24 boundaries=6 mutants=5 OK
+INFERRED-ARITHMETIC cases=158 creates=2 refusals=24 erasure_pairs=16 mutants=4 OK
+INFERRED-GUARDS cases=112 creates=2 refusals=24 erasure_pairs=14 boundaries=6 mutants=4 OK
+NAMED-GUARDS cases=96 creates=2 refusals=27 erasure=10 boundaries=6 mutants=4 OK
+COMPOUND-GUARDS cases=88 creates=2 refusals=26 erasure=7 boundaries=7 mutants=4 OK
+COMPOUND-INVARIANTS cases=64 creates=2 refusals=24 erasure=8 boundaries=10 mutants=4 OK
+PREDICATES cases=72 creates=2 refusals=44 erasure=7 boundaries=12 mutants=4 OK
+PROOF-BUNDLES cases=102 creates=2 refusals=41 erasure=8 boundaries=11 mutants=4 OK
+PROOF-HELPERS cases=104 creates=2 refusals=50 erasure=7 mutants=4 OK
+INVARIANTS cases=52 creates=2 refusals=30 erasure=4 mutants=4 OK
+PROOF-TERMS cases=98 creates=2 refusals=25 erasure=5 mutants=4 OK
+PROOF-GUARDS cases=83 creates=2 refusals=26 erasure=3 mutants=6 OK
+```
+
+The A-1 fix legitimately moved the INFERRED-BINDINGS tail from the
+baseline row (refusals=24, boundaries=5, mutants=5) to the row above.
+The halted Workflow's own check stage hard-coded the baseline tail and
+scored this slice RED for that reason; that is a kit defect of the
+Workflow script, not a slice defect, and is recorded in the review
+report rather than in the commit message. dev/stage-a-gates.py:184
+and legs/INFERRED-BINDINGS.log:11 agree on the new tail as staged.
+
+gate: GREEN-FUNCTIONAL by the verdict rule (every red row is
+DENOMINATORS or M0-RATIO, the disclosed state of this slice while the
+timing gate is paused; STAGE-M1-INFERRED-BINDINGS FAIL and EXIT 1 come
+from that same disclosed pair, not from a functional leg).
+
+The finders and the builders ran opus/medium; the Fable probe was
+dead for this run, so the finder, builder and closer tier rulings are
+unmet. The verifier and judge ran opus/high and are met. The closer
+ran sonnet/medium, never opus.
+
 ## 2026-09-16: contextual proof placeholders
 
 The twenty-first M1 slice starts at

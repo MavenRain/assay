@@ -1,0 +1,22 @@
+{
+  "base": "c74a4ee3558b45b1cca52ef1921581365e11d202",
+  "prior_gates_unchanged": 56,
+  "protected_inputs_unchanged": true,
+  "protected_paths": [
+    "lib",
+    "surface",
+    "proofs",
+    "verification",
+    "asm",
+    "keccak",
+    "abi",
+    "layout",
+    "corpus",
+    "reference",
+    "evm",
+    "dev/denominators.json",
+    "dev/DENOMINATORS.sha256",
+    "dev/ratio.py",
+    "dev/ratio.sh"
+  ]
+}

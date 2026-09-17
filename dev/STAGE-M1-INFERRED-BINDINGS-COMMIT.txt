@@ -1,0 +1,18 @@
+M1: infer erased proof binding types
+
+Infer entry and proof-local binding claims from checked initializers.
+Preserve explicit annotations, lexical scope, bundle evidence and
+checking of unused or reverting code before erasure.
+
+Add a counter example and a gate covering execution, erasure, refusals,
+nesting boundaries and six compiler mutations with restored controls.
+Bound inferred bundle types by the claim depth and node budgets.
+Keep the carried kernel, proof sources and paused timing inputs intact.
+
+Review pass 1 (2026-09-16) fixed 5 findings:
+A-1, C-1, D-1, ND-1-1, ND-1-2.
+A-1 bounded the inferred-claim budget by depth 32 as well as node count.
+C-1 rewrapped seven prose rows over 72 columns.
+D-1 hashed the inferred source, not the twin, in BOUNDARIES.json.
+ND-1-1 restricted the depth bound to an inferred pair claim only.
+ND-1-2 regenerated the archive JSONs after the round-1 driver change.
