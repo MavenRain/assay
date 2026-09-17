@@ -116,7 +116,7 @@ def negative_cases():
             .replace('sstore cell v', 'let (0 later) := q ; sstore cell v'), 'SURFACE_PROOF'),
         ('sibling-escape', H.guarded('add', 'second(pair((let (0 q) := p in q), q))'), 'SURFACE_PROOF'),
         ('parameter-type', H.guarded('add').replace('(0 q : Lt256 (add x y))', '(0 q)'), 'SURFACE_SYNTAX'),
-        ('guard-type', G.guarded('add').replace('(0 p : Lt256 (add a b))', '(0 p)'), 'SURFACE_SYNTAX'),
+        ('guard-type', G.guarded('add').replace('(0 p : Lt256 (add a b))', '(0 p : )'), 'SURFACE_PROOF'),
         ('binder-hole', binding('()').replace('(0 checked)', '(0 _)'), 'SURFACE_NAME'),
         ('bundle-expansion', growing_bundle(11, extra=True), 'SURFACE_LIMIT'),
         ('repeated-expansion', growing_bundle(20), 'SURFACE_LIMIT'),

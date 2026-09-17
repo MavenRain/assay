@@ -1,0 +1,10 @@
+M1: infer proof-producing guard binding types
+
+Derive named guard evidence from atomic, compound and named conditions.
+Preserve explicit annotation checks, lexical scope and runtime guards.
+
+Add an example and a gate covering execution, erasure, refusals,
+boundary forms and four compiler mutations with restored controls.
+Keep the previous gate declarations and paused timing inputs intact.
+
+Review pass 1 (2026-09-17) fixed 3 findings: C-1, D-1, D-2.

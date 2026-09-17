@@ -1,0 +1,820 @@
+{
+  "base": "088a4056707432d452ecff5b0e38069d53a3a8bc",
+  "workspace": "/Users/oobi/Documents/gpt1/assay-m1-inferred-guard-bindings",
+  "initial_capture": "/Users/oobi/Documents/gpt1/assay-m1-inferred-guard-bindings/.kanon-exec/run-jpRCV5",
+  "capture_manifest": {
+    "schemaVersion": 2,
+    "artifact": "/Users/oobi/Documents/gpt1/assay-m1-inferred-guard-bindings/.kanon-exec/run-jpRCV5",
+    "status": "complete",
+    "exitCode": 1,
+    "counts": {
+      "stdout_bytes": 10782,
+      "stderr_bytes": 0,
+      "stdout_lines": 346,
+      "stderr_lines": 0,
+      "error_lines": 37,
+      "warning_lines": 2
+    },
+    "commands": [
+      {
+        "index": 1,
+        "argv": [
+          "env",
+          "-u",
+          "OPAM_SWITCH_PREFIX",
+          "-u",
+          "CAML_LD_LIBRARY_PATH",
+          "-u",
+          "OCAMLPATH",
+          "-u",
+          "OCAMLFIND_CONF",
+          "PATH=/Users/oobi/.opam/zxcaml-p1/bin:/Users/oobi/.local/bin:/Users/oobi/.elan/bin:/Users/oobi/.foundry/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "zsh",
+          "-f",
+          "dev/gates.sh"
+        ],
+        "cwd": "/Users/oobi/Documents/gpt1/assay-m1-inferred-guard-bindings",
+        "exitCode": 1,
+        "signal": 0,
+        "timedOut": false,
+        "spawnError": "",
+        "stdout": {
+          "path": "/Users/oobi/Documents/gpt1/assay-m1-inferred-guard-bindings/.kanon-exec/run-jpRCV5/command-0001.stdout",
+          "bytes": 10782,
+          "lines": 346
+        },
+        "stderr": {
+          "path": "/Users/oobi/Documents/gpt1/assay-m1-inferred-guard-bindings/.kanon-exec/run-jpRCV5/command-0001.stderr",
+          "bytes": 0,
+          "lines": 0
+        }
+      }
+    ]
+  },
+  "compiler_sha256": "7be73a90eac3437223fccba33030424eee2cb77e9ff5db5f22016da10bdb6bb9",
+  "initial_pass": 51,
+  "initial_fail": 7,
+  "final_pass": 56,
+  "final_pending": [
+    "DENOMINATORS",
+    "M0-RATIO"
+  ],
+  "initial_results": [
+    {
+      "name": "BUILD",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 249.1
+    },
+    {
+      "name": "PIN-CARRY",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 1032.6
+    },
+    {
+      "name": "R0-COUNT",
+      "status": "FAIL",
+      "returncode": 1,
+      "elapsed_ms": 27.7
+    },
+    {
+      "name": "R0-AUDIT",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 60.4
+    },
+    {
+      "name": "HOUSE",
+      "status": "FAIL",
+      "returncode": 1,
+      "elapsed_ms": 87.0
+    },
+    {
+      "name": "TRUSTED-LINES",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 47.4
+    },
+    {
+      "name": "SUITE-KERNEL",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 694.1
+    },
+    {
+      "name": "SUITE-SURFACE",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 291.0
+    },
+    {
+      "name": "DRIVER",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 828.2
+    },
+    {
+      "name": "MUTANTS",
+      "status": "FAIL",
+      "returncode": 1,
+      "elapsed_ms": 11407.2
+    },
+    {
+      "name": "DENOMINATORS",
+      "status": "FAIL",
+      "returncode": 1,
+      "elapsed_ms": 60.6
+    },
+    {
+      "name": "KECCAK-VEC",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 1081.4
+    },
+    {
+      "name": "KECCAK-MUTANTS",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 4909.4
+    },
+    {
+      "name": "STACK-HEIGHT",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 3446.6
+    },
+    {
+      "name": "DISASM-3WAY",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 695.2
+    },
+    {
+      "name": "ASM-MUTANTS",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 13711.8
+    },
+    {
+      "name": "FORK-DRIFT",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 267.1
+    },
+    {
+      "name": "M0-TRACE",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 153.7
+    },
+    {
+      "name": "CREATE-EQ",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 154.0
+    },
+    {
+      "name": "REFERENCE-CHECKS",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 196.5
+    },
+    {
+      "name": "REFERENCE-MUTANTS",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 1970.2
+    },
+    {
+      "name": "EMIT-CONSTRUCTORS",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 307.4
+    },
+    {
+      "name": "WORD-UNBOX",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 5.7
+    },
+    {
+      "name": "STORAGE-NOCLOS",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 6.2
+    },
+    {
+      "name": "ABI-GOLD",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 280.2
+    },
+    {
+      "name": "EMITTED-TRACE",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 151.9
+    },
+    {
+      "name": "EMIT-SOURCES",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 1138.6
+    },
+    {
+      "name": "EMIT-MUTANTS",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 22509.5
+    },
+    {
+      "name": "AXIOMS",
+      "status": "FAIL",
+      "returncode": 1,
+      "elapsed_ms": 76.3
+    },
+    {
+      "name": "TRACE-DRIVER",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 934.4
+    },
+    {
+      "name": "CORPUS",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 1193.1
+    },
+    {
+      "name": "ERASED-BYTES",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 139.3
+    },
+    {
+      "name": "M0-RATIO",
+      "status": "FAIL",
+      "returncode": 1,
+      "elapsed_ms": 155.6
+    },
+    {
+      "name": "F-MUTANTS",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 332.3
+    },
+    {
+      "name": "DIFF-EXECUTOR",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 8320.0
+    },
+    {
+      "name": "COUNTER-REFERENCE",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 3547.2
+    },
+    {
+      "name": "M1-EMISSION",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 87270.4
+    },
+    {
+      "name": "SOURCE-MODEL",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 22108.0
+    },
+    {
+      "name": "CONTRACT-SURFACE",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 26169.2
+    },
+    {
+      "name": "CONTRACT-ROUTE",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 314.9
+    },
+    {
+      "name": "SOURCE-PROOFS",
+      "status": "FAIL",
+      "returncode": 1,
+      "elapsed_ms": 55.9
+    },
+    {
+      "name": "NULLARY-ENTRIES",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 17614.3
+    },
+    {
+      "name": "CUSTOM-ERRORS",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 26782.8
+    },
+    {
+      "name": "PROOF-GUARDS",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 25092.2
+    },
+    {
+      "name": "PROOF-TERMS",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 32074.0
+    },
+    {
+      "name": "INVARIANTS",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 28971.9
+    },
+    {
+      "name": "PROOF-HELPERS",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 20517.3
+    },
+    {
+      "name": "PROOF-BUNDLES",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 23965.1
+    },
+    {
+      "name": "PREDICATES",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 26286.5
+    },
+    {
+      "name": "COMPOUND-INVARIANTS",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 29516.4
+    },
+    {
+      "name": "COMPOUND-GUARDS",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 29075.3
+    },
+    {
+      "name": "NAMED-GUARDS",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 32514.3
+    },
+    {
+      "name": "INFERRED-GUARDS",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 37188.8
+    },
+    {
+      "name": "INFERRED-ARITHMETIC",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 47795.6
+    },
+    {
+      "name": "INFERRED-HELPERS",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 60332.4
+    },
+    {
+      "name": "PROOF-HOLES",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 67249.8
+    },
+    {
+      "name": "INFERRED-BINDINGS",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 65795.2
+    },
+    {
+      "name": "INFERRED-GUARD-BINDINGS",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 71063.8
+    }
+  ],
+  "final_results": [
+    {
+      "name": "BUILD",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 249.1,
+      "rechecked": false
+    },
+    {
+      "name": "PIN-CARRY",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 1032.6,
+      "rechecked": false
+    },
+    {
+      "name": "R0-COUNT",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 262.0463748462498,
+      "rechecked": true
+    },
+    {
+      "name": "R0-AUDIT",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 60.4,
+      "rechecked": false
+    },
+    {
+      "name": "HOUSE",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 1329.5829999260604,
+      "rechecked": true
+    },
+    {
+      "name": "TRUSTED-LINES",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 47.4,
+      "rechecked": false
+    },
+    {
+      "name": "SUITE-KERNEL",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 694.1,
+      "rechecked": false
+    },
+    {
+      "name": "SUITE-SURFACE",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 291.0,
+      "rechecked": false
+    },
+    {
+      "name": "DRIVER",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 828.2,
+      "rechecked": false
+    },
+    {
+      "name": "MUTANTS",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 10228.635041974485,
+      "rechecked": true
+    },
+    {
+      "name": "DENOMINATORS",
+      "status": "FAIL",
+      "returncode": 1,
+      "elapsed_ms": 60.6,
+      "rechecked": false
+    },
+    {
+      "name": "KECCAK-VEC",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 1081.4,
+      "rechecked": false
+    },
+    {
+      "name": "KECCAK-MUTANTS",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 4909.4,
+      "rechecked": false
+    },
+    {
+      "name": "STACK-HEIGHT",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 3446.6,
+      "rechecked": false
+    },
+    {
+      "name": "DISASM-3WAY",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 695.2,
+      "rechecked": false
+    },
+    {
+      "name": "ASM-MUTANTS",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 13711.8,
+      "rechecked": false
+    },
+    {
+      "name": "FORK-DRIFT",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 267.1,
+      "rechecked": false
+    },
+    {
+      "name": "M0-TRACE",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 153.7,
+      "rechecked": false
+    },
+    {
+      "name": "CREATE-EQ",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 154.0,
+      "rechecked": false
+    },
+    {
+      "name": "REFERENCE-CHECKS",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 196.5,
+      "rechecked": false
+    },
+    {
+      "name": "REFERENCE-MUTANTS",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 1970.2,
+      "rechecked": false
+    },
+    {
+      "name": "EMIT-CONSTRUCTORS",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 307.4,
+      "rechecked": false
+    },
+    {
+      "name": "WORD-UNBOX",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 5.7,
+      "rechecked": false
+    },
+    {
+      "name": "STORAGE-NOCLOS",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 6.2,
+      "rechecked": false
+    },
+    {
+      "name": "ABI-GOLD",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 280.2,
+      "rechecked": false
+    },
+    {
+      "name": "EMITTED-TRACE",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 151.9,
+      "rechecked": false
+    },
+    {
+      "name": "EMIT-SOURCES",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 1138.6,
+      "rechecked": false
+    },
+    {
+      "name": "EMIT-MUTANTS",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 22509.5,
+      "rechecked": false
+    },
+    {
+      "name": "AXIOMS",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 12174.903041217476,
+      "rechecked": true
+    },
+    {
+      "name": "TRACE-DRIVER",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 934.4,
+      "rechecked": false
+    },
+    {
+      "name": "CORPUS",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 1193.1,
+      "rechecked": false
+    },
+    {
+      "name": "ERASED-BYTES",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 139.3,
+      "rechecked": false
+    },
+    {
+      "name": "M0-RATIO",
+      "status": "FAIL",
+      "returncode": 1,
+      "elapsed_ms": 155.6,
+      "rechecked": false
+    },
+    {
+      "name": "F-MUTANTS",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 332.3,
+      "rechecked": false
+    },
+    {
+      "name": "DIFF-EXECUTOR",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 8320.0,
+      "rechecked": false
+    },
+    {
+      "name": "COUNTER-REFERENCE",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 3547.2,
+      "rechecked": false
+    },
+    {
+      "name": "M1-EMISSION",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 87270.4,
+      "rechecked": false
+    },
+    {
+      "name": "SOURCE-MODEL",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 22108.0,
+      "rechecked": false
+    },
+    {
+      "name": "CONTRACT-SURFACE",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 26169.2,
+      "rechecked": false
+    },
+    {
+      "name": "CONTRACT-ROUTE",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 314.9,
+      "rechecked": false
+    },
+    {
+      "name": "SOURCE-PROOFS",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 172555.52383279428,
+      "rechecked": true
+    },
+    {
+      "name": "NULLARY-ENTRIES",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 17614.3,
+      "rechecked": false
+    },
+    {
+      "name": "CUSTOM-ERRORS",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 26782.8,
+      "rechecked": false
+    },
+    {
+      "name": "PROOF-GUARDS",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 25092.2,
+      "rechecked": false
+    },
+    {
+      "name": "PROOF-TERMS",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 32074.0,
+      "rechecked": false
+    },
+    {
+      "name": "INVARIANTS",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 28971.9,
+      "rechecked": false
+    },
+    {
+      "name": "PROOF-HELPERS",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 20517.3,
+      "rechecked": false
+    },
+    {
+      "name": "PROOF-BUNDLES",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 23965.1,
+      "rechecked": false
+    },
+    {
+      "name": "PREDICATES",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 26286.5,
+      "rechecked": false
+    },
+    {
+      "name": "COMPOUND-INVARIANTS",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 29516.4,
+      "rechecked": false
+    },
+    {
+      "name": "COMPOUND-GUARDS",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 29075.3,
+      "rechecked": false
+    },
+    {
+      "name": "NAMED-GUARDS",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 32514.3,
+      "rechecked": false
+    },
+    {
+      "name": "INFERRED-GUARDS",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 37188.8,
+      "rechecked": false
+    },
+    {
+      "name": "INFERRED-ARITHMETIC",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 47795.6,
+      "rechecked": false
+    },
+    {
+      "name": "INFERRED-HELPERS",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 60332.4,
+      "rechecked": false
+    },
+    {
+      "name": "PROOF-HOLES",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 67249.8,
+      "rechecked": false
+    },
+    {
+      "name": "INFERRED-BINDINGS",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 65795.2,
+      "rechecked": false
+    },
+    {
+      "name": "INFERRED-GUARD-BINDINGS",
+      "status": "PASS",
+      "returncode": 0,
+      "elapsed_ms": 71063.8,
+      "rechecked": false
+    }
+  ]
+}

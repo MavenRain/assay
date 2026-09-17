@@ -35,9 +35,10 @@ expansion and kernel checking paths. Every condition is still executed.
 Inference does not establish a proposition by declaring it.
 
 No source binding is introduced or shadowed. Source identifiers cannot
-use the internal `_assay` prefix. Use an explicit `(0 p : CLAIM)` binder
-when a later arithmetic operation or proof helper needs to name the
-evidence. The older `guard le a b` form retains its existing behavior.
+use the internal `_assay` prefix. Use a `(0 p : CLAIM)` binder when a
+later arithmetic operation or proof helper needs to name the evidence.
+[Inferred guard bindings](M1-INFERRED-GUARD-BINDINGS.md) also allow
+`(0 p)` here. The older `guard le a b` form retains its behavior.
 
 The next slice also supports [inferred arithmetic
 proofs](M1-INFERRED-ARITHMETIC.md). `addLt` and `subLe` can reuse this

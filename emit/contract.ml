@@ -186,11 +186,6 @@ let rec claim_with operand depth tokens =
     let* args, rest = predicate_arguments operand name rest in Ok (Named (name, args), rest)
   | [] | _ :: _ -> let* p, rest = bound operand false tokens in Ok (Bound p, rest)
 let claim = claim_with (value 0)
-let proof_binder tokens =
-  let* rest = sequence ["("; "0"] tokens in
-  let* name, rest = identifier rest in let* rest = expect ":" rest in
-  let* claim, rest = claim 0 rest in
-  let* rest = expect ")" rest in Ok ((name, claim), rest)
 let proof_binding tokens =
   let* rest = sequence ["("; "0"] tokens in
   let* name, rest = identifier rest in
@@ -265,16 +260,18 @@ let guard_condition rest =
   let* rest = expect "(" rest in let* condition, rest = condition rest in
   let* rest = expect ")" rest in Ok ((error, condition), rest)
 
-let proof_guard tokens =
-  let* (name, claim), rest = proof_binder tokens in
-  let* rest = sequence ["<-"; "guard"] rest in
-  let* (error, condition), rest = guard_condition rest in
-  Ok (Prove (name, claim, error, condition), rest)
-
 let rec condition_claim = function
   | Check predicate -> Bound predicate
   | Conjoin (left, right) -> Both (condition_claim left, condition_claim right)
   | Satisfy (name, args) -> Named (name, args)
+
+let proof_guard tokens =
+  let* (name, annotation), rest = proof_binding tokens in
+  let* rest = sequence ["<-"; "guard"] rest in
+  let* (error, condition), rest = guard_condition rest in
+  let claim = Option.fold ~none:(fun () -> condition_claim condition)
+    ~some:(fun claim () -> claim) annotation () in
+  Ok (Prove (name, claim, error, condition), rest)
 
 let body tokens =
   let* tokens = expect "do" tokens in

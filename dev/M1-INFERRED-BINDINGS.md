@@ -48,8 +48,9 @@ evidence.
 Word aliases, rebinding and storage snapshots follow the existing
 [inferred-helper rules](M1-INFERRED-HELPERS.md).
 
-Helper parameters and proof-producing guard binders still require
-explicit types. Proof bindings remain unavailable in constructors.
+Helper parameters still require explicit types. The next slice adds
+[inferred guard bindings](M1-INFERRED-GUARD-BINDINGS.md).
+Proof bindings remain unavailable in constructors.
 The 128-level proof nesting and 128-step effect limits are unchanged.
 Constructed bundles also respect the resolved-claim limits: 32 levels
 of depth and 4096 nodes. The node budget bounds every constructed

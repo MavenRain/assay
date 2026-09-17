@@ -1,0 +1,155 @@
+{
+  "base": "088a4056707432d452ecff5b0e38069d53a3a8bc",
+  "timing": "paused",
+  "baseline_stale": {
+    "dev/M1-ERRORS.md": {
+      "expected": "6d6a726b17304e1b23d9df885075dca3a528338f6fc27afcb2bb8b3cd97cb3ce",
+      "actual": "5764aee67f3c89d4a7ea89496cecb2ce63fd31d23e03ae788563c38723d0d645"
+    },
+    "dev/M1-PROOFS.md": {
+      "expected": "2f0ef2f67b491e17d7aee64e87854d78798b4feacab511f0c526a4662f953476",
+      "actual": "0e16ac9ee905c9a51321b38cbd90c28308d2bffdc7ad66652796db0a211daaeb"
+    },
+    "dev/M1-SURFACE-MUTATIONS.md": {
+      "expected": "66ba4c6d8687a907681d3380e8d15c203ad16a7b777619a86b3d6ffcabf1a756",
+      "actual": "454cf326ff40701714b1a8dbae517c84620d97bb893288a10d89f8bd976ef34e"
+    },
+    "dev/M1-SURFACE.md": {
+      "expected": "1edb44e90682e4857bae757fb576b4da84790524f5d5485bb19b450fb6a9d3af",
+      "actual": "3ffe45107485e04c21b490993df0e4b3258a1c449c5f53b4584c3b1fa700f679"
+    },
+    "dev/contract-test.py": {
+      "expected": "20ecdf16eafcd6b023fd724696d70623ca302ee777bbc9ca7231e8d9fe77a94b",
+      "actual": "3413461e6f2857bedfa82bc87579c9b45f67621c5e604fefbce3ba433f38cece"
+    },
+    "dev/errors-test.py": {
+      "expected": "02bdea41dff71a060a8be0f04de4c7332d49736fb56c04bc8c542531a76614ce",
+      "actual": "4ef0748a5c11f9cb5d96dd460bab98caa91c6864392b5d3d0acc9389f7328a47"
+    },
+    "dev/gates.sh": {
+      "expected": "a266cacb80b8674d3aa1dda8a721d9b1c0c15e6e2153365b372aad44db166ad3",
+      "actual": "af7ba74c0a8386d81a3c74945332cc3ee2769f56c44812b32692dafe3974325e"
+    },
+    "dev/m1-emit-test.py": {
+      "expected": "410a70f640bd884084952e6768cadb16b10a0e80208883f4f98aa813d5cd5551",
+      "actual": "62890db53901d93751023494de9b37742a47e6c206462459e6434a3c0b38d952"
+    },
+    "dev/model-test.py": {
+      "expected": "c9c8ba99d3138a34fd8d193273a00ada67fad15f4234858eac6e996353f9b693",
+      "actual": "f88390e61673ec611720b2abd7168a10aab7cf6c747b5496256fe6dee65388c8"
+    },
+    "dev/stage-a-gates.py": {
+      "expected": "57af9789485292eb995d49580b5beb39cfb26256448948ac191eab1dfa0eab45",
+      "actual": "c2fa6347ac0d97ce873dcc577585b23b796a4f148a6260a720063407c0109ebb"
+    },
+    "emit/contract.ml": {
+      "expected": "40d2521b50afe1c04b10d399257eb8d525eda48f1412fc94658942dc11c9097c",
+      "actual": "ca9c13d1d3862eb47e1b19ca2e1607437f1d64193ccc198d8eb882232f0a2874"
+    },
+    "emit/emit.ml": {
+      "expected": "2a1b301ebefc34624cb99b76524d9327ea74cfa6f030a29399eef6fe80218e65",
+      "actual": "43264e71d9548b36f3bc13f79d5b8ef161616f68e39f812e0618532be5908224"
+    },
+    "emit/model.ml": {
+      "expected": "9b42087514a3c39c25119e29bbc80ec442f52710523a500bee299c33c2802136",
+      "actual": "ba4621aa02d0afe42315a20f5f96a2e9c080f02a89ec1f211aabf477988009d1"
+    },
+    "emit/recognize.ml": {
+      "expected": "8450713b0a4864f6d8e0b590e12c4f1e461d065d92622d08377bc4644fa8fc8e",
+      "actual": "e7424298f5da6089ca3224306a20eeec2f558dd6272a70eb4cf93ef95800a5e9"
+    }
+  },
+  "current_stale": {
+    "dev/M1-ERRORS.md": {
+      "expected": "6d6a726b17304e1b23d9df885075dca3a528338f6fc27afcb2bb8b3cd97cb3ce",
+      "actual": "5764aee67f3c89d4a7ea89496cecb2ce63fd31d23e03ae788563c38723d0d645"
+    },
+    "dev/M1-PROOFS.md": {
+      "expected": "2f0ef2f67b491e17d7aee64e87854d78798b4feacab511f0c526a4662f953476",
+      "actual": "0e16ac9ee905c9a51321b38cbd90c28308d2bffdc7ad66652796db0a211daaeb"
+    },
+    "dev/M1-SURFACE-MUTATIONS.md": {
+      "expected": "66ba4c6d8687a907681d3380e8d15c203ad16a7b777619a86b3d6ffcabf1a756",
+      "actual": "454cf326ff40701714b1a8dbae517c84620d97bb893288a10d89f8bd976ef34e"
+    },
+    "dev/M1-SURFACE.md": {
+      "expected": "1edb44e90682e4857bae757fb576b4da84790524f5d5485bb19b450fb6a9d3af",
+      "actual": "3ffe45107485e04c21b490993df0e4b3258a1c449c5f53b4584c3b1fa700f679"
+    },
+    "dev/contract-test.py": {
+      "expected": "20ecdf16eafcd6b023fd724696d70623ca302ee777bbc9ca7231e8d9fe77a94b",
+      "actual": "3413461e6f2857bedfa82bc87579c9b45f67621c5e604fefbce3ba433f38cece"
+    },
+    "dev/errors-test.py": {
+      "expected": "02bdea41dff71a060a8be0f04de4c7332d49736fb56c04bc8c542531a76614ce",
+      "actual": "4ef0748a5c11f9cb5d96dd460bab98caa91c6864392b5d3d0acc9389f7328a47"
+    },
+    "dev/gates.sh": {
+      "expected": "a266cacb80b8674d3aa1dda8a721d9b1c0c15e6e2153365b372aad44db166ad3",
+      "actual": "451cff9361116a08225252fa6437e41ce5da7355cbf300fd035a038cd895d9af"
+    },
+    "dev/m1-emit-test.py": {
+      "expected": "410a70f640bd884084952e6768cadb16b10a0e80208883f4f98aa813d5cd5551",
+      "actual": "62890db53901d93751023494de9b37742a47e6c206462459e6434a3c0b38d952"
+    },
+    "dev/model-test.py": {
+      "expected": "c9c8ba99d3138a34fd8d193273a00ada67fad15f4234858eac6e996353f9b693",
+      "actual": "f88390e61673ec611720b2abd7168a10aab7cf6c747b5496256fe6dee65388c8"
+    },
+    "dev/stage-a-gates.py": {
+      "expected": "57af9789485292eb995d49580b5beb39cfb26256448948ac191eab1dfa0eab45",
+      "actual": "c8be954fa8024adf2a27744ad8c9b926d19483582dfd065884478c5294cfabc4"
+    },
+    "emit/contract.ml": {
+      "expected": "40d2521b50afe1c04b10d399257eb8d525eda48f1412fc94658942dc11c9097c",
+      "actual": "892f437571aba27792aaf6dbb3c41865e5e2db0fca7ff00fc0a274f0381031e3"
+    },
+    "emit/emit.ml": {
+      "expected": "2a1b301ebefc34624cb99b76524d9327ea74cfa6f030a29399eef6fe80218e65",
+      "actual": "43264e71d9548b36f3bc13f79d5b8ef161616f68e39f812e0618532be5908224"
+    },
+    "emit/model.ml": {
+      "expected": "9b42087514a3c39c25119e29bbc80ec442f52710523a500bee299c33c2802136",
+      "actual": "ba4621aa02d0afe42315a20f5f96a2e9c080f02a89ec1f211aabf477988009d1"
+    },
+    "emit/recognize.ml": {
+      "expected": "8450713b0a4864f6d8e0b590e12c4f1e461d065d92622d08377bc4644fa8fc8e",
+      "actual": "e7424298f5da6089ca3224306a20eeec2f558dd6272a70eb4cf93ef95800a5e9"
+    }
+  },
+  "reported": {
+    "DENOMINATORS": [
+      "dev/M1-ERRORS.md",
+      "dev/M1-PROOFS.md",
+      "dev/M1-SURFACE-MUTATIONS.md",
+      "dev/M1-SURFACE.md",
+      "dev/contract-test.py",
+      "dev/errors-test.py",
+      "dev/gates.sh",
+      "dev/m1-emit-test.py",
+      "dev/model-test.py",
+      "dev/stage-a-gates.py",
+      "emit/contract.ml",
+      "emit/emit.ml",
+      "emit/model.ml",
+      "emit/recognize.ml"
+    ],
+    "M0-RATIO": [
+      "dev/M1-ERRORS.md",
+      "dev/M1-PROOFS.md",
+      "dev/M1-SURFACE-MUTATIONS.md",
+      "dev/M1-SURFACE.md",
+      "dev/contract-test.py",
+      "dev/errors-test.py",
+      "dev/gates.sh",
+      "dev/m1-emit-test.py",
+      "dev/model-test.py",
+      "dev/stage-a-gates.py",
+      "emit/contract.ml",
+      "emit/emit.ml",
+      "emit/model.ml",
+      "emit/recognize.ml"
+    ]
+  },
+  "same_stale_paths": true
+}

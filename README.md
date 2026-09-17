@@ -61,6 +61,9 @@ inside proof expressions and interleaved helper arguments.
 The twenty-second adds [inferred proof
 bindings](dev/M1-INFERRED-BINDINGS.md), deriving erased binding types
 from checked proof expressions in entries and proof-local scopes.
+The twenty-third adds [inferred guard
+bindings](dev/M1-INFERRED-GUARD-BINDINGS.md), deriving named evidence
+from runtime conditions while retaining checked annotations.
 
 ```sh
 zsh -f dev/dunecho.sh build

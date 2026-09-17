@@ -1,5 +1,124 @@
 # Assay M1 build log
 
+## 2026-09-17: inferred proof-producing guard bindings
+
+The twenty-third M1 slice starts at
+`088a4056707432d452ecff5b0e38069d53a3a8bc`.
+A guard binder can use `(0 checked)` and derive its claim from the
+condition. Atomic, compound and named conditions lower through the
+existing checked guard path. Explicit annotations remain obligations,
+including in unused and reverting continuations. Conditions and error
+payloads resolve before the new proof name enters scope.
+
+The focused suite passes 160 source-model/Cancun comparisons, two
+creation outcomes, 27 refusals through three commands and 20 pairs
+with equal five-file output. Four accepted boundary forms also have
+equal output. Four compiler mutations build, fail their named witnesses
+and pass after restoration. The earlier inferred-binding `guard-type`
+refusal now checks an empty explicit annotation; accepted unannotated
+guards are covered by the new atomic execution cases.
+
+All 56 functional legs pass after five environment rechecks. The
+initial 58-leg run passed 51 legs. Its PATH omitted the installed `rg`
+and `leancho` directories, so R0-COUNT, HOUSE, MUTANTS, AXIOMS and
+SOURCE-PROOFS needed reruns. Their original commands, deadlines and
+success markers all pass with the corrected PATH. The compiler source
+and binary did not change between the battery and the rechecks.
+Both proof suites ran after matching 38 cached source files and two
+pinned dependency revisions. All 57 prior gate declarations are
+unchanged, and the new selector adds one leg.
+
+[The archive](validation/2026-09-17-m1-inferred-guard-bindings/) retains
+the initial battery, rechecks, execution captures, erasure hashes,
+boundaries, mutation controls and source hashes.
+DENOMINATORS and M0-RATIO report the same 14 stale paths as the
+committed baseline. The carried kernel, surface, proof sources,
+backend and measurement inputs are unchanged. Timing remains paused;
+the performance bound and milestone exit remain pending.
+
+### Review round 2026-09-17 (M1 inferred guard bindings)
+
+| id | sev | one line | files |
+| --- | --- | --- | --- |
+| C-1 | low | three added prose rows over 72 columns held the WIDTH pin at 3 | dev/M1-INFERRED-GUARD-BINDINGS.md, dev/ASSAY-M1-BUILD-LOG.md |
+| D-1 | low | GATE-COMPAT base_sha256 hashed the base driver with a stripped newline | dev/validation/2026-09-17-m1-inferred-guard-bindings/GATE-COMPAT.json |
+| D-2 | low | the new-leg tail was pinned as a literal on the fresh ladder leg log | verify-final.sh |
+
+Refuted: 0. Merged and dropped: 0, no item was cut for the 7-finding
+cap and no two findings named the same defect.
+
+Gate: gates-M1IGB-1.log, verdict GREEN-FUNCTIONAL, every red row is
+DENOMINATORS or M0-RATIO, the disclosed state of this slice while the
+timing gate is paused.
+STAGE-M1-LINE: STAGE-M1-INFERRED-GUARD-BINDINGS FAIL
+M0-LINE: M0-VALIDATION FAIL; M0-EXIT requires the user commit and
+ratification
+EXIT 1 | LADDER-WRAPPER-EXIT 0 04:55:38
+PASS-COUNT 56
+FAIL-LINES: FAIL DENOMINATORS exit=1 elapsed_ms=35.4 FAIL M0-RATIO
+exit=1 elapsed_ms=104.9
+DENOM-FAILED-ROWS: dev/M1-ERRORS.md: FAILED dev/M1-PROOFS.md: FAILED
+dev/M1-SURFACE-MUTATIONS.md: FAILED dev/M1-SURFACE.md: FAILED
+dev/contract-test.py: FAILED dev/errors-test.py: FAILED
+dev/gates.sh: FAILED dev/m1-emit-test.py: FAILED
+dev/model-test.py: FAILED dev/stage-a-gates.py: FAILED
+emit/contract.ml: FAILED emit/emit.ml: FAILED emit/model.ml: FAILED
+emit/recognize.ml: FAILED
+MUTANTS-TAIL: MUTANT TRUSTED-BOUND killed exit=1 MUTANTS killed=13/13
+OK
+CUSTOM-ERRORS-TAIL: ERROR-MUTANT ABI killed control=OK CUSTOM-ERRORS
+cases=66 creates=2 refusals=26 mutants=5 OK
+SOURCE-PROOFS-TAIL: SOURCE-PROOF-MUTANT ERROR-BRANCH killed
+control=OK SOURCE-PROOFS theorems=11 arithmetic=226 evm=16
+recovery=6 effects=7 invalid=13 mutants=6 controls=4 OK
+CONTRACT-ROUTE-TAIL: CONTRACT-ROUTE core=3 identity=true
+allocated_bytes=1472 bound=131072 OK
+CONTRACT-SURFACE-TAIL: SURFACE-MUTANTS killed=8/8 controls=8 OK
+CONTRACT-SURFACE counter=30 variants=14 refusals=36 mutants=8 OK
+SOURCE-MODEL-TAIL: MODEL-MUTANTS killed=8/8 controls=8 OK
+SOURCE-MODEL counter=30 variants=10 corpus=11 invalid=28 refusals=6
+mutants=8 OK
+DIFF-EXECUTOR-TAIL: DIFF-CHECKS killed=24/24 controls=1 OK
+DIFF-EXECUTOR live=20 driver=28 rejected=24 OK
+M1-EMISSION-TAIL: M1-MUTANTS killed=8/8 controls=8 OK M1-EMISSION
+counter=30 sources=8 refusals=11 mutants=8 OK
+COUNTER-REFERENCE-TAIL: COUNTER-MUTANT SELECTOR
+witness=increment-success killed control=OK COUNTER-REFERENCE
+cases=30 creates=2 mutants=8 value_rejected=5 covered=120
+scope=reference OK
+DRIVER-TAIL: DRIVER cases=24 OK
+DENOMINATORS-TAIL: verification/lean-toolchain: OK shasum: WARNING:
+14 computed checksums did NOT match
+M0-RATIO-TAIL: shasum: WARNING: 14 computed checksums did NOT match
+PROOF-BUILD-TAIL: OK lake: 0 errors, 0 sorries, 0 warnings
+PROOF-REPORT-LINES: 42
+
+```
+INFERRED-GUARD-BINDINGS cases=160 creates=2 refusals=27 erasure_pairs=20 boundaries=4 mutants=4 OK
+```
+
+DENOMINATORS stayed red on the kept 119-row manifest; no rows-only
+refreeze ran in this review, and none of the 119 rows names a path
+this round touched. Rows refreshed this round:
+dev/M1-INFERRED-GUARD-BINDINGS.md (C-1 rewrap),
+dev/ASSAY-M1-BUILD-LOG.md (C-1 rewrap, this block),
+dev/validation/2026-09-17-m1-inferred-guard-bindings/GATE-COMPAT.json
+(D-1 base_sha256),
+dev/validation/2026-09-17-m1-inferred-guard-bindings/ARTIFACTS.json
+(D-1 cascade),
+dev/validation/2026-09-17-m1-inferred-guard-bindings/SOURCES.json
+(D-1 cascade), verify-final.sh (D-2, kit only). The M0-RATIO
+remeasure is CARRIED to a calm host; dev/denominators.json and
+dev/measurements are untouched by this review.
+
+gate: GREEN-FUNCTIONAL (every red row is DENOMINATORS or M0-RATIO,
+the disclosed state of this slice while the timing gate is paused)
+
+The finders and the builder ran opus/medium on the first attempt, with
+an opus/medium fallback when the first attempt returned null. The gate
+runner ran opus/medium. The verifiers, the judge and the check stage ran
+opus/high. The closer ran sonnet/medium, never opus.
+
 ## 2026-09-16: inferred proof binding types
 
 The twenty-second M1 slice starts at

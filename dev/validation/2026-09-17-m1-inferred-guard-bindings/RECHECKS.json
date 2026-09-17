@@ -1,0 +1,73 @@
+{
+  "path": "/Users/oobi/.opam/zxcaml-p1/bin:/Users/oobi/.local/bin:/Users/oobi/.elan/bin:/Users/oobi/.foundry/bin:/Users/oobi/.cargo/bin:/Users/oobi/.codex/packages/standalone/releases/0.154.0-aarch64-apple-darwin/codex-path:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+  "reason": "Initial validation PATH omitted the installed rg and leancho directories.",
+  "compiler_sha256": "7be73a90eac3437223fccba33030424eee2cb77e9ff5db5f22016da10bdb6bb9",
+  "rechecks": [
+    {
+      "name": "R0-COUNT",
+      "command": [
+        "zsh",
+        "-f",
+        "dev/r0-count.sh"
+      ],
+      "timeout": 10,
+      "marker": "R0-COUNT OK",
+      "returncode": 0,
+      "passed": true,
+      "elapsed_seconds": 0.2620463748462498
+    },
+    {
+      "name": "HOUSE",
+      "command": [
+        "zsh",
+        "-f",
+        "dev/house.sh"
+      ],
+      "timeout": 30,
+      "marker": "HOUSE OK",
+      "returncode": 0,
+      "passed": true,
+      "elapsed_seconds": 1.3295829999260604
+    },
+    {
+      "name": "MUTANTS",
+      "command": [
+        "python3",
+        "-P",
+        "dev/stage-a-test.py",
+        "mutants"
+      ],
+      "timeout": 300,
+      "marker": "MUTANTS killed=13/13 OK",
+      "returncode": 0,
+      "passed": true,
+      "elapsed_seconds": 10.228635041974485
+    },
+    {
+      "name": "AXIOMS",
+      "command": [
+        "python3",
+        "-P",
+        "dev/proofs-test.py"
+      ],
+      "timeout": 480,
+      "marker": "AXIOMS sorryAx=0 theorems=42 carried_files=28 controls=3 OK",
+      "returncode": 0,
+      "passed": true,
+      "elapsed_seconds": 12.174903041217476
+    },
+    {
+      "name": "SOURCE-PROOFS",
+      "command": [
+        "python3",
+        "-P",
+        "dev/source-proof-test.py"
+      ],
+      "timeout": 600,
+      "marker": "SOURCE-PROOFS theorems=11 arithmetic=226 evm=16 recovery=6 effects=7 invalid=13 mutants=6 controls=4 OK",
+      "returncode": 0,
+      "passed": true,
+      "elapsed_seconds": 172.55552383279428
+    }
+  ]
+}

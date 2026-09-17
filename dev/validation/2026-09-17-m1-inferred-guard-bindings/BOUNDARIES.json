@@ -1,0 +1,50 @@
+[
+  {
+    "name": "bounds",
+    "source_sha256": "ed08aa37baa46fc1fe802c3a0d7686f5a87eee37a5bce4fdce689c2231a1def4",
+    "typed_sha256": "3e59590e7fa3536fa35c6799da947c4d8e83380fd4a6a0d94c2784b4e620c03d",
+    "outputs": {
+      "axioms.txt": "61f8b9f0cb83fe5250e13b39b40e705d106caa92810d60168dfe5f4c3a89a302",
+      "init.hex": "b0732070c4b5612247d6a17d43375df74e7defbb1e0381188ccc9ccabf20dee9",
+      "runtime.hex": "f123985c41ace970580277fc70d0c993f2221906ebbeac7f0db069b2e52a8ff3",
+      "layout.json": "583f7d585ec855ee10ff3125482acfe5b10494dcabdfd6f64c69f34b60ca4338",
+      "abi.json": "646e276a85bb00acd3bb9778beb72ad99f175872b4c5cc276ed67ff884744666"
+    }
+  },
+  {
+    "name": "depth",
+    "source_sha256": "e6d646b2309683a1f25900941519fe3436f48ab8c9f08fda88f2d7e8fb953dac",
+    "typed_sha256": "9819ccf2b474e5dbc02a21ed707883bcba3e05b9956238c68419e8237aace912",
+    "outputs": {
+      "axioms.txt": "61f8b9f0cb83fe5250e13b39b40e705d106caa92810d60168dfe5f4c3a89a302",
+      "init.hex": "96b10a33c233ff4cfd55271ed83d2b0bb6fe21cbf0ec4de714071166bc3588c1",
+      "runtime.hex": "96cafe4c5454b1564a44abbc55b7d11228c7dd5a2a994efe2dde97c9575eb137",
+      "layout.json": "583f7d585ec855ee10ff3125482acfe5b10494dcabdfd6f64c69f34b60ca4338",
+      "abi.json": "646e276a85bb00acd3bb9778beb72ad99f175872b4c5cc276ed67ff884744666"
+    }
+  },
+  {
+    "name": "nullary",
+    "source_sha256": "17664677becedaf424211c5aa6614cefb0c38507bd441050103e2f211f4d8b9f",
+    "typed_sha256": "65d75b287c452d8f8876d1237a35b3b9e318383d097793bfdc253c2548d7c1d8",
+    "outputs": {
+      "axioms.txt": "61f8b9f0cb83fe5250e13b39b40e705d106caa92810d60168dfe5f4c3a89a302",
+      "init.hex": "b1f9cd4bd82ab654721a253ae35603947c03da4551bd9fd777911ca399fe9b80",
+      "runtime.hex": "edc59f99b92890e906adb039b4c8c701e0aa239f8c56a613763adf8ded4d997c",
+      "layout.json": "583f7d585ec855ee10ff3125482acfe5b10494dcabdfd6f64c69f34b60ca4338",
+      "abi.json": "646e276a85bb00acd3bb9778beb72ad99f175872b4c5cc276ed67ff884744666"
+    }
+  },
+  {
+    "name": "steps",
+    "source_sha256": "7c1b4f2fd08e7075b2ba00c1393d43a6aa68e5a71125461f974bf26dd29622da",
+    "typed_sha256": "604097546a2fff85246bb10c112ad573f67ba250aa8aedf2823ca41f74d623d9",
+    "outputs": {
+      "axioms.txt": "61f8b9f0cb83fe5250e13b39b40e705d106caa92810d60168dfe5f4c3a89a302",
+      "init.hex": "282be925dd0a43a4bdbe2c6f119f2d68d70b2fc35f884de75fd4e9995a525c68",
+      "runtime.hex": "7c60dfd00457c30e5015d1a7a4bff1c3a05f48e3b0fbcca4bde98a47f6c5324c",
+      "layout.json": "583f7d585ec855ee10ff3125482acfe5b10494dcabdfd6f64c69f34b60ca4338",
+      "abi.json": "0dfc7604f070cbd4f0509313480e44e3607e4ec2db8aed80beb544b0145b4f77"
+    }
+  }
+]
