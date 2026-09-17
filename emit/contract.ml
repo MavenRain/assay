@@ -13,6 +13,7 @@ type predicate_row = { predicate_name : token; words : token list; definition : 
 type resolved_claim = Atomic of string | Bundle of resolved_claim * resolved_claim
 type proof =
   | Proof_unit
+  | Proof_hole of token
   | Proof_name of token
   | Proof_word of word
   | Proof_call of token * proof list
@@ -193,6 +194,7 @@ let proof_binder tokens =
 let rec proof_term depth tokens =
   if depth > 128 then fail (here tokens) "LIMIT" "proof nesting exceeds 128" else
   match tokens with
+  | ({ text = "_"; _ } as at) :: rest -> Ok (Proof_hole at, rest)
   | { text = "("; _ } :: { text = ")"; _ } :: rest -> Ok (Proof_unit, rest)
   | { text = "("; _ } :: rest ->
     let* term, rest = proof_term (depth + 1) rest in
@@ -500,6 +502,9 @@ let rec proof ?(erased=true) ?(evidence=[]) predicates helpers depth env expecte
     proof ~erased ~evidence predicates helpers depth env expected term in
   let* actual, term = match term with
     | Proof_unit -> Ok (Atomic "(prod ())", "(tuple ())")
+    | Proof_hole at ->
+      Option.fold ~none:(fail at "PROOF" "a proof placeholder requires an expected claim")
+        ~some:(fun ty -> Ok (ty, invariant_proof evidence ty)) expected
     | Proof_word (Literal at | Local at) -> fail at "PROOF" "a Word is not an erased proof"
     | Proof_name at ->
       let refusal = fail at "PROOF" "expected an in-scope erased proof" in
@@ -553,7 +558,7 @@ let rec proof ?(erased=true) ?(evidence=[]) predicates helpers depth env expecte
           let* v = match arg with
             | Proof_word v -> word env v
             | Proof_name at -> word env (Local at)
-            | Proof_unit | Proof_call _ | Proof_ann _ | Proof_let _ | Proof_pair _ | Proof_project _ ->
+            | Proof_unit | Proof_hole _ | Proof_call _ | Proof_ann _ | Proof_let _ | Proof_pair _ | Proof_project _ ->
               fail at "PROOF" "expected a Word helper argument" in
           arguments ((name.text, Word_value v) :: substitution) (v :: values) evidence bindings parameters args
         | Proof_parameter (_name, claim) :: parameters, arg :: args ->

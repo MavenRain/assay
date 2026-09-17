@@ -22,6 +22,8 @@ Word parameters remain explicit, including those following a proof
 parameter. An invalid supplied proof is rejected even when matching
 evidence is available. Unknown, shadowed and forward helper calls keep
 their existing refusals.
+The subsequent [proof-placeholder slice](M1-PROOF-HOLES.md) allows `_`
+in an explicit proof position, including before a later Word argument.
 
 Each omitted parameter's claim is instantiated with the supplied Word
 values. Lookup selects the most recently recorded exact match. Evidence

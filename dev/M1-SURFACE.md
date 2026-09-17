@@ -109,6 +109,8 @@ checked obligations for construction and affected successful writes. The
 helper declarations and adds comma-separated calls in proof expressions.
 The [proof bundle slice](M1-PROOF-BUNDLES.md) reserves `Both` and adds
 contextual `pair`, `first` and `second` inside proof calls.
+The [proof-placeholder slice](M1-PROOF-HOLES.md) accepts `_` as a proof
+expression with an expected claim. It remains reserved as an identifier.
 The M1 performance bound also remains open. The original surface uses the
 checked Result/error path of the design. The following
 [source-proof slice](M1-PROOFS.md) proves overflow freedom for a Lean model

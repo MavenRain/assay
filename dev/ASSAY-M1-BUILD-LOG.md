@@ -1,5 +1,124 @@
 # Assay M1 build log
 
+## 2026-09-16: contextual proof placeholders
+
+The twenty-first M1 slice starts at
+`9058d167e7d7423102611ffdd6918c5506b9da59`.
+`_` is now a proof expression when an expected claim is available.
+It can fill an earlier helper proof argument while later Word and
+proof arguments remain explicit. It also works in proof bindings,
+helper bodies, arithmetic proofs, annotations and contextual pairs.
+`ProofHoles.asy` demonstrates the bounded counter with interleaved
+proof and Word parameters.
+
+The lowering reuses the existing evidence lookup and annotates each
+inferred term before kernel checking. An unproved symbolic or false
+claim still fails, including unused arguments and reverting tails.
+Word arguments stay explicit. Placeholders lacking an expected claim
+fail with `SURFACE_PROOF`; proof projections can supply that context
+with an annotation. Existing lexical scope, resolved Word identities,
+resource limits and proof-expression sharing remain in effect.
+
+The new suite passes 242 source-model/Cancun comparisons, two
+constructor outcomes, 25 refusals through three commands and 23
+placeholder/explicit pairs comparing all five emitted files. It also
+checks 16-argument forms, rejection of 17 arguments and an unused
+false parameter, plus nesting depths 4, 8, 16 and 128 with bounded
+generated core size. Four compiler mutations fail their named
+witnesses and pass after restoration.
+
+All 54 functional legs pass in the default 56-leg battery. A syntax
+tree comparison confirms all 55 earlier gate commands, deadlines and
+success markers are unchanged. Both proof gates ran after the cache
+checks matched 35 source files and two pinned dependency revisions.
+The carried kernel and surface, proof sources, effect protocol and
+backend are unchanged. Trusted-code counts remain within their bounds.
+
+The [validation archive](validation/2026-09-16-m1-proof-holes/)
+records each result, execution and refusal captures, mutation controls,
+nesting bounds, gate compatibility and source and artifact hashes.
+DENOMINATORS and M0-RATIO retain their failures against the preserved
+older measurement inputs. Timing remains paused; the M1 performance
+bound and milestone exit remain pending.
+
+### Review round 2026-09-16 (M1 proof holes)
+
+| id | severity | note | files |
+| --- | --- | --- | --- |
+| C-1 | low | stage commit file was absent; written | dev/STAGE-M1-PROOF-HOLES-COMMIT.txt |
+| C-3 | low | three prose rows over 72 columns; rewrapped | dev/M1-PROOF-HOLES.md, dev/validation/2026-09-16-m1-proof-holes/README.md |
+| B-1 | low | boundaries() twin construction was unguarded; now guarded | dev/proof-hole-test.py |
+| ND-1-1 | medium | archive manifest stale after round 1 rewrites; refreshed | dev/validation/2026-09-16-m1-proof-holes/ARTIFACTS.json |
+
+Refuted: 0.
+
+Merged and dropped: 0; the four findings name four distinct
+defects, so no merge applies and nothing is cut.
+
+Gate result, from
+/Users/oobi/Documents/assay-m1-proof-holes-review/gates-M1PHO-2.log:
+
+```
+verdict GREEN-FUNCTIONAL: every red row is DENOMINATORS or M0-RATIO,
+the disclosed state of this slice while the timing gate is paused:
+pass=54 of 56 legs, fail=[DENOMINATORS,M0-RATIO], denom
+rows=[dev/M1-ERRORS.md,dev/M1-PROOFS.md,dev/M1-SURFACE-MUTATIONS.md,
+dev/M1-SURFACE.md,dev/contract-test.py,dev/errors-test.py,
+dev/gates.sh,dev/m1-emit-test.py,dev/model-test.py,
+dev/stage-a-gates.py,emit/contract.ml,emit/emit.ml,emit/model.ml,
+emit/recognize.ml], mutants=true, marker tails ok=true, timeout
+legs only=false, disclosed reds only=true, wrapper exit ok=true
+STAGE-M1-LINE: STAGE-M1-PROOF-HOLES FAIL
+M0-LINE: M0-VALIDATION FAIL; M0-EXIT requires the user commit and ratification
+EXIT 1 | LADDER-WRAPPER-EXIT 0 17:38:28
+PASS-COUNT: 54
+FAIL-LINES: FAIL DENOMINATORS exit=1 elapsed_ms=84.4 FAIL M0-RATIO exit=1 elapsed_ms=434.6
+DENOM-FAILED-ROWS: dev/M1-ERRORS.md: FAILED dev/M1-PROOFS.md: FAILED dev/M1-SURFACE-MUTATIONS.md: FAILED dev/M1-SURFACE.md: FAILED dev/contract-test.py: FAILED dev/errors-test.py: FAILED dev/gates.sh: FAILED dev/m1-emit-test.py: FAILED dev/model-test.py: FAILED dev/stage-a-gates.py: FAILED emit/contract.ml: FAILED emit/emit.ml: FAILED emit/model.ml: FAILED emit/recognize.ml: FAILED
+MUTANTS-TAIL: MUTANT TRUSTED-BOUND killed exit=1 MUTANTS killed=13/13 OK
+CUSTOM-ERRORS-TAIL: ERROR-MUTANT ABI killed control=OK CUSTOM-ERRORS cases=66 creates=2 refusals=26 mutants=5 OK
+SOURCE-PROOFS-TAIL: SOURCE-PROOF-MUTANT ERROR-BRANCH killed control=OK SOURCE-PROOFS theorems=11 arithmetic=226 evm=16 recovery=6 effects=7 invalid=13 mutants=6 controls=4 OK
+CONTRACT-ROUTE-TAIL: CONTRACT-ROUTE core=3 identity=true allocated_bytes=1472 bound=131072 OK
+CONTRACT-SURFACE-TAIL: SURFACE-MUTANTS killed=8/8 controls=8 OK CONTRACT-SURFACE counter=30 variants=14 refusals=36 mutants=8 OK
+SOURCE-MODEL-TAIL: MODEL-MUTANTS killed=8/8 controls=8 OK SOURCE-MODEL counter=30 variants=10 corpus=11 invalid=28 refusals=6 mutants=8 OK
+DIFF-EXECUTOR-TAIL: DIFF-CHECKS killed=24/24 controls=1 OK DIFF-EXECUTOR live=20 driver=28 rejected=24 OK
+M1-EMISSION-TAIL: M1-MUTANTS killed=8/8 controls=8 OK M1-EMISSION counter=30 sources=8 refusals=11 mutants=8 OK
+COUNTER-REFERENCE-TAIL: COUNTER-MUTANT SELECTOR witness=increment-success killed control=OK COUNTER-REFERENCE cases=30 creates=2 mutants=8 value_rejected=5 covered=120 scope=reference OK
+DRIVER-TAIL: DRIVER cases=24 OK
+DENOMINATORS-TAIL: verification/lean-toolchain: OK shasum: WARNING: 14 computed checksums did NOT match
+M0-RATIO-TAIL: shasum: WARNING: 14 computed checksums did NOT match
+PROOF-BUILD-TAIL: OK lake: 0 errors, 0 sorries, 0 warnings
+PROOF-REPORT-LINES: 42
+```
+
+```
+PROOF-HOLES cases=242 creates=2 refusals=25 erasure_pairs=23 boundaries=6 mutants=4 OK
+```
+
+DENOMINATORS stayed red on the kept 119-row manifest; no rows-only
+refreeze ran this round, that remeasure belongs to the close step
+on a calm host. Fixes refreshed dev/proof-hole-test.py,
+dev/M1-PROOF-HOLES.md,
+dev/validation/2026-09-16-m1-proof-holes/README.md, added
+dev/STAGE-M1-PROOF-HOLES-COMMIT.txt, and refreshed
+dev/validation/2026-09-16-m1-proof-holes/SOURCES.json and
+dev/validation/2026-09-16-m1-proof-holes/ARTIFACTS.json. The
+M0-RATIO remeasure is CARRIED to a calm host; dev/denominators.json
+and dev/measurements/ are never edited in this review.
+
+gate: GREEN-FUNCTIONAL (GREEN-FUNCTIONAL: every red row is
+DENOMINATORS or M0-RATIO, the disclosed state of this slice while
+the timing gate is paused: pass=54 of 56 legs,
+fail=[DENOMINATORS,M0-RATIO], mutants=true, marker tails ok=true,
+timeout legs only=false, disclosed reds only=true, wrapper exit
+ok=true, stage=STAGE-M1-LINE: STAGE-M1-PROOF-HOLES FAIL, m0=M0-LINE:
+M0-VALIDATION FAIL; M0-EXIT requires the user commit and
+ratification, exit=EXIT 1 | LADDER-WRAPPER-EXIT 0 17:38:28)
+
+The finders and the builder ran opus/medium on the first attempt, with
+an opus/medium fallback when the first attempt returned null. The gate
+runner ran opus/medium. The verifiers, the judge and the check stage ran
+opus/high. The closer ran sonnet/medium, never opus.
+
 ## 2026-09-16: inferred proof-helper arguments
 
 The twentieth M1 slice starts at

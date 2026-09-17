@@ -1,0 +1,19 @@
+M1: check contextual proof placeholders
+
+Accept `_` as a proof expression whenever the position carries an
+expected claim. Resolve the placeholder from checked evidence in
+scope, including helper parameters, proof-local bindings and proof
+bundles. Keep Word arguments explicit and validate every resolved
+proof before erasure.
+
+Add execution, scope, refusal, boundary and five-file erasure
+coverage for placeholders, plus four mutations with restored
+controls. Accept 16 placeholders in one call and nesting depths 4, 8,
+16 and 128. Extend the gate battery to 56 legs while preserving
+previous commands, deadlines and markers.
+
+Review pass 1 (2026-09-16) fixed 4 findings: C-1, C-3, B-1, ND-1-1.
+C-1 wrote the missing stage commit file.
+C-3 rewrapped three prose rows over 72 columns.
+B-1 guarded the boundaries() explicit twin construction.
+ND-1-1 refreshed the stale archive manifest ARTIFACTS.json.

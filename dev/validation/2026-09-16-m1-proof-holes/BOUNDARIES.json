@@ -1,0 +1,27 @@
+{
+  "parameters": 16,
+  "nested": [
+    {
+      "depth": 4,
+      "core_bytes": 10430,
+      "source_sha256": "8c5c19a91ee628c2442cd98551a94d3f5d83a08fc23739593b7d585b6cc4fc02"
+    },
+    {
+      "depth": 8,
+      "core_bytes": 15846,
+      "source_sha256": "376a4d0313e3dc6dc2226c92f154309adaafdaf89cef4ed632afbad1f95537b5"
+    },
+    {
+      "depth": 16,
+      "core_bytes": 26714,
+      "source_sha256": "597acdb28f04b3c4e0cde2b0b65f29c0a2482f75fcb5a6c14226d1559d2f492c"
+    },
+    {
+      "depth": 128,
+      "core_bytes": 179202,
+      "source_sha256": "d47ff769b39503e7eb4831a4fc82394cfd9c553c0a24f1c5ae1b4138b8856b54"
+    }
+  ],
+  "positive": 6,
+  "negative": 2
+}

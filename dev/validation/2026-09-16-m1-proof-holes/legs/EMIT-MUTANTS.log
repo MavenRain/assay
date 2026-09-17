@@ -1,0 +1,8 @@
+EMIT-MUTANT WORD-BOX killed by word-zero
+EMIT-MUTANT WORD-RANGE killed by word-overflow
+EMIT-MUTANT STORAGE-CLOSURE killed by storage-closure
+EMIT-MUTANT STORAGE-ALIAS killed by storage-hidden
+EMIT-MUTANT GLOBAL-APP killed by app
+EMIT-MUTANT ABI-ENTRY killed by ABI-GOLD mismatch
+EMIT-MUTANT LAYOUT-SLOT killed by LAYOUT-GOLD mismatch
+EMIT-MUTANTS killed=7/7 controls=4 OK
