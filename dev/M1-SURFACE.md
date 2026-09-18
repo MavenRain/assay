@@ -56,6 +56,7 @@ trailing calldata and revert on short heads or unknown selectors.
 | `sstore field value ; REST` | Store a word and continue |
 | `guard le a b ; REST` | Continue when `a <= b`, otherwise revert |
 | `let x : Word := value ; REST` | Bind a word in the remainder of this body |
+| `let x := value ; REST` | Infer the Word type and use the same checked binding |
 | `pure value` | End the entry by returning one word |
 | `revert` | End the entry by reverting with empty data |
 
@@ -92,9 +93,13 @@ including the counter's `get()`, retain their original checked form.
 
 Each body has at most 128 effect or let steps. Value parentheses nest at
 most 128 levels. Contract files contain at most 65536 bytes and 8192
-non-comment tokens. Literals must be decimal values below `2^256`, with at
+non-comment tokens. Decimal literals must be below `2^256`, with at
 most 78 digits. Existing core specialization, depth, memory and bytecode
-bounds still apply after lowering. `.` is a punctuation token of the
+bounds still apply after lowering. The [hex literal slice](M1-HEX-LITERALS.md)
+also accepts hexadecimal Word literals. The
+[inferred Word slice](M1-INFERRED-WORDS.md) makes runtime binding
+annotations optional while retaining all existing checks.
+`.` is a punctuation token of the
 surface and is valid only inside an invariant claim. A `.` in any other
 position is refused as `SURFACE_SYNTAX`, not as `SURFACE_TOKEN`. `,` is
 a punctuation token of the surface and is valid only inside a proof

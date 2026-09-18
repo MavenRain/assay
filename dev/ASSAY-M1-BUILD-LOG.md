@@ -1,5 +1,63 @@
 # Assay M1 build log
 
+## 2026-09-18: Inferred runtime Word bindings
+
+The twenty-eighth M1 slice starts at
+`cf3b6cf0474ce66f684bd99c0b5ac87eb3982145`. Runtime `let` bindings can
+omit their `: Word` annotation. Literal and local initializers, as well
+as `addLt` and `subLe`, construct the existing checked binding forms.
+An explicit annotation still has to name Word. Erased proof bindings,
+effect syntax, constructor restrictions and parameter annotations retain
+their separate rules.
+
+Initializers resolve the preceding scope, including an older binding
+with the same name. Loaded snapshots and proof dependencies retain
+their existing identity. Unused erased values and missing or stale
+arithmetic evidence are still refused before erasure. The only compiler
+change selects the optional runtime annotation in the body parser.
+The combined emitter remains at 1800/1800 lines. The kernel, backend,
+source model, assembler and axiom set are unchanged.
+
+The focused gate passes 21 comparisons of all five emitted artifacts,
+40 independently expected source-model/geth outcomes, 40 signed Cancun
+transitions, 19 refused source forms through check/emit/run, two body-step
+boundaries and four built mutations with passing restored controls.
+The two EVM execution paths both use geth. The
+[slice contract](M1-INFERRED-WORDS.md),
+[mutation contract](M1-INFERRED-WORD-MUTATIONS.md) and
+[validation archive](validation/2026-09-18-m1-inferred-words/) describe
+the cases and retain their complete evidence.
+
+The complete 63-leg battery passes all 61 functional gates on its
+first run. DENOMINATORS and M0-RATIO remain failed under the existing
+timing pause; the complete runner exits 1 and retains its FAIL stamp.
+All 62 earlier gate declarations preserve their commands, deadlines
+and success markers. The offline proof cache matched 35 source inputs
+and both pinned dependencies before reuse. AXIOMS passed with 42
+theorems, 28 carried files and no sorryAx. No timing input was refreshed.
+
+### Review round 2026-09-18 (M1 inferred Word bindings)
+
+A-1 (low): a refusal case named `missing-annotation` supplied an empty
+annotation, the form this slice legalizes; now the case is named
+`empty-annotation` and the record refusal list carries that name.
+
+A-3 (low): a pair could compare a fixture with itself when the typed
+rewrite changed nothing; now each pair requires the rewrite to differ
+from the source before both spellings are emitted.
+
+B-1 (low): the leg marker printed `signed` as an alias of the case
+count; now the live pass returns a counted total of signed transitions
+and the marker prints that total.
+
+B-2 (low): the accepted 128-step boundary case stopped at check; now it
+is emitted beside its typed rewrite, and all five artifacts are
+compared and hashed.
+
+B-3 (low): four evidence refusals accepted a kernel-generic diagnostic
+that unrelated refusal families also produce; now those four cases
+require the exact recorded diagnostic on check, emit and run.
+
 ## 2026-09-18: Hexadecimal Word literals in contract source
 
 The twenty-seventh M1 slice starts at

@@ -1,0 +1,31 @@
+[
+  {
+    "name": "steps-128",
+    "accepted": true,
+    "files": {
+      "runtime.hex": "6d282fd795d491c160dd400ec6d09b33cecd40df71ca9e8dd69e98a5372349c6",
+      "init.hex": "3ea134b1ce9261974864361c68f0c3a198ea1893c23d86d9af5943aef9b84425",
+      "abi.json": "335668c7fb67e5708ff41c9b84c4ed4d6da188b15422a5726f341f54a3609293",
+      "layout.json": "489b567bc68f3928b792bd453d0cb404c5082915f989e4c218ec61e145f296cb",
+      "axioms.txt": "61f8b9f0cb83fe5250e13b39b40e705d106caa92810d60168dfe5f4c3a89a302"
+    }
+  },
+  {
+    "name": "steps-129",
+    "marker": "SURFACE_LIMIT: at most 128 effect steps",
+    "results": [
+      {
+        "command": "check",
+        "diagnostic": "line 4, column 2368: SURFACE_LIMIT: at most 128 effect steps\n"
+      },
+      {
+        "command": "emit",
+        "diagnostic": "line 4, column 2368: SURFACE_LIMIT: at most 128 effect steps\n"
+      },
+      {
+        "command": "run",
+        "diagnostic": "line 4, column 2368: SURFACE_LIMIT: at most 128 effect steps\n"
+      }
+    ]
+  }
+]

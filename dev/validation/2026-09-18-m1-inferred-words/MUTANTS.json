@@ -1,0 +1,50 @@
+[
+  {
+    "name": "mutant-IMPLICIT",
+    "exit": 1,
+    "marker": "WORD-EMIT decimal",
+    "source_sha256": "798275c8f9076f5857ee67d9900456f9a6e6fb1c68fafe0e013929af845968f4"
+  },
+  {
+    "name": "control-IMPLICIT",
+    "exit": 0,
+    "marker": "WORD-EMIT decimal",
+    "source_sha256": "f46bf7b3253119699caeb68f4ebc7e8729332254e30ce2e6c9341b4d188e6b58"
+  },
+  {
+    "name": "mutant-ANNOTATION",
+    "exit": 1,
+    "marker": "WORD-REFUSAL wrong-annotation check",
+    "source_sha256": "c3900b18526ce1d6478c9cc20fd3a1ceffb41ae17844993e0fe7ae9b60bb17bc"
+  },
+  {
+    "name": "control-ANNOTATION",
+    "exit": 0,
+    "marker": "WORD-REFUSAL wrong-annotation check",
+    "source_sha256": "f46bf7b3253119699caeb68f4ebc7e8729332254e30ce2e6c9341b4d188e6b58"
+  },
+  {
+    "name": "mutant-ERASED",
+    "exit": 1,
+    "marker": "WORD-REFUSAL erased-value check",
+    "source_sha256": "9549fbb28c33494931118c7c470d6e64d6f34ea22df1e89d587837f86d00dd21"
+  },
+  {
+    "name": "control-ERASED",
+    "exit": 0,
+    "marker": "WORD-REFUSAL erased-value check",
+    "source_sha256": "f46bf7b3253119699caeb68f4ebc7e8729332254e30ce2e6c9341b4d188e6b58"
+  },
+  {
+    "name": "mutant-SHADOW",
+    "exit": 1,
+    "marker": "WORD-MODEL local-shadow-6",
+    "source_sha256": "b7a976d2c850e20ad38907305f232774e955aef6d0f288fe9caaa4764d781fda"
+  },
+  {
+    "name": "control-SHADOW",
+    "exit": 0,
+    "marker": "WORD-MODEL local-shadow-6",
+    "source_sha256": "f46bf7b3253119699caeb68f4ebc7e8729332254e30ce2e6c9341b4d188e6b58"
+  }
+]

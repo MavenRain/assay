@@ -1,0 +1,344 @@
+[
+  {
+    "name": "unbound",
+    "marker": "SURFACE_SCOPE: unbound word absent",
+    "results": [
+      {
+        "command": "check",
+        "diagnostic": "line 4, column 60: SURFACE_SCOPE: unbound word absent\n"
+      },
+      {
+        "command": "emit",
+        "diagnostic": "line 4, column 60: SURFACE_SCOPE: unbound word absent\n"
+      },
+      {
+        "command": "run",
+        "diagnostic": "line 4, column 60: SURFACE_SCOPE: unbound word absent\n"
+      }
+    ]
+  },
+  {
+    "name": "self-reference",
+    "marker": "SURFACE_SCOPE: unbound word result",
+    "results": [
+      {
+        "command": "check",
+        "diagnostic": "line 4, column 60: SURFACE_SCOPE: unbound word result\n"
+      },
+      {
+        "command": "emit",
+        "diagnostic": "line 4, column 60: SURFACE_SCOPE: unbound word result\n"
+      },
+      {
+        "command": "run",
+        "diagnostic": "line 4, column 60: SURFACE_SCOPE: unbound word result\n"
+      }
+    ]
+  },
+  {
+    "name": "wrong-annotation",
+    "marker": "SURFACE_SYNTAX: expected Word",
+    "results": [
+      {
+        "command": "check",
+        "diagnostic": "line 4, column 59: SURFACE_SYNTAX: expected Word\n"
+      },
+      {
+        "command": "emit",
+        "diagnostic": "line 4, column 59: SURFACE_SYNTAX: expected Word\n"
+      },
+      {
+        "command": "run",
+        "diagnostic": "line 4, column 59: SURFACE_SYNTAX: expected Word\n"
+      }
+    ]
+  },
+  {
+    "name": "empty-annotation",
+    "marker": "SURFACE_SYNTAX: expected Word",
+    "results": [
+      {
+        "command": "check",
+        "diagnostic": "line 4, column 59: SURFACE_SYNTAX: expected Word\n"
+      },
+      {
+        "command": "emit",
+        "diagnostic": "line 4, column 59: SURFACE_SYNTAX: expected Word\n"
+      },
+      {
+        "command": "run",
+        "diagnostic": "line 4, column 59: SURFACE_SYNTAX: expected Word\n"
+      }
+    ]
+  },
+  {
+    "name": "missing-assignment",
+    "marker": "SURFACE_SYNTAX: expected :",
+    "results": [
+      {
+        "command": "check",
+        "diagnostic": "line 4, column 57: SURFACE_SYNTAX: expected :\n"
+      },
+      {
+        "command": "emit",
+        "diagnostic": "line 4, column 57: SURFACE_SYNTAX: expected :\n"
+      },
+      {
+        "command": "run",
+        "diagnostic": "line 4, column 57: SURFACE_SYNTAX: expected :\n"
+      }
+    ]
+  },
+  {
+    "name": "missing-value",
+    "marker": "SURFACE_NAME:",
+    "results": [
+      {
+        "command": "check",
+        "diagnostic": "line 4, column 60: SURFACE_NAME: expected an unreserved identifier of at most 64 characters\n"
+      },
+      {
+        "command": "emit",
+        "diagnostic": "line 4, column 60: SURFACE_NAME: expected an unreserved identifier of at most 64 characters\n"
+      },
+      {
+        "command": "run",
+        "diagnostic": "line 4, column 60: SURFACE_NAME: expected an unreserved identifier of at most 64 characters\n"
+      }
+    ]
+  },
+  {
+    "name": "unit-value",
+    "marker": "SURFACE_NAME:",
+    "results": [
+      {
+        "command": "check",
+        "diagnostic": "line 4, column 61: SURFACE_NAME: expected an unreserved identifier of at most 64 characters\n"
+      },
+      {
+        "command": "emit",
+        "diagnostic": "line 4, column 61: SURFACE_NAME: expected an unreserved identifier of at most 64 characters\n"
+      },
+      {
+        "command": "run",
+        "diagnostic": "line 4, column 61: SURFACE_NAME: expected an unreserved identifier of at most 64 characters\n"
+      }
+    ]
+  },
+  {
+    "name": "runtime-hole",
+    "marker": "SURFACE_NAME:",
+    "results": [
+      {
+        "command": "check",
+        "diagnostic": "line 4, column 60: SURFACE_NAME: expected an unreserved identifier of at most 64 characters\n"
+      },
+      {
+        "command": "emit",
+        "diagnostic": "line 4, column 60: SURFACE_NAME: expected an unreserved identifier of at most 64 characters\n"
+      },
+      {
+        "command": "run",
+        "diagnostic": "line 4, column 60: SURFACE_NAME: expected an unreserved identifier of at most 64 characters\n"
+      }
+    ]
+  },
+  {
+    "name": "effect-value",
+    "marker": "SURFACE_NAME:",
+    "results": [
+      {
+        "command": "check",
+        "diagnostic": "line 4, column 60: SURFACE_NAME: expected an unreserved identifier of at most 64 characters\n"
+      },
+      {
+        "command": "emit",
+        "diagnostic": "line 4, column 60: SURFACE_NAME: expected an unreserved identifier of at most 64 characters\n"
+      },
+      {
+        "command": "run",
+        "diagnostic": "line 4, column 60: SURFACE_NAME: expected an unreserved identifier of at most 64 characters\n"
+      }
+    ]
+  },
+  {
+    "name": "bad-literal",
+    "marker": "SURFACE_WORD:",
+    "results": [
+      {
+        "command": "check",
+        "diagnostic": "line 4, column 65: SURFACE_WORD: expected a decimal or hexadecimal uint256\n"
+      },
+      {
+        "command": "emit",
+        "diagnostic": "line 4, column 65: SURFACE_WORD: expected a decimal or hexadecimal uint256\n"
+      },
+      {
+        "command": "run",
+        "diagnostic": "line 4, column 65: SURFACE_WORD: expected a decimal or hexadecimal uint256\n"
+      }
+    ]
+  },
+  {
+    "name": "erased-value",
+    "marker": "SURFACE_PROOF: an erased proof is not a Word",
+    "results": [
+      {
+        "command": "check",
+        "diagnostic": "line 4, column 101: SURFACE_PROOF: an erased proof is not a Word\n"
+      },
+      {
+        "command": "emit",
+        "diagnostic": "line 4, column 101: SURFACE_PROOF: an erased proof is not a Word\n"
+      },
+      {
+        "command": "run",
+        "diagnostic": "line 4, column 101: SURFACE_PROOF: an erased proof is not a Word\n"
+      }
+    ]
+  },
+  {
+    "name": "erased-unused",
+    "marker": "SURFACE_PROOF: an erased proof is not a Word",
+    "results": [
+      {
+        "command": "check",
+        "diagnostic": "line 4, column 101: SURFACE_PROOF: an erased proof is not a Word\n"
+      },
+      {
+        "command": "emit",
+        "diagnostic": "line 4, column 101: SURFACE_PROOF: an erased proof is not a Word\n"
+      },
+      {
+        "command": "run",
+        "diagnostic": "line 4, column 101: SURFACE_PROOF: an erased proof is not a Word\n"
+      }
+    ]
+  },
+  {
+    "name": "missing-evidence",
+    "marker": "mismatch: a tuple needs a right former as its expected type",
+    "results": [
+      {
+        "command": "check",
+        "diagnostic": "mismatch: a tuple needs a right former as its expected type\n"
+      },
+      {
+        "command": "emit",
+        "diagnostic": "mismatch: a tuple needs a right former as its expected type\n"
+      },
+      {
+        "command": "run",
+        "diagnostic": "mismatch: a tuple needs a right former as its expected type\n"
+      }
+    ]
+  },
+  {
+    "name": "stale-evidence",
+    "marker": "and the expected type is (Lan SColl 0 (Sec SColl 0 []))",
+    "results": [
+      {
+        "command": "check",
+        "diagnostic": "mismatch: the term has type (Elim SColl 2 (Out SPi w b Nat (APt w 10) (Out SPi w a Nat (APt w (Elim SMu Word [256] (Out SColl 1 (ALeg 0) _assay_args) as x return Nat with | (ACtor word) bits n => n)) natLt)) as flag return Type 0 with | (ALeg 0) _u => (Ran SColl 0 (Sec SColl 0 [])) | (ALeg 1) _u => (Lan SColl 0 (Sec SColl 0 []))) and the expected type is (Lan SColl 0 (Sec SColl 0 []))\n"
+      },
+      {
+        "command": "emit",
+        "diagnostic": "mismatch: the term has type (Elim SColl 2 (Out SPi w b Nat (APt w 10) (Out SPi w a Nat (APt w (Elim SMu Word [256] (Out SColl 1 (ALeg 0) _assay_args) as x return Nat with | (ACtor word) bits n => n)) natLt)) as flag return Type 0 with | (ALeg 0) _u => (Ran SColl 0 (Sec SColl 0 [])) | (ALeg 1) _u => (Lan SColl 0 (Sec SColl 0 []))) and the expected type is (Lan SColl 0 (Sec SColl 0 []))\n"
+      },
+      {
+        "command": "run",
+        "diagnostic": "mismatch: the term has type (Elim SColl 2 (Out SPi w b Nat (APt w 10) (Out SPi w a Nat (APt w (Elim SMu Word [256] (Out SColl 1 (ALeg 0) _assay_args) as x return Nat with | (ACtor word) bits n => n)) natLt)) as flag return Type 0 with | (ALeg 0) _u => (Ran SColl 0 (Sec SColl 0 [])) | (ALeg 1) _u => (Lan SColl 0 (Sec SColl 0 []))) and the expected type is (Lan SColl 0 (Sec SColl 0 []))\n"
+      }
+    ]
+  },
+  {
+    "name": "stale-inference",
+    "marker": "mismatch: a tuple needs a right former as its expected type",
+    "results": [
+      {
+        "command": "check",
+        "diagnostic": "mismatch: a tuple needs a right former as its expected type\n"
+      },
+      {
+        "command": "emit",
+        "diagnostic": "mismatch: a tuple needs a right former as its expected type\n"
+      },
+      {
+        "command": "run",
+        "diagnostic": "mismatch: a tuple needs a right former as its expected type\n"
+      }
+    ]
+  },
+  {
+    "name": "unused-evidence",
+    "marker": "mismatch: a tuple needs a right former as its expected type",
+    "results": [
+      {
+        "command": "check",
+        "diagnostic": "mismatch: a tuple needs a right former as its expected type\n"
+      },
+      {
+        "command": "emit",
+        "diagnostic": "mismatch: a tuple needs a right former as its expected type\n"
+      },
+      {
+        "command": "run",
+        "diagnostic": "mismatch: a tuple needs a right former as its expected type\n"
+      }
+    ]
+  },
+  {
+    "name": "constructor",
+    "marker": "SURFACE_CONSTRUCTOR: constructor accepts literal stores and deployer initialization only",
+    "results": [
+      {
+        "command": "check",
+        "diagnostic": "line 5, column 50: SURFACE_CONSTRUCTOR: constructor accepts literal stores and deployer initialization only\n"
+      },
+      {
+        "command": "emit",
+        "diagnostic": "line 5, column 50: SURFACE_CONSTRUCTOR: constructor accepts literal stores and deployer initialization only\n"
+      },
+      {
+        "command": "run",
+        "diagnostic": "line 5, column 50: SURFACE_CONSTRUCTOR: constructor accepts literal stores and deployer initialization only\n"
+      }
+    ]
+  },
+  {
+    "name": "entry-scope",
+    "marker": "SURFACE_SCOPE: unbound word local",
+    "results": [
+      {
+        "command": "check",
+        "diagnostic": "line 5, column 52: SURFACE_SCOPE: unbound word local\n"
+      },
+      {
+        "command": "emit",
+        "diagnostic": "line 5, column 52: SURFACE_SCOPE: unbound word local\n"
+      },
+      {
+        "command": "run",
+        "diagnostic": "line 5, column 52: SURFACE_SCOPE: unbound word local\n"
+      }
+    ]
+  },
+  {
+    "name": "parameter-type",
+    "marker": "SURFACE_SYNTAX: expected :",
+    "results": [
+      {
+        "command": "check",
+        "diagnostic": "line 4, column 16: SURFACE_SYNTAX: expected :\n"
+      },
+      {
+        "command": "emit",
+        "diagnostic": "line 4, column 16: SURFACE_SYNTAX: expected :\n"
+      },
+      {
+        "command": "run",
+        "diagnostic": "line 4, column 16: SURFACE_SYNTAX: expected :\n"
+      }
+    ]
+  }
+]

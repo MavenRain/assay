@@ -1,0 +1,27 @@
+M1: infer runtime Word binding types
+
+Allow runtime let bindings to omit their Word annotation while using
+the existing checked lowering, proof scope and arithmetic obligations.
+Keep explicit annotations and the emitter's 1800-line bound intact.
+
+Add artifact comparisons, independent execution outcomes, refusals,
+step boundaries and compiler mutations with restored controls.
+DENOMINATORS and M0-RATIO remain open under the timing pause.
+
+Review pass 1 (2026-09-18) fixed 5 findings: A-1, A-3, B-1, B-2, B-3.
+
+A-1: a refusal case named missing-annotation supplied an empty
+annotation, the form the slice legalizes; now it is named
+empty-annotation.
+
+A-3: a pair could emit one source twice and compare it with itself;
+now the typed rewrite must differ from the source.
+
+B-1: the leg marker printed signed as an alias of the case count; now
+it prints a counted total of signed transitions.
+
+B-2: the accepted 128-step case stopped at check; now it is emitted
+and compared against its typed rewrite.
+
+B-3: four evidence refusals accepted a shared kernel diagnostic; now
+they require the exact recorded diagnostic on every command.

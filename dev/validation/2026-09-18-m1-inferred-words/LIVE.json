@@ -1,0 +1,440 @@
+[
+  {
+    "name": "decimal-0",
+    "expected": {
+      "status": "success",
+      "output": "0x0000000000000000000000000000000000000000000000000000000000000010",
+      "storage": {
+        "0": "0x7"
+      }
+    },
+    "signed": true
+  },
+  {
+    "name": "hexadecimal-1",
+    "expected": {
+      "status": "success",
+      "output": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "storage": {
+        "0": "0x7"
+      }
+    },
+    "signed": true
+  },
+  {
+    "name": "argument-2",
+    "expected": {
+      "status": "success",
+      "output": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "storage": {
+        "0": "0x7"
+      }
+    },
+    "signed": true
+  },
+  {
+    "name": "argument-3",
+    "expected": {
+      "status": "success",
+      "output": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "storage": {
+        "0": "0x7"
+      }
+    },
+    "signed": true
+  },
+  {
+    "name": "self-shadow-4",
+    "expected": {
+      "status": "success",
+      "output": "0x0000000000000000000000000000000000000000000000000000000000000013",
+      "storage": {
+        "0": "0x7"
+      }
+    },
+    "signed": true
+  },
+  {
+    "name": "argument-shadow-5",
+    "expected": {
+      "status": "success",
+      "output": "0x0000000000000000000000000000000000000000000000000000000000000013",
+      "storage": {
+        "0": "0x7"
+      }
+    },
+    "signed": true
+  },
+  {
+    "name": "local-shadow-6",
+    "expected": {
+      "status": "success",
+      "output": "0x0000000000000000000000000000000000000000000000000000000000000004",
+      "storage": {
+        "0": "0x7"
+      }
+    },
+    "signed": true
+  },
+  {
+    "name": "storage-snapshot-7",
+    "expected": {
+      "status": "success",
+      "output": "0x0000000000000000000000000000000000000000000000000000000000000007",
+      "storage": {
+        "0": "0x9"
+      }
+    },
+    "signed": true
+  },
+  {
+    "name": "addition-8",
+    "expected": {
+      "status": "success",
+      "output": "0x000000000000000000000000000000000000000000000000000000000000000a",
+      "storage": {
+        "0": "0xa"
+      }
+    },
+    "signed": true
+  },
+  {
+    "name": "addition-9",
+    "expected": {
+      "status": "success",
+      "output": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "storage": {
+        "0": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+      }
+    },
+    "signed": true
+  },
+  {
+    "name": "addition-10",
+    "expected": {
+      "status": "revert",
+      "output": "0x",
+      "storage": {
+        "0": "0x7"
+      }
+    },
+    "signed": true
+  },
+  {
+    "name": "subtraction-11",
+    "expected": {
+      "status": "success",
+      "output": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "storage": {}
+    },
+    "signed": true
+  },
+  {
+    "name": "subtraction-12",
+    "expected": {
+      "status": "success",
+      "output": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff5",
+      "storage": {
+        "0": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff5"
+      }
+    },
+    "signed": true
+  },
+  {
+    "name": "subtraction-13",
+    "expected": {
+      "status": "revert",
+      "output": "0x",
+      "storage": {
+        "0": "0x7"
+      }
+    },
+    "signed": true
+  },
+  {
+    "name": "proof-bundle-14",
+    "expected": {
+      "status": "success",
+      "output": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "storage": {
+        "0": "0x7"
+      }
+    },
+    "signed": true
+  },
+  {
+    "name": "proof-bundle-15",
+    "expected": {
+      "status": "revert",
+      "output": "0x",
+      "storage": {
+        "0": "0x7"
+      }
+    },
+    "signed": true
+  },
+  {
+    "name": "proof-bundle-16",
+    "expected": {
+      "status": "revert",
+      "output": "0x",
+      "storage": {
+        "0": "0x7"
+      }
+    },
+    "signed": true
+  },
+  {
+    "name": "invariant-17",
+    "expected": {
+      "status": "success",
+      "output": "0x0000000000000000000000000000000000000000000000000000000000000010",
+      "storage": {
+        "0": "0x10"
+      }
+    },
+    "signed": true
+  },
+  {
+    "name": "custom-error-18",
+    "expected": {
+      "status": "success",
+      "output": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "storage": {
+        "0": "0x63"
+      }
+    },
+    "signed": true
+  },
+  {
+    "name": "custom-error-19",
+    "expected": {
+      "status": "revert",
+      "output": "0x42128ec30000000000000000000000000000000000000000000000000000000000000009",
+      "storage": {
+        "0": "0x7"
+      }
+    },
+    "signed": true
+  },
+  {
+    "name": "caller-20",
+    "expected": {
+      "status": "success",
+      "output": "0x0000000000000000000000007e5f4552091a69125d5dfcb7b8c2659029395bdf",
+      "storage": {
+        "0": "0x7"
+      }
+    },
+    "signed": true
+  },
+  {
+    "name": "mixed-21",
+    "expected": {
+      "status": "success",
+      "output": "0x0000000000000000000000000000000000000000000000000000000000000003",
+      "storage": {
+        "0": "0x7"
+      }
+    },
+    "signed": true
+  },
+  {
+    "name": "nullary-22",
+    "expected": {
+      "status": "success",
+      "output": "0x000000000000000000000000000000000000000000000000000000000000002a",
+      "storage": {
+        "0": "0x7"
+      }
+    },
+    "signed": true
+  },
+  {
+    "name": "example-23",
+    "expected": {
+      "status": "success",
+      "output": "0x0000000000000000000000000000000000000000000000000000000000000009",
+      "storage": {
+        "0": "0x9"
+      }
+    },
+    "signed": true
+  },
+  {
+    "name": "example-24",
+    "expected": {
+      "status": "revert",
+      "output": "0x42128ec30000000000000000000000000000000000000000000000000000000000000009",
+      "storage": {
+        "0": "0x7"
+      }
+    },
+    "signed": true
+  },
+  {
+    "name": "explicit-proof-25",
+    "expected": {
+      "status": "success",
+      "output": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "storage": {
+        "0": "0x7"
+      }
+    },
+    "signed": true
+  },
+  {
+    "name": "explicit-proof-26",
+    "expected": {
+      "status": "success",
+      "output": "0x0000000000000000000000000000000000000000000000000000000000000009",
+      "storage": {
+        "0": "0x7"
+      }
+    },
+    "signed": true
+  },
+  {
+    "name": "explicit-proof-27",
+    "expected": {
+      "status": "revert",
+      "output": "0x",
+      "storage": {
+        "0": "0x7"
+      }
+    },
+    "signed": true
+  },
+  {
+    "name": "proof-hole-28",
+    "expected": {
+      "status": "success",
+      "output": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "storage": {
+        "0": "0x7"
+      }
+    },
+    "signed": true
+  },
+  {
+    "name": "proof-hole-29",
+    "expected": {
+      "status": "success",
+      "output": "0x0000000000000000000000000000000000000000000000000000000000000009",
+      "storage": {
+        "0": "0x7"
+      }
+    },
+    "signed": true
+  },
+  {
+    "name": "proof-hole-30",
+    "expected": {
+      "status": "revert",
+      "output": "0x",
+      "storage": {
+        "0": "0x7"
+      }
+    },
+    "signed": true
+  },
+  {
+    "name": "proof-helper-31",
+    "expected": {
+      "status": "success",
+      "output": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "storage": {
+        "0": "0x7"
+      }
+    },
+    "signed": true
+  },
+  {
+    "name": "proof-helper-32",
+    "expected": {
+      "status": "success",
+      "output": "0x0000000000000000000000000000000000000000000000000000000000000009",
+      "storage": {
+        "0": "0x7"
+      }
+    },
+    "signed": true
+  },
+  {
+    "name": "proof-helper-33",
+    "expected": {
+      "status": "revert",
+      "output": "0x",
+      "storage": {
+        "0": "0x7"
+      }
+    },
+    "signed": true
+  },
+  {
+    "name": "predicate-34",
+    "expected": {
+      "status": "success",
+      "output": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "storage": {
+        "0": "0x7"
+      }
+    },
+    "signed": true
+  },
+  {
+    "name": "predicate-35",
+    "expected": {
+      "status": "success",
+      "output": "0x0000000000000000000000000000000000000000000000000000000000000009",
+      "storage": {
+        "0": "0x7"
+      }
+    },
+    "signed": true
+  },
+  {
+    "name": "predicate-36",
+    "expected": {
+      "status": "revert",
+      "output": "0x",
+      "storage": {
+        "0": "0x7"
+      }
+    },
+    "signed": true
+  },
+  {
+    "name": "alias-proof-37",
+    "expected": {
+      "status": "success",
+      "output": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "storage": {
+        "0": "0x7"
+      }
+    },
+    "signed": true
+  },
+  {
+    "name": "alias-proof-38",
+    "expected": {
+      "status": "success",
+      "output": "0x0000000000000000000000000000000000000000000000000000000000000009",
+      "storage": {
+        "0": "0x7"
+      }
+    },
+    "signed": true
+  },
+  {
+    "name": "alias-proof-39",
+    "expected": {
+      "status": "revert",
+      "output": "0x",
+      "storage": {
+        "0": "0x7"
+      }
+    },
+    "signed": true
+  }
+]

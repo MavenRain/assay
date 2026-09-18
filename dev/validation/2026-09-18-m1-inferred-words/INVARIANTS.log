@@ -1,0 +1,7 @@
+INVARIANT-LIVE cases=52 creates=2 erasure=4 files=5 OK
+INVARIANT-REFUSALS cases=30 OK
+INVARIANT-MUTANT CONSTRUCTOR killed control=OK
+INVARIANT-MUTANT FINAL killed control=OK
+INVARIANT-MUTANT STORE killed control=OK
+INVARIANT-MUTANT SECOND killed control=OK
+INVARIANTS cases=52 creates=2 refusals=30 erasure=4 mutants=4 OK

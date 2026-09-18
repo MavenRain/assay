@@ -1,0 +1,8 @@
+TERM-LIVE cases=98 creates=2 guarded_erasure=6 OK
+TERM-REFUSALS cases=25 commands=3 OK
+TERM-ERASURE variants=5 five_files=5 removed_checks=1 OK
+TERM-MUTANT BINDING killed control=OK
+TERM-MUTANT ANNOTATION killed control=OK
+TERM-MUTANT SCOPE killed control=OK
+TERM-MUTANT NESTING killed control=OK
+PROOF-TERMS cases=98 creates=2 refusals=25 erasure=5 mutants=4 OK

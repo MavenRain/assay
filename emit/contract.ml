@@ -323,7 +323,7 @@ let body tokens =
       let* proof, rest = proof_term 0 rest in next (Proof_bind (name, claim, proof)) rest
     | { text = "let"; _ } :: rest ->
       let* name, rest = identifier rest in
-      let* rest = sequence [":"; "Word"; ":="] rest in
+      let* rest = sequence (match rest with { text = ":="; _ } :: _ -> [":="] | [] | _ :: _ -> [":"; "Word"; ":="]) rest in
       (match rest with
        | op :: rest when op.text = "addLt" || op.text = "subLe" ->
          let* (a, b), rest = binary (value 0) rest in
