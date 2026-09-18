@@ -29,7 +29,8 @@ let error = function
 
 let recognize result = Result.map_error (fun e -> Recognizer e) result
 type fn = { params : Eterm.repr list; result : Eterm.repr; body : Eterm.ktm }
-type environment = { functions : (string * fn) list; postulates : string list; runtime : bool }
+type environment = { functions : (string * fn) list; postulates : string list; runtime : bool;
+                     caller_tag : int option }
 
 let environment ?(runtime=false) rows =
   List.fold_left (fun env (name, entry) -> match entry with
@@ -39,7 +40,7 @@ let environment ?(runtime=false) rows =
       | Eterm.KRec _ -> env
       | Eterm.KFun (Eterm.Fid name, params, result, body) ->
         { env with functions = (name, {params; result; body}) :: env.functions }) env decls)
-    { functions = []; postulates = []; runtime } rows
+    { functions = []; postulates = []; runtime; caller_tag = None } rows
 
 let at index values = Rules.at index values |> Option.to_result ~none:(Invalid_ir "index")
 let tick fuel = if fuel <= 0 then Error Budget else Ok (fuel - 1)
@@ -134,6 +135,7 @@ and bounded fuel value =
   if Z.numbits value > 4096 then Error Budget else Ok (R.Nat value, fuel)
 
 type effect = Return of Z.t | Read of Z.t | Put of Z.t * Z.t * effect
+            | Deployer of Z.t * effect
 let rec effect slots = function
   | R.Tag (tid, tag, fields) when tid = R.eff_tid ->
     (match tag, fields with
@@ -141,6 +143,8 @@ let rec effect slots = function
      | 1, [R.Word slot; R.Word value; next] ->
        let* () = slot_in slots slot in let* next = effect slots next in Ok (Put (slot, value, next))
      | 2, [R.Word slot] -> let* () = slot_in slots slot in Ok (Read slot)
+     | 3, [R.Word slot; next] ->
+       let* () = slot_in slots slot in let* next = effect slots next in Ok (Deployer (slot, next))
      | _, [] | _, _ :: _ -> Error Effect_shape)
   | R.Nat _ -> Error Nat_runtime
   | R.Word _ | R.Struct _ | R.Tag _ | R.Erased | R.Runtime_word _ | R.Closure _ -> Error Effect_shape
@@ -167,6 +171,10 @@ let rec blocks width index marked = function
     block ~destination:marked ("step" ^ string_of_int index)
       [push value; push slot; A.Op "SSTORE"] (A.Goto (width, "step" ^ string_of_int (index + 1))) ::
     List.init 4 (fun n -> block (Printf.sprintf "guard%d_%d" index n) [] (A.Halt A.Invalid)) @
+    blocks width (index + 1) true next
+  | Deployer (slot, next) ->
+    block ~destination:marked ("step" ^ string_of_int index)
+      [A.Op "CALLER"; push slot; A.Op "SSTORE"] (A.Goto (width, "step" ^ string_of_int (index + 1))) ::
     blocks width (index + 1) true next
 
 let init runtime =
@@ -220,6 +228,7 @@ type transaction =
   | Reject of string * operand list
   | Store of Z.t * operand * transaction
   | Load of Z.t * int * transaction
+  | Caller of int * transaction
   | Arithmetic of arithmetic * operand * operand * int * transaction * transaction
   | Compute of arithmetic * operand * operand * int * transaction
   | Compare of operand * operand * transaction * transaction
@@ -297,6 +306,9 @@ let rec transaction env errors slots depth fuel fresh value =
        let* yes, fuel, fresh = lower fuel fresh yes in
        let* no, fuel, fresh = lower fuel fresh no in Ok (Compare (left, right, yes, no), fuel, fresh)
      | 6, [] -> Ok (Abort, fuel, fresh)
+     | tag, [fn] when Some tag = env.caller_tag ->
+       let* next, fuel, next_fresh = continuation fuel (fresh + 1) fn (R.Runtime_word fresh) in
+       Ok (Caller (fresh, next), fuel, next_fresh)
      | 7, [value] -> let* tx = error_value errors value in Ok (tx, fuel, fresh)
      | tag, [left; right; fn; no] when tag = (if errors = [] then 7 else 8) || tag = (if errors = [] then 8 else 9) ->
        let addition = tag = (if errors = [] then 8 else 9) in
@@ -342,6 +354,9 @@ let rec transaction_blocks label = function
   | Load (slot, index, next) ->
     marked label ([push slot; A.Op "SLOAD"] @ save index) (goto (label ^ "n")) ::
     transaction_blocks (label ^ "n") next
+  | Caller (index, next) ->
+    marked label ([A.Op "CALLER"] @ save index) (goto (label ^ "n")) ::
+    transaction_blocks (label ^ "n") next
   | Compute (op, left, right, index, next) ->
     let compute = match op with
       | Add -> read_operand left @ read_operand right @ [A.Op "ADD"]
@@ -364,6 +379,7 @@ let rec readonly = function
   | Finish _ | Abort | Reject _ -> true
   | Store _ -> false
   | Load (_, _, next) -> readonly next
+  | Caller (_, next) -> readonly next
   | Compute (_, _, _, _, next) -> readonly next
   | Arithmetic (_, _, _, _, yes, no) | Compare (_, _, yes, no) -> readonly yes && readonly no
 
@@ -412,6 +428,8 @@ let rec constructor_body = function
   | Return value when Z.equal value Z.zero -> Ok []
   | Put (slot, value, next) ->
     let* next = constructor_body next in Ok ([push value; push slot; A.Op "SSTORE"] @ next)
+  | Deployer (slot, next) ->
+    let* next = constructor_body next in Ok ([A.Op "CALLER"; push slot; A.Op "SSTORE"] @ next)
   | Return _ | Read _ -> Error (M1_shape "constructor must end with ret zero")
 
 let init_m1 runtime constructor =
@@ -442,7 +460,10 @@ let prepare_m1 ~export globals erased =
   if List.length slots <> List.length fields then Error (Recognizer R.Storage_shape) else
   let* constructor, fuel = call env fuel "constructor" [] in
   let* constructor = effect (List.length fields) constructor in
-  let* entries, _fuel = entries {env with runtime = true} errors (List.length fields) fuel export declarations in
+  let caller_tag = if R.has_constructor globals "Tx" "caller"
+    then Some (7 + (if errors = [] then 0 else 1) + (if R.has_proofs globals then 4 else 0))
+    else None in
+  let* entries, _fuel = entries {env with runtime = true; caller_tag} errors (List.length fields) fuel export declarations in
   Ok (entries, constructor, fields, errors)
 
 let program_m1 ~contract ~export globals rows erased =

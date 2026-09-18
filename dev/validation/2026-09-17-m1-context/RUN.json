@@ -1,0 +1,405 @@
+{
+  "base": "b2415c461b357fb3d715aa53e10494f1e401e101",
+  "capture": {
+    "schemaVersion": 2,
+    "artifact": "/Users/oobi/Documents/gpt1/assay-m1-context/.kanon-exec/run-VTcZ2a",
+    "status": "complete",
+    "exitCode": 1,
+    "counts": {
+      "stdout_bytes": 15496,
+      "stderr_bytes": 0,
+      "stdout_lines": 403,
+      "stderr_lines": 0,
+      "error_lines": 39,
+      "warning_lines": 2
+    },
+    "commands": [
+      {
+        "index": 1,
+        "argv": [
+          "python3",
+          "-P",
+          "dev/stage-a-gates.py",
+          "--m1-context"
+        ],
+        "cwd": "/Users/oobi/Documents/gpt1/assay-m1-context",
+        "exitCode": 1,
+        "signal": 0,
+        "timedOut": false,
+        "spawnError": "",
+        "stdout": {
+          "path": "/Users/oobi/Documents/gpt1/assay-m1-context/.kanon-exec/run-VTcZ2a/command-0001.stdout",
+          "bytes": 15496,
+          "lines": 403
+        },
+        "stderr": {
+          "path": "/Users/oobi/Documents/gpt1/assay-m1-context/.kanon-exec/run-VTcZ2a/command-0001.stderr",
+          "bytes": 0,
+          "lines": 0
+        }
+      }
+    ]
+  },
+  "initial_results": [
+    {
+      "status": "PASS",
+      "name": "BUILD",
+      "exit": 0,
+      "elapsed_ms": 811.1
+    },
+    {
+      "status": "PASS",
+      "name": "PIN-CARRY",
+      "exit": 0,
+      "elapsed_ms": 2292.7
+    },
+    {
+      "status": "PASS",
+      "name": "R0-COUNT",
+      "exit": 0,
+      "elapsed_ms": 167.5
+    },
+    {
+      "status": "PASS",
+      "name": "R0-AUDIT",
+      "exit": 0,
+      "elapsed_ms": 154.1
+    },
+    {
+      "status": "PASS",
+      "name": "HOUSE",
+      "exit": 0,
+      "elapsed_ms": 2015.8
+    },
+    {
+      "status": "PASS",
+      "name": "TRUSTED-LINES",
+      "exit": 0,
+      "elapsed_ms": 109.7
+    },
+    {
+      "status": "PASS",
+      "name": "SUITE-KERNEL",
+      "exit": 0,
+      "elapsed_ms": 1060.6
+    },
+    {
+      "status": "PASS",
+      "name": "SUITE-SURFACE",
+      "exit": 0,
+      "elapsed_ms": 375.3
+    },
+    {
+      "status": "PASS",
+      "name": "DRIVER",
+      "exit": 0,
+      "elapsed_ms": 525.8
+    },
+    {
+      "status": "PASS",
+      "name": "MUTANTS",
+      "exit": 0,
+      "elapsed_ms": 13981.8
+    },
+    {
+      "status": "FAIL",
+      "name": "DENOMINATORS",
+      "exit": 1,
+      "elapsed_ms": 62.6
+    },
+    {
+      "status": "PASS",
+      "name": "KECCAK-VEC",
+      "exit": 0,
+      "elapsed_ms": 1205.2
+    },
+    {
+      "status": "PASS",
+      "name": "KECCAK-MUTANTS",
+      "exit": 0,
+      "elapsed_ms": 6071.1
+    },
+    {
+      "status": "PASS",
+      "name": "STACK-HEIGHT",
+      "exit": 0,
+      "elapsed_ms": 3140.0
+    },
+    {
+      "status": "PASS",
+      "name": "DISASM-3WAY",
+      "exit": 0,
+      "elapsed_ms": 1870.0
+    },
+    {
+      "status": "PASS",
+      "name": "ASM-MUTANTS",
+      "exit": 0,
+      "elapsed_ms": 15744.9
+    },
+    {
+      "status": "PASS",
+      "name": "FORK-DRIFT",
+      "exit": 0,
+      "elapsed_ms": 295.1
+    },
+    {
+      "status": "PASS",
+      "name": "M0-TRACE",
+      "exit": 0,
+      "elapsed_ms": 165.1
+    },
+    {
+      "status": "PASS",
+      "name": "CREATE-EQ",
+      "exit": 0,
+      "elapsed_ms": 163.7
+    },
+    {
+      "status": "PASS",
+      "name": "REFERENCE-CHECKS",
+      "exit": 0,
+      "elapsed_ms": 240.2
+    },
+    {
+      "status": "PASS",
+      "name": "REFERENCE-MUTANTS",
+      "exit": 0,
+      "elapsed_ms": 2323.7
+    },
+    {
+      "status": "PASS",
+      "name": "EMIT-CONSTRUCTORS",
+      "exit": 0,
+      "elapsed_ms": 331.2
+    },
+    {
+      "status": "PASS",
+      "name": "WORD-UNBOX",
+      "exit": 0,
+      "elapsed_ms": 7.3
+    },
+    {
+      "status": "PASS",
+      "name": "STORAGE-NOCLOS",
+      "exit": 0,
+      "elapsed_ms": 7.2
+    },
+    {
+      "status": "PASS",
+      "name": "ABI-GOLD",
+      "exit": 0,
+      "elapsed_ms": 328.6
+    },
+    {
+      "status": "PASS",
+      "name": "EMITTED-TRACE",
+      "exit": 0,
+      "elapsed_ms": 227.0
+    },
+    {
+      "status": "PASS",
+      "name": "EMIT-SOURCES",
+      "exit": 0,
+      "elapsed_ms": 6181.3
+    },
+    {
+      "status": "PASS",
+      "name": "EMIT-MUTANTS",
+      "exit": 0,
+      "elapsed_ms": 38159.3
+    },
+    {
+      "status": "PASS",
+      "name": "AXIOMS",
+      "exit": 0,
+      "elapsed_ms": 9742.4
+    },
+    {
+      "status": "PASS",
+      "name": "TRACE-DRIVER",
+      "exit": 0,
+      "elapsed_ms": 920.0
+    },
+    {
+      "status": "PASS",
+      "name": "CORPUS",
+      "exit": 0,
+      "elapsed_ms": 1267.1
+    },
+    {
+      "status": "PASS",
+      "name": "ERASED-BYTES",
+      "exit": 0,
+      "elapsed_ms": 987.8
+    },
+    {
+      "status": "FAIL",
+      "name": "M0-RATIO",
+      "exit": 1,
+      "elapsed_ms": 710.1
+    },
+    {
+      "status": "PASS",
+      "name": "F-MUTANTS",
+      "exit": 0,
+      "elapsed_ms": 6800.1
+    },
+    {
+      "status": "PASS",
+      "name": "DIFF-EXECUTOR",
+      "exit": 0,
+      "elapsed_ms": 19797.7
+    },
+    {
+      "status": "PASS",
+      "name": "COUNTER-REFERENCE",
+      "exit": 0,
+      "elapsed_ms": 5903.0
+    },
+    {
+      "status": "PASS",
+      "name": "M1-EMISSION",
+      "exit": 0,
+      "elapsed_ms": 196535.2
+    },
+    {
+      "status": "FAIL",
+      "name": "SOURCE-MODEL",
+      "exit": 1,
+      "elapsed_ms": 40399.6
+    },
+    {
+      "status": "PASS",
+      "name": "CONTRACT-SURFACE",
+      "exit": 0,
+      "elapsed_ms": 54310.3
+    },
+    {
+      "status": "PASS",
+      "name": "CONTRACT-ROUTE",
+      "exit": 0,
+      "elapsed_ms": 397.8
+    },
+    {
+      "status": "PASS",
+      "name": "SOURCE-PROOFS",
+      "exit": 0,
+      "elapsed_ms": 145537.1
+    },
+    {
+      "status": "PASS",
+      "name": "NULLARY-ENTRIES",
+      "exit": 0,
+      "elapsed_ms": 47396.8
+    },
+    {
+      "status": "PASS",
+      "name": "CUSTOM-ERRORS",
+      "exit": 0,
+      "elapsed_ms": 61294.1
+    },
+    {
+      "status": "FAIL",
+      "name": "PROOF-GUARDS",
+      "exit": 1,
+      "elapsed_ms": 40352.4
+    },
+    {
+      "status": "PASS",
+      "name": "PROOF-TERMS",
+      "exit": 0,
+      "elapsed_ms": 33446.7
+    },
+    {
+      "status": "PASS",
+      "name": "INVARIANTS",
+      "exit": 0,
+      "elapsed_ms": 30413.6
+    },
+    {
+      "status": "PASS",
+      "name": "PROOF-HELPERS",
+      "exit": 0,
+      "elapsed_ms": 28771.7
+    },
+    {
+      "status": "PASS",
+      "name": "PROOF-BUNDLES",
+      "exit": 0,
+      "elapsed_ms": 38618.7
+    },
+    {
+      "status": "PASS",
+      "name": "PREDICATES",
+      "exit": 0,
+      "elapsed_ms": 106274.8
+    },
+    {
+      "status": "PASS",
+      "name": "COMPOUND-INVARIANTS",
+      "exit": 0,
+      "elapsed_ms": 24823.9
+    },
+    {
+      "status": "PASS",
+      "name": "COMPOUND-GUARDS",
+      "exit": 0,
+      "elapsed_ms": 36488.8
+    },
+    {
+      "status": "PASS",
+      "name": "NAMED-GUARDS",
+      "exit": 0,
+      "elapsed_ms": 108556.8
+    },
+    {
+      "status": "PASS",
+      "name": "INFERRED-GUARDS",
+      "exit": 0,
+      "elapsed_ms": 84809.5
+    },
+    {
+      "status": "PASS",
+      "name": "INFERRED-ARITHMETIC",
+      "exit": 0,
+      "elapsed_ms": 106530.0
+    },
+    {
+      "status": "PASS",
+      "name": "INFERRED-HELPERS",
+      "exit": 0,
+      "elapsed_ms": 343987.2
+    },
+    {
+      "status": "FAIL",
+      "name": "PROOF-HOLES",
+      "exit": 1,
+      "elapsed_ms": 600057.5
+    },
+    {
+      "status": "FAIL",
+      "name": "INFERRED-BINDINGS",
+      "exit": 1,
+      "elapsed_ms": 469086.1
+    },
+    {
+      "status": "FAIL",
+      "name": "INFERRED-GUARD-BINDINGS",
+      "exit": 1,
+      "elapsed_ms": 186901.1
+    },
+    {
+      "status": "PASS",
+      "name": "EVM-CONTEXT",
+      "exit": 0,
+      "elapsed_ms": 335907.9
+    }
+  ],
+  "initial_passed": 52,
+  "final_functional_passed": 57,
+  "pending": [
+    "DENOMINATORS",
+    "M0-RATIO"
+  ]
+}

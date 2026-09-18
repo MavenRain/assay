@@ -213,7 +213,8 @@ def mutants():
         ('SNAPSHOT', '(index, get storage slot)', '(index, Z.mul (get storage slot) Z.zero)', 'snapshot'),
         ('ROLLBACK', 'Ok (revert initial)', 'Ok (revert storage)', 'write-abort'),
         ('HEAD', 'String.length input.data < 8 + 64 * count', 'String.length input.data < 8', 'short-two'),
-        ('M0-WRITE', 'closed (put storage slot value) next', 'closed (put storage slot (Z.mul value Z.zero)) next', 'm0-write'),
+        ('M0-WRITE', 'closed caller (put storage slot value) next',
+         'closed caller (put storage slot (Z.mul value Z.zero)) next', 'm0-write'),
     ]
     with tempfile.TemporaryDirectory(prefix='assay-model-mutants-') as temporary:
         copy = Path(temporary) / 'copy'

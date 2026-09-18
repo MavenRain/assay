@@ -5,7 +5,7 @@ let ( let* ) = Result.bind
 type storage = (Z.t * Z.t) list
 type outcome = { reverted : bool; output : string; storage : storage }
 type program = Closed of E.effect | Entries of E.entry list
-type input = { data : string; value : Z.t; initial : storage }
+type input = { data : string; value : Z.t; caller : Z.t; initial : storage }
 type error = Source of E.error | Input of string | Missing_memory of int
 
 let error = function
@@ -58,20 +58,25 @@ let canonical storage =
 let success storage value = { reverted = false; output = "0x" ^ Z.format "%064x" value; storage }
 let revert storage = { reverted = true; output = "0x"; storage }
 
-let inputs ~data ~value ~storage =
+let inputs_with_caller ~data ~value ~storage ~caller =
   let* data = calldata data in let* value = word value in let* initial = parse_storage storage in
-  Ok {data; value; initial = canonical initial}
+  let* caller = word caller in
+  if Z.numbits caller > 160 then Error (Input "caller exceeds uint160")
+  else Ok {data; value; caller; initial = canonical initial}
 
-let rec closed storage = function
+let inputs ~data ~value ~storage = inputs_with_caller ~data ~value ~storage ~caller:"0"
+
+let rec closed caller storage = function
   | E.Return value -> success storage value
   | E.Read slot -> success storage (get storage slot)
-  | E.Put (slot, value, next) -> closed (put storage slot value) next
+  | E.Put (slot, value, next) -> closed caller (put storage slot value) next
+  | E.Deployer (slot, next) -> closed caller (put storage slot caller) next
 
 let operand memory = function
   | E.Constant value -> Ok value
   | E.Memory index -> List.assoc_opt index memory |> Option.to_result ~none:(Missing_memory index)
 
-let rec transaction initial storage memory = function
+let rec transaction caller initial storage memory = function
   | E.Finish value -> let* value = operand memory value in Ok (success storage value)
   | E.Abort -> Ok (revert initial)
   | E.Reject (selector, values) ->
@@ -80,23 +85,25 @@ let rec transaction initial storage memory = function
       Ok (words ^ Z.format "%064x" value)) (Ok "") values in
     Ok {reverted = true; output = "0x" ^ selector ^ words; storage = initial}
   | E.Store (slot, value, next) ->
-    let* value = operand memory value in transaction initial (put storage slot value) memory next
+    let* value = operand memory value in transaction caller initial (put storage slot value) memory next
   | E.Load (slot, index, next) ->
-    transaction initial storage ((index, get storage slot) :: memory) next
+    transaction caller initial storage ((index, get storage slot) :: memory) next
+  | E.Caller (index, next) ->
+    transaction caller initial storage ((index, caller) :: memory) next
   | E.Arithmetic (operation, left, right, index, yes, no) ->
     let* left = operand memory left in let* right = operand memory right in
     let result = match operation with E.Add -> Z.add left right | E.Sub -> Z.sub left right in
     if Z.sign result < 0 || Z.numbits result > 256
-    then transaction initial storage memory no
-    else transaction initial storage ((index, result) :: memory) yes
+    then transaction caller initial storage memory no
+    else transaction caller initial storage ((index, result) :: memory) yes
   | E.Compare (left, right, yes, no) ->
     let* left = operand memory left in let* right = operand memory right in
-    transaction initial storage memory (if Z.leq left right then yes else no)
+    transaction caller initial storage memory (if Z.leq left right then yes else no)
   | E.Compute (operation, left, right, index, next) ->
     let* left = operand memory left in let* right = operand memory right in
     let result = match operation with E.Add -> Z.add left right | E.Sub -> Z.sub left right in
     if Z.sign result < 0 || Z.numbits result > 256 then Error (Source (E.M1_shape "proved arithmetic bound"))
-    else transaction initial storage ((index, result) :: memory) next
+    else transaction caller initial storage ((index, result) :: memory) next
 
 let prepare ~export globals erased =
   let source result = Result.map_error (fun e -> Source e) result in
@@ -105,6 +112,7 @@ let prepare ~export globals erased =
     let rec valid = function
       | E.Return value when Z.equal value Z.zero -> Ok ()
       | E.Put (_, _, next) -> valid next
+      | E.Deployer (_, next) -> valid next
       | E.Return _ | E.Read _ -> Error (Source (E.M1_shape "constructor must end with ret zero")) in
     let* () = valid constructor in Ok (Entries entries)
   else let* effect, _fields = source (E.prepare_m0 ~export globals erased) in Ok (Closed effect)
@@ -113,7 +121,7 @@ let prepare ~export globals erased =
    during preparation and are never applied to that image. *)
 let run program input =
   match program with
-  | Closed effect -> Ok (closed input.initial effect)
+  | Closed effect -> Ok (closed input.caller input.initial effect)
   | Entries entries ->
     if not (Z.equal input.value Z.zero) || String.length input.data < 8 then Ok (revert input.initial) else
     let selector = segment 0 8 input.data in
@@ -122,7 +130,7 @@ let run program input =
       if String.length input.data < 8 + 64 * count then Ok (revert input.initial) else
       let memory = List.init count (fun index ->
         index + 1, Z.of_string_base 16 (segment (8 + 64 * index) 64 input.data)) in
-      transaction input.initial input.initial memory entry.E.tx)
+      transaction input.caller input.initial input.initial memory entry.E.tx)
       (List.find_opt (fun entry -> entry.E.selector = selector) entries)
 
 let print outcome =

@@ -64,6 +64,8 @@ from checked proof expressions in entries and proof-local scopes.
 The twenty-third adds [inferred guard
 bindings](dev/M1-INFERRED-GUARD-BINDINGS.md), deriving named evidence
 from runtime conditions while retaining checked annotations.
+The twenty-fourth adds [core EVM context](dev/M1-CONTEXT.md): caller
+snapshots, deployer initialization and an explicit model caller.
 
 ```sh
 zsh -f dev/dunecho.sh build
@@ -88,6 +90,7 @@ _build/default/bin/assay.exe emit examples/InferredGuards.asy -o InferredGuards-
 _build/default/bin/assay.exe emit examples/InferredHelpers.asy -o InferredHelpers-out
 _build/default/bin/assay.exe emit examples/ProofHoles.asy -o ProofHoles-out
 _build/default/bin/assay.exe emit examples/InferredBindings.asy -o InferredBindings-out
+_build/default/bin/assay.exe emit examples/ContextCore.asy -o Context-out
 _build/default/bin/assay.exe emit examples/CounterInvariant.asy -o CounterInvariant-out
 _build/default/bin/assay.exe emit examples/ProofHelpers.asy -o ProofHelpers-out
 _build/default/bin/assay.exe emit examples/ProofBundles.asy -o ProofBundles-out
@@ -132,7 +135,7 @@ the gas adjustment and the remaining M1 work.  Both entry points use geth;
 this provides no independent client implementation.
 
 `run FILE [--calldata HEX] [--storage SLOT=WORD]... [--value WORD]
-[--export NAME]`
+[--caller ADDRESS] [--export NAME]`
 interprets specialized source effects and prints JSON containing status,
 returned bytes and storage. It needs no external tools and writes no files.
 Storage defaults to empty and describes an already deployed contract.
@@ -140,6 +143,8 @@ Constructors are checked but not run. `--export NAME` selects an alternate
 entry function. A modeled revert exits zero. Invalid input exits 64 and a
 named source refusal exits 2. The [source model contract](dev/M1-RUN.md)
 defines the numeric formats, bounds and shared specialization boundary.
+`--caller` supplies an unsigned 160-bit address, defaulting to zero.
+The optional core `caller` effect reads that execution context.
 
 `deploy` and `test` still exit 3 with named `PENDING` diagnostics. They
 print `PENDING (M1)` today and gain behavior at M4 (R-8a).

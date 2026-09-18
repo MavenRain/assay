@@ -1,0 +1,8 @@
+IA-LIVE cases=242 creates=2 OK
+IA-ERASURE pairs=23 files=5 OK
+PH-REFUSALS cases=25 commands=3 OK
+PH-BOUNDARIES parameters=16 nested=128 positive=6 negative=2 OK
+PH-MUTANT EVIDENCE killed control=OK
+PH-MUTANT PAIR killed control=OK
+PH-MUTANT LOCAL killed control=OK
+Command '('python3', '-P', 'dev/proof-hole-test.py')' timed out after 600 seconds

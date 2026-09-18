@@ -1,0 +1,25 @@
+M1: integrate core EVM context effects
+
+Add optional caller and deployer effects to the core protocol. The
+caller effect reads the execution context into a fresh memory word.
+The deployer effect writes the immediate deployer during creation,
+including factory deployments. Malformed or reordered families stay
+refusals.
+
+Add `run --caller` with an unsigned 160-bit address and a zero
+default. The model threads that caller through each transaction step,
+so every existing caller keeps the previous result.
+
+Add an example and a gate covering eight protocol layouts, signed
+Cancun comparisons, creation, nested calls, seven refused schemas,
+seven input cases and six built compiler mutations with controls.
+Keep the previous gate declarations and paused timing inputs intact.
+
+Review pass 1 (2026-09-17) fixed 6 findings: G-1, ND-1-1, C-2, C-3,
+D-1, V-1.
+G-1: made dev/gates.sh row 7 select --m1-context for the driver.
+ND-1-1: rehashed SOURCES.json in ARTIFACTS.json after that bump.
+C-2: dropped the vacuous backend row from FINAL.json protected.
+C-3: lifted SOURCE-MODEL rerun keys from its recorded capture.
+D-1: added dev/STAGE-M1-CONTEXT-COMMIT.txt in the house shape.
+V-1: rewrapped eleven prose rows to the 72-column house width.

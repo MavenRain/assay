@@ -1,0 +1,74 @@
+[
+  {
+    "name": "mutant-CALLER",
+    "marker": "CONTEXT-PROXY",
+    "exit": 1,
+    "source_sha256": "51ebd1ef1ba02aebc81f908a4a92bf0f9a96288b1c2db6d49d36f22bd22d9f00"
+  },
+  {
+    "name": "control-CALLER",
+    "marker": "CONTEXT-PROXY",
+    "exit": 0,
+    "source_sha256": "05370707cea25ea0707ab7ebd88967e58579110e0158da0593ea138f97c4fbc0"
+  },
+  {
+    "name": "mutant-DEPLOYER",
+    "marker": "CONTEXT-FACTORY",
+    "exit": 1,
+    "source_sha256": "6cb29697154f8253ec6c2e1399bb8672e026d398d2731da87b787cb84614509d"
+  },
+  {
+    "name": "control-DEPLOYER",
+    "marker": "CONTEXT-FACTORY",
+    "exit": 0,
+    "source_sha256": "05370707cea25ea0707ab7ebd88967e58579110e0158da0593ea138f97c4fbc0"
+  },
+  {
+    "name": "mutant-SNAPSHOT",
+    "marker": "CONTEXT-MODEL who",
+    "exit": 1,
+    "source_sha256": "4425f71d7899906a7cfb69f50a7165493354516b70419f9b84e94a34b2397cdf"
+  },
+  {
+    "name": "control-SNAPSHOT",
+    "marker": "CONTEXT-MODEL who",
+    "exit": 0,
+    "source_sha256": "05370707cea25ea0707ab7ebd88967e58579110e0158da0593ea138f97c4fbc0"
+  },
+  {
+    "name": "mutant-MODEL",
+    "marker": "CONTEXT-MODEL who",
+    "exit": 1,
+    "source_sha256": "661171bb58e6544c00da7e749160bb4ae12f9d89426b2d53f428b0a70e89e7e2"
+  },
+  {
+    "name": "control-MODEL",
+    "marker": "CONTEXT-MODEL who",
+    "exit": 0,
+    "source_sha256": "1c9425d097857126e0f4346e1149b7c1cb3d50f301d010058cd55ed0ba981c17"
+  },
+  {
+    "name": "mutant-ADDRESS",
+    "marker": "CONTEXT-INPUT 1",
+    "exit": 1,
+    "source_sha256": "d74487bc02f1d66d477877b87b28832cdb637681c5b23806720b8204b67cfd38"
+  },
+  {
+    "name": "control-ADDRESS",
+    "marker": "CONTEXT-INPUT 1",
+    "exit": 0,
+    "source_sha256": "1c9425d097857126e0f4346e1149b7c1cb3d50f301d010058cd55ed0ba981c17"
+  },
+  {
+    "name": "mutant-SCHEMA",
+    "marker": "CONTEXT-REFUSAL caller-shape",
+    "exit": 1,
+    "source_sha256": "07c00ed80738d2e4556636d4093dc07ec434489f6c1f50e159208c671a23a761"
+  },
+  {
+    "name": "control-SCHEMA",
+    "marker": "CONTEXT-REFUSAL caller-shape",
+    "exit": 0,
+    "source_sha256": "cd8b7667650c734f902239715e44d81915ebe9fb223a4f421468f092f85b0f00"
+  }
+]

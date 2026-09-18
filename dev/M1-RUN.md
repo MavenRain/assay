@@ -25,6 +25,11 @@ and slots use unsigned decimal or `0x`-prefixed hexadecimal, up to uint256.
 Hexadecimal accepts either letter case. A spelling contains at most 78
 decimal digits or 64 hexadecimal digits, including leading zeroes. Signs,
 whitespace, separators and other numeric prefixes are refused.
+`--caller ADDRESS` also occurs at most once and defaults to zero.
+It uses the same numeric spelling rules, with a uint160 value bound.
+The [core context protocol](M1-CONTEXT.md) snapshots it for `caller`
+continuations. The existing `Model.inputs` API keeps its zero caller;
+`Model.inputs_with_caller` accepts the explicit context.
 Duplicate slots are compared by numeric
 value, including slots initialized to zero. At most 1024 initial slots and
 32768 calldata bytes are accepted. Initial slots outside the declared layout

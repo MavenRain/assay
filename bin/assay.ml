@@ -8,7 +8,7 @@ let usage () : unit =
   prerr_endline
     "usage: assay check [--print|--erased] FILE | axioms FILE | spec-count | \
      emit FILE -o DIR | trace FILE --calldata HEX [--prestate FILE] | diff FILE --calldata HEX [--prestate FILE] | \
-     run FILE [--calldata HEX] [--storage SLOT=WORD]... [--value WORD] [--export NAME] | deploy FILE | \
+     run FILE [--calldata HEX] [--storage SLOT=WORD]... [--value WORD] [--caller ADDRESS] [--export NAME] | deploy FILE | \
      test FILE"
 
 let bad_usage () : unit = usage (); exit 64
@@ -125,7 +125,8 @@ let run_model path options storage =
   let module M = Assay_emit.Model in
   let option name fallback = List.assoc_opt name options |> Option.value ~default:fallback in
   let refuse code e = prerr_endline ("assay: run: " ^ M.error e); exit code in
-  let input = M.inputs ~data:(option "--calldata" "") ~value:(option "--value" "0") ~storage
+  let input = M.inputs_with_caller ~data:(option "--calldata" "") ~value:(option "--value" "0")
+    ~caller:(option "--caller" "0") ~storage
     |> Result.fold ~ok:Fun.id ~error:(refuse 64) in
   let _contract, globals, _rows, erased = checked_erased path in
   let program = M.prepare ~export:(option "--export" "main") globals erased
@@ -137,7 +138,7 @@ let dispatch_run args =
   let rec options path seen storage = function
     | [] -> run_model path seen storage
     | "--storage" :: row :: rest -> options path seen (row :: storage) rest
-    | ("--calldata" | "--value" | "--export" as flag) :: value :: rest ->
+    | ("--calldata" | "--value" | "--caller" | "--export" as flag) :: value :: rest ->
       if List.mem_assoc flag seen then bad_usage ()
       else options path ((flag, value) :: seen) storage rest
     | _ :: _ -> bad_usage () in

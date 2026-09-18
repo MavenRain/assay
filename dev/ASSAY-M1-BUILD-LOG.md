@@ -1,5 +1,125 @@
 # Assay M1 build log
 
+## 2026-09-17: core EVM context
+
+The twenty-fourth M1 slice starts at
+`b2415c461b357fb3d715aa53e10494f1e401e101`. It integrates the caller and
+deployer effects used by the public DAO port. Optional checked families
+select the effects; malformed or reordered families remain refusals.
+Caller reads occupy fresh memory words. Creation writes use the
+immediate deployer, including factories. `run --caller` validates
+uint160 context and preserves a zero default. The contract surface
+retains its existing invariant and constructor rules.
+
+The emitter measures 1767/1800 lines. The kernel, surface, proof
+sources, backend and artifact budgets are unchanged. All five artifacts
+from the pushed DAO are byte-identical under the integrated compiler.
+The context gate covers eight protocol layouts, signed Cancun
+comparisons, creation, nested calls, malformed schemas and six built
+compiler mutations.
+
+Two inherited mutation anchors now include the model's caller parameter.
+Their faults, witnesses and success criteria are preserved. The initial
+battery also encountered timeouts in older proof-inference gates under
+high host load. The
+[validation archive](validation/2026-09-17-m1-context/) records the
+initial results, rechecks and exact source identities. All 57 functional
+legs pass after the five rechecks. The initial 59-leg battery passed 52
+legs. The three timeout rechecks pass with their original deadlines. All
+58 earlier gate declarations remain unchanged, including their commands,
+deadlines and success markers. Frozen timing inputs remain unchanged and
+timing remains paused.
+
+### Review round 2026-09-17 (M1 core EVM context)
+
+| id | sev | one line | files |
+| --- | --- | --- | --- |
+| G-1 | medium | row 7 of the canonical driver did not select `--m1-context` | dev/gates.sh |
+| ND-1-1 | medium | row 20 of the archive manifest carried a stale hash for `SOURCES.json` after the row 7 fix | dev/validation/2026-09-17-m1-context/ARTIFACTS.json |
+| C-2 | low | the protected list named `backend`, which no tracked path matches | dev/validation/2026-09-17-m1-context/FINAL.json |
+| C-3 | low | the SOURCE-MODEL rerun carried no command, deadline, exit, pass flag or marker | dev/validation/2026-09-17-m1-context/RECHECKS.json |
+| D-1 | low | the stage commit text was absent, while 29 earlier stage flags carry one | dev/STAGE-M1-CONTEXT-COMMIT.txt |
+| V-1 | low | eleven prose rows exceeded the 72-column house width | dev/M1-CONTEXT.md, dev/ASSAY-M1-BUILD-LOG.md, dev/validation/2026-09-17-m1-context/README.md |
+
+Fixed: 6, G-1 and ND-1-1 by run 1 of this review, C-2, C-3 and D-1 by
+run 2, and V-1 by the close. Refuted: 2, D-2 and D-3. Merged and
+dropped: 4, three duplicate reports of G-1 and one report of the entry
+that the refuted item also named.
+
+V-1 came from the kit close gate, not from a lens. The eleven rows are
+pre-existing slice prose, rewrapped with the words unchanged.
+
+The C-3 values come from the recorded capture of that same rerun, so
+no gate was measured again. The new commit text is pinned in
+`SOURCES.json`, and `ARTIFACTS.json` records the moved archive hashes.
+
+Gate: fix-M1CTX-1-smoke.log, verdict GREEN-FUNCTIONAL, every red row is
+DENOMINATORS or M0-RATIO, the disclosed state of this slice while the
+timing gate is paused.
+STAGE-M1-LINE: STAGE-M1-CONTEXT FAIL
+M0-LINE: M0-VALIDATION FAIL; M0-EXIT requires the user commit and
+ratification
+EXIT 1 | LADDER-WRAPPER-EXIT 0 14:00:48
+PASS-COUNT 57
+FAIL-LINES: FAIL DENOMINATORS exit=1 elapsed_ms=58.9 FAIL M0-RATIO
+exit=1 elapsed_ms=163.8
+PASS EVM-CONTEXT exit=0 elapsed_ms=33616.1
+
+Rows refreshed by this fix round: FINAL.json (protected now 12 paths,
+`backend` dropped, protected_diff unchanged empty), RECHECKS.json
+(first entry, SOURCE-MODEL, gains command, deadline null, marker,
+exit 0, passed true, outer_deadline kept beside deadline),
+dev/STAGE-M1-CONTEXT-COMMIT.txt (new file, house shape), SOURCES.json
+(973 entries, one sha256 row inserted in sorted position, and one row
+moved for the build log edit), ARTIFACTS.json (rehashed after each of
+FINAL.json, RECHECKS.json and SOURCES.json).
+
+DENOMINATORS stays red on the kept 119 row manifest: no row of
+dev/DENOMINATORS.sha256 was edited this round, so the disclosed red is
+unchanged. The M0-RATIO remeasure is CARRIED to the close step on a
+calm host; dev/denominators.json and dev/measurements/ are untouched
+by this review.
+
+Full ladder
+/Users/oobi/Documents/assay-m1-context-review/gates-M1CTX-1.log,
+14:17:56, load 18.25/17.83/18.34 at 14:03 rising to
+18.48/19.39/18.18 at 14:17:
+
+```
+STAGE-M1-LINE: STAGE-M1-CONTEXT FAIL
+M0-LINE: M0-VALIDATION FAIL; M0-EXIT requires the user commit and ratification
+EXIT 1 LADDER-WRAPPER-EXIT 0 14:17:56
+PASS-COUNT: 57
+FAIL-LINES: FAIL DENOMINATORS exit=1 elapsed_ms=166.7 FAIL M0-RATIO exit=1 elapsed_ms=172.8
+DENOM-FAILED-ROWS: bin/assay.ml: FAILED dev/M1-ERRORS.md: FAILED dev/M1-PROOFS.md: FAILED dev/M1-SURFACE-MUTATIONS.md: FAILED dev/M1-SURFACE.md: FAILED dev/contract-test.py: FAILED dev/errors-test.py: FAILED dev/gates.sh: FAILED dev/m1-emit-test.py: FAILED dev/model-test.py: FAILED dev/stage-a-gates.py: FAILED emit/contract.ml: FAILED emit/emit.ml: FAILED emit/model.ml: FAILED emit/model.mli: FAILED emit/recognize.ml: FAILED
+MUTANTS-TAIL: MUTANT TRUSTED-BOUND killed exit=1 MUTANTS killed=13/13 OK
+DRIVER-TAIL: DRIVER cases=24 OK
+DENOMINATORS-TAIL: verification/lean-toolchain: OK shasum: WARNING: 16 computed checksums did NOT match
+M0-RATIO-TAIL: shasum: WARNING: 16 computed checksums did NOT match
+M1-EMISSION-TAIL: M1-MUTANTS killed=8/8 controls=8 OK M1-EMISSION counter=30 sources=8 refusals=11 mutants=8 OK
+SOURCE-MODEL-TAIL: MODEL-MUTANTS killed=8/8 controls=8 OK SOURCE-MODEL counter=30 variants=10 corpus=11 invalid=28 refusals=6 mutants=8 OK
+CONTRACT-SURFACE-TAIL: SURFACE-MUTANTS killed=8/8 controls=8 OK CONTRACT-SURFACE counter=30 variants=14 refusals=36 mutants=8 OK
+CONTRACT-ROUTE-TAIL: CONTRACT-ROUTE core=3 identity=true allocated_bytes=1472 bound=131072 OK
+SOURCE-PROOFS-TAIL: SOURCE-PROOF-MUTANT ERROR-BRANCH killed control=OK SOURCE-PROOFS theorems=11 arithmetic=226 evm=16 recovery=6 effects=7 invalid=13 mutants=6 controls=4 OK
+CUSTOM-ERRORS-TAIL: ERROR-MUTANT ABI killed control=OK CUSTOM-ERRORS cases=66 creates=2 refusals=26 mutants=5 OK
+DIFF-EXECUTOR-TAIL: DIFF-CHECKS killed=24/24 controls=1 OK DIFF-EXECUTOR live=20 driver=28 rejected=24 OK
+COUNTER-REFERENCE-TAIL: COUNTER-MUTANT SELECTOR witness=increment-success killed control=OK COUNTER-REFERENCE cases=30 creates=2 mutants=8 value_rejected=5 covered=120 scope=reference OK
+PROOF-BUILD-TAIL: OK lake: 0 errors, 0 sorries, 0 warnings
+PROOF-REPORT-LINES: 42
+EVM-CONTEXT-TAIL: CONTEXT-MUTANT SCHEMA killed control=OK EVM-CONTEXT cases=224 signed=56 creates=64 refusals=7 inputs=7 nested=2 independent=6 mutants=6 OK
+```
+
+gate: GREEN-FUNCTIONAL (every red row is DENOMINATORS or M0-RATIO,
+the disclosed state of this slice while the timing gate is paused:
+pass=57 of 59 legs, fail=[DENOMINATORS,M0-RATIO], mutants=true, marker
+tails ok=true, timeout legs only=false, disclosed reds only=true,
+wrapper exit ok=true).
+
+The finders and the builder ran opus/medium on the first attempt, with
+an opus/medium fallback when the first attempt returned null. The gate
+runner ran opus/medium. The verifiers, the judge and the check stage ran
+opus/high. The closer ran sonnet/medium, never opus.
+
 ## 2026-09-17: inferred proof-producing guard bindings
 
 The twenty-third M1 slice starts at

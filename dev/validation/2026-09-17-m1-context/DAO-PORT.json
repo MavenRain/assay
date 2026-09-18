@@ -1,0 +1,22 @@
+{
+  "argv": [
+    "/Users/oobi/Documents/gpt1/assay-m1-context/_build/default/bin/assay.exe",
+    "emit",
+    "/Users/oobi/Documents/gpt1/assay-self-referential-dao/src/SelfReferentialDAO.asy",
+    "-o",
+    "/Users/oobi/Documents/gpt1/assay-m1-context/.gatework/dao-context"
+  ],
+  "exit": 0,
+  "stdout": "",
+  "stderr": "",
+  "elapsed_ms": 106.56929202377796,
+  "dao_commit": "2fa411c61d4bb9ee9d3c70ad2177382693beefb3",
+  "source_sha256": "ce8b2dc4f5251515ceeabb208c5980aad462a2c34819874facce98ae1acc2968",
+  "artifacts": {
+    "runtime.hex": "7638d7a96d827696c5be07270cb00a729519c321755cab394d529eb55e784d96",
+    "init.hex": "8bb3f2b4cb3f9dbb4171b70fe8a7c9546b9cc7ac733c86ee727bd924bebf5a11",
+    "abi.json": "31907833ede64d3fc8155d5530f37e964de846c72da198a9aa0acb7a1e2c3373",
+    "layout.json": "b2ddeec4df0b5684dd90b900a01e2cb71c9c1f0bd200522e7e493906b760e08c",
+    "axioms.txt": "61f8b9f0cb83fe5250e13b39b40e705d106caa92810d60168dfe5f4c3a89a302"
+  }
+}

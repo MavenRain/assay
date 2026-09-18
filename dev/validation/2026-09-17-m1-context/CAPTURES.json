@@ -1,0 +1,6 @@
+{
+  "format": "gzip JSON object keyed by original capture filename",
+  "files": 953,
+  "uncompressed_bytes": 5284533,
+  "uncompressed_sha256": "2b541f1bee3dfc373a52a28ae374d7b65b313b0c1647e8acb1deca197645b54a"
+}

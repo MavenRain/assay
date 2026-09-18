@@ -1,0 +1,10 @@
+MODEL-LIVE counter=30 variants=10 corpus=11 executors=2 OK
+MODEL-DRIVER invalid=28 positive=6 refusals=6 no_tools=true OK
+MODEL-MUTANT VALUE witness=value-get killed control=OK
+MODEL-MUTANT OVERFLOW witness=add-recovery killed control=OK
+MODEL-MUTANT UNDERFLOW witness=sub-recovery killed control=OK
+MODEL-MUTANT BOUND witness=increment-at-limit killed control=OK
+MODEL-MUTANT SNAPSHOT witness=snapshot killed control=OK
+MODEL-MUTANT ROLLBACK witness=write-abort killed control=OK
+MODEL-MUTANT HEAD witness=short-two killed control=OK
+SOURCE-MODEL FAIL: MODEL-MUTANT-ANCHOR M0-WRITE

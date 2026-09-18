@@ -1,0 +1,139 @@
+[
+  {
+    "name": "SOURCE-MODEL",
+    "reason": "M0-WRITE mutation anchor updated for caller threading",
+    "command": [
+      "python3",
+      "-P",
+      "dev/model-test.py"
+    ],
+    "deadline": null,
+    "outer_deadline": "not recorded; inherited per-command test deadlines unchanged",
+    "marker": "SOURCE-MODEL counter=30 variants=10 corpus=11 invalid=28 refusals=6 mutants=8 OK",
+    "exit": 0,
+    "passed": true,
+    "capture": {
+      "schemaVersion": 2,
+      "artifact": "/Users/oobi/Documents/gpt1/assay-m1-context/.kanon-exec/run-F13kU2",
+      "status": "complete",
+      "exitCode": 0,
+      "counts": {
+        "stdout_bytes": 712,
+        "stderr_bytes": 0,
+        "stdout_lines": 12,
+        "stderr_lines": 0,
+        "error_lines": 0,
+        "warning_lines": 0
+      },
+      "commands": [
+        {
+          "index": 1,
+          "argv": [
+            "python3",
+            "-P",
+            "dev/model-test.py"
+          ],
+          "cwd": "/Users/oobi/Documents/gpt1/assay-m1-context",
+          "exitCode": 0,
+          "signal": 0,
+          "timedOut": false,
+          "spawnError": "",
+          "stdout": {
+            "path": "/Users/oobi/Documents/gpt1/assay-m1-context/.kanon-exec/run-F13kU2/command-0001.stdout",
+            "bytes": 712,
+            "lines": 12
+          },
+          "stderr": {
+            "path": "/Users/oobi/Documents/gpt1/assay-m1-context/.kanon-exec/run-F13kU2/command-0001.stderr",
+            "bytes": 0,
+            "lines": 0
+          }
+        }
+      ]
+    },
+    "stdout": "MODEL-LIVE counter=30 variants=10 corpus=11 executors=2 OK\nMODEL-DRIVER invalid=28 positive=6 refusals=6 no_tools=true OK\nMODEL-MUTANT VALUE witness=value-get killed control=OK\nMODEL-MUTANT OVERFLOW witness=add-recovery killed control=OK\nMODEL-MUTANT UNDERFLOW witness=sub-recovery killed control=OK\nMODEL-MUTANT BOUND witness=increment-at-limit killed control=OK\nMODEL-MUTANT SNAPSHOT witness=snapshot killed control=OK\nMODEL-MUTANT ROLLBACK witness=write-abort killed control=OK\nMODEL-MUTANT HEAD witness=short-two killed control=OK\nMODEL-MUTANT M0-WRITE witness=m0-write killed control=OK\nMODEL-MUTANTS killed=8/8 controls=8 OK\nSOURCE-MODEL counter=30 variants=10 corpus=11 invalid=28 refusals=6 mutants=8 OK\n",
+    "stderr": ""
+  },
+  {
+    "name": "INFERRED-BINDINGS",
+    "command": [
+      "python3",
+      "-P",
+      "dev/inferred-binding-test.py"
+    ],
+    "deadline": 600,
+    "marker": "INFERRED-BINDINGS cases=229 creates=2 refusals=25 erasure_pairs=21 boundaries=6 mutants=6 OK",
+    "exit": 0,
+    "elapsed_ms": 104311.88104208559,
+    "passed": true,
+    "timed_out": false,
+    "stdout": "IA-LIVE cases=229 creates=2 OK\nIA-ERASURE pairs=21 files=5 OK\nIB-REFUSALS cases=25 commands=3 OK\nIB-BOUNDARIES nested=128 bundle_nodes=4095 spine_depth=32 positive=6 negative=1 OK\nIB-MUTANT ENTRY-EVIDENCE killed control=OK\nIB-MUTANT LOCAL-EVIDENCE killed control=OK\nIB-MUTANT ANNOTATION killed control=OK\nIB-MUTANT UNUSED killed control=OK\nIB-MUTANT BUNDLE-LIMIT killed control=OK\nIB-MUTANT DEPTH-LIMIT killed control=OK\nINFERRED-BINDINGS cases=229 creates=2 refusals=25 erasure_pairs=21 boundaries=6 mutants=6 OK\n",
+    "stderr": "",
+    "load_average": [
+      57.86669921875,
+      68.19677734375,
+      86.81591796875
+    ],
+    "compiler_sha256": "b8d676bcdcd28c8734a155a6be1129a3e4c498a8ce33451c6da1c09dec2a2e43"
+  },
+  {
+    "name": "INFERRED-GUARD-BINDINGS",
+    "command": [
+      "python3",
+      "-P",
+      "dev/inferred-guard-binding-test.py"
+    ],
+    "deadline": 600,
+    "marker": "INFERRED-GUARD-BINDINGS cases=160 creates=2 refusals=27 erasure_pairs=20 boundaries=4 mutants=4 OK",
+    "exit": 0,
+    "elapsed_ms": 82800.23891618475,
+    "passed": true,
+    "timed_out": false,
+    "stdout": "IG-LIVE cases=160 creates=2 OK\nIG-ERASURE pairs=20 files=5 OK\nIGB-REFUSALS cases=27 commands=3 OK\nIGB-BOUNDARIES accepted=4 erasure_pairs=4 OK\nIGB-MUTANT ANNOTATION killed control=OK\nIGB-MUTANT BINDING killed control=OK\nIGB-MUTANT ATOMIC-CLAIM killed control=OK\nIGB-MUTANT NAMED-ARGUMENTS killed control=OK\nINFERRED-GUARD-BINDINGS cases=160 creates=2 refusals=27 erasure_pairs=20 boundaries=4 mutants=4 OK\n",
+    "stderr": "",
+    "load_average": [
+      43.4228515625,
+      61.79248046875,
+      82.6337890625
+    ],
+    "compiler_sha256": "b8d676bcdcd28c8734a155a6be1129a3e4c498a8ce33451c6da1c09dec2a2e43"
+  },
+  {
+    "name": "PROOF-GUARDS",
+    "command": [
+      "python3",
+      "-P",
+      "dev/guard-test.py"
+    ],
+    "deadline": 600,
+    "marker": "PROOF-GUARDS cases=83 creates=2 refusals=26 erasure=3 mutants=6 OK",
+    "exit": 0,
+    "elapsed_ms": 105271.56395930797,
+    "passed": true,
+    "stdout": "GUARD-LIVE cases=83 creates=2 covered=252 OK\nGUARD-REFUSALS surface=20 schema=6 OK\nGUARD-ERASURE variants=3 five_files=5 removed_checks=1 OK\nGUARD-MUTANT CLAIM killed control=OK\nGUARD-MUTANT SCHEMA killed control=OK\nGUARD-MUTANT SUB killed control=OK\nGUARD-MUTANT OVERFLOW killed control=OK\nGUARD-MUTANT MODEL killed control=OK\nGUARD-MUTANT OPCODE killed control=OK\nPROOF-GUARDS cases=83 creates=2 refusals=26 erasure=3 mutants=6 OK\n",
+    "stderr": "",
+    "compiler_sha256": "b8d676bcdcd28c8734a155a6be1129a3e4c498a8ce33451c6da1c09dec2a2e43"
+  },
+  {
+    "name": "PROOF-HOLES",
+    "command": [
+      "python3",
+      "-P",
+      "dev/proof-hole-test.py"
+    ],
+    "deadline": 600,
+    "marker": "PROOF-HOLES cases=242 creates=2 refusals=25 erasure_pairs=23 boundaries=6 mutants=4 OK",
+    "exit": 0,
+    "elapsed_ms": 83235.09008297697,
+    "passed": true,
+    "timed_out": false,
+    "stdout": "IA-LIVE cases=242 creates=2 OK\nIA-ERASURE pairs=23 files=5 OK\nPH-REFUSALS cases=25 commands=3 OK\nPH-BOUNDARIES parameters=16 nested=128 positive=6 negative=2 OK\nPH-MUTANT EVIDENCE killed control=OK\nPH-MUTANT PAIR killed control=OK\nPH-MUTANT LOCAL killed control=OK\nPH-MUTANT PARAMETER killed control=OK\nPROOF-HOLES cases=242 creates=2 refusals=25 erasure_pairs=23 boundaries=6 mutants=4 OK\n",
+    "stderr": "",
+    "load_average": [
+      52.91552734375,
+      74.76953125,
+      91.470703125
+    ],
+    "compiler_sha256": "b8d676bcdcd28c8734a155a6be1129a3e4c498a8ce33451c6da1c09dec2a2e43"
+  }
+]

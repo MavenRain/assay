@@ -3,14 +3,15 @@
    The index is erased.  Every concrete payload is range checked here. *)
 open Kanon_kernel
 
-let protocol = {|mu Word : (0 bits : Nat) -> Type 0 :=
+let base_protocol ~deployer = {|mu Word : (0 bits : Nat) -> Type 0 :=
   | word : (0 bits : Nat) -> Nat -> Word bits
 mu Eff : Type 0 :=
   | ret : Word 256 -> Eff
   | put : Word 256 -> Word 256 -> Eff -> Eff
   | read : Word 256 -> Eff
-axiom EvmOpcodes : Prop
-|}
+|} ^ (if deployer then "  | deployer : Word 256 -> Eff -> Eff\n" else "") ^
+  "axiom EvmOpcodes : Prop\n"
+let protocol = base_protocol ~deployer:false
 
 type error =
   | Protocol of string | Word_shape | Word_range | Word_boxed
@@ -29,8 +30,13 @@ let ( let* ) = Result.bind
 let word_tid = Eterm.Tid "mu<Word>"
 let eff_tid = Eterm.Tid "mu<Eff>"
 
-let schema globals =
-  let* expected, rows = Kanon_surface.Elab.check_in Global.initial protocol
+let has_constructor globals family name =
+  Global.find_family family globals
+  |> Option.fold ~none:false ~some:(fun family -> Option.is_some (Positivity.ctor_of name family))
+
+let schema ?(deployer=false) globals =
+  let* expected, rows = Kanon_surface.Elab.check_in Global.initial
+    (base_protocol ~deployer)
     |> Result.map_error (fun e -> Protocol (Error.to_string e)) in
   let* () = List.fold_left (fun result (name, _entry) ->
     let* () = result in
@@ -132,10 +138,12 @@ let proof_effects = {|  | guardLe : (a : Word 256) -> (b : Word 256) -> ((0 p : 
 |}
 let proof_names = ["wordNat"; "Le"; "AddFits"; "guardLe"; "guardAdd"; "addLt"; "subLe"]
 let has_proofs globals = List.exists (fun name -> Option.is_some (Global.find name globals)) proof_names
-let m1_protocol_for ?(proofs=false) error_source =
-  protocol ^ (if proofs then proof_protocol else "") ^ error_source ^ tx_protocol ^
+let m1_protocol_for ?(proofs=false) ?(caller=false) ?(deployer=false) error_source =
+  base_protocol ~deployer ^
+  (if proofs then proof_protocol else "") ^ error_source ^ tx_protocol ^
   (if error_source = "" then "" else "  | reject : Error -> Tx\n") ^
-  (if proofs then proof_effects else "")
+  (if proofs then proof_effects else "") ^
+  (if caller then "  | caller : (Word 256 -> Tx) -> Tx\n" else "")
 
 let checked_schema globals source =
   let* expected, rows = Kanon_surface.Elab.check_in Global.initial source
@@ -203,7 +211,8 @@ let variant_source globals name rows =
   String.concat "" (List.map (argument_source globals) rows) ^
   declaration name (collection_source "sum" (List.map fst rows))
 let m1_schema globals =
-  let* () = schema globals in
+  let deployer = has_constructor globals "Eff" "deployer" in
+  let* () = schema ~deployer globals in
   let* fields = collection globals ~variant:false "Storage" in
   let* entries = variant globals "Entry" in
   let* errors = if Option.is_some (Global.find "Error" globals)
@@ -216,8 +225,9 @@ let m1_schema globals =
     | Global.Axiom _ when proofs && name <> "Nat" && name <> "EvmOpcodes" ->
       Error (Protocol ("M1 proof assumption " ^ name))
     | Global.Axiom _ | Global.Def _ | Global.Prim _ -> Ok ()) globals.Global.entries (Ok ()) in
-  let source = (if errors = [] then m1_protocol_for ~proofs "" ^ aliases
-    else m1_protocol_for ~proofs (aliases ^ variant_source globals "Error" errors)) ^
+  let caller = has_constructor globals "Tx" "caller" in
+  let source = (if errors = [] then m1_protocol_for ~proofs ~caller ~deployer "" ^ aliases
+    else m1_protocol_for ~proofs ~caller ~deployer (aliases ^ variant_source globals "Error" errors)) ^
     declaration "Storage" (collection_source "prod" fields) ^
     variant_source globals "Entry" entries in
   let* () = checked_schema globals source in
