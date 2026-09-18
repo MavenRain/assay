@@ -1,0 +1,27 @@
+M1: add hexadecimal Word literals
+
+Accept hexadecimal constants in contract source and normalize all Word
+literals before proof lookup and core checking. Share operand parsing
+and condition lowering to retain the 1800-line emitter budget.
+
+Add an example, decimal artifact comparisons, independent runtime and
+creation checks, malformed literal refusals and four compiler mutations
+with restored controls. Preserve all earlier gate declarations and the
+paused timing baselines.
+
+Review pass 1 (2026-09-18) fixed 4 findings: A-1, A-4, D-1, D-2.
+
+A-1: guard resolution reuses the one condition conversion, so the
+compiler no longer cross-checks the proved claim against the emitted
+runtime condition; now the slice contract and the build log record
+that only the runtime expectation refuses an argument reversal.
+
+A-4: the slice contract left the uint256 range check as the stated
+bound of a hexadecimal value; now it states that the 64 digit width
+rule refuses it and that the range test guards the decimal path only.
+
+D-1: the build log had no section for the twenty-seventh slice; now
+it carries one in the shape of its predecessors.
+
+D-2: seven rows of the record README ran past 72 columns; now every
+row wraps at 72 columns with no word or number changed.

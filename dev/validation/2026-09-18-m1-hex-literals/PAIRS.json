@@ -1,0 +1,302 @@
+[
+  {
+    "name": "value-00",
+    "files": [
+      "runtime.hex",
+      "init.hex",
+      "abi.json",
+      "layout.json",
+      "axioms.txt"
+    ]
+  },
+  {
+    "name": "value-01",
+    "files": [
+      "runtime.hex",
+      "init.hex",
+      "abi.json",
+      "layout.json",
+      "axioms.txt"
+    ]
+  },
+  {
+    "name": "value-02",
+    "files": [
+      "runtime.hex",
+      "init.hex",
+      "abi.json",
+      "layout.json",
+      "axioms.txt"
+    ]
+  },
+  {
+    "name": "value-03",
+    "files": [
+      "runtime.hex",
+      "init.hex",
+      "abi.json",
+      "layout.json",
+      "axioms.txt"
+    ]
+  },
+  {
+    "name": "value-04",
+    "files": [
+      "runtime.hex",
+      "init.hex",
+      "abi.json",
+      "layout.json",
+      "axioms.txt"
+    ]
+  },
+  {
+    "name": "value-05",
+    "files": [
+      "runtime.hex",
+      "init.hex",
+      "abi.json",
+      "layout.json",
+      "axioms.txt"
+    ]
+  },
+  {
+    "name": "value-06",
+    "files": [
+      "runtime.hex",
+      "init.hex",
+      "abi.json",
+      "layout.json",
+      "axioms.txt"
+    ]
+  },
+  {
+    "name": "value-07",
+    "files": [
+      "runtime.hex",
+      "init.hex",
+      "abi.json",
+      "layout.json",
+      "axioms.txt"
+    ]
+  },
+  {
+    "name": "value-08",
+    "files": [
+      "runtime.hex",
+      "init.hex",
+      "abi.json",
+      "layout.json",
+      "axioms.txt"
+    ]
+  },
+  {
+    "name": "value-09",
+    "files": [
+      "runtime.hex",
+      "init.hex",
+      "abi.json",
+      "layout.json",
+      "axioms.txt"
+    ]
+  },
+  {
+    "name": "value-10",
+    "files": [
+      "runtime.hex",
+      "init.hex",
+      "abi.json",
+      "layout.json",
+      "axioms.txt"
+    ]
+  },
+  {
+    "name": "value-11",
+    "files": [
+      "runtime.hex",
+      "init.hex",
+      "abi.json",
+      "layout.json",
+      "axioms.txt"
+    ]
+  },
+  {
+    "name": "value-12",
+    "files": [
+      "runtime.hex",
+      "init.hex",
+      "abi.json",
+      "layout.json",
+      "axioms.txt"
+    ]
+  },
+  {
+    "name": "value-13",
+    "files": [
+      "runtime.hex",
+      "init.hex",
+      "abi.json",
+      "layout.json",
+      "axioms.txt"
+    ]
+  },
+  {
+    "name": "value-14",
+    "files": [
+      "runtime.hex",
+      "init.hex",
+      "abi.json",
+      "layout.json",
+      "axioms.txt"
+    ]
+  },
+  {
+    "name": "value-15",
+    "files": [
+      "runtime.hex",
+      "init.hex",
+      "abi.json",
+      "layout.json",
+      "axioms.txt"
+    ]
+  },
+  {
+    "name": "value-16",
+    "files": [
+      "runtime.hex",
+      "init.hex",
+      "abi.json",
+      "layout.json",
+      "axioms.txt"
+    ]
+  },
+  {
+    "name": "value-17",
+    "files": [
+      "runtime.hex",
+      "init.hex",
+      "abi.json",
+      "layout.json",
+      "axioms.txt"
+    ]
+  },
+  {
+    "name": "value-18",
+    "files": [
+      "runtime.hex",
+      "init.hex",
+      "abi.json",
+      "layout.json",
+      "axioms.txt"
+    ]
+  },
+  {
+    "name": "value-19",
+    "files": [
+      "runtime.hex",
+      "init.hex",
+      "abi.json",
+      "layout.json",
+      "axioms.txt"
+    ]
+  },
+  {
+    "name": "value-20",
+    "files": [
+      "runtime.hex",
+      "init.hex",
+      "abi.json",
+      "layout.json",
+      "axioms.txt"
+    ]
+  },
+  {
+    "name": "value-21",
+    "files": [
+      "runtime.hex",
+      "init.hex",
+      "abi.json",
+      "layout.json",
+      "axioms.txt"
+    ]
+  },
+  {
+    "name": "value-22",
+    "files": [
+      "runtime.hex",
+      "init.hex",
+      "abi.json",
+      "layout.json",
+      "axioms.txt"
+    ]
+  },
+  {
+    "name": "proof-inference",
+    "files": [
+      "runtime.hex",
+      "init.hex",
+      "abi.json",
+      "layout.json",
+      "axioms.txt"
+    ]
+  },
+  {
+    "name": "helper",
+    "files": [
+      "runtime.hex",
+      "init.hex",
+      "abi.json",
+      "layout.json",
+      "axioms.txt"
+    ]
+  },
+  {
+    "name": "equality",
+    "files": [
+      "runtime.hex",
+      "init.hex",
+      "abi.json",
+      "layout.json",
+      "axioms.txt"
+    ]
+  },
+  {
+    "name": "addition",
+    "files": [
+      "runtime.hex",
+      "init.hex",
+      "abi.json",
+      "layout.json",
+      "axioms.txt"
+    ]
+  },
+  {
+    "name": "predicate",
+    "files": [
+      "runtime.hex",
+      "init.hex",
+      "abi.json",
+      "layout.json",
+      "axioms.txt"
+    ]
+  },
+  {
+    "name": "caller",
+    "files": [
+      "runtime.hex",
+      "init.hex",
+      "abi.json",
+      "layout.json",
+      "axioms.txt"
+    ]
+  },
+  {
+    "name": "example",
+    "files": [
+      "runtime.hex",
+      "init.hex",
+      "abi.json",
+      "layout.json",
+      "axioms.txt"
+    ]
+  }
+]

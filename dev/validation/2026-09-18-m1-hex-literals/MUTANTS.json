@@ -1,0 +1,50 @@
+[
+  {
+    "name": "mutant-RADIX",
+    "exit": 1,
+    "marker": "HEX-PAIR value-00 runtime.hex",
+    "source_sha256": "275ff99151cae5a10b16e3fc294918da5b1965fd0d6091e00b6a000c5c66675a"
+  },
+  {
+    "name": "control-RADIX",
+    "exit": 0,
+    "marker": "HEX-PAIR value-00 runtime.hex",
+    "source_sha256": "798275c8f9076f5857ee67d9900456f9a6e6fb1c68fafe0e013929af845968f4"
+  },
+  {
+    "name": "mutant-EMPTY",
+    "exit": 1,
+    "marker": "HEX-REFUSAL empty-lower check",
+    "source_sha256": "49a87143c70bdd0bd53eb83c420946180e391b4070699d2b81c42499c171fce9"
+  },
+  {
+    "name": "control-EMPTY",
+    "exit": 0,
+    "marker": "HEX-REFUSAL empty-lower check",
+    "source_sha256": "798275c8f9076f5857ee67d9900456f9a6e6fb1c68fafe0e013929af845968f4"
+  },
+  {
+    "name": "mutant-RANGE",
+    "exit": 1,
+    "marker": "HEX-REFUSAL decimal-overflow check",
+    "source_sha256": "9aa0882f1b6c5c89412591392809b61813f7877be52a410f9e5fe15d87e2778a"
+  },
+  {
+    "name": "control-RANGE",
+    "exit": 0,
+    "marker": "HEX-REFUSAL decimal-overflow check",
+    "source_sha256": "798275c8f9076f5857ee67d9900456f9a6e6fb1c68fafe0e013929af845968f4"
+  },
+  {
+    "name": "mutant-NORMALIZE",
+    "exit": 1,
+    "marker": "HEX-EMIT proof-inference",
+    "source_sha256": "e62b87f6e9085c26250b8a08f697cd11472325df1633a929f60be2dd6c62e472"
+  },
+  {
+    "name": "control-NORMALIZE",
+    "exit": 0,
+    "marker": "HEX-EMIT proof-inference",
+    "source_sha256": "798275c8f9076f5857ee67d9900456f9a6e6fb1c68fafe0e013929af845968f4"
+  }
+]

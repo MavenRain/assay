@@ -95,11 +95,18 @@ let rec sequence words tokens = match words with
   | text :: rest -> let* tokens = expect text tokens in sequence rest tokens
 
 let literal at =
-  if String.length at.text > 78 then fail at "WORD" "expected a decimal uint256" else
-  let* n = Bignum.of_decimal at.text
-    |> Option.to_result ~none:(Error.Parse ("SURFACE_WORD: expected a decimal uint256", at.line, at.col)) in
-  if Bignum.compare n (Z.shift_left Z.one 256) < 0 then Ok (Literal at)
-  else fail at "WORD" "expected a decimal uint256"
+  let hexadecimal = String.starts_with ~prefix:"0x" (String.lowercase_ascii at.text) in
+  let base, first, maximum = if hexadecimal then 16, 2, 66 else 10, 0, 78 in
+  let size = String.length at.text in
+  let error = Error.Parse ("SURFACE_WORD: expected a decimal or hexadecimal uint256", at.line, at.col) in
+  let accumulate parsed c = Option.bind parsed (fun n ->
+    Option.bind (String.index_opt "0123456789abcdef" (Char.lowercase_ascii c)) (fun digit ->
+      if digit >= base then None else Some (Z.add (Z.mul n (Z.of_int base)) (Z.of_int digit)))) in
+  let parsed = if size <= first || size > maximum then None
+    else Seq.fold_left accumulate (Some Z.zero) (Seq.drop first (String.to_seq at.text)) in
+  let* n = Option.to_result ~none:error parsed in
+  if Z.compare n (Z.shift_left Z.one 256) < 0 then Ok (Literal { at with text = Z.to_string n })
+  else Error error
 let rec value depth tokens =
   if depth > 128 then fail (here tokens) "LIMIT" "value nesting exceeds 128" else
   match tokens with
@@ -109,9 +116,9 @@ let rec value depth tokens =
   | { text = "word"; _ } :: at :: rest ->
     let* word = literal at in Ok (word, rest)
   | [] | _ :: _ -> let* name, rest = identifier tokens in Ok (Local name, rest)
-let binary tokens =
-  let* a, rest = value 0 tokens in
-  let* b, rest = value 0 rest in Ok ((a, b), rest)
+let binary operand tokens =
+  let* a, rest = operand tokens in
+  let* b, rest = operand rest in Ok ((a, b), rest)
 let opens_value tokens = match tokens with
   | { text = "("; _ } :: _rest -> true
   | [] | _ :: _ -> false
@@ -136,17 +143,14 @@ let error_values tokens =
   more [] tokens
 
 let bound operand runtime tokens =
-  let binary tokens = let* a, rest = operand tokens in
-    let* b, rest = operand rest in Ok ((a, b), rest) in
   match tokens with
   | at :: rest when at.text = (if runtime then "leWord" else "Le") ->
-    let* (a, b), rest = binary rest in Ok (Ordered (a, b), rest)
+    let* (a, b), rest = binary operand rest in Ok (Ordered (a, b), rest)
   | at :: rest when at.text = (if runtime then "lt256" else "Lt256") ->
     let* rest = sequence ["("; "add"] rest in
-    let* (a, b), rest = binary rest in
+    let* (a, b), rest = binary operand rest in
     let* rest = expect ")" rest in Ok (Fits (a, b), rest)
   | [] | _ :: _ -> fail (here tokens) "PROOF" "expected an ordering or addition bound"
-let predicate runtime tokens = bound (value 0) runtime tokens
 let predicate_arguments operand name tokens =
   let* name, _rest = identifier [name] in
   let rec arguments acc tokens =
@@ -172,14 +176,14 @@ let condition tokens =
       let* b, remaining, rest = component remaining rest in
       Ok (Conjoin (a, b), remaining, rest)
     | ({ text = "eqWord"; _ } as at) :: rest ->
-      let* (a, b), rest = binary rest in
+      let* (a, b), rest = binary (value 0) rest in
       if depth > 31 || remaining < 2 then fail at "LIMIT" "guard condition exceeds depth 32 or 64 bounds" else
       Ok (Conjoin (Check (Ordered (a, b)), Check (Ordered (b, a))), remaining - 2, rest)
     | name :: { text = "("; _ } :: rest when not (List.mem name.text reserved) ->
       let* args, rest = predicate_arguments (value 0) name rest in
       Ok (Satisfy (name, args), remaining - 1, rest)
     | [] | _ :: _ ->
-      let* p, rest = predicate true tokens in Ok (Check p, remaining - 1, rest) in
+      let* p, rest = bound (value 0) true tokens in Ok (Check p, remaining - 1, rest) in
   let* c, _remaining, rest = parse 0 64 tokens in Ok (c, rest)
 let rec claim_with operand depth tokens =
   if depth > 32 then fail (here tokens) "LIMIT" "claim nesting exceeds 32" else
@@ -306,7 +310,7 @@ let body tokens =
     | { text = "deployer"; _ } :: rest ->
       let* slot, rest = identifier rest in next (Deployer slot) rest
     | { text = "guard"; _ } :: { text = "le"; _ } :: rest ->
-      let* (a, b), rest = binary rest in next (Guard (a, b)) rest
+      let* (a, b), rest = binary (value 0) rest in next (Guard (a, b)) rest
     | ({ text = "guard"; _ } as at) :: rest ->
       let* (error, condition), rest = guard_condition rest in
       (* Source identifiers cannot use this prefix. The checked evidence stays
@@ -322,7 +326,7 @@ let body tokens =
       let* rest = sequence [":"; "Word"; ":="] rest in
       (match rest with
        | op :: rest when op.text = "addLt" || op.text = "subLe" ->
-         let* (a, b), rest = binary rest in
+         let* (a, b), rest = binary (value 0) rest in
          let* proof, rest = match rest with
            | { text = ";"; _ } :: _tail -> Ok (None, rest)
            | [] | _ :: _ -> let* term, rest = proof_term 0 rest in Ok (Some term, rest) in
@@ -338,9 +342,9 @@ let body tokens =
          let* slot, rest = identifier rest in next (Load (name, slot)) rest
        | { text = "caller"; _ } :: rest -> next (Caller name) rest
        | { text = "add"; _ } :: rest ->
-         let* (a, b), rest = binary rest in next (Add (name, a, b)) rest
+         let* (a, b), rest = binary (value 0) rest in next (Add (name, a, b)) rest
        | { text = "sub"; _ } :: rest ->
-         let* (a, b), rest = binary rest in next (Sub (name, a, b)) rest
+         let* (a, b), rest = binary (value 0) rest in next (Sub (name, a, b)) rest
        | [] | _ :: _ -> fail (here rest) "EFFECT" "expected sload, caller, add or sub") in
   steps 0 [] tokens
 
@@ -491,12 +495,8 @@ let optional_claim predicates env claim =
     ~some:(fun claim -> let* ty = resolved_claim predicates env claim in Ok (Some ty)) claim
 
 let resolved_condition predicates env at condition =
-  let rec claim = function
-    | Check p -> Bound p
-    | Conjoin (a, b) -> Both (claim a, claim b)
-    | Satisfy (name, args) -> Named (name, args) in
   let* condition = resolve_claim (fun _ty op a b -> Runtime_check (op, a, b))
-    (fun a b -> Runtime_both (a, b)) predicates env (claim condition) in
+    (fun a b -> Runtime_both (a, b)) predicates env (condition_claim condition) in
   let rec budget depth remaining condition =
     if depth > 32 || remaining = 0 then
       fail at "LIMIT" "expanded guard condition exceeds depth 32 or 64 bounds" else

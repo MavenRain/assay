@@ -1,0 +1,6 @@
+IG-LIVE cases=112 creates=2 OK
+IG-ERASURE pairs=14 files=5 OK
+IG-REFUSALS cases=24 commands=3 OK
+IG-BOUNDARIES accepted=6 OK
+IG-MUTANT CLAIM killed control=OK
+INFERRED-GUARDS FAIL IG-MUTANT mutant-NAMED-ARGUMENTS

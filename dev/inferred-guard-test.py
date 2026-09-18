@@ -187,7 +187,7 @@ def mutants():
          '| Check (Ordered (a, b)) -> Bound (Ordered (b, a))\n  | Check (Fits (a, b)) -> Bound (Fits (a, b))',
          'separate-evidence', 'M1-TOOL separate-evidence'),
         ('NAMED-ARGUMENTS', '\n  | Satisfy (name, args) -> Named (name, args)',
-         '\n  | Satisfy (name, args) -> Named (name, List.rev args)', 'named', 'M1-TOOL named'),
+         '\n  | Satisfy (name, args) -> Named (name, List.rev args)', 'named', 'MODEL-EXPECTED ig-named-1'),
         ('EVIDENCE', '          state written (evidence_for fresh ty evidence) rest in',
          '          state written evidence rest in', 'invariant', 'M1-TOOL invariant'),
         ('STALE-STATE', 'obligations changed state evidence "Tx" (app "done" [v])',

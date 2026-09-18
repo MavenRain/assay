@@ -1,0 +1,94 @@
+[
+  {
+    "name": "empty-lower",
+    "marker": "SURFACE_WORD"
+  },
+  {
+    "name": "empty-upper",
+    "marker": "SURFACE_WORD"
+  },
+  {
+    "name": "bad-hex",
+    "marker": "SURFACE_WORD"
+  },
+  {
+    "name": "hex-suffix",
+    "marker": "SURFACE_WORD"
+  },
+  {
+    "name": "decimal-letters",
+    "marker": "SURFACE_WORD"
+  },
+  {
+    "name": "decimal-exponent",
+    "marker": "SURFACE_WORD"
+  },
+  {
+    "name": "binary",
+    "marker": "SURFACE_WORD"
+  },
+  {
+    "name": "octal",
+    "marker": "SURFACE_WORD"
+  },
+  {
+    "name": "suffix",
+    "marker": "SURFACE_WORD"
+  },
+  {
+    "name": "separator",
+    "marker": "SURFACE_WORD"
+  },
+  {
+    "name": "double-prefix",
+    "marker": "SURFACE_WORD"
+  },
+  {
+    "name": "decimal-overflow",
+    "marker": "SURFACE_WORD"
+  },
+  {
+    "name": "hex-overflow",
+    "marker": "SURFACE_WORD"
+  },
+  {
+    "name": "hex-width",
+    "marker": "SURFACE_WORD"
+  },
+  {
+    "name": "decimal-width",
+    "marker": "SURFACE_WORD"
+  },
+  {
+    "name": "split-prefix",
+    "marker": "SURFACE_WORD"
+  },
+  {
+    "name": "negative",
+    "marker": "SURFACE_TOKEN"
+  },
+  {
+    "name": "positive-sign",
+    "marker": "SURFACE_TOKEN"
+  },
+  {
+    "name": "constructor",
+    "marker": "SURFACE_WORD"
+  },
+  {
+    "name": "invariant",
+    "marker": "SURFACE_WORD"
+  },
+  {
+    "name": "helper",
+    "marker": "SURFACE_WORD"
+  },
+  {
+    "name": "guard",
+    "marker": "SURFACE_WORD"
+  },
+  {
+    "name": "error",
+    "marker": "SURFACE_WORD"
+  }
+]

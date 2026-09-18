@@ -1,0 +1,40 @@
+{
+  "AXIOMS": {
+    "command": [
+      "python3",
+      "-P",
+      "dev/proofs-test.py"
+    ],
+    "exit": 0,
+    "provisioning": "Copied proofs/.lake from the preceding assay-m1-equality workspace; the gate verifies pinned dependency revisions.",
+    "source_sha256": "d55a1db6d4b3c8c4c9c97b7a94a51e663003ad5640dc5b2edb448a8b6a028bf6",
+    "stderr": "",
+    "stdout": "AXIOMS sorryAx=0 theorems=42 carried_files=28 controls=3 OK\n",
+    "timeout": 480
+  },
+  "INFERRED-GUARDS": {
+    "command": [
+      "python3",
+      "-P",
+      "dev/inferred-guard-test.py"
+    ],
+    "exit": 0,
+    "initial_witness": {
+      "argv": [
+        "python3",
+        "-P",
+        "dev/inferred-guard-test.py",
+        "witness",
+        "named"
+      ],
+      "exit": 1,
+      "stderr": "",
+      "stdout": "INFERRED-GUARDS FAIL MODEL-EXPECTED ig-named-1\n"
+    },
+    "reason": "Updated the named-argument mutation marker to its exact independent runtime mismatch after sharing condition conversion.",
+    "source_sha256": "54e529e5da7ce55aa3eba331e95e0ca5e0d8301758eab080da7b8a7fccb9f076",
+    "stderr": "",
+    "stdout": "IG-LIVE cases=112 creates=2 OK\nIG-ERASURE pairs=14 files=5 OK\nIG-REFUSALS cases=24 commands=3 OK\nIG-BOUNDARIES accepted=6 OK\nIG-MUTANT CLAIM killed control=OK\nIG-MUTANT NAMED-ARGUMENTS killed control=OK\nIG-MUTANT EVIDENCE killed control=OK\nIG-MUTANT STALE-STATE killed control=OK\nINFERRED-GUARDS cases=112 creates=2 refusals=24 erasure_pairs=14 boundaries=6 mutants=4 OK\n",
+    "timeout": 600
+  }
+}

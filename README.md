@@ -71,6 +71,8 @@ with caller bindings, deployer initialization and checked constructor
 invariants.
 The twenty-sixth adds [Word equality](dev/M1-EQUALITY.md), with caller
 access checks and erased equality evidence built from existing bounds.
+The twenty-seventh adds [hexadecimal Word literals](dev/M1-HEX-LITERALS.md),
+with a common numeric representation for constants, guards and proofs.
 
 ```sh
 zsh -f dev/dunecho.sh build

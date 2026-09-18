@@ -1,0 +1,504 @@
+[
+  {
+    "name": "value-00",
+    "expected": {
+      "status": "success",
+      "output": "0x0000000000000000000000000000000000000000000000000000000000000010",
+      "storage": {
+        "0": "0x10"
+      }
+    },
+    "signed": true
+  },
+  {
+    "name": "value-01",
+    "expected": {
+      "status": "success",
+      "output": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "storage": {}
+    },
+    "signed": true
+  },
+  {
+    "name": "value-02",
+    "expected": {
+      "status": "success",
+      "output": "0x0000000000000000000000000000000000000000000000000000000000000001",
+      "storage": {
+        "0": "0x1"
+      }
+    },
+    "signed": false
+  },
+  {
+    "name": "value-03",
+    "expected": {
+      "status": "success",
+      "output": "0x0000000000000000000000000000000000000000000000000000000000000002",
+      "storage": {
+        "0": "0x2"
+      }
+    },
+    "signed": false
+  },
+  {
+    "name": "value-04",
+    "expected": {
+      "status": "success",
+      "output": "0x0000000000000000000000000000000000000000000000000000000000000003",
+      "storage": {
+        "0": "0x3"
+      }
+    },
+    "signed": false
+  },
+  {
+    "name": "value-05",
+    "expected": {
+      "status": "success",
+      "output": "0x0000000000000000000000000000000000000000000000000000000000000004",
+      "storage": {
+        "0": "0x4"
+      }
+    },
+    "signed": false
+  },
+  {
+    "name": "value-06",
+    "expected": {
+      "status": "success",
+      "output": "0x0000000000000000000000000000000000000000000000000000000000000005",
+      "storage": {
+        "0": "0x5"
+      }
+    },
+    "signed": false
+  },
+  {
+    "name": "value-07",
+    "expected": {
+      "status": "success",
+      "output": "0x0000000000000000000000000000000000000000000000000000000000000006",
+      "storage": {
+        "0": "0x6"
+      }
+    },
+    "signed": false
+  },
+  {
+    "name": "value-08",
+    "expected": {
+      "status": "success",
+      "output": "0x0000000000000000000000000000000000000000000000000000000000000007",
+      "storage": {
+        "0": "0x7"
+      }
+    },
+    "signed": false
+  },
+  {
+    "name": "value-09",
+    "expected": {
+      "status": "success",
+      "output": "0x0000000000000000000000000000000000000000000000000000000000000008",
+      "storage": {
+        "0": "0x8"
+      }
+    },
+    "signed": false
+  },
+  {
+    "name": "value-10",
+    "expected": {
+      "status": "success",
+      "output": "0x0000000000000000000000000000000000000000000000000000000000000009",
+      "storage": {
+        "0": "0x9"
+      }
+    },
+    "signed": false
+  },
+  {
+    "name": "value-11",
+    "expected": {
+      "status": "success",
+      "output": "0x000000000000000000000000000000000000000000000000000000000000000a",
+      "storage": {
+        "0": "0xa"
+      }
+    },
+    "signed": false
+  },
+  {
+    "name": "value-12",
+    "expected": {
+      "status": "success",
+      "output": "0x000000000000000000000000000000000000000000000000000000000000000b",
+      "storage": {
+        "0": "0xb"
+      }
+    },
+    "signed": false
+  },
+  {
+    "name": "value-13",
+    "expected": {
+      "status": "success",
+      "output": "0x000000000000000000000000000000000000000000000000000000000000000c",
+      "storage": {
+        "0": "0xc"
+      }
+    },
+    "signed": false
+  },
+  {
+    "name": "value-14",
+    "expected": {
+      "status": "success",
+      "output": "0x000000000000000000000000000000000000000000000000000000000000000d",
+      "storage": {
+        "0": "0xd"
+      }
+    },
+    "signed": false
+  },
+  {
+    "name": "value-15",
+    "expected": {
+      "status": "success",
+      "output": "0x000000000000000000000000000000000000000000000000000000000000000e",
+      "storage": {
+        "0": "0xe"
+      }
+    },
+    "signed": false
+  },
+  {
+    "name": "value-16",
+    "expected": {
+      "status": "success",
+      "output": "0x000000000000000000000000000000000000000000000000000000000000000f",
+      "storage": {
+        "0": "0xf"
+      }
+    },
+    "signed": false
+  },
+  {
+    "name": "value-17",
+    "expected": {
+      "status": "success",
+      "output": "0x0000000000000000000000000000000000000000000000000000000000abcdef",
+      "storage": {
+        "0": "0xabcdef"
+      }
+    },
+    "signed": false
+  },
+  {
+    "name": "value-18",
+    "expected": {
+      "status": "success",
+      "output": "0x0000000000000000000000000000000000000000000000000000000000000001",
+      "storage": {
+        "0": "0x1"
+      }
+    },
+    "signed": false
+  },
+  {
+    "name": "value-19",
+    "expected": {
+      "status": "success",
+      "output": "0x0000000000000000000000000000000000000000000000000020000000000001",
+      "storage": {
+        "0": "0x20000000000001"
+      }
+    },
+    "signed": false
+  },
+  {
+    "name": "value-20",
+    "expected": {
+      "status": "success",
+      "output": "0x000000000000000000000000ffffffffffffffffffffffffffffffffffffffff",
+      "storage": {
+        "0": "0xffffffffffffffffffffffffffffffffffffffff"
+      }
+    },
+    "signed": true
+  },
+  {
+    "name": "value-21",
+    "expected": {
+      "status": "success",
+      "output": "0x8000000000000000000000000000000000000000000000000000000000000000",
+      "storage": {
+        "0": "0x8000000000000000000000000000000000000000000000000000000000000000"
+      }
+    },
+    "signed": true
+  },
+  {
+    "name": "value-22",
+    "expected": {
+      "status": "success",
+      "output": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "storage": {
+        "0": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+      }
+    },
+    "signed": true
+  },
+  {
+    "name": "proof-inference-10",
+    "expected": {
+      "status": "success",
+      "output": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "storage": {
+        "0": "0x7"
+      }
+    },
+    "signed": true
+  },
+  {
+    "name": "proof-inference-19",
+    "expected": {
+      "status": "success",
+      "output": "0x0000000000000000000000000000000000000000000000000000000000000009",
+      "storage": {
+        "0": "0x7"
+      }
+    },
+    "signed": true
+  },
+  {
+    "name": "proof-inference-9",
+    "expected": {
+      "status": "revert",
+      "output": "0x",
+      "storage": {
+        "0": "0x7"
+      }
+    },
+    "signed": true
+  },
+  {
+    "name": "equality-16",
+    "expected": {
+      "status": "success",
+      "output": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "storage": {
+        "0": "0x7"
+      }
+    },
+    "signed": true
+  },
+  {
+    "name": "equality-15",
+    "expected": {
+      "status": "revert",
+      "output": "0x",
+      "storage": {
+        "0": "0x7"
+      }
+    },
+    "signed": true
+  },
+  {
+    "name": "equality-17",
+    "expected": {
+      "status": "revert",
+      "output": "0x",
+      "storage": {
+        "0": "0x7"
+      }
+    },
+    "signed": true
+  },
+  {
+    "name": "addition-0",
+    "expected": {
+      "status": "success",
+      "output": "0x0000000000000000000000000000000000000000000000000000000000000010",
+      "storage": {
+        "0": "0x7"
+      }
+    },
+    "signed": true
+  },
+  {
+    "name": "addition-115792089237316195423570985008687907853269984665640564039457584007913129639919",
+    "expected": {
+      "status": "success",
+      "output": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "storage": {
+        "0": "0x7"
+      }
+    },
+    "signed": true
+  },
+  {
+    "name": "addition-115792089237316195423570985008687907853269984665640564039457584007913129639920",
+    "expected": {
+      "status": "revert",
+      "output": "0x",
+      "storage": {
+        "0": "0x7"
+      }
+    },
+    "signed": true
+  },
+  {
+    "name": "predicate-255",
+    "expected": {
+      "status": "success",
+      "output": "0x00000000000000000000000000000000000000000000000000000000000000ff",
+      "storage": {
+        "0": "0x7"
+      }
+    },
+    "signed": true
+  },
+  {
+    "name": "predicate-256",
+    "expected": {
+      "status": "revert",
+      "output": "0x",
+      "storage": {
+        "0": "0x7"
+      }
+    },
+    "signed": true
+  },
+  {
+    "name": "helper",
+    "expected": {
+      "status": "success",
+      "output": "0x00000000000000000000000000000000000000000000000000000000000000f5",
+      "storage": {
+        "0": "0x7"
+      }
+    },
+    "signed": false
+  },
+  {
+    "name": "caller-103929005307927756724354605802047639613112342136",
+    "expected": {
+      "status": "success",
+      "output": "0x0000000000000000000000001234567890abcdef1234567890abcdef12345678",
+      "storage": {
+        "0": "0x7"
+      }
+    },
+    "signed": false
+  },
+  {
+    "name": "caller-103929005307927756724354605802047639613112342137",
+    "expected": {
+      "status": "revert",
+      "output": "0x",
+      "storage": {
+        "0": "0x7"
+      }
+    },
+    "signed": false
+  },
+  {
+    "name": "example-0",
+    "expected": {
+      "status": "success",
+      "output": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "storage": {}
+    },
+    "signed": true
+  },
+  {
+    "name": "example-255",
+    "expected": {
+      "status": "success",
+      "output": "0x00000000000000000000000000000000000000000000000000000000000000ff",
+      "storage": {
+        "0": "0xff"
+      }
+    },
+    "signed": true
+  },
+  {
+    "name": "example-256",
+    "expected": {
+      "status": "revert",
+      "output": "0x677fd0e3000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000ff",
+      "storage": {
+        "0": "0x7"
+      }
+    },
+    "signed": true
+  },
+  {
+    "name": "example-115792089237316195423570985008687907853269984665640564039457584007913129639935",
+    "expected": {
+      "status": "revert",
+      "output": "0x677fd0e3ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff00000000000000000000000000000000000000000000000000000000000000ff",
+      "storage": {
+        "0": "0x7"
+      }
+    },
+    "signed": true
+  },
+  {
+    "name": "address()",
+    "expected": {
+      "status": "success",
+      "output": "0x0000000000000000000000001234567890abcdef1234567890abcdef12345678",
+      "storage": {
+        "0": "0x7"
+      }
+    },
+    "signed": true
+  },
+  {
+    "name": "mask()",
+    "expected": {
+      "status": "success",
+      "output": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "storage": {
+        "0": "0x7"
+      }
+    },
+    "signed": true
+  },
+  {
+    "name": "short",
+    "expected": {
+      "status": "revert",
+      "output": "0x",
+      "storage": {
+        "0": "0x7"
+      }
+    },
+    "signed": true
+  },
+  {
+    "name": "unknown",
+    "expected": {
+      "status": "revert",
+      "output": "0x",
+      "storage": {
+        "0": "0x7"
+      }
+    },
+    "signed": true
+  },
+  {
+    "name": "value",
+    "expected": {
+      "status": "revert",
+      "output": "0x",
+      "storage": {
+        "0": "0x7"
+      }
+    },
+    "signed": true
+  }
+]

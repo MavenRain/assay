@@ -1,5 +1,64 @@
 # Assay M1 build log
 
+## 2026-09-18: Hexadecimal Word literals in contract source
+
+The twenty-seventh M1 slice starts at
+`c8f85f7cb4d318c3aefcd4640b08bff4890fc785`. Contract source accepts a
+hexadecimal Word literal wherever it accepts a decimal one, with a
+`0x` or `0X` prefix and one to 64 digits in either case. Both
+spellings lower to canonical decimal numerals before proof lookup and
+core checking, so existing decimal programs keep their artifacts. The
+kernel, assembler, runtime backend, source model and axiom set are
+unchanged.
+
+One shared binary operand parser replaces the two earlier
+implementations, and guard resolution reuses the condition to claim
+conversion. The combined emitter measures 1800/1800 lines. Because
+both guard paths now read one conversion, the compiler no longer
+cross-checks the proved claim against the emitted runtime condition,
+so the inferred-guard NAMED-ARGUMENTS mutant is killed by the
+independent runtime expectation `MODEL-EXPECTED ig-named-1` alone.
+
+The completed battery passes all 60 functional gates. The new
+HEX-LITERALS leg, declared at `dev/stage-a-gates.py:203-204`, prints
+`HEX-LITERALS pairs=30 cases=46 signed=25 creates=23 refusals=23
+mutants=4 OK` over 30 source pairs, 46 outcomes under the source
+model and geth, 25 signed Cancun transitions, 23 creation cases, 23
+refused programs and four compiler mutations with restored controls.
+AXIOMS and INFERRED-GUARDS were rerun: the first AXIOMS run lacked
+the offline proof cache, and the INFERRED-GUARDS marker was updated
+after the mutant moved to its runtime witness. DENOMINATORS and
+M0-RATIO remain pending under the existing timing pause; the full
+62-leg runner exits 1 and retains its FAIL stamp. All 61 prior gate
+declarations preserve their exact commands, deadlines and markers.
+
+The [slice contract](M1-HEX-LITERALS.md),
+[mutation contract](M1-HEX-LITERAL-MUTATIONS.md) and
+[validation archive](validation/2026-09-18-m1-hex-literals/) record
+the source forms and checks. Timing remains paused and its frozen
+inputs are unchanged.
+
+### Review round 2026-09-18 (M1 hexadecimal Word literals)
+
+A-1 (low): guard resolution reuses the one condition conversion, so
+the proved claim and the emitted runtime condition can no longer
+disagree at compile time. Now the slice contract and this log both
+state that an argument reversal inside that conversion is refused
+only by the independent runtime expectation.
+
+A-4 (low): the slice contract left the uint256 range check as the
+stated bound of a hexadecimal value, which the 64 digit width rule
+already refuses. Now the contract states that the width rule refuses
+it and that the range test guards the decimal path only.
+
+D-1 (low): this build log carried no section for the twenty-seventh
+slice, while all 26 earlier slice commits carry one. Now the slice
+has a section in the shape of its predecessors.
+
+D-2 (low): seven rows of the record README ran past 72 columns, up
+to 109. Now every row wraps at 72 columns, with no word, number or
+backtick span changed.
+
 ## 2026-09-17: Word equality in contract source
 
 The twenty-sixth M1 slice starts at
