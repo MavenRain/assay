@@ -1,0 +1,9 @@
+IG-LIVE cases=160 creates=2 OK
+IG-ERASURE pairs=20 files=5 OK
+IGB-REFUSALS cases=27 commands=3 OK
+IGB-BOUNDARIES accepted=4 erasure_pairs=4 OK
+IGB-MUTANT ANNOTATION killed control=OK
+IGB-MUTANT BINDING killed control=OK
+IGB-MUTANT ATOMIC-CLAIM killed control=OK
+IGB-MUTANT NAMED-ARGUMENTS killed control=OK
+INFERRED-GUARD-BINDINGS cases=160 creates=2 refusals=27 erasure_pairs=20 boundaries=4 mutants=4 OK

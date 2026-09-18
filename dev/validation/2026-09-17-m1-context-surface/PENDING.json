@@ -1,0 +1,105 @@
+{
+  "gates": [
+    "DENOMINATORS",
+    "M0-RATIO"
+  ],
+  "timing": "paused",
+  "mismatches": [
+    {
+      "path": "bin/assay.ml",
+      "frozen": "fa8b7394ea1f99f413bf647c3aea9a76b5f7d336424e7d1093809774a86b04ee",
+      "base": "83969b517f6b18130736d4749d5ff75f1d0d1bde7f05f05d44c9073ddbfeb768",
+      "current": "83969b517f6b18130736d4749d5ff75f1d0d1bde7f05f05d44c9073ddbfeb768"
+    },
+    {
+      "path": "dev/M1-ERRORS.md",
+      "frozen": "6d6a726b17304e1b23d9df885075dca3a528338f6fc27afcb2bb8b3cd97cb3ce",
+      "base": "5764aee67f3c89d4a7ea89496cecb2ce63fd31d23e03ae788563c38723d0d645",
+      "current": "5764aee67f3c89d4a7ea89496cecb2ce63fd31d23e03ae788563c38723d0d645"
+    },
+    {
+      "path": "dev/M1-PROOFS.md",
+      "frozen": "2f0ef2f67b491e17d7aee64e87854d78798b4feacab511f0c526a4662f953476",
+      "base": "0e16ac9ee905c9a51321b38cbd90c28308d2bffdc7ad66652796db0a211daaeb",
+      "current": "0e16ac9ee905c9a51321b38cbd90c28308d2bffdc7ad66652796db0a211daaeb"
+    },
+    {
+      "path": "dev/M1-SURFACE-MUTATIONS.md",
+      "frozen": "66ba4c6d8687a907681d3380e8d15c203ad16a7b777619a86b3d6ffcabf1a756",
+      "base": "454cf326ff40701714b1a8dbae517c84620d97bb893288a10d89f8bd976ef34e",
+      "current": "454cf326ff40701714b1a8dbae517c84620d97bb893288a10d89f8bd976ef34e"
+    },
+    {
+      "path": "dev/M1-SURFACE.md",
+      "frozen": "1edb44e90682e4857bae757fb576b4da84790524f5d5485bb19b450fb6a9d3af",
+      "base": "3ffe45107485e04c21b490993df0e4b3258a1c449c5f53b4584c3b1fa700f679",
+      "current": "55316b9d61bfeb832a8ac643f4ff00f06af7744f158dfe14517a3553c6a7eccf"
+    },
+    {
+      "path": "dev/contract-test.py",
+      "frozen": "20ecdf16eafcd6b023fd724696d70623ca302ee777bbc9ca7231e8d9fe77a94b",
+      "base": "3413461e6f2857bedfa82bc87579c9b45f67621c5e604fefbce3ba433f38cece",
+      "current": "3413461e6f2857bedfa82bc87579c9b45f67621c5e604fefbce3ba433f38cece"
+    },
+    {
+      "path": "dev/errors-test.py",
+      "frozen": "02bdea41dff71a060a8be0f04de4c7332d49736fb56c04bc8c542531a76614ce",
+      "base": "4ef0748a5c11f9cb5d96dd460bab98caa91c6864392b5d3d0acc9389f7328a47",
+      "current": "4ef0748a5c11f9cb5d96dd460bab98caa91c6864392b5d3d0acc9389f7328a47"
+    },
+    {
+      "path": "dev/gates.sh",
+      "frozen": "a266cacb80b8674d3aa1dda8a721d9b1c0c15e6e2153365b372aad44db166ad3",
+      "base": "56c69553c414293efa53cc386b0c450ab87ac6b6a2f427e5e0642afec660718e",
+      "current": "3a6ed48e99de0fb6b391ba0d54996920e623370ed63566d495a8f9cc03dfba62"
+    },
+    {
+      "path": "dev/m1-emit-test.py",
+      "frozen": "410a70f640bd884084952e6768cadb16b10a0e80208883f4f98aa813d5cd5551",
+      "base": "62890db53901d93751023494de9b37742a47e6c206462459e6434a3c0b38d952",
+      "current": "62890db53901d93751023494de9b37742a47e6c206462459e6434a3c0b38d952"
+    },
+    {
+      "path": "dev/model-test.py",
+      "frozen": "c9c8ba99d3138a34fd8d193273a00ada67fad15f4234858eac6e996353f9b693",
+      "base": "facbfc53c091ef5100fde246869c50d055f6db92b4857a0bccd9d132bdc166ab",
+      "current": "facbfc53c091ef5100fde246869c50d055f6db92b4857a0bccd9d132bdc166ab"
+    },
+    {
+      "path": "dev/stage-a-gates.py",
+      "frozen": "57af9789485292eb995d49580b5beb39cfb26256448948ac191eab1dfa0eab45",
+      "base": "e16ee5063b0fc50b9705b29ac234c4179434b5cb8d3682e25b8cfafcb182bf9a",
+      "current": "3bb9438e7c41297fb74a45e4557fdd144d69941ab5325d8495ed13e4a92ba517"
+    },
+    {
+      "path": "emit/contract.ml",
+      "frozen": "40d2521b50afe1c04b10d399257eb8d525eda48f1412fc94658942dc11c9097c",
+      "base": "892f437571aba27792aaf6dbb3c41865e5e2db0fca7ff00fc0a274f0381031e3",
+      "current": "eb20d0b60d4ce696038a684380679f9a426a116165fa6d2480e3a0c514f8d0ab"
+    },
+    {
+      "path": "emit/emit.ml",
+      "frozen": "2a1b301ebefc34624cb99b76524d9327ea74cfa6f030a29399eef6fe80218e65",
+      "base": "05370707cea25ea0707ab7ebd88967e58579110e0158da0593ea138f97c4fbc0",
+      "current": "05370707cea25ea0707ab7ebd88967e58579110e0158da0593ea138f97c4fbc0"
+    },
+    {
+      "path": "emit/model.ml",
+      "frozen": "9b42087514a3c39c25119e29bbc80ec442f52710523a500bee299c33c2802136",
+      "base": "1c9425d097857126e0f4346e1149b7c1cb3d50f301d010058cd55ed0ba981c17",
+      "current": "1c9425d097857126e0f4346e1149b7c1cb3d50f301d010058cd55ed0ba981c17"
+    },
+    {
+      "path": "emit/model.mli",
+      "frozen": "0d36f35706bed1773b322fe62144556c7e79aa62d384ce0542de49a59884d1bb",
+      "base": "6c2976518b357740995928bc4d269180722967340c09b93f12dc90764cf3c318",
+      "current": "6c2976518b357740995928bc4d269180722967340c09b93f12dc90764cf3c318"
+    },
+    {
+      "path": "emit/recognize.ml",
+      "frozen": "8450713b0a4864f6d8e0b590e12c4f1e461d065d92622d08377bc4644fa8fc8e",
+      "base": "cd8b7667650c734f902239715e44d81915ebe9fb223a4f421468f092f85b0f00",
+      "current": "cd8b7667650c734f902239715e44d81915ebe9fb223a4f421468f092f85b0f00"
+    }
+  ]
+}

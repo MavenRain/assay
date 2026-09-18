@@ -66,6 +66,9 @@ bindings](dev/M1-INFERRED-GUARD-BINDINGS.md), deriving named evidence
 from runtime conditions while retaining checked annotations.
 The twenty-fourth adds [core EVM context](dev/M1-CONTEXT.md): caller
 snapshots, deployer initialization and an explicit model caller.
+The twenty-fifth adds [context in contract source](dev/M1-CONTEXT-SURFACE.md),
+with caller bindings, deployer initialization and checked constructor
+invariants.
 
 ```sh
 zsh -f dev/dunecho.sh build
@@ -91,6 +94,7 @@ _build/default/bin/assay.exe emit examples/InferredHelpers.asy -o InferredHelper
 _build/default/bin/assay.exe emit examples/ProofHoles.asy -o ProofHoles-out
 _build/default/bin/assay.exe emit examples/InferredBindings.asy -o InferredBindings-out
 _build/default/bin/assay.exe emit examples/ContextCore.asy -o Context-out
+_build/default/bin/assay.exe emit examples/ContextSurface.asy -o ContextSurface-out
 _build/default/bin/assay.exe emit examples/CounterInvariant.asy -o CounterInvariant-out
 _build/default/bin/assay.exe emit examples/ProofHelpers.asy -o ProofHelpers-out
 _build/default/bin/assay.exe emit examples/ProofBundles.asy -o ProofBundles-out

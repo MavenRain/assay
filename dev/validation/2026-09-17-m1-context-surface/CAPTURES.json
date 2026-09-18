@@ -1,0 +1,6 @@
+{
+  "format": "gzip JSON object keyed by original filename",
+  "files": 980,
+  "uncompressed_sha256": "138b2f235a03bba9ba41bf02686e414575dc866795924338ce8e030ff02ab7e1",
+  "uncompressed_bytes": 5336629
+}

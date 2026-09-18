@@ -1,0 +1,22 @@
+M1: expose caller and deployer in contract source
+
+Lower caller bindings and deployer initialization to the existing
+optional checked core effects. Preserve snapshots, constructor write
+order and final-state invariant obligations. Refuse invariants over
+dynamic constructor values unless a later literal store restores a
+known final value.
+
+Add a source example and a gate comparing all five artifacts with
+equivalent core programs, runtime and creation behavior, proof helper
+composition, invalid sources and four built mutations with controls.
+Preserve earlier gate declarations and paused timing inputs.
+
+Review pass 1 (2026-09-17) fixed 4 findings: C-1, D-1, C-2, B-1.
+C-1: composition() published composition and order counts as
+literals; now returns real record and order counts.
+D-1: doc emit command reused Context-out; now uses
+ContextSurface-out, matching README.md.
+C-2: archive README overstated SOURCES.json scope; now states the
+narrowed 731-entry code scope.
+B-1: refusals(only=...) reported the full row count; now counts
+only the exercised cases.

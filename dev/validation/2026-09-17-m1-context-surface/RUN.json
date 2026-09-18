@@ -1,0 +1,415 @@
+{
+  "base": "dbce0894338775d0eb97bbc0e76ac5605c728552",
+  "capture": {
+    "schemaVersion": 2,
+    "artifact": "/Users/oobi/Documents/gpt1/assay-m1-context-surface/.kanon-exec/run-MrQDwy",
+    "status": "complete",
+    "exitCode": 1,
+    "counts": {
+      "stdout_bytes": 10898,
+      "stderr_bytes": 0,
+      "stdout_lines": 348,
+      "stderr_lines": 0,
+      "error_lines": 41,
+      "warning_lines": 2
+    },
+    "commands": [
+      {
+        "index": 1,
+        "argv": [
+          "env",
+          "-u",
+          "OPAM_SWITCH_PREFIX",
+          "-u",
+          "CAML_LD_LIBRARY_PATH",
+          "-u",
+          "OCAMLPATH",
+          "-u",
+          "OCAMLFIND_CONF",
+          "PATH=/Users/oobi/.opam/zxcaml-p1/bin:/Users/oobi/.local/bin:/Users/oobi/.foundry/bin:/opt/homebrew/bin:/usr/bin:/bin:/Users/oobi/.elan/bin",
+          "zsh",
+          "-f",
+          "dev/gates.sh"
+        ],
+        "cwd": "/Users/oobi/Documents/gpt1/assay-m1-context-surface",
+        "exitCode": 1,
+        "signal": 0,
+        "timedOut": false,
+        "spawnError": "",
+        "stdout": {
+          "path": "/Users/oobi/Documents/gpt1/assay-m1-context-surface/.kanon-exec/run-MrQDwy/command-0001.stdout",
+          "bytes": 10898,
+          "lines": 348
+        },
+        "stderr": {
+          "path": "/Users/oobi/Documents/gpt1/assay-m1-context-surface/.kanon-exec/run-MrQDwy/command-0001.stderr",
+          "bytes": 0,
+          "lines": 0
+        }
+      }
+    ]
+  },
+  "initial_results": [
+    {
+      "status": "PASS",
+      "name": "BUILD",
+      "exit": 0,
+      "elapsed_ms": 861.6
+    },
+    {
+      "status": "PASS",
+      "name": "PIN-CARRY",
+      "exit": 0,
+      "elapsed_ms": 4669.9
+    },
+    {
+      "status": "FAIL",
+      "name": "R0-COUNT",
+      "exit": 1,
+      "elapsed_ms": 100.4
+    },
+    {
+      "status": "PASS",
+      "name": "R0-AUDIT",
+      "exit": 0,
+      "elapsed_ms": 324.8
+    },
+    {
+      "status": "FAIL",
+      "name": "HOUSE",
+      "exit": 1,
+      "elapsed_ms": 667.2
+    },
+    {
+      "status": "PASS",
+      "name": "TRUSTED-LINES",
+      "exit": 0,
+      "elapsed_ms": 205.0
+    },
+    {
+      "status": "PASS",
+      "name": "SUITE-KERNEL",
+      "exit": 0,
+      "elapsed_ms": 4037.6
+    },
+    {
+      "status": "PASS",
+      "name": "SUITE-SURFACE",
+      "exit": 0,
+      "elapsed_ms": 552.7
+    },
+    {
+      "status": "PASS",
+      "name": "DRIVER",
+      "exit": 0,
+      "elapsed_ms": 749.8
+    },
+    {
+      "status": "FAIL",
+      "name": "MUTANTS",
+      "exit": 1,
+      "elapsed_ms": 13843.1
+    },
+    {
+      "status": "FAIL",
+      "name": "DENOMINATORS",
+      "exit": 1,
+      "elapsed_ms": 219.4
+    },
+    {
+      "status": "PASS",
+      "name": "KECCAK-VEC",
+      "exit": 0,
+      "elapsed_ms": 4129.3
+    },
+    {
+      "status": "PASS",
+      "name": "KECCAK-MUTANTS",
+      "exit": 0,
+      "elapsed_ms": 12683.9
+    },
+    {
+      "status": "PASS",
+      "name": "STACK-HEIGHT",
+      "exit": 0,
+      "elapsed_ms": 4622.7
+    },
+    {
+      "status": "PASS",
+      "name": "DISASM-3WAY",
+      "exit": 0,
+      "elapsed_ms": 1156.1
+    },
+    {
+      "status": "PASS",
+      "name": "ASM-MUTANTS",
+      "exit": 0,
+      "elapsed_ms": 20396.7
+    },
+    {
+      "status": "PASS",
+      "name": "FORK-DRIFT",
+      "exit": 0,
+      "elapsed_ms": 3408.7
+    },
+    {
+      "status": "PASS",
+      "name": "M0-TRACE",
+      "exit": 0,
+      "elapsed_ms": 318.8
+    },
+    {
+      "status": "PASS",
+      "name": "CREATE-EQ",
+      "exit": 0,
+      "elapsed_ms": 583.3
+    },
+    {
+      "status": "PASS",
+      "name": "REFERENCE-CHECKS",
+      "exit": 0,
+      "elapsed_ms": 910.9
+    },
+    {
+      "status": "PASS",
+      "name": "REFERENCE-MUTANTS",
+      "exit": 0,
+      "elapsed_ms": 7549.7
+    },
+    {
+      "status": "PASS",
+      "name": "EMIT-CONSTRUCTORS",
+      "exit": 0,
+      "elapsed_ms": 459.1
+    },
+    {
+      "status": "PASS",
+      "name": "WORD-UNBOX",
+      "exit": 0,
+      "elapsed_ms": 13.6
+    },
+    {
+      "status": "PASS",
+      "name": "STORAGE-NOCLOS",
+      "exit": 0,
+      "elapsed_ms": 14.2
+    },
+    {
+      "status": "PASS",
+      "name": "ABI-GOLD",
+      "exit": 0,
+      "elapsed_ms": 730.4
+    },
+    {
+      "status": "PASS",
+      "name": "EMITTED-TRACE",
+      "exit": 0,
+      "elapsed_ms": 567.2
+    },
+    {
+      "status": "PASS",
+      "name": "EMIT-SOURCES",
+      "exit": 0,
+      "elapsed_ms": 2543.1
+    },
+    {
+      "status": "PASS",
+      "name": "EMIT-MUTANTS",
+      "exit": 0,
+      "elapsed_ms": 19587.2
+    },
+    {
+      "status": "FAIL",
+      "name": "AXIOMS",
+      "exit": 1,
+      "elapsed_ms": 80.9
+    },
+    {
+      "status": "PASS",
+      "name": "TRACE-DRIVER",
+      "exit": 0,
+      "elapsed_ms": 924.7
+    },
+    {
+      "status": "PASS",
+      "name": "CORPUS",
+      "exit": 0,
+      "elapsed_ms": 1054.9
+    },
+    {
+      "status": "PASS",
+      "name": "ERASED-BYTES",
+      "exit": 0,
+      "elapsed_ms": 138.0
+    },
+    {
+      "status": "FAIL",
+      "name": "M0-RATIO",
+      "exit": 1,
+      "elapsed_ms": 202.5
+    },
+    {
+      "status": "PASS",
+      "name": "F-MUTANTS",
+      "exit": 0,
+      "elapsed_ms": 353.6
+    },
+    {
+      "status": "PASS",
+      "name": "DIFF-EXECUTOR",
+      "exit": 0,
+      "elapsed_ms": 11099.6
+    },
+    {
+      "status": "PASS",
+      "name": "COUNTER-REFERENCE",
+      "exit": 0,
+      "elapsed_ms": 5315.8
+    },
+    {
+      "status": "PASS",
+      "name": "M1-EMISSION",
+      "exit": 0,
+      "elapsed_ms": 88282.5
+    },
+    {
+      "status": "PASS",
+      "name": "SOURCE-MODEL",
+      "exit": 0,
+      "elapsed_ms": 25551.5
+    },
+    {
+      "status": "PASS",
+      "name": "CONTRACT-SURFACE",
+      "exit": 0,
+      "elapsed_ms": 34982.3
+    },
+    {
+      "status": "PASS",
+      "name": "CONTRACT-ROUTE",
+      "exit": 0,
+      "elapsed_ms": 297.5
+    },
+    {
+      "status": "FAIL",
+      "name": "SOURCE-PROOFS",
+      "exit": 1,
+      "elapsed_ms": 55.3
+    },
+    {
+      "status": "PASS",
+      "name": "NULLARY-ENTRIES",
+      "exit": 0,
+      "elapsed_ms": 18557.3
+    },
+    {
+      "status": "PASS",
+      "name": "CUSTOM-ERRORS",
+      "exit": 0,
+      "elapsed_ms": 38173.2
+    },
+    {
+      "status": "PASS",
+      "name": "PROOF-GUARDS",
+      "exit": 0,
+      "elapsed_ms": 37124.5
+    },
+    {
+      "status": "PASS",
+      "name": "PROOF-TERMS",
+      "exit": 0,
+      "elapsed_ms": 24199.9
+    },
+    {
+      "status": "PASS",
+      "name": "INVARIANTS",
+      "exit": 0,
+      "elapsed_ms": 24531.7
+    },
+    {
+      "status": "PASS",
+      "name": "PROOF-HELPERS",
+      "exit": 0,
+      "elapsed_ms": 25700.4
+    },
+    {
+      "status": "PASS",
+      "name": "PROOF-BUNDLES",
+      "exit": 0,
+      "elapsed_ms": 34508.8
+    },
+    {
+      "status": "PASS",
+      "name": "PREDICATES",
+      "exit": 0,
+      "elapsed_ms": 28072.3
+    },
+    {
+      "status": "PASS",
+      "name": "COMPOUND-INVARIANTS",
+      "exit": 0,
+      "elapsed_ms": 34380.2
+    },
+    {
+      "status": "PASS",
+      "name": "COMPOUND-GUARDS",
+      "exit": 0,
+      "elapsed_ms": 47011.5
+    },
+    {
+      "status": "PASS",
+      "name": "NAMED-GUARDS",
+      "exit": 0,
+      "elapsed_ms": 40135.5
+    },
+    {
+      "status": "PASS",
+      "name": "INFERRED-GUARDS",
+      "exit": 0,
+      "elapsed_ms": 137460.6
+    },
+    {
+      "status": "PASS",
+      "name": "INFERRED-ARITHMETIC",
+      "exit": 0,
+      "elapsed_ms": 155716.0
+    },
+    {
+      "status": "PASS",
+      "name": "INFERRED-HELPERS",
+      "exit": 0,
+      "elapsed_ms": 138401.4
+    },
+    {
+      "status": "PASS",
+      "name": "PROOF-HOLES",
+      "exit": 0,
+      "elapsed_ms": 106263.7
+    },
+    {
+      "status": "PASS",
+      "name": "INFERRED-BINDINGS",
+      "exit": 0,
+      "elapsed_ms": 143032.9
+    },
+    {
+      "status": "PASS",
+      "name": "INFERRED-GUARD-BINDINGS",
+      "exit": 0,
+      "elapsed_ms": 108804.8
+    },
+    {
+      "status": "PASS",
+      "name": "EVM-CONTEXT",
+      "exit": 0,
+      "elapsed_ms": 83569.0
+    },
+    {
+      "status": "PASS",
+      "name": "SURFACE-CONTEXT",
+      "exit": 0,
+      "elapsed_ms": 79411.0
+    }
+  ],
+  "rechecks": 5
+}

@@ -1,0 +1,50 @@
+[
+  {
+    "name": "mutant-CALLER",
+    "exit": 1,
+    "marker": "SURFACE-CONTEXT-PAIR",
+    "source_sha256": "17600b42b6e376197a5fe054634261e8c3ee80d7900867366a5b7762f26fdfa6"
+  },
+  {
+    "name": "control-CALLER",
+    "exit": 0,
+    "marker": "SURFACE-CONTEXT-PAIR",
+    "source_sha256": "eb20d0b60d4ce696038a684380679f9a426a116165fa6d2480e3a0c514f8d0ab"
+  },
+  {
+    "name": "mutant-DEPLOYER",
+    "exit": 1,
+    "marker": "SURFACE-CONTEXT-PAIR",
+    "source_sha256": "2c28bfdae754c7d53b899f6ea2900d45d6b86a0e94ef0564a39586fd4fb7dfe8"
+  },
+  {
+    "name": "control-DEPLOYER",
+    "exit": 0,
+    "marker": "SURFACE-CONTEXT-PAIR",
+    "source_sha256": "eb20d0b60d4ce696038a684380679f9a426a116165fa6d2480e3a0c514f8d0ab"
+  },
+  {
+    "name": "mutant-STATE",
+    "exit": 1,
+    "marker": "SURFACE-CONTEXT-REFUSAL stale-invariant",
+    "source_sha256": "c1523f4c5878ea126d7ddd732496b58724be5e9ae163a021be3f4bebde0b5f71"
+  },
+  {
+    "name": "control-STATE",
+    "exit": 0,
+    "marker": "SURFACE-CONTEXT-REFUSAL stale-invariant",
+    "source_sha256": "eb20d0b60d4ce696038a684380679f9a426a116165fa6d2480e3a0c514f8d0ab"
+  },
+  {
+    "name": "mutant-SLOT",
+    "exit": 1,
+    "marker": "SURFACE-CONTEXT-ORDER deployer-only",
+    "source_sha256": "7a75b14e03ebdaec4cc6299b7ba224465d8fa865e2fe51417cee52173291b0b2"
+  },
+  {
+    "name": "control-SLOT",
+    "exit": 0,
+    "marker": "SURFACE-CONTEXT-ORDER deployer-only",
+    "source_sha256": "eb20d0b60d4ce696038a684380679f9a426a116165fa6d2480e3a0c514f8d0ab"
+  }
+]

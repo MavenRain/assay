@@ -1,5 +1,133 @@
 # Assay M1 build log
 
+## 2026-09-17: context in contract source
+
+The twenty-fifth M1 slice starts at
+`dbce0894338775d0eb97bbc0e76ac5605c728552`. It adds `sender <- caller`
+and constructor `deployer field` syntax to the contract lowerer. Both
+forms select existing optional core effects. Runtime locals retain
+fresh snapshots and normal proof scope. Constructor writes retain their
+source order, and a deployer write invalidates the field's known literal
+value before constructor invariant checking.
+
+An invariant over a dynamically initialized field is refused unless a
+later literal store supplies its final value. Unrelated invariants,
+caller guards, inferred helper arguments and proof-supplied arithmetic
+continue through the existing checker. The kernel, inherited surface,
+core recognizer, runtime emitter, model and axiom set are unchanged.
+The emitter measures 1792/1800 lines.
+
+The new gate compares all five emitted artifacts with equivalent core
+programs for eight combinations of errors, proofs and deployer effects.
+It checks 224 runtime cases, 56 signed Cancun comparisons, 64 creation
+outcomes, six proof/snapshot composition cases, four constructor order
+cases and 17 invalid sources through check, emit and run. Four built
+mutations fail their named witnesses, and the restored controls pass.
+All 59 earlier gate declarations retain their commands, deadlines and
+success markers.
+
+All 58 functional gates pass after five environment rechecks. The
+initial PATH omitted `rg` and `leancho`; the affected R0 count, house,
+mutation, axiom and source-proof gates pass with the normal tool path
+and their unchanged deadlines. The initial 60-leg battery passed 53
+legs. DENOMINATORS and M0-RATIO remain pending under the timing pause.
+The archive retains both the initial failures and the rechecks.
+
+The [slice notes](M1-CONTEXT-SURFACE.md),
+[mutation contract](M1-CONTEXT-SURFACE-MUTATIONS.md) and
+[validation archive](validation/2026-09-17-m1-context-surface/) describe
+the accepted source forms and retained evidence. Timing stays paused;
+the frozen inputs, deadlines and performance claims are unchanged.
+
+### Review round 2026-09-17 (M1 context in contract source)
+
+| id | sev | one line | files |
+| --- | --- | --- | --- |
+| C-1 | medium | `composition()` published the composition and order counts from the literals `len(records) + 1` and `4`, so five cases were unchecked by the leg tail | dev/context-surface-test.py |
+| D-1 | medium | the documented emit command reused `Context-out`, the directory the README assigns to `ContextCore.asy`, so the row exits 64 | dev/M1-CONTEXT-SURFACE.md |
+| C-2 | low | the archive README described `SOURCES.json` as the source inputs, while the file hashes 731 code paths and no document | dev/validation/2026-09-17-m1-context-surface/README.md |
+| B-1 | low | `refusals(only=...)` returned the full row count, so a one-case witness recorded 17 cases | dev/context-surface-test.py |
+
+Fixed: 4, all by run 1 of this review. Refuted: 1, B-2, because the
+driver compares all five emitted files of the example with a generated
+reference. Merged and dropped: 0.
+
+C-1 now appends the shadow record and collects the four constructor
+order rows, so `composition` returns `len(records), len(orders)` and
+`COMPOSITION.json` carries all six records. B-1 counts the exercised
+rows and refuses an unknown case name. Both counts stay 6, 4 and 17, so
+the gate marker in `dev/stage-a-gates.py` is unchanged. Neither file is
+a row of `dev/DENOMINATORS.sha256`, so no freeze row moved.
+`SOURCES.json` carries the moved hash of the driver, and
+`ARTIFACTS.json` carries the moved hashes of the archive README and of
+`SOURCES.json`.
+
+Gate: fix-M1CTXS-1-smoke.log, verdict GREEN-FUNCTIONAL, 60 legs, 58
+pass, and every red row is DENOMINATORS or M0-RATIO, the disclosed
+state of this slice while the timing gate is paused.
+STAGE-M1-LINE: STAGE-M1-CONTEXT-SURFACE FAIL
+M0-LINE: M0-VALIDATION FAIL; M0-EXIT requires the user commit and
+ratification
+EXIT 1
+PASS-COUNT: 58
+FAIL-LINES: FAIL DENOMINATORS exit=1 elapsed_ms=52.0 FAIL M0-RATIO
+exit=1 elapsed_ms=162.2
+DENOM-FAILED-ROWS: bin/assay.ml: FAILED dev/M1-ERRORS.md: FAILED
+dev/M1-PROOFS.md: FAILED dev/M1-SURFACE-MUTATIONS.md: FAILED
+dev/M1-SURFACE.md: FAILED dev/contract-test.py: FAILED
+dev/errors-test.py: FAILED dev/gates.sh: FAILED dev/m1-emit-test.py:
+FAILED dev/model-test.py: FAILED dev/stage-a-gates.py: FAILED
+emit/contract.ml: FAILED emit/emit.ml: FAILED emit/model.ml: FAILED
+emit/model.mli: FAILED emit/recognize.ml: FAILED
+MUTANTS-TAIL: MUTANT TRUSTED-BOUND killed exit=1 MUTANTS killed=13/13
+OK
+CUSTOM-ERRORS-TAIL: ERROR-MUTANT ABI killed control=OK CUSTOM-ERRORS
+cases=66 creates=2 refusals=26 mutants=5 OK
+SOURCE-PROOFS-TAIL: SOURCE-PROOF-MUTANT ERROR-BRANCH killed
+control=OK SOURCE-PROOFS theorems=11 arithmetic=226 evm=16 recovery=6
+effects=7 invalid=13 mutants=6 controls=4 OK
+CONTRACT-ROUTE-TAIL: CONTRACT-ROUTE core=3 identity=true
+allocated_bytes=1472 bound=131072 OK
+CONTRACT-SURFACE-TAIL: SURFACE-MUTANTS killed=8/8 controls=8 OK
+CONTRACT-SURFACE counter=30 variants=14 refusals=36 mutants=8 OK
+SOURCE-MODEL-TAIL: MODEL-MUTANTS killed=8/8 controls=8 OK
+SOURCE-MODEL counter=30 variants=10 corpus=11 invalid=28 refusals=6
+mutants=8 OK
+DIFF-EXECUTOR-TAIL: DIFF-CHECKS killed=24/24 controls=1 OK
+DIFF-EXECUTOR live=20 driver=28 rejected=24 OK
+M1-EMISSION-TAIL: M1-MUTANTS killed=8/8 controls=8 OK M1-EMISSION
+counter=30 sources=8 refusals=11 mutants=8 OK
+COUNTER-REFERENCE-TAIL: COUNTER-MUTANT SELECTOR
+witness=increment-success killed control=OK COUNTER-REFERENCE cases=30
+creates=2 mutants=8 value_rejected=5 covered=120 scope=reference OK
+DRIVER-TAIL: DRIVER cases=24 OK
+DENOMINATORS-TAIL: verification/lean-toolchain: OK shasum: WARNING:
+16 computed checksums did NOT match
+M0-RATIO-TAIL: shasum: WARNING: 16 computed checksums did NOT match
+PROOF-BUILD-TAIL: OK lake: 0 errors, 0 sorries, 0 warnings
+PROOF-REPORT-LINES: 42
+
+```
+SURFACE-CONTEXT-TAIL: SURFACE-CONTEXT-MUTANT SLOT killed control=OK SURFACE-CONTEXT cases=224 signed=56 creates=64 pairs=8 composition=6 order=4 refusals=17 mutants=4 OK
+```
+
+DENOMINATORS stayed red on the kept 119 row manifest; no row was
+refrozen. The row refresh belongs to the FINAL tree, rows-only. No
+fix of this round refreshed a DENOMINATORS row. The M0-RATIO remeasure
+is CARRIED to a calm host; dev/denominators.json and
+dev/measurements are never edited in this review.
+
+gate: GREEN-FUNCTIONAL (GREEN-FUNCTIONAL: every red row is
+DENOMINATORS or M0-RATIO, the disclosed state of this slice while the
+timing gate is paused: pass=58 of 60 legs, fail=[DENOMINATORS,
+M0-RATIO], mutants=true, timeout legs only=false, disclosed reds
+only=true, wrapper exit ok=true)
+
+The finders and the builder ran opus/medium on the first attempt, with
+an opus/medium fallback when the first attempt returned null. The gate
+runner ran opus/medium. The verifiers, the judge and the check stage ran
+opus/high. The closer ran sonnet/medium, never opus.
+
 ## 2026-09-17: core EVM context
 
 The twenty-fourth M1 slice starts at

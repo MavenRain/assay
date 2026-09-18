@@ -1,0 +1,113 @@
+[
+  {
+    "name": "AXIOMS",
+    "command": [
+      "python3",
+      "-P",
+      "dev/proofs-test.py"
+    ],
+    "timeout": 480,
+    "marker": "AXIOMS sorryAx=0 theorems=42 carried_files=28 controls=3 OK",
+    "exit": 0,
+    "elapsed_ms": 9565.826667007059,
+    "passed": true,
+    "timed_out": false,
+    "stdout": "AXIOMS sorryAx=0 theorems=42 carried_files=28 controls=3 OK\n",
+    "stderr": "",
+    "load_average": [
+      24.0947265625,
+      28.55029296875,
+      30.55078125
+    ],
+    "compiler_sha256": "fc1f3098b5961a949c506ad05bf271e0fd4909c0ce5182104614826ec164be4f"
+  },
+  {
+    "name": "HOUSE",
+    "command": [
+      "zsh",
+      "-f",
+      "dev/house.sh"
+    ],
+    "timeout": 30,
+    "marker": "HOUSE OK",
+    "exit": 0,
+    "elapsed_ms": 683.0507917329669,
+    "passed": true,
+    "timed_out": false,
+    "stdout": "HOUSE no-exception OK\nHOUSE no-mutable-state OK\nHOUSE no-mutable-state roots=lib emit asm keccak abi\nHOUSE one-catch-site OK\n/Users/oobi/Documents/gpt1/assay-m1-context-surface/test/sys_io.ml:19:  try Ok (thunk ()) with Sys_error m -> Error m\nHOUSE no-bool-match OK\nHOUSE no-em-dash OK\nHOUSE no-loop-keyword OK\nHOUSE no-bare-division OK\nHOUSE OK\n",
+    "stderr": "",
+    "load_average": [
+      25.15869140625,
+      29.04052734375,
+      30.767578125
+    ],
+    "compiler_sha256": "fc1f3098b5961a949c506ad05bf271e0fd4909c0ce5182104614826ec164be4f"
+  },
+  {
+    "name": "MUTANTS",
+    "command": [
+      "python3",
+      "-P",
+      "dev/stage-a-test.py",
+      "mutants"
+    ],
+    "timeout": 300,
+    "marker": "MUTANTS killed=13/13 OK",
+    "exit": 0,
+    "elapsed_ms": 9247.049583122134,
+    "passed": true,
+    "timed_out": false,
+    "stdout": "MUTANT PIN killed exit=1\nMUTANT CARRY killed exit=1\nMUTANT CARRY-NEW killed exit=1\nMUTANT CARRY-GONE killed exit=1\nMUTANT R0-COUNT killed exit=1\nMUTANT R0-AUDIT killed exit=1\nMUTANT R0-AUDIT-SPEC killed exit=1\nMUTANT HOUSE killed exit=1\nMUTANT HOUSE-LOOP killed exit=1\nMUTANT HOUSE-DIVISION killed exit=1\nMUTANT TRUSTED-LINES killed exit=1\nMUTANT TRUSTED-UNPRICED killed exit=1\nMUTANT TRUSTED-BOUND killed exit=1\nMUTANTS killed=13/13 OK\n",
+    "stderr": "",
+    "load_average": [
+      24.8359375,
+      28.828125,
+      30.6708984375
+    ],
+    "compiler_sha256": "fc1f3098b5961a949c506ad05bf271e0fd4909c0ce5182104614826ec164be4f"
+  },
+  {
+    "name": "R0-COUNT",
+    "command": [
+      "zsh",
+      "-f",
+      "dev/r0-count.sh"
+    ],
+    "timeout": 10,
+    "marker": "R0-COUNT OK",
+    "exit": 0,
+    "elapsed_ms": 79.34770779684186,
+    "passed": true,
+    "timed_out": false,
+    "stdout": "R0-COUNT OK\n",
+    "stderr": "",
+    "load_average": [
+      25.15869140625,
+      29.04052734375,
+      30.767578125
+    ],
+    "compiler_sha256": "fc1f3098b5961a949c506ad05bf271e0fd4909c0ce5182104614826ec164be4f"
+  },
+  {
+    "name": "SOURCE-PROOFS",
+    "command": [
+      "python3",
+      "-P",
+      "dev/source-proof-test.py"
+    ],
+    "timeout": 600,
+    "marker": "SOURCE-PROOFS theorems=11 arithmetic=226 evm=16 recovery=6 effects=7 invalid=13 mutants=6 controls=4 OK",
+    "exit": 0,
+    "elapsed_ms": 70801.40279233456,
+    "passed": true,
+    "timed_out": false,
+    "stdout": "SOURCE-PROOF-MUTANT EXACT-ADD killed control=OK\nSOURCE-PROOF-MUTANT UPPER-BOUND killed control=OK\nSOURCE-PROOF-MUTANT SUB-ORDER killed control=OK\nSOURCE-PROOF-MUTANT TRACE killed control=OK\nSOURCE-PROOF-MUTANT DISPATCH killed control=OK\nSOURCE-PROOF-MUTANT ERROR-BRANCH killed control=OK\nSOURCE-PROOFS theorems=11 arithmetic=226 evm=16 recovery=6 effects=7 invalid=13 mutants=6 controls=4 OK\n",
+    "stderr": "",
+    "load_average": [
+      26.728515625,
+      28.56884765625,
+      30.404296875
+    ],
+    "compiler_sha256": "fc1f3098b5961a949c506ad05bf271e0fd4909c0ce5182104614826ec164be4f"
+  }
+]

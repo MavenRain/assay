@@ -50,6 +50,7 @@ trailing calldata and revert on short heads or unknown selectors.
 | Body form | Checked core behavior |
 | --- | --- |
 | `x <- sload field ; REST` | Snapshot the field, bind the word and continue |
+| `x <- caller ; REST` | Snapshot the immediate caller and bind its Word value |
 | `x <- add a b ; REST` | Eliminate `ResultWord`, continuing with success or reverting on overflow |
 | `x <- sub a b ; REST` | Eliminate `ResultWord`, continuing with success or reverting on underflow |
 | `sstore field value ; REST` | Store a word and continue |
@@ -72,9 +73,12 @@ storage field because they all denote `Word 256`. Entry and storage-type
 names must not collide with those aliases or each other.
 
 An optional `constructor := do BODY` contains literal `sstore` statements
-and ends in `pure ()`. Stores retain their source order. No constructor
-means no initial writes. Constructor loads, locals, arithmetic, guards and
-non-unit returns are refused. Runtime `pure ()` is also refused.
+and `deployer field` initialization, and ends in `pure ()`. Writes retain
+their source order. No constructor means no initial writes. Constructor
+loads, caller bindings, locals, arithmetic, guards and non-unit returns
+are refused. Runtime `pure ()` is also refused. The
+[context slice](M1-CONTEXT-SURFACE.md) describes caller bindings and the
+invariant restrictions on deployer initialization.
 
 ## Bounds and remaining work
 
