@@ -1,0 +1,50 @@
+[
+  {
+    "name": "mutant-RUNTIME",
+    "exit": 1,
+    "marker": "EQUALITY-MODEL words-0-1",
+    "source_sha256": "1fde7355ea052db242d00c88e0c45bad0fdcf8ddf624a67b028743e8689d36f2"
+  },
+  {
+    "name": "control-RUNTIME",
+    "exit": 0,
+    "marker": "EQUALITY-MODEL words-0-1",
+    "source_sha256": "be7ec0e39a36435f8532c8c412ad025dd76e0b33ea94aad4f2d595fab73bdf09"
+  },
+  {
+    "name": "mutant-CLAIM",
+    "exit": 1,
+    "marker": "EQUALITY-EMIT pair-typed",
+    "source_sha256": "64de195bd1803d93478ac0899bf760d9f95e864410a08ec25936ea2d3a3d7d00"
+  },
+  {
+    "name": "control-CLAIM",
+    "exit": 0,
+    "marker": "EQUALITY-EMIT pair-typed",
+    "source_sha256": "be7ec0e39a36435f8532c8c412ad025dd76e0b33ea94aad4f2d595fab73bdf09"
+  },
+  {
+    "name": "mutant-PAYLOAD",
+    "exit": 1,
+    "marker": "EQUALITY-EMIT pair-typed",
+    "source_sha256": "5d3af3c40e29b316f0b803ca64427f6c56c29a3ca73ace92cbceba2572da7b1f"
+  },
+  {
+    "name": "control-PAYLOAD",
+    "exit": 0,
+    "marker": "EQUALITY-EMIT pair-typed",
+    "source_sha256": "be7ec0e39a36435f8532c8c412ad025dd76e0b33ea94aad4f2d595fab73bdf09"
+  },
+  {
+    "name": "mutant-DEPTH",
+    "exit": 1,
+    "marker": "EQUALITY-BOUNDARY claim-depth-32",
+    "source_sha256": "6dd3b6875ed3ffb572de6af09bd0a79a7f9beb444d1a5c87214fb4d9d5f87f3b"
+  },
+  {
+    "name": "control-DEPTH",
+    "exit": 0,
+    "marker": "EQUALITY-BOUNDARY claim-depth-32",
+    "source_sha256": "be7ec0e39a36435f8532c8c412ad025dd76e0b33ea94aad4f2d595fab73bdf09"
+  }
+]

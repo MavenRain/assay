@@ -1,0 +1,814 @@
+{
+  "added": {
+    "WORD-EQUALITY": {
+      "ast": "Tuple(elts=[Constant(value='WORD-EQUALITY'), Constant(value=600), Tuple(elts=[Constant(value='python3'), Constant(value='-P'), Constant(value='dev/equality-test.py')], ctx=Load()), Constant(value='EQUALITY pairs=8 cases=53 signed=33 creates=8 boundaries=6 refusals=17 mutants=4 OK')], ctx=Load())",
+      "values": [
+        "WORD-EQUALITY",
+        600,
+        [
+          "python3",
+          "-P",
+          "dev/equality-test.py"
+        ],
+        "EQUALITY pairs=8 cases=53 signed=33 creates=8 boundaries=6 refusals=17 mutants=4 OK"
+      ]
+    }
+  },
+  "base": "92aa8a903910a03d43c7b50b212efd9a8ddefa28",
+  "base_sha256": "3bb9438e7c41297fb74a45e4557fdd144d69941ab5325d8495ed13e4a92ba517",
+  "current_sha256": "c997ea7868fd26de0c6e4696adb100d70296b11dc6297479f47ba7191ff44e4a",
+  "preserved": {
+    "ABI-GOLD": {
+      "ast": "Tuple(elts=[Constant(value='ABI-GOLD'), Constant(value=60), Tuple(elts=[Constant(value='zsh'), Constant(value='-f'), Constant(value='dev/abi-gold.sh')], ctx=Load()), Constant(value='ABI-GOLD jq_sorted=equal provenance=dev/ABI-PROVENANCE.md controls=4 OK')], ctx=Load())",
+      "values": [
+        "ABI-GOLD",
+        60,
+        [
+          "zsh",
+          "-f",
+          "dev/abi-gold.sh"
+        ],
+        "ABI-GOLD jq_sorted=equal provenance=dev/ABI-PROVENANCE.md controls=4 OK"
+      ]
+    },
+    "ASM-MUTANTS": {
+      "ast": "Tuple(elts=[Constant(value='ASM-MUTANTS'), Constant(value=1200), Tuple(elts=[Constant(value='python3'), Constant(value='-P'), Constant(value='dev/asm-test.py'), Constant(value='mutants')], ctx=Load()), Constant(value='ASM-MUTANTS killed=6/6 control=OK')], ctx=Load())",
+      "values": [
+        "ASM-MUTANTS",
+        1200,
+        [
+          "python3",
+          "-P",
+          "dev/asm-test.py",
+          "mutants"
+        ],
+        "ASM-MUTANTS killed=6/6 control=OK"
+      ]
+    },
+    "AXIOMS": {
+      "ast": "Tuple(elts=[Constant(value='AXIOMS'), Constant(value=480), Tuple(elts=[Constant(value='python3'), Constant(value='-P'), Constant(value='dev/proofs-test.py')], ctx=Load()), Constant(value='AXIOMS sorryAx=0 theorems=42 carried_files=28 controls=3 OK')], ctx=Load())",
+      "values": [
+        "AXIOMS",
+        480,
+        [
+          "python3",
+          "-P",
+          "dev/proofs-test.py"
+        ],
+        "AXIOMS sorryAx=0 theorems=42 carried_files=28 controls=3 OK"
+      ]
+    },
+    "BUILD": {
+      "ast": "Tuple(elts=[Constant(value='BUILD'), Constant(value=120), Tuple(elts=[Constant(value='zsh'), Constant(value='-f'), Constant(value='dev/dunecho.sh'), Constant(value='build')], ctx=Load()), Constant(value='0 errors, 0 warnings')], ctx=Load())",
+      "values": [
+        "BUILD",
+        120,
+        [
+          "zsh",
+          "-f",
+          "dev/dunecho.sh",
+          "build"
+        ],
+        "0 errors, 0 warnings"
+      ]
+    },
+    "COMPOUND-GUARDS": {
+      "ast": "Tuple(elts=[Constant(value='COMPOUND-GUARDS'), Constant(value=600), Tuple(elts=[Constant(value='python3'), Constant(value='-P'), Constant(value='dev/compound-guard-test.py')], ctx=Load()), Constant(value='COMPOUND-GUARDS cases=88 creates=2 refusals=26 erasure=7 boundaries=7 mutants=4 OK')], ctx=Load())",
+      "values": [
+        "COMPOUND-GUARDS",
+        600,
+        [
+          "python3",
+          "-P",
+          "dev/compound-guard-test.py"
+        ],
+        "COMPOUND-GUARDS cases=88 creates=2 refusals=26 erasure=7 boundaries=7 mutants=4 OK"
+      ]
+    },
+    "COMPOUND-INVARIANTS": {
+      "ast": "Tuple(elts=[Constant(value='COMPOUND-INVARIANTS'), Constant(value=600), Tuple(elts=[Constant(value='python3'), Constant(value='-P'), Constant(value='dev/compound-invariant-test.py')], ctx=Load()), Constant(value='COMPOUND-INVARIANTS cases=64 creates=2 refusals=24 erasure=8 boundaries=10 mutants=4 OK')], ctx=Load())",
+      "values": [
+        "COMPOUND-INVARIANTS",
+        600,
+        [
+          "python3",
+          "-P",
+          "dev/compound-invariant-test.py"
+        ],
+        "COMPOUND-INVARIANTS cases=64 creates=2 refusals=24 erasure=8 boundaries=10 mutants=4 OK"
+      ]
+    },
+    "CONTRACT-ROUTE": {
+      "ast": "Tuple(elts=[Constant(value='CONTRACT-ROUTE'), Constant(value=30), Tuple(elts=[Constant(value='_build/default/test/contract_route.exe')], ctx=Load()), Constant(value='bound=131072 OK')], ctx=Load())",
+      "values": [
+        "CONTRACT-ROUTE",
+        30,
+        [
+          "_build/default/test/contract_route.exe"
+        ],
+        "bound=131072 OK"
+      ]
+    },
+    "CONTRACT-SURFACE": {
+      "ast": "Tuple(elts=[Constant(value='CONTRACT-SURFACE'), Constant(value=600), Tuple(elts=[Constant(value='python3'), Constant(value='-P'), Constant(value='dev/contract-test.py')], ctx=Load()), Constant(value='CONTRACT-SURFACE counter=30 variants=14 refusals=36 mutants=8 OK')], ctx=Load())",
+      "values": [
+        "CONTRACT-SURFACE",
+        600,
+        [
+          "python3",
+          "-P",
+          "dev/contract-test.py"
+        ],
+        "CONTRACT-SURFACE counter=30 variants=14 refusals=36 mutants=8 OK"
+      ]
+    },
+    "CORPUS": {
+      "ast": "Tuple(elts=[Constant(value='CORPUS'), Constant(value=600), Tuple(elts=[Constant(value='python3'), Constant(value='-P'), Constant(value='dev/corpus-test.py'), Constant(value='corpus')], ctx=Load()), Constant(value='CORPUS cases=11 five_files=5 OK')], ctx=Load())",
+      "values": [
+        "CORPUS",
+        600,
+        [
+          "python3",
+          "-P",
+          "dev/corpus-test.py",
+          "corpus"
+        ],
+        "CORPUS cases=11 five_files=5 OK"
+      ]
+    },
+    "COUNTER-REFERENCE": {
+      "ast": "Tuple(elts=[Constant(value='COUNTER-REFERENCE'), Constant(value=300), Tuple(elts=[Constant(value='python3'), Constant(value='-P'), Constant(value='dev/counter-test.py')], ctx=Load()), Constant(value='COUNTER-REFERENCE cases=30 creates=2 mutants=8 value_rejected=5 covered=120 scope=reference OK')], ctx=Load())",
+      "values": [
+        "COUNTER-REFERENCE",
+        300,
+        [
+          "python3",
+          "-P",
+          "dev/counter-test.py"
+        ],
+        "COUNTER-REFERENCE cases=30 creates=2 mutants=8 value_rejected=5 covered=120 scope=reference OK"
+      ]
+    },
+    "CREATE-EQ": {
+      "ast": "Tuple(elts=[Constant(value='CREATE-EQ'), Constant(value=120), Tuple(elts=[Constant(value='python3'), Constant(value='-P'), Constant(value='dev/reference-test.py'), Constant(value='create')], ctx=Load()), Constant(value='CREATE-EQ bytes=20 returned=20 installed=1 OK')], ctx=Load())",
+      "values": [
+        "CREATE-EQ",
+        120,
+        [
+          "python3",
+          "-P",
+          "dev/reference-test.py",
+          "create"
+        ],
+        "CREATE-EQ bytes=20 returned=20 installed=1 OK"
+      ]
+    },
+    "CUSTOM-ERRORS": {
+      "ast": "Tuple(elts=[Constant(value='CUSTOM-ERRORS'), Constant(value=600), Tuple(elts=[Constant(value='python3'), Constant(value='-P'), Constant(value='dev/errors-test.py')], ctx=Load()), Constant(value='CUSTOM-ERRORS cases=66 creates=2 refusals=26 mutants=5 OK')], ctx=Load())",
+      "values": [
+        "CUSTOM-ERRORS",
+        600,
+        [
+          "python3",
+          "-P",
+          "dev/errors-test.py"
+        ],
+        "CUSTOM-ERRORS cases=66 creates=2 refusals=26 mutants=5 OK"
+      ]
+    },
+    "DENOMINATORS": {
+      "ast": "Tuple(elts=[Constant(value='DENOMINATORS'), Constant(value=10), Tuple(elts=[Constant(value='shasum'), Constant(value='-a'), Constant(value='256'), Constant(value='-c'), Constant(value='dev/DENOMINATORS.sha256')], ctx=Load()), Constant(value='dev/denominators.json: OK')], ctx=Load())",
+      "values": [
+        "DENOMINATORS",
+        10,
+        [
+          "shasum",
+          "-a",
+          "256",
+          "-c",
+          "dev/DENOMINATORS.sha256"
+        ],
+        "dev/denominators.json: OK"
+      ]
+    },
+    "DIFF-EXECUTOR": {
+      "ast": "Tuple(elts=[Constant(value='DIFF-EXECUTOR'), Constant(value=180), Tuple(elts=[Constant(value='python3'), Constant(value='-P'), Constant(value='dev/diff-test.py')], ctx=Load()), Constant(value='DIFF-EXECUTOR live=20 driver=28 rejected=24 OK')], ctx=Load())",
+      "values": [
+        "DIFF-EXECUTOR",
+        180,
+        [
+          "python3",
+          "-P",
+          "dev/diff-test.py"
+        ],
+        "DIFF-EXECUTOR live=20 driver=28 rejected=24 OK"
+      ]
+    },
+    "DISASM-3WAY": {
+      "ast": "Tuple(elts=[Constant(value='DISASM-3WAY'), Constant(value=120), Tuple(elts=[Constant(value='python3'), Constant(value='-P'), Constant(value='dev/asm-test.py'), Constant(value='disasm')], ctx=Load()), Constant(value='DISASM-3WAY ours=272 cast=272 evm=272 fixtures=7 negative=38 OK')], ctx=Load())",
+      "values": [
+        "DISASM-3WAY",
+        120,
+        [
+          "python3",
+          "-P",
+          "dev/asm-test.py",
+          "disasm"
+        ],
+        "DISASM-3WAY ours=272 cast=272 evm=272 fixtures=7 negative=38 OK"
+      ]
+    },
+    "DRIVER": {
+      "ast": "Tuple(elts=[Constant(value='DRIVER'), Constant(value=30), Tuple(elts=[Constant(value='python3'), Constant(value='-P'), Constant(value='dev/stage-a-test.py'), Constant(value='driver')], ctx=Load()), Constant(value='DRIVER cases=24 OK')], ctx=Load())",
+      "values": [
+        "DRIVER",
+        30,
+        [
+          "python3",
+          "-P",
+          "dev/stage-a-test.py",
+          "driver"
+        ],
+        "DRIVER cases=24 OK"
+      ]
+    },
+    "EMIT-CONSTRUCTORS": {
+      "ast": "Tuple(elts=[Constant(value='EMIT-CONSTRUCTORS'), Constant(value=30), Tuple(elts=[Constant(value='_build/default/test/emit_cases.exe'), Constant(value='constructors')], ctx=Load()), Constant(value='EMIT-CONSTRUCTORS cases=22 OK')], ctx=Load())",
+      "values": [
+        "EMIT-CONSTRUCTORS",
+        30,
+        [
+          "_build/default/test/emit_cases.exe",
+          "constructors"
+        ],
+        "EMIT-CONSTRUCTORS cases=22 OK"
+      ]
+    },
+    "EMIT-MUTANTS": {
+      "ast": "Tuple(elts=[Constant(value='EMIT-MUTANTS'), Constant(value=1200), Tuple(elts=[Constant(value='python3'), Constant(value='-P'), Constant(value='dev/emit-test.py'), Constant(value='mutants')], ctx=Load()), Constant(value='EMIT-MUTANTS killed=7/7 controls=4 OK')], ctx=Load())",
+      "values": [
+        "EMIT-MUTANTS",
+        1200,
+        [
+          "python3",
+          "-P",
+          "dev/emit-test.py",
+          "mutants"
+        ],
+        "EMIT-MUTANTS killed=7/7 controls=4 OK"
+      ]
+    },
+    "EMIT-SOURCES": {
+      "ast": "Tuple(elts=[Constant(value='EMIT-SOURCES'), Constant(value=600), Tuple(elts=[Constant(value='python3'), Constant(value='-P'), Constant(value='dev/emit-test.py'), Constant(value='sources')], ctx=Load()), Constant(value='EMIT-SOURCES success=15 refusal=9 driver=3 OK')], ctx=Load())",
+      "values": [
+        "EMIT-SOURCES",
+        600,
+        [
+          "python3",
+          "-P",
+          "dev/emit-test.py",
+          "sources"
+        ],
+        "EMIT-SOURCES success=15 refusal=9 driver=3 OK"
+      ]
+    },
+    "EMITTED-TRACE": {
+      "ast": "Tuple(elts=[Constant(value='EMITTED-TRACE'), Constant(value=120), Tuple(elts=[Constant(value='python3'), Constant(value='-P'), Constant(value='dev/emit-test.py'), Constant(value='trace')], ctx=Load()), IfExp(test=Name(id='corpus', ctx=Load()), body=Constant(value='M0-TRACE offsets=13 listing=17 cast=17 evm=13 five_files=5 OK'), orelse=Constant(value='M0-TRACE scope=emitted bytes=20 listing=17 cast=17 evm=13 skipped=4 storage=42 return=42 OK'))], ctx=Load())",
+      "values": [
+        "EMITTED-TRACE",
+        120,
+        [
+          "python3",
+          "-P",
+          "dev/emit-test.py",
+          "trace"
+        ],
+        "M0-TRACE offsets=13 listing=17 cast=17 evm=13 five_files=5 OK"
+      ]
+    },
+    "ERASED-BYTES": {
+      "ast": "Tuple(elts=[Constant(value='ERASED-BYTES'), Constant(value=120), Tuple(elts=[Constant(value='python3'), Constant(value='-P'), Constant(value='dev/corpus-test.py'), Constant(value='erased')], ctx=Load()), Constant(value='ERASED-BYTES mutants=2 caught=1 equal=2 scope=M0-seed OK')], ctx=Load())",
+      "values": [
+        "ERASED-BYTES",
+        120,
+        [
+          "python3",
+          "-P",
+          "dev/corpus-test.py",
+          "erased"
+        ],
+        "ERASED-BYTES mutants=2 caught=1 equal=2 scope=M0-seed OK"
+      ]
+    },
+    "EVM-CONTEXT": {
+      "ast": "Tuple(elts=[Constant(value='EVM-CONTEXT'), Constant(value=600), Tuple(elts=[Constant(value='python3'), Constant(value='-P'), Constant(value='dev/context-test.py')], ctx=Load()), Constant(value='EVM-CONTEXT cases=224 signed=56 creates=64 refusals=7 inputs=7 nested=2 independent=6 mutants=6 OK')], ctx=Load())",
+      "values": [
+        "EVM-CONTEXT",
+        600,
+        [
+          "python3",
+          "-P",
+          "dev/context-test.py"
+        ],
+        "EVM-CONTEXT cases=224 signed=56 creates=64 refusals=7 inputs=7 nested=2 independent=6 mutants=6 OK"
+      ]
+    },
+    "F-MUTANTS": {
+      "ast": "Tuple(elts=[Constant(value='F-MUTANTS'), Constant(value=180), Tuple(elts=[Constant(value='python3'), Constant(value='-P'), Constant(value='dev/corpus-test.py'), Constant(value='mutants')], ctx=Load()), Constant(value='F-MUTANTS killed=7/7 controls=5 OK')], ctx=Load())",
+      "values": [
+        "F-MUTANTS",
+        180,
+        [
+          "python3",
+          "-P",
+          "dev/corpus-test.py",
+          "mutants"
+        ],
+        "F-MUTANTS killed=7/7 controls=5 OK"
+      ]
+    },
+    "FORK-DRIFT": {
+      "ast": "Tuple(elts=[Constant(value='FORK-DRIFT'), Constant(value=120), Tuple(elts=[Constant(value='zsh'), Constant(value='-f'), Constant(value='dev/fork-check.sh')], ctx=Load()), Constant(value='FORK-DRIFT push0=OK tload=OK tstore=OK mcopy=OK clz=INVALID OK')], ctx=Load())",
+      "values": [
+        "FORK-DRIFT",
+        120,
+        [
+          "zsh",
+          "-f",
+          "dev/fork-check.sh"
+        ],
+        "FORK-DRIFT push0=OK tload=OK tstore=OK mcopy=OK clz=INVALID OK"
+      ]
+    },
+    "HOUSE": {
+      "ast": "Tuple(elts=[Constant(value='HOUSE'), Constant(value=30), Tuple(elts=[Constant(value='zsh'), Constant(value='-f'), Constant(value='dev/house.sh')], ctx=Load()), Constant(value='HOUSE OK')], ctx=Load())",
+      "values": [
+        "HOUSE",
+        30,
+        [
+          "zsh",
+          "-f",
+          "dev/house.sh"
+        ],
+        "HOUSE OK"
+      ]
+    },
+    "INFERRED-ARITHMETIC": {
+      "ast": "Tuple(elts=[Constant(value='INFERRED-ARITHMETIC'), Constant(value=600), Tuple(elts=[Constant(value='python3'), Constant(value='-P'), Constant(value='dev/inferred-arithmetic-test.py')], ctx=Load()), Constant(value='INFERRED-ARITHMETIC cases=158 creates=2 refusals=24 erasure_pairs=16 mutants=4 OK')], ctx=Load())",
+      "values": [
+        "INFERRED-ARITHMETIC",
+        600,
+        [
+          "python3",
+          "-P",
+          "dev/inferred-arithmetic-test.py"
+        ],
+        "INFERRED-ARITHMETIC cases=158 creates=2 refusals=24 erasure_pairs=16 mutants=4 OK"
+      ]
+    },
+    "INFERRED-BINDINGS": {
+      "ast": "Tuple(elts=[Constant(value='INFERRED-BINDINGS'), Constant(value=600), Tuple(elts=[Constant(value='python3'), Constant(value='-P'), Constant(value='dev/inferred-binding-test.py')], ctx=Load()), Constant(value='INFERRED-BINDINGS cases=229 creates=2 refusals=25 erasure_pairs=21 boundaries=6 mutants=6 OK')], ctx=Load())",
+      "values": [
+        "INFERRED-BINDINGS",
+        600,
+        [
+          "python3",
+          "-P",
+          "dev/inferred-binding-test.py"
+        ],
+        "INFERRED-BINDINGS cases=229 creates=2 refusals=25 erasure_pairs=21 boundaries=6 mutants=6 OK"
+      ]
+    },
+    "INFERRED-GUARD-BINDINGS": {
+      "ast": "Tuple(elts=[Constant(value='INFERRED-GUARD-BINDINGS'), Constant(value=600), Tuple(elts=[Constant(value='python3'), Constant(value='-P'), Constant(value='dev/inferred-guard-binding-test.py')], ctx=Load()), Constant(value='INFERRED-GUARD-BINDINGS cases=160 creates=2 refusals=27 erasure_pairs=20 boundaries=4 mutants=4 OK')], ctx=Load())",
+      "values": [
+        "INFERRED-GUARD-BINDINGS",
+        600,
+        [
+          "python3",
+          "-P",
+          "dev/inferred-guard-binding-test.py"
+        ],
+        "INFERRED-GUARD-BINDINGS cases=160 creates=2 refusals=27 erasure_pairs=20 boundaries=4 mutants=4 OK"
+      ]
+    },
+    "INFERRED-GUARDS": {
+      "ast": "Tuple(elts=[Constant(value='INFERRED-GUARDS'), Constant(value=600), Tuple(elts=[Constant(value='python3'), Constant(value='-P'), Constant(value='dev/inferred-guard-test.py')], ctx=Load()), Constant(value='INFERRED-GUARDS cases=112 creates=2 refusals=24 erasure_pairs=14 boundaries=6 mutants=4 OK')], ctx=Load())",
+      "values": [
+        "INFERRED-GUARDS",
+        600,
+        [
+          "python3",
+          "-P",
+          "dev/inferred-guard-test.py"
+        ],
+        "INFERRED-GUARDS cases=112 creates=2 refusals=24 erasure_pairs=14 boundaries=6 mutants=4 OK"
+      ]
+    },
+    "INFERRED-HELPERS": {
+      "ast": "Tuple(elts=[Constant(value='INFERRED-HELPERS'), Constant(value=600), Tuple(elts=[Constant(value='python3'), Constant(value='-P'), Constant(value='dev/inferred-helper-test.py')], ctx=Load()), Constant(value='INFERRED-HELPERS cases=254 creates=2 refusals=26 erasure_pairs=24 boundaries=6 mutants=5 OK')], ctx=Load())",
+      "values": [
+        "INFERRED-HELPERS",
+        600,
+        [
+          "python3",
+          "-P",
+          "dev/inferred-helper-test.py"
+        ],
+        "INFERRED-HELPERS cases=254 creates=2 refusals=26 erasure_pairs=24 boundaries=6 mutants=5 OK"
+      ]
+    },
+    "INVARIANTS": {
+      "ast": "Tuple(elts=[Constant(value='INVARIANTS'), Constant(value=600), Tuple(elts=[Constant(value='python3'), Constant(value='-P'), Constant(value='dev/invariant-test.py')], ctx=Load()), Constant(value='INVARIANTS cases=52 creates=2 refusals=30 erasure=4 mutants=4 OK')], ctx=Load())",
+      "values": [
+        "INVARIANTS",
+        600,
+        [
+          "python3",
+          "-P",
+          "dev/invariant-test.py"
+        ],
+        "INVARIANTS cases=52 creates=2 refusals=30 erasure=4 mutants=4 OK"
+      ]
+    },
+    "KECCAK-MUTANTS": {
+      "ast": "Tuple(elts=[Constant(value='KECCAK-MUTANTS'), Constant(value=660), Tuple(elts=[Constant(value='python3'), Constant(value='-P'), Constant(value='dev/keccak-test.py'), Constant(value='mutants')], ctx=Load()), Constant(value='KECCAK-MUTANTS killed=4/4 control=OK')], ctx=Load())",
+      "values": [
+        "KECCAK-MUTANTS",
+        660,
+        [
+          "python3",
+          "-P",
+          "dev/keccak-test.py",
+          "mutants"
+        ],
+        "KECCAK-MUTANTS killed=4/4 control=OK"
+      ]
+    },
+    "KECCAK-VEC": {
+      "ast": "Tuple(elts=[Constant(value='KECCAK-VEC'), Constant(value=120), Tuple(elts=[Constant(value='python3'), Constant(value='-P'), Constant(value='dev/keccak-test.py'), Constant(value='vectors')], ctx=Load()), Constant(value='KECCAK-VEC vectors=35 ok=35 adapter=5 OK')], ctx=Load())",
+      "values": [
+        "KECCAK-VEC",
+        120,
+        [
+          "python3",
+          "-P",
+          "dev/keccak-test.py",
+          "vectors"
+        ],
+        "KECCAK-VEC vectors=35 ok=35 adapter=5 OK"
+      ]
+    },
+    "M0-RATIO": {
+      "ast": "Tuple(elts=[Constant(value='M0-RATIO'), Constant(value=60), Tuple(elts=[Constant(value='zsh'), Constant(value='-f'), Constant(value='dev/ratio.sh')], ctx=Load()), Constant(value='M0-RATIO provenance=dev/denominators.json fixed=spec-count-proxy subtraction=none OK')], ctx=Load())",
+      "values": [
+        "M0-RATIO",
+        60,
+        [
+          "zsh",
+          "-f",
+          "dev/ratio.sh"
+        ],
+        "M0-RATIO provenance=dev/denominators.json fixed=spec-count-proxy subtraction=none OK"
+      ]
+    },
+    "M0-TRACE": {
+      "ast": "Tuple(elts=[Constant(value='M0-TRACE'), Constant(value=120), Tuple(elts=[Constant(value='python3'), Constant(value='-P'), Constant(value='dev/reference-test.py'), Constant(value='trace')], ctx=Load()), Constant(value='M0-TRACE scope=reference bytes=20 listing=17 cast=17 evm=13 skipped=4 storage=42 return=42 OK')], ctx=Load())",
+      "values": [
+        "M0-TRACE",
+        120,
+        [
+          "python3",
+          "-P",
+          "dev/reference-test.py",
+          "trace"
+        ],
+        "M0-TRACE scope=reference bytes=20 listing=17 cast=17 evm=13 skipped=4 storage=42 return=42 OK"
+      ]
+    },
+    "M1-EMISSION": {
+      "ast": "Tuple(elts=[Constant(value='M1-EMISSION'), Constant(value=600), Tuple(elts=[Constant(value='python3'), Constant(value='-P'), Constant(value='dev/m1-emit-test.py')], ctx=Load()), Constant(value='M1-EMISSION counter=30 sources=8 refusals=11 mutants=8 OK')], ctx=Load())",
+      "values": [
+        "M1-EMISSION",
+        600,
+        [
+          "python3",
+          "-P",
+          "dev/m1-emit-test.py"
+        ],
+        "M1-EMISSION counter=30 sources=8 refusals=11 mutants=8 OK"
+      ]
+    },
+    "MUTANTS": {
+      "ast": "Tuple(elts=[Constant(value='MUTANTS'), Constant(value=300), Tuple(elts=[Constant(value='python3'), Constant(value='-P'), Constant(value='dev/stage-a-test.py'), Constant(value='mutants')], ctx=Load()), Constant(value='MUTANTS killed=13/13 OK')], ctx=Load())",
+      "values": [
+        "MUTANTS",
+        300,
+        [
+          "python3",
+          "-P",
+          "dev/stage-a-test.py",
+          "mutants"
+        ],
+        "MUTANTS killed=13/13 OK"
+      ]
+    },
+    "NAMED-GUARDS": {
+      "ast": "Tuple(elts=[Constant(value='NAMED-GUARDS'), Constant(value=600), Tuple(elts=[Constant(value='python3'), Constant(value='-P'), Constant(value='dev/named-guard-test.py')], ctx=Load()), Constant(value='NAMED-GUARDS cases=96 creates=2 refusals=27 erasure=10 boundaries=6 mutants=4 OK')], ctx=Load())",
+      "values": [
+        "NAMED-GUARDS",
+        600,
+        [
+          "python3",
+          "-P",
+          "dev/named-guard-test.py"
+        ],
+        "NAMED-GUARDS cases=96 creates=2 refusals=27 erasure=10 boundaries=6 mutants=4 OK"
+      ]
+    },
+    "NULLARY-ENTRIES": {
+      "ast": "Tuple(elts=[Constant(value='NULLARY-ENTRIES'), Constant(value=600), Tuple(elts=[Constant(value='python3'), Constant(value='-P'), Constant(value='dev/nullary-test.py')], ctx=Load()), Constant(value='NULLARY-ENTRIES cases=53 creates=2 refusals=4 mutants=3 OK')], ctx=Load())",
+      "values": [
+        "NULLARY-ENTRIES",
+        600,
+        [
+          "python3",
+          "-P",
+          "dev/nullary-test.py"
+        ],
+        "NULLARY-ENTRIES cases=53 creates=2 refusals=4 mutants=3 OK"
+      ]
+    },
+    "PIN-CARRY": {
+      "ast": "Tuple(elts=[Constant(value='PIN-CARRY'), Constant(value=30), Tuple(elts=[Constant(value='zsh'), Constant(value='-f'), Constant(value='dev/carry-check.sh')], ctx=Load()), Constant(value='diff=0 unlisted=0')], ctx=Load())",
+      "values": [
+        "PIN-CARRY",
+        30,
+        [
+          "zsh",
+          "-f",
+          "dev/carry-check.sh"
+        ],
+        "diff=0 unlisted=0"
+      ]
+    },
+    "PREDICATES": {
+      "ast": "Tuple(elts=[Constant(value='PREDICATES'), Constant(value=600), Tuple(elts=[Constant(value='python3'), Constant(value='-P'), Constant(value='dev/predicate-test.py')], ctx=Load()), Constant(value='PREDICATES cases=72 creates=2 refusals=44 erasure=7 boundaries=12 mutants=4 OK')], ctx=Load())",
+      "values": [
+        "PREDICATES",
+        600,
+        [
+          "python3",
+          "-P",
+          "dev/predicate-test.py"
+        ],
+        "PREDICATES cases=72 creates=2 refusals=44 erasure=7 boundaries=12 mutants=4 OK"
+      ]
+    },
+    "PROOF-BUNDLES": {
+      "ast": "Tuple(elts=[Constant(value='PROOF-BUNDLES'), Constant(value=600), Tuple(elts=[Constant(value='python3'), Constant(value='-P'), Constant(value='dev/proof-bundle-test.py')], ctx=Load()), Constant(value='PROOF-BUNDLES cases=102 creates=2 refusals=41 erasure=8 boundaries=11 mutants=4 OK')], ctx=Load())",
+      "values": [
+        "PROOF-BUNDLES",
+        600,
+        [
+          "python3",
+          "-P",
+          "dev/proof-bundle-test.py"
+        ],
+        "PROOF-BUNDLES cases=102 creates=2 refusals=41 erasure=8 boundaries=11 mutants=4 OK"
+      ]
+    },
+    "PROOF-GUARDS": {
+      "ast": "Tuple(elts=[Constant(value='PROOF-GUARDS'), Constant(value=600), Tuple(elts=[Constant(value='python3'), Constant(value='-P'), Constant(value='dev/guard-test.py')], ctx=Load()), Constant(value='PROOF-GUARDS cases=83 creates=2 refusals=26 erasure=3 mutants=6 OK')], ctx=Load())",
+      "values": [
+        "PROOF-GUARDS",
+        600,
+        [
+          "python3",
+          "-P",
+          "dev/guard-test.py"
+        ],
+        "PROOF-GUARDS cases=83 creates=2 refusals=26 erasure=3 mutants=6 OK"
+      ]
+    },
+    "PROOF-HELPERS": {
+      "ast": "Tuple(elts=[Constant(value='PROOF-HELPERS'), Constant(value=600), Tuple(elts=[Constant(value='python3'), Constant(value='-P'), Constant(value='dev/proof-helper-test.py')], ctx=Load()), Constant(value='PROOF-HELPERS cases=104 creates=2 refusals=50 erasure=7 mutants=4 OK')], ctx=Load())",
+      "values": [
+        "PROOF-HELPERS",
+        600,
+        [
+          "python3",
+          "-P",
+          "dev/proof-helper-test.py"
+        ],
+        "PROOF-HELPERS cases=104 creates=2 refusals=50 erasure=7 mutants=4 OK"
+      ]
+    },
+    "PROOF-HOLES": {
+      "ast": "Tuple(elts=[Constant(value='PROOF-HOLES'), Constant(value=600), Tuple(elts=[Constant(value='python3'), Constant(value='-P'), Constant(value='dev/proof-hole-test.py')], ctx=Load()), Constant(value='PROOF-HOLES cases=242 creates=2 refusals=25 erasure_pairs=23 boundaries=6 mutants=4 OK')], ctx=Load())",
+      "values": [
+        "PROOF-HOLES",
+        600,
+        [
+          "python3",
+          "-P",
+          "dev/proof-hole-test.py"
+        ],
+        "PROOF-HOLES cases=242 creates=2 refusals=25 erasure_pairs=23 boundaries=6 mutants=4 OK"
+      ]
+    },
+    "PROOF-TERMS": {
+      "ast": "Tuple(elts=[Constant(value='PROOF-TERMS'), Constant(value=600), Tuple(elts=[Constant(value='python3'), Constant(value='-P'), Constant(value='dev/proof-term-test.py')], ctx=Load()), Constant(value='PROOF-TERMS cases=98 creates=2 refusals=25 erasure=5 mutants=4 OK')], ctx=Load())",
+      "values": [
+        "PROOF-TERMS",
+        600,
+        [
+          "python3",
+          "-P",
+          "dev/proof-term-test.py"
+        ],
+        "PROOF-TERMS cases=98 creates=2 refusals=25 erasure=5 mutants=4 OK"
+      ]
+    },
+    "R0-AUDIT": {
+      "ast": "Tuple(elts=[Constant(value='R0-AUDIT'), Constant(value=10), Tuple(elts=[Constant(value='zsh'), Constant(value='-f'), Constant(value='dev/r0-audit.sh')], ctx=Load()), Constant(value='R0-AUDIT OK')], ctx=Load())",
+      "values": [
+        "R0-AUDIT",
+        10,
+        [
+          "zsh",
+          "-f",
+          "dev/r0-audit.sh"
+        ],
+        "R0-AUDIT OK"
+      ]
+    },
+    "R0-COUNT": {
+      "ast": "Tuple(elts=[Constant(value='R0-COUNT'), Constant(value=10), Tuple(elts=[Constant(value='zsh'), Constant(value='-f'), Constant(value='dev/r0-count.sh')], ctx=Load()), Constant(value='R0-COUNT OK')], ctx=Load())",
+      "values": [
+        "R0-COUNT",
+        10,
+        [
+          "zsh",
+          "-f",
+          "dev/r0-count.sh"
+        ],
+        "R0-COUNT OK"
+      ]
+    },
+    "REFERENCE-CHECKS": {
+      "ast": "Tuple(elts=[Constant(value='REFERENCE-CHECKS'), Constant(value=180), Tuple(elts=[Constant(value='python3'), Constant(value='-P'), Constant(value='dev/reference-test.py'), Constant(value='checks')], ctx=Load()), Constant(value='REFERENCE-CHECKS cases=32 controls=2 OK')], ctx=Load())",
+      "values": [
+        "REFERENCE-CHECKS",
+        180,
+        [
+          "python3",
+          "-P",
+          "dev/reference-test.py",
+          "checks"
+        ],
+        "REFERENCE-CHECKS cases=32 controls=2 OK"
+      ]
+    },
+    "REFERENCE-MUTANTS": {
+      "ast": "Tuple(elts=[Constant(value='REFERENCE-MUTANTS'), Constant(value=1200), Tuple(elts=[Constant(value='python3'), Constant(value='-P'), Constant(value='dev/reference-test.py'), Constant(value='mutants')], ctx=Load()), Constant(value='REFERENCE-MUTANTS killed=8/8 controls=3 OK')], ctx=Load())",
+      "values": [
+        "REFERENCE-MUTANTS",
+        1200,
+        [
+          "python3",
+          "-P",
+          "dev/reference-test.py",
+          "mutants"
+        ],
+        "REFERENCE-MUTANTS killed=8/8 controls=3 OK"
+      ]
+    },
+    "SOURCE-MODEL": {
+      "ast": "Tuple(elts=[Constant(value='SOURCE-MODEL'), Constant(value=600), Tuple(elts=[Constant(value='python3'), Constant(value='-P'), Constant(value='dev/model-test.py')], ctx=Load()), Constant(value='SOURCE-MODEL counter=30 variants=10 corpus=11 invalid=28 refusals=6 mutants=8 OK')], ctx=Load())",
+      "values": [
+        "SOURCE-MODEL",
+        600,
+        [
+          "python3",
+          "-P",
+          "dev/model-test.py"
+        ],
+        "SOURCE-MODEL counter=30 variants=10 corpus=11 invalid=28 refusals=6 mutants=8 OK"
+      ]
+    },
+    "SOURCE-PROOFS": {
+      "ast": "Tuple(elts=[Constant(value='SOURCE-PROOFS'), Constant(value=600), Tuple(elts=[Constant(value='python3'), Constant(value='-P'), Constant(value='dev/source-proof-test.py')], ctx=Load()), Constant(value='SOURCE-PROOFS theorems=11 arithmetic=226 evm=16 recovery=6 effects=7 invalid=13 mutants=6 controls=4 OK')], ctx=Load())",
+      "values": [
+        "SOURCE-PROOFS",
+        600,
+        [
+          "python3",
+          "-P",
+          "dev/source-proof-test.py"
+        ],
+        "SOURCE-PROOFS theorems=11 arithmetic=226 evm=16 recovery=6 effects=7 invalid=13 mutants=6 controls=4 OK"
+      ]
+    },
+    "STACK-HEIGHT": {
+      "ast": "Tuple(elts=[Constant(value='STACK-HEIGHT'), Constant(value=240), Tuple(elts=[Constant(value='python3'), Constant(value='-P'), Constant(value='dev/asm-test.py'), Constant(value='stack')], ctx=Load()), Constant(value='STACK-HEIGHT blocks=30 cases=64 opcodes=149 effect_cases=370 OK')], ctx=Load())",
+      "values": [
+        "STACK-HEIGHT",
+        240,
+        [
+          "python3",
+          "-P",
+          "dev/asm-test.py",
+          "stack"
+        ],
+        "STACK-HEIGHT blocks=30 cases=64 opcodes=149 effect_cases=370 OK"
+      ]
+    },
+    "STORAGE-NOCLOS": {
+      "ast": "Tuple(elts=[Constant(value='STORAGE-NOCLOS'), Constant(value=30), Tuple(elts=[Constant(value='_build/default/test/emit_cases.exe'), Constant(value='storage')], ctx=Load()), Constant(value='STORAGE-NOCLOS kclos=0 ktail=0 fields=2 cases=9 OK')], ctx=Load())",
+      "values": [
+        "STORAGE-NOCLOS",
+        30,
+        [
+          "_build/default/test/emit_cases.exe",
+          "storage"
+        ],
+        "STORAGE-NOCLOS kclos=0 ktail=0 fields=2 cases=9 OK"
+      ]
+    },
+    "SUITE-KERNEL": {
+      "ast": "Tuple(elts=[Constant(value='SUITE-KERNEL'), Constant(value=300), Tuple(elts=[Constant(value='_build/default/test/main.exe'), Constant(value='test')], ctx=Load()), Constant(value='SUITE-KERNEL OK')], ctx=Load())",
+      "values": [
+        "SUITE-KERNEL",
+        300,
+        [
+          "_build/default/test/main.exe",
+          "test"
+        ],
+        "SUITE-KERNEL OK"
+      ]
+    },
+    "SUITE-SURFACE": {
+      "ast": "Tuple(elts=[Constant(value='SUITE-SURFACE'), Constant(value=60), Tuple(elts=[Constant(value='_build/default/test/sl_surface.exe')], ctx=Load()), Constant(value='SL-SURFACE OK')], ctx=Load())",
+      "values": [
+        "SUITE-SURFACE",
+        60,
+        [
+          "_build/default/test/sl_surface.exe"
+        ],
+        "SL-SURFACE OK"
+      ]
+    },
+    "SURFACE-CONTEXT": {
+      "ast": "Tuple(elts=[Constant(value='SURFACE-CONTEXT'), Constant(value=600), Tuple(elts=[Constant(value='python3'), Constant(value='-P'), Constant(value='dev/context-surface-test.py')], ctx=Load()), Constant(value='SURFACE-CONTEXT cases=224 signed=56 creates=64 pairs=8 composition=6 order=4 refusals=17 mutants=4 OK')], ctx=Load())",
+      "values": [
+        "SURFACE-CONTEXT",
+        600,
+        [
+          "python3",
+          "-P",
+          "dev/context-surface-test.py"
+        ],
+        "SURFACE-CONTEXT cases=224 signed=56 creates=64 pairs=8 composition=6 order=4 refusals=17 mutants=4 OK"
+      ]
+    },
+    "TRACE-DRIVER": {
+      "ast": "Tuple(elts=[Constant(value='TRACE-DRIVER'), Constant(value=120), Tuple(elts=[Constant(value='python3'), Constant(value='-P'), Constant(value='dev/trace-test.py')], ctx=Load()), Constant(value='TRACE-DRIVER cases=20 explicit_prestate=true literal_argv=true OK')], ctx=Load())",
+      "values": [
+        "TRACE-DRIVER",
+        120,
+        [
+          "python3",
+          "-P",
+          "dev/trace-test.py"
+        ],
+        "TRACE-DRIVER cases=20 explicit_prestate=true literal_argv=true OK"
+      ]
+    },
+    "TRUSTED-LINES": {
+      "ast": "Tuple(elts=[Constant(value='TRUSTED-LINES'), Constant(value=10), Tuple(elts=[Constant(value='zsh'), Constant(value='-f'), Constant(value='dev/trusted-lines.sh')], ctx=Load()), Constant(value='TRUSTED-LINES OK')], ctx=Load())",
+      "values": [
+        "TRUSTED-LINES",
+        10,
+        [
+          "zsh",
+          "-f",
+          "dev/trusted-lines.sh"
+        ],
+        "TRUSTED-LINES OK"
+      ]
+    },
+    "WORD-UNBOX": {
+      "ast": "Tuple(elts=[Constant(value='WORD-UNBOX'), Constant(value=30), Tuple(elts=[Constant(value='_build/default/test/emit_cases.exe'), Constant(value='words')], ctx=Load()), Constant(value='WORD-UNBOX ktag=0 kstruct=0 words=3 cases=9 OK')], ctx=Load())",
+      "values": [
+        "WORD-UNBOX",
+        30,
+        [
+          "_build/default/test/emit_cases.exe",
+          "words"
+        ],
+        "WORD-UNBOX ktag=0 kstruct=0 words=3 cases=9 OK"
+      ]
+    }
+  }
+}

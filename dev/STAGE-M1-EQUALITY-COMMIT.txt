@@ -1,0 +1,27 @@
+M1: add Word equality guards and proof claims
+
+Expand eqWord and EqWord into checked bounds in both directions.
+Support caller access checks, custom reverts, inferred evidence,
+proof helpers and storage invariants through the existing protocol.
+Count generated bounds and claim leaves against the existing limits.
+
+Add an owner example and an equality gate with artifact comparisons,
+independent runtime expectations, signed Cancun transitions, creation
+checks, refusals and four compiler mutations with restored controls.
+Preserve earlier gates and the paused timing inputs.
+
+Review pass 1 (2026-09-18) fixed 4 findings: A-2, A-1, B-1, D-1.
+
+A-2: both width boundary cases left an even bound budget, so the
+64-bound refusal of the runtime arm was unreachable; now the refused
+case spends 63 explicit bounds first and each row pins its message.
+
+A-1: the runtime equality arm did no depth accounting; now it tests
+depth and bounds together and reports one limit message.
+
+B-1: five refusal rows pinned only the compiler wide error class; now
+each pins the exact equality detail text of check, emit and run.
+
+D-1: the record README merged the base row with the legs sentence at
+100 columns; now the two sentences sit on two rows and the manifest
+carries the new README hash.

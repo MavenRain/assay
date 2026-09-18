@@ -1,0 +1,7 @@
+ASM-MUTANT STACK-EFFECT killed witness=ASM-CASE add-underflow FAIL
+ASM-MUTANT EDGE-HEIGHT killed witness=ASM-CASE goto-height FAIL
+ASM-MUTANT JUMP-PEAK killed witness=ASM-CASE branch-overflow FAIL
+ASM-MUTANT LABEL-PC killed witness=ASM-CASE ref20 FAIL
+ASM-MUTANT LISTING-OP killed witness=DISASM-3WAY ref20 FAIL
+ASM-MUTANT LISTING-PC killed witness=DISASM-3WAY ref20 FAIL
+ASM-MUTANTS killed=6/6 control=OK

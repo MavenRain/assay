@@ -1,0 +1,82 @@
+[
+  {
+    "name": "typed",
+    "files": [
+      "runtime.hex",
+      "init.hex",
+      "abi.json",
+      "layout.json",
+      "axioms.txt"
+    ]
+  },
+  {
+    "name": "plain",
+    "files": [
+      "runtime.hex",
+      "init.hex",
+      "abi.json",
+      "layout.json",
+      "axioms.txt"
+    ]
+  },
+  {
+    "name": "inferred",
+    "files": [
+      "runtime.hex",
+      "init.hex",
+      "abi.json",
+      "layout.json",
+      "axioms.txt"
+    ]
+  },
+  {
+    "name": "helper",
+    "files": [
+      "runtime.hex",
+      "init.hex",
+      "abi.json",
+      "layout.json",
+      "axioms.txt"
+    ]
+  },
+  {
+    "name": "compound",
+    "files": [
+      "runtime.hex",
+      "init.hex",
+      "abi.json",
+      "layout.json",
+      "axioms.txt"
+    ]
+  },
+  {
+    "name": "invariant",
+    "files": [
+      "runtime.hex",
+      "init.hex",
+      "abi.json",
+      "layout.json",
+      "axioms.txt"
+    ]
+  },
+  {
+    "name": "static",
+    "files": [
+      "runtime.hex",
+      "init.hex",
+      "abi.json",
+      "layout.json",
+      "axioms.txt"
+    ]
+  },
+  {
+    "name": "owner",
+    "files": [
+      "runtime.hex",
+      "init.hex",
+      "abi.json",
+      "layout.json",
+      "axioms.txt"
+    ]
+  }
+]

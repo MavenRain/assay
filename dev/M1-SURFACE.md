@@ -113,6 +113,8 @@ checked obligations for construction and affected successful writes. The
 helper declarations and adds comma-separated calls in proof expressions.
 The [proof bundle slice](M1-PROOF-BUNDLES.md) reserves `Both` and adds
 contextual `pair`, `first` and `second` inside proof calls.
+The [equality slice](M1-EQUALITY.md) reserves `EqWord` and `eqWord`.
+They expand to a proof bundle and runtime bounds in both directions.
 The [proof-placeholder slice](M1-PROOF-HOLES.md) accepts `_` as a proof
 expression with an expected claim. It remains reserved as an identifier.
 The [inferred-binding slice](M1-INFERRED-BINDINGS.md) accepts

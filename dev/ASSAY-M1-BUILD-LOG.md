@@ -1,5 +1,56 @@
 # Assay M1 build log
 
+## 2026-09-17: Word equality in contract source
+
+The twenty-sixth M1 slice starts at
+`92aa8a903910a03d43c7b50b212efd9a8ddefa28`. It adds `eqWord a b`
+runtime guards and `EqWord a b` proof claims as expansions into bounds
+in both directions. Caller access checks compose with deployer
+initialization, custom reverts and rollback. Existing inferred proofs,
+helper arguments, proof projections and storage invariants consume the
+same checked product. No new axiom or core primitive is introduced.
+
+Equality consumes two runtime bounds. Generated claim leaves count
+toward the existing depth limit, including at the last admitted level.
+The combined emitter measures 1800/1800 lines; the carried kernel,
+inherited parser, runtime backend and model are unchanged.
+
+The completed battery passes all 59 functional gates. DENOMINATORS and
+M0-RATIO remain pending under the existing timing pause; the full
+61-leg runner exits 1 and retains its FAIL stamp. All 60 prior gate
+declarations preserve their exact commands, deadlines and markers.
+The equality gate passes eight five-file comparisons, 53 runtime cases,
+33 signed Cancun comparisons, eight creation outcomes, six boundary
+forms, 17 source refusals and four compiler mutations with restored
+controls. The generated claim-depth boundary is checked explicitly.
+
+The [slice contract](M1-EQUALITY.md),
+[mutation contract](M1-EQUALITY-MUTATIONS.md) and
+[validation archive](validation/2026-09-17-m1-equality/) record the
+source forms and checks. Timing remains paused and its frozen inputs
+are unchanged.
+
+### Review round 2026-09-18 (M1 Word equality in contract source)
+
+A-2 (medium): the 64-bound refusal branch of the runtime `eqWord` arm
+was unreachable, because both width boundary cases used balanced
+`eqWord` terms and always left an even bound budget. Now the refused
+width case spends 63 `leWord` bounds before its `eqWord`, and every
+boundary row pins the exact limit message it expects.
+
+A-1 (low): the runtime `eqWord` arm did no depth accounting, so its
+depth refusal came from the expansion stage with another message and
+another location. Now the arm tests depth and bounds together and
+reports the same limit message as the condition parser.
+
+B-1 (low): five refusal rows pinned only the compiler wide `mismatch`
+class, which any unrelated type error satisfies. Now each of the five
+pins the exact equality detail text that check, emit and run print.
+
+D-1 (low): row 3 of the record README ran to 100 columns and merged
+the base row with the legs sentence. Now the two sentences sit on two
+rows and the record manifest carries the new README hash.
+
 ## 2026-09-17: context in contract source
 
 The twenty-fifth M1 slice starts at

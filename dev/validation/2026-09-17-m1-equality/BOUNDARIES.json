@@ -1,0 +1,26 @@
+[
+  {
+    "name": "bounds-32",
+    "accepted": true
+  },
+  {
+    "name": "bounds-33",
+    "accepted": false
+  },
+  {
+    "name": "depth-31",
+    "accepted": true
+  },
+  {
+    "name": "claim-depth-31",
+    "accepted": true
+  },
+  {
+    "name": "depth-32",
+    "accepted": false
+  },
+  {
+    "name": "claim-depth-32",
+    "accepted": false
+  }
+]

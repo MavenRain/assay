@@ -80,7 +80,7 @@ let lex chars =
     | _c :: _rest -> fail (at "") "TOKEN" "unexpected character" in
   scan 0 1 1 [] chars
 
-let reserved = ["Both"; "predicate"; "caller"; "deployer"] @ String.split_on_char ' '
+let reserved = ["Both"; "EqWord"; "eqWord"; "predicate"; "caller"; "deployer"] @ String.split_on_char ' '
   "contract where storage entry constructor error invariant proof do sload sstore add sub guard le let pure revert Word Eff Sig Tx ResultWord Storage Entry Error main word ret put read EvmOpcodes done store load abort reject def axiom fun inj of case match as return with tuple sum prod absurd Prop Type in auto mu mutual end nu and rec natAdd natSub natMul natEq natLt Le Lt256 AddFits leWord lt256 wordNat guardLe guardAdd addLt subLe"
 let identifier tokens = match tokens with
   | at :: rest when Recognize.identifier at.text && at.text <> "_" &&
@@ -119,7 +119,7 @@ let opens_condition tokens = match tokens with
   | { text = "("; _ } :: { text = "both"; _ } :: { text = "("; _ } :: _rest -> true
   | { text = "("; _ } :: name :: { text = "("; _ } :: _rest
     when Recognize.identifier name.text && not (List.mem name.text reserved) -> true
-  | { text = "("; _ } :: at :: _rest -> at.text = "leWord" || at.text = "lt256"
+  | { text = "("; _ } :: at :: _rest -> List.mem at.text ["leWord"; "lt256"; "eqWord"]
   | [] | _ :: _ -> false
 (* Review round 2026-09-12 (B-1):  `()` is the empty payload only when it is the
    whole payload.  A `()` beside values, in any position, is the same wrong
@@ -171,6 +171,10 @@ let condition tokens =
       let* a, remaining, rest = component remaining rest in
       let* b, remaining, rest = component remaining rest in
       Ok (Conjoin (a, b), remaining, rest)
+    | ({ text = "eqWord"; _ } as at) :: rest ->
+      let* (a, b), rest = binary rest in
+      if depth > 31 || remaining < 2 then fail at "LIMIT" "guard condition exceeds depth 32 or 64 bounds" else
+      Ok (Conjoin (Check (Ordered (a, b)), Check (Ordered (b, a))), remaining - 2, rest)
     | name :: { text = "("; _ } :: rest when not (List.mem name.text reserved) ->
       let* args, rest = predicate_arguments (value 0) name rest in
       Ok (Satisfy (name, args), remaining - 1, rest)
@@ -184,6 +188,10 @@ let rec claim_with operand depth tokens =
     let component tokens = let* rest = expect "(" tokens in
       let* c, rest = claim_with operand (depth + 1) rest in let* rest = expect ")" rest in Ok (c, rest) in
     let* a, rest = component rest in let* b, rest = component rest in Ok (Both (a, b), rest)
+  | { text = "EqWord"; _ } :: rest ->
+    if depth = 32 then fail (here tokens) "LIMIT" "claim nesting exceeds 32" else
+    let* a, rest = operand rest in let* b, rest = operand rest in
+    Ok (Both (Bound (Ordered (a, b)), Bound (Ordered (b, a))), rest)
   | name :: { text = "("; _ } :: rest when name.text <> "Le" && name.text <> "Lt256" ->
     let* args, rest = predicate_arguments operand name rest in Ok (Named (name, args), rest)
   | [] | _ :: _ -> let* p, rest = bound operand false tokens in Ok (Bound p, rest)

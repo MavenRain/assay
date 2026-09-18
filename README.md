@@ -69,6 +69,8 @@ snapshots, deployer initialization and an explicit model caller.
 The twenty-fifth adds [context in contract source](dev/M1-CONTEXT-SURFACE.md),
 with caller bindings, deployer initialization and checked constructor
 invariants.
+The twenty-sixth adds [Word equality](dev/M1-EQUALITY.md), with caller
+access checks and erased equality evidence built from existing bounds.
 
 ```sh
 zsh -f dev/dunecho.sh build
@@ -282,6 +284,9 @@ boundary forms and four mutations with restored controls.
 The inferred arithmetic gate adds 158 execution comparisons, two
 creation outcomes, 24 refusals, 16 pairs of equivalent five-file
 outputs and four mutations with restored controls.
+The equality gate adds eight five-file comparisons, 53 execution cases,
+33 signed Cancun comparisons, eight creation outcomes, six boundary
+forms, 17 refusals and four mutations with restored controls.
 The current slice's timing gate is paused following the
 [measurement diagnosis](dev/TIMING-DEBUG.md); it has no fresh timing verdict.
 The preserved denominator manifest and measurement describe an older

@@ -1,0 +1,629 @@
+[
+  {
+    "name": "words-0-0",
+    "expected": {
+      "status": "success",
+      "output": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "storage": {
+        "1": "0xb"
+      }
+    },
+    "signed": true
+  },
+  {
+    "name": "words-0-1",
+    "expected": {
+      "status": "revert",
+      "output": "0xeeb3c9ad00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001",
+      "storage": {
+        "0": "0x7",
+        "1": "0xb"
+      }
+    },
+    "signed": true
+  },
+  {
+    "name": "words-0-1461501637330902918203684832716283019655932542975",
+    "expected": {
+      "status": "revert",
+      "output": "0xeeb3c9ad0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000ffffffffffffffffffffffffffffffffffffffff",
+      "storage": {
+        "0": "0x7",
+        "1": "0xb"
+      }
+    },
+    "signed": true
+  },
+  {
+    "name": "words-0-57896044618658097711785492504343953926634992332820282019728792003956564819968",
+    "expected": {
+      "status": "revert",
+      "output": "0xeeb3c9ad00000000000000000000000000000000000000000000000000000000000000008000000000000000000000000000000000000000000000000000000000000000",
+      "storage": {
+        "0": "0x7",
+        "1": "0xb"
+      }
+    },
+    "signed": true
+  },
+  {
+    "name": "words-0-115792089237316195423570985008687907853269984665640564039457584007913129639935",
+    "expected": {
+      "status": "revert",
+      "output": "0xeeb3c9ad0000000000000000000000000000000000000000000000000000000000000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "storage": {
+        "0": "0x7",
+        "1": "0xb"
+      }
+    },
+    "signed": true
+  },
+  {
+    "name": "words-1-0",
+    "expected": {
+      "status": "revert",
+      "output": "0xeeb3c9ad00000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000",
+      "storage": {
+        "0": "0x7",
+        "1": "0xb"
+      }
+    },
+    "signed": true
+  },
+  {
+    "name": "words-1-1",
+    "expected": {
+      "status": "success",
+      "output": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "storage": {
+        "1": "0xb"
+      }
+    },
+    "signed": true
+  },
+  {
+    "name": "words-1-1461501637330902918203684832716283019655932542975",
+    "expected": {
+      "status": "revert",
+      "output": "0xeeb3c9ad0000000000000000000000000000000000000000000000000000000000000001000000000000000000000000ffffffffffffffffffffffffffffffffffffffff",
+      "storage": {
+        "0": "0x7",
+        "1": "0xb"
+      }
+    },
+    "signed": true
+  },
+  {
+    "name": "words-1-57896044618658097711785492504343953926634992332820282019728792003956564819968",
+    "expected": {
+      "status": "revert",
+      "output": "0xeeb3c9ad00000000000000000000000000000000000000000000000000000000000000018000000000000000000000000000000000000000000000000000000000000000",
+      "storage": {
+        "0": "0x7",
+        "1": "0xb"
+      }
+    },
+    "signed": true
+  },
+  {
+    "name": "words-1-115792089237316195423570985008687907853269984665640564039457584007913129639935",
+    "expected": {
+      "status": "revert",
+      "output": "0xeeb3c9ad0000000000000000000000000000000000000000000000000000000000000001ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "storage": {
+        "0": "0x7",
+        "1": "0xb"
+      }
+    },
+    "signed": true
+  },
+  {
+    "name": "words-1461501637330902918203684832716283019655932542975-0",
+    "expected": {
+      "status": "revert",
+      "output": "0xeeb3c9ad000000000000000000000000ffffffffffffffffffffffffffffffffffffffff0000000000000000000000000000000000000000000000000000000000000000",
+      "storage": {
+        "0": "0x7",
+        "1": "0xb"
+      }
+    },
+    "signed": true
+  },
+  {
+    "name": "words-1461501637330902918203684832716283019655932542975-1",
+    "expected": {
+      "status": "revert",
+      "output": "0xeeb3c9ad000000000000000000000000ffffffffffffffffffffffffffffffffffffffff0000000000000000000000000000000000000000000000000000000000000001",
+      "storage": {
+        "0": "0x7",
+        "1": "0xb"
+      }
+    },
+    "signed": true
+  },
+  {
+    "name": "words-1461501637330902918203684832716283019655932542975-1461501637330902918203684832716283019655932542975",
+    "expected": {
+      "status": "success",
+      "output": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "storage": {
+        "1": "0xb"
+      }
+    },
+    "signed": true
+  },
+  {
+    "name": "words-1461501637330902918203684832716283019655932542975-57896044618658097711785492504343953926634992332820282019728792003956564819968",
+    "expected": {
+      "status": "revert",
+      "output": "0xeeb3c9ad000000000000000000000000ffffffffffffffffffffffffffffffffffffffff8000000000000000000000000000000000000000000000000000000000000000",
+      "storage": {
+        "0": "0x7",
+        "1": "0xb"
+      }
+    },
+    "signed": true
+  },
+  {
+    "name": "words-1461501637330902918203684832716283019655932542975-115792089237316195423570985008687907853269984665640564039457584007913129639935",
+    "expected": {
+      "status": "revert",
+      "output": "0xeeb3c9ad000000000000000000000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "storage": {
+        "0": "0x7",
+        "1": "0xb"
+      }
+    },
+    "signed": true
+  },
+  {
+    "name": "words-57896044618658097711785492504343953926634992332820282019728792003956564819968-0",
+    "expected": {
+      "status": "revert",
+      "output": "0xeeb3c9ad80000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "storage": {
+        "0": "0x7",
+        "1": "0xb"
+      }
+    },
+    "signed": true
+  },
+  {
+    "name": "words-57896044618658097711785492504343953926634992332820282019728792003956564819968-1",
+    "expected": {
+      "status": "revert",
+      "output": "0xeeb3c9ad80000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001",
+      "storage": {
+        "0": "0x7",
+        "1": "0xb"
+      }
+    },
+    "signed": true
+  },
+  {
+    "name": "words-57896044618658097711785492504343953926634992332820282019728792003956564819968-1461501637330902918203684832716283019655932542975",
+    "expected": {
+      "status": "revert",
+      "output": "0xeeb3c9ad8000000000000000000000000000000000000000000000000000000000000000000000000000000000000000ffffffffffffffffffffffffffffffffffffffff",
+      "storage": {
+        "0": "0x7",
+        "1": "0xb"
+      }
+    },
+    "signed": true
+  },
+  {
+    "name": "words-57896044618658097711785492504343953926634992332820282019728792003956564819968-57896044618658097711785492504343953926634992332820282019728792003956564819968",
+    "expected": {
+      "status": "success",
+      "output": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "storage": {
+        "1": "0xb"
+      }
+    },
+    "signed": true
+  },
+  {
+    "name": "words-57896044618658097711785492504343953926634992332820282019728792003956564819968-115792089237316195423570985008687907853269984665640564039457584007913129639935",
+    "expected": {
+      "status": "revert",
+      "output": "0xeeb3c9ad8000000000000000000000000000000000000000000000000000000000000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "storage": {
+        "0": "0x7",
+        "1": "0xb"
+      }
+    },
+    "signed": true
+  },
+  {
+    "name": "words-115792089237316195423570985008687907853269984665640564039457584007913129639935-0",
+    "expected": {
+      "status": "revert",
+      "output": "0xeeb3c9adffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff0000000000000000000000000000000000000000000000000000000000000000",
+      "storage": {
+        "0": "0x7",
+        "1": "0xb"
+      }
+    },
+    "signed": true
+  },
+  {
+    "name": "words-115792089237316195423570985008687907853269984665640564039457584007913129639935-1",
+    "expected": {
+      "status": "revert",
+      "output": "0xeeb3c9adffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff0000000000000000000000000000000000000000000000000000000000000001",
+      "storage": {
+        "0": "0x7",
+        "1": "0xb"
+      }
+    },
+    "signed": true
+  },
+  {
+    "name": "words-115792089237316195423570985008687907853269984665640564039457584007913129639935-1461501637330902918203684832716283019655932542975",
+    "expected": {
+      "status": "revert",
+      "output": "0xeeb3c9adffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000000000000000000000ffffffffffffffffffffffffffffffffffffffff",
+      "storage": {
+        "0": "0x7",
+        "1": "0xb"
+      }
+    },
+    "signed": true
+  },
+  {
+    "name": "words-115792089237316195423570985008687907853269984665640564039457584007913129639935-57896044618658097711785492504343953926634992332820282019728792003956564819968",
+    "expected": {
+      "status": "revert",
+      "output": "0xeeb3c9adffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8000000000000000000000000000000000000000000000000000000000000000",
+      "storage": {
+        "0": "0x7",
+        "1": "0xb"
+      }
+    },
+    "signed": true
+  },
+  {
+    "name": "words-115792089237316195423570985008687907853269984665640564039457584007913129639935-115792089237316195423570985008687907853269984665640564039457584007913129639935",
+    "expected": {
+      "status": "success",
+      "output": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "storage": {
+        "1": "0xb"
+      }
+    },
+    "signed": true
+  },
+  {
+    "name": "value",
+    "expected": {
+      "status": "revert",
+      "output": "0x",
+      "storage": {
+        "0": "0x7",
+        "1": "0xb"
+      }
+    },
+    "signed": true
+  },
+  {
+    "name": "short",
+    "expected": {
+      "status": "revert",
+      "output": "0x",
+      "storage": {
+        "0": "0x7",
+        "1": "0xb"
+      }
+    },
+    "signed": true
+  },
+  {
+    "name": "unknown",
+    "expected": {
+      "status": "revert",
+      "output": "0x",
+      "storage": {
+        "0": "0x7",
+        "1": "0xb"
+      }
+    },
+    "signed": true
+  },
+  {
+    "name": "owner-0-0",
+    "expected": {
+      "status": "success",
+      "output": "0x0000000000000000000000000000000000000000000000000000000000000011",
+      "storage": {
+        "0": "0x11",
+        "1": "0x1"
+      }
+    },
+    "signed": false
+  },
+  {
+    "name": "owner-0-1",
+    "expected": {
+      "status": "revert",
+      "output": "0x8f13040900000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001",
+      "storage": {
+        "1": "0x3",
+        "0": "0x1"
+      }
+    },
+    "signed": false
+  },
+  {
+    "name": "owner-0-42",
+    "expected": {
+      "status": "revert",
+      "output": "0x8f1304090000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002a",
+      "storage": {
+        "1": "0x3",
+        "0": "0x2a"
+      }
+    },
+    "signed": false
+  },
+  {
+    "name": "owner-0-1461501637330902918203684832716283019655932542975",
+    "expected": {
+      "status": "revert",
+      "output": "0x8f1304090000000000000000000000000000000000000000000000000000000000000000000000000000000000000000ffffffffffffffffffffffffffffffffffffffff",
+      "storage": {
+        "1": "0x3",
+        "0": "0xffffffffffffffffffffffffffffffffffffffff"
+      }
+    },
+    "signed": false
+  },
+  {
+    "name": "owner-0-115792089237316195423570985008687907853269984665640564039457584007913129639935",
+    "expected": {
+      "status": "revert",
+      "output": "0x8f1304090000000000000000000000000000000000000000000000000000000000000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "storage": {
+        "1": "0x3",
+        "0": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+      }
+    },
+    "signed": false
+  },
+  {
+    "name": "owner-1-0",
+    "expected": {
+      "status": "revert",
+      "output": "0x8f13040900000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000",
+      "storage": {
+        "1": "0x3"
+      }
+    },
+    "signed": false
+  },
+  {
+    "name": "owner-1-1",
+    "expected": {
+      "status": "success",
+      "output": "0x0000000000000000000000000000000000000000000000000000000000000011",
+      "storage": {
+        "0": "0x11",
+        "1": "0x1"
+      }
+    },
+    "signed": false
+  },
+  {
+    "name": "owner-1-42",
+    "expected": {
+      "status": "revert",
+      "output": "0x8f1304090000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000002a",
+      "storage": {
+        "1": "0x3",
+        "0": "0x2a"
+      }
+    },
+    "signed": false
+  },
+  {
+    "name": "owner-1-1461501637330902918203684832716283019655932542975",
+    "expected": {
+      "status": "revert",
+      "output": "0x8f1304090000000000000000000000000000000000000000000000000000000000000001000000000000000000000000ffffffffffffffffffffffffffffffffffffffff",
+      "storage": {
+        "1": "0x3",
+        "0": "0xffffffffffffffffffffffffffffffffffffffff"
+      }
+    },
+    "signed": false
+  },
+  {
+    "name": "owner-1-115792089237316195423570985008687907853269984665640564039457584007913129639935",
+    "expected": {
+      "status": "revert",
+      "output": "0x8f1304090000000000000000000000000000000000000000000000000000000000000001ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "storage": {
+        "1": "0x3",
+        "0": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+      }
+    },
+    "signed": false
+  },
+  {
+    "name": "owner-42-0",
+    "expected": {
+      "status": "revert",
+      "output": "0x8f130409000000000000000000000000000000000000000000000000000000000000002a0000000000000000000000000000000000000000000000000000000000000000",
+      "storage": {
+        "1": "0x3"
+      }
+    },
+    "signed": false
+  },
+  {
+    "name": "owner-42-1",
+    "expected": {
+      "status": "revert",
+      "output": "0x8f130409000000000000000000000000000000000000000000000000000000000000002a0000000000000000000000000000000000000000000000000000000000000001",
+      "storage": {
+        "1": "0x3",
+        "0": "0x1"
+      }
+    },
+    "signed": false
+  },
+  {
+    "name": "owner-42-42",
+    "expected": {
+      "status": "success",
+      "output": "0x0000000000000000000000000000000000000000000000000000000000000011",
+      "storage": {
+        "0": "0x11",
+        "1": "0x1"
+      }
+    },
+    "signed": false
+  },
+  {
+    "name": "owner-42-1461501637330902918203684832716283019655932542975",
+    "expected": {
+      "status": "revert",
+      "output": "0x8f130409000000000000000000000000000000000000000000000000000000000000002a000000000000000000000000ffffffffffffffffffffffffffffffffffffffff",
+      "storage": {
+        "1": "0x3",
+        "0": "0xffffffffffffffffffffffffffffffffffffffff"
+      }
+    },
+    "signed": false
+  },
+  {
+    "name": "owner-42-115792089237316195423570985008687907853269984665640564039457584007913129639935",
+    "expected": {
+      "status": "revert",
+      "output": "0x8f130409000000000000000000000000000000000000000000000000000000000000002affffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "storage": {
+        "1": "0x3",
+        "0": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+      }
+    },
+    "signed": false
+  },
+  {
+    "name": "owner-1461501637330902918203684832716283019655932542975-0",
+    "expected": {
+      "status": "revert",
+      "output": "0x8f130409000000000000000000000000ffffffffffffffffffffffffffffffffffffffff0000000000000000000000000000000000000000000000000000000000000000",
+      "storage": {
+        "1": "0x3"
+      }
+    },
+    "signed": false
+  },
+  {
+    "name": "owner-1461501637330902918203684832716283019655932542975-1",
+    "expected": {
+      "status": "revert",
+      "output": "0x8f130409000000000000000000000000ffffffffffffffffffffffffffffffffffffffff0000000000000000000000000000000000000000000000000000000000000001",
+      "storage": {
+        "1": "0x3",
+        "0": "0x1"
+      }
+    },
+    "signed": false
+  },
+  {
+    "name": "owner-1461501637330902918203684832716283019655932542975-42",
+    "expected": {
+      "status": "revert",
+      "output": "0x8f130409000000000000000000000000ffffffffffffffffffffffffffffffffffffffff000000000000000000000000000000000000000000000000000000000000002a",
+      "storage": {
+        "1": "0x3",
+        "0": "0x2a"
+      }
+    },
+    "signed": false
+  },
+  {
+    "name": "owner-1461501637330902918203684832716283019655932542975-1461501637330902918203684832716283019655932542975",
+    "expected": {
+      "status": "success",
+      "output": "0x0000000000000000000000000000000000000000000000000000000000000011",
+      "storage": {
+        "0": "0x11",
+        "1": "0x1"
+      }
+    },
+    "signed": false
+  },
+  {
+    "name": "owner-1461501637330902918203684832716283019655932542975-115792089237316195423570985008687907853269984665640564039457584007913129639935",
+    "expected": {
+      "status": "revert",
+      "output": "0x8f130409000000000000000000000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "storage": {
+        "1": "0x3",
+        "0": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+      }
+    },
+    "signed": false
+  },
+  {
+    "name": "owner-721457446580647751014191829380889690493307935711-0",
+    "expected": {
+      "status": "revert",
+      "output": "0x8f1304090000000000000000000000007e5f4552091a69125d5dfcb7b8c2659029395bdf0000000000000000000000000000000000000000000000000000000000000000",
+      "storage": {
+        "1": "0x3"
+      }
+    },
+    "signed": true
+  },
+  {
+    "name": "owner-721457446580647751014191829380889690493307935711-1",
+    "expected": {
+      "status": "revert",
+      "output": "0x8f1304090000000000000000000000007e5f4552091a69125d5dfcb7b8c2659029395bdf0000000000000000000000000000000000000000000000000000000000000001",
+      "storage": {
+        "1": "0x3",
+        "0": "0x1"
+      }
+    },
+    "signed": true
+  },
+  {
+    "name": "owner-721457446580647751014191829380889690493307935711-42",
+    "expected": {
+      "status": "revert",
+      "output": "0x8f1304090000000000000000000000007e5f4552091a69125d5dfcb7b8c2659029395bdf000000000000000000000000000000000000000000000000000000000000002a",
+      "storage": {
+        "1": "0x3",
+        "0": "0x2a"
+      }
+    },
+    "signed": true
+  },
+  {
+    "name": "owner-721457446580647751014191829380889690493307935711-1461501637330902918203684832716283019655932542975",
+    "expected": {
+      "status": "revert",
+      "output": "0x8f1304090000000000000000000000007e5f4552091a69125d5dfcb7b8c2659029395bdf000000000000000000000000ffffffffffffffffffffffffffffffffffffffff",
+      "storage": {
+        "1": "0x3",
+        "0": "0xffffffffffffffffffffffffffffffffffffffff"
+      }
+    },
+    "signed": true
+  },
+  {
+    "name": "owner-721457446580647751014191829380889690493307935711-115792089237316195423570985008687907853269984665640564039457584007913129639935",
+    "expected": {
+      "status": "revert",
+      "output": "0x8f1304090000000000000000000000007e5f4552091a69125d5dfcb7b8c2659029395bdfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "storage": {
+        "1": "0x3",
+        "0": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+      }
+    },
+    "signed": true
+  }
+]
