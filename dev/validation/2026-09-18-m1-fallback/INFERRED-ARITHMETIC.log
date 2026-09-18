@@ -1,0 +1,8 @@
+IA-LIVE cases=158 creates=2 OK
+IA-ERASURE pairs=16 files=5 OK
+IA-REFUSALS cases=24 commands=3 OK
+IA-MUTANT EVIDENCE killed control=OK
+IA-MUTANT SUB-ORDER killed control=OK
+IA-MUTANT BUNDLE killed control=OK
+IA-MUTANT SUPPLIED killed control=OK
+INFERRED-ARITHMETIC cases=158 creates=2 refusals=24 erasure_pairs=16 mutants=4 OK

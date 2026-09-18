@@ -17,7 +17,7 @@ let signature entry = entry.name ^ "(" ^
 let error_signature row = row.error_name ^ "(" ^
   String.concat "," (List.map (fun _name -> "uint256") row.arguments) ^ ")"
 
-let print ?(errors=[]) entries =
+let print ?(errors=[]) ?(fallback=false) entries =
   let argument name = "{\"name\":" ^ quote name ^ ",\"type\":\"uint256\"}" in
   let row entry = "{\"type\":\"function\",\"name\":" ^ quote entry.name ^
     ",\"inputs\":[" ^ String.concat "," (List.map argument entry.inputs) ^
@@ -26,4 +26,5 @@ let print ?(errors=[]) entries =
   let constructor = "{\"type\":\"constructor\",\"inputs\":[],\"stateMutability\":\"nonpayable\"}" in
   let error row = "{\"type\":\"error\",\"name\":" ^ quote row.error_name ^
     ",\"inputs\":[" ^ String.concat "," (List.map argument row.arguments) ^ "]}" in
-  "[" ^ String.concat "," (constructor :: List.map row entries @ List.map error errors) ^ "]\n"
+  let fallback = if fallback then ["{\"type\":\"fallback\",\"stateMutability\":\"nonpayable\"}"] else [] in
+  "[" ^ String.concat "," (constructor :: List.map row entries @ List.map error errors @ fallback) ^ "]\n"

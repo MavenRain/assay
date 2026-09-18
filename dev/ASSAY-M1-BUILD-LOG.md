@@ -1,5 +1,57 @@
 # Assay M1 build log
 
+## 2026-09-18: Explicit reverting fallbacks
+
+The twenty-ninth M1 slice starts at
+`3e997f1bb4c69a35ee065018ac1238856cbe3b8c`. It adds one optional
+`fallback : Eff Sig Never := revert ERROR` declaration with literal
+Word payloads, plus the empty-revert form. Short calldata and unmatched
+selectors reach the declared fallback. Known-entry decoding and the
+nonpayable guard retain their empty reverts, and entry-specific reverts
+retain their original payloads and rollback behavior.
+
+Lowering uses the existing checked Tx protocol. Core preparation accepts
+only terminal, closed reverts. The source model and EVM dispatcher share
+that validated fallback, and the ABI records an explicit nonpayable
+fallback row. The emitter stays at 1800/1800 physical lines by removing
+24 blank separators. No carried kernel, surface or proof source, axiom,
+trusted bound or frozen timing input changes.
+
+The focused gate passes 99 source-model cases, 99 geth executions,
+99 signed Cancun transitions, ten creation checks, 23 source refusals,
+two payload-boundary checks and six compiler mutations with passing
+restored controls. Both execution paths use geth. A separate build of
+the committed baseline produces byte-identical results for all five
+artifacts from 37 legacy sources, 185 artifacts in total.
+
+All 63 earlier gate declarations retain identical ASTs, commands,
+deadlines and success markers. The scratch checkout initially lacked
+the preprovisioned kan-tactics dependency. After verifying 35 source
+hashes and two pinned dependency revisions, local cache reuse enabled
+a passing axiom recheck: 42 theorems, 28 carried files, three controls,
+and no sorryAx. The initial failure is retained with the recheck.
+
+The complete 64-leg runner records 61 passes and failures for AXIOMS,
+DENOMINATORS and M0-RATIO, with exit 1 and its original FAIL stamp.
+The scoped axiom recheck resolves the setup failure, bringing the
+verified functional total to 62. The two inherited timing failures
+remain open. The new FALLBACK leg passes in the complete runner.
+
+The [surface contract](M1-FALLBACK.md), [mutation witnesses](M1-FALLBACK-MUTATIONS.md)
+and [validation archive](validation/2026-09-18-m1-fallback/) record the
+scope and evidence. DENOMINATORS and M0-RATIO retain the timing pause.
+
+### Review round 2026-09-18 (M1 explicit reverting fallbacks)
+
+A-1 (medium): the reserved word Never had no refusal case, so a
+compiler that drops it from the reserved list still passed the gate
+that owns the feature; now the gate refuses an entry named Never and
+counts 23 source refusals.
+
+C-1 (low): the boundary helper returned its count as a literal 2
+instead of measuring the list it saves; now it returns the length of
+that list and still reports two boundary checks.
+
 ## 2026-09-18: Inferred runtime Word bindings
 
 The twenty-eighth M1 slice starts at

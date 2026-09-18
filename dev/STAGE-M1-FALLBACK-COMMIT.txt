@@ -1,0 +1,26 @@
+M1: add explicit reverting fallbacks
+
+Accept one fallback declaration with a typed custom error or empty
+revert. Route short calldata and unmatched selectors through it while
+preserving entry decoding, nonpayable checks and entry rollback.
+
+Validate closed core fallbacks, interpret them in the source model,
+and include the declared nonpayable fallback in the ABI. Keep the
+emitter at its existing 1800-line bound.
+
+Add 99 execution cases, 99 signed Cancun transitions, ten creation
+checks, 23 refusals, two boundary checks and six detected mutations
+with restored controls. Verify 185 legacy artifacts are byte-identical.
+
+Retain all prior gate declarations and the frozen timing inputs.
+Record the initial missing proof dependency and passing offline
+axiom recheck. DENOMINATORS and M0-RATIO remain open.
+
+Review pass 1 (2026-09-18) fixed 2 findings: A-1, C-1.
+
+A-1: a compiler that dropped the reserved word Never from the
+reserved list still passed the fallback gate; now the gate refuses
+an entry named Never and reports 23 refusals.
+
+C-1: the boundary helper returned its count as a literal 2; now it
+measures the list it saves and still reports two.

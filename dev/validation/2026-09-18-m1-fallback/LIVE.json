@@ -1,0 +1,1408 @@
+{
+  "cases": [
+    {
+      "name": "nullary-empty",
+      "calldata": "",
+      "value": 0,
+      "expected": {
+        "status": "revert",
+        "output": "0x59170bf0",
+        "storage": {
+          "0": "0x7",
+          "8": "0xb"
+        }
+      },
+      "signed": true
+    },
+    {
+      "name": "nullary-unknown",
+      "calldata": "ffffffff",
+      "value": 0,
+      "expected": {
+        "status": "revert",
+        "output": "0x59170bf0",
+        "storage": {
+          "0": "0x7",
+          "8": "0xb"
+        }
+      },
+      "signed": true
+    },
+    {
+      "name": "nullary-short-known",
+      "calldata": "60fe47b100000000000000000000000000000000000000000000000000000000000000",
+      "value": 0,
+      "expected": {
+        "status": "revert",
+        "output": "0x",
+        "storage": {
+          "0": "0x7",
+          "8": "0xb"
+        }
+      },
+      "signed": true
+    },
+    {
+      "name": "nullary-value-unknown",
+      "calldata": "ffffffff",
+      "value": 1,
+      "expected": {
+        "status": "revert",
+        "output": "0x",
+        "storage": {
+          "0": "0x7",
+          "8": "0xb"
+        }
+      },
+      "signed": true
+    },
+    {
+      "name": "nullary-one-byte",
+      "calldata": "6d",
+      "value": 0,
+      "expected": {
+        "status": "revert",
+        "output": "0x59170bf0",
+        "storage": {
+          "0": "0x7",
+          "8": "0xb"
+        }
+      },
+      "signed": true
+    },
+    {
+      "name": "nullary-two-byte",
+      "calldata": "6d4c",
+      "value": 0,
+      "expected": {
+        "status": "revert",
+        "output": "0x59170bf0",
+        "storage": {
+          "0": "0x7",
+          "8": "0xb"
+        }
+      },
+      "signed": true
+    },
+    {
+      "name": "nullary-three-byte",
+      "calldata": "6d4ce6",
+      "value": 0,
+      "expected": {
+        "status": "revert",
+        "output": "0x59170bf0",
+        "storage": {
+          "0": "0x7",
+          "8": "0xb"
+        }
+      },
+      "signed": true
+    },
+    {
+      "name": "nullary-zero-selector",
+      "calldata": "00000000",
+      "value": 0,
+      "expected": {
+        "status": "revert",
+        "output": "0x59170bf0",
+        "storage": {
+          "0": "0x7",
+          "8": "0xb"
+        }
+      },
+      "signed": true
+    },
+    {
+      "name": "nullary-unknown-tail",
+      "calldata": "ffffffff60fe47b10000000000000000000000000000000000000000000000000000000000000000",
+      "value": 0,
+      "expected": {
+        "status": "revert",
+        "output": "0x59170bf0",
+        "storage": {
+          "0": "0x7",
+          "8": "0xb"
+        }
+      },
+      "signed": true
+    },
+    {
+      "name": "nullary-value-empty",
+      "calldata": "",
+      "value": 1,
+      "expected": {
+        "status": "revert",
+        "output": "0x",
+        "storage": {
+          "0": "0x7",
+          "8": "0xb"
+        }
+      },
+      "signed": true
+    },
+    {
+      "name": "nullary-value-known",
+      "calldata": "6d4ce63c",
+      "value": 1,
+      "expected": {
+        "status": "revert",
+        "output": "0x",
+        "storage": {
+          "0": "0x7",
+          "8": "0xb"
+        }
+      },
+      "signed": true
+    },
+    {
+      "name": "nullary-get",
+      "calldata": "6d4ce63c",
+      "value": 0,
+      "expected": {
+        "status": "success",
+        "output": "0x0000000000000000000000000000000000000000000000000000000000000007",
+        "storage": {
+          "0": "0x7",
+          "8": "0xb"
+        }
+      },
+      "signed": true
+    },
+    {
+      "name": "nullary-get-tail",
+      "calldata": "6d4ce63cff",
+      "value": 0,
+      "expected": {
+        "status": "success",
+        "output": "0x0000000000000000000000000000000000000000000000000000000000000007",
+        "storage": {
+          "0": "0x7",
+          "8": "0xb"
+        }
+      },
+      "signed": true
+    },
+    {
+      "name": "nullary-missing-arg",
+      "calldata": "60fe47b1",
+      "value": 0,
+      "expected": {
+        "status": "revert",
+        "output": "0x",
+        "storage": {
+          "0": "0x7",
+          "8": "0xb"
+        }
+      },
+      "signed": true
+    },
+    {
+      "name": "nullary-set-zero",
+      "calldata": "60fe47b10000000000000000000000000000000000000000000000000000000000000000",
+      "value": 0,
+      "expected": {
+        "status": "success",
+        "output": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "storage": {
+          "8": "0xb"
+        }
+      },
+      "signed": true
+    },
+    {
+      "name": "nullary-set-max",
+      "calldata": "60fe47b1ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "value": 0,
+      "expected": {
+        "status": "success",
+        "output": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+        "storage": {
+          "0": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+          "8": "0xb"
+        }
+      },
+      "signed": true
+    },
+    {
+      "name": "nullary-set-tail",
+      "calldata": "60fe47b1000000000000000000000000000000000000000000000000000000000000000cabcd",
+      "value": 0,
+      "expected": {
+        "status": "success",
+        "output": "0x000000000000000000000000000000000000000000000000000000000000000c",
+        "storage": {
+          "0": "0xc",
+          "8": "0xb"
+        }
+      },
+      "signed": true
+    },
+    {
+      "name": "nullary-entry-rollback",
+      "calldata": "a9cc4718",
+      "value": 0,
+      "expected": {
+        "status": "revert",
+        "output": "0x7e46dab60000000000000000000000000000000000000000000000000000000000000007",
+        "storage": {
+          "0": "0x7",
+          "8": "0xb"
+        }
+      },
+      "signed": true
+    },
+    {
+      "name": "payload-empty",
+      "calldata": "",
+      "value": 0,
+      "expected": {
+        "status": "revert",
+        "output": "0x5de92f8000000000000000000000000000000000000000000000000000000000000000abffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+        "storage": {
+          "0": "0x7",
+          "8": "0xb"
+        }
+      },
+      "signed": true
+    },
+    {
+      "name": "payload-unknown",
+      "calldata": "ffffffff",
+      "value": 0,
+      "expected": {
+        "status": "revert",
+        "output": "0x5de92f8000000000000000000000000000000000000000000000000000000000000000abffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+        "storage": {
+          "0": "0x7",
+          "8": "0xb"
+        }
+      },
+      "signed": true
+    },
+    {
+      "name": "payload-short-known",
+      "calldata": "60fe47b100000000000000000000000000000000000000000000000000000000000000",
+      "value": 0,
+      "expected": {
+        "status": "revert",
+        "output": "0x",
+        "storage": {
+          "0": "0x7",
+          "8": "0xb"
+        }
+      },
+      "signed": true
+    },
+    {
+      "name": "payload-value-unknown",
+      "calldata": "ffffffff",
+      "value": 1,
+      "expected": {
+        "status": "revert",
+        "output": "0x",
+        "storage": {
+          "0": "0x7",
+          "8": "0xb"
+        }
+      },
+      "signed": true
+    },
+    {
+      "name": "payload-one-byte",
+      "calldata": "6d",
+      "value": 0,
+      "expected": {
+        "status": "revert",
+        "output": "0x5de92f8000000000000000000000000000000000000000000000000000000000000000abffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+        "storage": {
+          "0": "0x7",
+          "8": "0xb"
+        }
+      },
+      "signed": true
+    },
+    {
+      "name": "payload-two-byte",
+      "calldata": "6d4c",
+      "value": 0,
+      "expected": {
+        "status": "revert",
+        "output": "0x5de92f8000000000000000000000000000000000000000000000000000000000000000abffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+        "storage": {
+          "0": "0x7",
+          "8": "0xb"
+        }
+      },
+      "signed": true
+    },
+    {
+      "name": "payload-three-byte",
+      "calldata": "6d4ce6",
+      "value": 0,
+      "expected": {
+        "status": "revert",
+        "output": "0x5de92f8000000000000000000000000000000000000000000000000000000000000000abffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+        "storage": {
+          "0": "0x7",
+          "8": "0xb"
+        }
+      },
+      "signed": true
+    },
+    {
+      "name": "payload-zero-selector",
+      "calldata": "00000000",
+      "value": 0,
+      "expected": {
+        "status": "revert",
+        "output": "0x5de92f8000000000000000000000000000000000000000000000000000000000000000abffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+        "storage": {
+          "0": "0x7",
+          "8": "0xb"
+        }
+      },
+      "signed": true
+    },
+    {
+      "name": "payload-unknown-tail",
+      "calldata": "ffffffff60fe47b10000000000000000000000000000000000000000000000000000000000000000",
+      "value": 0,
+      "expected": {
+        "status": "revert",
+        "output": "0x5de92f8000000000000000000000000000000000000000000000000000000000000000abffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+        "storage": {
+          "0": "0x7",
+          "8": "0xb"
+        }
+      },
+      "signed": true
+    },
+    {
+      "name": "payload-value-empty",
+      "calldata": "",
+      "value": 1,
+      "expected": {
+        "status": "revert",
+        "output": "0x",
+        "storage": {
+          "0": "0x7",
+          "8": "0xb"
+        }
+      },
+      "signed": true
+    },
+    {
+      "name": "payload-value-known",
+      "calldata": "6d4ce63c",
+      "value": 1,
+      "expected": {
+        "status": "revert",
+        "output": "0x",
+        "storage": {
+          "0": "0x7",
+          "8": "0xb"
+        }
+      },
+      "signed": true
+    },
+    {
+      "name": "payload-get",
+      "calldata": "6d4ce63c",
+      "value": 0,
+      "expected": {
+        "status": "success",
+        "output": "0x0000000000000000000000000000000000000000000000000000000000000007",
+        "storage": {
+          "0": "0x7",
+          "8": "0xb"
+        }
+      },
+      "signed": true
+    },
+    {
+      "name": "payload-get-tail",
+      "calldata": "6d4ce63cff",
+      "value": 0,
+      "expected": {
+        "status": "success",
+        "output": "0x0000000000000000000000000000000000000000000000000000000000000007",
+        "storage": {
+          "0": "0x7",
+          "8": "0xb"
+        }
+      },
+      "signed": true
+    },
+    {
+      "name": "payload-missing-arg",
+      "calldata": "60fe47b1",
+      "value": 0,
+      "expected": {
+        "status": "revert",
+        "output": "0x",
+        "storage": {
+          "0": "0x7",
+          "8": "0xb"
+        }
+      },
+      "signed": true
+    },
+    {
+      "name": "payload-set-zero",
+      "calldata": "60fe47b10000000000000000000000000000000000000000000000000000000000000000",
+      "value": 0,
+      "expected": {
+        "status": "success",
+        "output": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "storage": {
+          "8": "0xb"
+        }
+      },
+      "signed": true
+    },
+    {
+      "name": "payload-set-max",
+      "calldata": "60fe47b1ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "value": 0,
+      "expected": {
+        "status": "success",
+        "output": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+        "storage": {
+          "0": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+          "8": "0xb"
+        }
+      },
+      "signed": true
+    },
+    {
+      "name": "payload-set-tail",
+      "calldata": "60fe47b1000000000000000000000000000000000000000000000000000000000000000cabcd",
+      "value": 0,
+      "expected": {
+        "status": "success",
+        "output": "0x000000000000000000000000000000000000000000000000000000000000000c",
+        "storage": {
+          "0": "0xc",
+          "8": "0xb"
+        }
+      },
+      "signed": true
+    },
+    {
+      "name": "payload-entry-rollback",
+      "calldata": "a9cc4718",
+      "value": 0,
+      "expected": {
+        "status": "revert",
+        "output": "0x7e46dab60000000000000000000000000000000000000000000000000000000000000007",
+        "storage": {
+          "0": "0x7",
+          "8": "0xb"
+        }
+      },
+      "signed": true
+    },
+    {
+      "name": "second-error-empty",
+      "calldata": "",
+      "value": 0,
+      "expected": {
+        "status": "revert",
+        "output": "0x7e46dab60000000000000000000000000000000000000000000000000000000000000009",
+        "storage": {
+          "0": "0x7",
+          "8": "0xb"
+        }
+      },
+      "signed": true
+    },
+    {
+      "name": "second-error-unknown",
+      "calldata": "ffffffff",
+      "value": 0,
+      "expected": {
+        "status": "revert",
+        "output": "0x7e46dab60000000000000000000000000000000000000000000000000000000000000009",
+        "storage": {
+          "0": "0x7",
+          "8": "0xb"
+        }
+      },
+      "signed": true
+    },
+    {
+      "name": "second-error-short-known",
+      "calldata": "60fe47b100000000000000000000000000000000000000000000000000000000000000",
+      "value": 0,
+      "expected": {
+        "status": "revert",
+        "output": "0x",
+        "storage": {
+          "0": "0x7",
+          "8": "0xb"
+        }
+      },
+      "signed": true
+    },
+    {
+      "name": "second-error-value-unknown",
+      "calldata": "ffffffff",
+      "value": 1,
+      "expected": {
+        "status": "revert",
+        "output": "0x",
+        "storage": {
+          "0": "0x7",
+          "8": "0xb"
+        }
+      },
+      "signed": true
+    },
+    {
+      "name": "second-error-one-byte",
+      "calldata": "6d",
+      "value": 0,
+      "expected": {
+        "status": "revert",
+        "output": "0x7e46dab60000000000000000000000000000000000000000000000000000000000000009",
+        "storage": {
+          "0": "0x7",
+          "8": "0xb"
+        }
+      },
+      "signed": true
+    },
+    {
+      "name": "second-error-two-byte",
+      "calldata": "6d4c",
+      "value": 0,
+      "expected": {
+        "status": "revert",
+        "output": "0x7e46dab60000000000000000000000000000000000000000000000000000000000000009",
+        "storage": {
+          "0": "0x7",
+          "8": "0xb"
+        }
+      },
+      "signed": true
+    },
+    {
+      "name": "second-error-three-byte",
+      "calldata": "6d4ce6",
+      "value": 0,
+      "expected": {
+        "status": "revert",
+        "output": "0x7e46dab60000000000000000000000000000000000000000000000000000000000000009",
+        "storage": {
+          "0": "0x7",
+          "8": "0xb"
+        }
+      },
+      "signed": true
+    },
+    {
+      "name": "second-error-zero-selector",
+      "calldata": "00000000",
+      "value": 0,
+      "expected": {
+        "status": "revert",
+        "output": "0x7e46dab60000000000000000000000000000000000000000000000000000000000000009",
+        "storage": {
+          "0": "0x7",
+          "8": "0xb"
+        }
+      },
+      "signed": true
+    },
+    {
+      "name": "second-error-unknown-tail",
+      "calldata": "ffffffff60fe47b10000000000000000000000000000000000000000000000000000000000000000",
+      "value": 0,
+      "expected": {
+        "status": "revert",
+        "output": "0x7e46dab60000000000000000000000000000000000000000000000000000000000000009",
+        "storage": {
+          "0": "0x7",
+          "8": "0xb"
+        }
+      },
+      "signed": true
+    },
+    {
+      "name": "second-error-value-empty",
+      "calldata": "",
+      "value": 1,
+      "expected": {
+        "status": "revert",
+        "output": "0x",
+        "storage": {
+          "0": "0x7",
+          "8": "0xb"
+        }
+      },
+      "signed": true
+    },
+    {
+      "name": "second-error-value-known",
+      "calldata": "6d4ce63c",
+      "value": 1,
+      "expected": {
+        "status": "revert",
+        "output": "0x",
+        "storage": {
+          "0": "0x7",
+          "8": "0xb"
+        }
+      },
+      "signed": true
+    },
+    {
+      "name": "second-error-get",
+      "calldata": "6d4ce63c",
+      "value": 0,
+      "expected": {
+        "status": "success",
+        "output": "0x0000000000000000000000000000000000000000000000000000000000000007",
+        "storage": {
+          "0": "0x7",
+          "8": "0xb"
+        }
+      },
+      "signed": true
+    },
+    {
+      "name": "second-error-get-tail",
+      "calldata": "6d4ce63cff",
+      "value": 0,
+      "expected": {
+        "status": "success",
+        "output": "0x0000000000000000000000000000000000000000000000000000000000000007",
+        "storage": {
+          "0": "0x7",
+          "8": "0xb"
+        }
+      },
+      "signed": true
+    },
+    {
+      "name": "second-error-missing-arg",
+      "calldata": "60fe47b1",
+      "value": 0,
+      "expected": {
+        "status": "revert",
+        "output": "0x",
+        "storage": {
+          "0": "0x7",
+          "8": "0xb"
+        }
+      },
+      "signed": true
+    },
+    {
+      "name": "second-error-set-zero",
+      "calldata": "60fe47b10000000000000000000000000000000000000000000000000000000000000000",
+      "value": 0,
+      "expected": {
+        "status": "success",
+        "output": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "storage": {
+          "8": "0xb"
+        }
+      },
+      "signed": true
+    },
+    {
+      "name": "second-error-set-max",
+      "calldata": "60fe47b1ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "value": 0,
+      "expected": {
+        "status": "success",
+        "output": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+        "storage": {
+          "0": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+          "8": "0xb"
+        }
+      },
+      "signed": true
+    },
+    {
+      "name": "second-error-set-tail",
+      "calldata": "60fe47b1000000000000000000000000000000000000000000000000000000000000000cabcd",
+      "value": 0,
+      "expected": {
+        "status": "success",
+        "output": "0x000000000000000000000000000000000000000000000000000000000000000c",
+        "storage": {
+          "0": "0xc",
+          "8": "0xb"
+        }
+      },
+      "signed": true
+    },
+    {
+      "name": "second-error-entry-rollback",
+      "calldata": "a9cc4718",
+      "value": 0,
+      "expected": {
+        "status": "revert",
+        "output": "0x7e46dab60000000000000000000000000000000000000000000000000000000000000007",
+        "storage": {
+          "0": "0x7",
+          "8": "0xb"
+        }
+      },
+      "signed": true
+    },
+    {
+      "name": "empty-empty",
+      "calldata": "",
+      "value": 0,
+      "expected": {
+        "status": "revert",
+        "output": "0x",
+        "storage": {
+          "0": "0x7",
+          "8": "0xb"
+        }
+      },
+      "signed": true
+    },
+    {
+      "name": "empty-unknown",
+      "calldata": "ffffffff",
+      "value": 0,
+      "expected": {
+        "status": "revert",
+        "output": "0x",
+        "storage": {
+          "0": "0x7",
+          "8": "0xb"
+        }
+      },
+      "signed": true
+    },
+    {
+      "name": "empty-short-known",
+      "calldata": "60fe47b100000000000000000000000000000000000000000000000000000000000000",
+      "value": 0,
+      "expected": {
+        "status": "revert",
+        "output": "0x",
+        "storage": {
+          "0": "0x7",
+          "8": "0xb"
+        }
+      },
+      "signed": true
+    },
+    {
+      "name": "empty-value-unknown",
+      "calldata": "ffffffff",
+      "value": 1,
+      "expected": {
+        "status": "revert",
+        "output": "0x",
+        "storage": {
+          "0": "0x7",
+          "8": "0xb"
+        }
+      },
+      "signed": true
+    },
+    {
+      "name": "empty-one-byte",
+      "calldata": "6d",
+      "value": 0,
+      "expected": {
+        "status": "revert",
+        "output": "0x",
+        "storage": {
+          "0": "0x7",
+          "8": "0xb"
+        }
+      },
+      "signed": true
+    },
+    {
+      "name": "empty-two-byte",
+      "calldata": "6d4c",
+      "value": 0,
+      "expected": {
+        "status": "revert",
+        "output": "0x",
+        "storage": {
+          "0": "0x7",
+          "8": "0xb"
+        }
+      },
+      "signed": true
+    },
+    {
+      "name": "empty-three-byte",
+      "calldata": "6d4ce6",
+      "value": 0,
+      "expected": {
+        "status": "revert",
+        "output": "0x",
+        "storage": {
+          "0": "0x7",
+          "8": "0xb"
+        }
+      },
+      "signed": true
+    },
+    {
+      "name": "empty-zero-selector",
+      "calldata": "00000000",
+      "value": 0,
+      "expected": {
+        "status": "revert",
+        "output": "0x",
+        "storage": {
+          "0": "0x7",
+          "8": "0xb"
+        }
+      },
+      "signed": true
+    },
+    {
+      "name": "empty-unknown-tail",
+      "calldata": "ffffffff60fe47b10000000000000000000000000000000000000000000000000000000000000000",
+      "value": 0,
+      "expected": {
+        "status": "revert",
+        "output": "0x",
+        "storage": {
+          "0": "0x7",
+          "8": "0xb"
+        }
+      },
+      "signed": true
+    },
+    {
+      "name": "empty-value-empty",
+      "calldata": "",
+      "value": 1,
+      "expected": {
+        "status": "revert",
+        "output": "0x",
+        "storage": {
+          "0": "0x7",
+          "8": "0xb"
+        }
+      },
+      "signed": true
+    },
+    {
+      "name": "empty-value-known",
+      "calldata": "6d4ce63c",
+      "value": 1,
+      "expected": {
+        "status": "revert",
+        "output": "0x",
+        "storage": {
+          "0": "0x7",
+          "8": "0xb"
+        }
+      },
+      "signed": true
+    },
+    {
+      "name": "empty-get",
+      "calldata": "6d4ce63c",
+      "value": 0,
+      "expected": {
+        "status": "success",
+        "output": "0x0000000000000000000000000000000000000000000000000000000000000007",
+        "storage": {
+          "0": "0x7",
+          "8": "0xb"
+        }
+      },
+      "signed": true
+    },
+    {
+      "name": "empty-get-tail",
+      "calldata": "6d4ce63cff",
+      "value": 0,
+      "expected": {
+        "status": "success",
+        "output": "0x0000000000000000000000000000000000000000000000000000000000000007",
+        "storage": {
+          "0": "0x7",
+          "8": "0xb"
+        }
+      },
+      "signed": true
+    },
+    {
+      "name": "empty-missing-arg",
+      "calldata": "60fe47b1",
+      "value": 0,
+      "expected": {
+        "status": "revert",
+        "output": "0x",
+        "storage": {
+          "0": "0x7",
+          "8": "0xb"
+        }
+      },
+      "signed": true
+    },
+    {
+      "name": "empty-set-zero",
+      "calldata": "60fe47b10000000000000000000000000000000000000000000000000000000000000000",
+      "value": 0,
+      "expected": {
+        "status": "success",
+        "output": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "storage": {
+          "8": "0xb"
+        }
+      },
+      "signed": true
+    },
+    {
+      "name": "empty-set-max",
+      "calldata": "60fe47b1ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "value": 0,
+      "expected": {
+        "status": "success",
+        "output": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+        "storage": {
+          "0": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+          "8": "0xb"
+        }
+      },
+      "signed": true
+    },
+    {
+      "name": "empty-set-tail",
+      "calldata": "60fe47b1000000000000000000000000000000000000000000000000000000000000000cabcd",
+      "value": 0,
+      "expected": {
+        "status": "success",
+        "output": "0x000000000000000000000000000000000000000000000000000000000000000c",
+        "storage": {
+          "0": "0xc",
+          "8": "0xb"
+        }
+      },
+      "signed": true
+    },
+    {
+      "name": "empty-entry-rollback",
+      "calldata": "a9cc4718",
+      "value": 0,
+      "expected": {
+        "status": "revert",
+        "output": "0x7e46dab60000000000000000000000000000000000000000000000000000000000000007",
+        "storage": {
+          "0": "0x7",
+          "8": "0xb"
+        }
+      },
+      "signed": true
+    },
+    {
+      "name": "omitted-empty",
+      "calldata": "",
+      "value": 0,
+      "expected": {
+        "status": "revert",
+        "output": "0x",
+        "storage": {
+          "0": "0x7",
+          "8": "0xb"
+        }
+      },
+      "signed": true
+    },
+    {
+      "name": "omitted-unknown",
+      "calldata": "ffffffff",
+      "value": 0,
+      "expected": {
+        "status": "revert",
+        "output": "0x",
+        "storage": {
+          "0": "0x7",
+          "8": "0xb"
+        }
+      },
+      "signed": true
+    },
+    {
+      "name": "omitted-short-known",
+      "calldata": "60fe47b100000000000000000000000000000000000000000000000000000000000000",
+      "value": 0,
+      "expected": {
+        "status": "revert",
+        "output": "0x",
+        "storage": {
+          "0": "0x7",
+          "8": "0xb"
+        }
+      },
+      "signed": true
+    },
+    {
+      "name": "omitted-value-unknown",
+      "calldata": "ffffffff",
+      "value": 1,
+      "expected": {
+        "status": "revert",
+        "output": "0x",
+        "storage": {
+          "0": "0x7",
+          "8": "0xb"
+        }
+      },
+      "signed": true
+    },
+    {
+      "name": "omitted-one-byte",
+      "calldata": "6d",
+      "value": 0,
+      "expected": {
+        "status": "revert",
+        "output": "0x",
+        "storage": {
+          "0": "0x7",
+          "8": "0xb"
+        }
+      },
+      "signed": true
+    },
+    {
+      "name": "omitted-two-byte",
+      "calldata": "6d4c",
+      "value": 0,
+      "expected": {
+        "status": "revert",
+        "output": "0x",
+        "storage": {
+          "0": "0x7",
+          "8": "0xb"
+        }
+      },
+      "signed": true
+    },
+    {
+      "name": "omitted-three-byte",
+      "calldata": "6d4ce6",
+      "value": 0,
+      "expected": {
+        "status": "revert",
+        "output": "0x",
+        "storage": {
+          "0": "0x7",
+          "8": "0xb"
+        }
+      },
+      "signed": true
+    },
+    {
+      "name": "omitted-zero-selector",
+      "calldata": "00000000",
+      "value": 0,
+      "expected": {
+        "status": "revert",
+        "output": "0x",
+        "storage": {
+          "0": "0x7",
+          "8": "0xb"
+        }
+      },
+      "signed": true
+    },
+    {
+      "name": "omitted-unknown-tail",
+      "calldata": "ffffffff60fe47b10000000000000000000000000000000000000000000000000000000000000000",
+      "value": 0,
+      "expected": {
+        "status": "revert",
+        "output": "0x",
+        "storage": {
+          "0": "0x7",
+          "8": "0xb"
+        }
+      },
+      "signed": true
+    },
+    {
+      "name": "omitted-value-empty",
+      "calldata": "",
+      "value": 1,
+      "expected": {
+        "status": "revert",
+        "output": "0x",
+        "storage": {
+          "0": "0x7",
+          "8": "0xb"
+        }
+      },
+      "signed": true
+    },
+    {
+      "name": "omitted-value-known",
+      "calldata": "6d4ce63c",
+      "value": 1,
+      "expected": {
+        "status": "revert",
+        "output": "0x",
+        "storage": {
+          "0": "0x7",
+          "8": "0xb"
+        }
+      },
+      "signed": true
+    },
+    {
+      "name": "omitted-get",
+      "calldata": "6d4ce63c",
+      "value": 0,
+      "expected": {
+        "status": "success",
+        "output": "0x0000000000000000000000000000000000000000000000000000000000000007",
+        "storage": {
+          "0": "0x7",
+          "8": "0xb"
+        }
+      },
+      "signed": true
+    },
+    {
+      "name": "omitted-get-tail",
+      "calldata": "6d4ce63cff",
+      "value": 0,
+      "expected": {
+        "status": "success",
+        "output": "0x0000000000000000000000000000000000000000000000000000000000000007",
+        "storage": {
+          "0": "0x7",
+          "8": "0xb"
+        }
+      },
+      "signed": true
+    },
+    {
+      "name": "omitted-missing-arg",
+      "calldata": "60fe47b1",
+      "value": 0,
+      "expected": {
+        "status": "revert",
+        "output": "0x",
+        "storage": {
+          "0": "0x7",
+          "8": "0xb"
+        }
+      },
+      "signed": true
+    },
+    {
+      "name": "omitted-set-zero",
+      "calldata": "60fe47b10000000000000000000000000000000000000000000000000000000000000000",
+      "value": 0,
+      "expected": {
+        "status": "success",
+        "output": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "storage": {
+          "8": "0xb"
+        }
+      },
+      "signed": true
+    },
+    {
+      "name": "omitted-set-max",
+      "calldata": "60fe47b1ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "value": 0,
+      "expected": {
+        "status": "success",
+        "output": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+        "storage": {
+          "0": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+          "8": "0xb"
+        }
+      },
+      "signed": true
+    },
+    {
+      "name": "omitted-set-tail",
+      "calldata": "60fe47b1000000000000000000000000000000000000000000000000000000000000000cabcd",
+      "value": 0,
+      "expected": {
+        "status": "success",
+        "output": "0x000000000000000000000000000000000000000000000000000000000000000c",
+        "storage": {
+          "0": "0xc",
+          "8": "0xb"
+        }
+      },
+      "signed": true
+    },
+    {
+      "name": "omitted-entry-rollback",
+      "calldata": "a9cc4718",
+      "value": 0,
+      "expected": {
+        "status": "revert",
+        "output": "0x7e46dab60000000000000000000000000000000000000000000000000000000000000007",
+        "storage": {
+          "0": "0x7",
+          "8": "0xb"
+        }
+      },
+      "signed": true
+    }
+  ],
+  "creates": [
+    {
+      "name": "nullary-create-0",
+      "result": {
+        "status": "success",
+        "output": "346100db57610009565b600436106100df57610016565b5f3560e01c5f52610022565b5f51636d4ce63c1461005557610033565b5f516360fe47b11461007b57610044565b5f5163a9cc4718146100a7576100df565b600436106100db57610062565b610067565b5f54602052610071565b6020515f5260205ff35b602436106100db57610088565b600435602052610093565b6020515f5561009d565b6020515f5260205ff35b600436106100db576100b4565b6100b9565b60635f556100c2565b637e46dab660e01b618000526007618004526024618000fd5b5f5ffd5b6359170bf060e01b618000526004618000fd",
+        "storage": {
+          "f2e246bb76df876cef8b38ae84130f4f55de395b": {
+            "0": "0x7"
+          }
+        },
+        "gas": 70596
+      }
+    },
+    {
+      "name": "nullary-create-1",
+      "result": {
+        "status": "revert",
+        "output": "",
+        "storage": {},
+        "gas": 20
+      }
+    },
+    {
+      "name": "payload-create-0",
+      "result": {
+        "status": "success",
+        "output": "346100db57610009565b600436106100df57610016565b5f3560e01c5f52610022565b5f51636d4ce63c1461005557610033565b5f516360fe47b11461007b57610044565b5f5163a9cc4718146100a7576100df565b600436106100db57610062565b610067565b5f54602052610071565b6020515f5260205ff35b602436106100db57610088565b600435602052610093565b6020515f5561009d565b6020515f5260205ff35b600436106100db576100b4565b6100b9565b60635f556100c2565b637e46dab660e01b618000526007618004526024618000fd5b5f5ffd5b635de92f8060e01b6180005260ab618004527fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff618024526044618000fd",
+        "storage": {
+          "f2e246bb76df876cef8b38ae84130f4f55de395b": {
+            "0": "0x7"
+          }
+        },
+        "gas": 79202
+      }
+    },
+    {
+      "name": "payload-create-1",
+      "result": {
+        "status": "revert",
+        "output": "",
+        "storage": {},
+        "gas": 20
+      }
+    },
+    {
+      "name": "second-error-create-0",
+      "result": {
+        "status": "success",
+        "output": "346100db57610009565b600436106100df57610016565b5f3560e01c5f52610022565b5f51636d4ce63c1461005557610033565b5f516360fe47b11461007b57610044565b5f5163a9cc4718146100a7576100df565b600436106100db57610062565b610067565b5f54602052610071565b6020515f5260205ff35b602436106100db57610088565b600435602052610093565b6020515f5561009d565b6020515f5260205ff35b600436106100db576100b4565b6100b9565b60635f556100c2565b637e46dab660e01b618000526007618004526024618000fd5b5f5ffd5b637e46dab660e01b618000526009618004526024618000fd",
+        "storage": {
+          "f2e246bb76df876cef8b38ae84130f4f55de395b": {
+            "0": "0x7"
+          }
+        },
+        "gas": 71796
+      }
+    },
+    {
+      "name": "second-error-create-1",
+      "result": {
+        "status": "revert",
+        "output": "",
+        "storage": {},
+        "gas": 20
+      }
+    },
+    {
+      "name": "empty-create-0",
+      "result": {
+        "status": "success",
+        "output": "346100db57610009565b600436106100db57610016565b5f3560e01c5f52610022565b5f51636d4ce63c1461005557610033565b5f516360fe47b11461007b57610044565b5f5163a9cc4718146100a7576100db565b600436106100db57610062565b610067565b5f54602052610071565b6020515f5260205ff35b602436106100db57610088565b600435602052610093565b6020515f5561009d565b6020515f5260205ff35b600436106100db576100b4565b6100b9565b60635f556100c2565b637e46dab660e01b618000526007618004526024618000fd5b5f5ffd",
+        "storage": {
+          "f2e246bb76df876cef8b38ae84130f4f55de395b": {
+            "0": "0x7"
+          }
+        },
+        "gas": 66790
+      }
+    },
+    {
+      "name": "empty-create-1",
+      "result": {
+        "status": "revert",
+        "output": "",
+        "storage": {},
+        "gas": 20
+      }
+    },
+    {
+      "name": "omitted-create-0",
+      "result": {
+        "status": "success",
+        "output": "346100db57610009565b600436106100db57610016565b5f3560e01c5f52610022565b5f51636d4ce63c1461005557610033565b5f516360fe47b11461007b57610044565b5f5163a9cc4718146100a7576100db565b600436106100db57610062565b610067565b5f54602052610071565b6020515f5260205ff35b602436106100db57610088565b600435602052610093565b6020515f5561009d565b6020515f5260205ff35b600436106100db576100b4565b6100b9565b60635f556100c2565b637e46dab660e01b618000526007618004526024618000fd5b5f5ffd",
+        "storage": {
+          "f2e246bb76df876cef8b38ae84130f4f55de395b": {
+            "0": "0x7"
+          }
+        },
+        "gas": 66790
+      }
+    },
+    {
+      "name": "omitted-create-1",
+      "result": {
+        "status": "revert",
+        "output": "",
+        "storage": {},
+        "gas": 20
+      }
+    }
+  ],
+  "artifacts": {
+    "nullary": {
+      "runtime.hex": "03fc4763f06697a8238af18e4cc155476da5f4dd30138f88ce56130bbb767b91",
+      "init.hex": "64d1a2858e840664f3b1dfed62ff2a5d5a2a4599eb3a6f174e00e75305e35dcb",
+      "abi.json": "2eedc12260f4596a0d274ee868e00730b285e81ee2fc5bf0234cda74ddd3e3ee",
+      "layout.json": "0298522e6708c0bd52e54c3fa5e4273dfd6446e35803d1d1064f672f438649fd",
+      "axioms.txt": "61f8b9f0cb83fe5250e13b39b40e705d106caa92810d60168dfe5f4c3a89a302"
+    },
+    "payload": {
+      "runtime.hex": "388d71644b0e0e20f0d876e482eeb61beb82a819caf4fec7ea7d86eb88bdbf48",
+      "init.hex": "fb6b7388bd29482220fae184f676466ede334fa6506148384360fc83fa5724dd",
+      "abi.json": "4a0187cdeea5fabb954e417417bd7551162cfbcae6d34aefe3482eae49c417c0",
+      "layout.json": "0298522e6708c0bd52e54c3fa5e4273dfd6446e35803d1d1064f672f438649fd",
+      "axioms.txt": "61f8b9f0cb83fe5250e13b39b40e705d106caa92810d60168dfe5f4c3a89a302"
+    },
+    "second-error": {
+      "runtime.hex": "51e1a8f71ec288cdc51a0a847573e5a3ce3735ad19154774cf1d36cfdec93eda",
+      "init.hex": "9ec5289c721f07396d33e7df5d7f7aba6f202bbcbf9be5daa2d0970f4febbf8b",
+      "abi.json": "2eedc12260f4596a0d274ee868e00730b285e81ee2fc5bf0234cda74ddd3e3ee",
+      "layout.json": "0298522e6708c0bd52e54c3fa5e4273dfd6446e35803d1d1064f672f438649fd",
+      "axioms.txt": "61f8b9f0cb83fe5250e13b39b40e705d106caa92810d60168dfe5f4c3a89a302"
+    },
+    "empty": {
+      "runtime.hex": "ae92d21f9f7e1bcbbd579af71fc813597c71dd65e58eac41a3dd0804a14f1bb2",
+      "init.hex": "bdafd2d39a6b50b80f3460a452c023ae78e0c899147557a79769857d93af364c",
+      "abi.json": "2eedc12260f4596a0d274ee868e00730b285e81ee2fc5bf0234cda74ddd3e3ee",
+      "layout.json": "0298522e6708c0bd52e54c3fa5e4273dfd6446e35803d1d1064f672f438649fd",
+      "axioms.txt": "61f8b9f0cb83fe5250e13b39b40e705d106caa92810d60168dfe5f4c3a89a302"
+    },
+    "omitted": {
+      "runtime.hex": "ae92d21f9f7e1bcbbd579af71fc813597c71dd65e58eac41a3dd0804a14f1bb2",
+      "init.hex": "bdafd2d39a6b50b80f3460a452c023ae78e0c899147557a79769857d93af364c",
+      "abi.json": "86c14c3e34632d3a90e0404d7a682116a01b0d264c7d2727c9286f98752464ec",
+      "layout.json": "0298522e6708c0bd52e54c3fa5e4273dfd6446e35803d1d1064f672f438649fd",
+      "axioms.txt": "61f8b9f0cb83fe5250e13b39b40e705d106caa92810d60168dfe5f4c3a89a302"
+    }
+  }
+}

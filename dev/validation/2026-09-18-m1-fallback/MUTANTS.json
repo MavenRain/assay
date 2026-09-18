@@ -1,0 +1,74 @@
+[
+  {
+    "name": "SHORT",
+    "mutated": true,
+    "exit": 1,
+    "marker": "FALLBACK-EVM nullary-empty"
+  },
+  {
+    "name": "SHORT",
+    "mutated": false,
+    "exit": 0,
+    "marker": "FALLBACK-EVM nullary-empty"
+  },
+  {
+    "name": "UNKNOWN",
+    "mutated": true,
+    "exit": 1,
+    "marker": "FALLBACK-EVM nullary-unknown"
+  },
+  {
+    "name": "UNKNOWN",
+    "mutated": false,
+    "exit": 0,
+    "marker": "FALLBACK-EVM nullary-unknown"
+  },
+  {
+    "name": "VALUE",
+    "mutated": true,
+    "exit": 1,
+    "marker": "FALLBACK-EVM nullary-value-unknown"
+  },
+  {
+    "name": "VALUE",
+    "mutated": false,
+    "exit": 0,
+    "marker": "FALLBACK-EVM nullary-value-unknown"
+  },
+  {
+    "name": "MODEL",
+    "mutated": true,
+    "exit": 1,
+    "marker": "FALLBACK-MODEL nullary-unknown"
+  },
+  {
+    "name": "MODEL",
+    "mutated": false,
+    "exit": 0,
+    "marker": "FALLBACK-MODEL nullary-unknown"
+  },
+  {
+    "name": "CLOSED",
+    "mutated": true,
+    "exit": 1,
+    "marker": "FALLBACK-REFUSAL core-return emit"
+  },
+  {
+    "name": "CLOSED",
+    "mutated": false,
+    "exit": 0,
+    "marker": "FALLBACK-REFUSAL core-return emit"
+  },
+  {
+    "name": "ABI",
+    "mutated": true,
+    "exit": 1,
+    "marker": "FALLBACK-ABI nullary"
+  },
+  {
+    "name": "ABI",
+    "mutated": false,
+    "exit": 0,
+    "marker": "FALLBACK-ABI nullary"
+  }
+]

@@ -81,6 +81,12 @@ are refused. Runtime `pure ()` is also refused. The
 [context slice](M1-CONTEXT-SURFACE.md) describes caller bindings and the
 invariant restrictions on deployer initialization.
 
+An optional `fallback : Eff Sig Never := revert ERROR` handles calldata
+shorter than four bytes and unmatched selectors. Error arguments are
+parenthesized Word literals. An empty `revert` is also accepted. The
+[fallback slice](M1-FALLBACK.md) defines its nonpayable ABI row and the
+separate refusal behavior for truncated known-entry arguments.
+
 ## Bounds and remaining work
 
 Names are ASCII identifiers of at most 64 characters. Language and protocol

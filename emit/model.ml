@@ -4,7 +4,7 @@ module E = Emit
 let ( let* ) = Result.bind
 type storage = (Z.t * Z.t) list
 type outcome = { reverted : bool; output : string; storage : storage }
-type program = Closed of E.effect | Entries of E.entry list
+type program = Closed of E.effect | Entries of E.entry list * E.transaction
 type input = { data : string; value : Z.t; caller : Z.t; initial : storage }
 type error = Source of E.error | Input of string | Missing_memory of int
 
@@ -12,13 +12,11 @@ let error = function
   | Source e -> E.error e
   | Input detail -> "RUN_INPUT: " ^ detail
   | Missing_memory index -> "RUN_MEMORY: missing snapshot " ^ string_of_int index
-
 let segment offset length text =
   String.to_seq text |> Seq.drop offset |> Seq.take length |> String.of_seq
 let unprefix text =
   if String.starts_with ~prefix:"0x" text
   then String.to_seq text |> Seq.drop 2 |> String.of_seq else text
-
 let word text =
   let text = String.lowercase_ascii text in
   let hex = String.starts_with ~prefix:"0x" text in
@@ -28,13 +26,11 @@ let word text =
      not (String.for_all valid digits) then Error (Input "expected a decimal or 0x-prefixed uint256")
   else let value = Z.of_string_base (if hex then 16 else 10) digits in
     if Z.numbits value > 256 then Error (Input "word exceeds uint256") else Ok value
-
 let calldata text =
   let digits = unprefix (String.lowercase_ascii text) in
   if String.length digits > 65536 || Int.rem (String.length digits) 2 <> 0 ||
      not (String.for_all (fun c -> (c >= '0' && c <= '9') || (c >= 'a' && c <= 'f')) digits)
   then Error (Input "calldata requires at most 32768 whole hex bytes") else Ok digits
-
 let parse_storage rows =
   if List.length rows > 1024 then Error (Input "at most 1024 initial storage slots") else
   List.fold_left (fun result row ->
@@ -71,7 +67,6 @@ let rec closed caller storage = function
   | E.Read slot -> success storage (get storage slot)
   | E.Put (slot, value, next) -> closed caller (put storage slot value) next
   | E.Deployer (slot, next) -> closed caller (put storage slot caller) next
-
 let operand memory = function
   | E.Constant value -> Ok value
   | E.Memory index -> List.assoc_opt index memory |> Option.to_result ~none:(Missing_memory index)
@@ -108,13 +103,13 @@ let rec transaction caller initial storage memory = function
 let prepare ~export globals erased =
   let source result = Result.map_error (fun e -> Source e) result in
   if Option.is_some (Kanon_kernel.Global.find "Entry" globals) then
-    let* entries, constructor, _fields, _errors = source (E.prepare_m1 ~export globals erased) in
+    let* entries, constructor, _fields, _errors, fallback = source (E.prepare_m1 ~export globals erased) in
     let rec valid = function
       | E.Return value when Z.equal value Z.zero -> Ok ()
       | E.Put (_, _, next) -> valid next
       | E.Deployer (_, next) -> valid next
       | E.Return _ | E.Read _ -> Error (Source (E.M1_shape "constructor must end with ret zero")) in
-    let* () = valid constructor in Ok (Entries entries)
+    let* () = valid constructor in Ok (Entries (entries, Option.value fallback ~default:E.Abort))
   else let* effect, _fields = source (E.prepare_m0 ~export globals erased) in Ok (Closed effect)
 
 (* Input is an already deployed storage image. Constructors are validated
@@ -122,17 +117,18 @@ let prepare ~export globals erased =
 let run program input =
   match program with
   | Closed effect -> Ok (closed input.caller input.initial effect)
-  | Entries entries ->
-    if not (Z.equal input.value Z.zero) || String.length input.data < 8 then Ok (revert input.initial) else
+  | Entries (entries, fallback) ->
+    if not (Z.equal input.value Z.zero) then Ok (revert input.initial) else
+    let default = transaction input.caller input.initial input.initial [] fallback in
+    if String.length input.data < 8 then default else
     let selector = segment 0 8 input.data in
-    Option.fold ~none:(Ok (revert input.initial)) ~some:(fun entry ->
+    Option.fold ~none:default ~some:(fun entry ->
       let count = List.length entry.E.abi_entry.inputs in
       if String.length input.data < 8 + 64 * count then Ok (revert input.initial) else
       let memory = List.init count (fun index ->
         index + 1, Z.of_string_base 16 (segment (8 + 64 * index) 64 input.data)) in
       transaction input.caller input.initial input.initial memory entry.E.tx)
       (List.find_opt (fun entry -> entry.E.selector = selector) entries)
-
 let print outcome =
   let quote = Assay_abi.Abi.quote in
   let entries = canonical outcome.storage |> List.map (fun (key, value) ->

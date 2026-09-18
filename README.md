@@ -76,6 +76,8 @@ with a common numeric representation for constants, guards and proofs.
 The twenty-eighth adds [inferred Word bindings](dev/M1-INFERRED-WORDS.md),
 letting runtime `let` bindings omit their Word annotation while retaining
 the same checked scope and arithmetic evidence.
+The twenty-ninth adds [explicit reverting fallbacks](dev/M1-FALLBACK.md),
+with typed error payloads for short calldata and unmatched selectors.
 
 ```sh
 zsh -f dev/dunecho.sh build

@@ -1,0 +1,386 @@
+[
+  {
+    "name": "duplicate",
+    "diagnostic": "SURFACE_DUPLICATE: duplicate fallback",
+    "records": [
+      {
+        "command": "check",
+        "exit": 1,
+        "stdout": "",
+        "stderr": "line 12, column 1: SURFACE_DUPLICATE: duplicate fallback\n"
+      },
+      {
+        "command": "emit",
+        "exit": 1,
+        "stdout": "",
+        "stderr": "line 12, column 1: SURFACE_DUPLICATE: duplicate fallback\n"
+      },
+      {
+        "command": "run",
+        "exit": 1,
+        "stdout": "",
+        "stderr": "line 12, column 1: SURFACE_DUPLICATE: duplicate fallback\n"
+      }
+    ]
+  },
+  {
+    "name": "wrong-type",
+    "diagnostic": "SURFACE_SYNTAX:",
+    "records": [
+      {
+        "command": "check",
+        "exit": 1,
+        "stdout": "",
+        "stderr": "line 10, column 22: SURFACE_SYNTAX: expected Never\n"
+      },
+      {
+        "command": "emit",
+        "exit": 1,
+        "stdout": "",
+        "stderr": "line 10, column 22: SURFACE_SYNTAX: expected Never\n"
+      },
+      {
+        "command": "run",
+        "exit": 1,
+        "stdout": "",
+        "stderr": "line 10, column 22: SURFACE_SYNTAX: expected Never\n"
+      }
+    ]
+  },
+  {
+    "name": "missing-type",
+    "diagnostic": "SURFACE_SYNTAX:",
+    "records": [
+      {
+        "command": "check",
+        "exit": 1,
+        "stdout": "",
+        "stderr": "line 10, column 12: SURFACE_SYNTAX: expected :\n"
+      },
+      {
+        "command": "emit",
+        "exit": 1,
+        "stdout": "",
+        "stderr": "line 10, column 12: SURFACE_SYNTAX: expected :\n"
+      },
+      {
+        "command": "run",
+        "exit": 1,
+        "stdout": "",
+        "stderr": "line 10, column 12: SURFACE_SYNTAX: expected :\n"
+      }
+    ]
+  },
+  {
+    "name": "return",
+    "diagnostic": "SURFACE_SYNTAX:",
+    "records": [
+      {
+        "command": "check",
+        "exit": 1,
+        "stdout": "",
+        "stderr": "line 10, column 31: SURFACE_SYNTAX: expected revert\n"
+      },
+      {
+        "command": "emit",
+        "exit": 1,
+        "stdout": "",
+        "stderr": "line 10, column 31: SURFACE_SYNTAX: expected revert\n"
+      },
+      {
+        "command": "run",
+        "exit": 1,
+        "stdout": "",
+        "stderr": "line 10, column 31: SURFACE_SYNTAX: expected revert\n"
+      }
+    ]
+  },
+  {
+    "name": "do",
+    "diagnostic": "SURFACE_SYNTAX:",
+    "records": [
+      {
+        "command": "check",
+        "exit": 1,
+        "stdout": "",
+        "stderr": "line 10, column 31: SURFACE_SYNTAX: expected revert\n"
+      },
+      {
+        "command": "emit",
+        "exit": 1,
+        "stdout": "",
+        "stderr": "line 10, column 31: SURFACE_SYNTAX: expected revert\n"
+      },
+      {
+        "command": "run",
+        "exit": 1,
+        "stdout": "",
+        "stderr": "line 10, column 31: SURFACE_SYNTAX: expected revert\n"
+      }
+    ]
+  },
+  {
+    "name": "write",
+    "diagnostic": "SURFACE_SYNTAX:",
+    "records": [
+      {
+        "command": "check",
+        "exit": 1,
+        "stdout": "",
+        "stderr": "line 10, column 31: SURFACE_SYNTAX: expected revert\n"
+      },
+      {
+        "command": "emit",
+        "exit": 1,
+        "stdout": "",
+        "stderr": "line 10, column 31: SURFACE_SYNTAX: expected revert\n"
+      },
+      {
+        "command": "run",
+        "exit": 1,
+        "stdout": "",
+        "stderr": "line 10, column 31: SURFACE_SYNTAX: expected revert\n"
+      }
+    ]
+  },
+  {
+    "name": "unknown-error",
+    "diagnostic": "SURFACE_ERROR: unknown error Missing",
+    "records": [
+      {
+        "command": "check",
+        "exit": 1,
+        "stdout": "",
+        "stderr": "line 10, column 38: SURFACE_ERROR: unknown error Missing\n"
+      },
+      {
+        "command": "emit",
+        "exit": 1,
+        "stdout": "",
+        "stderr": "line 10, column 38: SURFACE_ERROR: unknown error Missing\n"
+      },
+      {
+        "command": "run",
+        "exit": 1,
+        "stdout": "",
+        "stderr": "line 10, column 38: SURFACE_ERROR: unknown error Missing\n"
+      }
+    ]
+  },
+  {
+    "name": "missing-arg",
+    "diagnostic": "SURFACE_ERROR: wrong error argument count",
+    "records": [
+      {
+        "command": "check",
+        "exit": 1,
+        "stdout": "",
+        "stderr": "line 10, column 38: SURFACE_ERROR: wrong error argument count\n"
+      },
+      {
+        "command": "emit",
+        "exit": 1,
+        "stdout": "",
+        "stderr": "line 10, column 38: SURFACE_ERROR: wrong error argument count\n"
+      },
+      {
+        "command": "run",
+        "exit": 1,
+        "stdout": "",
+        "stderr": "line 10, column 38: SURFACE_ERROR: wrong error argument count\n"
+      }
+    ]
+  },
+  {
+    "name": "extra-arg",
+    "diagnostic": "SURFACE_ERROR: wrong error argument count",
+    "records": [
+      {
+        "command": "check",
+        "exit": 1,
+        "stdout": "",
+        "stderr": "line 10, column 38: SURFACE_ERROR: wrong error argument count\n"
+      },
+      {
+        "command": "emit",
+        "exit": 1,
+        "stdout": "",
+        "stderr": "line 10, column 38: SURFACE_ERROR: wrong error argument count\n"
+      },
+      {
+        "command": "run",
+        "exit": 1,
+        "stdout": "",
+        "stderr": "line 10, column 38: SURFACE_ERROR: wrong error argument count\n"
+      }
+    ]
+  },
+  {
+    "name": "entry-scope",
+    "diagnostic": "SURFACE_SCOPE: unbound word amount",
+    "records": [
+      {
+        "command": "check",
+        "exit": 1,
+        "stdout": "",
+        "stderr": "line 10, column 46: SURFACE_SCOPE: unbound word amount\n"
+      },
+      {
+        "command": "emit",
+        "exit": 1,
+        "stdout": "",
+        "stderr": "line 10, column 46: SURFACE_SCOPE: unbound word amount\n"
+      },
+      {
+        "command": "run",
+        "exit": 1,
+        "stdout": "",
+        "stderr": "line 10, column 46: SURFACE_SCOPE: unbound word amount\n"
+      }
+    ]
+  },
+  {
+    "name": "field-scope",
+    "diagnostic": "SURFACE_SCOPE: unbound word cell",
+    "records": [
+      {
+        "command": "check",
+        "exit": 1,
+        "stdout": "",
+        "stderr": "line 10, column 46: SURFACE_SCOPE: unbound word cell\n"
+      },
+      {
+        "command": "emit",
+        "exit": 1,
+        "stdout": "",
+        "stderr": "line 10, column 46: SURFACE_SCOPE: unbound word cell\n"
+      },
+      {
+        "command": "run",
+        "exit": 1,
+        "stdout": "",
+        "stderr": "line 10, column 46: SURFACE_SCOPE: unbound word cell\n"
+      }
+    ]
+  },
+  {
+    "name": "large-word",
+    "diagnostic": "SURFACE_WORD:",
+    "records": [
+      {
+        "command": "check",
+        "exit": 1,
+        "stdout": "",
+        "stderr": "line 10, column 51: SURFACE_WORD: expected a decimal or hexadecimal uint256\n"
+      },
+      {
+        "command": "emit",
+        "exit": 1,
+        "stdout": "",
+        "stderr": "line 10, column 51: SURFACE_WORD: expected a decimal or hexadecimal uint256\n"
+      },
+      {
+        "command": "run",
+        "exit": 1,
+        "stdout": "",
+        "stderr": "line 10, column 51: SURFACE_WORD: expected a decimal or hexadecimal uint256\n"
+      }
+    ]
+  },
+  {
+    "name": "negative",
+    "diagnostic": "SURFACE_TOKEN:",
+    "records": [
+      {
+        "command": "check",
+        "exit": 1,
+        "stdout": "",
+        "stderr": "line 10, column 51: SURFACE_TOKEN: unexpected character\n"
+      },
+      {
+        "command": "emit",
+        "exit": 1,
+        "stdout": "",
+        "stderr": "line 10, column 51: SURFACE_TOKEN: unexpected character\n"
+      },
+      {
+        "command": "run",
+        "exit": 1,
+        "stdout": "",
+        "stderr": "line 10, column 51: SURFACE_TOKEN: unexpected character\n"
+      }
+    ]
+  },
+  {
+    "name": "trailing-step",
+    "diagnostic": "SURFACE_DECLARATION:",
+    "records": [
+      {
+        "command": "check",
+        "exit": 1,
+        "stdout": "",
+        "stderr": "line 10, column 56: SURFACE_DECLARATION: expected entry, error, invariant, predicate, proof, constructor, fallback or end of input\n"
+      },
+      {
+        "command": "emit",
+        "exit": 1,
+        "stdout": "",
+        "stderr": "line 10, column 56: SURFACE_DECLARATION: expected entry, error, invariant, predicate, proof, constructor, fallback or end of input\n"
+      },
+      {
+        "command": "run",
+        "exit": 1,
+        "stdout": "",
+        "stderr": "line 10, column 56: SURFACE_DECLARATION: expected entry, error, invariant, predicate, proof, constructor, fallback or end of input\n"
+      }
+    ]
+  },
+  {
+    "name": "reserved-name",
+    "diagnostic": "SURFACE_NAME:",
+    "records": [
+      {
+        "command": "check",
+        "exit": 1,
+        "stdout": "",
+        "stderr": "line 5, column 9: SURFACE_NAME: expected an unreserved identifier of at most 64 characters\n"
+      },
+      {
+        "command": "emit",
+        "exit": 1,
+        "stdout": "",
+        "stderr": "line 5, column 9: SURFACE_NAME: expected an unreserved identifier of at most 64 characters\n"
+      },
+      {
+        "command": "run",
+        "exit": 1,
+        "stdout": "",
+        "stderr": "line 5, column 9: SURFACE_NAME: expected an unreserved identifier of at most 64 characters\n"
+      }
+    ]
+  },
+  {
+    "name": "reserved-never",
+    "diagnostic": "SURFACE_NAME:",
+    "records": [
+      {
+        "command": "check",
+        "exit": 1,
+        "stdout": "",
+        "stderr": "line 5, column 9: SURFACE_NAME: expected an unreserved identifier of at most 64 characters\n"
+      },
+      {
+        "command": "emit",
+        "exit": 1,
+        "stdout": "",
+        "stderr": "line 5, column 9: SURFACE_NAME: expected an unreserved identifier of at most 64 characters\n"
+      },
+      {
+        "command": "run",
+        "exit": 1,
+        "stdout": "",
+        "stderr": "line 5, column 9: SURFACE_NAME: expected an unreserved identifier of at most 64 characters\n"
+      }
+    ]
+  }
+]

@@ -1,0 +1,170 @@
+[
+  {
+    "name": "core-return",
+    "diagnostic": "M1_EMIT: fallback must be a closed revert",
+    "records": [
+      {
+        "command": "check",
+        "exit": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      {
+        "command": "emit",
+        "exit": 2,
+        "stdout": "",
+        "stderr": "assay: emit: M1_EMIT: fallback must be a closed revert\n"
+      },
+      {
+        "command": "run",
+        "exit": 2,
+        "stdout": "",
+        "stderr": "assay: run: M1_EMIT: fallback must be a closed revert\n"
+      }
+    ]
+  },
+  {
+    "name": "core-write",
+    "diagnostic": "M1_EMIT: fallback must be a closed revert",
+    "records": [
+      {
+        "command": "check",
+        "exit": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      {
+        "command": "emit",
+        "exit": 2,
+        "stdout": "",
+        "stderr": "assay: emit: M1_EMIT: fallback must be a closed revert\n"
+      },
+      {
+        "command": "run",
+        "exit": 2,
+        "stdout": "",
+        "stderr": "assay: run: M1_EMIT: fallback must be a closed revert\n"
+      }
+    ]
+  },
+  {
+    "name": "core-load",
+    "diagnostic": "M1_EMIT: fallback must be a closed revert",
+    "records": [
+      {
+        "command": "check",
+        "exit": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      {
+        "command": "emit",
+        "exit": 2,
+        "stdout": "",
+        "stderr": "assay: emit: M1_EMIT: fallback must be a closed revert\n"
+      },
+      {
+        "command": "run",
+        "exit": 2,
+        "stdout": "",
+        "stderr": "assay: run: M1_EMIT: fallback must be a closed revert\n"
+      }
+    ]
+  },
+  {
+    "name": "core-caller",
+    "diagnostic": "M1_EMIT: fallback must be a closed revert",
+    "records": [
+      {
+        "command": "check",
+        "exit": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      {
+        "command": "emit",
+        "exit": 2,
+        "stdout": "",
+        "stderr": "assay: emit: M1_EMIT: fallback must be a closed revert\n"
+      },
+      {
+        "command": "run",
+        "exit": 2,
+        "stdout": "",
+        "stderr": "assay: run: M1_EMIT: fallback must be a closed revert\n"
+      }
+    ]
+  },
+  {
+    "name": "core-compare",
+    "diagnostic": "M1_EMIT: fallback must be a closed revert",
+    "records": [
+      {
+        "command": "check",
+        "exit": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      {
+        "command": "emit",
+        "exit": 2,
+        "stdout": "",
+        "stderr": "assay: emit: M1_EMIT: fallback must be a closed revert\n"
+      },
+      {
+        "command": "run",
+        "exit": 2,
+        "stdout": "",
+        "stderr": "assay: run: M1_EMIT: fallback must be a closed revert\n"
+      }
+    ]
+  },
+  {
+    "name": "core-arithmetic",
+    "diagnostic": "M1_EMIT: fallback must be a closed revert",
+    "records": [
+      {
+        "command": "check",
+        "exit": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      {
+        "command": "emit",
+        "exit": 2,
+        "stdout": "",
+        "stderr": "assay: emit: M1_EMIT: fallback must be a closed revert\n"
+      },
+      {
+        "command": "run",
+        "exit": 2,
+        "stdout": "",
+        "stderr": "assay: run: M1_EMIT: fallback must be a closed revert\n"
+      }
+    ]
+  },
+  {
+    "name": "core-proved",
+    "diagnostic": "M1_EMIT: fallback must be a closed revert",
+    "records": [
+      {
+        "command": "check",
+        "exit": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      {
+        "command": "emit",
+        "exit": 2,
+        "stdout": "",
+        "stderr": "assay: emit: M1_EMIT: fallback must be a closed revert\n"
+      },
+      {
+        "command": "run",
+        "exit": 2,
+        "stdout": "",
+        "stderr": "assay: run: M1_EMIT: fallback must be a closed revert\n"
+      }
+    ]
+  }
+]

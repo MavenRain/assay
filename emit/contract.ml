@@ -41,7 +41,6 @@ type body = step list * ending
 type entry = { name : token; args : token list; body : body }
 type error_row = { error_name : token; error_args : token list }
 type invariant = { invariant_name : token; claim : claim }
-
 let fail at code detail =
   Error (Error.Parse ("SURFACE_" ^ code ^ ": " ^ detail, at.line, at.col))
 let here = function at :: _rest -> at | [] -> { text = ""; line = 1; col = 1 }
@@ -63,7 +62,6 @@ let rec space line col = function
     let col, rest = comment (col + 2) rest in space line col rest
   | [] -> line, col, []
   | c :: rest -> line, col, c :: rest
-
 let lex chars =
   let rec scan count line col acc chars =
     let line, col, chars = space line col chars in
@@ -79,8 +77,7 @@ let lex chars =
     | ('(' | ')' | '{' | '}' | ':' | ';' | '.' | ',' as c) :: rest -> next (String.make 1 c) rest
     | _c :: _rest -> fail (at "") "TOKEN" "unexpected character" in
   scan 0 1 1 [] chars
-
-let reserved = ["Both"; "EqWord"; "eqWord"; "predicate"; "caller"; "deployer"] @ String.split_on_char ' '
+let reserved = ["Both"; "EqWord"; "eqWord"; "predicate"; "caller"; "deployer"; "fallback"; "Never"] @ String.split_on_char ' '
   "contract where storage entry constructor error invariant proof do sload sstore add sub guard le let pure revert Word Eff Sig Tx ResultWord Storage Entry Error main word ret put read EvmOpcodes done store load abort reject def axiom fun inj of case match as return with tuple sum prod absurd Prop Type in auto mu mutual end nu and rec natAdd natSub natMul natEq natLt Le Lt256 AddFits leWord lt256 wordNat guardLe guardAdd addLt subLe"
 let identifier tokens = match tokens with
   | at :: rest when Recognize.identifier at.text && at.text <> "_" &&
@@ -93,7 +90,6 @@ let expect text tokens = match tokens with
 let rec sequence words tokens = match words with
   | [] -> Ok tokens
   | text :: rest -> let* tokens = expect text tokens in sequence rest tokens
-
 let literal at =
   let hexadecimal = String.starts_with ~prefix:"0x" (String.lowercase_ascii at.text) in
   let base, first, maximum = if hexadecimal then 16, 2, 66 else 10, 0, 78 in
@@ -141,7 +137,6 @@ let error_values tokens =
       let* v, rest = value 0 tokens in more (v :: acc) rest
     | [] | _ :: _ -> Ok (List.rev acc, tokens) in
   more [] tokens
-
 let bound operand runtime tokens =
   match tokens with
   | at :: rest when at.text = (if runtime then "leWord" else "Le") ->
@@ -273,7 +268,6 @@ let guard_condition rest =
       args [] rest in
   let* rest = expect "(" rest in let* condition, rest = condition rest in
   let* rest = expect ")" rest in Ok ((error, condition), rest)
-
 let rec condition_claim = function
   | Check predicate -> Bound predicate
   | Conjoin (left, right) -> Both (condition_claim left, condition_claim right)
@@ -768,7 +762,7 @@ let constructor fields (steps, ending) =
       fail at "CONSTRUCTOR" "constructor accepts literal stores and deployer initialization only")
     steps (Ok "(ret (word 256 0))")
 
-let generate state fields entries errors invariants predicates helpers init =
+let generate state fields entries errors invariants predicates helpers init fallback =
   let aliases = List.sort_uniq String.compare
     (List.map (fun at -> at.text) (fields @ List.concat_map (fun row -> row.args) entries @
       List.concat_map (fun row -> row.error_args) errors)) in
@@ -782,6 +776,9 @@ let generate state fields entries errors invariants predicates helpers init =
   let field_slots = List.mapi (fun i at -> at.text, "storage." ^ string_of_int i) fields in
   let* predicates = predicates_scope predicates in
   let* helper_scope, helper_source = helpers_source predicates helpers in
+  let* fallback_source = Option.fold ~none:(Ok "") ~some:(fun body ->
+    let* term = transaction [] errors [] predicates helper_scope [] body in
+    Ok ("def fallback : Tx := " ^ term ^ "\n")) fallback in
   let* init_term = Option.fold ~none:(Ok "(ret (word 256 0))") ~some:(constructor field_slots) init in
   let initial = List.map (fun at -> at.text, Word_value "(word 256 0)") fields in
   let* initial = List.fold_left (fun result step -> let* state = result in match step with
@@ -834,7 +831,7 @@ let generate state fields entries errors invariants predicates helpers init =
       (List.mapi (fun i _at -> "word 256 " ^ string_of_int i) fields) ^ ")\n" ^
     String.concat "" (List.map (fun row -> decl row.name.text (arguments row)) entries) ^
     decl "Entry" (collection "sum" (List.map (fun row -> row.name) entries)) ^
-    "def constructor : Eff := " ^ init ^ "\n" ^
+    "def constructor : Eff := " ^ init ^ "\n" ^ fallback_source ^
     "def main : Entry -> Tx := fun (_assay_entry : Entry) => case _assay_entry with\n" ^
     String.concat "\n" branches ^ "\n")
 
@@ -845,40 +842,45 @@ let parse tokens =
   let* state, tokens = identifier tokens in
   let* tokens = expect ":=" tokens in
   let* fields, tokens = fields tokens in
-  let rec declarations entries errors invariants predicates helpers init tokens =
+  let rec declarations entries errors invariants predicates helpers init fallback tokens =
     let continue = declarations in match tokens with
     | { text = "entry"; _ } :: rest ->
       let* name, rest = identifier rest in
       let* _names = add_name name (List.map (fun row -> row.name) entries) in
       let* args, rest = arguments rest in
       let* rest = sequence [":"; "Eff"; "Sig"; "Word"; ":="] rest in
-      let* body, rest = body rest in continue (entries @ [{ name; args; body }]) errors invariants predicates helpers init rest
+      let* body, rest = body rest in continue (entries @ [{ name; args; body }]) errors invariants predicates helpers init fallback rest
     | { text = "error"; _ } :: rest ->
       let* error_name, rest = identifier rest in
       let* _names = add_name error_name (List.map (fun row -> row.error_name) errors) in
       let* error_args, rest = arguments rest in
-      continue entries (errors @ [{error_name; error_args}]) invariants predicates helpers init rest
+      continue entries (errors @ [{error_name; error_args}]) invariants predicates helpers init fallback rest
     | { text = "invariant"; _ } :: rest ->
       let* row, rest = invariant state fields rest in
       let* _names = add_name row.invariant_name (List.map (fun row -> row.invariant_name) invariants) in
-      continue entries errors (invariants @ [row]) predicates helpers init rest
+      continue entries errors (invariants @ [row]) predicates helpers init fallback rest
     | { text = "predicate"; _ } :: rest ->
       let* row, rest = predicate_declaration rest in
       let* _names = add_name row.predicate_name (List.map (fun row -> row.predicate_name) predicates) in
-      continue entries errors invariants (predicates @ [row]) helpers init rest
+      continue entries errors invariants (predicates @ [row]) helpers init fallback rest
     | { text = "proof"; _ } :: rest ->
       let* row, rest = helper rest in
       let* _names = add_name row.helper_name (List.map (fun row -> row.helper_name) helpers) in
-      continue entries errors invariants predicates (helpers @ [row]) init rest
+      continue entries errors invariants predicates (helpers @ [row]) init fallback rest
     | ({ text = "constructor"; _ } as at) :: rest ->
       if Option.is_some init then fail at "DUPLICATE" "duplicate constructor" else
       let* rest = expect ":=" rest in
-      let* init, rest = body rest in continue entries errors invariants predicates helpers (Some init) rest
+      let* init, rest = body rest in continue entries errors invariants predicates helpers (Some init) fallback rest
+    | ({ text = "fallback"; _ } as at) :: rest ->
+      if Option.is_some fallback then fail at "DUPLICATE" "duplicate fallback" else
+      let* rest = sequence [":"; "Eff"; "Sig"; "Never"; ":="; "revert"] rest in
+      let* fallback, rest = body ({at with text = "do"} :: {at with text = "revert"} :: rest) in
+      continue entries errors invariants predicates helpers init (Some fallback) rest
     | [{ text = ""; _ }] ->
       if entries = [] then fail name "ENTRY" "at least one entry is required"
-      else let* core = generate state fields entries errors invariants predicates helpers init in Ok (Some name.text, core)
-    | [] | _ :: _ -> fail (here tokens) "DECLARATION" "expected entry, error, invariant, predicate, proof, constructor or end of input" in
-  declarations [] [] [] [] [] None tokens
+      else let* core = generate state fields entries errors invariants predicates helpers init fallback in Ok (Some name.text, core)
+    | [] | _ :: _ -> fail (here tokens) "DECLARATION" "expected entry, error, invariant, predicate, proof, constructor, fallback or end of input" in
+  declarations [] [] [] [] [] None None tokens
 
 (* The route is decided on the byte sequence, so a core file never pays a list cell per byte. *)
 let rec skip_comment seq = match seq () with

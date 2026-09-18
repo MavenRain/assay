@@ -1,0 +1,40 @@
+[
+  {
+    "name": "payload-32",
+    "calldata": "",
+    "value": 0,
+    "expected": {
+      "status": "revert",
+      "output": "0x6535e40a0000000000000000000000000000000000000000000000000000000000000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff0000000000000000000000000000000000000000000000000000000000000002ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff0000000000000000000000000000000000000000000000000000000000000004ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff0000000000000000000000000000000000000000000000000000000000000006ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff0000000000000000000000000000000000000000000000000000000000000008ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000000000000000000000000000000000000000000000000000000000000affffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000000000000000000000000000000000000000000000000000000000000cffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000000000000000000000000000000000000000000000000000000000000effffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff0000000000000000000000000000000000000000000000000000000000000010ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff0000000000000000000000000000000000000000000000000000000000000012ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff0000000000000000000000000000000000000000000000000000000000000014ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff0000000000000000000000000000000000000000000000000000000000000016ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff0000000000000000000000000000000000000000000000000000000000000018ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000000000000000000000000000000000000000000000000000000000001affffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000000000000000000000000000000000000000000000000000000000001cffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000000000000000000000000000000000000000000000000000000000001effffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "storage": {
+        "0": "0x7",
+        "8": "0xb"
+      }
+    },
+    "signed": true
+  },
+  {
+    "name": "payload-33",
+    "diagnostic": "SURFACE_LIMIT:",
+    "records": [
+      {
+        "command": "check",
+        "exit": 1,
+        "stdout": "",
+        "stderr": "line 3, column 434: SURFACE_LIMIT: at most 32 members\n"
+      },
+      {
+        "command": "emit",
+        "exit": 1,
+        "stdout": "",
+        "stderr": "line 3, column 434: SURFACE_LIMIT: at most 32 members\n"
+      },
+      {
+        "command": "run",
+        "exit": 1,
+        "stdout": "",
+        "stderr": "line 3, column 434: SURFACE_LIMIT: at most 32 members\n"
+      }
+    ]
+  }
+]

@@ -1,0 +1,416 @@
+{
+  "base": "3e997f1bb4c69a35ee065018ac1238856cbe3b8c",
+  "pairs": [
+    {
+      "source": "examples/CompoundGuards.asy",
+      "source_sha256": "d9865cbeb150e7de35e19cf7e0a6105e20b80942daaaa25d9f8863477ecc3f96",
+      "files": {
+        "runtime.hex": "675b4c6d6440604f6954dec3d53179e0fe3d1bc95d307e5f2993a5c2cf533555",
+        "init.hex": "a73bfaf3ef9f57f3ed3d53bd98fa91e446577c7cb14a25a3a8ff0ec9170e1013",
+        "abi.json": "646e276a85bb00acd3bb9778beb72ad99f175872b4c5cc276ed67ff884744666",
+        "layout.json": "583f7d585ec855ee10ff3125482acfe5b10494dcabdfd6f64c69f34b60ca4338",
+        "axioms.txt": "61f8b9f0cb83fe5250e13b39b40e705d106caa92810d60168dfe5f4c3a89a302"
+      }
+    },
+    {
+      "source": "examples/CompoundInvariants.asy",
+      "source_sha256": "fd73ed8f7b4b5b434fde04c4fcb5dab2373a60362e1fefa5bb6a5669c88a9573",
+      "files": {
+        "runtime.hex": "e492573d41eba867a0a231170cf233c63edfb207e6b7a7c651d3c9c5a8758530",
+        "init.hex": "b08c30b285361b615b84b3286209d2717275438e721242a5bd63bf270f703710",
+        "abi.json": "73862b69d663b400542d8678422c0a4d36129393442adbcb5982a059178f8b26",
+        "layout.json": "7e7cf4923c8cf21d2916ea6035df2dad60d8013a15546116f418265648a2aa2c",
+        "axioms.txt": "61f8b9f0cb83fe5250e13b39b40e705d106caa92810d60168dfe5f4c3a89a302"
+      }
+    },
+    {
+      "source": "examples/ContextCore.asy",
+      "source_sha256": "9e2132abface4155b82892b90aa66504424bc14b2f83daf8e9c0364319b2760a",
+      "files": {
+        "runtime.hex": "a69cf4f97190a83b507fbf2c464b072ad6d99d34bdc17a0404faf90fa10611a2",
+        "init.hex": "5ca01030d8241a729958282caa12b1d1b4add82c6ce3dc4ea91a0f9ab2f66c1c",
+        "abi.json": "ac0dfd38428ad2520af13aec97788e0dbf38742a5685ebbdf7315056345cd394",
+        "layout.json": "ea777145eed2bede54f26a627603a9794ef85d499b43c81afe5d9ca18505e601",
+        "axioms.txt": "61f8b9f0cb83fe5250e13b39b40e705d106caa92810d60168dfe5f4c3a89a302"
+      }
+    },
+    {
+      "source": "examples/ContextSurface.asy",
+      "source_sha256": "f89dac9fc89b31a1508f5a2ba465d564dd0e05e6dfa8fb301ed56921c8894a51",
+      "files": {
+        "runtime.hex": "a69cf4f97190a83b507fbf2c464b072ad6d99d34bdc17a0404faf90fa10611a2",
+        "init.hex": "5ca01030d8241a729958282caa12b1d1b4add82c6ce3dc4ea91a0f9ab2f66c1c",
+        "abi.json": "ac0dfd38428ad2520af13aec97788e0dbf38742a5685ebbdf7315056345cd394",
+        "layout.json": "432619952c3c41f249b67b00a69c074e7797dbd7b4337c15543cfaba8e8cb68b",
+        "axioms.txt": "61f8b9f0cb83fe5250e13b39b40e705d106caa92810d60168dfe5f4c3a89a302"
+      }
+    },
+    {
+      "source": "examples/Counter.asy",
+      "source_sha256": "4bd0cf71345752c09c524733a8be5b5786d7c22635c4a1c2dd22f4d826185552",
+      "files": {
+        "runtime.hex": "467099e5fd0c1d3799690a7e42699f9c7a6471ab70f3ab8015e1c176788a04b8",
+        "init.hex": "3c0a97a0c22b1cff0d9d620ff1f3de78e7f4db8c5cbf1699177908b566bf2134",
+        "abi.json": "518b21005ae21a24c40bca5e10f3083bbbf5fff66c17e1ee7c543149f615d433",
+        "layout.json": "f774348fe090bbbc64a495c84450206cbc0559221653ff40e9ef5621646819d1",
+        "axioms.txt": "61f8b9f0cb83fe5250e13b39b40e705d106caa92810d60168dfe5f4c3a89a302"
+      }
+    },
+    {
+      "source": "examples/CounterInvariant.asy",
+      "source_sha256": "7f5ffaef61c7cc5a28808a56387fc8dee7cdf72596aac749e19b6296cfc01b43",
+      "files": {
+        "runtime.hex": "00671710c10937904f56f423541e606744896f416eb3192a11599510e0957707",
+        "init.hex": "e67ccb0e2f75078ff5ff26c8ef12c29c49040b363811da603e094a9c28eaf9d7",
+        "abi.json": "b434d23d505714ef973740b3cfef114a92d30be8c45265988e794519f0cd962c",
+        "layout.json": "8b0a280fd1ccba708406f966e0b260815777ab0a24a5026da3b52678d6f64762",
+        "axioms.txt": "61f8b9f0cb83fe5250e13b39b40e705d106caa92810d60168dfe5f4c3a89a302"
+      }
+    },
+    {
+      "source": "examples/CounterProofs.asy",
+      "source_sha256": "b7985707ba8be872e8adca49ea785e6445738e4d2746f1bb39f3f53eca65f178",
+      "files": {
+        "runtime.hex": "3f0df9efa667022f5944a9f877d2562818e9b4add922012d150c0c7ab2f6e5aa",
+        "init.hex": "a4ab8d9223664c78024c4f5e5852960c0c1f2081649855ba2b3a687dcf6cb561",
+        "abi.json": "b434d23d505714ef973740b3cfef114a92d30be8c45265988e794519f0cd962c",
+        "layout.json": "64c266a462f6866f024a14eb72eeabade66aa437a0c675e581023616e32cd2b7",
+        "axioms.txt": "61f8b9f0cb83fe5250e13b39b40e705d106caa92810d60168dfe5f4c3a89a302"
+      }
+    },
+    {
+      "source": "examples/CounterSurface.asy",
+      "source_sha256": "bb48e1b424e59a6e25c09afd7939adbbeb60563a13a9fb4c6fae72e7bff50093",
+      "files": {
+        "runtime.hex": "467099e5fd0c1d3799690a7e42699f9c7a6471ab70f3ab8015e1c176788a04b8",
+        "init.hex": "3c0a97a0c22b1cff0d9d620ff1f3de78e7f4db8c5cbf1699177908b566bf2134",
+        "abi.json": "518b21005ae21a24c40bca5e10f3083bbbf5fff66c17e1ee7c543149f615d433",
+        "layout.json": "f774348fe090bbbc64a495c84450206cbc0559221653ff40e9ef5621646819d1",
+        "axioms.txt": "61f8b9f0cb83fe5250e13b39b40e705d106caa92810d60168dfe5f4c3a89a302"
+      }
+    },
+    {
+      "source": "examples/Errors.asy",
+      "source_sha256": "7c06e3b09e864b88627d06e63c1a5f94d4c45daf19f5d7681398c6aa8361226e",
+      "files": {
+        "runtime.hex": "886a01ad63f1c63b6e42274d02e6b22bfafa3030169a18368178b533182aaf15",
+        "init.hex": "58c8345f8e8786b1b58d2f8202ca383df72482460d759ac305c30b42f5047a52",
+        "abi.json": "6aa276da8b309d54bf7c9c70c90667e427aa66a098852d9f31b0dda945c86def",
+        "layout.json": "f97a4aff0a2fc2d57ac8aac47c37574816d1b135795e62ac48e9ac86592d5700",
+        "axioms.txt": "61f8b9f0cb83fe5250e13b39b40e705d106caa92810d60168dfe5f4c3a89a302"
+      }
+    },
+    {
+      "source": "examples/GuardCore.asy",
+      "source_sha256": "38b3f4f013320d883825c2839679b447253ce52fedaf764f5484e5179da49689",
+      "files": {
+        "runtime.hex": "f036d033ae71faab36d11a1980b67295520667e0e3e769142210e955f20da23e",
+        "init.hex": "a1a58b4cab2d8df37bf4b94d3db1471b5da74e55864c4c20665c182b9831702f",
+        "abi.json": "8a7a255da0f45665ed56864d5aee9566a36f9034af5229f60081f45f3621a7d6",
+        "layout.json": "a7df635753fea90e785b45d0d4b1bf20ee07b746f041180bd9463af0d8d5e407",
+        "axioms.txt": "61f8b9f0cb83fe5250e13b39b40e705d106caa92810d60168dfe5f4c3a89a302"
+      }
+    },
+    {
+      "source": "examples/HexWords.asy",
+      "source_sha256": "34e1ccabe45e994657fe419f633c69a31c3c40cae61f63a53fc2427f358b36e9",
+      "files": {
+        "runtime.hex": "de1040999bb3875d87a8afc0940f770bf093c053777d1ecf5cc12aeb78ccd39a",
+        "init.hex": "876dbcde0de100dbdf2fd4833516335c6ce3ec0279b5afd70f3ee41df942a9dd",
+        "abi.json": "c7f30e416f73474934ea118bec4c317a9c6e35c58c254c407c8f1b537b90584c",
+        "layout.json": "705e0d8642b2b86db68b4a8b7686aa4209ee5b67b59ad1c494b7bc989bbb60f5",
+        "axioms.txt": "61f8b9f0cb83fe5250e13b39b40e705d106caa92810d60168dfe5f4c3a89a302"
+      }
+    },
+    {
+      "source": "examples/InferredArithmetic.asy",
+      "source_sha256": "ffb297d9eb0e65e1fcf09f8b53285e3bc172a1381e82ed0dc756b1f206cd5fad",
+      "files": {
+        "runtime.hex": "3f0df9efa667022f5944a9f877d2562818e9b4add922012d150c0c7ab2f6e5aa",
+        "init.hex": "a4ab8d9223664c78024c4f5e5852960c0c1f2081649855ba2b3a687dcf6cb561",
+        "abi.json": "b434d23d505714ef973740b3cfef114a92d30be8c45265988e794519f0cd962c",
+        "layout.json": "04b72498db6e9138c614f12c246e3c3935e1a26780d6f9bccfa61a555a4cfc54",
+        "axioms.txt": "61f8b9f0cb83fe5250e13b39b40e705d106caa92810d60168dfe5f4c3a89a302"
+      }
+    },
+    {
+      "source": "examples/InferredBindings.asy",
+      "source_sha256": "672c7ec45ad8d8749abfe149ee47bc07d32b3de62065ee01bd7870635d171d4e",
+      "files": {
+        "runtime.hex": "3f0df9efa667022f5944a9f877d2562818e9b4add922012d150c0c7ab2f6e5aa",
+        "init.hex": "a4ab8d9223664c78024c4f5e5852960c0c1f2081649855ba2b3a687dcf6cb561",
+        "abi.json": "b434d23d505714ef973740b3cfef114a92d30be8c45265988e794519f0cd962c",
+        "layout.json": "f1c85f63fb1ae9451bcafdb6f5688910e0e3d404c8e18f983bbafd547bf8594d",
+        "axioms.txt": "61f8b9f0cb83fe5250e13b39b40e705d106caa92810d60168dfe5f4c3a89a302"
+      }
+    },
+    {
+      "source": "examples/InferredGuardBindings.asy",
+      "source_sha256": "bd467062ce2cb184e5720a291738d833cc7ed9b04bf21a5a3c36821ca2cc03b2",
+      "files": {
+        "runtime.hex": "675b4c6d6440604f6954dec3d53179e0fe3d1bc95d307e5f2993a5c2cf533555",
+        "init.hex": "a73bfaf3ef9f57f3ed3d53bd98fa91e446577c7cb14a25a3a8ff0ec9170e1013",
+        "abi.json": "646e276a85bb00acd3bb9778beb72ad99f175872b4c5cc276ed67ff884744666",
+        "layout.json": "1c8e6da9b9b594f7f96f698ff898f7cfd8eb73588f8351fd72fb98697490c678",
+        "axioms.txt": "61f8b9f0cb83fe5250e13b39b40e705d106caa92810d60168dfe5f4c3a89a302"
+      }
+    },
+    {
+      "source": "examples/InferredGuards.asy",
+      "source_sha256": "56b667c58b14f0e11daaa6e0dd4df479cdf9db656099849bbc24b59445a5118e",
+      "files": {
+        "runtime.hex": "675b4c6d6440604f6954dec3d53179e0fe3d1bc95d307e5f2993a5c2cf533555",
+        "init.hex": "a73bfaf3ef9f57f3ed3d53bd98fa91e446577c7cb14a25a3a8ff0ec9170e1013",
+        "abi.json": "646e276a85bb00acd3bb9778beb72ad99f175872b4c5cc276ed67ff884744666",
+        "layout.json": "a7807d49a4ef3e9aa31917f895458e52a2335049e64dfb8a8f0d7b995246e784",
+        "axioms.txt": "61f8b9f0cb83fe5250e13b39b40e705d106caa92810d60168dfe5f4c3a89a302"
+      }
+    },
+    {
+      "source": "examples/InferredHelpers.asy",
+      "source_sha256": "ec7c9a36a26970ef9b3712f8a78d67d040a3aa5c2fc71b7b5a4b5b2c9b427d77",
+      "files": {
+        "runtime.hex": "3f0df9efa667022f5944a9f877d2562818e9b4add922012d150c0c7ab2f6e5aa",
+        "init.hex": "a4ab8d9223664c78024c4f5e5852960c0c1f2081649855ba2b3a687dcf6cb561",
+        "abi.json": "b434d23d505714ef973740b3cfef114a92d30be8c45265988e794519f0cd962c",
+        "layout.json": "372f44822bce06347751db0644b8a9497e6d5e98355cacf4aa51bd5f8f73a01d",
+        "axioms.txt": "61f8b9f0cb83fe5250e13b39b40e705d106caa92810d60168dfe5f4c3a89a302"
+      }
+    },
+    {
+      "source": "examples/InferredWords.asy",
+      "source_sha256": "d6468c4476bd171f1132d5a47e00ab16ea8de77db32732e1a601c982f71d9bd9",
+      "files": {
+        "runtime.hex": "2bd429316599008da675e3d57a9fe0c64192f33430414d2e642dee5c04f18c85",
+        "init.hex": "6c1b955a494cefaa8770a50b4e2163d5508c765b4ecc8fda24aa8fdd3ef07def",
+        "abi.json": "8d93b4ac5553bf9e855f93847a34f26190af1d996535b6b36836ae398ece0d07",
+        "layout.json": "489b567bc68f3928b792bd453d0cb404c5082915f989e4c218ec61e145f296cb",
+        "axioms.txt": "61f8b9f0cb83fe5250e13b39b40e705d106caa92810d60168dfe5f4c3a89a302"
+      }
+    },
+    {
+      "source": "examples/NamedGuards.asy",
+      "source_sha256": "4dfe5d43f0b70b1e4fdf6e89c0feba1c9d13eae89c296a44a2c6e23bc46b9dc8",
+      "files": {
+        "runtime.hex": "675b4c6d6440604f6954dec3d53179e0fe3d1bc95d307e5f2993a5c2cf533555",
+        "init.hex": "a73bfaf3ef9f57f3ed3d53bd98fa91e446577c7cb14a25a3a8ff0ec9170e1013",
+        "abi.json": "646e276a85bb00acd3bb9778beb72ad99f175872b4c5cc276ed67ff884744666",
+        "layout.json": "24525e00e61782bd227815f73b0dac6bc9141898bf3fe5f187f144e74fc22da4",
+        "axioms.txt": "61f8b9f0cb83fe5250e13b39b40e705d106caa92810d60168dfe5f4c3a89a302"
+      }
+    },
+    {
+      "source": "examples/Nullary.asy",
+      "source_sha256": "c45b0dcd4c5f67efea834e8b739abb6d2f3bee7059f21b627093c92db733750f",
+      "files": {
+        "runtime.hex": "1f8db4572d0dae194740338fd27b9fff6cc573cb3df69c9b32105cb48e9dded9",
+        "init.hex": "239830346f4125043a942b42c4262a05aaffb93c528938eef8e8a76dd7aba4aa",
+        "abi.json": "8ae9df6fda4b2419c34caca9c0a01fb19892abcc50aae8b6615647f9cd72e994",
+        "layout.json": "506599d639c7acc55576b3a75710bc7b0d6e25df7991c67cb523b01fa7b07440",
+        "axioms.txt": "61f8b9f0cb83fe5250e13b39b40e705d106caa92810d60168dfe5f4c3a89a302"
+      }
+    },
+    {
+      "source": "examples/OwnerSurface.asy",
+      "source_sha256": "6501fe613da5159042258c7ef96d3bfac4b90373586aac2576b5cef66d4b1db1",
+      "files": {
+        "runtime.hex": "7d0dd520acd4b81750dd97cc12bf940a172ded9be7dfff9e876116bca71aed9b",
+        "init.hex": "bbbf2eb16a8f58af67cceda01e86ad2230e441df5caa21585099f9fc759f4669",
+        "abi.json": "378b4a56cb83926b4fcd5a2ecf15acb85d0090bf9cfa4e33303995af5ed042da",
+        "layout.json": "7101c427a64797f36e0cd3b0fe6e69fb22a10284113a0d118c359b47eaddcf80",
+        "axioms.txt": "61f8b9f0cb83fe5250e13b39b40e705d106caa92810d60168dfe5f4c3a89a302"
+      }
+    },
+    {
+      "source": "examples/Predicates.asy",
+      "source_sha256": "cfa70d876210e37a446a4232059b4fbaa7bc094486ec1293858169f996257c77",
+      "files": {
+        "runtime.hex": "cc3649d56a0ded449688d975fe3c49d889b3085ed2636f6539d56c56d5549578",
+        "init.hex": "83ed60f0e9c5bb16f17fbbd3e88451c71f6177139064b04f223362c4112dd590",
+        "abi.json": "adcc493b81533e8999724097df78589bb2aae8a20b3b6752bc30904bc7b51d53",
+        "layout.json": "c7bccf403077b469331870ef7be6dd2695bf523b33eb66f328ffb7d2887ff93d",
+        "axioms.txt": "61f8b9f0cb83fe5250e13b39b40e705d106caa92810d60168dfe5f4c3a89a302"
+      }
+    },
+    {
+      "source": "examples/ProofBundles.asy",
+      "source_sha256": "b756973a14848c2a3989415b59449e289eb2398fc5c2e1deb0b11fd17f2131df",
+      "files": {
+        "runtime.hex": "cc3649d56a0ded449688d975fe3c49d889b3085ed2636f6539d56c56d5549578",
+        "init.hex": "83ed60f0e9c5bb16f17fbbd3e88451c71f6177139064b04f223362c4112dd590",
+        "abi.json": "adcc493b81533e8999724097df78589bb2aae8a20b3b6752bc30904bc7b51d53",
+        "layout.json": "991a1f807460a57fbdee9f4e49760a650223319cc177fa676a1d193b6675f4b6",
+        "axioms.txt": "61f8b9f0cb83fe5250e13b39b40e705d106caa92810d60168dfe5f4c3a89a302"
+      }
+    },
+    {
+      "source": "examples/ProofHelpers.asy",
+      "source_sha256": "507e7d220bc461d0f27d37bc0fd8dc58234ba7dfcd4f8520f667d26df5efac58",
+      "files": {
+        "runtime.hex": "b6348551922138111c0e894e45d9a9480130663e87c38b65192c7448639301c9",
+        "init.hex": "2727c27ee87aff6c2044ed215744462a0cd8567ee6f9d572dfc081c71642326d",
+        "abi.json": "53c57cddfc1435990a68828dfcdacce5bf711acda99026f9ebcba2486e9c4cd1",
+        "layout.json": "864042ee41ab5012c3d45ac85abb71d05ea8682431ccdc53c012105e5c3f8e88",
+        "axioms.txt": "61f8b9f0cb83fe5250e13b39b40e705d106caa92810d60168dfe5f4c3a89a302"
+      }
+    },
+    {
+      "source": "examples/ProofHoles.asy",
+      "source_sha256": "4b57234a1aca488ef8fb37595ddd52b93041e96897509fc4f348b167ba97f495",
+      "files": {
+        "runtime.hex": "3f0df9efa667022f5944a9f877d2562818e9b4add922012d150c0c7ab2f6e5aa",
+        "init.hex": "a4ab8d9223664c78024c4f5e5852960c0c1f2081649855ba2b3a687dcf6cb561",
+        "abi.json": "b434d23d505714ef973740b3cfef114a92d30be8c45265988e794519f0cd962c",
+        "layout.json": "326384b0ab770de05f34357c89d0e2c126f6f35e154b5e6d414b4302ab7f239b",
+        "axioms.txt": "61f8b9f0cb83fe5250e13b39b40e705d106caa92810d60168dfe5f4c3a89a302"
+      }
+    },
+    {
+      "source": "examples/ProofTerms.asy",
+      "source_sha256": "61352368228c1342a7bb3485d4ea385176fcaaab537806843e1b17fc12634c35",
+      "files": {
+        "runtime.hex": "517e7250b7c39aeddec11b07be57ce42628ade6b517ec57669a2fa74f03ac007",
+        "init.hex": "ca0b51c0c7ec41e2a88b397abd86c222a5fa790d497dca14bede50f8bd13f614",
+        "abi.json": "3491fc8be981c431c7dc690105a12e4df14527afff9e003892fa4df34079705f",
+        "layout.json": "edabe805007e7c24e3bab7d677eeb99d5ee90398caa3bc1f267cc30e4fe81de0",
+        "axioms.txt": "61f8b9f0cb83fe5250e13b39b40e705d106caa92810d60168dfe5f4c3a89a302"
+      }
+    },
+    {
+      "source": "examples/Ref20.asy",
+      "source_sha256": "b0a25f0e079d174295fbef90733f78eeadab2a8892f3a177d2117bcafcb8f52c",
+      "files": {
+        "runtime.hex": "707722a7b773ff4fc9ef4a0343c8e232399052d6e67bae5414aea429aa5246a5",
+        "init.hex": "eb41267ca5b9b3391cba0ce17ba21792f4f7ba164cd559ae7f565421ca690635",
+        "abi.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "layout.json": "3932eeae7041008893cb56140c4017848f53a4267b27af0d29ecfa34a10f1da7",
+        "axioms.txt": "61f8b9f0cb83fe5250e13b39b40e705d106caa92810d60168dfe5f4c3a89a302"
+      }
+    },
+    {
+      "source": "corpus/contracts/Arithmetic.asy",
+      "source_sha256": "1f283e81bc201f7acec81f86021d83d039b0a76ca663e0ded04bd673a3baa524",
+      "files": {
+        "runtime.hex": "23a23373870b3b4f9cf24757c1bf36f796a5ebd119b8de301591d7156bf76210",
+        "init.hex": "08ad8e26bc9c3e230306a0b0fbb6ab1e03656a9c5892c41a88f9acae838cab23",
+        "abi.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "layout.json": "7dc3fedb172b367e7b9a304b44ab0dacb26cc85ec4a5e45483df3061263f4e70",
+        "axioms.txt": "61f8b9f0cb83fe5250e13b39b40e705d106caa92810d60168dfe5f4c3a89a302"
+      }
+    },
+    {
+      "source": "corpus/contracts/Maximum.asy",
+      "source_sha256": "6b5c8e6d7d30e95482adfa63665a8780bc267589dd4ae75a13be6ae6d9347377",
+      "files": {
+        "runtime.hex": "90eb1f20ed5bd30c6ec6426b596470b33a5358de2df0b2f0e3136f2a07717d55",
+        "init.hex": "006010156cb8835c5885aa54659c5cff88e74ce53bd4ca1a964cfd4e294351c3",
+        "abi.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "layout.json": "11bd4503e5805f8cf4bbe7640c9dca608272bd0e27b03dcad12ed922e9173eb3",
+        "axioms.txt": "61f8b9f0cb83fe5250e13b39b40e705d106caa92810d60168dfe5f4c3a89a302"
+      }
+    },
+    {
+      "source": "corpus/contracts/Pair.asy",
+      "source_sha256": "55678c5957749da437544ce8e6e3e0887e74cf45f0a41dbdd496e1215a44c98e",
+      "files": {
+        "runtime.hex": "d940b6df95e34d92e4bbe023164eaa06ca1afa4cd189bd6b1dd0bab9fc5369eb",
+        "init.hex": "d626c14a11c25abf0205cccc3946dcd4dd9ca3c645ed7bf452358be6b941a7c1",
+        "abi.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "layout.json": "385ef804fd76935cd4671dd4fbe75ee12f088438361d0311c747a22f46df636e",
+        "axioms.txt": "61f8b9f0cb83fe5250e13b39b40e705d106caa92810d60168dfe5f4c3a89a302"
+      }
+    },
+    {
+      "source": "corpus/contracts/Ref20.asy",
+      "source_sha256": "b0a25f0e079d174295fbef90733f78eeadab2a8892f3a177d2117bcafcb8f52c",
+      "files": {
+        "runtime.hex": "707722a7b773ff4fc9ef4a0343c8e232399052d6e67bae5414aea429aa5246a5",
+        "init.hex": "eb41267ca5b9b3391cba0ce17ba21792f4f7ba164cd559ae7f565421ca690635",
+        "abi.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "layout.json": "3932eeae7041008893cb56140c4017848f53a4267b27af0d29ecfa34a10f1da7",
+        "axioms.txt": "61f8b9f0cb83fe5250e13b39b40e705d106caa92810d60168dfe5f4c3a89a302"
+      }
+    },
+    {
+      "source": "corpus/contracts/Return.asy",
+      "source_sha256": "a4a7bdf961989d5733fb8f1b447cd2bf27e0161214763ac16a34bc9ff2037370",
+      "files": {
+        "runtime.hex": "c9bfcc72747cc89b5f9d0a4dc78fca501a943626dde8c5f5379982225eff032c",
+        "init.hex": "0435d833df891a4f3e5fe29a0004501dc34542f46fbab10ea31172b744a313b8",
+        "abi.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "layout.json": "75d72b802b891e07ece6037e82569a72565035ea5affd99a45806901b1a12042",
+        "axioms.txt": "61f8b9f0cb83fe5250e13b39b40e705d106caa92810d60168dfe5f4c3a89a302"
+      }
+    },
+    {
+      "source": "corpus/contracts/TwoSlots.asy",
+      "source_sha256": "0372075e7a2cb9890581177675c2c8cf4bb69a1b1ff7ede1b13aa6dae4241064",
+      "files": {
+        "runtime.hex": "0eb6c86ceb663daa4320b768d03b7e40483eb4f9a5d6efa5b2a05d75254aaab6",
+        "init.hex": "1e382750f9e55cb4a08fc0476d3d95408d5972d9c389062e5d7fde8881f25107",
+        "abi.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "layout.json": "f607b7670d9493fdfd5936890174055bc17a4ad60ef6c77ecdae8be5974fd7e9",
+        "axioms.txt": "61f8b9f0cb83fe5250e13b39b40e705d106caa92810d60168dfe5f4c3a89a302"
+      }
+    },
+    {
+      "source": "corpus/contracts/WideLabel.asy",
+      "source_sha256": "1ca63fb58b77db04726778ea5a8c0ac594f5e5d2e0cf0931fbd32f8e252ef043",
+      "files": {
+        "runtime.hex": "4a326e84830f3922a2a39c2278f9d282bbf799f2281e4b197222857c681d8737",
+        "init.hex": "743f796ada348b648aa03aef50b777aaabd2fd0ebe9ec376eb68157b61008f65",
+        "abi.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "layout.json": "26d21a97081314ec05311a6742d8c61528e938efaa2b615329b61690caa02fb6",
+        "axioms.txt": "61f8b9f0cb83fe5250e13b39b40e705d106caa92810d60168dfe5f4c3a89a302"
+      }
+    },
+    {
+      "source": "corpus/contracts/Zero.asy",
+      "source_sha256": "48c8f7afada8dc0531e692ce55286b1ffe2afe3277b458ddc18275c51269dd27",
+      "files": {
+        "runtime.hex": "4ef2f96e140782cab924ffe30d4945b8e1b452edd02c590beeab52468c276fcf",
+        "init.hex": "d5048d96a58bcc7e6569878150d79c40e08b6a81dbee059abec4d09a9be4b31c",
+        "abi.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "layout.json": "600f149cfcc3108d76f2e6005ab5ad0121296769aadf3684de3cd9a80e1f1cd7",
+        "axioms.txt": "61f8b9f0cb83fe5250e13b39b40e705d106caa92810d60168dfe5f4c3a89a302"
+      }
+    },
+    {
+      "source": "corpus/proofs/Apply.asy",
+      "source_sha256": "a1a9c559035a51e2438ae00ab74f5d46439a1850ea2217c9030da3c070743284",
+      "files": {
+        "runtime.hex": "23a23373870b3b4f9cf24757c1bf36f796a5ebd119b8de301591d7156bf76210",
+        "init.hex": "08ad8e26bc9c3e230306a0b0fbb6ab1e03656a9c5892c41a88f9acae838cab23",
+        "abi.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "layout.json": "0e9f170f02caf5587aabf41c938821a7d8098e8a0df85278762787b0f850791a",
+        "axioms.txt": "3c8346c0dc21e6eb3d3ef3d8a7c179106bccbed8cad9939b9d3a5648af96067c"
+      }
+    },
+    {
+      "source": "corpus/proofs/Leaf.asy",
+      "source_sha256": "89ef184f4865c809fe32236e7f3deb6cd7e03db0bc09b1d9ea06a4e5aa7f3ad4",
+      "files": {
+        "runtime.hex": "23a23373870b3b4f9cf24757c1bf36f796a5ebd119b8de301591d7156bf76210",
+        "init.hex": "08ad8e26bc9c3e230306a0b0fbb6ab1e03656a9c5892c41a88f9acae838cab23",
+        "abi.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "layout.json": "752a8a3673a8326ea7e4bd7970cfd22564a5e7fa5bc2e5713b990c51911cb13f",
+        "axioms.txt": "3c8346c0dc21e6eb3d3ef3d8a7c179106bccbed8cad9939b9d3a5648af96067c"
+      }
+    },
+    {
+      "source": "corpus/proofs/Let.asy",
+      "source_sha256": "b40ca455cefe628284de09ad9218bc81b3582d3138390d99951a260969900036",
+      "files": {
+        "runtime.hex": "23a23373870b3b4f9cf24757c1bf36f796a5ebd119b8de301591d7156bf76210",
+        "init.hex": "08ad8e26bc9c3e230306a0b0fbb6ab1e03656a9c5892c41a88f9acae838cab23",
+        "abi.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "layout.json": "8ac33058b205964882c7e3d85131fd9f743f485193b4143b8a23fc767965d03a",
+        "axioms.txt": "3c8346c0dc21e6eb3d3ef3d8a7c179106bccbed8cad9939b9d3a5648af96067c"
+      }
+    }
+  ],
+  "compiler_sha256": {
+    "baseline": "86779f81990cb3cbb77486e748003e8804ca88249a7411c913dab1948111ce54",
+    "current": "c82877641198372bfaca416897dab3962341e560c9ab2ce2d06dd2c95df95fe0"
+  }
+}

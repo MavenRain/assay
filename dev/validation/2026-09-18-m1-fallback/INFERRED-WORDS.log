@@ -1,0 +1,5 @@
+WORD-MUTANT IMPLICIT killed control=OK
+WORD-MUTANT ANNOTATION killed control=OK
+WORD-MUTANT ERASED killed control=OK
+WORD-MUTANT SHADOW killed control=OK
+INFERRED-WORDS pairs=21 cases=40 signed=40 refusals=19 boundaries=2 mutants=4 OK
