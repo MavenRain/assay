@@ -1,5 +1,65 @@
 # Assay M1 build log
 
+## 2026-09-18: Differential call values
+
+The thirtieth M1 slice starts at
+`97be2654adf0f791ea2418d1f1c4bf7e0b79fd27`. The public `diff` command
+accepts optional `--value WORD`, reuses the source model's bounded Word
+validation, and forwards the normalized value to the offline adapter.
+Options can follow the source in any order, with duplicate and missing
+options refused. The default value stays zero.
+
+The focused gate passes 32 source-model and EVM cases, checks the
+actual call value in 32 signed Cancun requests, and passes 31 refusal
+cases. It covers uppercase hexadecimal, the uint256 maximum, all six
+option orderings, nonpayable selection before fallback or entry
+execution, storage preservation, and insufficient sender balance.
+Both EVM paths use geth. Their existing comparison excludes balances,
+nonces and logs.
+
+The build, existing DIFF-EXECUTOR gate, and seven scoped carry, audit,
+house-rule, trusted-line, CLI and trace gates pass. All 64 prior gate
+declaration ASTs are unchanged, including their commands, deadlines and
+success markers.
+DIFF-VALUE is added after FALLBACK in the default ladder. The emitter
+stays at 1800/1800 lines and the kernel, surface, backend, proof
+packages, trusted bounds and frozen timing inputs are unchanged.
+
+The [command contract](M1-DIFF-VALUE.md) and
+[validation archive](validation/2026-09-18-m1-diff-value/) record the
+scope and evidence. Validation is scoped to this driver change; the
+complete ladder was not rerun. DENOMINATORS and M0-RATIO remain under
+the existing timing pause, with no milestone exit claim.
+
+### Review round 2026-09-18 (M1 differential call values)
+
+B-1 (medium): `diff` bound a following option name as an option
+value, so `--prestate --value` reached the Python adapter and exited
+2 with an argparse message; now the flag arm refuses a dash-led
+value and the command exits 64 with the usage row.
+
+A-1 (medium): the leading-dash source guard had no gate case, so a
+build that dropped it still passed every leg; now DIFF-VALUE refuses
+`diff -x` and the dash-led option pair, and reports 31 refusals.
+
+A-2 (low): both model word errors printed the spelling sentence, so
+an over-uint256 value hid its range; now `diff` prints the model
+detail, so the range case reads `DIFF_VALUE: word exceeds uint256`.
+
+C-1 (medium): the archive README claimed GATE-COMPATIBILITY.json
+pins 64 gate ASTs; now it states the count, the new leg tuple and
+the gates file hash that the file holds.
+
+D-1 (low): the slice staged no commit message file; now
+dev/STAGE-M1-DIFF-VALUE-COMMIT.txt follows the prior M1 slices.
+
+D-2 (low): the scoped gate list named four categories; now it names
+the house-rule and trusted-line legs with the other four.
+
+C-5 (low): the injection control could not fail and did not say so;
+now a comment records that it is a defence-in-depth assertion behind
+the exit 64 payload cases.
+
 ## 2026-09-18: Explicit reverting fallbacks
 
 The twenty-ninth M1 slice starts at

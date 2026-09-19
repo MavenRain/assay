@@ -1,0 +1,15 @@
+{
+  "base": "97be2654adf0f791ea2418d1f1c4bf7e0b79fd27",
+  "prior_gates_unchanged": 64,
+  "new_gate": [
+    "DIFF-VALUE",
+    180,
+    [
+      "python3",
+      "-P",
+      "dev/diff-value-test.py"
+    ],
+    "DIFF-VALUE live=32 signed=32 refused=31 OK"
+  ],
+  "gates_sha256": "62d1e0993928d7ec85886fce3210da9861d2f7813fdff13984fcab04f3472ff4"
+}

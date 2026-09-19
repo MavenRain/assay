@@ -1,6 +1,6 @@
 (** Offline differential execution.  Python owns the JSON and process
     boundary; the compiler supplies only checked runtime bytes. *)
-type error = Missing_python | Missing_helper | Runner_exit of int
+type error = Invalid_value of string | Missing_python | Missing_helper | Runner_exit of int
   | Runner_signal of int | Runner_stopped of int
 
 (* Unix.WSIGNALED carries the OCaml signal encoding, not the host number.
@@ -24,13 +24,28 @@ let signal_name (signal : int) : string =
   |> Option.value ~default:("OCaml signal " ^ string_of_int signal)
 
 let error : error -> string = function
+  | Invalid_value detail -> "DIFF_VALUE: " ^ detail
   | Missing_python -> "DIFF_TOOL: python3 is not on PATH"
   | Missing_helper -> "DIFF_HELPER: cannot read evm/diff.py"
   | Runner_exit code -> "DIFF_RUNNER: exit " ^ string_of_int code
   | Runner_signal signal -> "DIFF_RUNNER: killed by " ^ signal_name signal
   | Runner_stopped signal -> "DIFF_RUNNER: stopped by " ^ signal_name signal
 
-let run ~(runtime : string) ~(input : string) ~(prestate : string) : (unit, error) result =
+(* The model separates the spelling and the range, so the report carries
+   its detail instead of one merged sentence. *)
+let detail : Assay_emit.Model.error -> string = function
+  | Assay_emit.Model.Input text -> text
+  | Assay_emit.Model.Source _ | Assay_emit.Model.Missing_memory _ as other ->
+    Assay_emit.Model.error other
+
+(* Reuse the source model's bounded Word grammar, including uppercase hex.
+   The Python adapter accepts a lowercase prefix, so normalize it here. *)
+let value (text : string) : (string, error) result =
+  Assay_emit.Model.inputs ~data:"" ~value:text ~storage:[]
+  |> Result.map (fun _ -> String.lowercase_ascii text)
+  |> Result.map_error (fun e -> Invalid_value (detail e))
+
+let run ~(runtime : string) ~(input : string) ~(prestate : string) ~(value : string) : (unit, error) result =
   let helper = Filename.concat
       (Filename.dirname (Filename.dirname (Trace.prestate ()))) "diff.py" in
   let paths = Option.value ~default:"" (Sys.getenv_opt "PATH") in
@@ -41,7 +56,7 @@ let run ~(runtime : string) ~(input : string) ~(prestate : string) : (unit, erro
   if not (Trace.regular helper) then Error Missing_helper else
   Option.fold ~none:(Error Missing_python) ~some:(fun program ->
     let argv = [program; "-P"; helper; "--runtime"; runtime;
-                "--calldata"; input; "--prestate"; prestate] in
+                "--calldata"; input; "--prestate"; prestate; "--value"; value] in
     let process = Unix.open_process_args_in program (Array.of_list argv) in
     let output = In_channel.input_all process in
     let status = Unix.close_process_in process in

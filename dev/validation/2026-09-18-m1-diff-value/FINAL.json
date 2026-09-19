@@ -1,0 +1,28 @@
+{
+  "base": "97be2654adf0f791ea2418d1f1c4bf7e0b79fd27",
+  "captures": [
+    {
+      "exit": 0,
+      "name": "BUILD"
+    },
+    {
+      "exit": 0,
+      "name": "DIFF-VALUE"
+    },
+    {
+      "exit": 0,
+      "name": "DIFF-EXECUTOR"
+    },
+    {
+      "exit": 1,
+      "name": "DIFF-VALUE-FIRST"
+    }
+  ],
+  "final_commands_passed": 10,
+  "full_ladder_rerun": false,
+  "scope": "build, differential value and executor gates, seven driver and static regressions",
+  "timing_pause": [
+    "DENOMINATORS",
+    "M0-RATIO"
+  ]
+}

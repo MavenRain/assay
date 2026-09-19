@@ -78,6 +78,8 @@ letting runtime `let` bindings omit their Word annotation while retaining
 the same checked scope and arithmetic evidence.
 The twenty-ninth adds [explicit reverting fallbacks](dev/M1-FALLBACK.md),
 with typed error payloads for short calldata and unmatched selectors.
+The thirtieth adds [differential call values](dev/M1-DIFF-VALUE.md),
+with bounded Word inputs and signed Cancun checks through `diff --value`.
 
 ```sh
 zsh -f dev/dunecho.sh build
@@ -137,7 +139,7 @@ Invalid hex exits 64; missing tools or fixtures, EVM faults and executor
 failures exit 2.  Compilation uses the same checks as `emit` and writes
 no output files.
 
-`diff FILE --calldata HEX [--prestate FILE]` compiles the source and
+`diff FILE --calldata HEX [--prestate FILE] [--value WORD]` compiles the source and
 compares storage, returned bytes and revert outcomes under `evm run` and
 `evm t8n --state.fork Cancun` (R-M0-8, R-M0-9).  It prints a JSON result
 and `DIFF OK` on agreement.  Matching reverts are valid results.  A mismatch,
@@ -146,6 +148,13 @@ or calldata exit 64.  Temporary executor files are removed on completion.
 The [executor contract](dev/M1-EXECUTOR.md) defines the supported prestate,
 the gas adjustment and the remaining M1 work.  Both entry points use geth;
 this provides no independent client implementation.
+
+`--value` defaults to zero and accepts the same bounded decimal or hexadecimal
+Word spelling as `run`. Options can follow the source in any order and may
+occur only once. Nonzero calls require an explicit prestate that funds the
+fixture sender; insufficient balance exits 2 without running either executor.
+The [call-value contract](dev/M1-DIFF-VALUE.md) gives the numeric limits and
+nonpayable behavior.
 
 `run FILE [--calldata HEX] [--storage SLOT=WORD]... [--value WORD]
 [--caller ADDRESS] [--export NAME]`

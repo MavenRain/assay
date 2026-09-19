@@ -55,12 +55,13 @@ slot aliases cannot introduce duplicate entries.  Zero slots are omitted
 only after their values have been checked.
 
 The t8n input is one legacy transaction with zero gas price.
-The public `assay diff` command uses zero value. The Python adapter also
-accepts `--value N`, a decimal count or a `0x`-prefixed hex word, or the
-keyword argument `value` in `execute`,
-for the counter reference's nonpayable probes. Values must fit uint256
-and the sender's prestate balance must cover them. Both executor paths
-receive the same value; the adapter never funds the sender itself.
+The public `assay diff` command accepts optional `--value WORD`, defaulting
+to zero. Its [Word validation](M1-DIFF-VALUE.md) matches the source model,
+including uppercase hexadecimal. The Python adapter accepts `--value N`,
+a decimal count or a `0x`-prefixed hex word, or the keyword argument `value`
+in `execute`. Values must fit uint256 and the sender's prestate balance
+must cover them. Both executor paths receive the same value; the adapter
+never funds the sender itself.
 The public fixture key 1 signs it offline.  That key derives the sender
 above.  It is never used for a network request.  The sender's initial nonce
 is read from the alloc.  The runner disables block rewards and supplies

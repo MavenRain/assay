@@ -155,9 +155,8 @@ def driver():
         require(sorted(path.name for path in work.iterdir()) ==
                 ['argv.jsonl', 'bin', 'prestate with spaces.json', 'source with spaces.asy'],
                 'DIFF-DRIVER unexpected output files')
-    # The adapter command line owns the string form of --value, which no
-    # other case reaches: the counter gate calls execute() with an integer
-    # and the public assay diff always sends zero value.
+    # Exercise the adapter command line independently of the public driver's
+    # Word validation. The counter gate calls execute() with an integer.
     with tempfile.TemporaryDirectory(prefix='assay-diff-value-') as directory:
         genesis = Path(directory) / 'prestate.json'
         genesis.write_text(json.dumps(dict(BASE, alloc={DIFF.SENDER: dict(balance='0xa')})))

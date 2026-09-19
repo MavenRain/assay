@@ -1,0 +1,80 @@
+[
+  {
+    "name": "PIN-CARRY",
+    "command": [
+      "zsh",
+      "-f",
+      "dev/carry-check.sh"
+    ],
+    "exit": 0,
+    "marker": "diff=0 unlisted=0",
+    "passed": true
+  },
+  {
+    "name": "R0-COUNT",
+    "command": [
+      "zsh",
+      "-f",
+      "dev/r0-count.sh"
+    ],
+    "exit": 0,
+    "marker": "R0-COUNT OK",
+    "passed": true
+  },
+  {
+    "name": "R0-AUDIT",
+    "command": [
+      "zsh",
+      "-f",
+      "dev/r0-audit.sh"
+    ],
+    "exit": 0,
+    "marker": "R0-AUDIT OK",
+    "passed": true
+  },
+  {
+    "name": "HOUSE",
+    "command": [
+      "zsh",
+      "-f",
+      "dev/house.sh"
+    ],
+    "exit": 0,
+    "marker": "HOUSE OK",
+    "passed": true
+  },
+  {
+    "name": "TRUSTED-LINES",
+    "command": [
+      "zsh",
+      "-f",
+      "dev/trusted-lines.sh"
+    ],
+    "exit": 0,
+    "marker": "TRUSTED-LINES OK",
+    "passed": true
+  },
+  {
+    "name": "DRIVER",
+    "command": [
+      "python3",
+      "-P",
+      "dev/stage-a-test.py",
+      "driver"
+    ],
+    "exit": 0,
+    "marker": "DRIVER cases=24 OK",
+    "passed": true
+  },
+  {
+    "name": "TRACE-DRIVER",
+    "command": [
+      "python3",
+      "-P",
+      "dev/trace-test.py"
+    ],
+    "exit": 0,
+    "marker": "TRACE-DRIVER cases=20 explicit_prestate=true literal_argv=true OK",
+    "passed": true
+  }
+]

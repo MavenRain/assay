@@ -1,0 +1,45 @@
+M1: add differential call values
+
+Accept an optional `--value WORD` on the public diff command. Options
+may follow the source in any order. Duplicate, missing and unknown
+options, a dash-led source and a dash-led option value are refused
+with exit 64 and the usage row.
+
+Reuse the source model's bounded Word grammar, report its detail on a
+refusal, normalize hexadecimal case for the offline adapter, and give
+the same value to `evm run` and the signed Cancun transition. The
+default value stays zero.
+
+Add the DIFF-VALUE gate after FALLBACK, with the marker
+`DIFF-VALUE live=32 signed=32 refused=31 OK`. It checks 32 source
+model and EVM cases, the recorded executor arguments of 32 signed
+requests, and 31 refusals.
+
+Validation is scoped to this driver change; the complete ladder was
+not rerun. DENOMINATORS and M0-RATIO remain under the existing timing
+pause, with no milestone exit claim.
+
+Review pass 1 (2026-09-18) fixed 7 findings: B-1, A-1, A-2, C-1, D-1,
+D-2 and C-5.
+
+B-1: diff bound a following option name as an option value; now a
+dash-led value exits 64 with the usage row.
+
+A-1: the leading-dash source guard had no gate case; now DIFF-VALUE
+refuses `diff -x` and the dash-led option pair.
+
+A-2: both model word errors printed one sentence; now diff prints the
+model detail, so the range case reads DIFF_VALUE: word exceeds
+uint256.
+
+C-1: the archive README claimed pinned gate ASTs; now it states the
+count, the new leg tuple and the gates file hash.
+
+D-1: the slice staged no commit message file; this file restores the
+convention.
+
+D-2: the scoped gate list named four categories; now it names the
+house-rule and trusted-line legs too.
+
+C-5: the injection control could not fail; a comment now records that
+it is a defence-in-depth assertion.
