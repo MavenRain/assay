@@ -7,7 +7,7 @@
 let usage () : unit =
   prerr_endline
     "usage: assay check [--print|--erased] FILE | axioms FILE | spec-count | \
-     emit FILE -o DIR | trace FILE --calldata HEX [--prestate FILE] | diff FILE --calldata HEX [--prestate FILE] [--value WORD] | \
+     emit FILE -o DIR | trace FILE --calldata HEX [--prestate FILE] [--value WORD] | diff FILE --calldata HEX [--prestate FILE] [--value WORD] | \
      run FILE [--calldata HEX] [--storage SLOT=WORD]... [--value WORD] [--caller ADDRESS] [--export NAME] | deploy FILE | \
      test FILE"
 
@@ -89,20 +89,32 @@ let run_emit (path : string) (directory : string) (export : string) : unit =
     ["runtime.hex", out.runtime ^ "\n"; "init.hex", out.init ^ "\n";
      "abi.json", out.abi; "layout.json", out.layout; "axioms.txt", out.axioms]
 
-let run_trace (path : string) (input : string) (prestate : string) : unit =
+let run_trace (path : string) (input : string) (prestate : string) (value : string) : unit =
   Option.fold
     ~none:(fun () -> prerr_endline "assay: trace: CALLDATA_HEX: expected whole hex bytes"; exit 64)
     ~some:(fun input () ->
+      let value = Trace.value value |> Result.fold ~ok:Fun.id ~error:(fun e ->
+        prerr_endline ("assay: trace: " ^ Trace.error e); exit 64) in
       let out = compile "trace" path "main" in
-      Trace.run ~runtime:out.runtime ~input ~prestate
+      Trace.run ~runtime:out.runtime ~input ~prestate ~value
       |> Result.fold ~ok:Fun.id ~error:(fun e ->
         prerr_endline ("assay: trace: " ^ Trace.error e); exit 2))
     (Trace.calldata input) ()
 
 let dispatch_trace (args : string list) : unit =
+  let rec options path seen = function
+    | [] ->
+      Option.fold ~none:bad_usage ~some:(fun input () ->
+        let option name fallback = List.assoc_opt name seen |> Option.value ~default:fallback in
+        run_trace path input (option "--prestate" (Trace.prestate ())) (option "--value" "0"))
+        (List.assoc_opt "--calldata" seen) ()
+    | ("--calldata" | "--prestate" | "--value" as flag) :: value :: rest
+      when not (String.starts_with ~prefix:"-" value) ->
+      if List.mem_assoc flag seen then bad_usage ()
+      else options path ((flag, value) :: seen) rest
+    | _ :: _ -> bad_usage () in
   match args with
-  | [ path; "--calldata"; input ] -> run_trace path input (Trace.prestate ())
-  | [ path; "--calldata"; input; "--prestate"; prestate ] -> run_trace path input prestate
+  | path :: rest when not (String.starts_with ~prefix:"-" path) -> options path [] rest
   | [] | _ :: _ -> bad_usage ()
 
 let run_diff (path : string) (input : string) (prestate : string) (value : string) : unit =

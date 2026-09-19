@@ -1,5 +1,64 @@
 # Assay M1 build log
 
+## 2026-09-18: Trace call values
+
+The thirty-first M1 slice starts at `913c8c8`. The public `trace`
+command accepts optional `--value WORD`, validates through the source
+model before compilation, and forwards a normalized value to geth.
+Decimal leading zeroes are removed as pure canonicalization of the
+logged argument; geth already reads a leading-zero decimal as decimal.
+The value defaults to zero. Options may follow the source in any order;
+duplicates, missing values and dash-led values or source paths are refused.
+
+The focused gate passes 36 source-model and EVM comparisons, including
+all six option orderings, uint256 maximum, accepted spelling bounds,
+nonpayable entry and fallback selection, and storage preservation. It
+records the executor arguments and checks the actual CALLVALUE operand
+for entry-guarded contracts. Two funding faults and 34 input refusals
+pass.
+EVM reverts continue to print the trace and exit 2. Geth reports an
+unfunded sender before executing contract instructions.
+
+The build passes with zero errors or warnings. The existing trace,
+differential executor, differential value and CLI gates pass, together
+with carry, R0 count/audit, house-rule and trusted-line checks. Mode
+selection evaluation confirms that all 36 previous ladder modes and
+their 65 gate definitions are unchanged. The default ladder adds
+TRACE-VALUE after DIFF-VALUE, for 66 total legs.
+
+The [command contract](M1-TRACE-VALUE.md) and
+[validation archive](validation/2026-09-18-m1-trace-value/) record the
+evidence. The kernel, surface, emitter, source model, proof packages and
+frozen timing inputs are unchanged. Validation is scoped to the trace
+driver and its regressions; the full ladder was not rerun.
+DENOMINATORS and M0-RATIO retain the timing pause, with no milestone exit
+claim.
+
+### Review round 2026-09-18 (M1 trace call values)
+
+D-1 (medium): the leading-zero strip comment claimed geth reads
+decimal leading zeroes as octal; now it and both docs describe the
+strip as canonicalization, since geth already parses a leading-zero
+decimal string as decimal.
+
+C-1 (medium): the CALLVALUE operand check was silently skipped for
+the closed-effect Ref20 cases and the build log claimed universal
+coverage; now a code comment explains the skip and the docs state
+the check applies to entry-guarded contracts.
+
+C-2 (low): the source-model round-trip subprocess call omitted the
+file's explicit sandboxed environment; now it passes the same
+environment as every other subprocess call in the file.
+
+C-3 (low): the 108 per-call timeouts tracked no cumulative
+wall-clock time against the 180s leg deadline; now the driver
+measures elapsed time from the leg start and warns once three
+quarters of the budget passes.
+
+D-2 (low): the slice staged no commit message file, unlike every
+prior M1 slice; now dev/STAGE-M1-TRACE-VALUE-COMMIT.txt restores
+the convention.
+
 ## 2026-09-18: Differential call values
 
 The thirtieth M1 slice starts at

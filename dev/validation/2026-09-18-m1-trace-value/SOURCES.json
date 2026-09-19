@@ -1,0 +1,39 @@
+{
+  "base": "913c8c8d4a9ec24069c957bcf5ddca555ff398b8",
+  "compiler": {
+    "path": "_build/default/bin/assay.exe",
+    "sha256": "63c47090a63d3389ec7ed4d9b891fcff1d97fdd2a1c1abcc652b1f30570e87c3"
+  },
+  "files": {
+    "README.md": "4d82329ccf9ad7e081838ca76188aeb11181010e5538081e91ded2961b5dd5b7",
+    "bin/assay.ml": "8b923b7cacd9a593cf69c8ee6ab3ac52b90dbc487b3b0ab2daea6433d8eb29be",
+    "bin/differential.ml": "6c22e2b71a2a62f4b45160e21200e9e5aacbe3aa3128c8e8bae79e22610b29e4",
+    "bin/dune": "c0784736feeed32ab16cce49f363c9f03a3976c5c31bad1bbe5f8d6c671f0bbd",
+    "bin/trace.ml": "1275b5b43296f91c4b1fe62940e01ab89eb6671b302abf0b44f2729cce8aa74c",
+    "dev/ASSAY-M1-BUILD-LOG.md": "bc4272716e3b3949fe5052cee5bec1247d5468baf79cf4f71c506da4fff59b4b",
+    "dev/M1-TRACE-VALUE.md": "7e2412e42ca013aa21694521860bb58728b1c43eb91cba71b80acff287f0eddf",
+    "dev/STAGE-M1-TRACE-VALUE-COMMIT.txt": "78090ddd49d8a9681592ef9cbda71991dbc94a5260b3c69c505ae512235296d3",
+    "dev/carry-check.sh": "f2cdc9e711e229c77550f0c04175a7bbc0301c0c6571c1161e2fff8ca91127fc",
+    "dev/diff-test.py": "3b50c68e9698df46e166e4fdeeaa208019c93f65f335f7b455051af02f61d8c1",
+    "dev/diff-value-test.py": "2b3e1f8498b6d2e6f2e3fb06a3632134c76ca016000eb3b290bb7e3e43f3ea7d",
+    "dev/dunecho.sh": "806aab239dec81651b64b1ef725c9967a51671da2bf54462de67ae8b2dbbef3c",
+    "dev/gates.sh": "cc84530cbe0493549c16e95b3bab10584f18c2d90c6af62390dfa439d194049b",
+    "dev/house.sh": "500461c04818a0e7523cf02243678d84d2d30518f5ca49719ec8325828841d63",
+    "dev/r0-audit.sh": "41c126b7c05a228e678c03b7d689e575fbd49f9961bd50505fa3dd23b6c2817f",
+    "dev/r0-count.sh": "f00f5f90ce274e3d465ca5f8b22fb02e002b795a45d153713d386a1c04469873",
+    "dev/reference-test.py": "81d55ac3ad856275d4d3f18853cab7585a0a4fccb60304d41413e4162d88a23c",
+    "dev/stage-a-gates.py": "c91abdfb9a50144d1b522d631bcf67877b9ec258a0bf3a3647b86e54ebe51168",
+    "dev/stage-a-test.py": "b0f4dccb0c892e29f5d48a9d9353981b87ff161abd16cd0304340cf3dd91c0e1",
+    "dev/trace-test.py": "633bb40b68dbd16bd08a49e9cb11278e58592d63a8da2161a38d472d910604c8",
+    "dev/trace-value-test.py": "663c7640bdabb1d3b9fb93763aa52bd4933af93f8150543e07a03e8821da5fc3",
+    "dev/trusted-lines.sh": "a074d44fc4eae56df855e4b3337f98ac7c9cb8abaa852d480bde7fe5ddd2105f",
+    "dune": "a52a26b962f1c151063f898b64225c3c032c0658ef3c8e609b1de25b54db16b8",
+    "dune-project": "70fb3327524485dd86c3dffb80f92856c4e531789e7bcb3c816e8227939180ac",
+    "emit/model.ml": "a7ab847c63da543939b9c751453b94e424ffa56816dda9c851e5459bc1d4418f",
+    "emit/model.mli": "6c2976518b357740995928bc4d269180722967340c09b93f12dc90764cf3c318",
+    "evm/diff.py": "f3aff73063e046a306bb1536a4cbbcfabf51abd6fed814c0748eab54518567f6",
+    "evm/fixtures/cancun.json": "e5abe35480f009fca07f79f15d3dc8c32fba412d93ec81fb5f793775f8e42e5f",
+    "examples/Fallback.asy": "4ada1c33177e12ced14baa7e65577ded0c7f0bd232391d2fa869adbf0aaa8d47",
+    "examples/Ref20.asy": "b0a25f0e079d174295fbef90733f78eeadab2a8892f3a177d2117bcafcb8f52c"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "base": "913c8c8d4a9ec24069c957bcf5ddca555ff398b8",
+  "checkout": "/Users/oobi/Documents/gpt1/assay-trace-value",
+  "commands": 11,
+  "finished_utc": "2026-09-19T04:06:52.528498+00:00",
+  "full_ladder_run": false,
+  "gate_modes_checked": 37,
+  "note": "Timing remains paused. Kernel, surface, emitter, source model and proofs are unchanged.",
+  "passed": true,
+  "pending": [
+    "DENOMINATORS",
+    "M0-RATIO"
+  ],
+  "sources_sha256": "1dbe9075be2c33d854bce057de7e27d59687929700ba1c2577bd213a1daa1815",
+  "started_utc": "2026-09-19T04:06:17.023609+00:00",
+  "trace_cases": {
+    "funding": 2,
+    "live": 36,
+    "refused": 34
+  },
+  "validation": "scoped"
+}

@@ -1,0 +1,48 @@
+M1: add trace call values
+
+Accept an optional `--value WORD` on the public trace command, after
+the required source and `--calldata`. Options may follow the source
+in any order. Duplicate, missing and unknown options, a dash-led
+source and a dash-led option value are refused with exit 64 and the
+usage row.
+
+Reuse the source model's bounded Word grammar to validate value
+before compilation, normalize hexadecimal case, and canonicalize the
+logged decimal argument by stripping leading zeroes, since geth's
+`--value` flag already parses a leading-zero decimal string as plain
+decimal. Forward the normalized value to geth alongside the existing
+prestate and code. The default value stays zero.
+
+Add the TRACE-VALUE gate after DIFF-VALUE, with the marker
+`TRACE-VALUE live=36 funding=2 refused=34 OK`. It checks 36 source
+model and EVM comparisons, the recorded executor arguments of 36
+live requests, two funding faults and 34 refusals.
+
+Validation is scoped to this driver change; the complete ladder was
+not rerun. DENOMINATORS and M0-RATIO remain under the existing
+timing pause, with no milestone exit claim.
+
+Review pass 1 (2026-09-18) fixed 5 findings: D-1, C-1, C-2, C-3 and
+D-2.
+
+D-1: the leading-zero strip carried a false rationale that geth reads
+decimal leading zeroes as octal; now the comment and both docs
+describe the strip as canonicalization, since geth already parses a
+leading-zero decimal string as decimal.
+
+C-1: the CALLVALUE operand assertion never ran for the closed-effect
+Ref20 cases, and the build log claimed universal coverage; now a
+comment explains the closed-effect skip and the build log and command
+doc state the check applies to entry-guarded contracts.
+
+C-2: the source-model round-trip subprocess call omitted the file's
+explicit sandboxed environment; now it passes the same environment as
+every other subprocess call in the file.
+
+C-3: the 108 per-call subprocess timeouts tracked no cumulative
+wall-clock time against the 180s leg deadline; now the driver measures
+elapsed time from the leg start and prints a diagnostic naming the
+case once the running total passes three quarters of the budget.
+
+D-2: the slice staged no commit message file, breaking the convention
+every prior M1 slice followed; this file restores it.

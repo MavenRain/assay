@@ -1,0 +1,147 @@
+[
+  {
+    "capture": "/Users/oobi/Documents/gpt1/assay-trace-value/.kanon-exec/run-EZiPPN",
+    "command": [
+      "zsh",
+      "-f",
+      "dev/dunecho.sh",
+      "build"
+    ],
+    "exit": 0,
+    "marker": "0 errors, 0 warnings",
+    "name": "BUILD",
+    "passed": true,
+    "reused_completed_run": true
+  },
+  {
+    "capture": "/Users/oobi/Documents/gpt1/assay-trace-value/.kanon-exec/run-VQ1OxN",
+    "command": [
+      "python3",
+      "-P",
+      "dev/trace-value-test.py"
+    ],
+    "exit": 0,
+    "marker": "TRACE-VALUE live=36 funding=2 refused=34 OK",
+    "name": "TRACE-VALUE",
+    "passed": true,
+    "reused_completed_run": true
+  },
+  {
+    "command": [
+      "zsh",
+      "-f",
+      "dev/carry-check.sh"
+    ],
+    "elapsed_ms": 1023,
+    "exit": 0,
+    "marker": "diff=0 unlisted=0",
+    "name": "PIN-CARRY",
+    "passed": true,
+    "timeout": 30
+  },
+  {
+    "command": [
+      "zsh",
+      "-f",
+      "dev/r0-count.sh"
+    ],
+    "elapsed_ms": 146,
+    "exit": 0,
+    "marker": "R0-COUNT OK",
+    "name": "R0-COUNT",
+    "passed": true,
+    "timeout": 10
+  },
+  {
+    "command": [
+      "zsh",
+      "-f",
+      "dev/r0-audit.sh"
+    ],
+    "elapsed_ms": 78,
+    "exit": 0,
+    "marker": "R0-AUDIT OK",
+    "name": "R0-AUDIT",
+    "passed": true,
+    "timeout": 10
+  },
+  {
+    "command": [
+      "zsh",
+      "-f",
+      "dev/house.sh"
+    ],
+    "elapsed_ms": 1064,
+    "exit": 0,
+    "marker": "HOUSE OK",
+    "name": "HOUSE",
+    "passed": true,
+    "timeout": 30
+  },
+  {
+    "command": [
+      "zsh",
+      "-f",
+      "dev/trusted-lines.sh"
+    ],
+    "elapsed_ms": 88,
+    "exit": 0,
+    "marker": "TRUSTED-LINES OK",
+    "name": "TRUSTED-LINES",
+    "passed": true,
+    "timeout": 10
+  },
+  {
+    "command": [
+      "python3",
+      "-P",
+      "dev/stage-a-test.py",
+      "driver"
+    ],
+    "elapsed_ms": 560,
+    "exit": 0,
+    "marker": "DRIVER cases=24 OK",
+    "name": "DRIVER",
+    "passed": true,
+    "timeout": 30
+  },
+  {
+    "command": [
+      "python3",
+      "-P",
+      "dev/trace-test.py"
+    ],
+    "elapsed_ms": 1919,
+    "exit": 0,
+    "marker": "TRACE-DRIVER cases=20 explicit_prestate=true literal_argv=true OK",
+    "name": "TRACE-DRIVER",
+    "passed": true,
+    "timeout": 120
+  },
+  {
+    "command": [
+      "python3",
+      "-P",
+      "dev/diff-test.py"
+    ],
+    "elapsed_ms": 9695,
+    "exit": 0,
+    "marker": "DIFF-EXECUTOR live=20 driver=28 rejected=24 OK",
+    "name": "DIFF-EXECUTOR",
+    "passed": true,
+    "timeout": 300
+  },
+  {
+    "command": [
+      "python3",
+      "-P",
+      "dev/diff-value-test.py"
+    ],
+    "elapsed_ms": 20851,
+    "exit": 0,
+    "marker": "DIFF-VALUE live=32 signed=32 refused=31 OK",
+    "name": "DIFF-VALUE",
+    "passed": true,
+    "timeout": 180
+  }
+]

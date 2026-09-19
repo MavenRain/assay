@@ -1,14 +1,31 @@
 (** Run geth with literal argv and an explicit prestate.  File and
     process races retain the driver's OS boundary. *)
-type error = Missing_tool | Missing_prestate of string
+type error = Invalid_value of string | Missing_tool | Missing_prestate of string
   | Executor_exit of int | Executor_signal of int | Execution_error
 
 let error : error -> string = function
+  | Invalid_value detail -> "TRACE_VALUE: " ^ detail
   | Missing_tool -> "TRACE_TOOL: evm is not on PATH"
   | Missing_prestate path -> "TRACE_PRESTATE: cannot read " ^ path
   | Executor_exit code -> "TRACE_EXECUTOR: exit " ^ string_of_int code
   | Executor_signal signal -> "TRACE_EXECUTOR: signal " ^ string_of_int signal
   | Execution_error -> "TRACE_EXECUTION: geth reported an EVM error"
+
+(* Validate with the model's Word grammar, then strip leading decimal
+   zeroes as pure canonicalization of the argv literal; geth's --value
+   flag already parses a leading-zero decimal string as plain decimal,
+   so this strip changes only the logged argument, not its meaning. *)
+let value (text : string) : (string, error) result =
+  Assay_emit.Model.inputs ~data:"" ~value:text ~storage:[]
+  |> Result.map (fun _ ->
+    let text = String.lowercase_ascii text in
+    if String.starts_with ~prefix:"0x" text then text else
+    let digits = String.to_seq text |> Seq.drop_while (fun c -> c = '0') |> String.of_seq in
+    if digits = "" then "0" else digits)
+  |> Result.map_error (fun e -> Invalid_value (match e with
+    | Assay_emit.Model.Input detail -> detail
+    | Assay_emit.Model.Source _ | Assay_emit.Model.Missing_memory _ ->
+      Assay_emit.Model.error e))
 
 let calldata (text : string) : string option =
   let text = String.lowercase_ascii text in
@@ -64,13 +81,13 @@ let has_error (text : string) : bool =
     | [] -> false in
   scan (String.split_on_char '"' text)
 
-let run ~(runtime : string) ~(input : string) ~(prestate : string) : (unit, error) result =
+let run ~(runtime : string) ~(input : string) ~(prestate : string) ~(value : string) : (unit, error) result =
   if not (regular prestate) then Error (Missing_prestate prestate) else
   Option.fold ~none:(Error Missing_tool) ~some:(fun program ->
       let argv = [program; "--verbosity"; "0"; "run"; "--prestate"; prestate;
         "--gas"; "16777216"; "--sender"; "0x000000000000000000000000000073656e646572";
         "--receiver"; "0x0000000000000000000000007265636569766572";
-        "--code"; runtime; "--input"; input; "--json"; "--dump"] in
+        "--code"; runtime; "--input"; input; "--value"; value; "--json"; "--dump"] in
       let channel = Unix.open_process_args_in program (Array.of_list argv) in
       let output = In_channel.input_all channel in
       let status = Unix.close_process_in channel in

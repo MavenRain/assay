@@ -1,0 +1,21 @@
+{
+  "added_leg": [
+    "TRACE-VALUE",
+    180,
+    [
+      "python3",
+      "-P",
+      "dev/trace-value-test.py"
+    ],
+    "TRACE-VALUE live=36 funding=2 refused=34 OK"
+  ],
+  "base": "913c8c8d4a9ec24069c957bcf5ddca555ff398b8",
+  "check": "Evaluated mode selection only, before the gate runner creates files or executes commands.",
+  "current_legs": 66,
+  "existing_modes": 36,
+  "existing_modes_unchanged": true,
+  "gates_sha256": "c91abdfb9a50144d1b522d631bcf67877b9ec258a0bf3a3647b86e54ebe51168",
+  "previous_legs": 65,
+  "previous_legs_unchanged": true,
+  "stage": "M1-TRACE-VALUE"
+}
