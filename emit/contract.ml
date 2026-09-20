@@ -24,9 +24,8 @@ type proof =
 type parameter = Word_parameter of token | Proof_parameter of token * claim
 type helper = { helper_name : token; parameters : parameter list; conclusion : claim; proof_body : proof }
 type binding = Word_value of string | Proof_value of string * resolved_claim
-type step =
-  | Load of token * token
-  | Caller of token
+type step = Load of token * token
+  | Context of Recognize.context * token
   | Deployer of token
   | Add of token * word * word
   | Sub of token * word * word
@@ -77,7 +76,7 @@ let lex chars =
     | ('(' | ')' | '{' | '}' | ':' | ';' | '.' | ',' as c) :: rest -> next (String.make 1 c) rest
     | _c :: _rest -> fail (at "") "TOKEN" "unexpected character" in
   scan 0 1 1 [] chars
-let reserved = ["Both"; "EqWord"; "eqWord"; "predicate"; "caller"; "deployer"; "fallback"; "Never"; "payable"] @ String.split_on_char ' '
+let reserved = ["Both"; "EqWord"; "eqWord"; "predicate"; "caller"; "callvalue"; "deployer"; "fallback"; "Never"; "payable"] @ String.split_on_char ' '
   "contract where storage entry constructor error invariant proof do sload sstore add sub guard le let pure revert Word Eff Sig Tx ResultWord Storage Entry Error main word ret put read EvmOpcodes done store load abort reject def axiom fun inj of case match as return with tuple sum prod absurd Prop Type in auto mu mutual end nu and rec natAdd natSub natMul natEq natLt Le Lt256 AddFits leWord lt256 wordNat guardLe guardAdd addLt subLe"
 let identifier tokens = match tokens with
   | at :: rest when Recognize.identifier at.text && at.text <> "_" &&
@@ -334,12 +333,11 @@ let body tokens =
       (match rest with
        | { text = "sload"; _ } :: rest ->
          let* slot, rest = identifier rest in next (Load (name, slot)) rest
-       | { text = "caller"; _ } :: rest -> next (Caller name) rest
-       | { text = "add"; _ } :: rest ->
-         let* (a, b), rest = binary (value 0) rest in next (Add (name, a, b)) rest
-       | { text = "sub"; _ } :: rest ->
-         let* (a, b), rest = binary (value 0) rest in next (Sub (name, a, b)) rest
-       | [] | _ :: _ -> fail (here rest) "EFFECT" "expected sload, caller, add or sub") in
+       | { text = "caller"; _ } :: rest -> next (Context (Recognize.Caller, name)) rest
+       | { text = "callvalue"; _ } :: rest -> next (Context (Recognize.Callvalue, name)) rest
+       | { text = ("add" | "sub") as op; _ } :: rest ->
+         let* (a, b), rest = binary (value 0) rest in next (if op = "add" then Add (name, a, b) else Sub (name, a, b)) rest
+       | [] | _ :: _ -> fail (here rest) "EFFECT" "expected sload, caller, callvalue, add or sub") in
   steps 0 [] tokens
 
 let named_word tokens =
@@ -692,8 +690,8 @@ let transaction fields errors invariants predicates helpers env (steps, ending) 
         let* next = lower (index + 1) ((name.text, Word_value fresh) :: env)
           ((field.text, Word_value fresh) :: List.remove_assoc field.text state) written evidence rest in
         Ok (app "load" [key; lambda fresh "Word 256" next])
-      | Caller name ->
-        let* next = bind name in Ok (app "caller" [lambda fresh "Word 256" next])
+      | Context (source, name) ->
+        let* next = bind name in Ok (app (Recognize.context_name source) [lambda fresh "Word 256" next])
       | Deployer at -> fail at "EFFECT" "deployer is available only in constructors"
       | Add (name, a, b) -> arithmetic "add" name a b
       | Sub (name, a, b) -> arithmetic "sub" name a b
@@ -756,7 +754,7 @@ let constructor fields (steps, ending) =
     | Deployer field ->
       let* field = slot fields field in Ok (app "deployer" [field; next])
     | Store (at, Local _) | Load (at, _) | Add (at, _, _) | Sub (at, _, _) | Bind (at, _)
-    | Caller at | Prove (at, _, _, _) | Proven (at, _, _, _, _) | Proof_bind (at, _, _)
+    | Context (_, at) | Prove (at, _, _, _) | Proven (at, _, _, _, _) | Proof_bind (at, _, _)
     | Guard ((Literal at | Local at), _) ->
       fail at "CONSTRUCTOR" "constructor accepts literal stores and deployer initialization only")
     steps (Ok "(ret (word 256 0))")
@@ -784,7 +782,7 @@ let generate state fields entries errors invariants predicates helpers init fall
     | Store (field, v) -> let* v = word [] v in
       Ok ((field.text, Word_value v) :: List.remove_assoc field.text state)
     | Deployer field -> Ok (List.remove_assoc field.text state)
-    | Caller _ | Load _ | Add _ | Sub _ | Guard _ | Bind _ | Prove _ | Proven _ | Proof_bind _ -> Ok state)
+    | Context _ | Load _ | Add _ | Sub _ | Guard _ | Bind _ | Prove _ | Proven _ | Proof_bind _ -> Ok state)
     (Ok initial) (Option.fold ~none:[] ~some:fst init) in
   let* () = List.fold_left (fun result row -> let* () = result in
     List.fold_left (fun result field -> let* () = result in
@@ -797,9 +795,8 @@ let generate state fields entries errors invariants predicates helpers init fall
   let* init_ty = obligations predicates invariants initial [] "Type 0" "Eff" in
   let deployer = List.exists (function
     | Deployer _ -> true
-    | Caller _ | Load _ | Add _ | Sub _ | Store _ | Guard _ | Bind _
+    | Context _ | Load _ | Add _ | Sub _ | Store _ | Guard _ | Bind _
     | Prove _ | Proven _ | Proof_bind _ -> false) (Option.fold ~none:[] ~some:fst init) in
-  let init = "(" ^ init_term ^ " : " ^ init_ty ^ ")" in
   let* branches = List.fold_left (fun result (i, row) ->
     let* branches = result in
     let env = List.mapi (fun i at -> at.text, Word_value ("_assay_args." ^ string_of_int i)) row.args in
@@ -810,8 +807,7 @@ let generate state fields entries errors invariants predicates helpers init fall
   let decl = Recognize.declaration in
   let collection former ats = Recognize.collection_source former (List.map (fun at -> at.text) ats) in
   let nullary = List.for_all (fun row -> row.args = []) entries in
-  let arguments row =
-    if nullary then "(prod () : Type 0)" else collection "prod" row.args in
+  let arguments row = if nullary then "(prod () : Type 0)" else collection "prod" row.args in
   let aliases = String.concat "" (List.map (fun name -> decl name "Word 256") aliases) in
   let error_source = String.concat "" (List.map (fun row ->
     decl row.error_name.text (if row.error_args = [] then "(prod () : Type 0)"
@@ -819,20 +815,21 @@ let generate state fields entries errors invariants predicates helpers init fall
     decl "Error" (collection "sum" (List.map (fun row -> row.error_name) errors)) in
   let proofs = helpers <> [] || invariants <> [] || List.exists (fun row -> List.exists (function
     | Prove _ | Proven _ | Proof_bind _ -> true
-    | Caller _ | Deployer _ | Load _ | Add _ | Sub _ | Store _ | Guard _ | Bind _ -> false) (fst row.body)) entries in
-  let caller = List.exists (fun row -> List.exists (function
-    | Caller _ -> true
+    | Context _ | Deployer _ | Load _ | Add _ | Sub _ | Store _ | Guard _ | Bind _ -> false) (fst row.body)) entries in
+  let uses_context source = List.exists (fun row -> List.exists (function
+    | Context (actual, _) -> actual = source
     | Deployer _ | Load _ | Add _ | Sub _ | Store _ | Guard _ | Bind _
     | Prove _ | Proven _ | Proof_bind _ -> false) (fst row.body)) entries in
+  let caller = uses_context Recognize.Caller and callvalue = uses_context Recognize.Callvalue in
   let payable = List.exists (fun row -> row.payable) entries in
-  Ok ((if errors = [] then Recognize.m1_protocol_for ~proofs ~caller ~deployer ~payable "" ^ aliases
-    else Recognize.m1_protocol_for ~proofs ~caller ~deployer ~payable (aliases ^ error_source)) ^ helper_source ^
+  Ok ((if errors = [] then Recognize.m1_protocol_for ~proofs ~caller ~callvalue ~deployer ~payable "" ^ aliases
+    else Recognize.m1_protocol_for ~proofs ~caller ~callvalue ~deployer ~payable (aliases ^ error_source)) ^ helper_source ^
     decl "Storage" (collection "prod" fields) ^ decl state.text "Storage" ^
     "def storage : Storage := tuple (" ^ String.concat ", "
       (List.mapi (fun i _at -> "word 256 " ^ string_of_int i) fields) ^ ")\n" ^
     String.concat "" (List.map (fun row -> decl row.name.text (arguments row)) entries) ^
     decl "Entry" (collection "sum" (List.map (fun row -> row.name) entries)) ^
-    "def constructor : Eff := " ^ init ^ "\n" ^ fallback_source ^
+    "def constructor : Eff := (" ^ init_term ^ " : " ^ init_ty ^ ")\n" ^ fallback_source ^
     "def main : Entry -> Tx := fun (_assay_entry : Entry) => case _assay_entry with\n" ^
     String.concat "\n" branches ^ "\n")
 

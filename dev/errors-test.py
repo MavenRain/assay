@@ -273,7 +273,7 @@ def mutants():
         ('SELECTOR', 'emit/emit.ml', 'A.Push selector; number 224;', 'A.Push selector; number 216;', 'bytes'),
         ('MEMORY', 'emit/emit.ml', 'let base = 32 * 1024 in', 'let base = 0 in', 'bytes'),
         ('LENGTH', 'emit/emit.ml', 'number (4 + 32 * List.length values); number base', 'number (32 * List.length values); number base', 'bytes'),
-        ('ROLLBACK', 'emit/model.ml', 'output = "0x" ^ selector ^ words; storage = initial', 'output = "0x" ^ selector ^ words; storage', 'rollback'),
+        ('ROLLBACK', 'emit/model.ml', 'output = "0x" ^ selector ^ words; storage = input.initial', 'output = "0x" ^ selector ^ words; storage', 'rollback'),
         ('ABI', 'abi/abi.ml', 'List.map error errors', 'List.map error (List.filter (fun _row -> false) errors)', 'abi'),
     ]
     with tempfile.TemporaryDirectory(prefix='assay-errors-mutants-') as temporary:

@@ -15,8 +15,7 @@ let error = function
 let segment offset length text =
   String.to_seq text |> Seq.drop offset |> Seq.take length |> String.of_seq
 let unprefix text =
-  if String.starts_with ~prefix:"0x" text
-  then String.to_seq text |> Seq.drop 2 |> String.of_seq else text
+  if String.starts_with ~prefix:"0x" text then segment 2 (String.length text - 2) text else text
 let word text =
   let text = String.lowercase_ascii text in
   let hex = String.starts_with ~prefix:"0x" text in
@@ -71,34 +70,35 @@ let operand memory = function
   | E.Constant value -> Ok value
   | E.Memory index -> List.assoc_opt index memory |> Option.to_result ~none:(Missing_memory index)
 
-let rec transaction caller initial storage memory = function
+let rec transaction input storage memory = function
   | E.Finish value -> let* value = operand memory value in Ok (success storage value)
-  | E.Abort -> Ok (revert initial)
+  | E.Abort -> Ok (revert input.initial)
   | E.Reject (selector, values) ->
     let* words = List.fold_left (fun result value ->
       let* words = result in let* value = operand memory value in
       Ok (words ^ Z.format "%064x" value)) (Ok "") values in
-    Ok {reverted = true; output = "0x" ^ selector ^ words; storage = initial}
+    Ok {reverted = true; output = "0x" ^ selector ^ words; storage = input.initial}
   | E.Store (slot, value, next) ->
-    let* value = operand memory value in transaction caller initial (put storage slot value) memory next
+    let* value = operand memory value in transaction input (put storage slot value) memory next
   | E.Load (slot, index, next) ->
-    transaction caller initial storage ((index, get storage slot) :: memory) next
-  | E.Caller (index, next) ->
-    transaction caller initial storage ((index, caller) :: memory) next
+    transaction input storage ((index, get storage slot) :: memory) next
+  | E.Context (source, index, next) ->
+    let value = match source with Recognize.Caller -> input.caller | Recognize.Callvalue -> input.value in
+    transaction input storage ((index, value) :: memory) next
   | E.Arithmetic (operation, left, right, index, yes, no) ->
     let* left = operand memory left in let* right = operand memory right in
     let result = match operation with E.Add -> Z.add left right | E.Sub -> Z.sub left right in
     if Z.sign result < 0 || Z.numbits result > 256
-    then transaction caller initial storage memory no
-    else transaction caller initial storage ((index, result) :: memory) yes
+    then transaction input storage memory no
+    else transaction input storage ((index, result) :: memory) yes
   | E.Compare (left, right, yes, no) ->
     let* left = operand memory left in let* right = operand memory right in
-    transaction caller initial storage memory (if Z.leq left right then yes else no)
+    transaction input storage memory (if Z.leq left right then yes else no)
   | E.Compute (operation, left, right, index, next) ->
     let* left = operand memory left in let* right = operand memory right in
     let result = match operation with E.Add -> Z.add left right | E.Sub -> Z.sub left right in
     if Z.sign result < 0 || Z.numbits result > 256 then Error (Source (E.M1_shape "proved arithmetic bound"))
-    else transaction caller initial storage ((index, result) :: memory) next
+    else transaction input storage ((index, result) :: memory) next
 
 let prepare ~export globals erased =
   let source result = Result.map_error (fun e -> Source e) result in
@@ -120,7 +120,7 @@ let run program input =
   | Entries (entries, fallback) ->
     let has_value = not (Z.equal input.value Z.zero) in
     let default = if has_value then Ok (revert input.initial)
-      else transaction input.caller input.initial input.initial [] fallback in
+      else transaction input input.initial [] fallback in
     if String.length input.data < 8 then default else
     let selector = segment 0 8 input.data in
     Option.fold ~none:default ~some:(fun entry ->
@@ -129,7 +129,7 @@ let run program input =
       if String.length input.data < 8 + 64 * count then Ok (revert input.initial) else
       let memory = List.init count (fun index ->
         index + 1, Z.of_string_base 16 (segment (8 + 64 * index) 64 input.data)) in
-      transaction input.caller input.initial input.initial memory entry.E.tx)
+      transaction input input.initial memory entry.E.tx)
       (List.find_opt (fun entry -> entry.E.selector = selector) entries)
 let print outcome =
   let quote = Assay_abi.Abi.quote in

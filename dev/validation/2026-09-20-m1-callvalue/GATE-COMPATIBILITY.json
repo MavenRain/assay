@@ -1,0 +1,29 @@
+{
+  "base": "4836427",
+  "previous_modes": 40,
+  "previous_legs": 69,
+  "current_legs": 70,
+  "preserved_except": [],
+  "public_build": [
+    "BUILD",
+    120,
+    [
+      "zsh",
+      "-f",
+      "dev/dune.sh",
+      "build"
+    ],
+    ""
+  ],
+  "added_leg": [
+    "CALLVALUE",
+    240,
+    [
+      "python3",
+      "-P",
+      "dev/callvalue-test.py"
+    ],
+    "CALLVALUE cases=480 signed=18 pairs=16 probes=12 public=2 refusals=13 mutants=4 OK"
+  ],
+  "gates_sha256": "10131cf2b34845b991f85b323ce79554e0689d7684eb496f9c80516e0694dbcc"
+}

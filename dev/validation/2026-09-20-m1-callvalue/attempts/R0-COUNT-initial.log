@@ -1,0 +1,2 @@
+R0-COUNT FAIL: SPEC.md has no '## R0 counts' heading
+dev/r0-count.sh:25: command not found: rg

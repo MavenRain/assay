@@ -1,0 +1,8 @@
+{
+  "cast": "cast 0.3.0 (5a8bd89 2024-12-20T08:45:53.135759000Z)",
+  "dune": "3.24.2",
+  "evm": "evm version 1.14.12-stable",
+  "ocamlc": "5.2.1",
+  "python3": "Python 3.14.7",
+  "rg": "ripgrep 15.1.0\n\nfeatures:-pcre2\nsimd(compile):+NEON\nsimd(runtime):+NEON\n\nPCRE2 is not available in this build of ripgrep."
+}

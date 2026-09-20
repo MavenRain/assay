@@ -1,0 +1,5 @@
+CALLVALUE-MUTANT SURFACE killed control=OK
+CALLVALUE-MUTANT EMITTER killed control=OK
+CALLVALUE-MUTANT MODEL killed control=OK
+CALLVALUE-MUTANT SCHEMA killed control=OK
+CALLVALUE cases=480 signed=18 pairs=16 probes=12 public=2 refusals=13 mutants=4 OK

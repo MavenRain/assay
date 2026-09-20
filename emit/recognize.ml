@@ -136,12 +136,15 @@ let proof_effects = {|  | guardLe : (a : Word 256) -> (b : Word 256) -> ((0 p : 
 |}
 let proof_names = ["wordNat"; "Le"; "AddFits"; "guardLe"; "guardAdd"; "addLt"; "subLe"]
 let has_proofs globals = List.exists (fun name -> Option.is_some (Global.find name globals)) proof_names
-let m1_protocol_for ?(proofs=false) ?(caller=false) ?(deployer=false) ?(payable=false) error_source =
+type context = Caller | Callvalue
+let context_name = function Caller -> "caller" | Callvalue -> "callvalue"
+let m1_protocol_for ?(proofs=false) ?(caller=false) ?(callvalue=false) ?(deployer=false) ?(payable=false) error_source =
   base_protocol ~deployer ^
   (if proofs then proof_protocol else "") ^ error_source ^ tx_protocol ^
   (if error_source = "" then "" else "  | reject : Error -> Tx\n") ^
   (if proofs then proof_effects else "") ^
   (if caller then "  | caller : (Word 256 -> Tx) -> Tx\n" else "") ^
+  (if callvalue then "  | callvalue : (Word 256 -> Tx) -> Tx\n" else "") ^
   (if payable then "  | payable : Tx -> Tx\n" else "")
 
 let checked_schema globals source = check_protocol ~parse_error:(fun _error -> Protocol "M1 schema")
@@ -218,18 +221,18 @@ let m1_schema globals =
       Error (Protocol ("M1 proof assumption " ^ name))
     | Global.Axiom _ | Global.Def _ | Global.Prim _ -> Ok ()) globals.Global.entries (Ok ()) in
   let caller = has_constructor globals "Tx" "caller" in
+  let callvalue = has_constructor globals "Tx" "callvalue" in
   let payable = has_constructor globals "Tx" "payable" in
-  let source = (if errors = [] then m1_protocol_for ~proofs ~caller ~deployer ~payable "" ^ aliases
-    else m1_protocol_for ~proofs ~caller ~deployer ~payable (aliases ^ variant_source globals "Error" errors)) ^
+  let source = (if errors = [] then m1_protocol_for ~proofs ~caller ~callvalue ~deployer ~payable "" ^ aliases
+    else m1_protocol_for ~proofs ~caller ~callvalue ~deployer ~payable (aliases ^ variant_source globals "Error" errors)) ^
     declaration "Storage" (collection_source "prod" fields) ^
     variant_source globals "Entry" entries in
   let* () = checked_schema globals source in
-  let* () = if List.for_all (fun (name, args) -> args = [] && not (typed_unit globals name)) entries
-    then Error (Protocol "M1 nullary Entry needs an explicit (prod () : Type 0) argument record")
+  let record family rows = if List.for_all (fun (name, args) -> args = [] && not (typed_unit globals name)) rows
+    then Error (Protocol ("M1 nullary " ^ family ^ " needs an explicit (prod () : Type 0) argument record"))
     else Ok () in
-  let* () = if errors <> [] && List.for_all (fun (name, args) -> args = [] && not (typed_unit globals name)) errors
-    then Error (Protocol "M1 nullary Error needs an explicit (prod () : Type 0) argument record")
-    else Ok () in
+  let* () = record "Entry" entries in
+  let* () = if errors = [] then Ok () else record "Error" errors in
   let* storage = definition globals "storage" in
   if storage.Global.ty = Term.Global "Storage" then Ok (fields, entries, errors)
   else Error Storage_shape

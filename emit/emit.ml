@@ -29,7 +29,7 @@ let error = function
 let recognize result = Result.map_error (fun e -> Recognizer e) result
 type fn = { params : Eterm.repr list; result : Eterm.repr; body : Eterm.ktm }
 type environment = { functions : (string * fn) list; postulates : string list; runtime : bool;
-                     caller_tag : int option; payable_tag : int option }
+                     caller_tag : int option; callvalue_tag : int option; payable_tag : int option }
 
 let environment ?(runtime=false) rows =
   List.fold_left (fun env (name, entry) -> match entry with
@@ -39,7 +39,7 @@ let environment ?(runtime=false) rows =
       | Eterm.KRec _ -> env
       | Eterm.KFun (Eterm.Fid name, params, result, body) ->
         { env with functions = (name, {params; result; body}) :: env.functions }) env decls)
-    { functions = []; postulates = []; runtime; caller_tag = None; payable_tag = None } rows
+    { functions = []; postulates = []; runtime; caller_tag = None; callvalue_tag = None; payable_tag = None } rows
 let at index values = Rules.at index values |> Option.to_result ~none:(Invalid_ir "index")
 let tick fuel = if fuel <= 0 then Error Budget else Ok (fuel - 1)
 let result_repr = function
@@ -220,12 +220,11 @@ let program_m0 ~contract ~export globals rows erased =
 
 type operand = Constant of Z.t | Memory of int
 type arithmetic = Add | Sub
-type transaction =
-  | Finish of operand | Abort
+type transaction = Finish of operand | Abort
   | Reject of string * operand list
   | Store of Z.t * operand * transaction
   | Load of Z.t * int * transaction
-  | Caller of int * transaction
+  | Context of R.context * int * transaction
   | Arithmetic of arithmetic * operand * operand * int * transaction * transaction
   | Compute of arithmetic * operand * operand * int * transaction
   | Compare of operand * operand * transaction * transaction
@@ -300,9 +299,9 @@ let rec transaction env errors slots depth fuel fresh value =
      | 6, [] -> Ok (Abort, fuel, fresh)
      | tag, _fields when Some tag = env.payable_tag ->
        Error (M1_shape "payable must wrap the complete entry")
-     | tag, [fn] when Some tag = env.caller_tag ->
+     | tag, [fn] when Some tag = env.caller_tag || Some tag = env.callvalue_tag ->
        let* next, fuel, next_fresh = continuation fuel (fresh + 1) fn (R.Runtime_word fresh) in
-       Ok (Caller (fresh, next), fuel, next_fresh)
+       Ok (Context ((if Some tag = env.caller_tag then R.Caller else R.Callvalue), fresh, next), fuel, next_fresh)
      | 7, [value] -> let* tx = error_value errors value in Ok (tx, fuel, fresh)
      | tag, [left; right; fn; no] when tag = (if errors = [] then 7 else 8) || tag = (if errors = [] then 8 else 9) ->
        let addition = tag = (if errors = [] then 8 else 9) in
@@ -345,7 +344,8 @@ let rec transaction_blocks label tx =
     [marked label (header @ payload @ [number (4 + 32 * List.length values); number base]) (A.Halt A.Revert)]
   | Store (slot, value, next) -> continue (read_operand value @ [push slot; A.Op "SSTORE"]) next
   | Load (slot, index, next) -> continue ([push slot; A.Op "SLOAD"] @ save index) next
-  | Caller (index, next) -> continue ([A.Op "CALLER"] @ save index) next
+  | Context (source, index, next) ->
+    continue ([A.Op (String.uppercase_ascii (R.context_name source))] @ save index) next
   | Compute (op, left, right, index, next) ->
     let compute = match op with
       | Add -> read_operand left @ read_operand right @ [A.Op "ADD"]
@@ -366,7 +366,7 @@ let rec transaction_blocks label tx =
 let rec readonly = function
   | Finish _ | Abort | Reject _ -> true
   | Store _ -> false
-  | Load (_, _, next) | Caller (_, next) | Compute (_, _, _, _, next) -> readonly next
+  | Load (_, _, next) | Context (_, _, next) | Compute (_, _, _, _, next) -> readonly next
   | Arithmetic (_, _, _, _, yes, no) | Compare (_, _, yes, no) -> readonly yes && readonly no
 
 type entry = { abi_entry : Assay_abi.Abi.entry; selector : string; tx : transaction }
@@ -397,7 +397,7 @@ let dispatch_blocks ?fallback entries =
   let mixed = List.exists (fun entry -> Assay_abi.Abi.accepts_value entry.abi_entry) entries in
   let default, fallback_blocks = match Option.value fallback ~default:Abort with
     | Abort -> "reject", []
-    | (Finish _ | Reject _ | Load _ | Caller _ | Store _ | Arithmetic _ | Compare _ | Compute _) as tx ->
+    | (Finish _ | Reject _ | Load _ | Context _ | Store _ | Arithmetic _ | Compare _ | Compute _) as tx ->
       "fallback", transaction_blocks "fallback" tx in
   let default, fallback_blocks = if mixed && default <> "reject" then
     "fallbackValue", marked "fallbackValue" [A.Op "CALLVALUE"]
@@ -462,7 +462,7 @@ let prepare_m1 ~export globals erased =
   let* constructor, fuel = call env fuel "constructor" [] in
   let* constructor = effect (List.length fields) constructor in
   let env = {env with runtime = true; caller_tag = R.constructor_tag globals "Tx" "caller";
-             payable_tag = R.constructor_tag globals "Tx" "payable"} in
+    callvalue_tag = R.constructor_tag globals "Tx" "callvalue"; payable_tag = R.constructor_tag globals "Tx" "payable"} in
   let* entries, fuel = entries env errors (List.length fields) fuel export declarations in
   let* fallback = if Option.is_none (Global.find "fallback" globals) then Ok None else
     let* value, fuel = call env fuel "fallback" [] in
@@ -471,7 +471,7 @@ let prepare_m1 ~export globals erased =
     match tx with
     | Abort -> Ok (Some tx)
     | Reject (_, values) when List.for_all (function Constant _ -> true | Memory _ -> false) values -> Ok (Some tx)
-    | Finish _ | Reject _ | Load _ | Caller _ | Store _ | Arithmetic _ | Compare _ | Compute _ ->
+    | Finish _ | Reject _ | Load _ | Context _ | Store _ | Arithmetic _ | Compare _ | Compute _ ->
       Error (M1_shape "fallback must be a closed revert") in
   Ok (entries, constructor, fields, errors, fallback)
 

@@ -287,16 +287,17 @@ def independent():
 
 def mutants():
     cases = [
-        ('CALLER', 'emit/emit.ml', '[A.Op "CALLER"] @ save index', '[A.Op "ORIGIN"] @ save index',
+        ('CALLER', 'emit/emit.ml', 'String.uppercase_ascii (R.context_name source)',
+         '(match source with R.Caller -> "ORIGIN" | R.Callvalue -> "CALLVALUE")',
          'nested', 'CONTEXT-PROXY'),
         ('DEPLOYER', 'emit/emit.ml', 'Ok ([A.Op "CALLER"; push slot; A.Op "SSTORE"] @ next)',
          'Ok ([A.Op "ORIGIN"; push slot; A.Op "SSTORE"] @ next)', 'nested', 'CONTEXT-FACTORY'),
-        ('SNAPSHOT', 'emit/emit.ml', '| tag, [fn] when Some tag = env.caller_tag ->\n'
+        ('SNAPSHOT', 'emit/emit.ml', '| tag, [fn] when Some tag = env.caller_tag || Some tag = env.callvalue_tag ->\n'
          '       let* next, fuel, next_fresh = continuation fuel (fresh + 1) fn (R.Runtime_word fresh)',
-         '| tag, [fn] when Some tag = env.caller_tag ->\n'
+         '| tag, [fn] when Some tag = env.caller_tag || Some tag = env.callvalue_tag ->\n'
          '       let* next, fuel, next_fresh = continuation fuel fresh fn (R.Runtime_word fresh)',
          'live', 'CONTEXT-MODEL who'),
-        ('MODEL', 'emit/model.ml', '((index, caller) :: memory)', '((index, Z.zero) :: memory)',
+        ('MODEL', 'emit/model.ml', 'Recognize.Caller -> input.caller', 'Recognize.Caller -> Z.zero',
          'live', 'CONTEXT-MODEL who'),
         ('ADDRESS', 'emit/model.ml', 'Z.numbits caller > 160', 'Z.numbits caller > 256',
          'inputs', 'CONTEXT-INPUT 1'),

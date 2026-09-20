@@ -216,7 +216,7 @@ def refusals(only=None):
 
 def mutants():
     cases = [
-        ('CALLER', 'next (Caller name) rest', 'next (Bind (name, Literal { name with text = "0" })) rest',
+        ('CALLER', 'next (Context (Recognize.Caller, name)) rest', 'next (Bind (name, Literal { name with text = "0" })) rest',
          'pairs', 'SURFACE-CONTEXT-PAIR'),
         ('DEPLOYER', 'Ok (app "deployer" [field; next])', 'Ok (app "put" [field; "(word 256 0)"; next])',
          'pairs', 'SURFACE-CONTEXT-PAIR'),

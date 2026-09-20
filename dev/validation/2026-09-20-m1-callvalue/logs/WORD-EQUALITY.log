@@ -1,0 +1,5 @@
+EQUALITY-MUTANT RUNTIME killed control=OK
+EQUALITY-MUTANT CLAIM killed control=OK
+EQUALITY-MUTANT PAYLOAD killed control=OK
+EQUALITY-MUTANT DEPTH killed control=OK
+EQUALITY pairs=8 cases=53 signed=33 creates=8 boundaries=6 refusals=17 mutants=4 OK

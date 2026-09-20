@@ -1,5 +1,49 @@
 # Assay M1 build log
 
+## 2026-09-20: Call-value snapshots
+
+The thirty-fifth M1 slice starts at `4836427`. `amount <- callvalue`
+reads the current call's uint256 value in source. The checked `Tx`
+family supports an optional call-value continuation before the payable
+marker. Caller and call value share a typed snapshot path in emission
+and the model. Payability, proof guards, typed reverts and rollback retain
+their existing behavior.
+
+CALLVALUE passes 480 independently expected core model/geth cases,
+18 signed Cancun comparisons with transfer and rollback checks,
+16 unused-constructor artifact pairs, 12 surface probes, two public
+command calls, 13 refusals and four mutations with restored controls.
+The matrix covers all 16 combinations of errors, proofs, caller context
+and payability, with zero, one and uint256-max values.
+
+All 35 scoped gates pass. The initial run retained six failures: two
+audit gates lacked `rg` on the invocation's PATH, and four mutation
+batteries needed anchors matching the refactored source. The rechecks
+retain those failures and their passing replacements. The rollback
+anchor needed a second correction to identify the abort branch uniquely.
+The final source keeps the nullary-entry scan outside the per-entry
+helper; BUILD, HOUSE, TRUSTED-LINES, CONTRACT-SURFACE, NULLARY-ENTRIES and
+CALLVALUE were refreshed after that adjustment. Original mutation
+counts and witnesses remain required.
+
+All 40 previous gate modes retain their declarations. The default
+appends CALLVALUE as leg 70. The emitter remains 1800/1800 lines, the
+kernel 3997/4000, and the six added trusted components total 2224/3550.
+The bounds are unchanged.
+
+The [effect contract](M1-CALLVALUE.md), [mutation witnesses](M1-CALLVALUE-MUTATIONS.md)
+and [validation archive](validation/2026-09-20-m1-callvalue/) retain the
+source hashes, raw captures, initial failures and final results. The full
+ladder was not rerun. DENOMINATORS and M0-RATIO retain their existing
+timing pause, with no performance or milestone-exit claim.
+
+### Review round 2026-09-20 (M1 call-value snapshots)
+
+D-1 (low): dev/STAGE-M1-CALLVALUE-COMMIT.txt row 3 ran 73 columns,
+over the 72-column house limit. Now paragraph one rewraps at 72
+columns across four lines, the file holds 10 rows instead of 9, and
+verify-final.sh's commit-file check expects 10 rows.
+
 ## 2026-09-19: Payable entries
 
 The thirty-fourth M1 slice starts at `f187d41`. `payable entry` marks a

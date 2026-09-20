@@ -1,0 +1,10 @@
+M1: add call-value snapshots
+
+Read call value as a Word in contract source and the checked Tx
+protocol. Share typed snapshot handling with caller context while
+preserving entry payability, ABI metadata, proof guards and rollback
+behavior.
+
+Add an example and a CALLVALUE gate covering independent model/geth
+outcomes, signed transfers, unchanged artifacts, refusals and mutations.
+Preserve previous gate declarations and trusted-line bounds.

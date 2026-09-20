@@ -1,0 +1,453 @@
+[
+  {
+    "name": "BUILD",
+    "command": [
+      "zsh",
+      "-f",
+      "dev/dune.sh",
+      "build"
+    ],
+    "timeout": 120,
+    "exit": 0,
+    "marker": "",
+    "passed": true,
+    "elapsed_ms": 2385
+  },
+  {
+    "name": "PIN-CARRY",
+    "command": [
+      "zsh",
+      "-f",
+      "dev/carry-check.sh"
+    ],
+    "timeout": 30,
+    "exit": 0,
+    "marker": "diff=0 unlisted=0",
+    "passed": true,
+    "elapsed_ms": 603
+  },
+  {
+    "name": "R0-COUNT",
+    "command": [
+      "zsh",
+      "-f",
+      "dev/r0-count.sh"
+    ],
+    "timeout": 10,
+    "exit": 0,
+    "marker": "R0-COUNT OK",
+    "passed": true,
+    "elapsed_ms": 100
+  },
+  {
+    "name": "R0-AUDIT",
+    "command": [
+      "zsh",
+      "-f",
+      "dev/r0-audit.sh"
+    ],
+    "timeout": 10,
+    "exit": 0,
+    "marker": "R0-AUDIT OK",
+    "passed": true,
+    "elapsed_ms": 45
+  },
+  {
+    "name": "HOUSE",
+    "command": [
+      "zsh",
+      "-f",
+      "dev/house.sh"
+    ],
+    "timeout": 30,
+    "exit": 0,
+    "marker": "HOUSE OK",
+    "passed": true,
+    "elapsed_ms": 963
+  },
+  {
+    "name": "TRUSTED-LINES",
+    "command": [
+      "zsh",
+      "-f",
+      "dev/trusted-lines.sh"
+    ],
+    "timeout": 10,
+    "exit": 0,
+    "marker": "TRUSTED-LINES OK",
+    "passed": true,
+    "elapsed_ms": 72
+  },
+  {
+    "name": "SUITE-KERNEL",
+    "command": [
+      "_build/default/test/main.exe",
+      "test"
+    ],
+    "timeout": 300,
+    "exit": 0,
+    "marker": "SUITE-KERNEL OK",
+    "passed": true,
+    "elapsed_ms": 1213
+  },
+  {
+    "name": "SUITE-SURFACE",
+    "command": [
+      "_build/default/test/sl_surface.exe"
+    ],
+    "timeout": 60,
+    "exit": 0,
+    "marker": "SL-SURFACE OK",
+    "passed": true,
+    "elapsed_ms": 307
+  },
+  {
+    "name": "DRIVER",
+    "command": [
+      "python3",
+      "-P",
+      "dev/stage-a-test.py",
+      "driver"
+    ],
+    "timeout": 30,
+    "exit": 0,
+    "marker": "DRIVER cases=24 OK",
+    "passed": true,
+    "elapsed_ms": 245
+  },
+  {
+    "name": "EMIT-CONSTRUCTORS",
+    "command": [
+      "_build/default/test/emit_cases.exe",
+      "constructors"
+    ],
+    "timeout": 30,
+    "exit": 0,
+    "marker": "EMIT-CONSTRUCTORS cases=22 OK",
+    "passed": true,
+    "elapsed_ms": 275
+  },
+  {
+    "name": "WORD-UNBOX",
+    "command": [
+      "_build/default/test/emit_cases.exe",
+      "words"
+    ],
+    "timeout": 30,
+    "exit": 0,
+    "marker": "WORD-UNBOX ktag=0 kstruct=0 words=3 cases=9 OK",
+    "passed": true,
+    "elapsed_ms": 6
+  },
+  {
+    "name": "STORAGE-NOCLOS",
+    "command": [
+      "_build/default/test/emit_cases.exe",
+      "storage"
+    ],
+    "timeout": 30,
+    "exit": 0,
+    "marker": "STORAGE-NOCLOS kclos=0 ktail=0 fields=2 cases=9 OK",
+    "passed": true,
+    "elapsed_ms": 5
+  },
+  {
+    "name": "ABI-GOLD",
+    "command": [
+      "zsh",
+      "-f",
+      "dev/abi-gold.sh"
+    ],
+    "timeout": 60,
+    "exit": 0,
+    "marker": "ABI-GOLD jq_sorted=equal provenance=dev/ABI-PROVENANCE.md controls=4 OK",
+    "passed": true,
+    "elapsed_ms": 335
+  },
+  {
+    "name": "EMITTED-TRACE",
+    "command": [
+      "python3",
+      "-P",
+      "dev/emit-test.py",
+      "trace"
+    ],
+    "timeout": 120,
+    "exit": 0,
+    "marker": "M0-TRACE offsets=13 listing=17 cast=17 evm=13 five_files=5 OK",
+    "passed": true,
+    "elapsed_ms": 559
+  },
+  {
+    "name": "TRACE-DRIVER",
+    "command": [
+      "python3",
+      "-P",
+      "dev/trace-test.py"
+    ],
+    "timeout": 120,
+    "exit": 0,
+    "marker": "TRACE-DRIVER cases=20 explicit_prestate=true literal_argv=true OK",
+    "passed": true,
+    "elapsed_ms": 676
+  },
+  {
+    "name": "ERASED-BYTES",
+    "command": [
+      "python3",
+      "-P",
+      "dev/corpus-test.py",
+      "erased"
+    ],
+    "timeout": 120,
+    "exit": 0,
+    "marker": "ERASED-BYTES mutants=2 caught=1 equal=2 scope=M0-seed OK",
+    "passed": true,
+    "elapsed_ms": 134
+  },
+  {
+    "name": "DIFF-EXECUTOR",
+    "command": [
+      "python3",
+      "-P",
+      "dev/diff-test.py"
+    ],
+    "timeout": 180,
+    "exit": 0,
+    "marker": "DIFF-EXECUTOR live=20 driver=28 rejected=24 OK",
+    "passed": true,
+    "elapsed_ms": 4330
+  },
+  {
+    "name": "COUNTER-REFERENCE",
+    "command": [
+      "python3",
+      "-P",
+      "dev/counter-test.py"
+    ],
+    "timeout": 300,
+    "exit": 0,
+    "marker": "COUNTER-REFERENCE cases=30 creates=2 mutants=8 value_rejected=5 covered=120 scope=reference OK",
+    "passed": true,
+    "elapsed_ms": 4521
+  },
+  {
+    "name": "M1-EMISSION",
+    "command": [
+      "python3",
+      "-P",
+      "dev/m1-emit-test.py"
+    ],
+    "timeout": 600,
+    "exit": 0,
+    "marker": "M1-EMISSION counter=30 sources=8 refusals=11 mutants=8 OK",
+    "passed": true,
+    "elapsed_ms": 69260
+  },
+  {
+    "name": "SOURCE-MODEL",
+    "command": [
+      "python3",
+      "-P",
+      "dev/model-test.py"
+    ],
+    "timeout": 600,
+    "exit": 0,
+    "marker": "SOURCE-MODEL counter=30 variants=10 corpus=11 invalid=28 refusals=6 mutants=8 OK",
+    "passed": true,
+    "elapsed_ms": 41496
+  },
+  {
+    "name": "CONTRACT-SURFACE",
+    "command": [
+      "python3",
+      "-P",
+      "dev/contract-test.py"
+    ],
+    "timeout": 600,
+    "exit": 0,
+    "marker": "CONTRACT-SURFACE counter=30 variants=14 refusals=36 mutants=8 OK",
+    "passed": true,
+    "elapsed_ms": 33958
+  },
+  {
+    "name": "CONTRACT-ROUTE",
+    "command": [
+      "_build/default/test/contract_route.exe"
+    ],
+    "timeout": 30,
+    "exit": 0,
+    "marker": "bound=131072 OK",
+    "passed": true,
+    "elapsed_ms": 324
+  },
+  {
+    "name": "NULLARY-ENTRIES",
+    "command": [
+      "python3",
+      "-P",
+      "dev/nullary-test.py"
+    ],
+    "timeout": 600,
+    "exit": 0,
+    "marker": "NULLARY-ENTRIES cases=53 creates=2 refusals=4 mutants=3 OK",
+    "passed": true,
+    "elapsed_ms": 16088
+  },
+  {
+    "name": "CUSTOM-ERRORS",
+    "command": [
+      "python3",
+      "-P",
+      "dev/errors-test.py"
+    ],
+    "timeout": 600,
+    "exit": 0,
+    "marker": "CUSTOM-ERRORS cases=66 creates=2 refusals=26 mutants=5 OK",
+    "passed": true,
+    "elapsed_ms": 23340
+  },
+  {
+    "name": "PROOF-GUARDS",
+    "command": [
+      "python3",
+      "-P",
+      "dev/guard-test.py"
+    ],
+    "timeout": 600,
+    "exit": 0,
+    "marker": "PROOF-GUARDS cases=83 creates=2 refusals=26 erasure=3 mutants=6 OK",
+    "passed": true,
+    "elapsed_ms": 32954
+  },
+  {
+    "name": "EVM-CONTEXT",
+    "command": [
+      "python3",
+      "-P",
+      "dev/context-test.py"
+    ],
+    "timeout": 600,
+    "exit": 0,
+    "marker": "EVM-CONTEXT cases=224 signed=56 creates=64 refusals=7 inputs=7 nested=2 independent=6 mutants=6 OK",
+    "passed": true,
+    "elapsed_ms": 45207
+  },
+  {
+    "name": "SURFACE-CONTEXT",
+    "command": [
+      "python3",
+      "-P",
+      "dev/context-surface-test.py"
+    ],
+    "timeout": 600,
+    "exit": 0,
+    "marker": "SURFACE-CONTEXT cases=224 signed=56 creates=64 pairs=8 composition=6 order=4 refusals=17 mutants=4 OK",
+    "passed": true,
+    "elapsed_ms": 28251
+  },
+  {
+    "name": "WORD-EQUALITY",
+    "command": [
+      "python3",
+      "-P",
+      "dev/equality-test.py"
+    ],
+    "timeout": 600,
+    "exit": 0,
+    "marker": "EQUALITY pairs=8 cases=53 signed=33 creates=8 boundaries=6 refusals=17 mutants=4 OK",
+    "passed": true,
+    "elapsed_ms": 22148
+  },
+  {
+    "name": "FALLBACK",
+    "command": [
+      "python3",
+      "-P",
+      "dev/fallback-test.py"
+    ],
+    "timeout": 600,
+    "exit": 0,
+    "marker": "FALLBACK cases=99 signed=99 creates=10 refusals=23 boundaries=2 mutants=6 OK",
+    "passed": true,
+    "elapsed_ms": 27028
+  },
+  {
+    "name": "DIFF-VALUE",
+    "command": [
+      "python3",
+      "-P",
+      "dev/diff-value-test.py"
+    ],
+    "timeout": 180,
+    "exit": 0,
+    "marker": "DIFF-VALUE live=32 signed=32 refused=31 OK",
+    "passed": true,
+    "elapsed_ms": 7886
+  },
+  {
+    "name": "TRACE-VALUE",
+    "command": [
+      "python3",
+      "-P",
+      "dev/trace-value-test.py"
+    ],
+    "timeout": 180,
+    "exit": 0,
+    "marker": "TRACE-VALUE live=36 funding=2 refused=34 OK",
+    "passed": true,
+    "elapsed_ms": 2810
+  },
+  {
+    "name": "TRACE-CALLER",
+    "command": [
+      "python3",
+      "-P",
+      "dev/trace-caller-test.py"
+    ],
+    "timeout": 180,
+    "exit": 0,
+    "marker": "TRACE-CALLER live=45 funding=2 refused=31 OK",
+    "passed": true,
+    "elapsed_ms": 3678
+  },
+  {
+    "name": "DIFF-CALLER",
+    "command": [
+      "python3",
+      "-P",
+      "dev/diff-caller-test.py"
+    ],
+    "timeout": 180,
+    "exit": 0,
+    "marker": "DIFF-CALLER live=45 signed=45 rejected=4 refused=33 helper=5 OK",
+    "passed": true,
+    "elapsed_ms": 11642
+  },
+  {
+    "name": "PAYABLE",
+    "command": [
+      "python3",
+      "-P",
+      "dev/payable-test.py"
+    ],
+    "timeout": 180,
+    "exit": 0,
+    "marker": "PAYABLE cases=216 signed=24 pairs=8 probes=6 public=6 refusals=18 mutants=4 OK",
+    "passed": true,
+    "elapsed_ms": 20965
+  },
+  {
+    "name": "CALLVALUE",
+    "command": [
+      "python3",
+      "-P",
+      "dev/callvalue-test.py"
+    ],
+    "timeout": 240,
+    "exit": 0,
+    "marker": "CALLVALUE cases=480 signed=18 pairs=16 probes=12 public=2 refusals=13 mutants=4 OK",
+    "passed": true,
+    "elapsed_ms": 35670
+  }
+]

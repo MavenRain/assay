@@ -1,0 +1,10 @@
+HOUSE no-exception OK
+HOUSE no-mutable-state OK
+HOUSE no-mutable-state roots=lib emit asm keccak abi
+HOUSE one-catch-site OK
+/Users/oobi/Documents/gpt1/assay-m1-callvalue/test/sys_io.ml:19:  try Ok (thunk ()) with Sys_error m -> Error m
+HOUSE no-bool-match OK
+HOUSE no-em-dash OK
+HOUSE no-loop-keyword OK
+HOUSE no-bare-division OK
+HOUSE OK

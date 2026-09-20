@@ -88,6 +88,8 @@ The thirty-third adds [differential callers](dev/M1-DIFF-CALLER.md), selecting
 either of two public signing fixtures through `diff --caller`.
 The thirty-fourth adds [payable entries](dev/M1-PAYABLE.md), with explicit
 `payable entry` annotations, matching ABI metadata and per-entry value guards.
+The thirty-fifth adds [call-value snapshots](dev/M1-CALLVALUE.md), reading
+the current call's value with `amount <- callvalue` in contract source.
 
 ```sh
 dune build
@@ -308,7 +310,10 @@ source proofs.
 The payable gate adds 216 core execution comparisons, 24 signed comparisons,
 eight artifact pairs, six surface cases, four public command calls, two
 creation outcomes, 18 refusals and four mutations with restored controls.
-`dev/gates.sh` selects `--m1-payable`. Its 69 legs
+The call-value gate adds 480 core comparisons, 18 signed comparisons,
+16 artifact pairs, 12 surface cases, two public command calls, 13 refusals
+and four mutations with restored controls.
+`dev/gates.sh` selects `--m1-callvalue`. Its 70 legs
 include the proof-bundle, named-predicate, compound-invariant,
 named-guard, inferred-guard and inferred-arithmetic suites.
 The inferred-helper gate adds 254 source/EVM comparisons, two creation

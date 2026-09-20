@@ -245,8 +245,8 @@ def mutants():
          'let op = if tag = (if errors = [] then 9 else 10) then Add else Add in', 'sub', 'MODEL-EXPECTED'),
         ('OVERFLOW', 'emit/emit.ml', 'if addition then Arithmetic (Add, left, right, index, yes, no)',
          'if addition then Arithmetic (Add, left, right, index, no, yes)', 'overflow', 'MODEL-EXEC'),
-        ('MODEL', 'emit/model.ml', 'else transaction caller initial storage ((index, result) :: memory) next',
-         'else transaction caller initial storage ((index, Z.zero) :: memory) next', 'model', 'MODEL-EXPECTED'),
+        ('MODEL', 'emit/model.ml', 'else transaction input storage ((index, result) :: memory) next',
+         'else transaction input storage ((index, Z.zero) :: memory) next', 'model', 'MODEL-EXPECTED'),
         ('OPCODE', 'emit/emit.ml', '| Sub -> read_operand right @ read_operand left @ [A.Op "SUB"] in',
          '| Sub -> read_operand left @ read_operand right @ [A.Op "SUB"] in', 'sub', 'COUNTER-EXPECTED'),
     ]

@@ -1,0 +1,172 @@
+[
+  {
+    "name": "R0-COUNT",
+    "command": [
+      "zsh",
+      "-f",
+      "dev/r0-count.sh"
+    ],
+    "timeout": 10,
+    "exit": 0,
+    "marker": "R0-COUNT OK",
+    "passed": true,
+    "elapsed_ms": 100
+  },
+  {
+    "name": "HOUSE",
+    "command": [
+      "zsh",
+      "-f",
+      "dev/house.sh"
+    ],
+    "timeout": 30,
+    "exit": 0,
+    "marker": "HOUSE OK",
+    "passed": true,
+    "elapsed_ms": 851
+  },
+  {
+    "name": "SOURCE-MODEL",
+    "command": [
+      "python3",
+      "-P",
+      "dev/model-test.py"
+    ],
+    "timeout": 600,
+    "exit": 1,
+    "marker": "SOURCE-MODEL counter=30 variants=10 corpus=11 invalid=28 refusals=6 mutants=8 OK",
+    "passed": false,
+    "elapsed_ms": 16116
+  },
+  {
+    "name": "NULLARY-ENTRIES",
+    "command": [
+      "python3",
+      "-P",
+      "dev/nullary-test.py"
+    ],
+    "timeout": 600,
+    "exit": 0,
+    "marker": "NULLARY-ENTRIES cases=53 creates=2 refusals=4 mutants=3 OK",
+    "passed": true,
+    "elapsed_ms": 11781
+  },
+  {
+    "name": "CUSTOM-ERRORS",
+    "command": [
+      "python3",
+      "-P",
+      "dev/errors-test.py"
+    ],
+    "timeout": 600,
+    "exit": 0,
+    "marker": "CUSTOM-ERRORS cases=66 creates=2 refusals=26 mutants=5 OK",
+    "passed": true,
+    "elapsed_ms": 23340
+  },
+  {
+    "name": "PROOF-GUARDS",
+    "command": [
+      "python3",
+      "-P",
+      "dev/guard-test.py"
+    ],
+    "timeout": 600,
+    "exit": 0,
+    "marker": "PROOF-GUARDS cases=83 creates=2 refusals=26 erasure=3 mutants=6 OK",
+    "passed": true,
+    "elapsed_ms": 32954
+  },
+  {
+    "name": "SOURCE-MODEL",
+    "command": [
+      "python3",
+      "-P",
+      "dev/model-test.py"
+    ],
+    "timeout": 600,
+    "exit": 0,
+    "marker": "SOURCE-MODEL counter=30 variants=10 corpus=11 invalid=28 refusals=6 mutants=8 OK",
+    "passed": true,
+    "elapsed_ms": 41496
+  },
+  {
+    "name": "BUILD",
+    "command": [
+      "zsh",
+      "-f",
+      "dev/dune.sh",
+      "build"
+    ],
+    "timeout": 120,
+    "exit": 0,
+    "marker": "",
+    "passed": true,
+    "elapsed_ms": 2385
+  },
+  {
+    "name": "HOUSE",
+    "command": [
+      "zsh",
+      "-f",
+      "dev/house.sh"
+    ],
+    "timeout": 30,
+    "exit": 0,
+    "marker": "HOUSE OK",
+    "passed": true,
+    "elapsed_ms": 963
+  },
+  {
+    "name": "TRUSTED-LINES",
+    "command": [
+      "zsh",
+      "-f",
+      "dev/trusted-lines.sh"
+    ],
+    "timeout": 10,
+    "exit": 0,
+    "marker": "TRUSTED-LINES OK",
+    "passed": true,
+    "elapsed_ms": 72
+  },
+  {
+    "name": "CONTRACT-SURFACE",
+    "command": [
+      "python3",
+      "-P",
+      "dev/contract-test.py"
+    ],
+    "timeout": 600,
+    "exit": 0,
+    "marker": "CONTRACT-SURFACE counter=30 variants=14 refusals=36 mutants=8 OK",
+    "passed": true,
+    "elapsed_ms": 33958
+  },
+  {
+    "name": "NULLARY-ENTRIES",
+    "command": [
+      "python3",
+      "-P",
+      "dev/nullary-test.py"
+    ],
+    "timeout": 600,
+    "exit": 0,
+    "marker": "NULLARY-ENTRIES cases=53 creates=2 refusals=4 mutants=3 OK",
+    "passed": true,
+    "elapsed_ms": 16088
+  },
+  {
+    "name": "CALLVALUE",
+    "command": [
+      "python3",
+      "-P",
+      "dev/callvalue-test.py"
+    ],
+    "timeout": 240,
+    "exit": 0,
+    "marker": "CALLVALUE cases=480 signed=18 pairs=16 probes=12 public=2 refusals=13 mutants=4 OK",
+    "passed": true,
+    "elapsed_ms": 35670
+  }
+]
