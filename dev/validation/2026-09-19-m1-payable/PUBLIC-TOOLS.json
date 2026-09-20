@@ -1,0 +1,109 @@
+[
+  {
+    "name": "BUILD",
+    "command": [
+      "zsh",
+      "-f",
+      "dev/dune.sh",
+      "build"
+    ],
+    "timeout": 120,
+    "exit": 0,
+    "marker": "",
+    "passed": true,
+    "elapsed_ms": 1355
+  },
+  {
+    "name": "PIN-CARRY",
+    "command": [
+      "zsh",
+      "-f",
+      "dev/carry-check.sh"
+    ],
+    "timeout": 30,
+    "exit": 0,
+    "marker": "diff=0 unlisted=0",
+    "passed": true,
+    "elapsed_ms": 931
+  },
+  {
+    "name": "HOUSE",
+    "command": [
+      "zsh",
+      "-f",
+      "dev/house.sh"
+    ],
+    "timeout": 30,
+    "exit": 0,
+    "marker": "HOUSE OK",
+    "passed": true,
+    "elapsed_ms": 845
+  },
+  {
+    "name": "KECCAK-MUTANTS",
+    "command": [
+      "python3",
+      "-P",
+      "dev/keccak-test.py",
+      "mutants"
+    ],
+    "timeout": 660,
+    "exit": 0,
+    "marker": "KECCAK-MUTANTS killed=4/4 control=OK",
+    "passed": true,
+    "elapsed_ms": 6269
+  },
+  {
+    "name": "ASM-MUTANTS",
+    "command": [
+      "python3",
+      "-P",
+      "dev/asm-test.py",
+      "mutants"
+    ],
+    "timeout": 1200,
+    "exit": 0,
+    "marker": "ASM-MUTANTS killed=6/6 control=OK",
+    "passed": true,
+    "elapsed_ms": 10614
+  },
+  {
+    "name": "PROOF-GUARDS",
+    "command": [
+      "python3",
+      "-P",
+      "dev/guard-test.py"
+    ],
+    "timeout": 600,
+    "exit": 0,
+    "marker": "PROOF-GUARDS cases=83 creates=2 refusals=26 erasure=3 mutants=6 OK",
+    "passed": true,
+    "elapsed_ms": 45006
+  },
+  {
+    "name": "EVM-CONTEXT",
+    "command": [
+      "python3",
+      "-P",
+      "dev/context-test.py"
+    ],
+    "timeout": 600,
+    "exit": 0,
+    "marker": "EVM-CONTEXT cases=224 signed=56 creates=64 refusals=7 inputs=7 nested=2 independent=6 mutants=6 OK",
+    "passed": true,
+    "elapsed_ms": 62188
+  },
+  {
+    "name": "PAYABLE",
+    "command": [
+      "python3",
+      "-P",
+      "dev/payable-test.py"
+    ],
+    "timeout": 180,
+    "exit": 0,
+    "marker": "PAYABLE cases=216 signed=24 pairs=8 probes=6 public=6 refusals=18 mutants=4 OK",
+    "passed": true,
+    "elapsed_ms": 32245
+  }
+]

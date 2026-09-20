@@ -118,11 +118,13 @@ let run program input =
   match program with
   | Closed effect -> Ok (closed input.caller input.initial effect)
   | Entries (entries, fallback) ->
-    if not (Z.equal input.value Z.zero) then Ok (revert input.initial) else
-    let default = transaction input.caller input.initial input.initial [] fallback in
+    let has_value = not (Z.equal input.value Z.zero) in
+    let default = if has_value then Ok (revert input.initial)
+      else transaction input.caller input.initial input.initial [] fallback in
     if String.length input.data < 8 then default else
     let selector = segment 0 8 input.data in
     Option.fold ~none:default ~some:(fun entry ->
+      if has_value && not (Assay_abi.Abi.accepts_value entry.E.abi_entry) then Ok (revert input.initial) else
       let count = List.length entry.E.abi_entry.inputs in
       if String.length input.data < 8 + 64 * count then Ok (revert input.initial) else
       let memory = List.init count (fun index ->

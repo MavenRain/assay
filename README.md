@@ -86,9 +86,11 @@ The thirty-second adds [trace callers](dev/M1-TRACE-CALLER.md), with bounded
 addresses and caller-dependent execution through `trace --caller`.
 The thirty-third adds [differential callers](dev/M1-DIFF-CALLER.md), selecting
 either of two public signing fixtures through `diff --caller`.
+The thirty-fourth adds [payable entries](dev/M1-PAYABLE.md), with explicit
+`payable entry` annotations, matching ABI metadata and per-entry value guards.
 
 ```sh
-zsh -f dev/dunecho.sh build
+dune build
 _build/default/bin/assay.exe check examples/m0-spine.kan
 _build/default/bin/assay.exe check --erased examples/m0-spine.kan
 _build/default/bin/assay.exe axioms examples/m0-spine.kan
@@ -303,7 +305,10 @@ The proof helper gate adds 104 cases, 50 refusals, seven closed erasure
 variants and four mutations with controls.
 `STAGE-M1-PROOF-HELPERS OK` requires all 47 legs to pass, including
 source proofs.
-`dev/gates.sh` selects `--m1-diff-caller`. Its 68 legs
+The payable gate adds 216 core execution comparisons, 24 signed comparisons,
+eight artifact pairs, six surface cases, four public command calls, two
+creation outcomes, 18 refusals and four mutations with restored controls.
+`dev/gates.sh` selects `--m1-payable`. Its 69 legs
 include the proof-bundle, named-predicate, compound-invariant,
 named-guard, inferred-guard and inferred-arithmetic suites.
 The inferred-helper gate adds 254 source/EVM comparisons, two creation
@@ -346,8 +351,9 @@ records the current battery and measurement evidence.
 The gates require Python 3.11 or newer (`-P`), Foundry `cast` and geth `evm`
 on PATH.  The oracles are `cast` 0.3.0 and geth 1.14.12.
 The proof seed uses Lean 4.33.1 and the dependencies in its pinned manifest.
-The OCaml toolchain is the installed `zxcaml-p1` switch.  The dune scripts
-select it and derive the repository root from their own paths.  The library
+The OCaml build uses OCaml 5.2.1, Dune 3.24.2 and Zarith 1.14. Activate an
+opam switch with those packages before building. `dev/dune.sh` uses Dune
+from PATH and derives the repository root from its own path. The library
 names `kanon_kernel` and `kanon_surface` stay unchanged for a byte-exact carry.
 The tot submodule remains data only and is not needed for the Stage F build.
 

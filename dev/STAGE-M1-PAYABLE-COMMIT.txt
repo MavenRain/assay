@@ -1,0 +1,17 @@
+M1: add explicit payable entries
+
+Accept payable entry annotations in contract source and complete-entry
+payable markers in the checked core protocol. Emit matching ABI metadata
+and per-entry value guards, preserving nonpayable constructors and
+fallbacks.
+
+Check 216 core cases, 24 signed Cancun comparisons with value-transfer
+witnesses, eight artifact pairs, six surface cases, six command/creation
+outcomes, 18 refusals and four mutations with restored controls.
+
+Share protocol validation, transaction continuations and output
+construction within the existing emitter budget. Append PAYABLE to the
+default ladder and use public Dune for builds and mutation controls,
+retaining fatal warnings. Preserve the remaining gate declarations.
+Record 33 scoped passes and eight subsequent tooling checks without a
+timing verdict or an M1 completion claim.

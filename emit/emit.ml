@@ -29,7 +29,7 @@ let error = function
 let recognize result = Result.map_error (fun e -> Recognizer e) result
 type fn = { params : Eterm.repr list; result : Eterm.repr; body : Eterm.ktm }
 type environment = { functions : (string * fn) list; postulates : string list; runtime : bool;
-                     caller_tag : int option }
+                     caller_tag : int option; payable_tag : int option }
 
 let environment ?(runtime=false) rows =
   List.fold_left (fun env (name, entry) -> match entry with
@@ -39,7 +39,7 @@ let environment ?(runtime=false) rows =
       | Eterm.KRec _ -> env
       | Eterm.KFun (Eterm.Fid name, params, result, body) ->
         { env with functions = (name, {params; result; body}) :: env.functions }) env decls)
-    { functions = []; postulates = []; runtime; caller_tag = None } rows
+    { functions = []; postulates = []; runtime; caller_tag = None; payable_tag = None } rows
 let at index values = Rules.at index values |> Option.to_result ~none:(Invalid_ir "index")
 let tick fuel = if fuel <= 0 then Error Budget else Ok (fuel - 1)
 let result_repr = function
@@ -202,21 +202,21 @@ let prepare_m0 ~export globals erased =
   let* effect = effect (List.length fields) value in
   Ok (effect, fields)
 
+let output ~contract ~listing_error ~make_init ~abi fields rows program =
+  let runtime = A.hex program in
+  let* () = if String.length runtime > 2 * 24576 then Error Budget else Ok () in
+  let* init = make_init runtime in
+  let* listing = Assay_asm.Listing.render runtime
+    |> Result.map_error (fun _error -> Invalid_ir listing_error) in
+  Ok {runtime; init; abi; listing; fields = List.length fields;
+      layout = Assay_abi.Layout.print ~contract fields;
+      axioms = String.concat "" (List.map (fun name -> name ^ "\n") (Kanon_surface.Elab.axiom_names rows))}
 let program_m0 ~contract ~export globals rows erased =
   let* effect, fields = prepare_m0 ~export globals erased in
   let* wide = assemble (blocks 2 0 false effect) in
   let size = String.length (A.hex wide) lsr 1 in
   let* program = if size <= 255 then assemble (blocks 1 0 false effect) else Ok wide in
-  let runtime = A.hex program in
-  let* () = if String.length runtime > 2 * 24576 then Error Budget else Ok () in
-  let* init = init runtime in
-  let* listing = Assay_asm.Listing.render runtime
-    |> Result.map_error (fun _error -> Invalid_ir "generated listing") in
-  let axioms = Kanon_surface.Elab.axiom_names rows in
-  Ok { runtime; init; abi = Assay_abi.Abi.empty;
-       layout = Assay_abi.Layout.print ~contract fields;
-       axioms = String.concat "" (List.map (fun name -> name ^ "\n") axioms);
-       listing; fields = List.length fields }
+  output ~contract ~listing_error:"generated listing" ~make_init:init ~abi:Assay_abi.Abi.empty fields rows program
 
 type operand = Constant of Z.t | Memory of int
 type arithmetic = Add | Sub
@@ -298,6 +298,8 @@ let rec transaction env errors slots depth fuel fresh value =
        let* yes, fuel, fresh = lower fuel fresh yes in
        let* no, fuel, fresh = lower fuel fresh no in Ok (Compare (left, right, yes, no), fuel, fresh)
      | 6, [] -> Ok (Abort, fuel, fresh)
+     | tag, _fields when Some tag = env.payable_tag ->
+       Error (M1_shape "payable must wrap the complete entry")
      | tag, [fn] when Some tag = env.caller_tag ->
        let* next, fuel, next_fresh = continuation fuel (fresh + 1) fn (R.Runtime_word fresh) in
        Ok (Caller (fresh, next), fuel, next_fresh)
@@ -329,7 +331,9 @@ let goto label = A.Goto (2, label)
 let branch_to yes no = A.Branch (2, yes, no)
 let marked label body ending = block ~destination:true label body ending
 
-let rec transaction_blocks label = function
+let rec transaction_blocks label tx =
+  let continue body next = marked label body (goto (label ^ "n")) :: transaction_blocks (label ^ "n") next in
+  match tx with
   | Finish value -> [marked label (return_body (read_operand value)) (A.Halt A.Return)]
   | Abort -> [marked label [number 0; number 0] (A.Halt A.Revert)]
   | Reject (selector, values) ->
@@ -339,20 +343,14 @@ let rec transaction_blocks label = function
     let payload = List.concat (List.mapi (fun index value ->
       read_operand value @ [number (base + 4 + 32 * index); A.Op "MSTORE"]) values) in
     [marked label (header @ payload @ [number (4 + 32 * List.length values); number base]) (A.Halt A.Revert)]
-  | Store (slot, value, next) ->
-    marked label (read_operand value @ [push slot; A.Op "SSTORE"]) (goto (label ^ "n")) ::
-    transaction_blocks (label ^ "n") next
-  | Load (slot, index, next) ->
-    marked label ([push slot; A.Op "SLOAD"] @ save index) (goto (label ^ "n")) ::
-    transaction_blocks (label ^ "n") next
-  | Caller (index, next) ->
-    marked label ([A.Op "CALLER"] @ save index) (goto (label ^ "n")) ::
-    transaction_blocks (label ^ "n") next
+  | Store (slot, value, next) -> continue (read_operand value @ [push slot; A.Op "SSTORE"]) next
+  | Load (slot, index, next) -> continue ([push slot; A.Op "SLOAD"] @ save index) next
+  | Caller (index, next) -> continue ([A.Op "CALLER"] @ save index) next
   | Compute (op, left, right, index, next) ->
     let compute = match op with
       | Add -> read_operand left @ read_operand right @ [A.Op "ADD"]
       | Sub -> read_operand right @ read_operand left @ [A.Op "SUB"] in
-    marked label (compute @ save index) (goto (label ^ "n")) :: transaction_blocks (label ^ "n") next
+    continue (compute @ save index) next
   | Arithmetic (op, left, right, index, yes, no) ->
     let compute, rejected = match op with
       | Add -> read_operand left @ read_operand right @ [A.Op "ADD"],
@@ -368,9 +366,7 @@ let rec transaction_blocks label = function
 let rec readonly = function
   | Finish _ | Abort | Reject _ -> true
   | Store _ -> false
-  | Load (_, _, next) -> readonly next
-  | Caller (_, next) -> readonly next
-  | Compute (_, _, _, _, next) -> readonly next
+  | Load (_, _, next) | Caller (_, next) | Compute (_, _, _, _, next) -> readonly next
   | Arithmetic (_, _, _, _, yes, no) | Compare (_, _, yes, no) -> readonly yes && readonly no
 
 type entry = { abi_entry : Assay_abi.Abi.entry; selector : string; tx : transaction }
@@ -385,18 +381,28 @@ let entries env errors slots fuel export declarations =
     let payload = if args = [] then [] else [R.Struct (tuple_tid (List.length args), args)] in
     let* value, fuel = call env fuel export [R.Tag (tid, index, payload)] in
     let* () = recognize (R.unboxed value) in
+    let payable, value = match value with
+      | R.Tag (Eterm.Tid "mu<Tx>", tag, [next]) when Some tag = env.payable_tag -> true, next
+      | R.Tag _ | R.Nat _ | R.Word _ | R.Erased | R.Runtime_word _ | R.Closure _ | R.Struct _ -> false, value in
     let* tx, fuel, _fresh = transaction env errors slots 0 fuel (List.length args + 1) value in
-    let abi_entry : Assay_abi.Abi.entry = { name; inputs; readonly = readonly tx } in
+    let mutability = if payable then Assay_abi.Abi.Payable
+      else if readonly tx then Assay_abi.Abi.View else Assay_abi.Abi.Nonpayable in
+    let abi_entry : Assay_abi.Abi.entry = { name; inputs; mutability } in
     let selector = Assay_keccak.Keccak.selector (Assay_abi.Abi.signature abi_entry) in
     if List.exists (fun entry -> entry.selector = selector) entries then Error (Selector_collision selector)
     else Ok (entries @ [{abi_entry; selector; tx}], fuel)) (Ok ([], fuel))
     (List.mapi (fun index row -> index, row) declarations)
 
 let dispatch_blocks ?fallback entries =
+  let mixed = List.exists (fun entry -> Assay_abi.Abi.accepts_value entry.abi_entry) entries in
   let default, fallback_blocks = match Option.value fallback ~default:Abort with
     | Abort -> "reject", []
     | (Finish _ | Reject _ | Load _ | Caller _ | Store _ | Arithmetic _ | Compare _ | Compute _) as tx ->
       "fallback", transaction_blocks "fallback" tx in
+  let default, fallback_blocks = if mixed && default <> "reject" then
+    "fallbackValue", marked "fallbackValue" [A.Op "CALLVALUE"]
+      (branch_to "reject" default) :: fallback_blocks
+    else default, fallback_blocks in
   let entry_label index = "entry" ^ string_of_int index in
   let select_label index = "select" ^ string_of_int index in
   let selects = List.concat (List.mapi (fun index entry ->
@@ -405,14 +411,17 @@ let dispatch_blocks ?fallback entries =
       (branch_to (entry_label index) next)]) entries) in
   let bodies = List.concat (List.mapi (fun index entry ->
     let label = entry_label index in
+    let guards, arity_label = if mixed && not (Assay_abi.Abi.accepts_value entry.abi_entry) then
+      [marked label [A.Op "CALLVALUE"] (branch_to "reject" (label ^ "arity"))], label ^ "arity"
+      else [], label in
     let decoder = List.concat (List.mapi (fun index _input ->
       [number (4 + 32 * index); A.Op "CALLDATALOAD"] @ save (index + 1)) entry.abi_entry.inputs) in
-    marked label [number (4 + 32 * List.length entry.abi_entry.inputs); A.Op "CALLDATASIZE"; A.Op "LT"]
-      (branch_to "reject" (label ^ "decode")) ::
-    marked (label ^ "decode") decoder (goto (label ^ "body")) ::
+    guards @ [marked arity_label [number (4 + 32 * List.length entry.abi_entry.inputs); A.Op "CALLDATASIZE"; A.Op "LT"]
+      (branch_to "reject" (label ^ "decode"));
+    marked (label ^ "decode") decoder (goto (label ^ "body"))] @
     transaction_blocks (label ^ "body") entry.tx) entries) in
-  [block "nonpayable" [A.Op "CALLVALUE"] (branch_to "reject" "head");
-   marked "head" [number 4; A.Op "CALLDATASIZE"; A.Op "LT"] (branch_to default "selector");
+  (if mixed then [] else [block "nonpayable" [A.Op "CALLVALUE"] (branch_to "reject" "head")]) @
+  [block ~destination:(not mixed) "head" [number 4; A.Op "CALLDATASIZE"; A.Op "LT"] (branch_to default "selector");
    marked "selector" [number 0; A.Op "CALLDATALOAD"; number 224; A.Op "SHR"; memory 0; A.Op "MSTORE"]
      (goto (select_label 0))] @ selects @ bodies @
   [marked "reject" [number 0; number 0] (A.Halt A.Revert)] @ fallback_blocks
@@ -452,10 +461,8 @@ let prepare_m1 ~export globals erased =
   if List.length slots <> List.length fields then Error (Recognizer R.Storage_shape) else
   let* constructor, fuel = call env fuel "constructor" [] in
   let* constructor = effect (List.length fields) constructor in
-  let caller_tag = if R.has_constructor globals "Tx" "caller"
-    then Some (7 + (if errors = [] then 0 else 1) + (if R.has_proofs globals then 4 else 0))
-    else None in
-  let env = {env with runtime = true; caller_tag} in
+  let env = {env with runtime = true; caller_tag = R.constructor_tag globals "Tx" "caller";
+             payable_tag = R.constructor_tag globals "Tx" "payable"} in
   let* entries, fuel = entries env errors (List.length fields) fuel export declarations in
   let* fallback = if Option.is_none (Global.find "fallback" globals) then Ok None else
     let* value, fuel = call env fuel "fallback" [] in
@@ -471,15 +478,10 @@ let prepare_m1 ~export globals erased =
 let program_m1 ~contract ~export globals rows erased =
   let* entries, constructor, fields, errors, fallback = prepare_m1 ~export globals erased in
   let* program = assemble (dispatch_blocks ?fallback entries) in
-  let runtime = A.hex program in
-  let* () = if String.length runtime > 2 * 24576 then Error Budget else Ok () in
-  let* init = init_m1 runtime constructor in
-  let* listing = Assay_asm.Listing.render runtime
-    |> Result.map_error (fun _error -> Invalid_ir "generated M1 listing") in
-  Ok {runtime; init; listing; fields = List.length fields;
-      abi = Assay_abi.Abi.print ~fallback:(Option.is_some fallback) ~errors:(List.map fst errors) (List.map (fun entry -> entry.abi_entry) entries);
-      layout = Assay_abi.Layout.print ~contract fields;
-      axioms = String.concat "" (List.map (fun name -> name ^ "\n") (Kanon_surface.Elab.axiom_names rows))}
+  let abi = Assay_abi.Abi.print ~fallback:(Option.is_some fallback) ~errors:(List.map fst errors)
+    (List.map (fun entry -> entry.abi_entry) entries) in
+  output ~contract ~listing_error:"generated M1 listing" ~make_init:(fun runtime -> init_m1 runtime constructor)
+    ~abi fields rows program
 
 let program ~contract ~export globals rows erased =
   if Option.is_some (Global.find "Entry" globals)

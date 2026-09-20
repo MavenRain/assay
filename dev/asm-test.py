@@ -171,7 +171,7 @@ def mutants(root):
     with tempfile.TemporaryDirectory(prefix="assay-asm-mutants-") as directory:
         copy = Path(directory) / "copy"
         for relative in ("dune", "dune-project", "asm/dune", "asm/asm.ml", "asm/listing.ml",
-                         "test/asm_cases.ml", "dev/dunecho.sh", "dev/asm-test.py", "dev/asm-opcodes.txt"):
+                         "test/asm_cases.ml", "dev/dune.sh", "dev/asm-test.py", "dev/asm-opcodes.txt"):
             target = copy / relative
             target.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(root / relative, target)
@@ -182,8 +182,8 @@ def mutants(root):
             if source.count(before) != 1:
                 raise ValueError(name + " mutation site is not unique")
             (copy / relative).write_text(source.replace(before, after))
-            build = run(copy, "zsh", "-f", "dev/dunecho.sh", "build", timeout=120)
-            if build.returncode or "0 errors, 0 warnings" not in build.stdout:
+            build = run(copy, "zsh", "-f", "dev/dune.sh", "build", timeout=120)
+            if build.returncode:
                 raise ValueError(name + " build failure is not a kill: " + build.stdout + build.stderr)
             result = run(copy, sys.executable, "-P", "dev/asm-test.py", mode, timeout=240)
             (work / ("asm-mutant-" + name + ".log")).write_text(result.stdout + result.stderr)
@@ -191,8 +191,8 @@ def mutants(root):
                 raise ValueError(name + " was not killed by " + witness + ": " + result.stdout + result.stderr)
             print(f"ASM-MUTANT {name} killed witness={witness}", flush=True)
             (copy / relative).write_text(source)
-        build = run(copy, "zsh", "-f", "dev/dunecho.sh", "build", timeout=120)
-        if build.returncode or "0 errors, 0 warnings" not in build.stdout:
+        build = run(copy, "zsh", "-f", "dev/dune.sh", "build", timeout=120)
+        if build.returncode:
             raise ValueError("restored build failed: " + build.stdout + build.stderr)
         for mode in ("stack", "disasm"):
             result = run(copy, sys.executable, "-P", "dev/asm-test.py", mode, timeout=240)

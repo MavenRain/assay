@@ -238,8 +238,8 @@ def mutants():
     records = []
     with tempfile.TemporaryDirectory(prefix='assay-fallback-mutants-') as temporary:
         copy = Path(temporary) / 'copy'
-        shutil.copytree(ROOT, copy, ignore=shutil.ignore_patterns('.git', '_build', '.gatework', '.kanon-exec',
-            '.kanon-wait', '.kanon-replies', '.kanonx', '.lake', 'vendor', 'validation', '__pycache__'))
+        shutil.copytree(ROOT, copy, ignore=shutil.ignore_patterns('.*', '_build', '.gatework',
+            '.lake', 'vendor', 'validation', '__pycache__'))
         for name, file, before, after, witness, marker in rows:
             path = copy / file
             original = path.read_text()
@@ -247,8 +247,8 @@ def mutants():
             for mutated in (True, False):
                 path.write_text(original.replace(before, after) if mutated else original)
                 label = ('mutant-' if mutated else 'control-') + name
-                build = C.capture(label + '-build', ['zsh', '-f', 'dev/dunecho.sh', 'build'], cwd=copy, timeout=120)
-                require(build.returncode == 0 and '0 errors, 0 warnings' in build.stdout, 'FALLBACK-MUTANT build ' + label)
+                build = C.capture(label + '-build', ['zsh', '-f', 'dev/dune.sh', 'build'], cwd=copy, timeout=120)
+                require(build.returncode == 0, 'FALLBACK-MUTANT build ' + label)
                 result = C.capture(label, ['python3', '-P', 'dev/fallback-test.py', witness], cwd=copy, timeout=120)
                 require(result.returncode == (1 if mutated else 0) and (not mutated or marker in result.stdout),
                         'FALLBACK-MUTANT witness ' + label + ': ' + result.stdout + result.stderr)

@@ -1,20 +1,9 @@
 #!/bin/zsh
 # dev/dune.sh ARGS...
-# Runs dune from the zxcaml-p1 opam switch with the root at this repository.
-# Use it for clean and exec.  Use dev/dunecho.sh for build.  Example:
-#   zsh /Users/oobi/Documents/kanon/dev/dune.sh clean
-#
-# SA-D7: the root comes from this script's own path, never from a literal,
-# so a copy of the repository under a scratch directory builds itself.
-
-set -u
-
-# The user shell startup files add a chpwd hook that reads an unset parameter.
-# Under set -u that hook fails and cd inherits its non-zero status, so the hooks
-# are cleared before the cd.
-chpwd_functions=()
-unfunction chpwd 2>/dev/null
-
-export PATH=/Users/oobi/.opam/zxcaml-p1/bin:$PATH
-cd ${0:A:h}/.. || exit 3
+# Uses the active public Dune toolchain from PATH at this repository's root.
+# The root follows the script when a mutation test copies the repository.
+# The repository's Dune configuration makes every enabled warning fatal.
+set -eu
+cd -- "${0:A:h}/.."
+command -v dune >/dev/null || { print -u2 'dev/dune.sh: no dune on PATH -- activate an opam switch with OCaml 5.2.1, Dune 3.24.2 and Zarith 1.14 first (see README.md)'; exit 127; }
 exec dune "$@"

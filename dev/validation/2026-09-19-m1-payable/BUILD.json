@@ -1,0 +1,19 @@
+{
+  "command": [
+    "zsh",
+    "-f",
+    "dev/dune.sh",
+    "build"
+  ],
+  "elapsed_ms": 1355,
+  "exit": 0,
+  "log": "BUILD.log",
+  "marker": "",
+  "name": "BUILD",
+  "passed": true,
+  "timeout": 120,
+  "tools": {
+    "dune": "3.24.2",
+    "ocaml": "5.2.1"
+  }
+}

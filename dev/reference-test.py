@@ -491,7 +491,7 @@ def main():
     # listing artifact.  Name the missing build instead of failing later with a
     # bare file error that carries no gate code.
     require(mode == "fork" or (root / ARTIFACT).is_file(), "BUILD-MISSING",
-            "run zsh -f dev/dunecho.sh build")
+            "run zsh -f dev/dune.sh build")
     print("REFERENCE-ORACLE " + run(root, "evm-version", "evm", "--version").strip())
     print("REFERENCE-ORACLE " + run(root, "cast-version", "cast", "--version").strip())
     {"trace": trace, "create": create, "fork": fork, "checks": checks, "mutants": mutants}[mode](root)

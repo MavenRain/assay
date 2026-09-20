@@ -301,14 +301,14 @@ def mutants():
         ('ADDRESS', 'emit/model.ml', 'Z.numbits caller > 160', 'Z.numbits caller > 256',
          'inputs', 'CONTEXT-INPUT 1'),
         ('SCHEMA', 'emit/recognize.ml',
-         'if Global.find_family "Tx" globals = Global.find_family "Tx" expected',
-         'if true', 'refusals', 'CONTEXT-REFUSAL caller-shape'),
+         '~prefix:"M1 " ["Tx"] globals source',
+         '~prefix:"M1 " [] globals source', 'refusals', 'CONTEXT-REFUSAL caller-shape'),
     ]
     results = []
     with tempfile.TemporaryDirectory(prefix='assay-context-mutants-') as temporary:
         copy = Path(temporary) / 'copy'
-        shutil.copytree(ROOT, copy, ignore=shutil.ignore_patterns('.git', '_build', '.gatework', '.kanon-exec',
-            '.kanon-wait', '.kanon-replies', '.kanonx', '.lake', 'vendor', 'validation', '__pycache__'))
+        shutil.copytree(ROOT, copy, ignore=shutil.ignore_patterns('.*', '_build', '.gatework',
+            '.lake', 'vendor', 'validation', '__pycache__'))
         for name, relative, before, after, case, marker in cases:
             path = copy / relative
             original = path.read_text()
@@ -316,8 +316,8 @@ def mutants():
             for mutated in [True, False]:
                 path.write_text(original.replace(before, after) if mutated else original)
                 label = ('mutant-' if mutated else 'control-') + name
-                build = capture(label + '-build', ['zsh', '-f', 'dev/dunecho.sh', 'build'], cwd=copy, timeout=120)
-                require(build.returncode == 0 and '0 errors, 0 warnings' in build.stdout, 'CONTEXT-MUTANT build ' + label)
+                build = capture(label + '-build', ['zsh', '-f', 'dev/dune.sh', 'build'], cwd=copy, timeout=120)
+                require(build.returncode == 0, 'CONTEXT-MUTANT build ' + label)
                 result = capture(label, ['python3', '-P', 'dev/context-test.py', 'witness', case], cwd=copy, timeout=90)
                 require(result.returncode == (1 if mutated else 0) and (not mutated or marker in result.stdout),
                         'CONTEXT-MUTANT witness ' + label)

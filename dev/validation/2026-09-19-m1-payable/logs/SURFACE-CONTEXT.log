@@ -1,0 +1,5 @@
+SURFACE-CONTEXT-MUTANT CALLER killed control=OK
+SURFACE-CONTEXT-MUTANT DEPLOYER killed control=OK
+SURFACE-CONTEXT-MUTANT STATE killed control=OK
+SURFACE-CONTEXT-MUTANT SLOT killed control=OK
+SURFACE-CONTEXT cases=224 signed=56 creates=64 pairs=8 composition=6 order=4 refusals=17 mutants=4 OK

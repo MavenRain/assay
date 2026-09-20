@@ -248,21 +248,21 @@ def mutants():
     ]
     with tempfile.TemporaryDirectory(prefix='assay-contract-mutants-') as temporary:
         copy = Path(temporary) / 'copy'
-        shutil.copytree(ROOT, copy, ignore=shutil.ignore_patterns('.git', '_build', '.gatework', '.kanon-exec',
-            '.kanon-wait', '.lake', 'vendor', 'validation', '__pycache__'))
+        shutil.copytree(ROOT, copy, ignore=shutil.ignore_patterns('.*', '_build', '.gatework',
+            '.lake', 'vendor', 'validation', '__pycache__'))
         path = copy / 'emit/contract.ml'
         original = path.read_text()
         for name, before, after, example in cases:
             require(original.count(before) == 1, 'SURFACE-MUTANT-ANCHOR ' + name)
             path.write_text(original.replace(before, after))
-            build = M.capture('mutant-' + name + '-build', ['zsh', '-f', 'dev/dunecho.sh', 'build'], cwd=copy, timeout=120)
-            require(build.returncode == 0 and '0 errors, 0 warnings' in build.stdout, 'SURFACE-MUTANT-BUILD ' + name)
+            build = M.capture('mutant-' + name + '-build', ['zsh', '-f', 'dev/dune.sh', 'build'], cwd=copy, timeout=120)
+            require(build.returncode == 0, 'SURFACE-MUTANT-BUILD ' + name)
             result = M.capture('mutant-' + name, ['python3', '-P', 'dev/contract-test.py', 'witness', example], cwd=copy)
             marker = 'SURFACE-REFUSAL ' if name == 'LITERAL' else 'MODEL-EXPECTED '
             require(result.returncode == 1 and marker + example in result.stdout, 'SURFACE-MUTANT-WITNESS ' + name)
             path.write_text(original)
-            build = M.capture('control-' + name + '-build', ['zsh', '-f', 'dev/dunecho.sh', 'build'], cwd=copy, timeout=120)
-            require(build.returncode == 0 and '0 errors, 0 warnings' in build.stdout, 'SURFACE-CONTROL-BUILD ' + name)
+            build = M.capture('control-' + name + '-build', ['zsh', '-f', 'dev/dune.sh', 'build'], cwd=copy, timeout=120)
+            require(build.returncode == 0, 'SURFACE-CONTROL-BUILD ' + name)
             result = M.capture('control-' + name, ['python3', '-P', 'dev/contract-test.py', 'witness', example], cwd=copy)
             require(result.returncode == 0 and not result.stderr, 'SURFACE-CONTROL ' + name)
             print(f'SURFACE-MUTANT {name} witness={example} killed control=OK', flush=True)

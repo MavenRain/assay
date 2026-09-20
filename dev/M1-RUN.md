@@ -41,11 +41,13 @@ fresh bounded counter, supply `--storage 1=100`. Each invocation starts from
 the supplied image, with no persisted session. The JSON storage object uses
 decimal keys in numeric order and minimal hexadecimal values. Zero entries
 are omitted. It describes only this contract's storage, without account,
-balance, nonce, gas or log modeling. Call value reaches the M1 nonpayable
-guard; it does not transfer balances. M0 effects ignore calldata and value.
+balance, nonce, gas or log modeling. Call value reaches the M1 entry's
+payability check; it does not transfer balances. M0 effects ignore calldata and value.
 
-M1 dispatch rejects unknown selectors, short selectors, short argument heads
-and nonzero value with empty revert data. Trailing calldata is ignored.
+M1 dispatch rejects short argument heads and nonzero value at unmarked
+entries with empty revert data. [Payable entries](M1-PAYABLE.md) accept
+nonzero value. Unknown and short selectors use the reverting fallback,
+whose custom payload is available only at zero value. Trailing calldata is ignored.
 Success returns one ABI word. Arithmetic uses exact integers, follows the
 error continuation on overflow or underflow, and exposes no wrapped result.
 Loads capture their values before later writes. An explicit abort restores

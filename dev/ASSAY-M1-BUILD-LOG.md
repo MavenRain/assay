@@ -1,5 +1,52 @@
 # Assay M1 build log
 
+## 2026-09-19: Payable entries
+
+The thirty-fourth M1 slice starts at `f187d41`. `payable entry` marks a
+contract entry that accepts call value. The checked core supports an
+optional outer `payable : Tx -> Tx` marker. ABI mutability is an explicit
+three-way type. Mixed contracts guard unmarked entries before decoding
+or effects; constructors and fallbacks retain their nonpayable behavior.
+
+PAYABLE passes 216 core model/geth comparisons, 24 signed Cancun
+comparisons with balance-transfer and rollback checks, eight five-file
+artifact pairs, six surface probes, four public command calls using both
+signing fixtures, two creation outcomes, 18 refusals and four mutations
+with restored controls. The matrix covers every combination of optional
+errors, proofs and caller context, with values zero, one and uint256 max.
+
+Shared protocol validation, output construction and transaction
+continuations keep the emitter at 1800/1800 lines. Constructor tags come
+from the checked family table. The kernel remains 3997/4000 lines and
+the six added trusted components total 2224/3550. Bounds are unchanged.
+
+The build passes with zero errors and warnings. All 33 scoped gates pass
+after repairing the existing mutation anchors for shared schema checks
+and ABI mutability. The original failure witnesses and mutation counts
+are preserved. All 39 previous gate modes remain available; the default
+appends PAYABLE as leg 69. BUILD and mutation builds now use public Dune
+from PATH and its exit status, with fatal warnings unchanged. All other
+gate declarations are preserved. Eight additional checks pass after this
+tooling change, including payable, guard, context, assembler and Keccak
+mutation/control batteries. The payable captures were regenerated.
+
+The [command contract](M1-PAYABLE.md), [mutation witnesses](M1-PAYABLE-MUTATIONS.md)
+and [validation archive](validation/2026-09-19-m1-payable/) retain source
+hashes, full execution captures, initial failures and passing rechecks.
+The full ladder was not rerun. DENOMINATORS and M0-RATIO retain their
+existing timing pause, with no performance or milestone-exit claim.
+
+### Review round 2026-09-19 (M1 payable entries)
+
+C-1 (low): dev/dune.sh dropped the opam-switch PATH pin that
+dev/dunecho.sh provided; with no dune on PATH it failed with a bare
+command-not-found and no named switch anywhere in the staged diff.
+Now dev/dune.sh checks for dune on PATH first and exits 127 with an
+actionable message naming the required switch, and dev/M1-PAYABLE.md
+tells the reader to activate that switch before running the worked
+example.
+C-2 (low): dev/STAGE-M1-PAYABLE-COMMIT.txt rows 5 and 11 exceeded the 72-column commit body width; paragraphs 1 and 3 are rewrapped at 72 with the words unchanged.
+
 ## 2026-09-19: Differential callers
 
 The thirty-third M1 slice starts at `63fde3b`. `diff --caller ADDRESS`

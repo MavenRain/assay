@@ -1,0 +1,54 @@
+[
+  {
+    "name": "TRUSTED-LINES",
+    "command": [
+      "zsh",
+      "-f",
+      "dev/trusted-lines.sh"
+    ],
+    "timeout": 10,
+    "exit": 0,
+    "marker": "TRUSTED-LINES OK",
+    "passed": true,
+    "elapsed_ms": 69
+  },
+  {
+    "name": "M1-EMISSION",
+    "command": [
+      "python3",
+      "-P",
+      "dev/m1-emit-test.py"
+    ],
+    "timeout": 600,
+    "exit": 0,
+    "marker": "M1-EMISSION counter=30 sources=8 refusals=11 mutants=8 OK",
+    "passed": true,
+    "elapsed_ms": 136071
+  },
+  {
+    "name": "PROOF-GUARDS",
+    "command": [
+      "python3",
+      "-P",
+      "dev/guard-test.py"
+    ],
+    "timeout": 600,
+    "exit": 0,
+    "marker": "PROOF-GUARDS cases=83 creates=2 refusals=26 erasure=3 mutants=6 OK",
+    "passed": true,
+    "elapsed_ms": 38772
+  },
+  {
+    "name": "EVM-CONTEXT",
+    "command": [
+      "python3",
+      "-P",
+      "dev/context-test.py"
+    ],
+    "timeout": 600,
+    "exit": 0,
+    "marker": "EVM-CONTEXT cases=224 signed=56 creates=64 refusals=7 inputs=7 nested=2 independent=6 mutants=6 OK",
+    "passed": true,
+    "elapsed_ms": 51576
+  }
+]

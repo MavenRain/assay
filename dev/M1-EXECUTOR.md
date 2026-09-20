@@ -6,7 +6,7 @@ executor.  R-M0-8 names the command `diff`.  The M0 ratification stamp
 is still the user's.  This slice does not claim M1 completion.
 
 ```sh
-zsh -f dev/dunecho.sh build
+dune build
 _build/default/bin/assay.exe diff examples/Ref20.asy --calldata 0x00ff
 _build/default/bin/assay.exe diff examples/Ref20.asy --calldata 0x --prestate fixture.json
 zsh -f dev/gates.sh

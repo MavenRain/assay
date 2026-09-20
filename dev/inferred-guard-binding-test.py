@@ -173,8 +173,8 @@ def mutants():
     captures = []
     with tempfile.TemporaryDirectory(prefix='assay-guard-binding-mutants-') as temporary:
         copy = Path(temporary) / 'copy'
-        shutil.copytree(ROOT, copy, ignore=shutil.ignore_patterns('.git', '_build', '.gatework', '.kanon-exec',
-            '.kanon-wait', '.kanon-replies', '.kanonx', '.lake', 'vendor', 'validation', '__pycache__'))
+        shutil.copytree(ROOT, copy, ignore=shutil.ignore_patterns('.*', '_build', '.gatework',
+            '.lake', 'vendor', 'validation', '__pycache__'))
         path = copy / 'emit/contract.ml'
         original = path.read_text()
         for name, before, after, case, marker in cases:
@@ -182,8 +182,8 @@ def mutants():
             for mutated in (True, False):
                 path.write_text(original.replace(before, after) if mutated else original)
                 label = ('mutant-' if mutated else 'control-') + name
-                build = M.capture(label + '-build', ['zsh', '-f', 'dev/dunecho.sh', 'build'], cwd=copy, timeout=120)
-                require(build.returncode == 0 and '0 errors, 0 warnings' in build.stdout, 'IGB-MUTANT-BUILD ' + label)
+                build = M.capture(label + '-build', ['zsh', '-f', 'dev/dune.sh', 'build'], cwd=copy, timeout=120)
+                require(build.returncode == 0, 'IGB-MUTANT-BUILD ' + label)
                 result = M.capture(label, ['python3', '-P', 'dev/inferred-guard-binding-test.py', 'witness', case], cwd=copy)
                 require(result.returncode == (1 if mutated else 0) and (not mutated or marker in result.stdout),
                         'IGB-MUTANT ' + label)

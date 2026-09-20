@@ -10,8 +10,12 @@ let quote text =
 let empty = "[]\n"
 
 (* These rows also drive specialization and selector dispatch. *)
-type entry = { name : string; inputs : string list; readonly : bool }
+type mutability = View | Nonpayable | Payable
+type entry = { name : string; inputs : string list; mutability : mutability }
 type custom_error = { error_name : string; arguments : string list }
+let accepts_value entry = match entry.mutability with
+  | Payable -> true
+  | View | Nonpayable -> false
 let signature entry = entry.name ^ "(" ^
   String.concat "," (List.map (fun _name -> "uint256") entry.inputs) ^ ")"
 let error_signature row = row.error_name ^ "(" ^
@@ -22,7 +26,8 @@ let print ?(errors=[]) ?(fallback=false) entries =
   let row entry = "{\"type\":\"function\",\"name\":" ^ quote entry.name ^
     ",\"inputs\":[" ^ String.concat "," (List.map argument entry.inputs) ^
     "],\"outputs\":[" ^ argument "" ^ "],\"stateMutability\":" ^
-    quote (if entry.readonly then "view" else "nonpayable") ^ "}" in
+    quote (match entry.mutability with
+      | View -> "view" | Nonpayable -> "nonpayable" | Payable -> "payable") ^ "}" in
   let constructor = "{\"type\":\"constructor\",\"inputs\":[],\"stateMutability\":\"nonpayable\"}" in
   let error row = "{\"type\":\"error\",\"name\":" ^ quote row.error_name ^
     ",\"inputs\":[" ^ String.concat "," (List.map argument row.arguments) ^ "]}" in

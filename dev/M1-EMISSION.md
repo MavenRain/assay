@@ -61,9 +61,10 @@ The selected export must have an explicit `Entry -> Tx` type. The emitter
 specializes it once for each checked variant leg, injecting symbolic
 argument words. The same entry rows supply the ABI printer and dispatcher.
 Selectors come from in-tree Keccak over the derived canonical signature;
-selector collisions are refused before file creation. A `view` annotation
-is inferred only when neither branch of any operation can store. Every
-other entry is nonpayable. Every successful runtime return is one word.
+selector collisions are refused before file creation. For an unmarked
+entry, `view` is inferred only when neither branch of any operation can
+store; otherwise it is nonpayable. An explicit [payable marker](M1-PAYABLE.md)
+sets the ABI to `payable`. Every successful runtime return is one word.
 
 One decoder rule applies to every entry: require four selector bytes plus
 32 bytes per argument, decode each full uint256, and ignore trailing

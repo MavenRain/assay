@@ -30,21 +30,20 @@ let ( let* ) = Result.bind
 let word_tid = Eterm.Tid "mu<Word>"
 let eff_tid = Eterm.Tid "mu<Eff>"
 
-let has_constructor globals family name =
-  Global.find_family family globals
-  |> Option.fold ~none:false ~some:(fun family -> Option.is_some (Positivity.ctor_of name family))
-
-let schema ?(deployer=false) globals =
-  let* expected, rows = Kanon_surface.Elab.check_in Global.initial
-    (base_protocol ~deployer)
-    |> Result.map_error (fun e -> Protocol (Error.to_string e)) in
+let constructor_tag globals family name =
+  Option.bind (Global.find_family family globals) (fun family ->
+    List.find_index (fun ctor -> ctor.Positivity.c_name = name) family.Positivity.f_ctors)
+let has_constructor globals family name = Option.is_some (constructor_tag globals family name)
+let check_protocol ~parse_error ~prefix families globals source =
+  let* expected, rows = Kanon_surface.Elab.check_in Global.initial source |> Result.map_error parse_error in
   let* () = List.fold_left (fun result (name, _entry) ->
     let* () = result in
     if Global.find name globals = Global.find name expected then Ok ()
-    else Error (Protocol name)) (Ok ()) rows in
-  if Global.find_family "Word" globals = Global.find_family "Word" expected &&
-     Global.find_family "Eff" globals = Global.find_family "Eff" expected
-  then Ok () else Error (Protocol "Word/Eff family")
+    else Error (Protocol (prefix ^ name))) (Ok ()) rows in
+  if List.for_all (fun family -> Global.find_family family globals = Global.find_family family expected) families
+  then Ok () else Error (Protocol (prefix ^ String.concat "/" families ^ " family"))
+let schema ?(deployer=false) globals = check_protocol ~parse_error:(fun e -> Protocol (Error.to_string e))
+  ~prefix:"" ["Word"; "Eff"] globals (base_protocol ~deployer)
 
 type value =
   | Nat of Z.t | Word of Z.t | Erased
@@ -121,7 +120,6 @@ mu Tx : Type 0 :=
   | le : Word 256 -> Word 256 -> Tx -> Tx -> Tx
   | abort : Tx
 |}
-let m1_protocol = protocol ^ tx_protocol
 let proof_protocol = {|def wordNat : Word 256 -> Nat := fun (w : Word 256) =>
   case w as x in Word bits return Nat with | word 0 bits n => n
 def Le : Word 256 -> Word 256 -> Prop := fun (a : Word 256) (b : Word 256) =>
@@ -138,22 +136,16 @@ let proof_effects = {|  | guardLe : (a : Word 256) -> (b : Word 256) -> ((0 p : 
 |}
 let proof_names = ["wordNat"; "Le"; "AddFits"; "guardLe"; "guardAdd"; "addLt"; "subLe"]
 let has_proofs globals = List.exists (fun name -> Option.is_some (Global.find name globals)) proof_names
-let m1_protocol_for ?(proofs=false) ?(caller=false) ?(deployer=false) error_source =
+let m1_protocol_for ?(proofs=false) ?(caller=false) ?(deployer=false) ?(payable=false) error_source =
   base_protocol ~deployer ^
   (if proofs then proof_protocol else "") ^ error_source ^ tx_protocol ^
   (if error_source = "" then "" else "  | reject : Error -> Tx\n") ^
   (if proofs then proof_effects else "") ^
-  (if caller then "  | caller : (Word 256 -> Tx) -> Tx\n" else "")
+  (if caller then "  | caller : (Word 256 -> Tx) -> Tx\n" else "") ^
+  (if payable then "  | payable : Tx -> Tx\n" else "")
 
-let checked_schema globals source =
-  let* expected, rows = Kanon_surface.Elab.check_in Global.initial source
-    |> Result.map_error (fun _error -> Protocol "M1 schema") in
-  let* () = List.fold_left (fun result (name, _entry) ->
-    let* () = result in
-    if Global.find name globals = Global.find name expected then Ok ()
-    else Error (Protocol ("M1 " ^ name))) (Ok ()) rows in
-  if Global.find_family "Tx" globals = Global.find_family "Tx" expected
-  then Ok () else Error (Protocol "M1 Tx family")
+let checked_schema globals source = check_protocol ~parse_error:(fun _error -> Protocol "M1 schema")
+  ~prefix:"M1 " ["Tx"] globals source
 
 let definition globals name =
   Global.find_def name globals |> Option.to_result ~none:(Protocol ("M1 " ^ name))
@@ -226,8 +218,9 @@ let m1_schema globals =
       Error (Protocol ("M1 proof assumption " ^ name))
     | Global.Axiom _ | Global.Def _ | Global.Prim _ -> Ok ()) globals.Global.entries (Ok ()) in
   let caller = has_constructor globals "Tx" "caller" in
-  let source = (if errors = [] then m1_protocol_for ~proofs ~caller ~deployer "" ^ aliases
-    else m1_protocol_for ~proofs ~caller ~deployer (aliases ^ variant_source globals "Error" errors)) ^
+  let payable = has_constructor globals "Tx" "payable" in
+  let source = (if errors = [] then m1_protocol_for ~proofs ~caller ~deployer ~payable "" ^ aliases
+    else m1_protocol_for ~proofs ~caller ~deployer ~payable (aliases ^ variant_source globals "Error" errors)) ^
     declaration "Storage" (collection_source "prod" fields) ^
     variant_source globals "Entry" entries in
   let* () = checked_schema globals source in

@@ -198,8 +198,8 @@ def mutants():
     ]
     with tempfile.TemporaryDirectory(prefix='assay-nullary-mutants-') as temporary:
         copy = Path(temporary) / 'copy'
-        shutil.copytree(ROOT, copy, ignore=shutil.ignore_patterns('.git', '_build', '.gatework', '.kanon-exec',
-            '.kanon-wait', '.kanonx', '.lake', 'vendor', 'validation', '__pycache__'))
+        shutil.copytree(ROOT, copy, ignore=shutil.ignore_patterns('.*', '_build', '.gatework',
+            '.lake', 'vendor', 'validation', '__pycache__'))
         for name, relative, before, after, example in cases:
             path = copy / relative
             original = path.read_text()
@@ -207,8 +207,8 @@ def mutants():
             for mutated in (True, False):
                 path.write_text(original.replace(before, after) if mutated else original)
                 label = ('mutant-' if mutated else 'control-') + name
-                build = M.capture(label + '-build', ['zsh', '-f', 'dev/dunecho.sh', 'build'], cwd=copy, timeout=120)
-                require(build.returncode == 0 and '0 errors, 0 warnings' in build.stdout, 'NULLARY-BUILD ' + label)
+                build = M.capture(label + '-build', ['zsh', '-f', 'dev/dune.sh', 'build'], cwd=copy, timeout=120)
+                require(build.returncode == 0, 'NULLARY-BUILD ' + label)
                 result = M.capture(label, ['python3', '-P', 'dev/nullary-test.py', 'witness', example], cwd=copy)
                 require(result.returncode == (1 if mutated else 0) and
                         (not mutated or 'NULLARY-WITNESS ' + example in result.stdout), 'NULLARY-MUTANT ' + label)

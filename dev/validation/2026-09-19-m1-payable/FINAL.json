@@ -1,0 +1,442 @@
+{
+  "base": "f187d414b193254081bfbbbf3dbc239bdaa3ed4f",
+  "build": "BUILD.log",
+  "failed": 0,
+  "full_ladder_run": false,
+  "gates": [
+    {
+      "command": [
+        "zsh",
+        "-f",
+        "dev/carry-check.sh"
+      ],
+      "elapsed_ms": 931,
+      "exit": 0,
+      "marker": "diff=0 unlisted=0",
+      "name": "PIN-CARRY",
+      "passed": true,
+      "timeout": 30
+    },
+    {
+      "command": [
+        "zsh",
+        "-f",
+        "dev/r0-count.sh"
+      ],
+      "elapsed_ms": 458,
+      "exit": 0,
+      "marker": "R0-COUNT OK",
+      "name": "R0-COUNT",
+      "passed": true,
+      "timeout": 10
+    },
+    {
+      "command": [
+        "zsh",
+        "-f",
+        "dev/r0-audit.sh"
+      ],
+      "elapsed_ms": 65,
+      "exit": 0,
+      "marker": "R0-AUDIT OK",
+      "name": "R0-AUDIT",
+      "passed": true,
+      "timeout": 10
+    },
+    {
+      "command": [
+        "zsh",
+        "-f",
+        "dev/house.sh"
+      ],
+      "elapsed_ms": 845,
+      "exit": 0,
+      "marker": "HOUSE OK",
+      "name": "HOUSE",
+      "passed": true,
+      "timeout": 30
+    },
+    {
+      "command": [
+        "zsh",
+        "-f",
+        "dev/trusted-lines.sh"
+      ],
+      "elapsed_ms": 69,
+      "exit": 0,
+      "marker": "TRUSTED-LINES OK",
+      "name": "TRUSTED-LINES",
+      "passed": true,
+      "timeout": 10
+    },
+    {
+      "command": [
+        "_build/default/test/main.exe",
+        "test"
+      ],
+      "elapsed_ms": 363,
+      "exit": 0,
+      "marker": "SUITE-KERNEL OK",
+      "name": "SUITE-KERNEL",
+      "passed": true,
+      "timeout": 300
+    },
+    {
+      "command": [
+        "_build/default/test/sl_surface.exe"
+      ],
+      "elapsed_ms": 14,
+      "exit": 0,
+      "marker": "SL-SURFACE OK",
+      "name": "SUITE-SURFACE",
+      "passed": true,
+      "timeout": 60
+    },
+    {
+      "command": [
+        "python3",
+        "-P",
+        "dev/stage-a-test.py",
+        "driver"
+      ],
+      "elapsed_ms": 240,
+      "exit": 0,
+      "marker": "DRIVER cases=24 OK",
+      "name": "DRIVER",
+      "passed": true,
+      "timeout": 30
+    },
+    {
+      "command": [
+        "_build/default/test/emit_cases.exe",
+        "constructors"
+      ],
+      "elapsed_ms": 331,
+      "exit": 0,
+      "marker": "EMIT-CONSTRUCTORS cases=22 OK",
+      "name": "EMIT-CONSTRUCTORS",
+      "passed": true,
+      "timeout": 30
+    },
+    {
+      "command": [
+        "_build/default/test/emit_cases.exe",
+        "words"
+      ],
+      "elapsed_ms": 8,
+      "exit": 0,
+      "marker": "WORD-UNBOX ktag=0 kstruct=0 words=3 cases=9 OK",
+      "name": "WORD-UNBOX",
+      "passed": true,
+      "timeout": 30
+    },
+    {
+      "command": [
+        "_build/default/test/emit_cases.exe",
+        "storage"
+      ],
+      "elapsed_ms": 7,
+      "exit": 0,
+      "marker": "STORAGE-NOCLOS kclos=0 ktail=0 fields=2 cases=9 OK",
+      "name": "STORAGE-NOCLOS",
+      "passed": true,
+      "timeout": 30
+    },
+    {
+      "command": [
+        "zsh",
+        "-f",
+        "dev/abi-gold.sh"
+      ],
+      "elapsed_ms": 316,
+      "exit": 0,
+      "marker": "ABI-GOLD jq_sorted=equal provenance=dev/ABI-PROVENANCE.md controls=4 OK",
+      "name": "ABI-GOLD",
+      "passed": true,
+      "timeout": 60
+    },
+    {
+      "command": [
+        "python3",
+        "-P",
+        "dev/emit-test.py",
+        "trace"
+      ],
+      "elapsed_ms": 290,
+      "exit": 0,
+      "marker": "M0-TRACE offsets=13 listing=17 cast=17 evm=13 five_files=5 OK",
+      "name": "EMITTED-TRACE",
+      "passed": true,
+      "timeout": 120
+    },
+    {
+      "command": [
+        "python3",
+        "-P",
+        "dev/trace-test.py"
+      ],
+      "elapsed_ms": 762,
+      "exit": 0,
+      "marker": "TRACE-DRIVER cases=20 explicit_prestate=true literal_argv=true OK",
+      "name": "TRACE-DRIVER",
+      "passed": true,
+      "timeout": 120
+    },
+    {
+      "command": [
+        "python3",
+        "-P",
+        "dev/corpus-test.py",
+        "erased"
+      ],
+      "elapsed_ms": 159,
+      "exit": 0,
+      "marker": "ERASED-BYTES mutants=2 caught=1 equal=2 scope=M0-seed OK",
+      "name": "ERASED-BYTES",
+      "passed": true,
+      "timeout": 120
+    },
+    {
+      "command": [
+        "python3",
+        "-P",
+        "dev/diff-test.py"
+      ],
+      "elapsed_ms": 8096,
+      "exit": 0,
+      "marker": "DIFF-EXECUTOR live=20 driver=28 rejected=24 OK",
+      "name": "DIFF-EXECUTOR",
+      "passed": true,
+      "timeout": 180
+    },
+    {
+      "command": [
+        "python3",
+        "-P",
+        "dev/counter-test.py"
+      ],
+      "elapsed_ms": 4602,
+      "exit": 0,
+      "marker": "COUNTER-REFERENCE cases=30 creates=2 mutants=8 value_rejected=5 covered=120 scope=reference OK",
+      "name": "COUNTER-REFERENCE",
+      "passed": true,
+      "timeout": 300
+    },
+    {
+      "command": [
+        "python3",
+        "-P",
+        "dev/m1-emit-test.py"
+      ],
+      "elapsed_ms": 136071,
+      "exit": 0,
+      "marker": "M1-EMISSION counter=30 sources=8 refusals=11 mutants=8 OK",
+      "name": "M1-EMISSION",
+      "passed": true,
+      "timeout": 600
+    },
+    {
+      "command": [
+        "python3",
+        "-P",
+        "dev/model-test.py"
+      ],
+      "elapsed_ms": 36409,
+      "exit": 0,
+      "marker": "SOURCE-MODEL counter=30 variants=10 corpus=11 invalid=28 refusals=6 mutants=8 OK",
+      "name": "SOURCE-MODEL",
+      "passed": true,
+      "timeout": 600
+    },
+    {
+      "command": [
+        "python3",
+        "-P",
+        "dev/contract-test.py"
+      ],
+      "elapsed_ms": 50208,
+      "exit": 0,
+      "marker": "CONTRACT-SURFACE counter=30 variants=14 refusals=36 mutants=8 OK",
+      "name": "CONTRACT-SURFACE",
+      "passed": true,
+      "timeout": 600
+    },
+    {
+      "command": [
+        "_build/default/test/contract_route.exe"
+      ],
+      "elapsed_ms": 466,
+      "exit": 0,
+      "marker": "bound=131072 OK",
+      "name": "CONTRACT-ROUTE",
+      "passed": true,
+      "timeout": 30
+    },
+    {
+      "command": [
+        "python3",
+        "-P",
+        "dev/nullary-test.py"
+      ],
+      "elapsed_ms": 28447,
+      "exit": 0,
+      "marker": "NULLARY-ENTRIES cases=53 creates=2 refusals=4 mutants=3 OK",
+      "name": "NULLARY-ENTRIES",
+      "passed": true,
+      "timeout": 600
+    },
+    {
+      "command": [
+        "python3",
+        "-P",
+        "dev/errors-test.py"
+      ],
+      "elapsed_ms": 60881,
+      "exit": 0,
+      "marker": "CUSTOM-ERRORS cases=66 creates=2 refusals=26 mutants=5 OK",
+      "name": "CUSTOM-ERRORS",
+      "passed": true,
+      "timeout": 600
+    },
+    {
+      "command": [
+        "python3",
+        "-P",
+        "dev/guard-test.py"
+      ],
+      "elapsed_ms": 45006,
+      "exit": 0,
+      "marker": "PROOF-GUARDS cases=83 creates=2 refusals=26 erasure=3 mutants=6 OK",
+      "name": "PROOF-GUARDS",
+      "passed": true,
+      "timeout": 600
+    },
+    {
+      "command": [
+        "python3",
+        "-P",
+        "dev/context-test.py"
+      ],
+      "elapsed_ms": 62188,
+      "exit": 0,
+      "marker": "EVM-CONTEXT cases=224 signed=56 creates=64 refusals=7 inputs=7 nested=2 independent=6 mutants=6 OK",
+      "name": "EVM-CONTEXT",
+      "passed": true,
+      "timeout": 600
+    },
+    {
+      "command": [
+        "python3",
+        "-P",
+        "dev/context-surface-test.py"
+      ],
+      "elapsed_ms": 53459,
+      "exit": 0,
+      "marker": "SURFACE-CONTEXT cases=224 signed=56 creates=64 pairs=8 composition=6 order=4 refusals=17 mutants=4 OK",
+      "name": "SURFACE-CONTEXT",
+      "passed": true,
+      "timeout": 600
+    },
+    {
+      "command": [
+        "python3",
+        "-P",
+        "dev/equality-test.py"
+      ],
+      "elapsed_ms": 35976,
+      "exit": 0,
+      "marker": "EQUALITY pairs=8 cases=53 signed=33 creates=8 boundaries=6 refusals=17 mutants=4 OK",
+      "name": "WORD-EQUALITY",
+      "passed": true,
+      "timeout": 600
+    },
+    {
+      "command": [
+        "python3",
+        "-P",
+        "dev/fallback-test.py"
+      ],
+      "elapsed_ms": 62408,
+      "exit": 0,
+      "marker": "FALLBACK cases=99 signed=99 creates=10 refusals=23 boundaries=2 mutants=6 OK",
+      "name": "FALLBACK",
+      "passed": true,
+      "timeout": 600
+    },
+    {
+      "command": [
+        "python3",
+        "-P",
+        "dev/diff-value-test.py"
+      ],
+      "elapsed_ms": 18128,
+      "exit": 0,
+      "marker": "DIFF-VALUE live=32 signed=32 refused=31 OK",
+      "name": "DIFF-VALUE",
+      "passed": true,
+      "timeout": 180
+    },
+    {
+      "command": [
+        "python3",
+        "-P",
+        "dev/trace-value-test.py"
+      ],
+      "elapsed_ms": 7773,
+      "exit": 0,
+      "marker": "TRACE-VALUE live=36 funding=2 refused=34 OK",
+      "name": "TRACE-VALUE",
+      "passed": true,
+      "timeout": 180
+    },
+    {
+      "command": [
+        "python3",
+        "-P",
+        "dev/trace-caller-test.py"
+      ],
+      "elapsed_ms": 13499,
+      "exit": 0,
+      "marker": "TRACE-CALLER live=45 funding=2 refused=31 OK",
+      "name": "TRACE-CALLER",
+      "passed": true,
+      "timeout": 180
+    },
+    {
+      "command": [
+        "python3",
+        "-P",
+        "dev/diff-caller-test.py"
+      ],
+      "elapsed_ms": 41227,
+      "exit": 0,
+      "marker": "DIFF-CALLER live=45 signed=45 rejected=4 refused=33 helper=5 OK",
+      "name": "DIFF-CALLER",
+      "passed": true,
+      "timeout": 180
+    },
+    {
+      "command": [
+        "python3",
+        "-P",
+        "dev/payable-test.py"
+      ],
+      "elapsed_ms": 32245,
+      "exit": 0,
+      "marker": "PAYABLE cases=216 signed=24 pairs=8 probes=6 public=6 refusals=18 mutants=4 OK",
+      "name": "PAYABLE",
+      "passed": true,
+      "timeout": 180
+    }
+  ],
+  "initial": "SCOPED-INITIAL.json",
+  "milestone_complete": false,
+  "note": "Original scoped evidence plus four anchor/count rechecks and eight subsequent public-tool checks. The compiler source is unchanged by the tooling cleanup.",
+  "passed": 33,
+  "paused": [
+    "DENOMINATORS",
+    "M0-RATIO"
+  ],
+  "public_tools": "PUBLIC-TOOLS.json",
+  "rechecks": "RECHECKS.json"
+}

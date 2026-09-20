@@ -1,0 +1,32 @@
+{
+  "base": "f187d414b193254081bfbbbf3dbc239bdaa3ed4f",
+  "previous_modes": 39,
+  "previous_legs": 68,
+  "current_legs": 69,
+  "preserved_except": [
+    "BUILD.command",
+    "BUILD.marker"
+  ],
+  "public_build": [
+    "BUILD",
+    120,
+    [
+      "zsh",
+      "-f",
+      "dev/dune.sh",
+      "build"
+    ],
+    ""
+  ],
+  "added_leg": [
+    "PAYABLE",
+    180,
+    [
+      "python3",
+      "-P",
+      "dev/payable-test.py"
+    ],
+    "PAYABLE cases=216 signed=24 pairs=8 probes=6 public=6 refusals=18 mutants=4 OK"
+  ],
+  "gates_sha256": "969c989a0d7f59222537cc77ee2d76308c7735ada65466b5ee30d170e009638c"
+}

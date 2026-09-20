@@ -215,26 +215,26 @@ def mutants():
          'number 4', 'counter', 'COUNTER-EXPECTED increment-short-0'),
         ('INIT-VALUE', 'emit/emit.ml', 'block "constructor" [A.Op "CALLVALUE"]',
          'block "constructor" [number 0]', 'counter', 'COUNTER-CREATE status'),
-        ('ABI-MUTABILITY', 'emit/emit.ml', 'readonly = readonly tx',
-         'readonly = not (readonly tx)', 'counter', 'M1-GOLD abi.json'),
-        ('SCHEMA', 'emit/recognize.ml', 'if Global.find_family "Tx" globals = Global.find_family "Tx" expected',
-         'if true', 'sources', 'M1-REFUSAL schema'),
+        ('ABI-MUTABILITY', 'emit/emit.ml', 'else if readonly tx then',
+         'else if not (readonly tx) then', 'counter', 'M1-GOLD abi.json'),
+        ('SCHEMA', 'emit/recognize.ml', '~prefix:"M1 " ["Tx"] globals source',
+         '~prefix:"M1 " [] globals source', 'sources', 'M1-REFUSAL schema'),
     ]
     with tempfile.TemporaryDirectory(prefix='assay-m1-mutants-') as temporary:
         copy = Path(temporary) / 'copy'
-        shutil.copytree(ROOT, copy, ignore=shutil.ignore_patterns('.git', '_build', '.gatework', '.kanon-exec',
-            '.kanon-wait', '.lake', 'vendor', 'validation', '__pycache__'))
+        shutil.copytree(ROOT, copy, ignore=shutil.ignore_patterns('.*', '_build', '.gatework',
+            '.lake', 'vendor', 'validation', '__pycache__'))
         for name, relative, before, after, mode, witness in cases:
             path = copy / relative
             original = path.read_text()
             require(original.count(before) == 1, 'M1-MUTANT-ANCHOR ' + name)
             path.write_text(original.replace(before, after))
-            build = capture('mutant-' + name + '-build', ['zsh', '-f', 'dev/dunecho.sh', 'build'], cwd=copy, timeout=120)
-            require(build.returncode == 0 and '0 errors, 0 warnings' in build.stdout, 'M1-MUTANT-BUILD ' + name + build.stdout)
+            build = capture('mutant-' + name + '-build', ['zsh', '-f', 'dev/dune.sh', 'build'], cwd=copy, timeout=120)
+            require(build.returncode == 0, 'M1-MUTANT-BUILD ' + name + build.stdout)
             result = capture('mutant-' + name + '-test', ['python3', '-P', 'dev/m1-emit-test.py', mode], cwd=copy, timeout=120)
             require(result.returncode == 1 and 'M1-EMISSION FAIL: ' + witness in result.stdout, 'M1-MUTANT-SURVIVED ' + name + result.stdout)
             path.write_text(original)
-            build = capture('control-' + name + '-build', ['zsh', '-f', 'dev/dunecho.sh', 'build'], cwd=copy, timeout=120)
+            build = capture('control-' + name + '-build', ['zsh', '-f', 'dev/dune.sh', 'build'], cwd=copy, timeout=120)
             require(build.returncode == 0, 'M1-CONTROL-BUILD ' + name)
             result = capture('control-' + name + '-test', ['python3', '-P', 'dev/m1-emit-test.py', mode], cwd=copy, timeout=120)
             require(result.returncode == 0, 'M1-CONTROL ' + name + result.stdout)

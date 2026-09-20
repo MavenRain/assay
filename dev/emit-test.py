@@ -213,7 +213,7 @@ def mutants(root):
     ]
     with tempfile.TemporaryDirectory(prefix='assay-emit-mutants-') as temporary:
         copy = Path(temporary) / 'copy'
-        shutil.copytree(root, copy, ignore=shutil.ignore_patterns('.git', '_build', '.gatework', '.kanon-exec', '.kanon-wait', '.lake', 'vendor', 'validation'))
+        shutil.copytree(root, copy, ignore=shutil.ignore_patterns('.*', '_build', '.gatework', '.lake', 'vendor', 'validation'))
         logs = root / '.gatework'
         logs.mkdir(exist_ok=True)
         for name, relative, before, after, mode, marker in cases:
@@ -221,8 +221,8 @@ def mutants(root):
             original = path.read_text()
             require(original.count(before) == 1, 'MUTANT-ANCHOR ' + name)
             path.write_text(original.replace(before, after))
-            build = run(copy, 'zsh', '-f', 'dev/dunecho.sh', 'build')
-            require(build.returncode == 0 and '0 errors, 0 warnings' in build.stdout, 'MUTANT-BUILD ' + name + build.stdout + build.stderr)
+            build = run(copy, 'zsh', '-f', 'dev/dune.sh', 'build')
+            require(build.returncode == 0, 'MUTANT-BUILD ' + name + build.stdout + build.stderr)
             result = (run(copy, 'python3', '-P', 'dev/emit-test.py', mode) if mode == 'abi'
                       else run(copy, str(copy / '_build/default/test/emit_cases.exe'), mode))
             (logs / ('emit-mutant-' + name + '.log')).write_text(build.stdout + result.stdout + result.stderr)
@@ -230,7 +230,7 @@ def mutants(root):
             require(result.returncode == 1 and witness in result.stdout + result.stderr, 'MUTANT-SURVIVED ' + name)
             path.write_text(original)
             print('EMIT-MUTANT ' + name + ' killed by ' + marker)
-        build = run(copy, 'zsh', '-f', 'dev/dunecho.sh', 'build')
+        build = run(copy, 'zsh', '-f', 'dev/dune.sh', 'build')
         require(build.returncode == 0, 'EMIT-CONTROL-BUILD')
         # Review round 2026-09-10 (A-1):  the restored controls are counted, so
         # removing one moves the printed number.

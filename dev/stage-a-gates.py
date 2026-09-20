@@ -10,10 +10,11 @@ import time
 
 def main():
     root = Path(__file__).resolve().parent.parent
-    if sys.argv[1:] not in ([], ["--keccak"], ["--asm"], ["--reference"], ["--emit"], ["--m0"], ["--m1-executor"], ["--m1-counter"], ["--m1-emission"], ["--m1-run"], ["--m1-surface"], ["--m1-proofs"], ["--m1-nullary"], ["--m1-errors"], ["--m1-guards"], ["--m1-proof-terms"], ["--m1-invariants"], ["--m1-proof-helpers"], ["--m1-proof-bundles"], ["--m1-predicates"], ["--m1-compound-invariants"], ["--m1-compound-guards"], ["--m1-named-guards"], ["--m1-inferred-guards"], ["--m1-inferred-arithmetic"], ["--m1-inferred-helpers"], ["--m1-proof-holes"], ["--m1-inferred-bindings"], ["--m1-inferred-guard-bindings"], ["--m1-context"], ["--m1-context-surface"], ["--m1-equality"], ["--m1-hex-literals"], ["--m1-inferred-words"], ["--m1-fallback"], ["--m1-diff-value"], ["--m1-trace-value"], ["--m1-trace-caller"], ["--m1-diff-caller"]):
-        print("usage: stage-a-gates.py [--keccak|--asm|--reference|--emit|--m0|--m1-executor|--m1-counter|--m1-emission|--m1-run|--m1-surface|--m1-proofs|--m1-nullary|--m1-errors|--m1-guards|--m1-proof-terms|--m1-invariants|--m1-proof-helpers|--m1-proof-bundles|--m1-predicates|--m1-compound-invariants|--m1-compound-guards|--m1-named-guards|--m1-inferred-guards|--m1-inferred-arithmetic|--m1-inferred-helpers|--m1-proof-holes|--m1-inferred-bindings|--m1-inferred-guard-bindings|--m1-context|--m1-context-surface|--m1-equality|--m1-hex-literals|--m1-inferred-words|--m1-fallback|--m1-diff-value|--m1-trace-value|--m1-trace-caller|--m1-diff-caller]")
+    if sys.argv[1:] not in ([], ["--keccak"], ["--asm"], ["--reference"], ["--emit"], ["--m0"], ["--m1-executor"], ["--m1-counter"], ["--m1-emission"], ["--m1-run"], ["--m1-surface"], ["--m1-proofs"], ["--m1-nullary"], ["--m1-errors"], ["--m1-guards"], ["--m1-proof-terms"], ["--m1-invariants"], ["--m1-proof-helpers"], ["--m1-proof-bundles"], ["--m1-predicates"], ["--m1-compound-invariants"], ["--m1-compound-guards"], ["--m1-named-guards"], ["--m1-inferred-guards"], ["--m1-inferred-arithmetic"], ["--m1-inferred-helpers"], ["--m1-proof-holes"], ["--m1-inferred-bindings"], ["--m1-inferred-guard-bindings"], ["--m1-context"], ["--m1-context-surface"], ["--m1-equality"], ["--m1-hex-literals"], ["--m1-inferred-words"], ["--m1-fallback"], ["--m1-diff-value"], ["--m1-trace-value"], ["--m1-trace-caller"], ["--m1-diff-caller"], ["--m1-payable"]):
+        print("usage: stage-a-gates.py [--keccak|--asm|--reference|--emit|--m0|--m1-executor|--m1-counter|--m1-emission|--m1-run|--m1-surface|--m1-proofs|--m1-nullary|--m1-errors|--m1-guards|--m1-proof-terms|--m1-invariants|--m1-proof-helpers|--m1-proof-bundles|--m1-predicates|--m1-compound-invariants|--m1-compound-guards|--m1-named-guards|--m1-inferred-guards|--m1-inferred-arithmetic|--m1-inferred-helpers|--m1-proof-holes|--m1-inferred-bindings|--m1-inferred-guard-bindings|--m1-context|--m1-context-surface|--m1-equality|--m1-hex-literals|--m1-inferred-words|--m1-fallback|--m1-diff-value|--m1-trace-value|--m1-trace-caller|--m1-diff-caller|--m1-payable]")
         return 64
-    diff_caller = sys.argv[1:] == ["--m1-diff-caller"]
+    payable = sys.argv[1:] == ["--m1-payable"]
+    diff_caller = payable or sys.argv[1:] == ["--m1-diff-caller"]
     trace_caller = diff_caller or sys.argv[1:] == ["--m1-trace-caller"]
     trace_value = trace_caller or sys.argv[1:] == ["--m1-trace-value"]
     diff_value = trace_value or sys.argv[1:] == ["--m1-diff-value"]
@@ -52,7 +53,7 @@ def main():
     assembler = reference or sys.argv[1:] == ["--asm"]
     keccak = assembler or sys.argv[1:] == ["--keccak"]
     legs = [
-        ("BUILD", 120, ("zsh", "-f", "dev/dunecho.sh", "build"), "0 errors, 0 warnings"),
+        ("BUILD", 120, ("zsh", "-f", "dev/dune.sh", "build"), ""),
         ("PIN-CARRY", 30, ("zsh", "-f", "dev/carry-check.sh"), "diff=0 unlisted=0"),
         ("R0-COUNT", 10, ("zsh", "-f", "dev/r0-count.sh"), "R0-COUNT OK"),
         ("R0-AUDIT", 10, ("zsh", "-f", "dev/r0-audit.sh"), "R0-AUDIT OK"),
@@ -226,6 +227,9 @@ def main():
     if diff_caller:
         legs.append(("DIFF-CALLER", 180, ("python3", "-P", "dev/diff-caller-test.py"),
                      "DIFF-CALLER live=45 signed=45 rejected=4 refused=33 helper=5 OK"))
+    if payable:
+        legs.append(("PAYABLE", 180, ("python3", "-P", "dev/payable-test.py"),
+                     "PAYABLE cases=216 signed=24 pairs=8 probes=6 public=6 refusals=18 mutants=4 OK"))
     # Review round 2026-09-11 (D-1):  the M0 verdict reads the legs of
     # M0-PLAN section 8 only.  A leg that this mode appends is an M1 leg,
     # so its failure moves the stage line and the exit code, not M0.
@@ -270,6 +274,9 @@ def main():
     if diff_caller:
         stage = "M1-DIFF-CALLER"
         m1_names.add("DIFF-CALLER")
+    if payable:
+        stage = "M1-PAYABLE"
+        m1_names.add("PAYABLE")
     work = root / (".gatework/stage-" + stage.lower())
     work.mkdir(parents=True, exist_ok=True)
     failed = False

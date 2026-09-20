@@ -108,7 +108,7 @@ def mutants(root):
         # This executable depends only on assay_keccak.  Keep mutation builds
         # scoped to that library and the same adapter and vector gate.
         for relative in ("dune-project", "dune", "keccak/dune", "keccak/keccak.ml",
-                         "test/keccak_vec.ml", "dev/dunecho.sh", "dev/keccak-test.py",
+                         "test/keccak_vec.ml", "dev/dune.sh", "dev/keccak-test.py",
                          "dev/SPIKE-KECCAK.md", "dev/keccak-vectors.json",
                          "dev/keccak-iface.txt"):
             target = copy / relative
@@ -123,8 +123,8 @@ def mutants(root):
                 print(f"KECCAK-MUTANT {name} FAIL: mutation site is not unique")
                 return 1
             path.write_text(original.replace(before, after))
-            build = run(copy, "zsh", "-f", "dev/dunecho.sh", "build", timeout=120)
-            if build.returncode != 0 or "0 errors, 0 warnings" not in build.stdout:
+            build = run(copy, "zsh", "-f", "dev/dune.sh", "build", timeout=120)
+            if build.returncode != 0:
                 print(f"KECCAK-MUTANT {name} FAIL: build failure is not a kill\n{build.stdout}{build.stderr}")
                 return 1
             result = run(copy, sys.executable, "-P", "dev/keccak-test.py", "frozen", timeout=60)
@@ -135,7 +135,7 @@ def mutants(root):
             print(f"KECCAK-MUTANT {name} killed witness={witness} exit=1")
         # Restore the source and require the same frozen gate to pass.
         path.write_text(original)
-        build = run(copy, "zsh", "-f", "dev/dunecho.sh", "build", timeout=120)
+        build = run(copy, "zsh", "-f", "dev/dune.sh", "build", timeout=120)
         control = run(copy, sys.executable, "-P", "dev/keccak-test.py", "frozen", timeout=60)
         if build.returncode != 0 or control.returncode != 0:
             print(f"KECCAK-MUTANTS FAIL restored control\n{build.stdout}{build.stderr}{control.stdout}{control.stderr}")

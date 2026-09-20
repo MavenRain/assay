@@ -218,22 +218,22 @@ def mutants():
     ]
     with tempfile.TemporaryDirectory(prefix='assay-model-mutants-') as temporary:
         copy = Path(temporary) / 'copy'
-        shutil.copytree(ROOT, copy, ignore=shutil.ignore_patterns('.git', '_build', '.gatework', '.kanon-exec',
-            '.kanon-wait', '.lake', 'vendor', 'validation', '__pycache__'))
+        shutil.copytree(ROOT, copy, ignore=shutil.ignore_patterns('.*', '_build', '.gatework',
+            '.lake', 'vendor', 'validation', '__pycache__'))
         path = copy / 'emit/model.ml'
         original = path.read_text()
         for name, before, after, witness_name in cases:
             require(original.count(before) == 1, 'MODEL-MUTANT-ANCHOR ' + name)
             path.write_text(original.replace(before, after))
-            build = capture('mutant-' + name + '-build', ['zsh', '-f', 'dev/dunecho.sh', 'build'], cwd=copy, timeout=120)
-            require(build.returncode == 0 and '0 errors, 0 warnings' in build.stdout, 'MODEL-MUTANT-BUILD ' + name)
+            build = capture('mutant-' + name + '-build', ['zsh', '-f', 'dev/dune.sh', 'build'], cwd=copy, timeout=120)
+            require(build.returncode == 0, 'MODEL-MUTANT-BUILD ' + name)
             result = capture('mutant-' + name, ['python3', '-P', 'dev/model-test.py', 'witness', witness_name], cwd=copy)
             require(result.returncode != 0, 'MODEL-MUTANT-SURVIVED ' + name)
             require(result.returncode == 1 and 'MODEL-EXPECTED ' + witness_name in result.stdout,
                     'MODEL-MUTANT-WITNESS ' + name)
             path.write_text(original)
-            build = capture('control-' + name + '-build', ['zsh', '-f', 'dev/dunecho.sh', 'build'], cwd=copy, timeout=120)
-            require(build.returncode == 0 and '0 errors, 0 warnings' in build.stdout, 'MODEL-CONTROL-BUILD ' + name)
+            build = capture('control-' + name + '-build', ['zsh', '-f', 'dev/dune.sh', 'build'], cwd=copy, timeout=120)
+            require(build.returncode == 0, 'MODEL-CONTROL-BUILD ' + name)
             result = capture('control-' + name, ['python3', '-P', 'dev/model-test.py', 'witness', witness_name], cwd=copy)
             require(result.returncode == 0 and not result.stderr, 'MODEL-CONTROL ' + name)
             print('MODEL-MUTANT ' + name + ' witness=' + witness_name + ' killed control=OK', flush=True)

@@ -1,0 +1,10 @@
+M1-DIFF cases=30 creates=2 covered=216 five_files=5 scope=core OK
+M1-SOURCES live=8 refusals=11 exports=2 OK
+M1-MUTANT CALLVALUE killed, restored control passed
+M1-MUTANT OVERFLOW killed, restored control passed
+M1-MUTANT BOUND killed, restored control passed
+M1-MUTANT SUBTRACTION killed, restored control passed
+M1-MUTANT HEAD killed, restored control passed
+M1-MUTANT INIT-VALUE killed, restored control passed
+M1-MUTANT ABI-MUTABILITY killed, restored control passed
+M1-EMISSION FAIL: M1-MUTANT-ANCHOR SCHEMA

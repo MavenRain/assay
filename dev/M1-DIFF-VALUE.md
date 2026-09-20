@@ -41,9 +41,10 @@ that would revert. A matched revert still prints `DIFF OK` and exits
 zero. Report fields and the storage, output and status comparison are
 unchanged; balances, nonces and logs remain outside that comparison.
 
-M1 contracts reject a nonzero value before entry decoding or fallback
-selection. Their revert data is empty and storage stays unchanged.
-At zero value, the explicit fallback still supplies its custom error.
+Unmarked M1 entries reject a nonzero value before argument decoding or
+effects, with empty revert data and unchanged storage. Explicit
+[payable entries](M1-PAYABLE.md) accept value. Fallbacks remain nonpayable;
+at zero value, an explicit fallback still supplies its custom error.
 M0 closed effect programs retain their existing behavior. Constructors
 are not executed by this runtime command.
 

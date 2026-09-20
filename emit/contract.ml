@@ -38,7 +38,7 @@ type step =
   | Proof_bind of token * claim option * proof
 type ending = Return of word | Unit of token | Revert of token | Reject of token * word list
 type body = step list * ending
-type entry = { name : token; args : token list; body : body }
+type entry = { name : token; args : token list; body : body; payable : bool }
 type error_row = { error_name : token; error_args : token list }
 type invariant = { invariant_name : token; claim : claim }
 let fail at code detail =
@@ -77,7 +77,7 @@ let lex chars =
     | ('(' | ')' | '{' | '}' | ':' | ';' | '.' | ',' as c) :: rest -> next (String.make 1 c) rest
     | _c :: _rest -> fail (at "") "TOKEN" "unexpected character" in
   scan 0 1 1 [] chars
-let reserved = ["Both"; "EqWord"; "eqWord"; "predicate"; "caller"; "deployer"; "fallback"; "Never"] @ String.split_on_char ' '
+let reserved = ["Both"; "EqWord"; "eqWord"; "predicate"; "caller"; "deployer"; "fallback"; "Never"; "payable"] @ String.split_on_char ' '
   "contract where storage entry constructor error invariant proof do sload sstore add sub guard le let pure revert Word Eff Sig Tx ResultWord Storage Entry Error main word ret put read EvmOpcodes done store load abort reject def axiom fun inj of case match as return with tuple sum prod absurd Prop Type in auto mu mutual end nu and rec natAdd natSub natMul natEq natLt Le Lt256 AddFits leWord lt256 wordNat guardLe guardAdd addLt subLe"
 let identifier tokens = match tokens with
   | at :: rest when Recognize.identifier at.text && at.text <> "_" &&
@@ -756,8 +756,7 @@ let constructor fields (steps, ending) =
     | Deployer field ->
       let* field = slot fields field in Ok (app "deployer" [field; next])
     | Store (at, Local _) | Load (at, _) | Add (at, _, _) | Sub (at, _, _) | Bind (at, _)
-    | Caller at | Prove (at, _, _, _) | Proven (at, _, _, _, _) | Proof_bind (at, _, _) ->
-      fail at "CONSTRUCTOR" "constructor accepts literal stores and deployer initialization only"
+    | Caller at | Prove (at, _, _, _) | Proven (at, _, _, _, _) | Proof_bind (at, _, _)
     | Guard ((Literal at | Local at), _) ->
       fail at "CONSTRUCTOR" "constructor accepts literal stores and deployer initialization only")
     steps (Ok "(ret (word 256 0))")
@@ -805,6 +804,7 @@ let generate state fields entries errors invariants predicates helpers init fall
     let* branches = result in
     let env = List.mapi (fun i at -> at.text, Word_value ("_assay_args." ^ string_of_int i)) row.args in
     let* term = transaction field_slots errors invariants predicates helper_scope env row.body in
+    let term = if row.payable then app "payable" [term] else term in
     Ok (branches @ ["| " ^ string_of_int i ^ " (_assay_args : " ^ row.name.text ^ ") => " ^ term]))
     (Ok []) (List.mapi (fun i row -> i, row) entries) in
   let decl = Recognize.declaration in
@@ -824,8 +824,9 @@ let generate state fields entries errors invariants predicates helpers init fall
     | Caller _ -> true
     | Deployer _ | Load _ | Add _ | Sub _ | Store _ | Guard _ | Bind _
     | Prove _ | Proven _ | Proof_bind _ -> false) (fst row.body)) entries in
-  Ok ((if errors = [] then Recognize.m1_protocol_for ~proofs ~caller ~deployer "" ^ aliases
-    else Recognize.m1_protocol_for ~proofs ~caller ~deployer (aliases ^ error_source)) ^ helper_source ^
+  let payable = List.exists (fun row -> row.payable) entries in
+  Ok ((if errors = [] then Recognize.m1_protocol_for ~proofs ~caller ~deployer ~payable "" ^ aliases
+    else Recognize.m1_protocol_for ~proofs ~caller ~deployer ~payable (aliases ^ error_source)) ^ helper_source ^
     decl "Storage" (collection "prod" fields) ^ decl state.text "Storage" ^
     "def storage : Storage := tuple (" ^ String.concat ", "
       (List.mapi (fun i _at -> "word 256 " ^ string_of_int i) fields) ^ ")\n" ^
@@ -844,12 +845,14 @@ let parse tokens =
   let* fields, tokens = fields tokens in
   let rec declarations entries errors invariants predicates helpers init fallback tokens =
     let continue = declarations in match tokens with
-    | { text = "entry"; _ } :: rest ->
+    | ({ text = ("entry" | "payable"); _ } as at) :: rest ->
+      let payable = at.text = "payable" in
+      let* rest = if payable then expect "entry" rest else Ok rest in
       let* name, rest = identifier rest in
       let* _names = add_name name (List.map (fun row -> row.name) entries) in
       let* args, rest = arguments rest in
       let* rest = sequence [":"; "Eff"; "Sig"; "Word"; ":="] rest in
-      let* body, rest = body rest in continue (entries @ [{ name; args; body }]) errors invariants predicates helpers init fallback rest
+      let* body, rest = body rest in continue (entries @ [{ name; args; body; payable }]) errors invariants predicates helpers init fallback rest
     | { text = "error"; _ } :: rest ->
       let* error_name, rest = identifier rest in
       let* _names = add_name error_name (List.map (fun row -> row.error_name) errors) in

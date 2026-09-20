@@ -48,9 +48,10 @@ produce geth's `insufficient balance for transfer` record, followed by
 `TRACE_EXECUTION` and exit 2. Genesis storage keys and values must use
 geth's hexadecimal byte encoding, such as 64 hex digits per Word.
 
-M1 contracts reject nonzero value before entry decoding or fallback
-selection, with empty revert data and unchanged storage. Zero-value
-fallbacks retain their custom error payloads. M0 closed effect programs
+Unmarked M1 entries reject nonzero value before argument decoding or
+effects, with empty revert data and unchanged storage. Explicit
+[payable entries](M1-PAYABLE.md) accept value. Fallbacks remain nonpayable,
+with their custom error payloads available at zero value. M0 closed effect programs
 retain their existing execution behavior. As before, an EVM revert or
 fault prints the captured trace, reports `TRACE_EXECUTION`, and exits 2.
 Missing executors or fixtures and executor process failures also exit 2.
