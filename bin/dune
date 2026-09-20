@@ -1,3 +1,3 @@
 (executable
  (name assay)
- (libraries kanon_kernel kanon_surface assay_emit unix))
+ (libraries kanon_kernel kanon_surface assay_emit unix zarith))

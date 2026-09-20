@@ -1,10 +1,12 @@
 (** Run geth with literal argv and an explicit prestate.  File and
     process races retain the driver's OS boundary. *)
-type error = Invalid_value of string | Missing_tool | Missing_prestate of string
+type error = Invalid_value of string | Invalid_caller of string
+  | Missing_tool | Missing_prestate of string
   | Executor_exit of int | Executor_signal of int | Execution_error
 
 let error : error -> string = function
   | Invalid_value detail -> "TRACE_VALUE: " ^ detail
+  | Invalid_caller detail -> "TRACE_CALLER: " ^ detail
   | Missing_tool -> "TRACE_TOOL: evm is not on PATH"
   | Missing_prestate path -> "TRACE_PRESTATE: cannot read " ^ path
   | Executor_exit code -> "TRACE_EXECUTOR: exit " ^ string_of_int code
@@ -23,6 +25,21 @@ let value (text : string) : (string, error) result =
     let digits = String.to_seq text |> Seq.drop_while (fun c -> c = '0') |> String.of_seq in
     if digits = "" then "0" else digits)
   |> Result.map_error (fun e -> Invalid_value (match e with
+    | Assay_emit.Model.Input detail -> detail
+    | Assay_emit.Model.Source _ | Assay_emit.Model.Missing_memory _ ->
+      Assay_emit.Model.error e))
+
+let default_caller = "0x000000000000000000000000000073656e646572"
+
+(* Use the model's bounded address grammar and pass geth exactly 20 bytes. *)
+let caller (text : string) : (string, error) result =
+  Assay_emit.Model.inputs_with_caller ~data:"" ~value:"0" ~storage:[] ~caller:text
+  |> Result.map (fun _ ->
+    let text = String.lowercase_ascii text in
+    let hex = String.starts_with ~prefix:"0x" text in
+    let digits = if hex then String.to_seq text |> Seq.drop 2 |> String.of_seq else text in
+    "0x" ^ Z.format "%040x" (Z.of_string_base (if hex then 16 else 10) digits))
+  |> Result.map_error (fun e -> Invalid_caller (match e with
     | Assay_emit.Model.Input detail -> detail
     | Assay_emit.Model.Source _ | Assay_emit.Model.Missing_memory _ ->
       Assay_emit.Model.error e))
@@ -81,11 +98,12 @@ let has_error (text : string) : bool =
     | [] -> false in
   scan (String.split_on_char '"' text)
 
-let run ~(runtime : string) ~(input : string) ~(prestate : string) ~(value : string) : (unit, error) result =
+let run ~(runtime : string) ~(input : string) ~(prestate : string) ~(value : string)
+    ~(caller : string) : (unit, error) result =
   if not (regular prestate) then Error (Missing_prestate prestate) else
   Option.fold ~none:(Error Missing_tool) ~some:(fun program ->
       let argv = [program; "--verbosity"; "0"; "run"; "--prestate"; prestate;
-        "--gas"; "16777216"; "--sender"; "0x000000000000000000000000000073656e646572";
+        "--gas"; "16777216"; "--sender"; caller;
         "--receiver"; "0x0000000000000000000000007265636569766572";
         "--code"; runtime; "--input"; input; "--value"; value; "--json"; "--dump"] in
       let channel = Unix.open_process_args_in program (Array.of_list argv) in

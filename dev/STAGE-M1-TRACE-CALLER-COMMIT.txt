@@ -1,0 +1,12 @@
+M1: add trace caller selection
+
+Accept bounded caller addresses on the public trace command and pass
+canonical 20-byte senders to geth. Preserve the existing default caller
+and validate addresses before compilation or executor lookup.
+
+Add 45 execution comparisons, two funding faults and 31 input refusals,
+including CALLER operands, ownership checks and storage rollback.
+Retain all prior ladder modes and append the TRACE-CALLER gate.
+
+The build and eleven scoped gates pass. DENOMINATORS and M0-RATIO
+remain under the existing timing pause; no milestone exit is claimed.

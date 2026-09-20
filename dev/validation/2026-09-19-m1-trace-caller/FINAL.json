@@ -1,0 +1,25 @@
+{
+  "base": "629bf0280e80d8b7d29d1b6c196aaaeac5cc2e5f",
+  "commands": 12,
+  "full_ladder_run": false,
+  "gate_compatibility": {
+    "current_legs": 67,
+    "previous_legs": 66,
+    "previous_modes": 37
+  },
+  "milestone_exit_claimed": false,
+  "passed": 12,
+  "pending": [
+    "DENOMINATORS",
+    "M0-RATIO"
+  ],
+  "recorded_at": "2026-09-19T11:21:25.573451+00:00",
+  "status": "PASS: scoped validation",
+  "timing_pause_preserved": true,
+  "trace_caller": {
+    "funding": 2,
+    "live": 45,
+    "receipts": 123,
+    "refused": 31
+  }
+}

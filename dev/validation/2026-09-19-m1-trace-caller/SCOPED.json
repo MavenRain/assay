@@ -1,0 +1,177 @@
+[
+  {
+    "command": [
+      "python3",
+      "-P",
+      "dev/trace-caller-test.py"
+    ],
+    "exit": 0,
+    "marker": "TRACE-CALLER live=45 funding=2 refused=31 OK",
+    "name": "TRACE-CALLER",
+    "passed": true,
+    "reused_completed_run": true
+  },
+  {
+    "command": [
+      "env",
+      "-u",
+      "OPAM_SWITCH_PREFIX",
+      "-u",
+      "CAML_LD_LIBRARY_PATH",
+      "-u",
+      "OCAMLPATH",
+      "-u",
+      "OCAMLFIND_CONF",
+      "zsh",
+      "-f",
+      "dev/dunecho.sh",
+      "build"
+    ],
+    "exit": 0,
+    "marker": "OK build: 0 errors, 0 warnings",
+    "name": "BUILD",
+    "passed": true,
+    "reused_completed_run": true
+  },
+  {
+    "command": [
+      "zsh",
+      "-f",
+      "dev/carry-check.sh"
+    ],
+    "elapsed_seconds": 0.969,
+    "exit": 0,
+    "marker": "diff=0 unlisted=0",
+    "name": "PIN-CARRY",
+    "passed": true,
+    "reused_completed_run": false,
+    "timeout_seconds": 30
+  },
+  {
+    "command": [
+      "zsh",
+      "-f",
+      "dev/r0-count.sh"
+    ],
+    "elapsed_seconds": 0.08,
+    "exit": 0,
+    "marker": "R0-COUNT OK",
+    "name": "R0-COUNT",
+    "passed": true,
+    "reused_completed_run": false,
+    "timeout_seconds": 10
+  },
+  {
+    "command": [
+      "zsh",
+      "-f",
+      "dev/r0-audit.sh"
+    ],
+    "elapsed_seconds": 0.045,
+    "exit": 0,
+    "marker": "R0-AUDIT OK",
+    "name": "R0-AUDIT",
+    "passed": true,
+    "reused_completed_run": false,
+    "timeout_seconds": 10
+  },
+  {
+    "command": [
+      "zsh",
+      "-f",
+      "dev/house.sh"
+    ],
+    "elapsed_seconds": 0.552,
+    "exit": 0,
+    "marker": "HOUSE OK",
+    "name": "HOUSE",
+    "passed": true,
+    "reused_completed_run": false,
+    "timeout_seconds": 30
+  },
+  {
+    "command": [
+      "zsh",
+      "-f",
+      "dev/trusted-lines.sh"
+    ],
+    "elapsed_seconds": 0.034,
+    "exit": 0,
+    "marker": "TRUSTED-LINES OK",
+    "name": "TRUSTED-LINES",
+    "passed": true,
+    "reused_completed_run": false,
+    "timeout_seconds": 10
+  },
+  {
+    "command": [
+      "python3",
+      "-P",
+      "dev/stage-a-test.py",
+      "driver"
+    ],
+    "elapsed_seconds": 0.273,
+    "exit": 0,
+    "marker": "DRIVER cases=24 OK",
+    "name": "DRIVER",
+    "passed": true,
+    "reused_completed_run": false,
+    "timeout_seconds": 30
+  },
+  {
+    "command": [
+      "python3",
+      "-P",
+      "dev/trace-test.py"
+    ],
+    "elapsed_seconds": 1.277,
+    "exit": 0,
+    "marker": "TRACE-DRIVER cases=20 explicit_prestate=true literal_argv=true OK",
+    "name": "TRACE-DRIVER",
+    "passed": true,
+    "reused_completed_run": false,
+    "timeout_seconds": 120
+  },
+  {
+    "command": [
+      "python3",
+      "-P",
+      "dev/diff-test.py"
+    ],
+    "elapsed_seconds": 4.931,
+    "exit": 0,
+    "marker": "DIFF-EXECUTOR live=20 driver=28 rejected=24 OK",
+    "name": "DIFF-EXECUTOR",
+    "passed": true,
+    "reused_completed_run": false,
+    "timeout_seconds": 180
+  },
+  {
+    "command": [
+      "python3",
+      "-P",
+      "dev/diff-value-test.py"
+    ],
+    "elapsed_seconds": 9.41,
+    "exit": 0,
+    "marker": "DIFF-VALUE live=32 signed=32 refused=31 OK",
+    "name": "DIFF-VALUE",
+    "passed": true,
+    "reused_completed_run": false,
+    "timeout_seconds": 180
+  },
+  {
+    "command": [
+      "python3",
+      "-P",
+      "dev/trace-value-test.py"
+    ],
+    "elapsed_seconds": 4.072,
+    "exit": 0,
+    "marker": "TRACE-VALUE live=36 funding=2 refused=34 OK",
+    "name": "TRACE-VALUE",
+    "passed": true,
+    "reused_completed_run": false,
+    "timeout_seconds": 180
+  }
+]

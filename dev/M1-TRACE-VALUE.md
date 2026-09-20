@@ -31,9 +31,11 @@ options, dash-led values or source paths, and extra positional arguments
 produce usage and exit 64. A signed value such as `-1` therefore fails
 option parsing before Word validation.
 
-Trace retains its existing sender,
+Trace defaults to its existing sender,
 `0x000000000000000000000000000073656e646572`, and receiver,
-`0x0000000000000000000000007265636569766572`. Its genesis file is passed
+`0x0000000000000000000000007265636569766572`. The subsequent
+[trace caller slice](M1-TRACE-CALLER.md) adds optional sender selection
+through `--caller`. Its genesis file is passed
 directly to geth. The funded fixtures in the gate use the trace sender;
 the signed differential command uses a different sender. This command
 does not run a signed transition or compare two executors.
@@ -70,7 +72,7 @@ python3 -P dev/trace-value-test.py
 python3 -P dev/stage-a-gates.py --m1-trace-value
 ```
 
-The default ladder adds TRACE-VALUE after DIFF-VALUE. The 65 previous
+This slice's ladder adds TRACE-VALUE after DIFF-VALUE. The 65 previous
 gate declarations keep their commands, deadlines and success markers.
 The kernel, surface, emitter, source model, ABI, proof package, trusted
 bounds and frozen timing inputs are unchanged. Validation is scoped to

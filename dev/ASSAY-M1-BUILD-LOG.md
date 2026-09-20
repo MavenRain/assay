@@ -1,5 +1,30 @@
 # Assay M1 build log
 
+## 2026-09-19: Trace callers
+
+The thirty-second M1 slice starts at `629bf02`. `trace --caller ADDRESS`
+validates through the source model before compilation, bounds the
+address to uint160 and forwards a canonical 20-byte sender to geth.
+The previous sender remains the default. Options may follow the source
+in any order, once each, with malformed inputs refused before execution.
+
+TRACE-CALLER passes 45 source-model and geth comparisons, two funding
+faults and 31 input refusals. It checks actual CALLER operands, ownership
+success and storage rollback on denial, accepted address boundaries,
+the default prestate and all 24 option orderings. The funding probes
+confirm that balance checks use the selected caller's account.
+
+The build passes with zero errors and warnings. TRACE-VALUE,
+TRACE-DRIVER, DIFF-EXECUTOR, DIFF-VALUE, DRIVER, PIN-CARRY, R0-COUNT,
+R0-AUDIT, HOUSE and TRUSTED-LINES pass. Mode selection evaluation
+preserves all 37 previous modes and their 66 legs. The new default mode
+appends TRACE-CALLER and selects 67 legs.
+
+The [command contract](M1-TRACE-CALLER.md) and
+[validation archive](validation/2026-09-19-m1-trace-caller/) record the
+evidence. The full ladder was not rerun. DENOMINATORS and M0-RATIO
+retain the timing pause; no performance or milestone-exit claim is made.
+
 ## 2026-09-18: Trace call values
 
 The thirty-first M1 slice starts at `913c8c8`. The public `trace`

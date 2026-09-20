@@ -82,6 +82,8 @@ The thirtieth adds [differential call values](dev/M1-DIFF-VALUE.md),
 with bounded Word inputs and signed Cancun checks through `diff --value`.
 The thirty-first adds [trace call values](dev/M1-TRACE-VALUE.md),
 with bounded Word inputs and instruction-level inspection through `trace --value`.
+The thirty-second adds [trace callers](dev/M1-TRACE-CALLER.md), with bounded
+addresses and caller-dependent execution through `trace --caller`.
 
 ```sh
 zsh -f dev/dunecho.sh build
@@ -131,7 +133,8 @@ exits 2 and writes nothing.  `--export NAME` selects a closed export in place
 of `main`. [The M0 emission contract](dev/EMISSION.md) defines its source
 protocol, supported constructors, bounds and I/O behavior.
 
-`trace FILE --calldata HEX [--prestate FILE] [--value WORD]` compiles the source and prints geth's JSON
+`trace FILE --calldata HEX [--prestate FILE] [--value WORD] [--caller ADDRESS]`
+compiles the source and prints geth's JSON
 steps, summary and state dump.  It uses the explicit Cancun fixture and
 literal process arguments.  Hex may have a `0x` prefix.  M0 programs
 ignore calldata.  The default fixture is resolved from the executable's
@@ -140,7 +143,11 @@ Use `--prestate FILE` to select an explicit fixture and `--value WORD`
 to set the call value, which defaults to zero. Options can follow the
 source in any order and each may appear once. Unsigned decimal and
 hexadecimal values up to uint256 are accepted; malformed values produce
-`TRACE_VALUE` before compilation. Invalid arguments or hex exit 64;
+`TRACE_VALUE` before compilation. `--caller ADDRESS` selects an unsigned
+160-bit caller, using decimal or prefixed hexadecimal syntax. It defaults
+to `0x000000000000000000000000000073656e646572`. Invalid addresses produce
+`TRACE_CALLER` before compilation. Nonzero value requires a prestate that
+funds the selected caller. Invalid arguments or hex exit 64;
 missing tools or fixtures, EVM reverts or faults, and executor
 failures exit 2.  Compilation uses the same checks as `emit` and writes
 no output files.
@@ -262,6 +269,8 @@ seven rejection witnesses.  The M0 trace row verifies all five outputs.
 The trace driver also has 20 cases for calldata, path handling, tool
 selection and failures. The trace-value gate adds 36 execution comparisons,
 two funding faults and 34 input refusals.
+The trace-caller gate adds 45 execution comparisons, two funding faults
+and 31 input refusals, including caller operands and access-check rollback.
 The executor gate adds 20 live cases, 28 driver cases and 24 rejection
 witnesses. The counter reference adds 30 cases, two constructor probes,
 eight bytecode mutations and five call-value refusals. Every runtime
@@ -286,7 +295,7 @@ The proof helper gate adds 104 cases, 50 refusals, seven closed erasure
 variants and four mutations with controls.
 `STAGE-M1-PROOF-HELPERS OK` requires all 47 legs to pass, including
 source proofs.
-`dev/gates.sh` selects `--m1-trace-value`. Its 66 legs
+`dev/gates.sh` selects `--m1-trace-caller`. Its 67 legs
 include the proof-bundle, named-predicate, compound-invariant,
 named-guard, inferred-guard and inferred-arithmetic suites.
 The inferred-helper gate adds 254 source/EVM comparisons, two creation
