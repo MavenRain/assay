@@ -136,20 +136,18 @@ let proof_effects = {|  | guardLe : (a : Word 256) -> (b : Word 256) -> ((0 p : 
 |}
 let proof_names = ["wordNat"; "Le"; "AddFits"; "guardLe"; "guardAdd"; "addLt"; "subLe"]
 let has_proofs globals = List.exists (fun name -> Option.is_some (Global.find name globals)) proof_names
-type context = Caller | Callvalue
-let context_name = function Caller -> "caller" | Callvalue -> "callvalue"
-let m1_protocol_for ?(proofs=false) ?(caller=false) ?(callvalue=false) ?(deployer=false) ?(payable=false) error_source =
+type context = Caller | Callvalue | Calldatasize
+let context_name = function Caller -> "caller" | Callvalue -> "callvalue" | Calldatasize -> "calldatasize"
+let contexts = [Caller; Callvalue; Calldatasize]
+let m1_protocol_for ?(proofs=false) ?(contexts=[]) ?(deployer=false) ?(payable=false) error_source =
   base_protocol ~deployer ^
   (if proofs then proof_protocol else "") ^ error_source ^ tx_protocol ^
   (if error_source = "" then "" else "  | reject : Error -> Tx\n") ^
   (if proofs then proof_effects else "") ^
-  (if caller then "  | caller : (Word 256 -> Tx) -> Tx\n" else "") ^
-  (if callvalue then "  | callvalue : (Word 256 -> Tx) -> Tx\n" else "") ^
+  String.concat "" (List.map (fun source -> "  | " ^ context_name source ^ " : (Word 256 -> Tx) -> Tx\n") contexts) ^
   (if payable then "  | payable : Tx -> Tx\n" else "")
-
 let checked_schema globals source = check_protocol ~parse_error:(fun _error -> Protocol "M1 schema")
   ~prefix:"M1 " ["Tx"] globals source
-
 let definition globals name =
   Global.find_def name globals |> Option.to_result ~none:(Protocol ("M1 " ^ name))
 
@@ -220,11 +218,10 @@ let m1_schema globals =
     | Global.Axiom _ when proofs && name <> "Nat" && name <> "EvmOpcodes" ->
       Error (Protocol ("M1 proof assumption " ^ name))
     | Global.Axiom _ | Global.Def _ | Global.Prim _ -> Ok ()) globals.Global.entries (Ok ()) in
-  let caller = has_constructor globals "Tx" "caller" in
-  let callvalue = has_constructor globals "Tx" "callvalue" in
+  let contexts = List.filter (fun source -> has_constructor globals "Tx" (context_name source)) contexts in
   let payable = has_constructor globals "Tx" "payable" in
-  let source = (if errors = [] then m1_protocol_for ~proofs ~caller ~callvalue ~deployer ~payable "" ^ aliases
-    else m1_protocol_for ~proofs ~caller ~callvalue ~deployer ~payable (aliases ^ variant_source globals "Error" errors)) ^
+  let source = (if errors = [] then m1_protocol_for ~proofs ~contexts ~deployer ~payable "" ^ aliases
+    else m1_protocol_for ~proofs ~contexts ~deployer ~payable (aliases ^ variant_source globals "Error" errors)) ^
     declaration "Storage" (collection_source "prod" fields) ^
     variant_source globals "Entry" entries in
   let* () = checked_schema globals source in

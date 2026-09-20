@@ -1,5 +1,54 @@
 # Assay M1 build log
 
+## 2026-09-20: Calldata-size snapshots
+
+The thirty-sixth M1 slice starts at `4a5dfda`. `size <- calldatasize`
+reads the complete calldata byte length, including the selector,
+arguments and trailing bytes. Core and surface entries share the
+checked snapshot table with caller and call value. Payability, typed
+reverts, proof guards and storage rollback retain their behavior.
+
+CALLDATASIZE passes 1024 independently expected model/geth comparisons,
+28 signed Cancun calls, 32 unused-constructor artifact pairs, 16 surface
+probes, two public commands, 13 refusals and five mutations with restored
+controls. The matrix covers all 32 combinations of errors, proofs,
+caller context, call value and payability. Boundary probes reach the
+public calldata input limit of 32768 bytes.
+
+All 36 scoped gates pass. The prior 35 scoped gates were rerun, including
+the caller and call-value mutation batteries. Their witnesses and counts
+remain required. The default adds CALLDATASIZE as leg 71. Every previous
+gate mode retains its commands, deadlines and required markers.
+
+The first line audit measured 1803 emitter lines. The shared snapshot
+code was tightened to the existing 1800-line limit before the successful
+build and behavioral runs. The final emitter is 1800/1800, the kernel
+3997/4000 and the six trusted components total 2224/3550. No bound changed.
+
+The [effect contract](M1-CALLDATASIZE.md),
+[mutation witnesses](M1-CALLDATASIZE-MUTATIONS.md) and
+[validation archive](validation/2026-09-20-m1-calldatasize/) retain the
+commands, source hashes, captures and results. The surface table in
+[M1-SURFACE.md](M1-SURFACE.md) also receives the call-value row that the
+thirty-fifth slice did not add. The complete ladder was not rerun.
+DENOMINATORS and M0-RATIO retain their existing timing pause; this slice
+makes no performance or milestone-exit claim.
+
+### Review round 2026-09-20 (M1 calldata-size snapshots)
+
+D-1 (low): the staged dev/M1-SURFACE.md table hunk also adds
+the call-value row that the thirty-fifth slice did not add,
+and no document said so. Four review lenses covered the 63
+staged paths (core protocol and source model; emitter and tag
+disambiguation; drivers, mutants and validation record;
+documents and commit text). Fixed by one sentence in this
+section. No code, test, example or record content changed
+apart from the refreshed source hash of this file in the
+validation record. The gate ladder ran on a frozen copy of
+the staged tree: 71 legs, 69 pass, CALLDATASIZE passes with
+its marker, DENOMINATORS and M0-RATIO keep their existing
+timing pause.
+
 ## 2026-09-20: Call-value snapshots
 
 The thirty-fifth M1 slice starts at `4836427`. `amount <- callvalue`

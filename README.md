@@ -90,6 +90,8 @@ The thirty-fourth adds [payable entries](dev/M1-PAYABLE.md), with explicit
 `payable entry` annotations, matching ABI metadata and per-entry value guards.
 The thirty-fifth adds [call-value snapshots](dev/M1-CALLVALUE.md), reading
 the current call's value with `amount <- callvalue` in contract source.
+The thirty-sixth adds [calldata-size snapshots](dev/M1-CALLDATASIZE.md),
+reading the complete calldata byte length with `size <- calldatasize`.
 
 ```sh
 dune build
@@ -313,7 +315,10 @@ creation outcomes, 18 refusals and four mutations with restored controls.
 The call-value gate adds 480 core comparisons, 18 signed comparisons,
 16 artifact pairs, 12 surface cases, two public command calls, 13 refusals
 and four mutations with restored controls.
-`dev/gates.sh` selects `--m1-callvalue`. Its 70 legs
+The calldata-size gate adds 1024 core comparisons, 28 signed comparisons,
+32 artifact pairs, 16 surface cases, two public command calls, 13 refusals
+and five mutations with restored controls.
+`dev/gates.sh` selects `--m1-calldatasize`. Its 71 legs
 include the proof-bundle, named-predicate, compound-invariant,
 named-guard, inferred-guard and inferred-arithmetic suites.
 The inferred-helper gate adds 254 source/EVM comparisons, two creation

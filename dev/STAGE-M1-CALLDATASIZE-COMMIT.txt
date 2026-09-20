@@ -1,0 +1,9 @@
+M1: add calldata-size snapshots
+
+Read the complete calldata byte length in checked core and surface
+entries. Share the snapshot constructor table across caller, call value
+and calldata size while preserving payability and rollback behavior.
+
+Add model and Cancun comparisons, signed calls, unused declaration
+checks, public command probes and five mutations with restored controls.
+Retain previous gate modes and the existing trusted-code bounds.

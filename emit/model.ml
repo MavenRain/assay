@@ -83,7 +83,8 @@ let rec transaction input storage memory = function
   | E.Load (slot, index, next) ->
     transaction input storage ((index, get storage slot) :: memory) next
   | E.Context (source, index, next) ->
-    let value = match source with Recognize.Caller -> input.caller | Recognize.Callvalue -> input.value in
+    let value = match source with Recognize.Caller -> input.caller | Recognize.Callvalue -> input.value
+      | Recognize.Calldatasize -> Z.of_int (Int.div (String.length input.data) 2) in
     transaction input storage ((index, value) :: memory) next
   | E.Arithmetic (operation, left, right, index, yes, no) ->
     let* left = operand memory left in let* right = operand memory right in

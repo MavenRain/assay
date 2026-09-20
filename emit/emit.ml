@@ -29,8 +29,7 @@ let error = function
 let recognize result = Result.map_error (fun e -> Recognizer e) result
 type fn = { params : Eterm.repr list; result : Eterm.repr; body : Eterm.ktm }
 type environment = { functions : (string * fn) list; postulates : string list; runtime : bool;
-                     caller_tag : int option; callvalue_tag : int option; payable_tag : int option }
-
+                     context_tags : (int * R.context) list; payable_tag : int option }
 let environment ?(runtime=false) rows =
   List.fold_left (fun env (name, entry) -> match entry with
     | Erase.Dropped -> env
@@ -39,7 +38,7 @@ let environment ?(runtime=false) rows =
       | Eterm.KRec _ -> env
       | Eterm.KFun (Eterm.Fid name, params, result, body) ->
         { env with functions = (name, {params; result; body}) :: env.functions }) env decls)
-    { functions = []; postulates = []; runtime; caller_tag = None; callvalue_tag = None; payable_tag = None } rows
+    { functions = []; postulates = []; runtime; context_tags = []; payable_tag = None } rows
 let at index values = Rules.at index values |> Option.to_result ~none:(Invalid_ir "index")
 let tick fuel = if fuel <= 0 then Error Budget else Ok (fuel - 1)
 let result_repr = function
@@ -299,9 +298,10 @@ let rec transaction env errors slots depth fuel fresh value =
      | 6, [] -> Ok (Abort, fuel, fresh)
      | tag, _fields when Some tag = env.payable_tag ->
        Error (M1_shape "payable must wrap the complete entry")
-     | tag, [fn] when Some tag = env.caller_tag || Some tag = env.callvalue_tag ->
+     | tag, [fn] when List.mem_assoc tag env.context_tags ->
+       let* source = List.assoc_opt tag env.context_tags |> Option.to_result ~none:(M1_shape "context tag") in
        let* next, fuel, next_fresh = continuation fuel (fresh + 1) fn (R.Runtime_word fresh) in
-       Ok (Context ((if Some tag = env.caller_tag then R.Caller else R.Callvalue), fresh, next), fuel, next_fresh)
+       Ok (Context (source, fresh, next), fuel, next_fresh)
      | 7, [value] -> let* tx = error_value errors value in Ok (tx, fuel, fresh)
      | tag, [left; right; fn; no] when tag = (if errors = [] then 7 else 8) || tag = (if errors = [] then 8 else 9) ->
        let addition = tag = (if errors = [] then 8 else 9) in
@@ -461,8 +461,9 @@ let prepare_m1 ~export globals erased =
   if List.length slots <> List.length fields then Error (Recognizer R.Storage_shape) else
   let* constructor, fuel = call env fuel "constructor" [] in
   let* constructor = effect (List.length fields) constructor in
-  let env = {env with runtime = true; caller_tag = R.constructor_tag globals "Tx" "caller";
-    callvalue_tag = R.constructor_tag globals "Tx" "callvalue"; payable_tag = R.constructor_tag globals "Tx" "payable"} in
+  let context_tags = List.filter_map (fun source ->
+    Option.map (fun tag -> tag, source) (R.constructor_tag globals "Tx" (R.context_name source))) R.contexts in
+  let env = {env with runtime = true; context_tags; payable_tag = R.constructor_tag globals "Tx" "payable"} in
   let* entries, fuel = entries env errors (List.length fields) fuel export declarations in
   let* fallback = if Option.is_none (Global.find "fallback" globals) then Ok None else
     let* value, fuel = call env fuel "fallback" [] in

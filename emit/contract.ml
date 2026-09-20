@@ -76,7 +76,7 @@ let lex chars =
     | ('(' | ')' | '{' | '}' | ':' | ';' | '.' | ',' as c) :: rest -> next (String.make 1 c) rest
     | _c :: _rest -> fail (at "") "TOKEN" "unexpected character" in
   scan 0 1 1 [] chars
-let reserved = ["Both"; "EqWord"; "eqWord"; "predicate"; "caller"; "callvalue"; "deployer"; "fallback"; "Never"; "payable"] @ String.split_on_char ' '
+let reserved = ["Both"; "EqWord"; "eqWord"; "predicate"; "caller"; "callvalue"; "calldatasize"; "deployer"; "fallback"; "Never"; "payable"] @ String.split_on_char ' '
   "contract where storage entry constructor error invariant proof do sload sstore add sub guard le let pure revert Word Eff Sig Tx ResultWord Storage Entry Error main word ret put read EvmOpcodes done store load abort reject def axiom fun inj of case match as return with tuple sum prod absurd Prop Type in auto mu mutual end nu and rec natAdd natSub natMul natEq natLt Le Lt256 AddFits leWord lt256 wordNat guardLe guardAdd addLt subLe"
 let identifier tokens = match tokens with
   | at :: rest when Recognize.identifier at.text && at.text <> "_" &&
@@ -335,9 +335,10 @@ let body tokens =
          let* slot, rest = identifier rest in next (Load (name, slot)) rest
        | { text = "caller"; _ } :: rest -> next (Context (Recognize.Caller, name)) rest
        | { text = "callvalue"; _ } :: rest -> next (Context (Recognize.Callvalue, name)) rest
+       | { text = "calldatasize"; _ } :: rest -> next (Context (Recognize.Calldatasize, name)) rest
        | { text = ("add" | "sub") as op; _ } :: rest ->
          let* (a, b), rest = binary (value 0) rest in next (if op = "add" then Add (name, a, b) else Sub (name, a, b)) rest
-       | [] | _ :: _ -> fail (here rest) "EFFECT" "expected sload, caller, callvalue, add or sub") in
+       | [] | _ :: _ -> fail (here rest) "EFFECT" "expected sload, caller, callvalue, calldatasize, add or sub") in
   steps 0 [] tokens
 
 let named_word tokens =
@@ -820,10 +821,10 @@ let generate state fields entries errors invariants predicates helpers init fall
     | Context (actual, _) -> actual = source
     | Deployer _ | Load _ | Add _ | Sub _ | Store _ | Guard _ | Bind _
     | Prove _ | Proven _ | Proof_bind _ -> false) (fst row.body)) entries in
-  let caller = uses_context Recognize.Caller and callvalue = uses_context Recognize.Callvalue in
+  let contexts = List.filter uses_context Recognize.contexts in
   let payable = List.exists (fun row -> row.payable) entries in
-  Ok ((if errors = [] then Recognize.m1_protocol_for ~proofs ~caller ~callvalue ~deployer ~payable "" ^ aliases
-    else Recognize.m1_protocol_for ~proofs ~caller ~callvalue ~deployer ~payable (aliases ^ error_source)) ^ helper_source ^
+  Ok ((if errors = [] then Recognize.m1_protocol_for ~proofs ~contexts ~deployer ~payable "" ^ aliases
+    else Recognize.m1_protocol_for ~proofs ~contexts ~deployer ~payable (aliases ^ error_source)) ^ helper_source ^
     decl "Storage" (collection "prod" fields) ^ decl state.text "Storage" ^
     "def storage : Storage := tuple (" ^ String.concat ", "
       (List.mapi (fun i _at -> "word 256 " ^ string_of_int i) fields) ^ ")\n" ^

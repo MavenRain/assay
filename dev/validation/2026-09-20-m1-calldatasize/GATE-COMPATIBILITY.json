@@ -1,0 +1,287 @@
+[
+  {
+    "mode": [],
+    "unchanged": true,
+    "legs": 11
+  },
+  {
+    "mode": [
+      "--keccak"
+    ],
+    "unchanged": true,
+    "legs": 13
+  },
+  {
+    "mode": [
+      "--asm"
+    ],
+    "unchanged": true,
+    "legs": 16
+  },
+  {
+    "mode": [
+      "--reference"
+    ],
+    "unchanged": true,
+    "legs": 21
+  },
+  {
+    "mode": [
+      "--emit"
+    ],
+    "unchanged": true,
+    "legs": 29
+  },
+  {
+    "mode": [
+      "--m0"
+    ],
+    "unchanged": true,
+    "legs": 34
+  },
+  {
+    "mode": [
+      "--m1-executor"
+    ],
+    "unchanged": true,
+    "legs": 35
+  },
+  {
+    "mode": [
+      "--m1-counter"
+    ],
+    "unchanged": true,
+    "legs": 36
+  },
+  {
+    "mode": [
+      "--m1-emission"
+    ],
+    "unchanged": true,
+    "legs": 37
+  },
+  {
+    "mode": [
+      "--m1-run"
+    ],
+    "unchanged": true,
+    "legs": 38
+  },
+  {
+    "mode": [
+      "--m1-surface"
+    ],
+    "unchanged": true,
+    "legs": 39
+  },
+  {
+    "mode": [
+      "--m1-proofs"
+    ],
+    "unchanged": true,
+    "legs": 41
+  },
+  {
+    "mode": [
+      "--m1-nullary"
+    ],
+    "unchanged": true,
+    "legs": 42
+  },
+  {
+    "mode": [
+      "--m1-errors"
+    ],
+    "unchanged": true,
+    "legs": 43
+  },
+  {
+    "mode": [
+      "--m1-guards"
+    ],
+    "unchanged": true,
+    "legs": 44
+  },
+  {
+    "mode": [
+      "--m1-proof-terms"
+    ],
+    "unchanged": true,
+    "legs": 45
+  },
+  {
+    "mode": [
+      "--m1-invariants"
+    ],
+    "unchanged": true,
+    "legs": 46
+  },
+  {
+    "mode": [
+      "--m1-proof-helpers"
+    ],
+    "unchanged": true,
+    "legs": 47
+  },
+  {
+    "mode": [
+      "--m1-proof-bundles"
+    ],
+    "unchanged": true,
+    "legs": 48
+  },
+  {
+    "mode": [
+      "--m1-predicates"
+    ],
+    "unchanged": true,
+    "legs": 49
+  },
+  {
+    "mode": [
+      "--m1-compound-invariants"
+    ],
+    "unchanged": true,
+    "legs": 50
+  },
+  {
+    "mode": [
+      "--m1-compound-guards"
+    ],
+    "unchanged": true,
+    "legs": 51
+  },
+  {
+    "mode": [
+      "--m1-named-guards"
+    ],
+    "unchanged": true,
+    "legs": 52
+  },
+  {
+    "mode": [
+      "--m1-inferred-guards"
+    ],
+    "unchanged": true,
+    "legs": 53
+  },
+  {
+    "mode": [
+      "--m1-inferred-arithmetic"
+    ],
+    "unchanged": true,
+    "legs": 54
+  },
+  {
+    "mode": [
+      "--m1-inferred-helpers"
+    ],
+    "unchanged": true,
+    "legs": 55
+  },
+  {
+    "mode": [
+      "--m1-proof-holes"
+    ],
+    "unchanged": true,
+    "legs": 56
+  },
+  {
+    "mode": [
+      "--m1-inferred-bindings"
+    ],
+    "unchanged": true,
+    "legs": 57
+  },
+  {
+    "mode": [
+      "--m1-inferred-guard-bindings"
+    ],
+    "unchanged": true,
+    "legs": 58
+  },
+  {
+    "mode": [
+      "--m1-context"
+    ],
+    "unchanged": true,
+    "legs": 59
+  },
+  {
+    "mode": [
+      "--m1-context-surface"
+    ],
+    "unchanged": true,
+    "legs": 60
+  },
+  {
+    "mode": [
+      "--m1-equality"
+    ],
+    "unchanged": true,
+    "legs": 61
+  },
+  {
+    "mode": [
+      "--m1-hex-literals"
+    ],
+    "unchanged": true,
+    "legs": 62
+  },
+  {
+    "mode": [
+      "--m1-inferred-words"
+    ],
+    "unchanged": true,
+    "legs": 63
+  },
+  {
+    "mode": [
+      "--m1-fallback"
+    ],
+    "unchanged": true,
+    "legs": 64
+  },
+  {
+    "mode": [
+      "--m1-diff-value"
+    ],
+    "unchanged": true,
+    "legs": 65
+  },
+  {
+    "mode": [
+      "--m1-trace-value"
+    ],
+    "unchanged": true,
+    "legs": 66
+  },
+  {
+    "mode": [
+      "--m1-trace-caller"
+    ],
+    "unchanged": true,
+    "legs": 67
+  },
+  {
+    "mode": [
+      "--m1-diff-caller"
+    ],
+    "unchanged": true,
+    "legs": 68
+  },
+  {
+    "mode": [
+      "--m1-payable"
+    ],
+    "unchanged": true,
+    "legs": 69
+  },
+  {
+    "mode": [
+      "--m1-callvalue"
+    ],
+    "unchanged": true,
+    "legs": 70
+  }
+]

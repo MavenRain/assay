@@ -1,0 +1,62 @@
+[
+  {
+    "name": "mutant-SURFACE",
+    "exit": 1,
+    "marker": "PAYABLE-MODEL cds-observe",
+    "source_sha256": "6705238888b795b2c2c0e5a0a7d69aca5319a00e7148b85e93d1d7abb06b8fd8"
+  },
+  {
+    "name": "control-SURFACE",
+    "exit": 0,
+    "marker": "PAYABLE-MODEL cds-observe",
+    "source_sha256": "4f3ce7887f3d102da805facbaa8b9bbb3a1c72f3786b2d2ac549600ea1652d76"
+  },
+  {
+    "name": "mutant-EMITTER",
+    "exit": 1,
+    "marker": "PAYABLE-EVM cds-observe",
+    "source_sha256": "113229d6adf6b50287ba80e0371c688ba02c90f54fa882fa77aeea2ebe530d21"
+  },
+  {
+    "name": "control-EMITTER",
+    "exit": 0,
+    "marker": "PAYABLE-EVM cds-observe",
+    "source_sha256": "7661f264fd275cace3558f2d2f3127919415dcb4ca42b37603c6107c7063b2bb"
+  },
+  {
+    "name": "mutant-MODEL",
+    "exit": 1,
+    "marker": "PAYABLE-MODEL cds-observe",
+    "source_sha256": "67659752467d0315d26c475826c9a8cc6841cccb86def9368ecb39e5701313a3"
+  },
+  {
+    "name": "control-MODEL",
+    "exit": 0,
+    "marker": "PAYABLE-MODEL cds-observe",
+    "source_sha256": "54ea67a79919cec85b0e0edd543d0f40631a1f0ad29ea130da49feee9a43f9ec"
+  },
+  {
+    "name": "mutant-SCHEMA",
+    "exit": 1,
+    "marker": "CALLDATASIZE-REFUSAL wrong-width",
+    "source_sha256": "ea0a72ad36b1b5cd62701de85f396ab110c5fd8ae9a74288b2299f9452b95d08"
+  },
+  {
+    "name": "control-SCHEMA",
+    "exit": 0,
+    "marker": "CALLDATASIZE-REFUSAL wrong-width",
+    "source_sha256": "4d37fc7700f778acd9eba960c4dcdc6869a21a395f87254d256cf150bad4d9cb"
+  },
+  {
+    "name": "mutant-SNAPSHOT",
+    "exit": 1,
+    "marker": "PAYABLE-MODEL cds-mixed",
+    "source_sha256": "88da131226da26a34e0a7530b06e510e7999726f3e3d7dab5c94a8465909d8c7"
+  },
+  {
+    "name": "control-SNAPSHOT",
+    "exit": 0,
+    "marker": "PAYABLE-MODEL cds-mixed",
+    "source_sha256": "7661f264fd275cace3558f2d2f3127919415dcb4ca42b37603c6107c7063b2bb"
+  }
+]

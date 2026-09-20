@@ -191,11 +191,12 @@ def mutants():
         ('SURFACE', 'emit/contract.ml', 'next (Context (Recognize.Callvalue, name)) rest',
          'next (Bind (name, Literal { name with text = "0" })) rest', 'probe', 'PAYABLE-MODEL cv-observe'),
         ('EMITTER', 'emit/emit.ml', 'String.uppercase_ascii (R.context_name source)',
-         '(match source with R.Caller -> "CALLER" | R.Callvalue -> "CALLER")', 'probe', 'PAYABLE-EVM cv-observe'),
+         '(match source with R.Caller | R.Callvalue -> "CALLER" | R.Calldatasize -> "CALLDATASIZE")',
+         'probe', 'PAYABLE-EVM cv-observe'),
         ('MODEL', 'emit/model.ml', 'Recognize.Callvalue -> input.value',
          'Recognize.Callvalue -> input.caller', 'probe', 'PAYABLE-MODEL cv-observe'),
-        ('SCHEMA', 'emit/recognize.ml', 'callvalue : (Word 256 -> Tx) -> Tx',
-         'callvalue : (Word 160 -> Tx) -> Tx', 'schema', 'CALLVALUE-REFUSAL wrong-width'),
+        ('SCHEMA', 'emit/recognize.ml', 'context_name source ^ " : (Word 256 -> Tx) -> Tx',
+         'context_name source ^ " : (Word 160 -> Tx) -> Tx', 'schema', 'CALLVALUE-REFUSAL wrong-width'),
     ]
     records = []
     with tempfile.TemporaryDirectory(prefix='assay-callvalue-mutants-') as temporary:
