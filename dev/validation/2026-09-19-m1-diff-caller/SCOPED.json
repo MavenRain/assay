@@ -1,0 +1,159 @@
+[
+  {
+    "name": "PIN-CARRY",
+    "command": [
+      "zsh",
+      "-f",
+      "dev/carry-check.sh"
+    ],
+    "timeout": 30,
+    "exit": 0,
+    "marker": "diff=0 unlisted=0",
+    "passed": true,
+    "elapsed_ms": 1494
+  },
+  {
+    "name": "R0-COUNT",
+    "command": [
+      "zsh",
+      "-f",
+      "dev/r0-count.sh"
+    ],
+    "timeout": 10,
+    "exit": 0,
+    "marker": "R0-COUNT OK",
+    "passed": true,
+    "elapsed_ms": 175
+  },
+  {
+    "name": "R0-AUDIT",
+    "command": [
+      "zsh",
+      "-f",
+      "dev/r0-audit.sh"
+    ],
+    "timeout": 10,
+    "exit": 0,
+    "marker": "R0-AUDIT OK",
+    "passed": true,
+    "elapsed_ms": 83
+  },
+  {
+    "name": "HOUSE",
+    "command": [
+      "zsh",
+      "-f",
+      "dev/house.sh"
+    ],
+    "timeout": 30,
+    "exit": 0,
+    "marker": "HOUSE OK",
+    "passed": true,
+    "elapsed_ms": 1669
+  },
+  {
+    "name": "TRUSTED-LINES",
+    "command": [
+      "zsh",
+      "-f",
+      "dev/trusted-lines.sh"
+    ],
+    "timeout": 10,
+    "exit": 0,
+    "marker": "TRUSTED-LINES OK",
+    "passed": true,
+    "elapsed_ms": 53
+  },
+  {
+    "name": "DRIVER",
+    "command": [
+      "python3",
+      "-P",
+      "dev/stage-a-test.py",
+      "driver"
+    ],
+    "timeout": 30,
+    "exit": 0,
+    "marker": "DRIVER cases=24 OK",
+    "passed": true,
+    "elapsed_ms": 260
+  },
+  {
+    "name": "TRACE-DRIVER",
+    "command": [
+      "python3",
+      "-P",
+      "dev/trace-test.py"
+    ],
+    "timeout": 120,
+    "exit": 0,
+    "marker": "TRACE-DRIVER cases=20 explicit_prestate=true literal_argv=true OK",
+    "passed": true,
+    "elapsed_ms": 2007
+  },
+  {
+    "name": "DIFF-EXECUTOR",
+    "command": [
+      "python3",
+      "-P",
+      "dev/diff-test.py"
+    ],
+    "timeout": 180,
+    "exit": 0,
+    "marker": "DIFF-EXECUTOR live=20 driver=28 rejected=24 OK",
+    "passed": true,
+    "elapsed_ms": 9027
+  },
+  {
+    "name": "DIFF-VALUE",
+    "command": [
+      "python3",
+      "-P",
+      "dev/diff-value-test.py"
+    ],
+    "timeout": 180,
+    "exit": 0,
+    "marker": "DIFF-VALUE live=32 signed=32 refused=31 OK",
+    "passed": true,
+    "elapsed_ms": 16611
+  },
+  {
+    "name": "TRACE-VALUE",
+    "command": [
+      "python3",
+      "-P",
+      "dev/trace-value-test.py"
+    ],
+    "timeout": 180,
+    "exit": 0,
+    "marker": "TRACE-VALUE live=36 funding=2 refused=34 OK",
+    "passed": true,
+    "elapsed_ms": 5961
+  },
+  {
+    "name": "TRACE-CALLER",
+    "command": [
+      "python3",
+      "-P",
+      "dev/trace-caller-test.py"
+    ],
+    "timeout": 180,
+    "exit": 0,
+    "marker": "TRACE-CALLER live=45 funding=2 refused=31 OK",
+    "passed": true,
+    "elapsed_ms": 8882
+  },
+  {
+    "name": "DIFF-CALLER",
+    "command": [
+      "python3",
+      "-P",
+      "dev/diff-caller-test.py"
+    ],
+    "timeout": 180,
+    "exit": 0,
+    "marker": "DIFF-CALLER live=45 signed=45 rejected=4 refused=33 helper=5 OK",
+    "passed": true,
+    "elapsed_ms": 21202
+  }
+]

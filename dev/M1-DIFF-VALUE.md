@@ -14,6 +14,8 @@ least one wei to the fixture sender,
 `0x7e5f4552091a69125d5dfcb7b8c2659029395bdf`, in its alloc. The default
 fixture has no sender balance, so a nonzero value requires a funded
 prestate. This command is offline and makes no network requests.
+With [caller selection](M1-DIFF-CALLER.md), the prestate must fund the
+selected fixture address. Funding the other fixture does not cover the call.
 
 `--value` defaults to zero. It accepts unsigned decimal or hexadecimal
 with a `0x` or `0X` prefix, up to uint256. Hexadecimal digits accept

@@ -84,6 +84,8 @@ The thirty-first adds [trace call values](dev/M1-TRACE-VALUE.md),
 with bounded Word inputs and instruction-level inspection through `trace --value`.
 The thirty-second adds [trace callers](dev/M1-TRACE-CALLER.md), with bounded
 addresses and caller-dependent execution through `trace --caller`.
+The thirty-third adds [differential callers](dev/M1-DIFF-CALLER.md), selecting
+either of two public signing fixtures through `diff --caller`.
 
 ```sh
 zsh -f dev/dunecho.sh build
@@ -152,7 +154,7 @@ missing tools or fixtures, EVM reverts or faults, and executor
 failures exit 2.  Compilation uses the same checks as `emit` and writes
 no output files.
 
-`diff FILE --calldata HEX [--prestate FILE] [--value WORD]` compiles the source and
+`diff FILE --calldata HEX [--prestate FILE] [--value WORD] [--caller ADDRESS]` compiles the source and
 compares storage, returned bytes and revert outcomes under `evm run` and
 `evm t8n --state.fork Cancun` (R-M0-8, R-M0-9).  It prints a JSON result
 and `DIFF OK` on agreement.  Matching reverts are valid results.  A mismatch,
@@ -165,9 +167,13 @@ this provides no independent client implementation.
 `--value` defaults to zero and accepts the same bounded decimal or hexadecimal
 Word spelling as `run`. Options can follow the source in any order and may
 occur only once. Nonzero calls require an explicit prestate that funds the
-fixture sender; insufficient balance exits 2 without running either executor.
+selected fixture sender; insufficient balance exits 2 without running either executor.
 The [call-value contract](dev/M1-DIFF-VALUE.md) gives the numeric limits and
 nonpayable behavior.
+`--caller` selects the address of public fixture signing key 1 (the default)
+or 2. Both geth entry points receive the selected identity. Other addresses
+are refused with `DIFF_CALLER` and exit 64 before compilation. The
+[caller contract](dev/M1-DIFF-CALLER.md) lists the addresses and prestate rules.
 
 `run FILE [--calldata HEX] [--storage SLOT=WORD]... [--value WORD]
 [--caller ADDRESS] [--export NAME]`
@@ -271,6 +277,8 @@ selection and failures. The trace-value gate adds 36 execution comparisons,
 two funding faults and 34 input refusals.
 The trace-caller gate adds 45 execution comparisons, two funding faults
 and 31 input refusals, including caller operands and access-check rollback.
+The differential-caller gate adds 45 signed execution comparisons, four
+funding or nonce refusals, 33 input refusals and five adapter refusals.
 The executor gate adds 20 live cases, 28 driver cases and 24 rejection
 witnesses. The counter reference adds 30 cases, two constructor probes,
 eight bytecode mutations and five call-value refusals. Every runtime
@@ -295,7 +303,7 @@ The proof helper gate adds 104 cases, 50 refusals, seven closed erasure
 variants and four mutations with controls.
 `STAGE-M1-PROOF-HELPERS OK` requires all 47 legs to pass, including
 source proofs.
-`dev/gates.sh` selects `--m1-trace-caller`. Its 67 legs
+`dev/gates.sh` selects `--m1-diff-caller`. Its 68 legs
 include the proof-bundle, named-predicate, compound-invariant,
 named-guard, inferred-guard and inferred-arithmetic suites.
 The inferred-helper gate adds 254 source/EVM comparisons, two creation

@@ -1,0 +1,158 @@
+{
+  "artifact": "/Users/oobi/Documents/gpt1/assay-m1-diff-caller/.kanon-exec/run-3ji01d",
+  "commands": 1,
+  "counts": {
+    "error_lines": 1,
+    "stderr_bytes": 0,
+    "stderr_lines": 0,
+    "stdout_bytes": 357,
+    "stdout_lines": 14,
+    "warning_lines": 0
+  },
+  "excerpts": [
+    {
+      "byte_length": 29,
+      "byte_offset": 328,
+      "clipped": false,
+      "command": 1,
+      "line": 14,
+      "priority": 7,
+      "stream": "stdout",
+      "text": "SCOPED passed=12 failed=0 OK"
+    },
+    {
+      "byte_length": 22,
+      "byte_offset": 54,
+      "clipped": false,
+      "command": 1,
+      "line": 2,
+      "priority": 4,
+      "stream": "stdout",
+      "text": "PASS PIN-CARRY exit=0"
+    },
+    {
+      "byte_length": 21,
+      "byte_offset": 76,
+      "clipped": false,
+      "command": 1,
+      "line": 3,
+      "priority": 4,
+      "stream": "stdout",
+      "text": "PASS R0-COUNT exit=0"
+    },
+    {
+      "byte_length": 21,
+      "byte_offset": 97,
+      "clipped": false,
+      "command": 1,
+      "line": 4,
+      "priority": 4,
+      "stream": "stdout",
+      "text": "PASS R0-AUDIT exit=0"
+    },
+    {
+      "byte_length": 18,
+      "byte_offset": 118,
+      "clipped": false,
+      "command": 1,
+      "line": 5,
+      "priority": 4,
+      "stream": "stdout",
+      "text": "PASS HOUSE exit=0"
+    },
+    {
+      "byte_length": 26,
+      "byte_offset": 136,
+      "clipped": false,
+      "command": 1,
+      "line": 6,
+      "priority": 4,
+      "stream": "stdout",
+      "text": "PASS TRUSTED-LINES exit=0"
+    },
+    {
+      "byte_length": 19,
+      "byte_offset": 162,
+      "clipped": false,
+      "command": 1,
+      "line": 7,
+      "priority": 4,
+      "stream": "stdout",
+      "text": "PASS DRIVER exit=0"
+    },
+    {
+      "byte_length": 25,
+      "byte_offset": 181,
+      "clipped": false,
+      "command": 1,
+      "line": 8,
+      "priority": 4,
+      "stream": "stdout",
+      "text": "PASS TRACE-DRIVER exit=0"
+    },
+    {
+      "byte_length": 26,
+      "byte_offset": 206,
+      "clipped": false,
+      "command": 1,
+      "line": 9,
+      "priority": 4,
+      "stream": "stdout",
+      "text": "PASS DIFF-EXECUTOR exit=0"
+    },
+    {
+      "byte_length": 23,
+      "byte_offset": 232,
+      "clipped": false,
+      "command": 1,
+      "line": 10,
+      "priority": 4,
+      "stream": "stdout",
+      "text": "PASS DIFF-VALUE exit=0"
+    },
+    {
+      "byte_length": 24,
+      "byte_offset": 255,
+      "clipped": false,
+      "command": 1,
+      "line": 11,
+      "priority": 4,
+      "stream": "stdout",
+      "text": "PASS TRACE-VALUE exit=0"
+    },
+    {
+      "byte_length": 25,
+      "byte_offset": 279,
+      "clipped": false,
+      "command": 1,
+      "line": 12,
+      "priority": 4,
+      "stream": "stdout",
+      "text": "PASS TRACE-CALLER exit=0"
+    },
+    {
+      "byte_length": 24,
+      "byte_offset": 304,
+      "clipped": false,
+      "command": 1,
+      "line": 13,
+      "priority": 4,
+      "stream": "stdout",
+      "text": "PASS DIFF-CALLER exit=0"
+    },
+    {
+      "byte_length": 54,
+      "byte_offset": 0,
+      "clipped": false,
+      "command": 1,
+      "line": 1,
+      "priority": 2,
+      "stream": "stdout",
+      "text": "GATE-COMPATIBILITY modes=38 previous=67 current=68 OK"
+    }
+  ],
+  "exit_code": 0,
+  "failed": 0,
+  "omitted_lines": 0,
+  "status": "complete"
+}

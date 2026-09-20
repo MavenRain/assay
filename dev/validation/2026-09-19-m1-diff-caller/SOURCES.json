@@ -1,0 +1,18 @@
+{
+  "base": "63fde3b0cb01c83990f26e18b9cbb21c78a2288c",
+  "sha256": {
+    "README.md": "d14a9f3235ae9833907e3fcb1e72b64163453be9bb810857143b234a29513f2a",
+    "bin/assay.ml": "0cc72c9b974331aecc82f37453e0cad10dea8afc20eed14e5eaae9c20e737de0",
+    "bin/differential.ml": "6cdeb90140be72b3d6a0f8edc6f299e5cfc1ba7af9e1d57dba6792429f3d4e63",
+    "dev/ASSAY-M1-BUILD-LOG.md": "144bff527d858133b2f666d5611deef22c441f959eea6e8c0c425927b9dcb1ac",
+    "dev/M1-DIFF-CALLER.md": "143e378b441e8ba72b17bb9494708c6bf7c833007967ebf69c29d301dc5161f5",
+    "dev/M1-DIFF-VALUE.md": "2c49564e759ddd200a39c04e98086cc31c54128b750dec2f54f5cae95be3f9c7",
+    "dev/M1-EXECUTOR.md": "adeefa3a550d5750ef2e08ccd7db322123939ec8f41057b37cc0c451cdcc0766",
+    "dev/M1-TRACE-CALLER.md": "e688e7786c0236720f6639c40d070fa6cf0fb019a6183372e42ffb4532eb05f2",
+    "dev/STAGE-M1-DIFF-CALLER-COMMIT.txt": "5ba627485d0508cf9dca07df3bf0c0a2b5713eb5a1e70e42f5740d580d22e018",
+    "dev/diff-caller-test.py": "857eeda3ac54bb94d252fc73fd24308cd57632769ede40c0617640dc7b9503a4",
+    "dev/gates.sh": "c069c5884fdac5fa4fd404a608e7fc605f03f765d4f5cffaf930740f9c1c4bfc",
+    "dev/stage-a-gates.py": "00feaa41c7c0e83f4fbb509b852e5784669e15d6477f5c4aa183ed8e1bcc0ba5",
+    "evm/diff.py": "5f4be0a2438880faa153958e365cda9b1d6718774c58e9ed4fa74a45c292e3dd"
+  }
+}

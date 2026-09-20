@@ -1,0 +1,28 @@
+{
+  "artifact": "/Users/oobi/Documents/gpt1/assay-m1-diff-caller/.kanon-exec/run-JdGeMl",
+  "commands": 1,
+  "counts": {
+    "error_lines": 1,
+    "stderr_bytes": 0,
+    "stderr_lines": 0,
+    "stdout_bytes": 31,
+    "stdout_lines": 1,
+    "warning_lines": 1
+  },
+  "excerpts": [
+    {
+      "byte_length": 31,
+      "byte_offset": 0,
+      "clipped": false,
+      "command": 1,
+      "line": 1,
+      "priority": 7,
+      "stream": "stdout",
+      "text": "OK build: 0 errors, 0 warnings"
+    }
+  ],
+  "exit_code": 0,
+  "failed": 0,
+  "omitted_lines": 0,
+  "status": "complete"
+}

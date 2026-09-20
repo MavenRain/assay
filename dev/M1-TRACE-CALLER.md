@@ -39,8 +39,8 @@ funds produce geth's `insufficient balance for transfer` record before
 contract instructions run, followed by `TRACE_EXECUTION` and exit 2.
 M1 contracts remain nonpayable. An EVM revert or fault prints the
 captured trace and exits 2. Trace uses geth's offline runtime execution;
-it does not sign a transaction or change the differential command's
-fixed signing identity.
+it does not sign a transaction. The differential command separately
+supports [two public signing fixtures](M1-DIFF-CALLER.md).
 
 The focused gate passes 45 independently expected source-model and
 geth comparisons. These cover the default caller, numeric spellings,

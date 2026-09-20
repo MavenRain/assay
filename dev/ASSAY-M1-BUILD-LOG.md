@@ -1,5 +1,45 @@
 # Assay M1 build log
 
+## 2026-09-19: Differential callers
+
+The thirty-third M1 slice starts at `63fde3b`. `diff --caller ADDRESS`
+selects either public fixture signing key 1 or 2. The driver validates
+the address and fixture membership before compilation. The adapter uses
+the selected identity for `evm run`, the signed Cancun transaction, the
+sender nonce and the funding check. The previous sender stays the default.
+
+DIFF-CALLER passes 45 independently expected source-model and signed geth
+comparisons, four transaction refusals, 33 early input refusals and five
+direct adapter refusals. The cases cover both ownership paths and denial
+rollback, stored account data, two caller reads, all 24 option orderings,
+numeric spellings, nonpayable execution, selected funding and nonce bounds.
+Captured transaction requests pin both signing scalars and sender nonces.
+
+The build passes with zero errors and warnings. All 12 scoped gates pass:
+PIN-CARRY, R0-COUNT, R0-AUDIT, HOUSE, TRUSTED-LINES, DRIVER, TRACE-DRIVER,
+DIFF-EXECUTOR, DIFF-VALUE, TRACE-VALUE, TRACE-CALLER and DIFF-CALLER.
+Gate declaration evaluation preserves all 38 previous modes and their
+67 legs; the new default appends DIFF-CALLER and selects 68 legs.
+
+The [command contract](M1-DIFF-CALLER.md) and
+[validation archive](validation/2026-09-19-m1-diff-caller/) record the
+checks, source hashes and execution witnesses. The full ladder was not
+rerun. DENOMINATORS and M0-RATIO retain their existing timing pause,
+with no performance or milestone-exit claim.
+
+### Review round 2026-09-19 (M1 differential callers)
+
+B-1 (medium): the DIFF-CALLER battery never combined an invalid
+--value with an invalid --caller in one call, so the value-then-
+caller check order at bin/assay.ml was untested. Now
+dev/diff-caller-test.py adds one case with both flags invalid and
+checks that DIFF_VALUE still fires before DIFF_CALLER.
+
+C-1 (medium): the helper count in the DIFF-CALLER marker was a
+fixed literal, not derived from the refusal list. Now
+dev/diff-caller-test.py counts the helper-refusal list and prints
+that count in the marker; the count still reads five.
+
 ## 2026-09-19: Trace callers
 
 The thirty-second M1 slice starts at `629bf02`. `trace --caller ADDRESS`

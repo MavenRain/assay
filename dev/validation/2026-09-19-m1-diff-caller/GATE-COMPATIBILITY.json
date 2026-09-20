@@ -1,0 +1,18 @@
+{
+  "base": "63fde3b0cb01c83990f26e18b9cbb21c78a2288c",
+  "previous_modes": 38,
+  "previous_legs": 67,
+  "current_legs": 68,
+  "preserved": true,
+  "added_leg": [
+    "DIFF-CALLER",
+    180,
+    [
+      "python3",
+      "-P",
+      "dev/diff-caller-test.py"
+    ],
+    "DIFF-CALLER live=45 signed=45 rejected=4 refused=33 helper=5 OK"
+  ],
+  "gates_sha256": "00feaa41c7c0e83f4fbb509b852e5784669e15d6477f5c4aa183ed8e1bcc0ba5"
+}

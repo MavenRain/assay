@@ -1,0 +1,12 @@
+M1: add differential fixture callers
+
+Expose diff --caller for the two public offline signing identities.
+Validate fixture selection before compilation and use the selected
+sender for both geth entry points, signing, nonce and funding checks.
+
+Add 45 source-model and signed execution comparisons, four transaction
+refusals, 33 driver refusals and five adapter refusals. Preserve all
+previous gate modes and append DIFF-CALLER to the default ladder.
+
+Record scoped validation. Timing gates remain paused and this slice
+does not claim M1 completion.

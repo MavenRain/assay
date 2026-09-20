@@ -7,7 +7,7 @@
 let usage () : unit =
   prerr_endline
     "usage: assay check [--print|--erased] FILE | axioms FILE | spec-count | \
-     emit FILE -o DIR | trace FILE --calldata HEX [--prestate FILE] [--value WORD] [--caller ADDRESS] | diff FILE --calldata HEX [--prestate FILE] [--value WORD] | \
+     emit FILE -o DIR | trace FILE --calldata HEX [--prestate FILE] [--value WORD] [--caller ADDRESS] | diff FILE --calldata HEX [--prestate FILE] [--value WORD] [--caller ADDRESS] | \
      run FILE [--calldata HEX] [--storage SLOT=WORD]... [--value WORD] [--caller ADDRESS] [--export NAME] | deploy FILE | \
      test FILE"
 
@@ -121,14 +121,17 @@ let dispatch_trace (args : string list) : unit =
   | path :: rest when not (String.starts_with ~prefix:"-" path) -> options path [] rest
   | [] | _ :: _ -> bad_usage ()
 
-let run_diff (path : string) (input : string) (prestate : string) (value : string) : unit =
+let run_diff (path : string) (input : string) (prestate : string) (value : string)
+    (caller : string) : unit =
   Option.fold
     ~none:(fun () -> prerr_endline "assay: diff: CALLDATA_HEX: expected whole hex bytes"; exit 64)
     ~some:(fun input () ->
       let value = Differential.value value |> Result.fold ~ok:Fun.id ~error:(fun e ->
         prerr_endline ("assay: diff: " ^ Differential.error e); exit 64) in
+      let caller = Differential.caller caller |> Result.fold ~ok:Fun.id ~error:(fun e ->
+        prerr_endline ("assay: diff: " ^ Differential.error e); exit 64) in
       let out = compile "diff" path "main" in
-      Differential.run ~runtime:out.runtime ~input ~prestate ~value
+      Differential.run ~runtime:out.runtime ~input ~prestate ~value ~caller
       |> Result.fold ~ok:Fun.id ~error:(fun e ->
         prerr_endline ("assay: diff: " ^ Differential.error e); exit 2))
     (Trace.calldata input) ()
@@ -138,9 +141,10 @@ let dispatch_diff (args : string list) : unit =
     | [] ->
       Option.fold ~none:bad_usage ~some:(fun input () ->
         let option name fallback = List.assoc_opt name seen |> Option.value ~default:fallback in
-        run_diff path input (option "--prestate" (Trace.prestate ())) (option "--value" "0"))
+        run_diff path input (option "--prestate" (Trace.prestate ())) (option "--value" "0")
+          (option "--caller" Differential.default_caller))
         (List.assoc_opt "--calldata" seen) ()
-    | ("--calldata" | "--prestate" | "--value" as flag) :: value :: rest
+    | ("--calldata" | "--prestate" | "--value" | "--caller" as flag) :: value :: rest
       when not (String.starts_with ~prefix:"-" value) ->
       if List.mem_assoc flag seen then bad_usage ()
       else options path ((flag, value) :: seen) rest

@@ -40,11 +40,12 @@ JSON serialization.  `ENV_SHA` pins those fields.  Changes to the fork,
 chain, timestamp or other environment fields fail with `DIFF_PRESTATE`.
 This restriction avoids silently translating unsupported genesis fields.
 
-The alloc may contain these two addresses, with or without `0x`:
+The alloc may contain these three addresses, with or without `0x`:
 
 | Role | Address |
 | --- | --- |
-| Sender | `7e5f4552091a69125d5dfcb7b8c2659029395bdf` |
+| Default sender (fixture key 1) | `7e5f4552091a69125d5dfcb7b8c2659029395bdf` |
+| Alternate sender (fixture key 2) | `2b5ad5c4795c026514f8317c7a215e218dccd6cf` |
 | Receiver | `0000000000000000000000007265636569766572` |
 
 Each account may have balance, nonce, storage and empty code fields.
@@ -62,10 +63,14 @@ a decimal count or a `0x`-prefixed hex word, or the keyword argument `value`
 in `execute`. Values must fit uint256 and the sender's prestate balance
 must cover them. Both executor paths receive the same value; the adapter
 never funds the sender itself.
-The public fixture key 1 signs it offline.  That key derives the sender
-above.  It is never used for a network request.  The sender's initial nonce
-is read from the alloc.  The runner disables block rewards and supplies
-empty withdrawals and a zero beacon root.  It starts no daemon.
+The selected public fixture key signs it offline. `--caller ADDRESS`
+selects either sender above, defaulting to key 1; the Python adapter and
+the `caller` keyword of `execute` accept the same selection. The
+[caller contract](M1-DIFF-CALLER.md) defines the address grammar and refusals.
+The selected sender's initial nonce is read from the alloc, and an exhausted
+nonce is refused before execution. No key is used for a network request.
+The runner disables block rewards and supplies empty withdrawals and a zero
+beacon root. It starts no daemon.
 
 ## Gas adapter
 

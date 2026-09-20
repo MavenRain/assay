@@ -1,0 +1,26 @@
+{
+  "base": "63fde3b0cb01c83990f26e18b9cbb21c78a2288c",
+  "commands": 14,
+  "differential_caller": {
+    "helper": 5,
+    "live": 45,
+    "refused": 33,
+    "rejected": 4,
+    "signed": 45
+  },
+  "full_ladder_run": false,
+  "gate_compatibility": {
+    "current_legs": 68,
+    "previous_legs": 67,
+    "previous_modes": 38
+  },
+  "milestone_exit_claimed": false,
+  "passed": 14,
+  "pending": [
+    "DENOMINATORS",
+    "M0-RATIO"
+  ],
+  "recorded_at": "2026-09-20T00:32:54.671676+00:00",
+  "status": "scoped-validation-green",
+  "timing_pause_preserved": true
+}

@@ -1,0 +1,38 @@
+{
+  "artifact": "/Users/oobi/Documents/gpt1/assay-m1-diff-caller/.kanon-exec/run-GDBZ1w",
+  "commands": 1,
+  "counts": {
+    "error_lines": 0,
+    "stderr_bytes": 0,
+    "stderr_lines": 0,
+    "stdout_bytes": 226,
+    "stdout_lines": 2,
+    "warning_lines": 0
+  },
+  "excerpts": [
+    {
+      "byte_length": 8,
+      "byte_offset": 218,
+      "clipped": false,
+      "command": 1,
+      "line": 2,
+      "priority": 2,
+      "stream": "stdout",
+      "text": "DIFF OK"
+    },
+    {
+      "byte_length": 218,
+      "byte_offset": 0,
+      "clipped": false,
+      "command": 1,
+      "line": 1,
+      "priority": 1,
+      "stream": "stdout",
+      "text": "{\"fork\":\"Cancun\",\"intrinsic_gas\":21064,\"output\":\"0x0000000000000000000000002b5ad5c4795c026514f8317c7a215e218dccd6cf\",\"run_gas\":4470,\"status\":\"success\",\"storage\":{},\"t8n_execution_gas\":4470,\"t8n_transaction_gas\":25534}"
+    }
+  ],
+  "exit_code": 0,
+  "failed": 0,
+  "omitted_lines": 0,
+  "status": "complete"
+}

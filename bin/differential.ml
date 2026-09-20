@@ -1,6 +1,7 @@
 (** Offline differential execution.  Python owns the JSON and process
     boundary; the compiler supplies only checked runtime bytes. *)
-type error = Invalid_value of string | Missing_python | Missing_helper | Runner_exit of int
+type error = Invalid_value of string | Invalid_caller of string
+  | Missing_python | Missing_helper | Runner_exit of int
   | Runner_signal of int | Runner_stopped of int
 
 (* Unix.WSIGNALED carries the OCaml signal encoding, not the host number.
@@ -25,6 +26,7 @@ let signal_name (signal : int) : string =
 
 let error : error -> string = function
   | Invalid_value detail -> "DIFF_VALUE: " ^ detail
+  | Invalid_caller detail -> "DIFF_CALLER: " ^ detail
   | Missing_python -> "DIFF_TOOL: python3 is not on PATH"
   | Missing_helper -> "DIFF_HELPER: cannot read evm/diff.py"
   | Runner_exit code -> "DIFF_RUNNER: exit " ^ string_of_int code
@@ -45,7 +47,25 @@ let value (text : string) : (string, error) result =
   |> Result.map (fun _ -> String.lowercase_ascii text)
   |> Result.map_error (fun e -> Invalid_value (detail e))
 
-let run ~(runtime : string) ~(input : string) ~(prestate : string) ~(value : string) : (unit, error) result =
+let default_caller = "0x7e5f4552091a69125d5dfcb7b8c2659029395bdf"
+let second_caller = "0x2b5ad5c4795c026514f8317c7a215e218dccd6cf"
+
+(* A signed transition can use only identities with public fixture keys.
+   Validate the address grammar before selecting either offline identity. *)
+let caller (text : string) : (string, error) result =
+  Assay_emit.Model.inputs_with_caller ~data:"" ~value:"0" ~storage:[] ~caller:text
+  |> Result.map_error (fun e -> Invalid_caller (detail e))
+  |> Result.map (fun _ ->
+    let text = String.lowercase_ascii text in
+    let hex = String.starts_with ~prefix:"0x" text in
+    let digits = if hex then String.to_seq text |> Seq.drop 2 |> String.of_seq else text in
+    "0x" ^ Z.format "%040x" (Z.of_string_base (if hex then 16 else 10) digits))
+  |> fun parsed -> Result.bind parsed (fun address ->
+    if address = default_caller || address = second_caller then Ok address
+    else Error (Invalid_caller "expected an offline fixture address (public key 1 or 2)"))
+
+let run ~(runtime : string) ~(input : string) ~(prestate : string) ~(value : string)
+    ~(caller : string) : (unit, error) result =
   let helper = Filename.concat
       (Filename.dirname (Filename.dirname (Trace.prestate ()))) "diff.py" in
   let paths = Option.value ~default:"" (Sys.getenv_opt "PATH") in
@@ -56,7 +76,8 @@ let run ~(runtime : string) ~(input : string) ~(prestate : string) ~(value : str
   if not (Trace.regular helper) then Error Missing_helper else
   Option.fold ~none:(Error Missing_python) ~some:(fun program ->
     let argv = [program; "-P"; helper; "--runtime"; runtime;
-                "--calldata"; input; "--prestate"; prestate; "--value"; value] in
+                "--calldata"; input; "--prestate"; prestate; "--value"; value;
+                "--caller"; caller] in
     let process = Unix.open_process_args_in program (Array.of_list argv) in
     let output = In_channel.input_all process in
     let status = Unix.close_process_in process in

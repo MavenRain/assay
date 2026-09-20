@@ -12,8 +12,9 @@ import subprocess
 import sys
 import tempfile
 
-# Public fixture key 1, used only to sign an offline, zero-price transaction.
+# Public fixture keys, used only to sign offline, zero-price transactions.
 SENDER = '7e5f4552091a69125d5dfcb7b8c2659029395bdf'
+CALLERS = {SENDER: 1, '2b5ad5c4795c026514f8317c7a215e218dccd6cf': 2}
 RECEIVER = '0000000000000000000000007265636569766572'
 GAS = 16_777_216
 ENV_SHA = 'ba2f41ea46c17853e2e22be873a2be703db19a60b59cfe1951c8e8cae44cb967'
@@ -97,7 +98,17 @@ def storage(alloc):
     return result
 
 
-def prepare(prestate, runtime):
+def identity(caller):
+    try:
+        sender = f'{quantity(caller.lower() if isinstance(caller, str) else caller, 160):040x}'
+    except ValueError as error:
+        raise ValueError('DIFF_CALLER: expected an unsigned uint160 fixture address') from error
+    require(sender in CALLERS, 'DIFF_CALLER: expected an offline fixture address (public key 1 or 2)')
+    return sender, CALLERS[sender]
+
+
+def prepare(prestate, runtime, *, caller='0x' + SENDER):
+    sender, _key = identity(caller)
     require(isinstance(prestate, dict) and isinstance(prestate.get('alloc'), dict),
             'DIFF_PRESTATE: expected Cancun genesis with alloc')
     environment = {key: value for key, value in prestate.items() if key != 'alloc'}
@@ -107,7 +118,7 @@ def prepare(prestate, runtime):
     alloc = {}
     for key, value in result['alloc'].items():
         owner = address(key)
-        require(owner in (SENDER, RECEIVER) and owner not in alloc and isinstance(value, dict),
+        require((owner in CALLERS or owner == RECEIVER) and owner not in alloc and isinstance(value, dict),
                 'DIFF_PRESTATE: only unique fixture sender and receiver accounts are supported')
         require(set(value) <= {'balance', 'nonce', 'storage', 'code'}, 'DIFF_PRESTATE: unsupported account field')
         require(byte_hex(value.get('code', '')) == '', 'DIFF_PRESTATE: account code must be empty')
@@ -115,9 +126,9 @@ def prepare(prestate, runtime):
         alloc[owner] = dict(balance=hex(quantity(value.get('balance', 0))),
                             nonce=hex(quantity(value.get('nonce', 0), 64)),
                             storage={f'0x{int(slot):064x}': f'0x{int(val, 16):064x}' for slot, val in slots.items()})
-    for owner in (SENDER, RECEIVER):
+    for owner in (sender, RECEIVER):
         alloc.setdefault(owner, dict(balance='0x0', nonce='0x0', storage={}))
-    require(quantity(alloc[SENDER]['nonce']) < 2 ** 64 - 1, 'DIFF_PRESTATE: sender nonce is exhausted')
+    require(quantity(alloc[sender]['nonce']) < 2 ** 64 - 1, 'DIFF_PRESTATE: sender nonce is exhausted')
     alloc[RECEIVER]['code'] = '0x' + byte_hex(runtime)
     result['alloc'] = alloc
     return result
@@ -192,13 +203,14 @@ def supported(runtime):
         pc += 1 + (opcode - 0x5f if 0x60 <= opcode <= 0x7f else 0)
 
 
-def execute(runtime, calldata, prestate, evm, *, value=0):
+def execute(runtime, calldata, prestate, evm, *, value=0, caller='0x' + SENDER):
+    sender, key = identity(caller)
     runtime, calldata = byte_hex(runtime), byte_hex(calldata)
     value = quantity(value)
     require(len(runtime) <= 49152 and len(calldata) <= 65536, 'DIFF_LIMIT: code or calldata is too large')
     supported(runtime)
-    prepared = prepare(prestate, runtime)
-    require(quantity(prepared['alloc'][SENDER]['balance']) >= value,
+    prepared = prepare(prestate, runtime, caller='0x' + sender)
+    require(quantity(prepared['alloc'][sender]['balance']) >= value,
             'DIFF_VALUE: sender balance is below call value')
     intrinsic = 21000 + sum(4 if byte == 0 else 16 for byte in bytes.fromhex(calldata))
     env = dict(currentCoinbase=prepared['coinbase'], currentGasLimit=hex(GAS + intrinsic),
@@ -206,15 +218,15 @@ def execute(runtime, calldata, prestate, evm, *, value=0):
                currentRandom='0x' + '00' * 32, currentBaseFee='0x0',
                currentExcessBlobGas=prepared['excessBlobGas'], withdrawals=[],
                parentBeaconBlockRoot='0x' + '00' * 32)
-    tx = dict(nonce=prepared['alloc'][SENDER]['nonce'], gasPrice='0x0', gas=hex(GAS + intrinsic),
+    tx = dict(nonce=prepared['alloc'][sender]['nonce'], gasPrice='0x0', gas=hex(GAS + intrinsic),
               to='0x' + RECEIVER, value=hex(value), input='0x' + calldata,
-              secretKey='0x' + '0' * 63 + '1', v='0x0', r='0x0', s='0x0')
+              secretKey=f'0x{key:064x}', v='0x0', r='0x0', s='0x0')
     with tempfile.TemporaryDirectory(prefix='assay-diff-') as directory:
         work = Path(directory)
         genesis = work / 'prestate.json'
         genesis.write_text(json.dumps(prepared))
         run_text = invoke(evm, ['run', '--prestate', str(genesis), '--gas', str(GAS),
-                               '--sender', '0x' + SENDER, '--receiver', '0x' + RECEIVER,
+                               '--sender', '0x' + sender, '--receiver', '0x' + RECEIVER,
                                '--code', runtime, '--input', calldata, '--value', str(value), '--json', '--dump'])
         t8n_text = invoke(evm, ['t8n', '--state.fork', 'Cancun', '--state.chainid', '1',
                                '--state.reward', '-1', '--input.alloc', 'stdin', '--input.env', 'stdin',
@@ -237,13 +249,16 @@ def main():
     parser.add_argument('--calldata', required=True)
     parser.add_argument('--prestate', required=True)
     parser.add_argument('--value', default='0')
+    parser.add_argument('--caller', default='0x' + SENDER)
     args = parser.parse_args()
+    sender, _key = identity(args.caller)
     evm = next((str(Path(path) / 'evm') for path in os.environ.get('PATH', '').split(':')
                 if path and shutil.which(str(Path(path) / 'evm'))), None)
     require(evm is not None, 'DIFF_TOOL: evm is not on PATH')
     records = objects(Path(args.prestate).read_text())
     require(len(records) == 1, 'DIFF_PRESTATE: expected one genesis')
-    report, _evidence = execute(args.runtime, args.calldata, records[0], evm, value=args.value)
+    report, _evidence = execute(args.runtime, args.calldata, records[0], evm,
+                                value=args.value, caller='0x' + sender)
     print(json.dumps(report, sort_keys=True, separators=(',', ':')))
     print('DIFF OK')
     return 0
