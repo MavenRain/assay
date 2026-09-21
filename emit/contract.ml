@@ -75,7 +75,7 @@ let lex chars =
       | ('(' | ')' | '{' | '}' | ':' | ';' | '.' | ','), (Seq.Nil | Seq.Cons _) -> next (String.make 1 c) rest
       | _c, (Seq.Nil | Seq.Cons _) -> fail (at "") "TOKEN" "unexpected character") in
   scan 0 1 1 [] chars
-let reserved = ["Both"; "EqWord"; "eqWord"; "predicate"; "caller"; "callvalue"; "calldatasize"; "calldataload"; "deployer"; "fallback"; "Never"; "payable"] @ String.split_on_char ' '
+let reserved = ["Both"; "EqWord"; "eqWord"; "predicate"; "caller"; "callvalue"; "calldatasize"; "calldataload"; "address"; "deployer"; "fallback"; "Never"; "payable"] @ String.split_on_char ' '
   "contract where storage entry constructor error invariant proof do sload sstore add sub guard le let pure revert Word Eff Sig Tx ResultWord Storage Entry Error main word ret put read EvmOpcodes done store load abort reject def axiom fun inj of case match as return with tuple sum prod absurd Prop Type in auto mu mutual end nu and rec natAdd natSub natMul natEq natLt Le Lt256 AddFits leWord lt256 wordNat guardLe guardAdd addLt subLe"
 let identifier tokens = match tokens with
   | at :: rest when Recognize.identifier at.text && at.text <> "_" &&
@@ -326,11 +326,12 @@ let body tokens =
        | { text = "caller"; _ } :: rest -> next (Context (Recognize.Caller, name)) rest
        | { text = "callvalue"; _ } :: rest -> next (Context (Recognize.Callvalue, name)) rest
        | { text = "calldatasize"; _ } :: rest -> next (Context (Recognize.Calldatasize, name)) rest
+       | { text = "address"; _ } :: rest -> next (Context (Recognize.Address, name)) rest
        | { text = "calldataload"; _ } :: rest ->
          let* offset, rest = value 0 rest in next (Context (Recognize.Calldataload offset, name)) rest
        | { text = ("add" | "sub") as op; _ } :: rest ->
          let* (a, b), rest = binary (value 0) rest in next (if op = "add" then Add (name, a, b) else Sub (name, a, b)) rest
-       | [] | _ :: _ -> fail (here rest) "EFFECT" "expected sload, caller, callvalue, calldatasize, calldataload, add or sub") in
+       | [] | _ :: _ -> fail (here rest) "EFFECT" "expected sload, caller, callvalue, calldatasize, calldataload, address, add or sub") in
   steps 0 [] tokens
 
 let named_word tokens =
@@ -686,7 +687,7 @@ let transaction fields errors invariants predicates helpers env (steps, ending) 
       | Context (source, name) ->
         let* args = match source with
           | Recognize.Calldataload offset -> let* offset = word env offset in Ok [offset]
-          | Recognize.Caller | Recognize.Callvalue | Recognize.Calldatasize -> Ok [] in
+          | Recognize.Caller | Recognize.Callvalue | Recognize.Calldatasize | Recognize.Address -> Ok [] in
         let* next = bind name in Ok (app (Recognize.context_name source) (args @ [lambda fresh "Word 256" next]))
       | Deployer at -> fail at "EFFECT" "deployer is available only in constructors"
       | Add (name, a, b) -> arithmetic "add" name a b

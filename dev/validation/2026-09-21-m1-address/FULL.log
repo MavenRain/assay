@@ -1,0 +1,325 @@
+PASS BUILD exit=0 elapsed_ms=164.1
+PASS PIN-CARRY exit=0 elapsed_ms=969.6
+PASS R0-COUNT exit=0 elapsed_ms=88.0
+PASS R0-AUDIT exit=0 elapsed_ms=56.0
+PASS HOUSE exit=0 elapsed_ms=855.7
+PASS TRUSTED-LINES exit=0 elapsed_ms=41.2
+PASS SUITE-KERNEL exit=0 elapsed_ms=1269.6
+PASS SUITE-SURFACE exit=0 elapsed_ms=300.8
+PASS DRIVER exit=0 elapsed_ms=471.3
+PASS MUTANTS exit=0 elapsed_ms=9378.1
+FAIL DENOMINATORS exit=1 elapsed_ms=64.2
+abi/abi.ml: FAILED
+abi/dune: OK
+abi/layout.ml: OK
+asm/asm.ml: OK
+asm/dune: OK
+asm/listing.ml: OK
+bin/assay.ml: FAILED
+bin/differential.ml: FAILED
+bin/dune: FAILED
+bin/trace.ml: FAILED
+corpus/MANIFEST.json: OK
+corpus/contracts/Arithmetic.asy: OK
+corpus/contracts/Maximum.asy: OK
+corpus/contracts/Pair.asy: OK
+corpus/contracts/Ref20.asy: OK
+corpus/contracts/Return.asy: OK
+corpus/contracts/TwoSlots.asy: OK
+corpus/contracts/WideLabel.asy: OK
+corpus/contracts/Zero.asy: OK
+corpus/proofs/Apply.asy: OK
+corpus/proofs/Leaf.asy: OK
+corpus/proofs/Let.asy: OK
+dev/M1-ERROR-MUTATIONS.md: OK
+dev/M1-ERRORS.md: FAILED
+dev/M1-NULLARY-MUTATIONS.md: OK
+dev/M1-NULLARY.md: OK
+dev/M1-PROOF-MUTATIONS.md: OK
+dev/M1-PROOFS.md: FAILED
+dev/M1-SURFACE-MUTATIONS.md: FAILED
+dev/M1-SURFACE.md: FAILED
+dev/PIN: OK
+dev/TIMING-DEBUG.md: OK
+dev/contract-test.py: FAILED
+dev/corpus-data.py: OK
+dev/corpus-test.py: OK
+dev/counter-test.py: OK
+dev/denominator.sh: OK
+dev/denominators-stage-0.json: OK
+dev/denominators.json: OK
+dev/diff-test.py: FAILED
+dev/dunecho.sh: FAILED open or read
+dev/emit-test.py: FAILED
+dev/errors-test.py: FAILED
+dev/gates.sh: FAILED
+dev/import-check.sh: OK
+dev/m1-emit-test.py: FAILED
+dev/measurements/2026-09-11-m0-stage-f.json: OK
+dev/measurements/2026-09-11-m1-emission.json: OK
+dev/measurements/2026-09-12-m1-nullary.json: OK
+dev/measurements/2026-09-12-m1-proofs.json: OK
+dev/measurements/2026-09-12-m1-run.json: OK
+dev/measurements/2026-09-12-m1-surface.json: OK
+dev/model-test.py: FAILED
+dev/nullary-test.py: FAILED
+dev/ratio.py: OK
+dev/ratio.sh: OK
+dev/source-proof-test.py: OK
+dev/stage-a-gates.py: FAILED
+dev/stage-a-test.py: OK
+dev/trace-test.py: OK
+dune: OK
+dune-project: OK
+emit/contract.ml: FAILED
+emit/contract.mli: OK
+emit/dune: OK
+emit/emit.ml: FAILED
+emit/model.ml: FAILED
+emit/model.mli: FAILED
+emit/recognize.ml: FAILED
+evm/diff.py: FAILED
+examples/Counter.asy: OK
+examples/CounterSurface.asy: OK
+examples/Errors.asy: OK
+examples/Nullary.asy: OK
+keccak/dune: OK
+keccak/keccak.ml: OK
+lib/bignum.ml: OK
+lib/budget.ml: OK
+lib/budget.mli: OK
+lib/check.ml: OK
+lib/conv.ml: OK
+lib/dune: OK
+lib/erase.ml: OK
+lib/error.ml: OK
+lib/eterm.ml: OK
+lib/eval.ml: OK
+lib/global.ml: OK
+lib/level.ml: OK
+lib/level.mli: OK
+lib/literal.ml: OK
+lib/order.ml: OK
+lib/positivity.ml: OK
+lib/pp.ml: OK
+lib/prim.ml: OK
+lib/quantity.ml: OK
+lib/rules.ml: OK
+lib/shape.ml: OK
+lib/spec_count.ml: OK
+lib/term.ml: OK
+lib/totality.ml: OK
+lib/value.ml: OK
+surface/dune: OK
+surface/elab.ml: OK
+surface/lexer.ml: OK
+surface/parser.ml: OK
+surface/syntax.ml: OK
+surface/token.ml: OK
+test/contract_route.ml: OK
+test/emit_cases.ml: OK
+verification/.gitignore: OK
+verification/AssayProofs.lean: OK
+verification/AssayProofs/Arithmetic.lean: OK
+verification/AssayProofs/Source.lean: OK
+verification/Axioms.lean: OK
+verification/Main.lean: OK
+verification/README.md: OK
+verification/lake-manifest.json: OK
+verification/lakefile.lean: OK
+verification/lean-toolchain: OK
+shasum: dev/dunecho.sh: No such file or directory
+shasum: WARNING: 1 listed file could not be read
+shasum: WARNING: 24 computed checksums did NOT match
+
+PASS KECCAK-VEC exit=0 elapsed_ms=1586.8
+PASS KECCAK-MUTANTS exit=0 elapsed_ms=5915.0
+PASS STACK-HEIGHT exit=0 elapsed_ms=3518.8
+PASS DISASM-3WAY exit=0 elapsed_ms=1484.6
+PASS ASM-MUTANTS exit=0 elapsed_ms=9700.6
+PASS FORK-DRIFT exit=0 elapsed_ms=434.9
+PASS M0-TRACE exit=0 elapsed_ms=153.7
+PASS CREATE-EQ exit=0 elapsed_ms=141.9
+PASS REFERENCE-CHECKS exit=0 elapsed_ms=190.6
+PASS REFERENCE-MUTANTS exit=0 elapsed_ms=1623.5
+PASS EMIT-CONSTRUCTORS exit=0 elapsed_ms=265.4
+PASS WORD-UNBOX exit=0 elapsed_ms=5.0
+PASS STORAGE-NOCLOS exit=0 elapsed_ms=4.7
+PASS ABI-GOLD exit=0 elapsed_ms=231.1
+PASS EMITTED-TRACE exit=0 elapsed_ms=138.2
+PASS EMIT-SOURCES exit=0 elapsed_ms=951.4
+PASS EMIT-MUTANTS exit=0 elapsed_ms=13208.7
+PASS AXIOMS exit=0 elapsed_ms=10086.8
+PASS TRACE-DRIVER exit=0 elapsed_ms=1383.2
+PASS CORPUS exit=0 elapsed_ms=810.8
+PASS ERASED-BYTES exit=0 elapsed_ms=103.4
+FAIL M0-RATIO exit=1 elapsed_ms=106.3
+M0-RATIO FAIL RATIO-COMMAND exit=1: ['shasum', '-a', '256', '-c', 'dev/DENOMINATORS.sha256']: abi/abi.ml: FAILED
+abi/dune: OK
+abi/layout.ml: OK
+asm/asm.ml: OK
+asm/dune: OK
+asm/listing.ml: OK
+bin/assay.ml: FAILED
+bin/differential.ml: FAILED
+bin/dune: FAILED
+bin/trace.ml: FAILED
+corpus/MANIFEST.json: OK
+corpus/contracts/Arithmetic.asy: OK
+corpus/contracts/Maximum.asy: OK
+corpus/contracts/Pair.asy: OK
+corpus/contracts/Ref20.asy: OK
+corpus/contracts/Return.asy: OK
+corpus/contracts/TwoSlots.asy: OK
+corpus/contracts/WideLabel.asy: OK
+corpus/contracts/Zero.asy: OK
+corpus/proofs/Apply.asy: OK
+corpus/proofs/Leaf.asy: OK
+corpus/proofs/Let.asy: OK
+dev/M1-ERROR-MUTATIONS.md: OK
+dev/M1-ERRORS.md: FAILED
+dev/M1-NULLARY-MUTATIONS.md: OK
+dev/M1-NULLARY.md: OK
+dev/M1-PROOF-MUTATIONS.md: OK
+dev/M1-PROOFS.md: FAILED
+dev/M1-SURFACE-MUTATIONS.md: FAILED
+dev/M1-SURFACE.md: FAILED
+dev/PIN: OK
+dev/TIMING-DEBUG.md: OK
+dev/contract-test.py: FAILED
+dev/corpus-data.py: OK
+dev/corpus-test.py: OK
+dev/counter-test.py: OK
+dev/denominator.sh: OK
+dev/denominators-stage-0.json: OK
+dev/denominators.json: OK
+dev/diff-test.py: FAILED
+dev/dunecho.sh: FAILED open or read
+dev/emit-test.py: FAILED
+dev/errors-test.py: FAILED
+dev/gates.sh: FAILED
+dev/import-check.sh: OK
+dev/m1-emit-test.py: FAILED
+dev/measurements/2026-09-11-m0-stage-f.json: OK
+dev/measurements/2026-09-11-m1-emission.json: OK
+dev/measurements/2026-09-12-m1-nullary.json: OK
+dev/measurements/2026-09-12-m1-proofs.json: OK
+dev/measurements/2026-09-12-m1-run.json: OK
+dev/measurements/2026-09-12-m1-surface.json: OK
+dev/model-test.py: FAILED
+dev/nullary-test.py: FAILED
+dev/ratio.py: OK
+dev/ratio.sh: OK
+dev/source-proof-test.py: OK
+dev/stage-a-gates.py: FAILED
+dev/stage-a-test.py: OK
+dev/trace-test.py: OK
+dune: OK
+dune-project: OK
+emit/contract.ml: FAILED
+emit/contract.mli: OK
+emit/dune: OK
+emit/emit.ml: FAILED
+emit/model.ml: FAILED
+emit/model.mli: FAILED
+emit/recognize.ml: FAILED
+evm/diff.py: FAILED
+examples/Counter.asy: OK
+examples/CounterSurface.asy: OK
+examples/Errors.asy: OK
+examples/Nullary.asy: OK
+keccak/dune: OK
+keccak/keccak.ml: OK
+lib/bignum.ml: OK
+lib/budget.ml: OK
+lib/budget.mli: OK
+lib/check.ml: OK
+lib/conv.ml: OK
+lib/dune: OK
+lib/erase.ml: OK
+lib/error.ml: OK
+lib/eterm.ml: OK
+lib/eval.ml: OK
+lib/global.ml: OK
+lib/level.ml: OK
+lib/level.mli: OK
+lib/literal.ml: OK
+lib/order.ml: OK
+lib/positivity.ml: OK
+lib/pp.ml: OK
+lib/prim.ml: OK
+lib/quantity.ml: OK
+lib/rules.ml: OK
+lib/shape.ml: OK
+lib/spec_count.ml: OK
+lib/term.ml: OK
+lib/totality.ml: OK
+lib/value.ml: OK
+surface/dune: OK
+surface/elab.ml: OK
+surface/lexer.ml: OK
+surface/parser.ml: OK
+surface/syntax.ml: OK
+surface/token.ml: OK
+test/contract_route.ml: OK
+test/emit_cases.ml: OK
+verification/.gitignore: OK
+verification/AssayProofs.lean: OK
+verification/AssayProofs/Arithmetic.lean: OK
+verification/AssayProofs/Source.lean: OK
+verification/Axioms.lean: OK
+verification/Main.lean: OK
+verification/README.md: OK
+verification/lake-manifest.json: OK
+verification/lakefile.lean: OK
+verification/lean-toolchain: OK
+shasum: dev/dunecho.sh: No such file or directory
+shasum: WARNING: 1 listed file could not be read
+shasum: WARNING: 24 computed checksums did NOT match
+
+
+PASS F-MUTANTS exit=0 elapsed_ms=225.6
+PASS DIFF-EXECUTOR exit=0 elapsed_ms=8142.4
+PASS COUNTER-REFERENCE exit=0 elapsed_ms=3370.3
+PASS M1-EMISSION exit=0 elapsed_ms=85220.7
+PASS SOURCE-MODEL exit=0 elapsed_ms=35133.9
+PASS CONTRACT-SURFACE exit=0 elapsed_ms=61085.6
+PASS CONTRACT-ROUTE exit=0 elapsed_ms=395.8
+PASS SOURCE-PROOFS exit=0 elapsed_ms=69622.6
+PASS NULLARY-ENTRIES exit=0 elapsed_ms=12956.5
+PASS CUSTOM-ERRORS exit=0 elapsed_ms=19919.3
+PASS PROOF-GUARDS exit=0 elapsed_ms=37934.2
+PASS PROOF-TERMS exit=0 elapsed_ms=17681.1
+PASS INVARIANTS exit=0 elapsed_ms=22412.1
+PASS PROOF-HELPERS exit=0 elapsed_ms=26243.8
+PASS PROOF-BUNDLES exit=0 elapsed_ms=21600.9
+PASS PREDICATES exit=0 elapsed_ms=29331.9
+PASS COMPOUND-INVARIANTS exit=0 elapsed_ms=35664.3
+PASS COMPOUND-GUARDS exit=0 elapsed_ms=44133.0
+PASS NAMED-GUARDS exit=0 elapsed_ms=27156.7
+PASS INFERRED-GUARDS exit=0 elapsed_ms=34298.1
+PASS INFERRED-ARITHMETIC exit=0 elapsed_ms=35793.5
+PASS INFERRED-HELPERS exit=0 elapsed_ms=58128.0
+PASS PROOF-HOLES exit=0 elapsed_ms=45785.4
+PASS INFERRED-BINDINGS exit=0 elapsed_ms=39516.1
+PASS INFERRED-GUARD-BINDINGS exit=0 elapsed_ms=41765.6
+PASS EVM-CONTEXT exit=0 elapsed_ms=49260.2
+PASS SURFACE-CONTEXT exit=0 elapsed_ms=27325.7
+PASS WORD-EQUALITY exit=0 elapsed_ms=21235.2
+FAIL HEX-LITERALS exit=1 elapsed_ms=567.2
+HEX-LITERALS FAIL: HEX-EMIT example: line 10, column 9: SURFACE_NAME: expected an unreserved identifier of at most 64 characters
+
+
+PASS INFERRED-WORDS exit=0 elapsed_ms=24298.0
+PASS FALLBACK exit=0 elapsed_ms=27440.6
+PASS DIFF-VALUE exit=0 elapsed_ms=6723.9
+PASS TRACE-VALUE exit=0 elapsed_ms=2681.8
+PASS TRACE-CALLER exit=0 elapsed_ms=4115.2
+PASS DIFF-CALLER exit=0 elapsed_ms=10096.4
+PASS PAYABLE exit=0 elapsed_ms=19862.7
+PASS CALLVALUE exit=0 elapsed_ms=31566.3
+PASS CALLDATASIZE exit=0 elapsed_ms=54875.4
+PASS CALLDATALOAD exit=0 elapsed_ms=103189.7
+PASS ADDRESS exit=0 elapsed_ms=109064.1
+M0-VALIDATION FAIL; M0-EXIT requires the user commit and ratification
+STAGE-M1-ADDRESS FAIL

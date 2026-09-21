@@ -1,0 +1,548 @@
+{
+  "attempts": [
+    {
+      "artifact": "run-4GNegV",
+      "exit": 0
+    },
+    {
+      "artifact": "run-8BmNDk",
+      "exit": 0
+    },
+    {
+      "artifact": "run-8hJtUY",
+      "exit": 0
+    },
+    {
+      "artifact": "run-9KQzRD",
+      "exit": 1
+    },
+    {
+      "artifact": "run-ExKKHP",
+      "exit": 0
+    },
+    {
+      "artifact": "run-K9mOEb",
+      "exit": 1
+    },
+    {
+      "artifact": "run-KCyarj",
+      "exit": 1
+    },
+    {
+      "artifact": "run-MHRKCv",
+      "exit": 1
+    },
+    {
+      "artifact": "run-Rrmk6C",
+      "exit": 0
+    },
+    {
+      "artifact": "run-YSXrED",
+      "exit": 1
+    },
+    {
+      "artifact": "run-j0Z8nx",
+      "exit": 0
+    },
+    {
+      "artifact": "run-mAoNMT",
+      "exit": 1
+    },
+    {
+      "artifact": "run-qtYDn1",
+      "exit": 0
+    },
+    {
+      "artifact": "run-vTkHjT",
+      "exit": 1
+    }
+  ],
+  "baseline": "The clean committed baseline also fails the frozen DENOMINATORS checksum. M0-RATIO stops at the same check.",
+  "command": [
+    "zsh",
+    "-f",
+    "dev/gates.sh"
+  ],
+  "effective": {
+    "failed": 2,
+    "failures": [
+      "DENOMINATORS",
+      "M0-RATIO"
+    ],
+    "passed": 71
+  },
+  "emitter_bound": 1800,
+  "focused_reruns": {
+    "HEX-LITERALS": {
+      "capture": "HEX-LITERALS-RERUN",
+      "exit": 0,
+      "marker": "HEX-LITERALS pairs=30 cases=46 signed=25 creates=23 refusals=23 mutants=4 OK"
+    },
+    "HOUSE": {
+      "capture": "HOUSE-RERUN",
+      "exit": 0,
+      "marker": "HOUSE OK"
+    }
+  },
+  "full_run": {
+    "exit": 1,
+    "failed": 3,
+    "failures": [
+      "DENOMINATORS",
+      "M0-RATIO",
+      "HEX-LITERALS"
+    ],
+    "gates": [
+      {
+        "elapsed_ms": 164.1,
+        "exit": 0,
+        "name": "BUILD",
+        "status": "PASS"
+      },
+      {
+        "elapsed_ms": 969.6,
+        "exit": 0,
+        "name": "PIN-CARRY",
+        "status": "PASS"
+      },
+      {
+        "elapsed_ms": 88.0,
+        "exit": 0,
+        "name": "R0-COUNT",
+        "status": "PASS"
+      },
+      {
+        "elapsed_ms": 56.0,
+        "exit": 0,
+        "name": "R0-AUDIT",
+        "status": "PASS"
+      },
+      {
+        "elapsed_ms": 855.7,
+        "exit": 0,
+        "name": "HOUSE",
+        "status": "PASS"
+      },
+      {
+        "elapsed_ms": 41.2,
+        "exit": 0,
+        "name": "TRUSTED-LINES",
+        "status": "PASS"
+      },
+      {
+        "elapsed_ms": 1269.6,
+        "exit": 0,
+        "name": "SUITE-KERNEL",
+        "status": "PASS"
+      },
+      {
+        "elapsed_ms": 300.8,
+        "exit": 0,
+        "name": "SUITE-SURFACE",
+        "status": "PASS"
+      },
+      {
+        "elapsed_ms": 471.3,
+        "exit": 0,
+        "name": "DRIVER",
+        "status": "PASS"
+      },
+      {
+        "elapsed_ms": 9378.1,
+        "exit": 0,
+        "name": "MUTANTS",
+        "status": "PASS"
+      },
+      {
+        "elapsed_ms": 64.2,
+        "exit": 1,
+        "name": "DENOMINATORS",
+        "status": "FAIL"
+      },
+      {
+        "elapsed_ms": 1586.8,
+        "exit": 0,
+        "name": "KECCAK-VEC",
+        "status": "PASS"
+      },
+      {
+        "elapsed_ms": 5915.0,
+        "exit": 0,
+        "name": "KECCAK-MUTANTS",
+        "status": "PASS"
+      },
+      {
+        "elapsed_ms": 3518.8,
+        "exit": 0,
+        "name": "STACK-HEIGHT",
+        "status": "PASS"
+      },
+      {
+        "elapsed_ms": 1484.6,
+        "exit": 0,
+        "name": "DISASM-3WAY",
+        "status": "PASS"
+      },
+      {
+        "elapsed_ms": 9700.6,
+        "exit": 0,
+        "name": "ASM-MUTANTS",
+        "status": "PASS"
+      },
+      {
+        "elapsed_ms": 434.9,
+        "exit": 0,
+        "name": "FORK-DRIFT",
+        "status": "PASS"
+      },
+      {
+        "elapsed_ms": 153.7,
+        "exit": 0,
+        "name": "M0-TRACE",
+        "status": "PASS"
+      },
+      {
+        "elapsed_ms": 141.9,
+        "exit": 0,
+        "name": "CREATE-EQ",
+        "status": "PASS"
+      },
+      {
+        "elapsed_ms": 190.6,
+        "exit": 0,
+        "name": "REFERENCE-CHECKS",
+        "status": "PASS"
+      },
+      {
+        "elapsed_ms": 1623.5,
+        "exit": 0,
+        "name": "REFERENCE-MUTANTS",
+        "status": "PASS"
+      },
+      {
+        "elapsed_ms": 265.4,
+        "exit": 0,
+        "name": "EMIT-CONSTRUCTORS",
+        "status": "PASS"
+      },
+      {
+        "elapsed_ms": 5.0,
+        "exit": 0,
+        "name": "WORD-UNBOX",
+        "status": "PASS"
+      },
+      {
+        "elapsed_ms": 4.7,
+        "exit": 0,
+        "name": "STORAGE-NOCLOS",
+        "status": "PASS"
+      },
+      {
+        "elapsed_ms": 231.1,
+        "exit": 0,
+        "name": "ABI-GOLD",
+        "status": "PASS"
+      },
+      {
+        "elapsed_ms": 138.2,
+        "exit": 0,
+        "name": "EMITTED-TRACE",
+        "status": "PASS"
+      },
+      {
+        "elapsed_ms": 951.4,
+        "exit": 0,
+        "name": "EMIT-SOURCES",
+        "status": "PASS"
+      },
+      {
+        "elapsed_ms": 13208.7,
+        "exit": 0,
+        "name": "EMIT-MUTANTS",
+        "status": "PASS"
+      },
+      {
+        "elapsed_ms": 10086.8,
+        "exit": 0,
+        "name": "AXIOMS",
+        "status": "PASS"
+      },
+      {
+        "elapsed_ms": 1383.2,
+        "exit": 0,
+        "name": "TRACE-DRIVER",
+        "status": "PASS"
+      },
+      {
+        "elapsed_ms": 810.8,
+        "exit": 0,
+        "name": "CORPUS",
+        "status": "PASS"
+      },
+      {
+        "elapsed_ms": 103.4,
+        "exit": 0,
+        "name": "ERASED-BYTES",
+        "status": "PASS"
+      },
+      {
+        "elapsed_ms": 106.3,
+        "exit": 1,
+        "name": "M0-RATIO",
+        "status": "FAIL"
+      },
+      {
+        "elapsed_ms": 225.6,
+        "exit": 0,
+        "name": "F-MUTANTS",
+        "status": "PASS"
+      },
+      {
+        "elapsed_ms": 8142.4,
+        "exit": 0,
+        "name": "DIFF-EXECUTOR",
+        "status": "PASS"
+      },
+      {
+        "elapsed_ms": 3370.3,
+        "exit": 0,
+        "name": "COUNTER-REFERENCE",
+        "status": "PASS"
+      },
+      {
+        "elapsed_ms": 85220.7,
+        "exit": 0,
+        "name": "M1-EMISSION",
+        "status": "PASS"
+      },
+      {
+        "elapsed_ms": 35133.9,
+        "exit": 0,
+        "name": "SOURCE-MODEL",
+        "status": "PASS"
+      },
+      {
+        "elapsed_ms": 61085.6,
+        "exit": 0,
+        "name": "CONTRACT-SURFACE",
+        "status": "PASS"
+      },
+      {
+        "elapsed_ms": 395.8,
+        "exit": 0,
+        "name": "CONTRACT-ROUTE",
+        "status": "PASS"
+      },
+      {
+        "elapsed_ms": 69622.6,
+        "exit": 0,
+        "name": "SOURCE-PROOFS",
+        "status": "PASS"
+      },
+      {
+        "elapsed_ms": 12956.5,
+        "exit": 0,
+        "name": "NULLARY-ENTRIES",
+        "status": "PASS"
+      },
+      {
+        "elapsed_ms": 19919.3,
+        "exit": 0,
+        "name": "CUSTOM-ERRORS",
+        "status": "PASS"
+      },
+      {
+        "elapsed_ms": 37934.2,
+        "exit": 0,
+        "name": "PROOF-GUARDS",
+        "status": "PASS"
+      },
+      {
+        "elapsed_ms": 17681.1,
+        "exit": 0,
+        "name": "PROOF-TERMS",
+        "status": "PASS"
+      },
+      {
+        "elapsed_ms": 22412.1,
+        "exit": 0,
+        "name": "INVARIANTS",
+        "status": "PASS"
+      },
+      {
+        "elapsed_ms": 26243.8,
+        "exit": 0,
+        "name": "PROOF-HELPERS",
+        "status": "PASS"
+      },
+      {
+        "elapsed_ms": 21600.9,
+        "exit": 0,
+        "name": "PROOF-BUNDLES",
+        "status": "PASS"
+      },
+      {
+        "elapsed_ms": 29331.9,
+        "exit": 0,
+        "name": "PREDICATES",
+        "status": "PASS"
+      },
+      {
+        "elapsed_ms": 35664.3,
+        "exit": 0,
+        "name": "COMPOUND-INVARIANTS",
+        "status": "PASS"
+      },
+      {
+        "elapsed_ms": 44133.0,
+        "exit": 0,
+        "name": "COMPOUND-GUARDS",
+        "status": "PASS"
+      },
+      {
+        "elapsed_ms": 27156.7,
+        "exit": 0,
+        "name": "NAMED-GUARDS",
+        "status": "PASS"
+      },
+      {
+        "elapsed_ms": 34298.1,
+        "exit": 0,
+        "name": "INFERRED-GUARDS",
+        "status": "PASS"
+      },
+      {
+        "elapsed_ms": 35793.5,
+        "exit": 0,
+        "name": "INFERRED-ARITHMETIC",
+        "status": "PASS"
+      },
+      {
+        "elapsed_ms": 58128.0,
+        "exit": 0,
+        "name": "INFERRED-HELPERS",
+        "status": "PASS"
+      },
+      {
+        "elapsed_ms": 45785.4,
+        "exit": 0,
+        "name": "PROOF-HOLES",
+        "status": "PASS"
+      },
+      {
+        "elapsed_ms": 39516.1,
+        "exit": 0,
+        "name": "INFERRED-BINDINGS",
+        "status": "PASS"
+      },
+      {
+        "elapsed_ms": 41765.6,
+        "exit": 0,
+        "name": "INFERRED-GUARD-BINDINGS",
+        "status": "PASS"
+      },
+      {
+        "elapsed_ms": 49260.2,
+        "exit": 0,
+        "name": "EVM-CONTEXT",
+        "status": "PASS"
+      },
+      {
+        "elapsed_ms": 27325.7,
+        "exit": 0,
+        "name": "SURFACE-CONTEXT",
+        "status": "PASS"
+      },
+      {
+        "elapsed_ms": 21235.2,
+        "exit": 0,
+        "name": "WORD-EQUALITY",
+        "status": "PASS"
+      },
+      {
+        "elapsed_ms": 567.2,
+        "exit": 1,
+        "name": "HEX-LITERALS",
+        "status": "FAIL"
+      },
+      {
+        "elapsed_ms": 24298.0,
+        "exit": 0,
+        "name": "INFERRED-WORDS",
+        "status": "PASS"
+      },
+      {
+        "elapsed_ms": 27440.6,
+        "exit": 0,
+        "name": "FALLBACK",
+        "status": "PASS"
+      },
+      {
+        "elapsed_ms": 6723.9,
+        "exit": 0,
+        "name": "DIFF-VALUE",
+        "status": "PASS"
+      },
+      {
+        "elapsed_ms": 2681.8,
+        "exit": 0,
+        "name": "TRACE-VALUE",
+        "status": "PASS"
+      },
+      {
+        "elapsed_ms": 4115.2,
+        "exit": 0,
+        "name": "TRACE-CALLER",
+        "status": "PASS"
+      },
+      {
+        "elapsed_ms": 10096.4,
+        "exit": 0,
+        "name": "DIFF-CALLER",
+        "status": "PASS"
+      },
+      {
+        "elapsed_ms": 19862.7,
+        "exit": 0,
+        "name": "PAYABLE",
+        "status": "PASS"
+      },
+      {
+        "elapsed_ms": 31566.3,
+        "exit": 0,
+        "name": "CALLVALUE",
+        "status": "PASS"
+      },
+      {
+        "elapsed_ms": 54875.4,
+        "exit": 0,
+        "name": "CALLDATASIZE",
+        "status": "PASS"
+      },
+      {
+        "elapsed_ms": 103189.7,
+        "exit": 0,
+        "name": "CALLDATALOAD",
+        "status": "PASS"
+      },
+      {
+        "elapsed_ms": 109064.1,
+        "exit": 0,
+        "name": "ADDRESS",
+        "status": "PASS"
+      }
+    ],
+    "passed": 70
+  },
+  "head": "0eed12bd951f78c9c813a54188ec662a1de129b2",
+  "repair": {
+    "paths": [
+      "dev/hex-literals-test.py",
+      "examples/HexWords.asy"
+    ],
+    "reason": "The HexWords address entry collided with the new reserved effect. Its entry and selector were renamed without changing expected values or gate counts."
+  },
+  "source_hashes_verified": 275,
+  "trusted_emitter": 1800,
+  "trusted_kernel": 3997
+}

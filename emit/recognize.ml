@@ -144,9 +144,9 @@ let proof_effects = {|  | guardLe : (a : Word 256) -> (b : Word 256) -> ((0 p : 
 |}
 let proof_names = ["wordNat"; "Le"; "AddFits"; "guardLe"; "guardAdd"; "addLt"; "subLe"]
 let has_proofs globals = List.exists (fun name -> Option.is_some (Global.find name globals)) proof_names
-type 'a context = Caller | Callvalue | Calldatasize | Calldataload of 'a
-let context_name = function Caller -> "caller" | Callvalue -> "callvalue" | Calldatasize -> "calldatasize" | Calldataload _ -> "calldataload"
-let contexts = [Caller; Callvalue; Calldatasize; Calldataload ()]
+type 'a context = Caller | Callvalue | Calldatasize | Calldataload of 'a | Address
+let context_name = function Caller -> "caller" | Callvalue -> "callvalue" | Calldatasize -> "calldatasize" | Calldataload _ -> "calldataload" | Address -> "address"
+let contexts = [Caller; Callvalue; Calldatasize; Calldataload (); Address]
 let m1_protocol_for ?(proofs=false) ?(contexts=[]) ?(deployer=false) ?(payable=false) error_source =
   base_protocol ~deployer ^
   (if proofs then proof_protocol else "") ^ error_source ^ tx_protocol ^
@@ -154,7 +154,7 @@ let m1_protocol_for ?(proofs=false) ?(contexts=[]) ?(deployer=false) ?(payable=f
   (if proofs then proof_effects else "") ^
   String.concat "" (List.map (function
     | Calldataload () -> "  | calldataload : Word 256 -> (Word 256 -> Tx) -> Tx\n"
-    | (Caller | Callvalue | Calldatasize) as source -> "  | " ^ context_name source ^ " : (Word 256 -> Tx) -> Tx\n") contexts) ^
+    | (Caller | Callvalue | Calldatasize | Address) as source -> "  | " ^ context_name source ^ " : (Word 256 -> Tx) -> Tx\n") contexts) ^
   (if payable then "  | payable : Tx -> Tx\n" else "")
 let checked_schema globals source = check_protocol ~parse_error:(fun _error -> Protocol "M1 schema")
   ~prefix:"M1 " ["Tx"] globals source

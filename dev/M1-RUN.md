@@ -30,6 +30,12 @@ It uses the same numeric spelling rules, with a uint160 value bound.
 The [core context protocol](M1-CONTEXT.md) snapshots it for `caller`
 continuations. The existing `Model.inputs` API keeps its zero caller;
 `Model.inputs_with_caller` accepts the explicit context.
+
+`--address ADDRESS` independently sets the contract address and defaults
+to zero. It accepts the same unsigned 160-bit numeric forms as `--caller`
+and may occur once. The [address effect](M1-ADDRESS.md) reads this value.
+`Model.with_address` validates and updates an existing input, preserving
+its caller, calldata, call value and storage.
 Duplicate slots are compared by numeric
 value, including slots initialized to zero. At most 1024 initial slots and
 32768 calldata bytes are accepted. Initial slots outside the declared layout

@@ -7,7 +7,7 @@ contract HexWords where
     sstore cell (word 0x01) ;
     (0 bound : Le next (word 255)) <- guard TooLarge (next) (word 0xff) (leWord next (word 0XFF)) ;
     sstore cell next ; pure next
-  entry address () : Eff Sig Word := do
+  entry literalAddress () : Eff Sig Word := do
     pure (word 0x1234567890aBcDEF1234567890abcdef12345678)
   entry mask () : Eff Sig Word := do
     pure (word 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff)

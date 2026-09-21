@@ -1,5 +1,69 @@
 # Assay M1 build log
 
+## 2026-09-21: Contract-address snapshots
+
+The thirty-eighth M1 slice starts at `0eed12b`. `self <- address`
+reads the executing contract's address as a zero-extended Word. Core and
+surface entries use a fresh snapshot, independently of the caller.
+The model accepts `run --address`, validates uint160 input before loading
+source and defaults to zero. Existing model input APIs retain their behavior.
+
+ADDRESS covers 1920 independently expected model/geth comparisons across
+all 128 combinations of errors, proofs, caller, call value, calldata size,
+calldata loads and payability. It also checks 128 unused-constructor
+artifact pairs, 40 surface probes, 55 signed Cancun calls in total, seven
+public-command checks, 24 refusals and five mutations with restored controls.
+The surface probes include zero, high-bit and maximum uint160 contract
+addresses, context preservation, checked arithmetic, typed revert payloads
+and storage rollback. The contract and caller addresses remain distinct.
+
+The default appends ADDRESS as leg 73. All 43 previous gate modes retain
+their commands, deadlines, markers and milestone classifications. Sharing
+the bounded creation-offset resolver and storage-body lookup keeps the
+emitter at 1800 of 1800 lines. The kernel remains at 3997 lines and all
+trusted bounds remain unchanged.
+
+The 73-leg run passes 70 gates and exits 1. HEX-LITERALS exposes the
+existing HexWords `address()` entry colliding with the new reserved word.
+Renaming that sample entry and its selector check to `literalAddress()`
+fixes the failure. The complete HEX-LITERALS gate and HOUSE pass on
+focused reruns, preserving the hex gate counts and mutation witnesses.
+With that repair, 71 of 73 checks pass, including every M1 feature gate.
+DENOMINATORS and M0-RATIO still fail at the existing frozen checksum
+check, independently reproduced on the clean committed baseline.
+
+Evidence is in [the validation archive](validation/2026-09-21-m1-address/README.md).
+It retains the full run, all gate logs, raw address captures, earlier
+attempts, the independent baseline checksum failure, gate compatibility
+and hashes for 275 validated source and build files. Earlier attempts
+exposed fixture syntax, artifact-directory and public-report parsing errors
+in the new harness; the final harness checks the documented compiler
+diagnostics and retains all five named mutation witnesses.
+This slice claims no new timing result or milestone exit.
+
+### Review round 2026-09-21 (M1 contract-address snapshots)
+
+C-1 (medium): the two ADDRESS-OPTION refusals in dev/address-test.py
+row 210 only required exit 64, which the missing-file read also
+returns, so a parser that accepted either flag shape still passed;
+now the check also requires empty stdout and a stderr that starts
+with `usage: assay`, and the marker is unchanged.
+
+A-1 (low): dev/M1-ADDRESS.md row 79 and the record README row 18 said
+the emitter stays or remains at 1800 lines while it grew from 1799;
+now both rows say it grows from 1799 to 1800 of 1800 lines and the
+kernel stays at 3997.
+
+D-1 (low): the record README row 36 claimed a per-file hash check
+for the archived attempts that no record artifact supports; now the
+row says FILES.sha256 hashes the archive as one file and its members
+have no separate hash inventory.
+
+D-2 (low): the record README row 40 gave the VALIDATED-SOURCES count
+275 without the selection rule that widened from the predecessor
+record's 270; now a continuation row states the rule and names the
+five added paths.
+
 ## 2026-09-20: Calldata-word reads
 
 The thirty-seventh M1 slice starts at `15c417c`. `value <- calldataload

@@ -94,6 +94,8 @@ The thirty-sixth adds [calldata-size snapshots](dev/M1-CALLDATASIZE.md),
 reading the complete calldata byte length with `size <- calldatasize`.
 The thirty-seventh adds [calldata-word reads](dev/M1-CALLDATALOAD.md),
 loading a zero-padded word at any byte offset with `value <- calldataload offset`.
+The thirty-eighth adds [contract-address snapshots](dev/M1-ADDRESS.md),
+reading the executing contract's address with `self <- address`.
 
 ```sh
 dune build
@@ -184,7 +186,7 @@ are refused with `DIFF_CALLER` and exit 64 before compilation. The
 [caller contract](dev/M1-DIFF-CALLER.md) lists the addresses and prestate rules.
 
 `run FILE [--calldata HEX] [--storage SLOT=WORD]... [--value WORD]
-[--caller ADDRESS] [--export NAME]`
+[--caller ADDRESS] [--address ADDRESS] [--export NAME]`
 interprets specialized source effects and prints JSON containing status,
 returned bytes and storage. It needs no external tools and writes no files.
 Storage defaults to empty and describes an already deployed contract.
@@ -194,6 +196,8 @@ named source refusal exits 2. The [source model contract](dev/M1-RUN.md)
 defines the numeric formats, bounds and shared specialization boundary.
 `--caller` supplies an unsigned 160-bit address, defaulting to zero.
 The optional core `caller` effect reads that execution context.
+`--address` independently supplies the model's unsigned 160-bit contract
+address, defaulting to zero. The `address` effect reads that input.
 
 `deploy` and `test` still exit 3 with named `PENDING` diagnostics. They
 print `PENDING (M1)` today and gain behavior at M4 (R-8a).
@@ -323,7 +327,10 @@ and five mutations with restored controls.
 The calldata-word gate adds 2240 core comparisons, 35 signed calls,
 64 artifact pairs, 31 surface cases, two public command calls, 18 refusals
 and five mutations with restored controls.
-`dev/gates.sh` selects `--m1-calldataload`. Its 72 legs
+The address gate adds 1920 core comparisons, 128 artifact pairs,
+40 surface cases, 55 signed calls, seven public command checks,
+24 refusals and five mutations with restored controls.
+`dev/gates.sh` selects `--m1-address`. Its 73 legs
 include the proof-bundle, named-predicate, compound-invariant,
 named-guard, inferred-guard and inferred-arithmetic suites.
 The inferred-helper gate adds 254 source/EVM comparisons, two creation

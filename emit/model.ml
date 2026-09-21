@@ -5,7 +5,7 @@ let ( let* ) = Result.bind
 type storage = (Z.t * Z.t) list
 type outcome = { reverted : bool; output : string; storage : storage }
 type program = Closed of E.effect | Entries of E.entry list * E.transaction
-type input = { data : string; value : Z.t; caller : Z.t; initial : storage }
+type input = { data : string; value : Z.t; caller : Z.t; address : Z.t; initial : storage }
 type error = Source of E.error | Input of string | Missing_memory of int
 
 let error = function
@@ -55,7 +55,11 @@ let inputs_with_caller ~data ~value ~storage ~caller =
   let* data = calldata data in let* value = word value in let* initial = parse_storage storage in
   let* caller = word caller in
   if Z.numbits caller > 160 then Error (Input "caller exceeds uint160")
-  else Ok {data; value; caller; initial = canonical initial}
+  else Ok {data; value; caller; address = Z.zero; initial = canonical initial}
+
+let with_address input address =
+  let* address = word address in
+  if Z.numbits address > 160 then Error (Input "address exceeds uint160") else Ok {input with address}
 
 let inputs ~data ~value ~storage = inputs_with_caller ~data ~value ~storage ~caller:"0"
 
@@ -82,6 +86,7 @@ let rec transaction input storage memory = function
     transaction input storage ((index, get storage slot) :: memory) next
   | E.Context (source, index, next) ->
     let* value = match source with Recognize.Caller -> Ok input.caller | Recognize.Callvalue -> Ok input.value
+      | Recognize.Address -> Ok input.address
       | Recognize.Calldatasize -> Ok (Z.of_int (Int.div (String.length input.data) 2))
       | Recognize.Calldataload offset -> let* offset = operand memory offset in Ok (calldata_word input.data offset) in
     transaction input storage ((index, value) :: memory) next
@@ -106,8 +111,7 @@ let prepare ~export globals erased =
     let* entries, constructor, _fields, _errors, fallback = source (E.prepare_m1 ~export globals erased) in
     let rec valid = function
       | E.Return value when Z.equal value Z.zero -> Ok ()
-      | E.Put (_, _, next) -> valid next
-      | E.Deployer (_, next) -> valid next
+      | E.Put (_, _, next) | E.Deployer (_, next) -> valid next
       | E.Return _ | E.Read _ -> Error (Source (E.M1_shape "constructor must end with ret zero")) in
     let* () = valid constructor in Ok (Entries (entries, Option.value fallback ~default:E.Abort))
   else let* effect, _fields = source (E.prepare_m0 ~export globals erased) in Ok (Closed effect)

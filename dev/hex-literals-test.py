@@ -159,7 +159,7 @@ def live():
                     output=f'0x{n:064x}' if good else '0x' + failure + f'{n:064x}{255:064x}',
                     storage=({'0': hex(n)} if n else {}) if good else {'0': '0x7'})
         records.append(outcome('example-' + str(n), path, runtime, sig + f'{n:064x}', want, signed=True))
-    for method, number in [('address()', address), ('mask()', MAX)]:
+    for method, number in [('literalAddress()', address), ('mask()', MAX)]:
         records.append(outcome(method, path, runtime, selector(method),
                                dict(status='success', output=f'0x{number:064x}', storage={'0': '0x7'}), signed=True))
     for name, data, value in [('short', sig + '00' * 31, 0), ('unknown', 'ffffffff', 0), ('value', sig + '00' * 32, 1)]:

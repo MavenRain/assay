@@ -173,26 +173,27 @@ let rec blocks width index marked = function
       [A.Op "CALLER"; push slot; A.Op "SSTORE"] (A.Goto (width, "step" ^ string_of_int (index + 1))) ::
     blocks width (index + 1) true next
 
-let init runtime =
-  let size = String.length runtime lsr 1 in
-  let prefix offset = assemble [block "init"
-    [number size; number offset; A.Push ""; A.Op "CODECOPY"; number size; A.Push ""] (A.Halt A.Return)] in
+let settle_init runtime prefix =
   let rec settle fuel offset =
-    if fuel = 0 then Error Budget else
+    let* fuel = tick fuel in
     let* program = prefix offset in
     let hex = A.hex program in let actual = String.length hex lsr 1 in
-    if actual = offset then Ok (hex ^ runtime) else settle (fuel - 1) actual
-  in settle 4 0
+    if actual = offset then Ok (hex ^ runtime) else settle fuel actual in
+  settle 4 0
+let init runtime =
+  let size = String.length runtime lsr 1 in
+  settle_init runtime (fun offset -> assemble [block "init"
+    [number size; number offset; A.Push ""; A.Op "CODECOPY"; number size; A.Push ""] (A.Halt A.Return)])
 
 type output = { runtime : string; init : string; abi : string; layout : string;
                 axioms : string; listing : string; fields : int }
 
+let lookup_body env name = Option.map (fun fn -> fn.body) (List.assoc_opt name env.functions)
 let prepare_m0 ~export globals erased =
   let* () = recognize (R.schema globals) in
   let env = environment erased in
-  let lookup name = Option.map (fun fn -> fn.body) (List.assoc_opt name env.functions) in
-  let* storage_body = lookup "storage" |> Option.to_result ~none:(Missing "storage") in
-  let* () = recognize (R.no_closure lookup [] storage_body) in
+  let* storage_body = lookup_body env "storage" |> Option.to_result ~none:(Missing "storage") in
+  let* () = recognize (R.no_closure (lookup_body env) [] storage_body) in
   let* storage, fuel = call env 100000 "storage" [] in
   let* fields = recognize (R.storage storage) in
   let* () = recognize (R.storage_type globals (List.length fields)) in
@@ -304,8 +305,9 @@ let rec transaction env errors slots depth fuel fresh value =
          | R.Caller, [fn] -> Ok (R.Caller, fn)
          | R.Callvalue, [fn] -> Ok (R.Callvalue, fn)
          | R.Calldatasize, [fn] -> Ok (R.Calldatasize, fn)
+         | R.Address, [fn] -> Ok (R.Address, fn)
          | R.Calldataload (), [offset; fn] -> let* offset = operand offset in Ok (R.Calldataload offset, fn)
-         | (R.Caller | R.Callvalue | R.Calldatasize | R.Calldataload ()), _ -> Error (M1_shape "context arguments") in
+         | (R.Caller | R.Callvalue | R.Calldatasize | R.Calldataload () | R.Address), _ -> Error (M1_shape "context arguments") in
        let* next, fuel, next_fresh = continuation fuel (fresh + 1) fn (R.Runtime_word fresh) in
        Ok (Context (source, fresh, next), fuel, next_fresh)
      | 7, [value] -> let* tx = error_value errors value in Ok (tx, fuel, fresh)
@@ -352,7 +354,7 @@ let rec transaction_blocks label tx =
   | Load (slot, index, next) -> continue ([push slot; A.Op "SLOAD"] @ save index) next
   | Context (source, index, next) ->
     let prefix = match source with R.Calldataload offset -> read_operand offset
-      | R.Caller | R.Callvalue | R.Calldatasize -> [] in
+      | R.Caller | R.Callvalue | R.Calldatasize | R.Address -> [] in
     continue (prefix @ [A.Op (String.uppercase_ascii (R.context_name source))] @ save index) next
   | Compute (op, left, right, index, next) ->
     let compute = match op with
@@ -444,26 +446,19 @@ let rec constructor_body = function
 let init_m1 runtime constructor =
   let* body = constructor_body constructor in
   let size = String.length runtime lsr 1 in
-  let prefix offset = assemble
+  settle_init runtime (fun offset -> assemble
     [block "constructor" [A.Op "CALLVALUE"] (branch_to "reject" "initialize");
      marked "initialize" (body @ [number size; number offset; number 0; A.Op "CODECOPY"; number size; number 0])
        (A.Halt A.Return);
-     marked "reject" [number 0; number 0] (A.Halt A.Revert)] in
-  let rec settle fuel offset =
-    let* fuel = tick fuel in
-    let* program = prefix offset in
-    let hex = A.hex program in let actual = String.length hex lsr 1 in
-    if actual = offset then Ok (hex ^ runtime) else settle fuel actual in
-  settle 4 0
+      marked "reject" [number 0; number 0] (A.Halt A.Revert)])
 
 let prepare_m1 ~export globals erased =
   let* fields, declarations, errors = recognize (R.m1_schema globals) in
   let* errors = error_table errors in
   let* () = recognize (R.m1_export globals export) in
   let env = environment erased in
-  let lookup name = Option.map (fun fn -> fn.body) (List.assoc_opt name env.functions) in
-  let* body = lookup "storage" |> Option.to_result ~none:(Missing "storage") in
-  let* () = recognize (R.no_closure lookup [] body) in
+  let* body = lookup_body env "storage" |> Option.to_result ~none:(Missing "storage") in
+  let* () = recognize (R.no_closure (lookup_body env) [] body) in
   let* storage, fuel = call env 100000 "storage" [] in
   let* slots = recognize (R.storage storage) in
   if List.length slots <> List.length fields then Error (Recognizer R.Storage_shape) else
