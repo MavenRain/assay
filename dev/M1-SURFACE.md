@@ -53,6 +53,7 @@ trailing calldata and revert on short heads or unknown selectors.
 | `x <- caller ; REST` | Snapshot the immediate caller and bind its Word value |
 | `x <- callvalue ; REST` | Snapshot the current call's value as a Word |
 | `x <- calldatasize ; REST` | Snapshot the complete calldata byte length as a Word |
+| `x <- calldataload OFFSET ; REST` | Read a zero-padded 32-byte calldata word at a Word byte offset |
 | `x <- add a b ; REST` | Eliminate `ResultWord`, continuing with success or reverting on overflow |
 | `x <- sub a b ; REST` | Eliminate `ResultWord`, continuing with success or reverting on underflow |
 | `sstore field value ; REST` | Store a word and continue |

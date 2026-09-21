@@ -200,11 +200,16 @@ def refusals():
 
 def mutants():
     cases = [
-        ('RADIX', 'then 16, 2, 66', 'then 10, 2, 66', 'pairs', 'HEX-PAIR value-00 runtime.hex'),
-        ('EMPTY', 'size <= first || size > maximum', 'size > maximum', 'refusals', 'HEX-REFUSAL empty-lower check'),
-        ('RANGE', 'if Z.compare n (Z.shift_left Z.one 256) < 0', 'if Z.compare n (Z.shift_left Z.one 256) <= 0',
+        ('RADIX', 'emit/recognize.ml', 'Z.of_string_base (if hex then 16 else 10)', 'Z.of_string_base 10',
+         'pairs', 'HEX-PAIR value-00 runtime.hex'),
+        ('EMPTY', 'emit/recognize.ml',
+         'let digits = if hex then String.of_seq (Seq.drop 2 (String.to_seq text)) else text in',
+         'let digits = if hex then String.of_seq (Seq.drop 2 (String.to_seq text)) else text in\n'
+         '  let digits = if digits = "" then "0" else digits in', 'refusals', 'HEX-REFUSAL empty-lower check'),
+        ('RANGE', 'emit/recognize.ml', 'if Z.numbits value > 256', 'if Z.gt value (Z.shift_left Z.one 256)',
          'refusals', 'HEX-REFUSAL decimal-overflow check'),
-        ('NORMALIZE', 'text = Z.to_string n', 'text = (if hexadecimal then Z.to_string n else at.text)',
+        ('NORMALIZE', 'emit/contract.ml', 'text = Z.to_string n',
+         'text = (if String.starts_with ~prefix:"0x" (String.lowercase_ascii at.text) then Z.to_string n else at.text)',
          'pairs', 'HEX-EMIT proof-inference'),
     ]
     records = []
@@ -212,9 +217,9 @@ def mutants():
         copy = Path(temporary) / 'copy'
         shutil.copytree(ROOT, copy, ignore=shutil.ignore_patterns('.*', '_build', '.gatework',
             '.lake', 'vendor', 'validation', '__pycache__'))
-        path = copy / 'emit/contract.ml'
-        original = path.read_text()
-        for name, before, after, witness, marker in cases:
+        for name, file, before, after, witness, marker in cases:
+            path = copy / file
+            original = path.read_text()
             require(original.count(before) == 1, 'HEX-MUTANT anchor ' + name)
             for mutated in (True, False):
                 path.write_text(original.replace(before, after) if mutated else original)

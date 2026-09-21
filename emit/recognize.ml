@@ -27,6 +27,14 @@ let error = function
   | Storage_slot -> "STORAGE_SLOT: slots must be consecutive from zero"
 
 let ( let* ) = Result.bind
+let parse_word ~invalid ~overflow text =
+  let text = String.lowercase_ascii text in
+  let hex = String.starts_with ~prefix:"0x" text in
+  let digits = if hex then String.of_seq (Seq.drop 2 (String.to_seq text)) else text in
+  let valid c = (c >= '0' && c <= '9') || (hex && c >= 'a' && c <= 'f') in
+  if digits = "" || String.length digits > (if hex then 64 else 78) || not (String.for_all valid digits) then Error invalid else
+  let value = Z.of_string_base (if hex then 16 else 10) digits in
+  if Z.numbits value > 256 then Error overflow else Ok value
 let word_tid = Eterm.Tid "mu<Word>"
 let eff_tid = Eterm.Tid "mu<Eff>"
 
@@ -136,15 +144,17 @@ let proof_effects = {|  | guardLe : (a : Word 256) -> (b : Word 256) -> ((0 p : 
 |}
 let proof_names = ["wordNat"; "Le"; "AddFits"; "guardLe"; "guardAdd"; "addLt"; "subLe"]
 let has_proofs globals = List.exists (fun name -> Option.is_some (Global.find name globals)) proof_names
-type context = Caller | Callvalue | Calldatasize
-let context_name = function Caller -> "caller" | Callvalue -> "callvalue" | Calldatasize -> "calldatasize"
-let contexts = [Caller; Callvalue; Calldatasize]
+type 'a context = Caller | Callvalue | Calldatasize | Calldataload of 'a
+let context_name = function Caller -> "caller" | Callvalue -> "callvalue" | Calldatasize -> "calldatasize" | Calldataload _ -> "calldataload"
+let contexts = [Caller; Callvalue; Calldatasize; Calldataload ()]
 let m1_protocol_for ?(proofs=false) ?(contexts=[]) ?(deployer=false) ?(payable=false) error_source =
   base_protocol ~deployer ^
   (if proofs then proof_protocol else "") ^ error_source ^ tx_protocol ^
   (if error_source = "" then "" else "  | reject : Error -> Tx\n") ^
   (if proofs then proof_effects else "") ^
-  String.concat "" (List.map (fun source -> "  | " ^ context_name source ^ " : (Word 256 -> Tx) -> Tx\n") contexts) ^
+  String.concat "" (List.map (function
+    | Calldataload () -> "  | calldataload : Word 256 -> (Word 256 -> Tx) -> Tx\n"
+    | (Caller | Callvalue | Calldatasize) as source -> "  | " ^ context_name source ^ " : (Word 256 -> Tx) -> Tx\n") contexts) ^
   (if payable then "  | payable : Tx -> Tx\n" else "")
 let checked_schema globals source = check_protocol ~parse_error:(fun _error -> Protocol "M1 schema")
   ~prefix:"M1 " ["Tx"] globals source

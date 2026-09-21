@@ -92,6 +92,8 @@ The thirty-fifth adds [call-value snapshots](dev/M1-CALLVALUE.md), reading
 the current call's value with `amount <- callvalue` in contract source.
 The thirty-sixth adds [calldata-size snapshots](dev/M1-CALLDATASIZE.md),
 reading the complete calldata byte length with `size <- calldatasize`.
+The thirty-seventh adds [calldata-word reads](dev/M1-CALLDATALOAD.md),
+loading a zero-padded word at any byte offset with `value <- calldataload offset`.
 
 ```sh
 dune build
@@ -318,7 +320,10 @@ and four mutations with restored controls.
 The calldata-size gate adds 1024 core comparisons, 28 signed comparisons,
 32 artifact pairs, 16 surface cases, two public command calls, 13 refusals
 and five mutations with restored controls.
-`dev/gates.sh` selects `--m1-calldatasize`. Its 71 legs
+The calldata-word gate adds 2240 core comparisons, 35 signed calls,
+64 artifact pairs, 31 surface cases, two public command calls, 18 refusals
+and five mutations with restored controls.
+`dev/gates.sh` selects `--m1-calldataload`. Its 72 legs
 include the proof-bundle, named-predicate, compound-invariant,
 named-guard, inferred-guard and inferred-arithmetic suites.
 The inferred-helper gate adds 254 source/EVM comparisons, two creation

@@ -1,0 +1,4 @@
+REFERENCE-ORACLE evm version 1.14.12-stable
+REFERENCE-ORACLE cast 0.3.0 (5a8bd89 2024-12-20T08:45:53.135759000Z)
+REFERENCE-MEASURE runtime_bytes=20 gas=22232
+M0-TRACE scope=reference bytes=20 listing=17 cast=17 evm=13 skipped=4 storage=42 return=42 OK

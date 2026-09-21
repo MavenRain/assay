@@ -288,16 +288,16 @@ def independent():
 def mutants():
     cases = [
         ('CALLER', 'emit/emit.ml', 'String.uppercase_ascii (R.context_name source)',
-         '(match source with R.Caller -> "ORIGIN" | R.Callvalue -> "CALLVALUE" | R.Calldatasize -> "CALLDATASIZE")',
+         '(if source = R.Caller then "ORIGIN" else String.uppercase_ascii (R.context_name source))',
          'nested', 'CONTEXT-PROXY'),
         ('DEPLOYER', 'emit/emit.ml', 'Ok ([A.Op "CALLER"; push slot; A.Op "SSTORE"] @ next)',
          'Ok ([A.Op "ORIGIN"; push slot; A.Op "SSTORE"] @ next)', 'nested', 'CONTEXT-FACTORY'),
-        ('SNAPSHOT', 'emit/emit.ml', 'let* source = List.assoc_opt tag env.context_tags |> Option.to_result ~none:(M1_shape "context tag") in\n'
-         '       let* next, fuel, next_fresh = continuation fuel (fresh + 1) fn (R.Runtime_word fresh)',
-         'let* source = List.assoc_opt tag env.context_tags |> Option.to_result ~none:(M1_shape "context tag") in\n'
-         '       let* next, fuel, next_fresh = continuation fuel fresh fn (R.Runtime_word fresh)',
+        ('SNAPSHOT', 'emit/emit.ml', 'continuation fuel (fresh + 1) fn (R.Runtime_word fresh) in\n'
+         '       Ok (Context (source, fresh, next), fuel, next_fresh)',
+         'continuation fuel fresh fn (R.Runtime_word fresh) in\n'
+         '       Ok (Context (source, fresh, next), fuel, next_fresh)',
          'live', 'CONTEXT-MODEL who'),
-        ('MODEL', 'emit/model.ml', 'Recognize.Caller -> input.caller', 'Recognize.Caller -> Z.zero',
+        ('MODEL', 'emit/model.ml', 'Recognize.Caller -> Ok input.caller', 'Recognize.Caller -> Ok Z.zero',
          'live', 'CONTEXT-MODEL who'),
         ('ADDRESS', 'emit/model.ml', 'Z.numbits caller > 160', 'Z.numbits caller > 256',
          'inputs', 'CONTEXT-INPUT 1'),

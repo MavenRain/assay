@@ -10,10 +10,11 @@ import time
 
 def main():
     root = Path(__file__).resolve().parent.parent
-    if sys.argv[1:] not in ([], ["--keccak"], ["--asm"], ["--reference"], ["--emit"], ["--m0"], ["--m1-executor"], ["--m1-counter"], ["--m1-emission"], ["--m1-run"], ["--m1-surface"], ["--m1-proofs"], ["--m1-nullary"], ["--m1-errors"], ["--m1-guards"], ["--m1-proof-terms"], ["--m1-invariants"], ["--m1-proof-helpers"], ["--m1-proof-bundles"], ["--m1-predicates"], ["--m1-compound-invariants"], ["--m1-compound-guards"], ["--m1-named-guards"], ["--m1-inferred-guards"], ["--m1-inferred-arithmetic"], ["--m1-inferred-helpers"], ["--m1-proof-holes"], ["--m1-inferred-bindings"], ["--m1-inferred-guard-bindings"], ["--m1-context"], ["--m1-context-surface"], ["--m1-equality"], ["--m1-hex-literals"], ["--m1-inferred-words"], ["--m1-fallback"], ["--m1-diff-value"], ["--m1-trace-value"], ["--m1-trace-caller"], ["--m1-diff-caller"], ["--m1-payable"], ["--m1-callvalue"], ["--m1-calldatasize"]):
-        print("usage: stage-a-gates.py [--keccak|--asm|--reference|--emit|--m0|--m1-executor|--m1-counter|--m1-emission|--m1-run|--m1-surface|--m1-proofs|--m1-nullary|--m1-errors|--m1-guards|--m1-proof-terms|--m1-invariants|--m1-proof-helpers|--m1-proof-bundles|--m1-predicates|--m1-compound-invariants|--m1-compound-guards|--m1-named-guards|--m1-inferred-guards|--m1-inferred-arithmetic|--m1-inferred-helpers|--m1-proof-holes|--m1-inferred-bindings|--m1-inferred-guard-bindings|--m1-context|--m1-context-surface|--m1-equality|--m1-hex-literals|--m1-inferred-words|--m1-fallback|--m1-diff-value|--m1-trace-value|--m1-trace-caller|--m1-diff-caller|--m1-payable|--m1-callvalue|--m1-calldatasize]")
+    if sys.argv[1:] not in ([], ["--keccak"], ["--asm"], ["--reference"], ["--emit"], ["--m0"], ["--m1-executor"], ["--m1-counter"], ["--m1-emission"], ["--m1-run"], ["--m1-surface"], ["--m1-proofs"], ["--m1-nullary"], ["--m1-errors"], ["--m1-guards"], ["--m1-proof-terms"], ["--m1-invariants"], ["--m1-proof-helpers"], ["--m1-proof-bundles"], ["--m1-predicates"], ["--m1-compound-invariants"], ["--m1-compound-guards"], ["--m1-named-guards"], ["--m1-inferred-guards"], ["--m1-inferred-arithmetic"], ["--m1-inferred-helpers"], ["--m1-proof-holes"], ["--m1-inferred-bindings"], ["--m1-inferred-guard-bindings"], ["--m1-context"], ["--m1-context-surface"], ["--m1-equality"], ["--m1-hex-literals"], ["--m1-inferred-words"], ["--m1-fallback"], ["--m1-diff-value"], ["--m1-trace-value"], ["--m1-trace-caller"], ["--m1-diff-caller"], ["--m1-payable"], ["--m1-callvalue"], ["--m1-calldatasize"], ["--m1-calldataload"]):
+        print("usage: stage-a-gates.py [--keccak|--asm|--reference|--emit|--m0|--m1-executor|--m1-counter|--m1-emission|--m1-run|--m1-surface|--m1-proofs|--m1-nullary|--m1-errors|--m1-guards|--m1-proof-terms|--m1-invariants|--m1-proof-helpers|--m1-proof-bundles|--m1-predicates|--m1-compound-invariants|--m1-compound-guards|--m1-named-guards|--m1-inferred-guards|--m1-inferred-arithmetic|--m1-inferred-helpers|--m1-proof-holes|--m1-inferred-bindings|--m1-inferred-guard-bindings|--m1-context|--m1-context-surface|--m1-equality|--m1-hex-literals|--m1-inferred-words|--m1-fallback|--m1-diff-value|--m1-trace-value|--m1-trace-caller|--m1-diff-caller|--m1-payable|--m1-callvalue|--m1-calldatasize|--m1-calldataload]")
         return 64
-    calldatasize = sys.argv[1:] == ["--m1-calldatasize"]
+    calldataload = sys.argv[1:] == ["--m1-calldataload"]
+    calldatasize = calldataload or sys.argv[1:] == ["--m1-calldatasize"]
     callvalue = calldatasize or sys.argv[1:] == ["--m1-callvalue"]
     payable = callvalue or sys.argv[1:] == ["--m1-payable"]
     diff_caller = payable or sys.argv[1:] == ["--m1-diff-caller"]
@@ -238,6 +239,9 @@ def main():
     if calldatasize:
         legs.append(("CALLDATASIZE", 600, ("python3", "-P", "dev/calldatasize-test.py"),
                      "CALLDATASIZE cases=1024 signed=28 pairs=32 probes=16 public=2 refusals=13 mutants=5 OK"))
+    if calldataload:
+        legs.append(("CALLDATALOAD", 600, ("python3", "-P", "dev/calldataload-test.py"),
+                     "CALLDATALOAD cases=2240 signed=35 pairs=64 probes=31 public=2 refusals=18 mutants=5 OK"))
     # Review round 2026-09-11 (D-1):  the M0 verdict reads the legs of
     # M0-PLAN section 8 only.  A leg that this mode appends is an M1 leg,
     # so its failure moves the stage line and the exit code, not M0.
@@ -291,6 +295,9 @@ def main():
     if calldatasize:
         stage = "M1-CALLDATASIZE"
         m1_names.add("CALLDATASIZE")
+    if calldataload:
+        stage = "M1-CALLDATALOAD"
+        m1_names.add("CALLDATALOAD")
     work = root / (".gatework/stage-" + stage.lower())
     work.mkdir(parents=True, exist_ok=True)
     failed = False

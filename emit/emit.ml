@@ -29,7 +29,7 @@ let error = function
 let recognize result = Result.map_error (fun e -> Recognizer e) result
 type fn = { params : Eterm.repr list; result : Eterm.repr; body : Eterm.ktm }
 type environment = { functions : (string * fn) list; postulates : string list; runtime : bool;
-                     context_tags : (int * R.context) list; payable_tag : int option }
+                     context_tags : (int * unit R.context) list; payable_tag : int option }
 let environment ?(runtime=false) rows =
   List.fold_left (fun env (name, entry) -> match entry with
     | Erase.Dropped -> env
@@ -223,7 +223,7 @@ type transaction = Finish of operand | Abort
   | Reject of string * operand list
   | Store of Z.t * operand * transaction
   | Load of Z.t * int * transaction
-  | Context of R.context * int * transaction
+  | Context of operand R.context * int * transaction
   | Arithmetic of arithmetic * operand * operand * int * transaction * transaction
   | Compute of arithmetic * operand * operand * int * transaction
   | Compare of operand * operand * transaction * transaction
@@ -298,8 +298,14 @@ let rec transaction env errors slots depth fuel fresh value =
      | 6, [] -> Ok (Abort, fuel, fresh)
      | tag, _fields when Some tag = env.payable_tag ->
        Error (M1_shape "payable must wrap the complete entry")
-     | tag, [fn] when List.mem_assoc tag env.context_tags ->
+     | tag, fields when List.mem_assoc tag env.context_tags ->
        let* source = List.assoc_opt tag env.context_tags |> Option.to_result ~none:(M1_shape "context tag") in
+       let* source, fn = match source, fields with
+         | R.Caller, [fn] -> Ok (R.Caller, fn)
+         | R.Callvalue, [fn] -> Ok (R.Callvalue, fn)
+         | R.Calldatasize, [fn] -> Ok (R.Calldatasize, fn)
+         | R.Calldataload (), [offset; fn] -> let* offset = operand offset in Ok (R.Calldataload offset, fn)
+         | (R.Caller | R.Callvalue | R.Calldatasize | R.Calldataload ()), _ -> Error (M1_shape "context arguments") in
        let* next, fuel, next_fresh = continuation fuel (fresh + 1) fn (R.Runtime_word fresh) in
        Ok (Context (source, fresh, next), fuel, next_fresh)
      | 7, [value] -> let* tx = error_value errors value in Ok (tx, fuel, fresh)
@@ -345,7 +351,9 @@ let rec transaction_blocks label tx =
   | Store (slot, value, next) -> continue (read_operand value @ [push slot; A.Op "SSTORE"]) next
   | Load (slot, index, next) -> continue ([push slot; A.Op "SLOAD"] @ save index) next
   | Context (source, index, next) ->
-    continue ([A.Op (String.uppercase_ascii (R.context_name source))] @ save index) next
+    let prefix = match source with R.Calldataload offset -> read_operand offset
+      | R.Caller | R.Callvalue | R.Calldatasize -> [] in
+    continue (prefix @ [A.Op (String.uppercase_ascii (R.context_name source))] @ save index) next
   | Compute (op, left, right, index, next) ->
     let compute = match op with
       | Add -> read_operand left @ read_operand right @ [A.Op "ADD"]

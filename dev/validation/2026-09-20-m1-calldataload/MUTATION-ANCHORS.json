@@ -1,0 +1,122 @@
+[
+  {
+    "test": "context-test.py",
+    "mutant": "CALLER",
+    "matches": 1
+  },
+  {
+    "test": "context-test.py",
+    "mutant": "DEPLOYER",
+    "matches": 1
+  },
+  {
+    "test": "context-test.py",
+    "mutant": "SNAPSHOT",
+    "matches": 1
+  },
+  {
+    "test": "context-test.py",
+    "mutant": "MODEL",
+    "matches": 1
+  },
+  {
+    "test": "context-test.py",
+    "mutant": "ADDRESS",
+    "matches": 1
+  },
+  {
+    "test": "context-test.py",
+    "mutant": "SCHEMA",
+    "matches": 1
+  },
+  {
+    "test": "callvalue-test.py",
+    "mutant": "SURFACE",
+    "matches": 1
+  },
+  {
+    "test": "callvalue-test.py",
+    "mutant": "EMITTER",
+    "matches": 1
+  },
+  {
+    "test": "callvalue-test.py",
+    "mutant": "MODEL",
+    "matches": 1
+  },
+  {
+    "test": "callvalue-test.py",
+    "mutant": "SCHEMA",
+    "matches": 1
+  },
+  {
+    "test": "calldatasize-test.py",
+    "mutant": "SURFACE",
+    "matches": 1
+  },
+  {
+    "test": "calldatasize-test.py",
+    "mutant": "EMITTER",
+    "matches": 1
+  },
+  {
+    "test": "calldatasize-test.py",
+    "mutant": "MODEL",
+    "matches": 1
+  },
+  {
+    "test": "calldatasize-test.py",
+    "mutant": "SCHEMA",
+    "matches": 1
+  },
+  {
+    "test": "calldatasize-test.py",
+    "mutant": "SNAPSHOT",
+    "matches": 1
+  },
+  {
+    "test": "calldataload-test.py",
+    "mutant": "SURFACE",
+    "matches": 1
+  },
+  {
+    "test": "calldataload-test.py",
+    "mutant": "EMITTER",
+    "matches": 1
+  },
+  {
+    "test": "calldataload-test.py",
+    "mutant": "MODEL",
+    "matches": 1
+  },
+  {
+    "test": "calldataload-test.py",
+    "mutant": "SCHEMA",
+    "matches": 1
+  },
+  {
+    "test": "calldataload-test.py",
+    "mutant": "SNAPSHOT",
+    "matches": 1
+  },
+  {
+    "test": "hex-literals-test.py",
+    "mutant": "RADIX",
+    "matches": 1
+  },
+  {
+    "test": "hex-literals-test.py",
+    "mutant": "EMPTY",
+    "matches": 1
+  },
+  {
+    "test": "hex-literals-test.py",
+    "mutant": "RANGE",
+    "matches": 1
+  },
+  {
+    "test": "hex-literals-test.py",
+    "mutant": "NORMALIZE",
+    "matches": 1
+  }
+]

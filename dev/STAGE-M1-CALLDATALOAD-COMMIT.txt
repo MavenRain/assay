@@ -1,0 +1,9 @@
+M1: add calldata-word reads
+
+Read a zero-padded Word at a byte offset in checked core and surface
+entries. Share typed context snapshots, lexical whitespace handling and
+uint256 parsing while retaining the 1800-line emitter bound.
+
+Add model and Cancun comparisons, signed calls, unused declaration
+checks, public command probes and five mutations with restored controls.
+Preserve previous gate modes and adapt their affected mutation anchors.

@@ -1,0 +1,6 @@
+{
+  "job": "/Users/oobi/Documents/gpt1/assay-m1-calldataload/.kanon-wait/job-1RJ8zR",
+  "capture": ".kanon-exec/run-uKYB8G",
+  "observation": "One wait returned supervisor heartbeat lost with unknown exit status. The same job subsequently returned progress, and fresh gate logs confirmed continuation. No restart or validation-result inference was used.",
+  "recovered": true
+}

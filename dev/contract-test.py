@@ -244,15 +244,15 @@ def mutants():
          'let bind name = lower (index + 1) (env @ [(name.text, Word_value fresh)])', 'shadow'),
         ('SHADOW-LOAD', 'let* next = lower (index + 1) ((name.text, Word_value fresh) :: env)',
          'let* next = lower (index + 1) (env @ [(name.text, Word_value fresh)])', 'shadow-load'),
-        ('LITERAL', 'Z.shift_left Z.one 256', 'Z.shift_left Z.one 257', 'word-range'),
+        ('LITERAL', 'Z.numbits value > 256', 'Z.numbits value > 257', 'word-range'),
     ]
     with tempfile.TemporaryDirectory(prefix='assay-contract-mutants-') as temporary:
         copy = Path(temporary) / 'copy'
         shutil.copytree(ROOT, copy, ignore=shutil.ignore_patterns('.*', '_build', '.gatework',
             '.lake', 'vendor', 'validation', '__pycache__'))
-        path = copy / 'emit/contract.ml'
-        original = path.read_text()
         for name, before, after, example in cases:
+            path = copy / ('emit/recognize.ml' if name == 'LITERAL' else 'emit/contract.ml')
+            original = path.read_text()
             require(original.count(before) == 1, 'SURFACE-MUTANT-ANCHOR ' + name)
             path.write_text(original.replace(before, after))
             build = M.capture('mutant-' + name + '-build', ['zsh', '-f', 'dev/dune.sh', 'build'], cwd=copy, timeout=120)

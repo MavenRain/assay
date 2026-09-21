@@ -1,0 +1,12 @@
+{
+  "candidates": [
+    {
+      "file": "dev/calldataload-test.py",
+      "line": 126,
+      "previous_files": [
+        "emit/contract.ml"
+      ],
+      "text": "0123456789abcdef"
+    }
+  ]
+}

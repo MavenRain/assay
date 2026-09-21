@@ -1,0 +1,5 @@
+PAYABLE-MUTANT ABI killed control=OK
+PAYABLE-MUTANT GUARD killed control=OK
+PAYABLE-MUTANT FALLBACK killed control=OK
+PAYABLE-MUTANT MODEL killed control=OK
+PAYABLE cases=216 signed=24 pairs=8 probes=6 public=6 refusals=18 mutants=4 OK

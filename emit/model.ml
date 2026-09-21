@@ -16,20 +16,18 @@ let segment offset length text =
   String.to_seq text |> Seq.drop offset |> Seq.take length |> String.of_seq
 let unprefix text =
   if String.starts_with ~prefix:"0x" text then segment 2 (String.length text - 2) text else text
-let word text =
-  let text = String.lowercase_ascii text in
-  let hex = String.starts_with ~prefix:"0x" text in
-  let digits = unprefix text in
-  let valid c = (c >= '0' && c <= '9') || (hex && c >= 'a' && c <= 'f') in
-  if digits = "" || String.length digits > (if hex then 64 else 78) ||
-     not (String.for_all valid digits) then Error (Input "expected a decimal or 0x-prefixed uint256")
-  else let value = Z.of_string_base (if hex then 16 else 10) digits in
-    if Z.numbits value > 256 then Error (Input "word exceeds uint256") else Ok value
+let word text = Recognize.parse_word ~invalid:(Input "expected a decimal or 0x-prefixed uint256")
+  ~overflow:(Input "word exceeds uint256") text
 let calldata text =
   let digits = unprefix (String.lowercase_ascii text) in
   if String.length digits > 65536 || Int.rem (String.length digits) 2 <> 0 ||
      not (String.for_all (fun c -> (c >= '0' && c <= '9') || (c >= 'a' && c <= 'f')) digits)
   then Error (Input "calldata requires at most 32768 whole hex bytes") else Ok digits
+let calldata_word data offset =
+  if Z.geq offset (Z.of_int (Int.div (String.length data) 2)) then Z.zero else
+  let start = 2 * Z.to_int offset in
+  let length = min 64 (String.length data - start) in
+  Z.of_string_base 16 (segment start length data ^ String.make (64 - length) '0')
 let parse_storage rows =
   if List.length rows > 1024 then Error (Input "at most 1024 initial storage slots") else
   List.fold_left (fun result row ->
@@ -83,8 +81,9 @@ let rec transaction input storage memory = function
   | E.Load (slot, index, next) ->
     transaction input storage ((index, get storage slot) :: memory) next
   | E.Context (source, index, next) ->
-    let value = match source with Recognize.Caller -> input.caller | Recognize.Callvalue -> input.value
-      | Recognize.Calldatasize -> Z.of_int (Int.div (String.length input.data) 2) in
+    let* value = match source with Recognize.Caller -> Ok input.caller | Recognize.Callvalue -> Ok input.value
+      | Recognize.Calldatasize -> Ok (Z.of_int (Int.div (String.length input.data) 2))
+      | Recognize.Calldataload offset -> let* offset = operand memory offset in Ok (calldata_word input.data offset) in
     transaction input storage ((index, value) :: memory) next
   | E.Arithmetic (operation, left, right, index, yes, no) ->
     let* left = operand memory left in let* right = operand memory right in

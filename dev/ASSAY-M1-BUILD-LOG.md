@@ -1,5 +1,54 @@
 # Assay M1 build log
 
+## 2026-09-20: Calldata-word reads
+
+The thirty-seventh M1 slice starts at `15c417c`. `value <- calldataload
+offset` reads a big-endian Word at any byte offset in the complete
+calldata. Partial words are padded with zero bytes, and out-of-range
+offsets return zero. The model checks the full uint256 offset before
+converting an in-range value to a host integer. Core and surface entries
+share fresh snapshots with caller, call value and calldata size.
+
+CALLDATALOAD passes 2240 independently expected model/geth comparisons,
+35 signed Cancun calls, 64 unused-constructor artifact pairs, 31 surface
+probes, two public commands, 18 refusals and five mutations with restored
+controls. The matrix covers all 64 combinations of errors, proofs,
+caller, call value, calldata size and payability. Offsets include zero,
+unaligned positions, partial words, the public input limit and uint256
+boundaries. Surface probes also cover stored, computed and loaded
+offsets, snapshot preservation, proof guards and typed revert rollback.
+
+The default appends CALLDATALOAD as leg 72. All 42 previous gate modes
+retain their commands, deadlines, markers and classifications. Context,
+call-value, calldata-size, surface-literal and hex mutation anchors now
+target the shared implementation; their witnesses and counts are kept.
+
+The initial implementation exceeded the emitter line bound. Sharing the
+context representation, uint256 parser and whitespace scanner brings it
+to 1799 of 1800 lines. The kernel remains at 3997 lines, and all trusted
+bounds remain unchanged. Earlier full attempts were interrupted to fix
+the line budget, explicit house-check patterns, stale mutation anchors
+and the isolated checkout's missing local Lean dependency cache.
+
+The final 72-leg default run passes 70 gates. All M1 feature gates
+pass. DENOMINATORS and M0-RATIO fail at the existing frozen checksum
+check; the full command exits 1. The clean committed baseline also
+fails that checksum check.
+
+Evidence is in [the validation archive](validation/2026-09-20-m1-calldataload/README.md).
+It retains every final gate log, earlier attempts, the independent baseline
+checksum failure, mutant captures, gate compatibility and hashes for the
+270 validated source and build files. This slice claims no performance
+measurement or milestone exit.
+
+### Review round 2026-09-20 (M1 calldata-word reads)
+
+B-1 (low): dev/M1-CALLDATALOAD.md row 65 named the 64 artifact-pair
+class unused-declaration while the build log, the record README and
+every predecessor doc name it unused-constructor; now the row reads
+`64 unused-constructor artifact pairs, 31 surface probes, two public`
+and matches the other documents.
+
 ## 2026-09-20: Calldata-size snapshots
 
 The thirty-sixth M1 slice starts at `4a5dfda`. `size <- calldatasize`

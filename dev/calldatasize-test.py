@@ -199,10 +199,10 @@ def mutants():
         ('SCHEMA', 'emit/recognize.ml', 'context_name source ^ " : (Word 256 -> Tx) -> Tx',
          'context_name source ^ " : (Word 160 -> Tx) -> Tx', 'schema', 'CALLDATASIZE-REFUSAL wrong-width'),
         ('SNAPSHOT', 'emit/emit.ml',
-         'let* source = List.assoc_opt tag env.context_tags |> Option.to_result ~none:(M1_shape "context tag") in\n'
-         '       let* next, fuel, next_fresh = continuation fuel (fresh + 1)',
-         'let* source = List.assoc_opt tag env.context_tags |> Option.to_result ~none:(M1_shape "context tag") in\n'
-         '       let* next, fuel, next_fresh = continuation fuel (fresh + if source = R.Calldatasize then 0 else 1)',
+         'continuation fuel (fresh + 1) fn (R.Runtime_word fresh) in\n'
+         '       Ok (Context (source, fresh, next), fuel, next_fresh)',
+         'continuation fuel (fresh + if source = R.Calldatasize then 0 else 1) fn (R.Runtime_word fresh) in\n'
+         '       Ok (Context (source, fresh, next), fuel, next_fresh)',
          'probe', 'PAYABLE-MODEL cds-mixed'),
     ]
     records = []

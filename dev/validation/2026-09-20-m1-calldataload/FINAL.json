@@ -1,0 +1,454 @@
+{
+  "baseline": "DENOMINATORS also fails on the clean committed baseline; M0-RATIO stops at this same frozen checksum check.",
+  "command": [
+    "zsh",
+    "-f",
+    "dev/gates.sh"
+  ],
+  "emitter_bound": 1800,
+  "exit": 1,
+  "failed": 2,
+  "failures": [
+    "DENOMINATORS",
+    "M0-RATIO"
+  ],
+  "gates": [
+    {
+      "elapsed_ms": 175.0,
+      "exit": 0,
+      "name": "BUILD",
+      "status": "PASS"
+    },
+    {
+      "elapsed_ms": 532.5,
+      "exit": 0,
+      "name": "PIN-CARRY",
+      "status": "PASS"
+    },
+    {
+      "elapsed_ms": 82.3,
+      "exit": 0,
+      "name": "R0-COUNT",
+      "status": "PASS"
+    },
+    {
+      "elapsed_ms": 48.0,
+      "exit": 0,
+      "name": "R0-AUDIT",
+      "status": "PASS"
+    },
+    {
+      "elapsed_ms": 567.9,
+      "exit": 0,
+      "name": "HOUSE",
+      "status": "PASS"
+    },
+    {
+      "elapsed_ms": 35.9,
+      "exit": 0,
+      "name": "TRUSTED-LINES",
+      "status": "PASS"
+    },
+    {
+      "elapsed_ms": 197.2,
+      "exit": 0,
+      "name": "SUITE-KERNEL",
+      "status": "PASS"
+    },
+    {
+      "elapsed_ms": 11.6,
+      "exit": 0,
+      "name": "SUITE-SURFACE",
+      "status": "PASS"
+    },
+    {
+      "elapsed_ms": 191.2,
+      "exit": 0,
+      "name": "DRIVER",
+      "status": "PASS"
+    },
+    {
+      "elapsed_ms": 5368.2,
+      "exit": 0,
+      "name": "MUTANTS",
+      "status": "PASS"
+    },
+    {
+      "elapsed_ms": 44.7,
+      "exit": 1,
+      "name": "DENOMINATORS",
+      "status": "FAIL"
+    },
+    {
+      "elapsed_ms": 643.9,
+      "exit": 0,
+      "name": "KECCAK-VEC",
+      "status": "PASS"
+    },
+    {
+      "elapsed_ms": 4173.2,
+      "exit": 0,
+      "name": "KECCAK-MUTANTS",
+      "status": "PASS"
+    },
+    {
+      "elapsed_ms": 1649.4,
+      "exit": 0,
+      "name": "STACK-HEIGHT",
+      "status": "PASS"
+    },
+    {
+      "elapsed_ms": 558.4,
+      "exit": 0,
+      "name": "DISASM-3WAY",
+      "status": "PASS"
+    },
+    {
+      "elapsed_ms": 7073.5,
+      "exit": 0,
+      "name": "ASM-MUTANTS",
+      "status": "PASS"
+    },
+    {
+      "elapsed_ms": 254.3,
+      "exit": 0,
+      "name": "FORK-DRIFT",
+      "status": "PASS"
+    },
+    {
+      "elapsed_ms": 117.5,
+      "exit": 0,
+      "name": "M0-TRACE",
+      "status": "PASS"
+    },
+    {
+      "elapsed_ms": 116.6,
+      "exit": 0,
+      "name": "CREATE-EQ",
+      "status": "PASS"
+    },
+    {
+      "elapsed_ms": 179.0,
+      "exit": 0,
+      "name": "REFERENCE-CHECKS",
+      "status": "PASS"
+    },
+    {
+      "elapsed_ms": 1758.9,
+      "exit": 0,
+      "name": "REFERENCE-MUTANTS",
+      "status": "PASS"
+    },
+    {
+      "elapsed_ms": 306.1,
+      "exit": 0,
+      "name": "EMIT-CONSTRUCTORS",
+      "status": "PASS"
+    },
+    {
+      "elapsed_ms": 5.8,
+      "exit": 0,
+      "name": "WORD-UNBOX",
+      "status": "PASS"
+    },
+    {
+      "elapsed_ms": 4.8,
+      "exit": 0,
+      "name": "STORAGE-NOCLOS",
+      "status": "PASS"
+    },
+    {
+      "elapsed_ms": 223.3,
+      "exit": 0,
+      "name": "ABI-GOLD",
+      "status": "PASS"
+    },
+    {
+      "elapsed_ms": 147.8,
+      "exit": 0,
+      "name": "EMITTED-TRACE",
+      "status": "PASS"
+    },
+    {
+      "elapsed_ms": 1042.1,
+      "exit": 0,
+      "name": "EMIT-SOURCES",
+      "status": "PASS"
+    },
+    {
+      "elapsed_ms": 10006.3,
+      "exit": 0,
+      "name": "EMIT-MUTANTS",
+      "status": "PASS"
+    },
+    {
+      "elapsed_ms": 6550.2,
+      "exit": 0,
+      "name": "AXIOMS",
+      "status": "PASS"
+    },
+    {
+      "elapsed_ms": 839.5,
+      "exit": 0,
+      "name": "TRACE-DRIVER",
+      "status": "PASS"
+    },
+    {
+      "elapsed_ms": 1182.0,
+      "exit": 0,
+      "name": "CORPUS",
+      "status": "PASS"
+    },
+    {
+      "elapsed_ms": 143.8,
+      "exit": 0,
+      "name": "ERASED-BYTES",
+      "status": "PASS"
+    },
+    {
+      "elapsed_ms": 195.9,
+      "exit": 1,
+      "name": "M0-RATIO",
+      "status": "FAIL"
+    },
+    {
+      "elapsed_ms": 335.4,
+      "exit": 0,
+      "name": "F-MUTANTS",
+      "status": "PASS"
+    },
+    {
+      "elapsed_ms": 5820.8,
+      "exit": 0,
+      "name": "DIFF-EXECUTOR",
+      "status": "PASS"
+    },
+    {
+      "elapsed_ms": 2378.9,
+      "exit": 0,
+      "name": "COUNTER-REFERENCE",
+      "status": "PASS"
+    },
+    {
+      "elapsed_ms": 54572.2,
+      "exit": 0,
+      "name": "M1-EMISSION",
+      "status": "PASS"
+    },
+    {
+      "elapsed_ms": 18204.1,
+      "exit": 0,
+      "name": "SOURCE-MODEL",
+      "status": "PASS"
+    },
+    {
+      "elapsed_ms": 25278.8,
+      "exit": 0,
+      "name": "CONTRACT-SURFACE",
+      "status": "PASS"
+    },
+    {
+      "elapsed_ms": 296.9,
+      "exit": 0,
+      "name": "CONTRACT-ROUTE",
+      "status": "PASS"
+    },
+    {
+      "elapsed_ms": 44003.1,
+      "exit": 0,
+      "name": "SOURCE-PROOFS",
+      "status": "PASS"
+    },
+    {
+      "elapsed_ms": 14816.8,
+      "exit": 0,
+      "name": "NULLARY-ENTRIES",
+      "status": "PASS"
+    },
+    {
+      "elapsed_ms": 20502.6,
+      "exit": 0,
+      "name": "CUSTOM-ERRORS",
+      "status": "PASS"
+    },
+    {
+      "elapsed_ms": 21864.3,
+      "exit": 0,
+      "name": "PROOF-GUARDS",
+      "status": "PASS"
+    },
+    {
+      "elapsed_ms": 17708.4,
+      "exit": 0,
+      "name": "PROOF-TERMS",
+      "status": "PASS"
+    },
+    {
+      "elapsed_ms": 17959.5,
+      "exit": 0,
+      "name": "INVARIANTS",
+      "status": "PASS"
+    },
+    {
+      "elapsed_ms": 19787.6,
+      "exit": 0,
+      "name": "PROOF-HELPERS",
+      "status": "PASS"
+    },
+    {
+      "elapsed_ms": 19441.0,
+      "exit": 0,
+      "name": "PROOF-BUNDLES",
+      "status": "PASS"
+    },
+    {
+      "elapsed_ms": 19578.1,
+      "exit": 0,
+      "name": "PREDICATES",
+      "status": "PASS"
+    },
+    {
+      "elapsed_ms": 17896.8,
+      "exit": 0,
+      "name": "COMPOUND-INVARIANTS",
+      "status": "PASS"
+    },
+    {
+      "elapsed_ms": 24244.5,
+      "exit": 0,
+      "name": "COMPOUND-GUARDS",
+      "status": "PASS"
+    },
+    {
+      "elapsed_ms": 19539.6,
+      "exit": 0,
+      "name": "NAMED-GUARDS",
+      "status": "PASS"
+    },
+    {
+      "elapsed_ms": 24920.0,
+      "exit": 0,
+      "name": "INFERRED-GUARDS",
+      "status": "PASS"
+    },
+    {
+      "elapsed_ms": 28624.9,
+      "exit": 0,
+      "name": "INFERRED-ARITHMETIC",
+      "status": "PASS"
+    },
+    {
+      "elapsed_ms": 47363.0,
+      "exit": 0,
+      "name": "INFERRED-HELPERS",
+      "status": "PASS"
+    },
+    {
+      "elapsed_ms": 93912.5,
+      "exit": 0,
+      "name": "PROOF-HOLES",
+      "status": "PASS"
+    },
+    {
+      "elapsed_ms": 70119.2,
+      "exit": 0,
+      "name": "INFERRED-BINDINGS",
+      "status": "PASS"
+    },
+    {
+      "elapsed_ms": 34778.0,
+      "exit": 0,
+      "name": "INFERRED-GUARD-BINDINGS",
+      "status": "PASS"
+    },
+    {
+      "elapsed_ms": 26632.2,
+      "exit": 0,
+      "name": "EVM-CONTEXT",
+      "status": "PASS"
+    },
+    {
+      "elapsed_ms": 23987.6,
+      "exit": 0,
+      "name": "SURFACE-CONTEXT",
+      "status": "PASS"
+    },
+    {
+      "elapsed_ms": 18523.5,
+      "exit": 0,
+      "name": "WORD-EQUALITY",
+      "status": "PASS"
+    },
+    {
+      "elapsed_ms": 17395.6,
+      "exit": 0,
+      "name": "HEX-LITERALS",
+      "status": "PASS"
+    },
+    {
+      "elapsed_ms": 20090.7,
+      "exit": 0,
+      "name": "INFERRED-WORDS",
+      "status": "PASS"
+    },
+    {
+      "elapsed_ms": 24462.9,
+      "exit": 0,
+      "name": "FALLBACK",
+      "status": "PASS"
+    },
+    {
+      "elapsed_ms": 7058.7,
+      "exit": 0,
+      "name": "DIFF-VALUE",
+      "status": "PASS"
+    },
+    {
+      "elapsed_ms": 3191.6,
+      "exit": 0,
+      "name": "TRACE-VALUE",
+      "status": "PASS"
+    },
+    {
+      "elapsed_ms": 4462.4,
+      "exit": 0,
+      "name": "TRACE-CALLER",
+      "status": "PASS"
+    },
+    {
+      "elapsed_ms": 11292.1,
+      "exit": 0,
+      "name": "DIFF-CALLER",
+      "status": "PASS"
+    },
+    {
+      "elapsed_ms": 21683.8,
+      "exit": 0,
+      "name": "PAYABLE",
+      "status": "PASS"
+    },
+    {
+      "elapsed_ms": 30888.5,
+      "exit": 0,
+      "name": "CALLVALUE",
+      "status": "PASS"
+    },
+    {
+      "elapsed_ms": 59614.5,
+      "exit": 0,
+      "name": "CALLDATASIZE",
+      "status": "PASS"
+    },
+    {
+      "elapsed_ms": 110409.8,
+      "exit": 0,
+      "name": "CALLDATALOAD",
+      "status": "PASS"
+    }
+  ],
+  "head": "15c417c1da18ad163e8c52df69c0206673aa874e",
+  "passed": 70,
+  "source_hashes_verified": 270,
+  "trusted_emitter": 1799,
+  "trusted_kernel": 3997
+}

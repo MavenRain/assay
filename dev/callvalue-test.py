@@ -191,10 +191,10 @@ def mutants():
         ('SURFACE', 'emit/contract.ml', 'next (Context (Recognize.Callvalue, name)) rest',
          'next (Bind (name, Literal { name with text = "0" })) rest', 'probe', 'PAYABLE-MODEL cv-observe'),
         ('EMITTER', 'emit/emit.ml', 'String.uppercase_ascii (R.context_name source)',
-         '(match source with R.Caller | R.Callvalue -> "CALLER" | R.Calldatasize -> "CALLDATASIZE")',
+         '(if source = R.Callvalue then "CALLER" else String.uppercase_ascii (R.context_name source))',
          'probe', 'PAYABLE-EVM cv-observe'),
-        ('MODEL', 'emit/model.ml', 'Recognize.Callvalue -> input.value',
-         'Recognize.Callvalue -> input.caller', 'probe', 'PAYABLE-MODEL cv-observe'),
+        ('MODEL', 'emit/model.ml', 'Recognize.Callvalue -> Ok input.value',
+         'Recognize.Callvalue -> Ok input.caller', 'probe', 'PAYABLE-MODEL cv-observe'),
         ('SCHEMA', 'emit/recognize.ml', 'context_name source ^ " : (Word 256 -> Tx) -> Tx',
          'context_name source ^ " : (Word 160 -> Tx) -> Tx', 'schema', 'CALLVALUE-REFUSAL wrong-width'),
     ]

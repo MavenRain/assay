@@ -25,7 +25,7 @@ type parameter = Word_parameter of token | Proof_parameter of token * claim
 type helper = { helper_name : token; parameters : parameter list; conclusion : claim; proof_body : proof }
 type binding = Word_value of string | Proof_value of string * resolved_claim
 type step = Load of token * token
-  | Context of Recognize.context * token
+  | Context of word Recognize.context * token
   | Deployer of token
   | Add of token * word * word
   | Sub of token * word * word
@@ -46,37 +46,36 @@ let here = function at :: _rest -> at | [] -> { text = ""; line = 1; col = 1 }
 let letter c = (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c = '_'
 let digit c = c >= '0' && c <= '9'
 let word_char c = letter c || digit c
-let rec span predicate acc = function
-  | c :: rest when predicate c -> span predicate (c :: acc) rest
-  | [] -> String.of_seq (List.to_seq (List.rev acc)), []
-  | c :: rest -> String.of_seq (List.to_seq (List.rev acc)), c :: rest
-let rec comment col = function
-  | [] -> col, []
-  | '\n' :: _rest as chars -> col, chars
-  | _c :: rest -> comment (col + 1) rest
-let rec space line col = function
-  | (' ' | '\t' | '\r') :: rest -> space line (col + 1) rest
-  | '\n' :: rest -> space (line + 1) 1 rest
-  | '-' :: '-' :: rest ->
-    let col, rest = comment (col + 2) rest in space line col rest
-  | [] -> line, col, []
-  | c :: rest -> line, col, c :: rest
+let rec span predicate acc seq = match seq () with
+  | Seq.Cons (c, rest) when predicate c -> span predicate (c :: acc) rest
+  | Seq.Nil | Seq.Cons _ -> String.of_seq (List.to_seq (List.rev acc)), seq
+let rec comment col seq = match seq () with
+  | Seq.Nil | Seq.Cons ('\n', _) -> col, seq
+  | Seq.Cons (_c, rest) -> comment (col + 1) rest
+let rec space line col seq = match seq () with
+  | Seq.Cons ((' ' | '\t' | '\r'), rest) -> space line (col + 1) rest
+  | Seq.Cons ('\n', rest) -> space (line + 1) 1 rest
+  | Seq.Cons ('-', rest) -> (match rest () with
+    | Seq.Cons ('-', tail) -> let col, tail = comment (col + 2) tail in space line col tail
+    | Seq.Nil | Seq.Cons _ -> line, col, seq)
+  | Seq.Nil | Seq.Cons _ -> line, col, seq
 let lex chars =
   let rec scan count line col acc chars =
     let line, col, chars = space line col chars in
     let at text = { text; line; col } in
     if count > 8192 then fail (at "") "LIMIT" "at most 8192 tokens" else
     let next text rest = scan (count + 1) line (col + String.length text) (at text :: acc) rest in
-    match chars with
-    | [] -> Ok (List.rev (at "" :: acc))
-    | c :: rest when word_char c ->
+    match chars () with
+    | Seq.Nil -> Ok (List.rev (at "" :: acc))
+    | Seq.Cons (c, rest) when word_char c ->
       let text, rest = span word_char [c] rest in next text rest
-    | ':' :: '=' :: rest -> next ":=" rest
-    | '<' :: '-' :: rest -> next "<-" rest
-    | ('(' | ')' | '{' | '}' | ':' | ';' | '.' | ',' as c) :: rest -> next (String.make 1 c) rest
-    | _c :: _rest -> fail (at "") "TOKEN" "unexpected character" in
+    | Seq.Cons (c, rest) -> (match c, rest () with
+      | ':', Seq.Cons ('=', tail) | '<', Seq.Cons ('-', tail) ->
+        next (if c = ':' then ":=" else "<-") tail
+      | ('(' | ')' | '{' | '}' | ':' | ';' | '.' | ','), (Seq.Nil | Seq.Cons _) -> next (String.make 1 c) rest
+      | _c, (Seq.Nil | Seq.Cons _) -> fail (at "") "TOKEN" "unexpected character") in
   scan 0 1 1 [] chars
-let reserved = ["Both"; "EqWord"; "eqWord"; "predicate"; "caller"; "callvalue"; "calldatasize"; "deployer"; "fallback"; "Never"; "payable"] @ String.split_on_char ' '
+let reserved = ["Both"; "EqWord"; "eqWord"; "predicate"; "caller"; "callvalue"; "calldatasize"; "calldataload"; "deployer"; "fallback"; "Never"; "payable"] @ String.split_on_char ' '
   "contract where storage entry constructor error invariant proof do sload sstore add sub guard le let pure revert Word Eff Sig Tx ResultWord Storage Entry Error main word ret put read EvmOpcodes done store load abort reject def axiom fun inj of case match as return with tuple sum prod absurd Prop Type in auto mu mutual end nu and rec natAdd natSub natMul natEq natLt Le Lt256 AddFits leWord lt256 wordNat guardLe guardAdd addLt subLe"
 let identifier tokens = match tokens with
   | at :: rest when Recognize.identifier at.text && at.text <> "_" &&
@@ -90,18 +89,9 @@ let rec sequence words tokens = match words with
   | [] -> Ok tokens
   | text :: rest -> let* tokens = expect text tokens in sequence rest tokens
 let literal at =
-  let hexadecimal = String.starts_with ~prefix:"0x" (String.lowercase_ascii at.text) in
-  let base, first, maximum = if hexadecimal then 16, 2, 66 else 10, 0, 78 in
-  let size = String.length at.text in
   let error = Error.Parse ("SURFACE_WORD: expected a decimal or hexadecimal uint256", at.line, at.col) in
-  let accumulate parsed c = Option.bind parsed (fun n ->
-    Option.bind (String.index_opt "0123456789abcdef" (Char.lowercase_ascii c)) (fun digit ->
-      if digit >= base then None else Some (Z.add (Z.mul n (Z.of_int base)) (Z.of_int digit)))) in
-  let parsed = if size <= first || size > maximum then None
-    else Seq.fold_left accumulate (Some Z.zero) (Seq.drop first (String.to_seq at.text)) in
-  let* n = Option.to_result ~none:error parsed in
-  if Z.compare n (Z.shift_left Z.one 256) < 0 then Ok (Literal { at with text = Z.to_string n })
-  else Error error
+  let* n = Recognize.parse_word ~invalid:error ~overflow:error at.text in
+  Ok (Literal { at with text = Z.to_string n })
 let rec value depth tokens =
   if depth > 128 then fail (here tokens) "LIMIT" "value nesting exceeds 128" else
   match tokens with
@@ -336,9 +326,11 @@ let body tokens =
        | { text = "caller"; _ } :: rest -> next (Context (Recognize.Caller, name)) rest
        | { text = "callvalue"; _ } :: rest -> next (Context (Recognize.Callvalue, name)) rest
        | { text = "calldatasize"; _ } :: rest -> next (Context (Recognize.Calldatasize, name)) rest
+       | { text = "calldataload"; _ } :: rest ->
+         let* offset, rest = value 0 rest in next (Context (Recognize.Calldataload offset, name)) rest
        | { text = ("add" | "sub") as op; _ } :: rest ->
          let* (a, b), rest = binary (value 0) rest in next (if op = "add" then Add (name, a, b) else Sub (name, a, b)) rest
-       | [] | _ :: _ -> fail (here rest) "EFFECT" "expected sload, caller, callvalue, calldatasize, add or sub") in
+       | [] | _ :: _ -> fail (here rest) "EFFECT" "expected sload, caller, callvalue, calldatasize, calldataload, add or sub") in
   steps 0 [] tokens
 
 let named_word tokens =
@@ -692,7 +684,10 @@ let transaction fields errors invariants predicates helpers env (steps, ending) 
           ((field.text, Word_value fresh) :: List.remove_assoc field.text state) written evidence rest in
         Ok (app "load" [key; lambda fresh "Word 256" next])
       | Context (source, name) ->
-        let* next = bind name in Ok (app (Recognize.context_name source) [lambda fresh "Word 256" next])
+        let* args = match source with
+          | Recognize.Calldataload offset -> let* offset = word env offset in Ok [offset]
+          | Recognize.Caller | Recognize.Callvalue | Recognize.Calldatasize -> Ok [] in
+        let* next = bind name in Ok (app (Recognize.context_name source) (args @ [lambda fresh "Word 256" next]))
       | Deployer at -> fail at "EFFECT" "deployer is available only in constructors"
       | Add (name, a, b) -> arithmetic "add" name a b
       | Sub (name, a, b) -> arithmetic "sub" name a b
@@ -818,7 +813,7 @@ let generate state fields entries errors invariants predicates helpers init fall
     | Prove _ | Proven _ | Proof_bind _ -> true
     | Context _ | Deployer _ | Load _ | Add _ | Sub _ | Store _ | Guard _ | Bind _ -> false) (fst row.body)) entries in
   let uses_context source = List.exists (fun row -> List.exists (function
-    | Context (actual, _) -> actual = source
+    | Context (actual, _) -> Recognize.context_name actual = Recognize.context_name source
     | Deployer _ | Load _ | Add _ | Sub _ | Store _ | Guard _ | Bind _
     | Prove _ | Proven _ | Proof_bind _ -> false) (fst row.body)) entries in
   let contexts = List.filter uses_context Recognize.contexts in
@@ -884,28 +879,15 @@ let parse tokens =
   declarations [] [] [] [] [] None None tokens
 
 (* The route is decided on the byte sequence, so a core file never pays a list cell per byte. *)
-let rec skip_comment seq = match seq () with
-  | Seq.Nil -> seq
-  | Seq.Cons ('\n', _rest) -> seq
-  | Seq.Cons (_c, rest) -> skip_comment rest
-let rec skip_space seq = match seq () with
-  | Seq.Nil -> seq
-  | Seq.Cons ((' ' | '\t' | '\r' | '\n'), rest) -> skip_space rest
-  | Seq.Cons ('-', rest) -> skip_dashes seq rest
-  | Seq.Cons (_c, _rest) -> seq
-and skip_dashes seq rest = match rest () with
-  | Seq.Cons ('-', tail) -> skip_space (skip_comment tail)
-  | Seq.Nil -> seq
-  | Seq.Cons (_c, _rest) -> seq
-
 let rec keyword expected seq = match expected, seq () with
   | [], Seq.Nil -> true
   | [], Seq.Cons (c, _rest) -> not (word_char c)
   | want :: rest, Seq.Cons (c, tail) -> c = want && keyword rest tail
   | _ :: _, Seq.Nil -> false
-
 let lower source =
-  let contract = keyword ['c'; 'o'; 'n'; 't'; 'r'; 'a'; 'c'; 't'] (skip_space (String.to_seq source)) in
+  let chars = String.to_seq source in
+  let _, _, head = space 1 1 chars in
+  let contract = keyword ['c'; 'o'; 'n'; 't'; 'r'; 'a'; 'c'; 't'] head in
   if not contract then Ok (None, source)
   else if String.length source > 65536 then fail (here []) "LIMIT" "contract source exceeds 65536 bytes"
-  else let* tokens = lex (List.of_seq (String.to_seq source)) in parse tokens
+  else let* tokens = lex chars in parse tokens

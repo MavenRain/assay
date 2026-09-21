@@ -1,0 +1,6 @@
+CALLDATALOAD-MUTANT SURFACE killed control=OK
+CALLDATALOAD-MUTANT EMITTER killed control=OK
+CALLDATALOAD-MUTANT MODEL killed control=OK
+CALLDATALOAD-MUTANT SCHEMA killed control=OK
+CALLDATALOAD-MUTANT SNAPSHOT killed control=OK
+CALLDATALOAD cases=2240 signed=35 pairs=64 probes=31 public=2 refusals=18 mutants=5 OK

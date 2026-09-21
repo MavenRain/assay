@@ -1,0 +1,5 @@
+HEX-MUTANT RADIX killed control=OK
+HEX-MUTANT EMPTY killed control=OK
+HEX-MUTANT RANGE killed control=OK
+HEX-MUTANT NORMALIZE killed control=OK
+HEX-LITERALS mutants 4 OK
