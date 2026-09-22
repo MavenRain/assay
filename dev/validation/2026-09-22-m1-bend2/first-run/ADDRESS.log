@@ -1,0 +1,6 @@
+ADDRESS-MUTANT SURFACE killed control=OK
+ADDRESS-MUTANT MODEL killed control=OK
+ADDRESS-MUTANT EMITTER killed control=OK
+ADDRESS-MUTANT SCHEMA killed control=OK
+ADDRESS-MUTANT SNAPSHOT killed control=OK
+ADDRESS cases=1920 signed=15 pairs=128 probes=40 public=7 refusals=24 mutants=5 OK

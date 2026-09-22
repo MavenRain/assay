@@ -308,11 +308,12 @@ def main():
         m1_names.add("ADDRESS")
     if close:
         stage = "M1-CLOSE"
-        m1_names.update(("M1-RATIO", "M1-RATIO-TEST"))
+        m1_names.update(("BEND2-RATIO", "BEND2-RATIO-TEST"))
         legs.extend([
-            ("M1-RATIO", 60, ("python3", "-P", "dev/ratio.py", "--m1"),
-             "M1-RATIO provenance=dev/denominators.json fixed=spec-count-proxy subtraction=none OK"),
-            ("M1-RATIO-TEST", 60, ("python3", "-P", "dev/m1-ratio-test.py"), "M1-RATIO-TEST controls=5 refused=15 mutants=4"),
+            ("BEND2-RATIO", 60, ("python3", "-P", "dev/bend2-ratio.py"),
+             "informational=false\nBEND2-RATIO cases=6 rounds=5 source-pins=OK subtraction=none OK"),
+            ("BEND2-RATIO-TEST", 60, ("python3", "-P", "dev/bend2-ratio-test.py"),
+             "BEND2-RATIO-TEST controls=3 refused=37 mutants=6 OK"),
         ])
     work = root / (".gatework/stage-" + stage.lower())
     work.mkdir(parents=True, exist_ok=True)

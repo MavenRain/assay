@@ -1,0 +1,392 @@
+{
+  "version": 1,
+  "stage": "M1",
+  "method": {
+    "warmups": 1,
+    "rounds": 5,
+    "order": "alternating-assay-first",
+    "cache": "warm-inputs-fresh-outputs-no-incremental-cache",
+    "assay_endpoint": "five-files-closed",
+    "bend_endpoint": "C-file-closed",
+    "units": "milliseconds-per-matched-six-file-batch",
+    "subtraction": "none",
+    "validation": "outside-timing",
+    "window_limit_seconds": 60
+  },
+  "identities": {
+    "corpus_sha256": "463436afa0df1030c7adb86c09df3aa9e95379d897c56d65a5acc4245a73fdc6",
+    "seed_sha256": "f6cb9272fae851f7921fa2ced76d63d242d05ffd8ad437b473e7fccc786c0b9e",
+    "method_sha256": {
+      "dev/bend2-ratio.py": "c52af056655950b86645da3c54512c07a3725baaa88f162f41a1d6e4b0db47f0",
+      "dev/ratio.py": "e8d18a451fe91cdd295ff3a10efe49bc2c447098e331cbdd1e496e883afa3120",
+      "dev/corpus-data.py": "c69b76e1d7654dfe62b5d968568888702d06c2c5ff33437782527893597659dd"
+    },
+    "compiler_sources_sha256": {
+      "abi/abi.ml": "a2deeb849577de0c5d22338d277fee4ed3d3add8cb2352dc92e707361e3eb956",
+      "abi/dune": "b2be53911863b3d8b4a03c7bf8d15f004ff7713a5542e4fc6c963ac4a270a1ff",
+      "abi/layout.ml": "5c2be57456f6788c85f151bd10ce9ba1daaa4b42627cd8131da39d1e11cf6f57",
+      "asm/asm.ml": "956319be1ad805dec311383433e630ef349b4a85bf14bbdd35882e843de67f56",
+      "asm/dune": "0b0f2bb979fd95dc5927a34f861bbd7c8ef3715542d4769da2cf1772bc795036",
+      "asm/listing.ml": "8424958745c5246771f31805454c08437668336a460240951a9d282b6d47a2f9",
+      "bin/assay.ml": "0e793c350181728215adeb9f29927ec3002c518381d8dcce3292599eff3d555d",
+      "bin/differential.ml": "6cdeb90140be72b3d6a0f8edc6f299e5cfc1ba7af9e1d57dba6792429f3d4e63",
+      "bin/dune": "b3cfd0ed2aa3d424a887f4fe54d3c8c83e5805f9c407b72a25e1d33f8b08b99f",
+      "bin/trace.ml": "9ebbbccda6f7e025488bf918e00ea0ba451345f6c720b01e4a1deaaef25413d4",
+      "dune": "a52a26b962f1c151063f898b64225c3c032c0658ef3c8e609b1de25b54db16b8",
+      "dune-project": "70fb3327524485dd86c3dffb80f92856c4e531789e7bcb3c816e8227939180ac",
+      "emit/contract.ml": "116d6b863ad53eda4ccc47cc894a8494e2da1de5ee28f08a0b0050351a032971",
+      "emit/contract.mli": "a19f6ad65739ecdf04a245efaa903fe0751ccc80f417a08c3e287b97b26570d8",
+      "emit/dune": "0ec144095ce543954f6dfd69cbf8a1f18afe234c1b2c284e5d2cb76ecf3bfef7",
+      "emit/emit.ml": "ae78ab5862c58966417798773f1cf5ebf5e8d2267b045d81bc58dfc8c8e3600e",
+      "emit/model.ml": "2ac06c258cc7af3ac3570cb03dcad88b30019589b74314ed208d913df48d1b32",
+      "emit/model.mli": "88f365cec9a75f2d35488c1d0606d53acc4cf967fbcc21779598c59bdaeb9055",
+      "emit/recognize.ml": "a67029643cf4f724cd08730f2d53194390f4ddcb42fcc7f1938ae8db5eb50f95",
+      "keccak/dune": "26c3bd15e1a951c858afc8dd6fb3b4ef42f6e215867fb70876d57db7761670d7",
+      "keccak/keccak.ml": "c334fd6277a58d3182855e535f4b61bef762360fdef8f453b741009601704210",
+      "lib/bignum.ml": "7159dd7e75fa08a5fc272cba76a8ec6214c7d190151dabf7db1a13bf5ecddd72",
+      "lib/budget.ml": "7d8b2afc86883415c892d6fea0e56c2115e4d859b6b6daa21c611b4e9517f028",
+      "lib/budget.mli": "b830149c9eb6d9362786d2e92c2dc8322f4d31f7b4cfc960ac6e1681d385578f",
+      "lib/check.ml": "cdc3712bf5ed0fa49d8dae34ea946d85a195ea94b25235c821b155570010e335",
+      "lib/conv.ml": "e73e707bcdac54808d8f8a1d9e9a174062edf0afd970972dee2c6d024f6bbe39",
+      "lib/dune": "0e60f3ebdbbf7182dba98dd70eb2d494bd83d6e2934dd1f344f98e4b0e392ec0",
+      "lib/erase.ml": "a6d03447ab9dfedf8e53bceff26cd7da57f113bb4b5d1453aecd618fac508a88",
+      "lib/error.ml": "44c9c263479575ec04db5056404a5940d6bb5514a5b9e1ec6215385c6eccb5b6",
+      "lib/eterm.ml": "028ff6e790f9c391463b961f7a3eac12e105d484285cfde1597e52c5b9ac69c7",
+      "lib/eval.ml": "155ddf7578d4ad68352505064616bed6afa7a260a88f3ddf1722b95fa6a6bd18",
+      "lib/global.ml": "2e5d2d932dfddcb329bcfdf237df87a70f2d79820470dc236e337ec6d275c329",
+      "lib/level.ml": "344bb9819870d8c459154ac8109ba1d69a4ee4312670f3887c6ed30d3dbca448",
+      "lib/level.mli": "c143b2b97e417724a81f8e83548b946d3339917488758b4d5fbf9da9e72e6811",
+      "lib/literal.ml": "80554b1d98c8dde3b474023a01ac57cc4abcaba2a5f20b707041cc5f0361b617",
+      "lib/order.ml": "d2cc3258fde25b61ba33093eaf19112c319329dc5b46ba029b3f042c14388e94",
+      "lib/positivity.ml": "97cb5fc9484ecaec360b4be1ac42f0668ae767aad25efc10ddbc1d4143185471",
+      "lib/pp.ml": "69618578ebb33a3d9803e604760252c77c64681aef2d847f3e1b40f9464e3895",
+      "lib/prim.ml": "5224df4f75e499b8fb962fad2a256b31086fcc9de5ab2f353eb90f61a8408aaa",
+      "lib/quantity.ml": "bf3f633c40a0dbb362cf85ca41b798ae0c9e1d4eca7e09f9b6f482bab2bfbb8b",
+      "lib/rules.ml": "b625cec31061ca79f77669889039e4ae2658393911e39076dc65189022f702ab",
+      "lib/shape.ml": "dafd7741b4332dcab6faba9cb9afb131fb3654172e0d375b1edd1046e69f7f7b",
+      "lib/spec_count.ml": "9a4cb97373ddbabb6156b04f92cc41803ee1b714391ccb669cf38e60d36437e6",
+      "lib/term.ml": "2de6729958bfbc3af10ed2e9c51d6591ab40fa16bd19b7acea1fbf37adf60690",
+      "lib/totality.ml": "046c608584ac21d465d46b05119a89dca5488a15113359eea30ed318a3f7c028",
+      "lib/value.ml": "997f4634df60744c49555e896c1de8d60e51a1086e731e547b48450def9c68c7",
+      "surface/dune": "c45bcc3721c5711848423635d08c3d5e41691bb32adda95efa0be17b7f3a3be4",
+      "surface/elab.ml": "657b134e25e495e6edc5435bb3c9335bc48637915045fba91da9a595d2e3280d",
+      "surface/lexer.ml": "bb524f0202a01ab0b7a2e94745c9af50c5eede2a4c7d3fa450be785e2eb14254",
+      "surface/parser.ml": "107bb45cfba1335a41cf0268e6c28e05dbb961c1c454c47ef364683d6e04d977",
+      "surface/syntax.ml": "774c0c713f2cdfe493656131b446eb10614e9415ef4d3a0d7cf8a64d2da04c5a",
+      "surface/token.ml": "cd93b520f023f2aa80f42a4e352b47e63fd0c05e399f4c2344af898054fbb6db"
+    }
+  },
+  "bend_commit": "c65bcb788dbfb298bb434c1d858b47c193841dc0",
+  "bend_sources_sha256": {
+    "bend2/main.ts": "92dcdb49e82fd59443e3aea10784f7dcf03a93f5a21920666543098b657b6b1e",
+    "bend2/bend.ts": "93c2a43deeb82c15683e4e25bbc5dec5ac3edff9f54e09acc0975e290fcaeb85",
+    "bend2/comp.ts": "ad8b82137e5decf588d507d008cb8ccf24bd0b94043de8bd6e048d0faedcf959",
+    "bend2/base.bend": "e5639663177f2de93ef34867c029698aa4e68a98d46629f0b15452b67b99d798",
+    "bend2/effs/args.c": "7209a5fa11396fa8b0667a6738c913c40f554797e442c847a25e13a5f69676e0",
+    "bend2/effs/args.js": "c0ab157ffd8c7cf8a64c04b209a9933613a7de4e4cf3985d79368734f5ee05d3",
+    "bend2/effs/audio.c": "19f953b0a422fbabd450d7ceef6ff76dcdf7f432d154b6d72bfb639931b4213d",
+    "bend2/effs/audio_close.js": "a405efc23dc9ee40d042e0eb990a2ba35ed3d24e604f86b06c342fc8b88f0ba1",
+    "bend2/effs/audio_open.js": "955ee7459117cace471ba49daba1f830df626de1f25ce3e1196344cabfa6a6ad",
+    "bend2/effs/audio_write.js": "4d7d448c013e54e0b88b7d956fe9a3ecab5ca993ed07e1def384c142e2691f7c",
+    "bend2/effs/chan_close.c": "d88e91ca179bfcdbf8580e75f1dbea4c5f240d3fbdb980a2ee24d1e662ff478a",
+    "bend2/effs/chan_close.js": "6d499aff10ef4bc31f6cbf1498d72d5e0459713b01ff71a7d0b81a1d72f22864",
+    "bend2/effs/chan_new.c": "41d722added898f3a9eae186be969a7ca7f01bc3235331663b13319d14fb7ff2",
+    "bend2/effs/chan_new.js": "c492de059560a6508f8abe0f76a61190afe3c09cdbff3ca0fcf325a54a5dc407",
+    "bend2/effs/chan_recv.c": "7baa193d4adb09865a9397e84d41ec4fe7097cdd46150ed44513c76da126d0d1",
+    "bend2/effs/chan_recv.js": "bdb08d281e4e6c79ff9d8f155a2a831957a945e4bc20e40ab298251475e94330",
+    "bend2/effs/chan_send.c": "f12ade43cc52af51e13d35a93221b129db11fbfa7470f38557b1c0c9ef22caa4",
+    "bend2/effs/chan_send.js": "2fd3cccca3c6b5969be94abc41b04fcb4b897704b599ad0d9c049cae445b33fa",
+    "bend2/effs/file_close.c": "befd465a31b88936d772222d26b1019ea7330e59e6327d8ba90584c85e8b2fb3",
+    "bend2/effs/file_close.js": "23614d511e30900127c359da5cc9c1ea96642da564813866f062be67cbfbc618",
+    "bend2/effs/file_open.c": "f42a8bcc142b9003c7f6ca99287ca09c14f9efcbe15dea929c90c2fa062746e7",
+    "bend2/effs/file_open.js": "c5eef502a0a05b961685a6ef057fe22e1afe2fddbcce52b5813dac595948e956",
+    "bend2/effs/file_read.c": "fba9dac9eedf80428c1893b33d3b7318dc724b24b0b08a7ccc80cb301c4f5831",
+    "bend2/effs/file_read.js": "47594cbcec9a231cda04668114166d12dfcdef477676fe2e146cbbd05abdccf6",
+    "bend2/effs/file_size.c": "09906f3839f0f0fba1eea944c948e35f8e03627dc2b78e8debb43e0556f5d5d8",
+    "bend2/effs/file_size.js": "3aaf57fb49127c71d19d975c243a415b0b957775b54b5c4093feadd0e4e84c5e",
+    "bend2/effs/file_write.c": "c225a6e0bf8f8ef987735e767fa4049bbd5fb7be5462db14018ff20a78b3ee98",
+    "bend2/effs/file_write.js": "0b5e07643d202c828fea188863f175b242687d13ec894f248f8ad250adbb71d9",
+    "bend2/effs/get_env.c": "62255e46c7e0c43baea62366830c4a5badb11cba517c0aa17f952f432f46d4a3",
+    "bend2/effs/get_env.js": "f03f63c193653571742e843081caa14ff2f1246d4ac8edf1ad70082965ff6654",
+    "bend2/effs/listener_close.c": "11247352a8311b066fff27ed85958598214ece80f23a7ac59ee981ea569351ec",
+    "bend2/effs/listener_close.js": "a0fa00784e073fc31f86eee2e975ddf3fede1ce9bdce71dd6ca7e9d66f798b68",
+    "bend2/effs/now.c": "da5fde65701c4fadc7560625c9615b4d60b2eefbd7b6bbe1aedda61887b825b9",
+    "bend2/effs/now.js": "c1b04cf21a8f4a32fc28a6340ebf0646ec0c4486494a5278ba1986308a878d2d",
+    "bend2/effs/print.c": "709500d2ace6e2eaeec0f5f1e4373d4ec5e402b3c1e289bd70dfef7e2a635b26",
+    "bend2/effs/print.js": "d189cf8d2734f85aeacf6872f3eb49fb10caa0568f66c81cc4a814c3269953ff",
+    "bend2/effs/print_err.c": "72781d2adc88a4791d5530c9deff20824c38d5aa1ba43fb05aaa6a697e19f4b6",
+    "bend2/effs/print_err.js": "7b8cb3bc48101ce5e2ecaf98a478cc6d5abaa46e74df6b43dc822bce891eb26c",
+    "bend2/effs/random_u32.c": "10ef9045dcd539bc0ff609e61c77d585fb998ceb48656944d62727716263ee2d",
+    "bend2/effs/random_u32.js": "82c9f51cac5dddc9664b0547232325b2c11653c75275bea87c67da9eb6364417",
+    "bend2/effs/sleep.c": "77e212d3baeec0b3dc0a9c7f630b43094986e433c049049d354a9681719e2ecd",
+    "bend2/effs/sleep.js": "6515ad28d914f204c09526c7b35aaea15d0e0df27cf10170a4a690fc584c8668",
+    "bend2/effs/socket_close.c": "6e2fd1717a2fab133813af88fc0f5b5a8ce44c23bf411f269e71aac38671562e",
+    "bend2/effs/socket_close.js": "bc0575a4afa9afdf0de06b93866369d52c7fa01769a535bf01770bee7b45fafb",
+    "bend2/effs/spawn.c": "fb3dac6efa993c51f9d7a668cf8da2cac1148380b72cc18a558cba9ba70c01f3",
+    "bend2/effs/spawn.js": "91659ebeeba7fb688218a7450ab6b0eb20ccf010741153a117a40f8a5182b6a9",
+    "bend2/effs/tcp_accept.c": "e0f0cf4199c278aec722e3c9b81ff879fcec31ec96ebaf66a954db673cf535f8",
+    "bend2/effs/tcp_accept.js": "3f1723685ed07a51192e916c0c8816c38a30e03b0428d953adb4ed2629b96e3f",
+    "bend2/effs/tcp_connect.c": "ae1515d0ff57215b03888e76cfe4ee485750ec226c28eed05d56e417f0f84f58",
+    "bend2/effs/tcp_connect.js": "f964afcd8687305aebe3edfac2c49d756fe1e15d405ea3c1372fc7f0d695dec4",
+    "bend2/effs/tcp_listen.c": "2f206b54e6698df529f6c669755cf84e92f51736db4d38e224dd5eb3fcd0a3ed",
+    "bend2/effs/tcp_listen.js": "36342dfb4f5bd050924757dd5354cee4c17a6c7319d5f0a91b697b57d5d74924",
+    "bend2/effs/tcp_poll.c": "9f4adfe0f4b8e025783b07fa4ba9fec619a5938135dc5f4bb8c9cf7079e82b37",
+    "bend2/effs/tcp_poll.js": "38c950ed71f4c2d5fbee0541197fd77bfe26e2f8d7f3b9957c067fc006062650",
+    "bend2/effs/tcp_recv.c": "3a105d82f4e786b992e27bec66c407caa9efbda67a63c03d95805231a21d9ba1",
+    "bend2/effs/tcp_recv.js": "f8c539f57f6a8f3ac02e8a66c58ca7474ab426be6cda103c1b39d5a6f40e14b0",
+    "bend2/effs/tcp_send.c": "70a5eba01d09e2cda7a9f3b22d976f4c8ba3fb7a8c8083abddd8d12c85d8a2a4",
+    "bend2/effs/tcp_send.js": "7d6ddf588d92ecba06aa2857dbc354cea0ea52a7e970c3aa2e79eb876d7208d7",
+    "bend2/effs/udp_bind.c": "fe405175c1890c2d19a2f6d94b2672259b47a1e6dc8f62f8e9ff540bef7a2245",
+    "bend2/effs/udp_bind.js": "ef2c6d2d228a64c6e506c78ecfe2252740e2802aaf7682843a7f6dc234c8a95b",
+    "bend2/effs/udp_poll.c": "66504dbbc09ab346e04cca7a22c60aacc8866555ac143088603cb4b568a64f71",
+    "bend2/effs/udp_poll.js": "d2d0729d603486624e8431ff110959f55b73d20418ca3c959daffb252f22079c",
+    "bend2/effs/udp_recv_from.c": "140a281bca2348566030e092f3c27591893b5d945e57e2965863d02c2e6c0a65",
+    "bend2/effs/udp_recv_from.js": "49ec389b36a8c07cca995a18d659e5febff9e770f0101d397d9697e67208651e",
+    "bend2/effs/udp_send_to.c": "8704fe7e5770af7e4dcbe24f0fecf4cfbfe61a0a69a77b129df9965e306fae8f",
+    "bend2/effs/udp_send_to.js": "85579f72782dd5d9491efd6cffe2c7fafa50f3d2e262c5b76172333df0fa7b5e",
+    "bend2/effs/window_close.c": "655afbdf8a5f7fa80963bad64b43c8dfe7ec1f80896db381792d0d6933f3be2d",
+    "bend2/effs/window_close.js": "62212c5388b793452a3b587274f09303e9af88610ccdbce390992b62dd872662",
+    "bend2/effs/window_frame.c": "01dc840b2145efb8c91b4ffe7360e3520753f59c42e122703c3a6190c50e1aa4",
+    "bend2/effs/window_frame.js": "c6874e758829d6901d244ef5b56dd9ec49939dca074258c08f05e34e199ac598",
+    "bend2/effs/window_open.c": "1be9c669b47a44716b9cef1aafaafa1ed2a2268730fab475efa762cf368fc21d",
+    "bend2/effs/window_open.js": "26532181f772fb8cea4e4fc4a76b42b281a789b5acefb4d60b98dafec51c1f72",
+    "bend2/effs/window_set_title.c": "cd60a39ca4084794f3e7aef939de8c7e02ef0ae2158bf52a69f93c21a59ebba5",
+    "bend2/effs/window_set_title.js": "9e9cd28c96867a9cc4d9603afc4c14c9de61d17963ebeb63b21c9c9c247838e2",
+    "bend2/effs/write.c": "c1bcd80d50c4901027c801cdd8d7464ea3029361115ac47044c992ce2235a8ac",
+    "bend2/effs/write.js": "09ba117d9de2520f284b4ad5f5657b74b5105ab78c55fbd774a552bd2ebdc420"
+  },
+  "tools": {
+    "versions": {
+      "bun": "1.3.11",
+      "ocamlopt": "5.2.1",
+      "dune": "3.24.2",
+      "bend": "bend 2.0.25"
+    },
+    "paths": {
+      "bun": "/Users/oobi/.bun/bin/bun",
+      "ocamlopt": "/Users/oobi/.opam/zxcaml-p1/bin/ocamlopt",
+      "dune": "/Users/oobi/.opam/zxcaml-p1/bin/dune",
+      "cc": "/usr/bin/cc",
+      "assay": "/Users/oobi/Documents/gpt1/assay-m1-bend/_build/default/bin/assay.exe",
+      "bend": "/Users/oobi/Documents/gpt1/assay-bend2-v2.0.25/bin/bend"
+    },
+    "sha256": {
+      "bun": "1d77af7bfd811aebb7d37bec496a5eed14fe227ded3ab7866d2f39786e8107b6",
+      "ocamlopt": "d9026dd79400551418af67351c4443160a38903b97fc566eea7bf93a3ea7d02b",
+      "dune": "ab7a3967e9bffe086bf80cdf24130d2da309ff460d3be532e30d4f5208f5732c",
+      "cc": "12bed4523661307059b879b9b54e77a73176e9d27d27a0e40363271d8f0668ba",
+      "assay": "c77063b098cb5b706c0a890085d9bba76256bc87a8b1aa1d0528c58b3ee59e60",
+      "bend": "5a034938672261e1f47942ce839a0a479f9289ad7585300f635a6fa7a1b7b165"
+    },
+    "cc_version": "Apple clang version 21.0.0 (clang-2100.0.123.102)"
+  },
+  "host": {
+    "platform": "macOS-26.4-arm64-arm-64bit-Mach-O",
+    "machine": "arm64",
+    "load_start": [
+      8.6953125,
+      9.87158203125,
+      10.48046875
+    ]
+  },
+  "started_utc": "2026-09-22T09:37:35.166687+00:00",
+  "window_seconds": 3.2186454170005163,
+  "case_order": [
+    "Return",
+    "Arithmetic",
+    "Pair",
+    "Leaf",
+    "Apply",
+    "Let"
+  ],
+  "rounds": [
+    {
+      "order": [
+        "assay",
+        "bend2"
+      ],
+      "samples_ms": {
+        "assay": [
+          6.675833,
+          6.26125,
+          6.085375,
+          6.2945,
+          6.424583,
+          6.382583
+        ],
+        "bend2": [
+          90.101917,
+          87.396625,
+          91.737542,
+          95.886291,
+          107.8705,
+          189.754875
+        ]
+      }
+    },
+    {
+      "order": [
+        "bend2",
+        "assay"
+      ],
+      "samples_ms": {
+        "assay": [
+          7.657959,
+          7.3835,
+          6.975125,
+          6.715916,
+          6.91225,
+          7.298541
+        ],
+        "bend2": [
+          132.967417,
+          108.72275,
+          106.396417,
+          99.743458,
+          93.056542,
+          107.325
+        ]
+      }
+    },
+    {
+      "order": [
+        "assay",
+        "bend2"
+      ],
+      "samples_ms": {
+        "assay": [
+          7.743833,
+          6.75225,
+          6.322708,
+          7.498709,
+          7.062541,
+          6.8485
+        ],
+        "bend2": [
+          91.236583,
+          96.409333,
+          96.652125,
+          94.038041,
+          103.376417,
+          99.834083
+        ]
+      }
+    },
+    {
+      "order": [
+        "bend2",
+        "assay"
+      ],
+      "samples_ms": {
+        "assay": [
+          10.532542,
+          6.964,
+          7.161167,
+          6.104458,
+          6.78675,
+          6.373792
+        ],
+        "bend2": [
+          90.341417,
+          90.14375,
+          90.866916,
+          91.190709,
+          91.039625,
+          90.272917
+        ]
+      }
+    },
+    {
+      "order": [
+        "assay",
+        "bend2"
+      ],
+      "samples_ms": {
+        "assay": [
+          6.102917,
+          6.633,
+          7.052125,
+          5.959209,
+          6.700875,
+          6.788083
+        ],
+        "bend2": [
+          86.449875,
+          87.779958,
+          88.173666,
+          93.953708,
+          100.679792,
+          86.595833
+        ]
+      }
+    }
+  ],
+  "outputs": {
+    "Return": {
+      "assay": {
+        "abi.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "axioms.txt": "61f8b9f0cb83fe5250e13b39b40e705d106caa92810d60168dfe5f4c3a89a302",
+        "init.hex": "0435d833df891a4f3e5fe29a0004501dc34542f46fbab10ea31172b744a313b8",
+        "layout.json": "75d72b802b891e07ece6037e82569a72565035ea5affd99a45806901b1a12042",
+        "runtime.hex": "c9bfcc72747cc89b5f9d0a4dc78fca501a943626dde8c5f5379982225eff032c"
+      },
+      "bend_c_sha256": "3333311caea2b4e16323e1d0219862ebf121df32b3b06ab869286ebb7dc844bc",
+      "native_stdout": "37"
+    },
+    "Arithmetic": {
+      "assay": {
+        "abi.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "axioms.txt": "61f8b9f0cb83fe5250e13b39b40e705d106caa92810d60168dfe5f4c3a89a302",
+        "init.hex": "08ad8e26bc9c3e230306a0b0fbb6ab1e03656a9c5892c41a88f9acae838cab23",
+        "layout.json": "7dc3fedb172b367e7b9a304b44ab0dacb26cc85ec4a5e45483df3061263f4e70",
+        "runtime.hex": "23a23373870b3b4f9cf24757c1bf36f796a5ebd119b8de301591d7156bf76210"
+      },
+      "bend_c_sha256": "4200153fe516cb43280351bf2a4d46f490333afbef77ac596a8a04d65cbc7a6c",
+      "native_stdout": "42"
+    },
+    "Pair": {
+      "assay": {
+        "abi.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "axioms.txt": "61f8b9f0cb83fe5250e13b39b40e705d106caa92810d60168dfe5f4c3a89a302",
+        "init.hex": "d626c14a11c25abf0205cccc3946dcd4dd9ca3c645ed7bf452358be6b941a7c1",
+        "layout.json": "385ef804fd76935cd4671dd4fbe75ee12f088438361d0311c747a22f46df636e",
+        "runtime.hex": "d940b6df95e34d92e4bbe023164eaa06ca1afa4cd189bd6b1dd0bab9fc5369eb"
+      },
+      "bend_c_sha256": "8a6b0c4624c43719f29d1efa046bb585fdd9bafdc6905e1682f5d638e995eca5",
+      "native_stdout": "4"
+    },
+    "Leaf": {
+      "assay": {
+        "abi.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "axioms.txt": "3c8346c0dc21e6eb3d3ef3d8a7c179106bccbed8cad9939b9d3a5648af96067c",
+        "init.hex": "08ad8e26bc9c3e230306a0b0fbb6ab1e03656a9c5892c41a88f9acae838cab23",
+        "layout.json": "752a8a3673a8326ea7e4bd7970cfd22564a5e7fa5bc2e5713b990c51911cb13f",
+        "runtime.hex": "23a23373870b3b4f9cf24757c1bf36f796a5ebd119b8de301591d7156bf76210"
+      },
+      "bend_c_sha256": "61f72e53c8c9b4df7e40b1b7abb194c9f0aa73d9abf2206014715b628a9a7a49",
+      "native_stdout": "42"
+    },
+    "Apply": {
+      "assay": {
+        "abi.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "axioms.txt": "3c8346c0dc21e6eb3d3ef3d8a7c179106bccbed8cad9939b9d3a5648af96067c",
+        "init.hex": "08ad8e26bc9c3e230306a0b0fbb6ab1e03656a9c5892c41a88f9acae838cab23",
+        "layout.json": "0e9f170f02caf5587aabf41c938821a7d8098e8a0df85278762787b0f850791a",
+        "runtime.hex": "23a23373870b3b4f9cf24757c1bf36f796a5ebd119b8de301591d7156bf76210"
+      },
+      "bend_c_sha256": "61f72e53c8c9b4df7e40b1b7abb194c9f0aa73d9abf2206014715b628a9a7a49",
+      "native_stdout": "42"
+    },
+    "Let": {
+      "assay": {
+        "abi.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "axioms.txt": "3c8346c0dc21e6eb3d3ef3d8a7c179106bccbed8cad9939b9d3a5648af96067c",
+        "init.hex": "08ad8e26bc9c3e230306a0b0fbb6ab1e03656a9c5892c41a88f9acae838cab23",
+        "layout.json": "8ac33058b205964882c7e3d85131fd9f743f485193b4143b8a23fc767965d03a",
+        "runtime.hex": "23a23373870b3b4f9cf24757c1bf36f796a5ebd119b8de301591d7156bf76210"
+      },
+      "bend_c_sha256": "61f72e53c8c9b4df7e40b1b7abb194c9f0aa73d9abf2206014715b628a9a7a49",
+      "native_stdout": "42"
+    }
+  }
+}

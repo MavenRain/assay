@@ -1,0 +1,10 @@
+IA-LIVE cases=254 creates=2 OK
+IA-ERASURE pairs=24 files=5 OK
+IH-REFUSALS cases=26 commands=3 OK
+IH-BOUNDARIES parameters=16 nested=128 positive=6 negative=1 OK
+IH-MUTANT EVIDENCE killed control=OK
+IH-MUTANT LOCAL killed control=OK
+IH-MUTANT PARAMETER killed control=OK
+IH-MUTANT SUPPLIED killed control=OK
+IH-MUTANT SHARING killed control=OK
+INFERRED-HELPERS cases=254 creates=2 refusals=26 erasure_pairs=24 boundaries=6 mutants=5 OK

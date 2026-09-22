@@ -1,0 +1,6 @@
+CALLDATASIZE-MUTANT SURFACE killed control=OK
+CALLDATASIZE-MUTANT EMITTER killed control=OK
+CALLDATASIZE-MUTANT MODEL killed control=OK
+CALLDATASIZE-MUTANT SCHEMA killed control=OK
+CALLDATASIZE-MUTANT SNAPSHOT killed control=OK
+CALLDATASIZE cases=1024 signed=28 pairs=32 probes=16 public=2 refusals=13 mutants=5 OK

@@ -1,0 +1,22 @@
+{
+  "base_head": "20634788ca7c0ae416992908d3a614ce41d4107d",
+  "inputs": {
+    "README.md": "86fc0daa621f827aab04cbdeb32232196e10caa4dc4132cfba9c9f68fef599b0",
+    "corpus/bend2/Apply.bend": "60aa69704cd2c59f369c30eaadcb17d4bee0cb51eeed8c721b6f6486bfc36176",
+    "corpus/bend2/Arithmetic.bend": "ade52737001ce2ce73ba6d6388960d3a5a69c1aa30961e0628189b127f628269",
+    "corpus/bend2/Leaf.bend": "4a7672796c36f6f01deeb4c16e65e4a3f2a2cd8ebf4b430dfa0bf0239e007f4e",
+    "corpus/bend2/Let.bend": "fc8b49b5283d6059ec76955e8e0d16d6adb9b2df12d25ee26ff7e058f40b7d03",
+    "corpus/bend2/MANIFEST.json": "463436afa0df1030c7adb86c09df3aa9e95379d897c56d65a5acc4245a73fdc6",
+    "corpus/bend2/Pair.bend": "f5ac9721309dcdf5dd01daa9e9e595cd9903d00b287e7145f4ccbf6ebb09a302",
+    "corpus/bend2/Return.bend": "141990c1ae79b60394241f9338b236e4585833f4aa1734c345f673ad6e288b1a",
+    "dev/BEND2.sha256": "f4c6669f7c40ebef49e16659061f19af0140b5f34029eff877ba5705597e5183",
+    "dev/DENOMINATORS.sha256": "ab4bbb18ef41444ebeb89c77e97b5e6c69c82516ebc126893367e5c5719d9df8",
+    "dev/M1-BEND2.md": "be1aa6e2500c8deba93d367314716dbb70402c31af3d498c435c66ab2bc63d64",
+    "dev/M1-CLOSE.md": "46933d89d6e938c38509bf0e035a3b84fba8e16ebc8b59546bb0398cd99046d2",
+    "dev/bend2-baseline.json": "ff98df0316a5ef0e7be65968cf35197fd70bfb46a354a8f40a6910b5dd445580",
+    "dev/bend2-ratio-test.py": "c91f58e0010626568a486a71062453fc287bdf2483d1e27888e6430fd240d2f7",
+    "dev/bend2-ratio.py": "c52af056655950b86645da3c54512c07a3725baaa88f162f41a1d6e4b0db47f0",
+    "dev/measurements/2026-09-22-m1-bend2.json": "ff98df0316a5ef0e7be65968cf35197fd70bfb46a354a8f40a6910b5dd445580",
+    "dev/stage-a-gates.py": "ac1524b6768f857e16ce97fc87ac619933f6ceb0d890425b1ab4fcb8d125a466"
+  }
+}

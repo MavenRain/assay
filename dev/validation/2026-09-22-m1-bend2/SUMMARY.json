@@ -1,0 +1,538 @@
+{
+  "initial": {
+    "passed": 70,
+    "failed": 5,
+    "exit_code": 1
+  },
+  "rechecks_passed": 5,
+  "checked": 75,
+  "outstanding_failures": 0,
+  "explanation": "The first battery PATH omitted rg and leancho. All five affected legs passed with the complete tool PATH. No source fix was needed.",
+  "checks": [
+    {
+      "name": "BUILD",
+      "initial_status": "PASS",
+      "initial_exit_code": 0,
+      "initial_elapsed_ms": 279.0,
+      "final_evidence": "first-run/BUILD.log"
+    },
+    {
+      "name": "PIN-CARRY",
+      "initial_status": "PASS",
+      "initial_exit_code": 0,
+      "initial_elapsed_ms": 556.8,
+      "final_evidence": "first-run/PIN-CARRY.log"
+    },
+    {
+      "name": "R0-COUNT",
+      "initial_status": "FAIL",
+      "initial_exit_code": 1,
+      "initial_elapsed_ms": 21.1,
+      "final_evidence": "r0-count-recheck.log"
+    },
+    {
+      "name": "R0-AUDIT",
+      "initial_status": "PASS",
+      "initial_exit_code": 0,
+      "initial_elapsed_ms": 41.5,
+      "final_evidence": "first-run/R0-AUDIT.log"
+    },
+    {
+      "name": "HOUSE",
+      "initial_status": "FAIL",
+      "initial_exit_code": 1,
+      "initial_elapsed_ms": 63.7,
+      "final_evidence": "house-recheck.log"
+    },
+    {
+      "name": "TRUSTED-LINES",
+      "initial_status": "PASS",
+      "initial_exit_code": 0,
+      "initial_elapsed_ms": 36.9,
+      "final_evidence": "first-run/TRUSTED-LINES.log"
+    },
+    {
+      "name": "SUITE-KERNEL",
+      "initial_status": "PASS",
+      "initial_exit_code": 0,
+      "initial_elapsed_ms": 606.3,
+      "final_evidence": "first-run/SUITE-KERNEL.log"
+    },
+    {
+      "name": "SUITE-SURFACE",
+      "initial_status": "PASS",
+      "initial_exit_code": 0,
+      "initial_elapsed_ms": 270.9,
+      "final_evidence": "first-run/SUITE-SURFACE.log"
+    },
+    {
+      "name": "DRIVER",
+      "initial_status": "PASS",
+      "initial_exit_code": 0,
+      "initial_elapsed_ms": 182.3,
+      "final_evidence": "first-run/DRIVER.log"
+    },
+    {
+      "name": "MUTANTS",
+      "initial_status": "FAIL",
+      "initial_exit_code": 1,
+      "initial_elapsed_ms": 6035.5,
+      "final_evidence": "mutants-recheck.log"
+    },
+    {
+      "name": "DENOMINATORS",
+      "initial_status": "PASS",
+      "initial_exit_code": 0,
+      "initial_elapsed_ms": 61.4,
+      "final_evidence": "first-run/DENOMINATORS.log"
+    },
+    {
+      "name": "KECCAK-VEC",
+      "initial_status": "PASS",
+      "initial_exit_code": 0,
+      "initial_elapsed_ms": 937.8,
+      "final_evidence": "first-run/KECCAK-VEC.log"
+    },
+    {
+      "name": "KECCAK-MUTANTS",
+      "initial_status": "PASS",
+      "initial_exit_code": 0,
+      "initial_elapsed_ms": 4263.2,
+      "final_evidence": "first-run/KECCAK-MUTANTS.log"
+    },
+    {
+      "name": "STACK-HEIGHT",
+      "initial_status": "PASS",
+      "initial_exit_code": 0,
+      "initial_elapsed_ms": 2374.8,
+      "final_evidence": "first-run/STACK-HEIGHT.log"
+    },
+    {
+      "name": "DISASM-3WAY",
+      "initial_status": "PASS",
+      "initial_exit_code": 0,
+      "initial_elapsed_ms": 557.4,
+      "final_evidence": "first-run/DISASM-3WAY.log"
+    },
+    {
+      "name": "ASM-MUTANTS",
+      "initial_status": "PASS",
+      "initial_exit_code": 0,
+      "initial_elapsed_ms": 17511.3,
+      "final_evidence": "first-run/ASM-MUTANTS.log"
+    },
+    {
+      "name": "FORK-DRIFT",
+      "initial_status": "PASS",
+      "initial_exit_code": 0,
+      "initial_elapsed_ms": 216.8,
+      "final_evidence": "first-run/FORK-DRIFT.log"
+    },
+    {
+      "name": "M0-TRACE",
+      "initial_status": "PASS",
+      "initial_exit_code": 0,
+      "initial_elapsed_ms": 127.4,
+      "final_evidence": "first-run/M0-TRACE.log"
+    },
+    {
+      "name": "CREATE-EQ",
+      "initial_status": "PASS",
+      "initial_exit_code": 0,
+      "initial_elapsed_ms": 118.3,
+      "final_evidence": "first-run/CREATE-EQ.log"
+    },
+    {
+      "name": "REFERENCE-CHECKS",
+      "initial_status": "PASS",
+      "initial_exit_code": 0,
+      "initial_elapsed_ms": 161.3,
+      "final_evidence": "first-run/REFERENCE-CHECKS.log"
+    },
+    {
+      "name": "REFERENCE-MUTANTS",
+      "initial_status": "PASS",
+      "initial_exit_code": 0,
+      "initial_elapsed_ms": 1545.7,
+      "final_evidence": "first-run/REFERENCE-MUTANTS.log"
+    },
+    {
+      "name": "EMIT-CONSTRUCTORS",
+      "initial_status": "PASS",
+      "initial_exit_code": 0,
+      "initial_elapsed_ms": 297.9,
+      "final_evidence": "first-run/EMIT-CONSTRUCTORS.log"
+    },
+    {
+      "name": "WORD-UNBOX",
+      "initial_status": "PASS",
+      "initial_exit_code": 0,
+      "initial_elapsed_ms": 5.6,
+      "final_evidence": "first-run/WORD-UNBOX.log"
+    },
+    {
+      "name": "STORAGE-NOCLOS",
+      "initial_status": "PASS",
+      "initial_exit_code": 0,
+      "initial_elapsed_ms": 5.3,
+      "final_evidence": "first-run/STORAGE-NOCLOS.log"
+    },
+    {
+      "name": "ABI-GOLD",
+      "initial_status": "PASS",
+      "initial_exit_code": 0,
+      "initial_elapsed_ms": 246.6,
+      "final_evidence": "first-run/ABI-GOLD.log"
+    },
+    {
+      "name": "EMITTED-TRACE",
+      "initial_status": "PASS",
+      "initial_exit_code": 0,
+      "initial_elapsed_ms": 140.7,
+      "final_evidence": "first-run/EMITTED-TRACE.log"
+    },
+    {
+      "name": "EMIT-SOURCES",
+      "initial_status": "PASS",
+      "initial_exit_code": 0,
+      "initial_elapsed_ms": 1041.9,
+      "final_evidence": "first-run/EMIT-SOURCES.log"
+    },
+    {
+      "name": "EMIT-MUTANTS",
+      "initial_status": "PASS",
+      "initial_exit_code": 0,
+      "initial_elapsed_ms": 15535.9,
+      "final_evidence": "first-run/EMIT-MUTANTS.log"
+    },
+    {
+      "name": "AXIOMS",
+      "initial_status": "FAIL",
+      "initial_exit_code": 1,
+      "initial_elapsed_ms": 120.2,
+      "final_evidence": "axioms-recheck.log"
+    },
+    {
+      "name": "TRACE-DRIVER",
+      "initial_status": "PASS",
+      "initial_exit_code": 0,
+      "initial_elapsed_ms": 1502.0,
+      "final_evidence": "first-run/TRACE-DRIVER.log"
+    },
+    {
+      "name": "CORPUS",
+      "initial_status": "PASS",
+      "initial_exit_code": 0,
+      "initial_elapsed_ms": 1336.8,
+      "final_evidence": "first-run/CORPUS.log"
+    },
+    {
+      "name": "ERASED-BYTES",
+      "initial_status": "PASS",
+      "initial_exit_code": 0,
+      "initial_elapsed_ms": 142.2,
+      "final_evidence": "first-run/ERASED-BYTES.log"
+    },
+    {
+      "name": "M0-RATIO",
+      "initial_status": "PASS",
+      "initial_exit_code": 0,
+      "initial_elapsed_ms": 191.7,
+      "final_evidence": "first-run/M0-RATIO.log"
+    },
+    {
+      "name": "F-MUTANTS",
+      "initial_status": "PASS",
+      "initial_exit_code": 0,
+      "initial_elapsed_ms": 272.0,
+      "final_evidence": "first-run/F-MUTANTS.log"
+    },
+    {
+      "name": "DIFF-EXECUTOR",
+      "initial_status": "PASS",
+      "initial_exit_code": 0,
+      "initial_elapsed_ms": 4248.2,
+      "final_evidence": "first-run/DIFF-EXECUTOR.log"
+    },
+    {
+      "name": "COUNTER-REFERENCE",
+      "initial_status": "PASS",
+      "initial_exit_code": 0,
+      "initial_elapsed_ms": 2092.1,
+      "final_evidence": "first-run/COUNTER-REFERENCE.log"
+    },
+    {
+      "name": "M1-EMISSION",
+      "initial_status": "PASS",
+      "initial_exit_code": 0,
+      "initial_elapsed_ms": 60423.0,
+      "final_evidence": "first-run/M1-EMISSION.log"
+    },
+    {
+      "name": "SOURCE-MODEL",
+      "initial_status": "PASS",
+      "initial_exit_code": 0,
+      "initial_elapsed_ms": 24686.0,
+      "final_evidence": "first-run/SOURCE-MODEL.log"
+    },
+    {
+      "name": "CONTRACT-SURFACE",
+      "initial_status": "PASS",
+      "initial_exit_code": 0,
+      "initial_elapsed_ms": 22521.3,
+      "final_evidence": "first-run/CONTRACT-SURFACE.log"
+    },
+    {
+      "name": "CONTRACT-ROUTE",
+      "initial_status": "PASS",
+      "initial_exit_code": 0,
+      "initial_elapsed_ms": 423.4,
+      "final_evidence": "first-run/CONTRACT-ROUTE.log"
+    },
+    {
+      "name": "SOURCE-PROOFS",
+      "initial_status": "FAIL",
+      "initial_exit_code": 1,
+      "initial_elapsed_ms": 48.9,
+      "final_evidence": "source-proofs-recheck.log"
+    },
+    {
+      "name": "NULLARY-ENTRIES",
+      "initial_status": "PASS",
+      "initial_exit_code": 0,
+      "initial_elapsed_ms": 11703.3,
+      "final_evidence": "first-run/NULLARY-ENTRIES.log"
+    },
+    {
+      "name": "CUSTOM-ERRORS",
+      "initial_status": "PASS",
+      "initial_exit_code": 0,
+      "initial_elapsed_ms": 21078.7,
+      "final_evidence": "first-run/CUSTOM-ERRORS.log"
+    },
+    {
+      "name": "PROOF-GUARDS",
+      "initial_status": "PASS",
+      "initial_exit_code": 0,
+      "initial_elapsed_ms": 25048.3,
+      "final_evidence": "first-run/PROOF-GUARDS.log"
+    },
+    {
+      "name": "PROOF-TERMS",
+      "initial_status": "PASS",
+      "initial_exit_code": 0,
+      "initial_elapsed_ms": 25353.1,
+      "final_evidence": "first-run/PROOF-TERMS.log"
+    },
+    {
+      "name": "INVARIANTS",
+      "initial_status": "PASS",
+      "initial_exit_code": 0,
+      "initial_elapsed_ms": 15840.6,
+      "final_evidence": "first-run/INVARIANTS.log"
+    },
+    {
+      "name": "PROOF-HELPERS",
+      "initial_status": "PASS",
+      "initial_exit_code": 0,
+      "initial_elapsed_ms": 16965.3,
+      "final_evidence": "first-run/PROOF-HELPERS.log"
+    },
+    {
+      "name": "PROOF-BUNDLES",
+      "initial_status": "PASS",
+      "initial_exit_code": 0,
+      "initial_elapsed_ms": 18636.0,
+      "final_evidence": "first-run/PROOF-BUNDLES.log"
+    },
+    {
+      "name": "PREDICATES",
+      "initial_status": "PASS",
+      "initial_exit_code": 0,
+      "initial_elapsed_ms": 19172.2,
+      "final_evidence": "first-run/PREDICATES.log"
+    },
+    {
+      "name": "COMPOUND-INVARIANTS",
+      "initial_status": "PASS",
+      "initial_exit_code": 0,
+      "initial_elapsed_ms": 14911.4,
+      "final_evidence": "first-run/COMPOUND-INVARIANTS.log"
+    },
+    {
+      "name": "COMPOUND-GUARDS",
+      "initial_status": "PASS",
+      "initial_exit_code": 0,
+      "initial_elapsed_ms": 27433.2,
+      "final_evidence": "first-run/COMPOUND-GUARDS.log"
+    },
+    {
+      "name": "NAMED-GUARDS",
+      "initial_status": "PASS",
+      "initial_exit_code": 0,
+      "initial_elapsed_ms": 22616.1,
+      "final_evidence": "first-run/NAMED-GUARDS.log"
+    },
+    {
+      "name": "INFERRED-GUARDS",
+      "initial_status": "PASS",
+      "initial_exit_code": 0,
+      "initial_elapsed_ms": 38357.3,
+      "final_evidence": "first-run/INFERRED-GUARDS.log"
+    },
+    {
+      "name": "INFERRED-ARITHMETIC",
+      "initial_status": "PASS",
+      "initial_exit_code": 0,
+      "initial_elapsed_ms": 29010.5,
+      "final_evidence": "first-run/INFERRED-ARITHMETIC.log"
+    },
+    {
+      "name": "INFERRED-HELPERS",
+      "initial_status": "PASS",
+      "initial_exit_code": 0,
+      "initial_elapsed_ms": 43603.9,
+      "final_evidence": "first-run/INFERRED-HELPERS.log"
+    },
+    {
+      "name": "PROOF-HOLES",
+      "initial_status": "PASS",
+      "initial_exit_code": 0,
+      "initial_elapsed_ms": 35075.5,
+      "final_evidence": "first-run/PROOF-HOLES.log"
+    },
+    {
+      "name": "INFERRED-BINDINGS",
+      "initial_status": "PASS",
+      "initial_exit_code": 0,
+      "initial_elapsed_ms": 42979.0,
+      "final_evidence": "first-run/INFERRED-BINDINGS.log"
+    },
+    {
+      "name": "INFERRED-GUARD-BINDINGS",
+      "initial_status": "PASS",
+      "initial_exit_code": 0,
+      "initial_elapsed_ms": 51965.6,
+      "final_evidence": "first-run/INFERRED-GUARD-BINDINGS.log"
+    },
+    {
+      "name": "EVM-CONTEXT",
+      "initial_status": "PASS",
+      "initial_exit_code": 0,
+      "initial_elapsed_ms": 49958.8,
+      "final_evidence": "first-run/EVM-CONTEXT.log"
+    },
+    {
+      "name": "SURFACE-CONTEXT",
+      "initial_status": "PASS",
+      "initial_exit_code": 0,
+      "initial_elapsed_ms": 35728.4,
+      "final_evidence": "first-run/SURFACE-CONTEXT.log"
+    },
+    {
+      "name": "WORD-EQUALITY",
+      "initial_status": "PASS",
+      "initial_exit_code": 0,
+      "initial_elapsed_ms": 29213.7,
+      "final_evidence": "first-run/WORD-EQUALITY.log"
+    },
+    {
+      "name": "HEX-LITERALS",
+      "initial_status": "PASS",
+      "initial_exit_code": 0,
+      "initial_elapsed_ms": 23499.6,
+      "final_evidence": "first-run/HEX-LITERALS.log"
+    },
+    {
+      "name": "INFERRED-WORDS",
+      "initial_status": "PASS",
+      "initial_exit_code": 0,
+      "initial_elapsed_ms": 28059.8,
+      "final_evidence": "first-run/INFERRED-WORDS.log"
+    },
+    {
+      "name": "FALLBACK",
+      "initial_status": "PASS",
+      "initial_exit_code": 0,
+      "initial_elapsed_ms": 25941.6,
+      "final_evidence": "first-run/FALLBACK.log"
+    },
+    {
+      "name": "DIFF-VALUE",
+      "initial_status": "PASS",
+      "initial_exit_code": 0,
+      "initial_elapsed_ms": 7062.9,
+      "final_evidence": "first-run/DIFF-VALUE.log"
+    },
+    {
+      "name": "TRACE-VALUE",
+      "initial_status": "PASS",
+      "initial_exit_code": 0,
+      "initial_elapsed_ms": 3705.6,
+      "final_evidence": "first-run/TRACE-VALUE.log"
+    },
+    {
+      "name": "TRACE-CALLER",
+      "initial_status": "PASS",
+      "initial_exit_code": 0,
+      "initial_elapsed_ms": 4158.0,
+      "final_evidence": "first-run/TRACE-CALLER.log"
+    },
+    {
+      "name": "DIFF-CALLER",
+      "initial_status": "PASS",
+      "initial_exit_code": 0,
+      "initial_elapsed_ms": 13567.9,
+      "final_evidence": "first-run/DIFF-CALLER.log"
+    },
+    {
+      "name": "PAYABLE",
+      "initial_status": "PASS",
+      "initial_exit_code": 0,
+      "initial_elapsed_ms": 24682.1,
+      "final_evidence": "first-run/PAYABLE.log"
+    },
+    {
+      "name": "CALLVALUE",
+      "initial_status": "PASS",
+      "initial_exit_code": 0,
+      "initial_elapsed_ms": 35973.2,
+      "final_evidence": "first-run/CALLVALUE.log"
+    },
+    {
+      "name": "CALLDATASIZE",
+      "initial_status": "PASS",
+      "initial_exit_code": 0,
+      "initial_elapsed_ms": 60360.7,
+      "final_evidence": "first-run/CALLDATASIZE.log"
+    },
+    {
+      "name": "CALLDATALOAD",
+      "initial_status": "PASS",
+      "initial_exit_code": 0,
+      "initial_elapsed_ms": 119381.8,
+      "final_evidence": "first-run/CALLDATALOAD.log"
+    },
+    {
+      "name": "ADDRESS",
+      "initial_status": "PASS",
+      "initial_exit_code": 0,
+      "initial_elapsed_ms": 131503.2,
+      "final_evidence": "first-run/ADDRESS.log"
+    },
+    {
+      "name": "BEND2-RATIO",
+      "initial_status": "PASS",
+      "initial_exit_code": 0,
+      "initial_elapsed_ms": 230.9,
+      "final_evidence": "first-run/BEND2-RATIO.log"
+    },
+    {
+      "name": "BEND2-RATIO-TEST",
+      "initial_status": "PASS",
+      "initial_exit_code": 0,
+      "initial_elapsed_ms": 1785.8,
+      "final_evidence": "first-run/BEND2-RATIO-TEST.log"
+    }
+  ]
+}

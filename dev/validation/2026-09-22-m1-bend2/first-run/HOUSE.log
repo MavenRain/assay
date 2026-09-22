@@ -1,0 +1,24 @@
+HOUSE no-exception FAIL
+HOUSE named catch-all scan failed: [Errno 2] No such file or directory: 'rg'
+HOUSE no-mutable-state OK
+HOUSE no-mutable-state roots=lib emit asm keccak abi
+HOUSE one-catch-site FAIL
+
+HOUSE no-bool-match OK
+HOUSE no-em-dash OK
+HOUSE no-loop-keyword OK
+HOUSE no-bare-division OK
+HOUSE FAIL
+scan:4: command not found: rg
+scan:5: command not found: rg
+dev/house.sh:85: command not found: rg
+scan:4: command not found: rg
+scan:5: command not found: rg
+dev/house.sh:91: command not found: rg
+scan:4: command not found: rg
+scan:5: command not found: rg
+dev/house.sh:106: command not found: rg
+scan:4: command not found: rg
+scan:5: command not found: rg
+scan:4: command not found: rg
+scan:5: command not found: rg

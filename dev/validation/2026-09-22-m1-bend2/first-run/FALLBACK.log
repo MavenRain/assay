@@ -1,0 +1,7 @@
+FALLBACK-MUTANT SHORT killed control=OK
+FALLBACK-MUTANT UNKNOWN killed control=OK
+FALLBACK-MUTANT VALUE killed control=OK
+FALLBACK-MUTANT MODEL killed control=OK
+FALLBACK-MUTANT CLOSED killed control=OK
+FALLBACK-MUTANT ABI killed control=OK
+FALLBACK cases=99 signed=99 creates=10 refusals=23 boundaries=2 mutants=6 OK

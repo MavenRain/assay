@@ -1,12 +1,13 @@
 # M1 closure
 
-Status: M1 remains open. The latest measured ratio is 1.469021 against
-the R3 limit of 1.0. All four retained measurement attempts miss the bound.
-The remaining milestone work is a passing measurement under the same
-frozen corpus, one-minute window and five-round protocol.
+Status: the current R3 speed gate passes. The requirement, set by the
+user on 2026-09-22, is compilation speed at least as fast as Bend 2.
+The [frozen paired comparison](M1-BEND2.md) measures a ratio of 0.072614202
+against the 1.0 limit. The four retained OCaml measurements below are
+historical diagnostics.
 
-This slice starts at `ec27e6f`. It completes the performance gate required
-by R3 and brings the existing M1 implementation under one default battery.
+This historical slice starts at `ec27e6f`. It implements the former OCaml
+performance gate and brings the existing M1 implementation under one battery.
 It adds no language feature or trusted compiler line.
 
 The ratified M1 design requires a bounded counter, dispatcher, ABI and
@@ -20,13 +21,34 @@ the hand-assembled counter. The existing gates cover those requirements:
 | Contract, storage, entry and do syntax | CONTRACT-SURFACE |
 | Storage, return and revert agreement through geth run and Cancun t8n | DIFF-EXECUTOR, M1-EMISSION, CONTRACT-SURFACE |
 | Source execution and overflow-freedom theorem | SOURCE-MODEL, SOURCE-PROOFS |
-| R3 compiler wall-time ratio at most 1.0 | M1-RATIO |
+| R3 compilation speed at least as fast as Bend 2 | BEND2-RATIO, BEND2-RATIO-TEST |
 
 The counter gates exercise 30 calldata/prestate rows, exceeding the
 eight-row milestone requirement. The two executors are geth entry points.
 The source-model proof does not prove the OCaml compiler correct.
 
 ## Performance contract
+
+Assay must compile at least as fast as Bend 2. This replaces all previous
+milestone compilation speed requirements. Compare parse through emit,
+ending at the five files on disk, on equivalent frozen workloads with
+pinned toolchains, the same machine and matched cache conditions. Require
+an Assay/Bend 2 compilation-time ratio <= 1.0. Speed is informational at
+M0 and binding from M1 onward. A measured Bend 2 comparison is required
+to close the speed requirement; no existing OCaml report can do so.
+
+The [Bend 2 comparison](M1-BEND2.md) supplies the paired corpus, pinned
+toolchains, complete compilation intervals, output validation, frozen
+measurement and refusal tests. The default 75-leg battery now uses its
+two gates in place of the former OCaml M1 ratio legs. The comparison's
+scope is six closed pure programs; stateful M1 behavior retains its
+separate functional gates.
+
+## Historical OCaml measurement tooling
+
+The tools below retain the former comparison for diagnostics. Their OCaml
+thresholds no longer bind milestone completion. The Bend 2 gate above
+validates the current R3 requirement.
 
 `python3 -P dev/ratio.py --m1` validates the frozen report and then enforces
 the unrounded comparison between contract and native-OCaml milliseconds
@@ -38,7 +60,7 @@ the compiler source inventory and records the executable hash, but it
 does not check that the timed executable was built from that inventory;
 run `zsh -f dev/dune.sh build` immediately before `--measure-m1`.
 
-The corpus and measurement method are unchanged: eight contract programs,
+The historical corpus and measurement method use eight contract programs,
 three separately reported proof programs, and the frozen 24-file OCaml
 reference. There is one warm round followed by five interleaved measured
 rounds, with a strictly less than 60-second wall-clock window. Each assay
@@ -69,24 +91,34 @@ effect of the optimization. The measurement script and corpus are unchanged.
 Startup diagnostics are
 retained as diagnostic evidence, not as a substitute for R3 validation.
 
-## Validation
+## Bend 2 validation
 
-`zsh -f dev/gates.sh` selects `--m1-close`, the 73-leg address battery plus
-M1-RATIO and M1-RATIO-TEST. The compatibility check compares commands,
-deadlines and markers for the 44 historical modes and probes the failure
-class of the three `--m1-close` legs only. The historical M0/M1 classes
-are unchanged because the scheduler change only adds rows under
-`--m1-close`. The new legs are classified as M1 failures. The existing
-M0 ratification message remains.
+The [2026-09-22 archive](validation/2026-09-22-m1-bend2/README.md) records
+all 75 checks. Seventy passed in the default run; five failed because its
+PATH omitted `rg` and `leancho`. All five passed with the complete tool
+PATH. Both Bend 2 legs passed in the full run. The archive retains the
+initial failures, successful rechecks, source hashes and full output.
 
-The ratio test uses synthetic reports to exercise the public command;
-these are decision tests and provide no timing evidence. It checks the
-inclusive boundary, rejection despite six-decimal rounding, informational
-M0 behavior, report identities, source changes and additions, invalid
-windows, rejected reports, summaries, command timings and frozen checksums.
-Four source mutations remove dispatch enforcement, the bound, source
-identity checking and the M1-report requirement. Each admits a report that
-the restored gate refuses. A final restored boundary control passes.
+## Historical closure validation
+
+The 2026-09-21 closure run selected `--m1-close`, then the 73-leg address
+battery plus M1-RATIO and M1-RATIO-TEST. The compatibility check compared
+commands, deadlines and markers for the 44 historical modes and probed the
+failure class of the three `--m1-close` legs only. The historical M0/M1
+classes were unchanged because the scheduler change only added rows under
+`--m1-close`. The two ratio legs were classified as M1 failures. The M0
+ratification message remained. Since 2026-09-22 `zsh -f dev/gates.sh` runs
+the same battery with BEND2-RATIO and BEND2-RATIO-TEST in their place (see
+[M1-BEND2.md](M1-BEND2.md)).
+
+That ratio test used synthetic reports to exercise the public command; these
+were decision tests and provided no timing evidence. It checked the
+inclusive boundary, rejection despite six-decimal rounding, informational M0
+behavior, report identities, source changes and additions, invalid windows,
+rejected reports, summaries, command timings and frozen checksums. Four
+source mutations removed dispatch enforcement, the bound, source identity
+checking and the M1-report requirement. Each admitted a report that the
+restored gate refused. A final restored boundary control passed.
 
 The initial closure archive records 38 fresh passes from an interrupted default
 run, focused closure checks, and gate compatibility. The prior full

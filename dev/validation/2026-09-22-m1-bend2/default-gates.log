@@ -1,0 +1,120 @@
+PASS BUILD exit=0 elapsed_ms=279.0
+PASS PIN-CARRY exit=0 elapsed_ms=556.8
+FAIL R0-COUNT exit=1 elapsed_ms=21.1
+R0-COUNT FAIL: SPEC.md has no '## R0 counts' heading
+dev/r0-count.sh:25: command not found: rg
+
+PASS R0-AUDIT exit=0 elapsed_ms=41.5
+FAIL HOUSE exit=1 elapsed_ms=63.7
+HOUSE no-exception FAIL
+HOUSE named catch-all scan failed: [Errno 2] No such file or directory: 'rg'
+HOUSE no-mutable-state OK
+HOUSE no-mutable-state roots=lib emit asm keccak abi
+HOUSE one-catch-site FAIL
+
+HOUSE no-bool-match OK
+HOUSE no-em-dash OK
+HOUSE no-loop-keyword OK
+HOUSE no-bare-division OK
+HOUSE FAIL
+scan:4: command not found: rg
+scan:5: command not found: rg
+dev/house.sh:85: command not found: rg
+scan:4: command not found: rg
+scan:5: command not found: rg
+dev/house.sh:91: command not found: rg
+scan:4: command not found: rg
+scan:5: command not found: rg
+dev/house.sh:106: command not found: rg
+scan:4: command not found: rg
+scan:5: command not found: rg
+scan:4: command not found: rg
+scan:5: command not found: rg
+
+PASS TRUSTED-LINES exit=0 elapsed_ms=36.9
+PASS SUITE-KERNEL exit=0 elapsed_ms=606.3
+PASS SUITE-SURFACE exit=0 elapsed_ms=270.9
+PASS DRIVER exit=0 elapsed_ms=182.3
+FAIL MUTANTS exit=1 elapsed_ms=6035.5
+MUTANT PIN killed exit=1
+MUTANT CARRY killed exit=1
+MUTANT CARRY-NEW killed exit=1
+MUTANT CARRY-GONE killed exit=1
+MUTANT R0-COUNT killed exit=1
+MUTANT R0-AUDIT killed exit=1
+MUTANT R0-AUDIT-SPEC killed exit=1
+MUTANT HOUSE killed exit=1
+MUTANT HOUSE-LOOP FAIL exit=1 stdout="HOUSE no-exception FAIL\nHOUSE named catch-all scan failed: [Errno 2] No such file or directory: 'rg'\nHOUSE no-mutable-state OK\nHOUSE no-mutable-state roots=lib\nHOUSE one-catch-site FAIL\n\nHOUSE no-bool-match OK\nHOUSE no-em-dash OK\nHOUSE no-loop-keyword OK\nHOUSE no-bare-division OK\nHOUSE FAIL\n" stderr='scan:4: command not found: rg\nscan:5: command not found: rg\n/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-mutants-pgr_roqc/dev/house.sh:85: command not found: rg\nscan:4: command not found: rg\nscan:5: command not found: rg\n/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-mutants-pgr_roqc/dev/house.sh:91: command not found: rg\nscan:4: command not found: rg\nscan:5: command not found: rg\n/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-mutants-pgr_roqc/dev/house.sh:106: command not found: rg\nscan:4: command not found: rg\nscan:5: command not found: rg\nscan:4: command not found: rg\nscan:5: command not found: rg\n'
+
+PASS DENOMINATORS exit=0 elapsed_ms=61.4
+PASS KECCAK-VEC exit=0 elapsed_ms=937.8
+PASS KECCAK-MUTANTS exit=0 elapsed_ms=4263.2
+PASS STACK-HEIGHT exit=0 elapsed_ms=2374.8
+PASS DISASM-3WAY exit=0 elapsed_ms=557.4
+PASS ASM-MUTANTS exit=0 elapsed_ms=17511.3
+PASS FORK-DRIFT exit=0 elapsed_ms=216.8
+PASS M0-TRACE exit=0 elapsed_ms=127.4
+PASS CREATE-EQ exit=0 elapsed_ms=118.3
+PASS REFERENCE-CHECKS exit=0 elapsed_ms=161.3
+PASS REFERENCE-MUTANTS exit=0 elapsed_ms=1545.7
+PASS EMIT-CONSTRUCTORS exit=0 elapsed_ms=297.9
+PASS WORD-UNBOX exit=0 elapsed_ms=5.6
+PASS STORAGE-NOCLOS exit=0 elapsed_ms=5.3
+PASS ABI-GOLD exit=0 elapsed_ms=246.6
+PASS EMITTED-TRACE exit=0 elapsed_ms=140.7
+PASS EMIT-SOURCES exit=0 elapsed_ms=1041.9
+PASS EMIT-MUTANTS exit=0 elapsed_ms=15535.9
+FAIL AXIOMS exit=1 elapsed_ms=120.2
+AXIOMS FAIL [Errno 2] No such file or directory: 'rg'
+AXIOMS-HOST elan present, skip refused
+
+PASS TRACE-DRIVER exit=0 elapsed_ms=1502.0
+PASS CORPUS exit=0 elapsed_ms=1336.8
+PASS ERASED-BYTES exit=0 elapsed_ms=142.2
+PASS M0-RATIO exit=0 elapsed_ms=191.7
+PASS F-MUTANTS exit=0 elapsed_ms=272.0
+PASS DIFF-EXECUTOR exit=0 elapsed_ms=4248.2
+PASS COUNTER-REFERENCE exit=0 elapsed_ms=2092.1
+PASS M1-EMISSION exit=0 elapsed_ms=60423.0
+PASS SOURCE-MODEL exit=0 elapsed_ms=24686.0
+PASS CONTRACT-SURFACE exit=0 elapsed_ms=22521.3
+PASS CONTRACT-ROUTE exit=0 elapsed_ms=423.4
+FAIL SOURCE-PROOFS exit=1 elapsed_ms=48.9
+SOURCE-PROOFS FAIL [Errno 2] No such file or directory: 'leancho'
+
+PASS NULLARY-ENTRIES exit=0 elapsed_ms=11703.3
+PASS CUSTOM-ERRORS exit=0 elapsed_ms=21078.7
+PASS PROOF-GUARDS exit=0 elapsed_ms=25048.3
+PASS PROOF-TERMS exit=0 elapsed_ms=25353.1
+PASS INVARIANTS exit=0 elapsed_ms=15840.6
+PASS PROOF-HELPERS exit=0 elapsed_ms=16965.3
+PASS PROOF-BUNDLES exit=0 elapsed_ms=18636.0
+PASS PREDICATES exit=0 elapsed_ms=19172.2
+PASS COMPOUND-INVARIANTS exit=0 elapsed_ms=14911.4
+PASS COMPOUND-GUARDS exit=0 elapsed_ms=27433.2
+PASS NAMED-GUARDS exit=0 elapsed_ms=22616.1
+PASS INFERRED-GUARDS exit=0 elapsed_ms=38357.3
+PASS INFERRED-ARITHMETIC exit=0 elapsed_ms=29010.5
+PASS INFERRED-HELPERS exit=0 elapsed_ms=43603.9
+PASS PROOF-HOLES exit=0 elapsed_ms=35075.5
+PASS INFERRED-BINDINGS exit=0 elapsed_ms=42979.0
+PASS INFERRED-GUARD-BINDINGS exit=0 elapsed_ms=51965.6
+PASS EVM-CONTEXT exit=0 elapsed_ms=49958.8
+PASS SURFACE-CONTEXT exit=0 elapsed_ms=35728.4
+PASS WORD-EQUALITY exit=0 elapsed_ms=29213.7
+PASS HEX-LITERALS exit=0 elapsed_ms=23499.6
+PASS INFERRED-WORDS exit=0 elapsed_ms=28059.8
+PASS FALLBACK exit=0 elapsed_ms=25941.6
+PASS DIFF-VALUE exit=0 elapsed_ms=7062.9
+PASS TRACE-VALUE exit=0 elapsed_ms=3705.6
+PASS TRACE-CALLER exit=0 elapsed_ms=4158.0
+PASS DIFF-CALLER exit=0 elapsed_ms=13567.9
+PASS PAYABLE exit=0 elapsed_ms=24682.1
+PASS CALLVALUE exit=0 elapsed_ms=35973.2
+PASS CALLDATASIZE exit=0 elapsed_ms=60360.7
+PASS CALLDATALOAD exit=0 elapsed_ms=119381.8
+PASS ADDRESS exit=0 elapsed_ms=131503.2
+PASS BEND2-RATIO exit=0 elapsed_ms=230.9
+PASS BEND2-RATIO-TEST exit=0 elapsed_ms=1785.8
+M0-VALIDATION FAIL; M0-EXIT requires the user commit and ratification
+STAGE-M1-CLOSE FAIL

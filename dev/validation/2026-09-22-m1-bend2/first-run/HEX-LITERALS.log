@@ -1,0 +1,5 @@
+HEX-MUTANT RADIX killed control=OK
+HEX-MUTANT EMPTY killed control=OK
+HEX-MUTANT RANGE killed control=OK
+HEX-MUTANT NORMALIZE killed control=OK
+HEX-LITERALS pairs=30 cases=46 signed=25 creates=23 refusals=23 mutants=4 OK

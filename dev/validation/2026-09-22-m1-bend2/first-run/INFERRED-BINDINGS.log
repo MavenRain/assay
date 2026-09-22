@@ -1,0 +1,11 @@
+IA-LIVE cases=229 creates=2 OK
+IA-ERASURE pairs=21 files=5 OK
+IB-REFUSALS cases=25 commands=3 OK
+IB-BOUNDARIES nested=128 bundle_nodes=4095 spine_depth=32 positive=6 negative=1 OK
+IB-MUTANT ENTRY-EVIDENCE killed control=OK
+IB-MUTANT LOCAL-EVIDENCE killed control=OK
+IB-MUTANT ANNOTATION killed control=OK
+IB-MUTANT UNUSED killed control=OK
+IB-MUTANT BUNDLE-LIMIT killed control=OK
+IB-MUTANT DEPTH-LIMIT killed control=OK
+INFERRED-BINDINGS cases=229 creates=2 refusals=25 erasure_pairs=21 boundaries=6 mutants=6 OK

@@ -1,7 +1,8 @@
 # assay
 
-M1 remains open on performance: the current frozen ratio is 1.956099
-against the required limit of 1.0.
+The [frozen Bend 2 compilation comparison](dev/M1-BEND2.md) passes M1's
+speed bound: Assay/Bend 2 = 0.072614202 against the required limit of 1.0
+on six matched pure programs.
 
 The [M1 closure gate](dev/M1-CLOSE.md) combines the bounded counter,
 surface, proof and executor checks with the binding compiler performance
@@ -362,14 +363,25 @@ The equality gate adds eight five-file comparisons, 53 execution cases,
 33 signed Cancun comparisons, eight creation outcomes, six boundary
 forms, 17 refusals and four mutations with restored controls.
 The [M1 measurement](dev/denominators-m1-2026-09-21-04.json) completes five
-interleaved rounds in 9.337 seconds. Its ratio is 1.469021, so M1 remains open.
-The [compact assembly slice](dev/M1-COMPACTION.md) removes the redundant
-assembly pass and preserves the existing bytecode selection policy.
-The binding `M1-RATIO` gate requires
-parse-through-output time per thousand lines at most equal to `ocamlopt -c`
-on the frozen corpus. It verifies the current compiler source inventory.
-`DENOMINATORS` and the informational `M0-RATIO` use the refreshed frozen
-report. The [earlier timing diagnosis](dev/TIMING-DEBUG.md) remains recorded.
+interleaved rounds in 9.337 seconds. Its OCaml ratio of 1.469021 is historical.
+The [compact assembly slice](dev/M1-COMPACTION.md) (a 2026-09-21 record; its M1-RATIO rows are historical)
+removes the redundant assembly pass and preserves the existing bytecode
+selection policy.
+The compilation speed requirement is now **at least as fast as Bend 2**,
+per the user ruling of 2026-09-22. This replaces all previous milestone
+compilation speed requirements. Compare parse-through-output time, ending
+at the five files on disk, against Bend 2 on equivalent frozen workloads.
+Require an Assay/Bend 2 compilation-time ratio <= 1.0, with pinned toolchains,
+the same machine and matched cache conditions. Speed is informational at
+M0 and binding from M1 onward. The [Bend 2 gate](dev/M1-BEND2.md) now pins
+six paired pure programs, checks their emitted outputs, and measures five
+alternating rounds. Its frozen ratio is 0.072614202. The default battery
+enforces this unrounded comparison with `BEND2-RATIO`; `BEND2-RATIO-TEST`
+checks refusals and mutations. Existing `M1-RATIO` and `M0-RATIO` reports
+compare OCaml timings for historical diagnostics. Their OCaml thresholds
+no longer bind milestone completion. `DENOMINATORS` continues to verify
+the compiler source inventory. The [earlier timing diagnosis](dev/TIMING-DEBUG.md)
+remains recorded.
 The final M0-EXIT stamp still requires explicit user ratification.
 The core counter source, dispatcher, ABI/layout emission, differential gate
 and source model are implemented, along with bounded contract/entry/do

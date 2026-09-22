@@ -1,0 +1,9 @@
+MUTANT PIN killed exit=1
+MUTANT CARRY killed exit=1
+MUTANT CARRY-NEW killed exit=1
+MUTANT CARRY-GONE killed exit=1
+MUTANT R0-COUNT killed exit=1
+MUTANT R0-AUDIT killed exit=1
+MUTANT R0-AUDIT-SPEC killed exit=1
+MUTANT HOUSE killed exit=1
+MUTANT HOUSE-LOOP FAIL exit=1 stdout="HOUSE no-exception FAIL\nHOUSE named catch-all scan failed: [Errno 2] No such file or directory: 'rg'\nHOUSE no-mutable-state OK\nHOUSE no-mutable-state roots=lib\nHOUSE one-catch-site FAIL\n\nHOUSE no-bool-match OK\nHOUSE no-em-dash OK\nHOUSE no-loop-keyword OK\nHOUSE no-bare-division OK\nHOUSE FAIL\n" stderr='scan:4: command not found: rg\nscan:5: command not found: rg\n/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-mutants-pgr_roqc/dev/house.sh:85: command not found: rg\nscan:4: command not found: rg\nscan:5: command not found: rg\n/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-mutants-pgr_roqc/dev/house.sh:91: command not found: rg\nscan:4: command not found: rg\nscan:5: command not found: rg\n/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-mutants-pgr_roqc/dev/house.sh:106: command not found: rg\nscan:4: command not found: rg\nscan:5: command not found: rg\nscan:4: command not found: rg\nscan:5: command not found: rg\n'
