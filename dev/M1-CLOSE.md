@@ -1,7 +1,7 @@
 # M1 closure
 
-Status: M1 remains open. The final measured ratio is 1.956099 against
-the R3 limit of 1.0. Both retained measurement attempts miss the bound.
+Status: M1 remains open. The latest measured ratio is 1.469021 against
+the R3 limit of 1.0. All four retained measurement attempts miss the bound.
 The remaining milestone work is a passing measurement under the same
 frozen corpus, one-minute window and five-round protocol.
 
@@ -46,20 +46,27 @@ compile writes and validates all five output files. `ocamlc` and the fixed
 invocation cost remain reported, with no subtraction. The bound applies
 to this frozen corpus, not to every possible source program.
 
-The final window took 44.217 seconds. The dated report is
-[`denominators-m1-2026-09-21-02.json`](denominators-m1-2026-09-21-02.json), with
-an identical active copy at `denominators.json`. The previous report and
-checksum list are retained under `validation/2026-09-21-m1-close/`.
+The latest window took 9.337 seconds. The dated report is
+[`denominators-m1-2026-09-21-04.json`](denominators-m1-2026-09-21-04.json), with
+an identical active copy at `denominators.json`. The initial closure archive
+is retained under `validation/2026-09-21-m1-close/`. The compaction follow-up
+and its preceding checksum list are under `validation/2026-09-21-m1-compaction/`.
 Compiler, corpus and measurement identities are checked before and after
 measurement. No existing dated measurement is overwritten.
 
 | Attempt | Window seconds | Assay ms/kloc | ocamlopt ms/kloc | Ratio | Starting load |
 | --- | ---: | ---: | ---: | ---: | ---: |
 | 01 | 18.560 | 489.814 | 420.889 | 1.163762 | 14.57 |
-| 02, active | 44.217 | 2133.327 | 1090.603 | 1.956099 | 32.99 |
+| 02 | 44.217 | 2133.327 | 1090.603 | 1.956099 | 32.99 |
+| 03, baseline | 10.958 | 451.684 | 272.959 | 1.654772 | 17.73 |
+| 04, active | 9.337 | 363.756 | 247.618 | 1.469021 | 9.83 |
 
-The compiler sources are identical in both attempts. The script change
-between them corrects the M1 failure label. Startup diagnostics are
+The compiler sources are identical in attempts 01 and 02. The script change
+between them corrects the M1 failure label. Attempt 03 measures the committed
+baseline, and attempt 04 includes [compact assembly](M1-COMPACTION.md).
+Their host loads differ, so these wall-time changes do not isolate the
+effect of the optimization. The measurement script and corpus are unchanged.
+Startup diagnostics are
 retained as diagnostic evidence, not as a substitute for R3 validation.
 
 ## Validation
@@ -81,7 +88,7 @@ Four source mutations remove dispatch enforcement, the bound, source
 identity checking and the M1-report requirement. Each admits a report that
 the restored gate refuses. A final restored boundary control passes.
 
-The validation archive records 38 fresh passes from an interrupted default
+The initial closure archive records 38 fresh passes from an interrupted default
 run, focused closure checks, and gate compatibility. The prior full
 functional evidence is reused after comparing its 275 pinned inputs:
 272 match exactly, and only `dev/gates.sh`, `dev/ratio.py` and

@@ -1,5 +1,5 @@
 (* Legacy Cancun assembly.  Layout collects labels once; fixed-width label
-   operands are resolved after layout, without size relaxation.
+   operands are resolved after layout. Optional compaction preserves M0's size rule.
    Stack reference: go-ethereum v1.14.12 core/vm/jump_table.go. *)
 include (struct
   type instruction = Op of string | Push of string | Dup of int | Swap of int
@@ -179,6 +179,23 @@ include (struct
             encode (bytes :: acc)
               ({ label = block.label; incoming = block.stack_in; outgoing; peak } :: stacks) rest in
         encode [] [] (List.rev reverse)
+  (* Size valid instructions without assembling a second program. Invalid
+     inputs still go through assemble, which retains the original diagnostic.
+     M0 shrinks two-byte labels only when the complete wide code fits in 255 bytes. *)
+  let assemble_compact blocks =
+    let size, reverse = List.fold_left (fun (size, acc) (block : block) ->
+      let bytes = List.fold_left (fun total -> function
+        | Push bytes -> total + 1 + (String.length bytes lsr 1)
+        | Op _ | Dup _ | Swap _ -> total + 1)
+        ((if block.destination then 1 else 0) + Result.value (ending_size block.ending) ~default:256) block.body in
+      let ending = match block.ending with
+        | Goto (2, label) -> Goto (1, label)
+        | Branch (2, yes, no) -> Branch (1, yes, no)
+        | Goto _ | Branch _ | Halt _ | Next _ -> block.ending in
+      min 256 (size + bytes), { block with ending } :: acc) (0, []) blocks in
+    let wide () = assemble blocks in
+    if size > 255 then wide () else
+    assemble (List.rev reverse) |> Result.fold ~error:(fun _error -> wide ()) ~ok:Result.ok
   let hex program = program.bytes
   let labels program = program.positions
   let heights program = program.stacks
@@ -229,6 +246,7 @@ end : sig
       All stack heights, including temporary label pushes, stay in 0..1024.
       Dynamic jumps and control instructions in a body are refused. *)
   val assemble : block list -> (t, error) result
+  val assemble_compact : block list -> (t, error) result
   val hex : t -> string
   val labels : t -> (string * int) list
   val heights : t -> height list

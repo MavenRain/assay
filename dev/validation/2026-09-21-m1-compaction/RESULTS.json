@@ -1,0 +1,51 @@
+{
+  "m0_passed": [
+    "BUILD",
+    "PIN-CARRY",
+    "R0-COUNT",
+    "R0-AUDIT",
+    "HOUSE",
+    "TRUSTED-LINES",
+    "SUITE-KERNEL",
+    "SUITE-SURFACE",
+    "DRIVER",
+    "MUTANTS",
+    "DENOMINATORS",
+    "KECCAK-VEC",
+    "KECCAK-MUTANTS",
+    "STACK-HEIGHT",
+    "DISASM-3WAY",
+    "ASM-MUTANTS",
+    "FORK-DRIFT",
+    "M0-TRACE",
+    "CREATE-EQ",
+    "REFERENCE-CHECKS",
+    "REFERENCE-MUTANTS",
+    "EMIT-CONSTRUCTORS",
+    "WORD-UNBOX",
+    "STORAGE-NOCLOS",
+    "ABI-GOLD",
+    "EMITTED-TRACE",
+    "EMIT-SOURCES",
+    "EMIT-MUTANTS",
+    "TRACE-DRIVER",
+    "CORPUS",
+    "ERASED-BYTES",
+    "M0-RATIO",
+    "F-MUTANTS"
+  ],
+  "m0_initial_failed": [
+    "AXIOMS"
+  ],
+  "resolved": {
+    "AXIOMS": "AXIOMS.log",
+    "DUNE_RUNTEST": "DUNE-RUNTEST-FIXED.log"
+  },
+  "compaction_cases": 618,
+  "assembler_mutants": 9,
+  "functional_checks": "passed across the full M0 run and focused checks",
+  "m1_ratio": 1.4690205258768216,
+  "m1_ratio_limit": 1.0,
+  "m1_status": "open",
+  "focused_supervisor": "lost heartbeat; wrapper exit unknown; individual outcomes recovered from FOCUSED.json"
+}

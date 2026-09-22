@@ -82,7 +82,7 @@ def main():
              "STACK-HEIGHT blocks=30 cases=64 opcodes=149 effect_cases=370 OK"),
             ("DISASM-3WAY", 120, ("python3", "-P", "dev/asm-test.py", "disasm"),
              "DISASM-3WAY ours=272 cast=272 evm=272 fixtures=7 negative=38 OK"),
-            ("ASM-MUTANTS", 1200, ("python3", "-P", "dev/asm-test.py", "mutants"), "ASM-MUTANTS killed=6/6 control=OK"),
+            ("ASM-MUTANTS", 1200, ("python3", "-P", "dev/asm-test.py", "mutants"), "ASM-MUTANTS killed=9/9 control=OK"),
         ])
     if reference:
         legs.extend([

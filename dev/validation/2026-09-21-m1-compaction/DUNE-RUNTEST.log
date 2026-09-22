@@ -1,0 +1,28 @@
+SL-SURFACE constructor-sugar OK
+SL-SURFACE mutual-sugar OK
+SL-SURFACE match-elaboration OK
+SL-SURFACE mu-roundtrip OK
+SL-SURFACE legacy-mu-roundtrip OK
+SL-SURFACE mutual-roundtrip OK
+SL-SURFACE legacy-mutual-roundtrip OK
+SL-SURFACE match-roundtrip OK
+SL-SURFACE case-roundtrip OK
+SL-SURFACE mixed-fields-roundtrip OK
+SL-SURFACE nested-match-roundtrip OK
+SL-SURFACE empty-match-roundtrip OK
+SL-SURFACE case-numeric-roundtrip OK
+SL-SURFACE match-numeric-refusal OK
+SL-SURFACE mutual-empty-refusal OK
+SL-SURFACE mutual-singleton-refusal OK
+SL-SURFACE mutual-unclosed-refusal OK
+SL-SURFACE mutual-and-refusal OK
+SL-SURFACE nu-term-refusal OK
+SL-SURFACE nu-declaration-refusal OK
+SL-SURFACE-OK 20/20
+SL-SURFACE OK
+File "test/dune", line 2, characters 8-12:
+2 |  (names main sl_surface)
+            ^^^^
+SUITE test/fixtures: No such file or directory
+SUITE-KERNEL FAIL
+ASM-COMPACT cases=618 OK

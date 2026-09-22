@@ -1,0 +1,64 @@
+[
+  {
+    "name": "AXIOMS",
+    "command": [
+      "python3",
+      "-P",
+      "dev/proofs-test.py"
+    ],
+    "exit_code": 0,
+    "expected_exit": 0,
+    "marker": "AXIOMS sorryAx=0 theorems=42 carried_files=28 controls=3 OK",
+    "matched": true
+  },
+  {
+    "name": "M1-EMISSION",
+    "command": [
+      "python3",
+      "-P",
+      "dev/m1-emit-test.py"
+    ],
+    "exit_code": 0,
+    "expected_exit": 0,
+    "marker": "M1-EMISSION counter=30 sources=8 refusals=11 mutants=8 OK",
+    "matched": true
+  },
+  {
+    "name": "M1-RATIO-TEST",
+    "command": [
+      "python3",
+      "-P",
+      "dev/m1-ratio-test.py"
+    ],
+    "exit_code": 0,
+    "expected_exit": 0,
+    "marker": "M1-RATIO-TEST controls=5 refused=15 mutants=4",
+    "matched": true
+  },
+  {
+    "name": "M1-RATIO",
+    "command": [
+      "python3",
+      "-P",
+      "dev/ratio.py",
+      "--m1"
+    ],
+    "exit_code": 1,
+    "expected_exit": 1,
+    "marker": "M1-RATIO FAIL RATIO-BOUND M1 limit=1.0",
+    "matched": true
+  },
+  {
+    "name": "DUNE-RUNTEST",
+    "command": [
+      "zsh",
+      "-f",
+      "dev/dune.sh",
+      "runtest"
+    ],
+    "exit_code": 1,
+    "expected_exit": 0,
+    "marker": "",
+    "matched": false
+  }
+]

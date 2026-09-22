@@ -1,7 +1,10 @@
 (tests
  (names main sl_surface)
- (modules (:standard \ keccak_vec asm_cases emit_cases contract_route))
- (libraries kanon_kernel kanon_surface))
+ (modules (:standard \ keccak_vec asm_cases asm_compact emit_cases contract_route))
+ (libraries kanon_kernel kanon_surface)
+ (deps (source_tree fixtures) (source_tree golden)
+       (source_tree neg) (source_tree erase-neg))
+ (action (chdir .. (run %{test}))))
 
 (executable
  (name keccak_vec)
@@ -11,6 +14,11 @@
 (executable
  (name asm_cases)
  (modules asm_cases)
+ (libraries assay_asm))
+
+(test
+ (name asm_compact)
+ (modules asm_compact)
  (libraries assay_asm))
 
 (executable

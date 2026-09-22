@@ -1,0 +1,4 @@
+lower us/compile=0.406
+check us/compile=98.007
+erase us/compile=76.122
+emit us/compile=115.124

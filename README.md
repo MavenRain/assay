@@ -280,7 +280,7 @@ every PUSH width, must match live `cast disassemble` and `evm disasm` output.
 The comparison normalizes the `DIFFICULTY` spelling to `PREVRANDAO` in the two
 oracle transcripts only, and only at offsets where the input byte is `0x44`.
 Our own listing is never rewritten, and the all-opcodes fixture must apply the
-alias at least once.  The comparison preserves every PC and immediate byte.  Six assembler and listing
+alias at least once.  The comparison preserves every PC and immediate byte.  Nine assembler and listing
 mutants must fail, and restored controls must pass.
 Stage D adds fork probes for PUSH0, TLOAD, TSTORE, MCOPY and the expected CLZ
 refusal.  The transient store and memory-copy probes check nonzero values.
@@ -361,8 +361,11 @@ outputs and four mutations with restored controls.
 The equality gate adds eight five-file comparisons, 53 execution cases,
 33 signed Cancun comparisons, eight creation outcomes, six boundary
 forms, 17 refusals and four mutations with restored controls.
-The [M1 measurement](dev/denominators-m1-2026-09-21-02.json) completes five
-interleaved rounds in 44.217 seconds. The binding `M1-RATIO` gate requires
+The [M1 measurement](dev/denominators-m1-2026-09-21-04.json) completes five
+interleaved rounds in 9.337 seconds. Its ratio is 1.469021, so M1 remains open.
+The [compact assembly slice](dev/M1-COMPACTION.md) removes the redundant
+assembly pass and preserves the existing bytecode selection policy.
+The binding `M1-RATIO` gate requires
 parse-through-output time per thousand lines at most equal to `ocamlopt -c`
 on the frozen corpus. It verifies the current compiler source inventory.
 `DENOMINATORS` and the informational `M0-RATIO` use the refreshed frozen

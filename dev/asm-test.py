@@ -64,6 +64,11 @@ def stack(root):
                 print(f"STACK-HEIGHT FAIL effect={name} input={height} want={want.strip()} got={result.stdout.strip()}")
                 return 1
             count += 1
+    compact = run(root, str(root / "_build/default/test/asm_compact.exe"))
+    if compact.returncode or compact.stderr or compact.stdout != "ASM-COMPACT cases=618 OK\n":
+        print("STACK-HEIGHT FAIL compaction " + compact.stdout + compact.stderr)
+        return 1
+    print(compact.stdout, end="")
     print(f"STACK-HEIGHT blocks={blocks} cases={cases} opcodes={len(rows)} effect_cases={count} OK")
     return 0
 
@@ -165,18 +170,21 @@ def mutants(root):
         ("LABEL-PC", "asm/asm.ml", 'Printf.sprintf "%x" pc', 'Printf.sprintf "%x" (pc + 1)', "stack", "ASM-CASE ref20 FAIL"),
         ("LISTING-OP", "asm/listing.ml", "mnemonic = op.name", 'mnemonic = (if byte = 0x55 then "SLOAD" else op.name)', "disasm", "DISASM-3WAY ref20 FAIL"),
         ("LISTING-PC", "asm/listing.ml", "walk (pc + 1 + width)", "walk (pc + 1)", "disasm", "DISASM-3WAY ref20 FAIL"),
+        ("COMPACT-LIMIT", "asm/asm.ml", "if size > 255 then wide ()", "if size > 256 then wide ()", "stack", "ASM-COMPACT FAIL branch-243"),
+        ("COMPACT-PUSH", "asm/asm.ml", "total + 1 + (String.length bytes lsr 1)", "total + 1 + (String.length bytes lsr 2)", "stack", "ASM-COMPACT FAIL payload-256-1"),
+        ("COMPACT-BRANCH", "asm/asm.ml", "| Branch (2, yes, no) -> Branch (1, yes, no)", "| Branch (2, yes, no) -> Branch (2, yes, no)", "stack", "ASM-COMPACT FAIL branch-0"),
     ]
     work = root / ".gatework"
     work.mkdir(exist_ok=True)
     with tempfile.TemporaryDirectory(prefix="assay-asm-mutants-") as directory:
         copy = Path(directory) / "copy"
         for relative in ("dune", "dune-project", "asm/dune", "asm/asm.ml", "asm/listing.ml",
-                         "test/asm_cases.ml", "dev/dune.sh", "dev/asm-test.py", "dev/asm-opcodes.txt"):
+                         "test/asm_cases.ml", "test/asm_compact.ml", "dev/dune.sh", "dev/asm-test.py", "dev/asm-opcodes.txt"):
             target = copy / relative
             target.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(root / relative, target)
         (copy / "vendor").mkdir()
-        (copy / "test/dune").write_text("(executable (name asm_cases) (libraries assay_asm))\n")
+        (copy / "test/dune").write_text("(executables (names asm_cases asm_compact) (libraries assay_asm))\n")
         for name, relative, before, after, mode, witness in cases:
             source = (root / relative).read_text()
             if source.count(before) != 1:

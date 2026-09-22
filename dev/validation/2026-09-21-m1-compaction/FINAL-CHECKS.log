@@ -1,0 +1,24 @@
+DIFF exit=0 expected=0
+HOUSE exit=0 expected=0
+HOUSE no-exception OK
+HOUSE no-mutable-state OK
+HOUSE no-mutable-state roots=lib emit asm keccak abi
+HOUSE one-catch-site OK
+/Users/oobi/Documents/gpt1/assay-m1-performance/test/sys_io.ml:19:  try Ok (thunk ()) with Sys_error m -> Error m
+HOUSE no-bool-match OK
+HOUSE no-em-dash OK
+HOUSE no-loop-keyword OK
+HOUSE no-bare-division OK
+HOUSE OK
+TRUSTED-LINES exit=0 expected=0
+TRUSTED-LINES kernel=3997 want=3997 bound=4000
+TRUSTED-LINES emitter=1798/1800
+TRUSTED-LINES assembler=256/600
+TRUSTED-LINES keccak=89/250
+TRUSTED-LINES abi=35/400
+TRUSTED-LINES layout=8/250
+TRUSTED-LINES listing=54/250
+TRUSTED-LINES total=2240/3550 ratified=3550
+TRUSTED-LINES OK
+M1-RATIO exit=1 expected=1
+M1-RATIO FAIL RATIO-BOUND M1 limit=1.0

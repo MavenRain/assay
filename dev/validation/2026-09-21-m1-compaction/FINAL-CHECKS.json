@@ -1,0 +1,26 @@
+{
+  "source_hashes": 16,
+  "executable_matches": true,
+  "checks": [
+    {
+      "name": "DIFF",
+      "exit_code": 0,
+      "expected_exit": 0
+    },
+    {
+      "name": "HOUSE",
+      "exit_code": 0,
+      "expected_exit": 0
+    },
+    {
+      "name": "TRUSTED-LINES",
+      "exit_code": 0,
+      "expected_exit": 0
+    },
+    {
+      "name": "M1-RATIO",
+      "exit_code": 1,
+      "expected_exit": 1
+    }
+  ]
+}

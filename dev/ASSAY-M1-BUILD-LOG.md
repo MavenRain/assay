@@ -1,5 +1,18 @@
 # Assay M1 build log
 
+## 2026-09-21: M1 compact assembly
+
+The fortieth M1 slice starts at `eebe37e`. `Asm.assemble_compact` selects the
+label width before assembling: the wide encoding at a saturated count of 256
+bytes, one-byte labels at 255 or fewer, and the `assemble` diagnostic on a
+refused compact attempt. `test/asm_compact.ml` compares 618 cases against the
+previous policy (`ASM-COMPACT cases=618 OK`, carried by `STACK-HEIGHT`), and
+`ASM-MUTANTS` now requires `killed=9/9 control=OK` with COMPACT-LIMIT, COMPACT-PUSH
+and COMPACT-BRANCH. Attempt 03 (the committed compiler) measures 451.684 / 272.959
+= 1.654772 and attempt 04 (the compact assembler) 363.756 / 247.618 = 1.469021
+against the R3 limit of 1.0, so M1 remains open. The record is
+`dev/validation/2026-09-21-m1-compaction`.
+
 ## 2026-09-21: M1 closure performance gate
 
 The thirty-ninth M1 slice starts at `ec27e6f`. It adds the binding R3

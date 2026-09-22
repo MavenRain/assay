@@ -213,9 +213,7 @@ let output ~contract ~listing_error ~make_init ~abi fields rows program =
       axioms = String.concat "" (List.map (fun name -> name ^ "\n") (Kanon_surface.Elab.axiom_names rows))}
 let program_m0 ~contract ~export globals rows erased =
   let* effect, fields = prepare_m0 ~export globals erased in
-  let* wide = assemble (blocks 2 0 false effect) in
-  let size = String.length (A.hex wide) lsr 1 in
-  let* program = if size <= 255 then assemble (blocks 1 0 false effect) else Ok wide in
+  let* program = A.assemble_compact (blocks 2 0 false effect) |> Result.map_error (fun e -> Assembly e) in
   output ~contract ~listing_error:"generated listing" ~make_init:init ~abi:Assay_abi.Abi.empty fields rows program
 
 type operand = Constant of Z.t | Memory of int
