@@ -1,0 +1,432 @@
+; M2 ERC-20 reference; frozen hand-authored instruction stream.
+0000 34 CALLVALUE ; all entries are nonpayable
+0001 61031a PUSH2 0x031a ; destination reject
+0004 57 JUMPI ; branch to reject
+0005 6004 PUSH1 0x04 ; minimum selector length
+0007 36 CALLDATASIZE ; actual calldata length
+0008 10 LT ; reject short selector
+0009 61031a PUSH2 0x031a ; destination reject
+000c 57 JUMPI ; branch to reject
+000d 5f PUSH0 ; selector word offset
+000e 35 CALLDATALOAD ; read selector word
+000f 60e0 PUSH1 0xe0 ; discard argument bytes
+0011 1c SHR ; four-byte selector
+0012 80 DUP1 ; retain selector
+0013 6306fdde03 PUSH4 0x06fdde03 ; name()
+0018 14 EQ ; match selector
+0019 610079 PUSH2 0x0079 ; destination name
+001c 57 JUMPI ; branch to name
+001d 80 DUP1 ; retain selector
+001e 6395d89b41 PUSH4 0x95d89b41 ; symbol()
+0023 14 EQ ; match selector
+0024 6100ac PUSH2 0x00ac ; destination symbol
+0027 57 JUMPI ; branch to symbol
+0028 80 DUP1 ; retain selector
+0029 63313ce567 PUSH4 0x313ce567 ; decimals()
+002e 14 EQ ; match selector
+002f 6100df PUSH2 0x00df ; destination decimals
+0032 57 JUMPI ; branch to decimals
+0033 80 DUP1 ; retain selector
+0034 6318160ddd PUSH4 0x18160ddd ; totalSupply()
+0039 14 EQ ; match selector
+003a 6100e7 PUSH2 0x00e7 ; destination totalSupply
+003d 57 JUMPI ; branch to totalSupply
+003e 80 DUP1 ; retain selector
+003f 6370a08231 PUSH4 0x70a08231 ; balanceOf(address)
+0044 14 EQ ; match selector
+0045 6100ef PUSH2 0x00ef ; destination balanceOf
+0048 57 JUMPI ; branch to balanceOf
+0049 80 DUP1 ; retain selector
+004a 63dd62ed3e PUSH4 0xdd62ed3e ; allowance(address,address)
+004f 14 EQ ; match selector
+0050 61011a PUSH2 0x011a ; destination allowance
+0053 57 JUMPI ; branch to allowance
+0054 80 DUP1 ; retain selector
+0055 63a9059cbb PUSH4 0xa9059cbb ; transfer(address,uint256)
+005a 14 EQ ; match selector
+005b 6101d3 PUSH2 0x01d3 ; destination transfer
+005e 57 JUMPI ; branch to transfer
+005f 80 DUP1 ; retain selector
+0060 63095ea7b3 PUSH4 0x095ea7b3 ; approve(address,uint256)
+0065 14 EQ ; match selector
+0066 61015f PUSH2 0x015f ; destination approve
+0069 57 JUMPI ; branch to approve
+006a 80 DUP1 ; retain selector
+006b 6323b872dd PUSH4 0x23b872dd ; transferFrom(address,address,uint256)
+0070 14 EQ ; match selector
+0071 6101ff PUSH2 0x01ff ; destination transferFrom
+0074 57 JUMPI ; branch to transferFrom
+0075 61031a PUSH2 0x031a ; destination reject
+0078 56 JUMP ; branch to reject
+0079 5b JUMPDEST ; name
+007a 50 POP ; discard selector
+007b 6020 PUSH1 0x20 ; dynamic return tail offset
+007d 5f PUSH0 ; dynamic return head memory offset
+007e 52 MSTORE ; dynamic return head
+007f 600a PUSH1 0x0a ; UTF-8 byte length
+0081 6020 PUSH1 0x20 ; dynamic return length memory offset
+0083 52 MSTORE ; dynamic return length
+0084 7f4173736179205465737400000000000000000000000000000000000000000000 PUSH32 0x4173736179205465737400000000000000000000000000000000000000000000 ; padded string
+00a5 6040 PUSH1 0x40 ; dynamic return data memory offset
+00a7 52 MSTORE ; dynamic return data
+00a8 6060 PUSH1 0x60 ; three ABI words
+00aa 5f PUSH0 ; return offset
+00ab f3 RETURN ; return string
+00ac 5b JUMPDEST ; symbol
+00ad 50 POP ; discard selector
+00ae 6020 PUSH1 0x20 ; dynamic return tail offset
+00b0 5f PUSH0 ; dynamic return head memory offset
+00b1 52 MSTORE ; dynamic return head
+00b2 6003 PUSH1 0x03 ; UTF-8 byte length
+00b4 6020 PUSH1 0x20 ; dynamic return length memory offset
+00b6 52 MSTORE ; dynamic return length
+00b7 7f4153590000000000000000000000000000000000000000000000000000000000 PUSH32 0x4153590000000000000000000000000000000000000000000000000000000000 ; padded string
+00d8 6040 PUSH1 0x40 ; dynamic return data memory offset
+00da 52 MSTORE ; dynamic return data
+00db 6060 PUSH1 0x60 ; three ABI words
+00dd 5f PUSH0 ; return offset
+00de f3 RETURN ; return string
+00df 5b JUMPDEST ; decimals
+00e0 50 POP ; discard selector
+00e1 6012 PUSH1 0x12 ; constant uint8 decimals
+00e3 610313 PUSH2 0x0313 ; destination return-word
+00e6 56 JUMP ; branch to return-word
+00e7 5b JUMPDEST ; totalSupply
+00e8 50 POP ; discard selector
+00e9 5f PUSH0 ; totalSupply slot
+00ea 54 SLOAD ; read supply
+00eb 610313 PUSH2 0x0313 ; destination return-word
+00ee 56 JUMP ; branch to return-word
+00ef 5b JUMPDEST ; balanceOf
+00f0 50 POP ; discard selector
+00f1 6024 PUSH1 0x24 ; required calldata head
+00f3 36 CALLDATASIZE ; actual calldata length
+00f4 10 LT ; reject truncated argument head
+00f5 61031a PUSH2 0x031a ; destination reject
+00f8 57 JUMPI ; branch to reject
+00f9 6004 PUSH1 0x04 ; argument calldata offset
+00fb 35 CALLDATALOAD ; read argument
+00fc 80 DUP1 ; retain address for use
+00fd 60a0 PUSH1 0xa0 ; reject noncanonical high address bits
+00ff 1c SHR ; high address bits
+0100 61031a PUSH2 0x031a ; destination reject
+0103 57 JUMPI ; branch to reject
+0104 6080 PUSH1 0x80 ; save argument memory offset
+0106 52 MSTORE ; save argument
+0107 6080 PUSH1 0x80 ; balance owner memory offset
+0109 51 MLOAD ; balance owner
+010a 5f PUSH0 ; mapping owner word memory offset
+010b 52 MSTORE ; mapping owner word
+010c 6001 PUSH1 0x01 ; balances base slot
+010e 6020 PUSH1 0x20 ; mapping base word memory offset
+0110 52 MSTORE ; mapping base word
+0111 6040 PUSH1 0x40 ; two ABI words
+0113 5f PUSH0 ; mapping key buffer
+0114 20 KECCAK256 ; mapping storage key
+0115 54 SLOAD ; read balance
+0116 610313 PUSH2 0x0313 ; destination return-word
+0119 56 JUMP ; branch to return-word
+011a 5b JUMPDEST ; allowance
+011b 50 POP ; discard selector
+011c 6044 PUSH1 0x44 ; required calldata head
+011e 36 CALLDATASIZE ; actual calldata length
+011f 10 LT ; reject truncated argument head
+0120 61031a PUSH2 0x031a ; destination reject
+0123 57 JUMPI ; branch to reject
+0124 6004 PUSH1 0x04 ; argument calldata offset
+0126 35 CALLDATALOAD ; read argument
+0127 80 DUP1 ; retain address for use
+0128 60a0 PUSH1 0xa0 ; reject noncanonical high address bits
+012a 1c SHR ; high address bits
+012b 61031a PUSH2 0x031a ; destination reject
+012e 57 JUMPI ; branch to reject
+012f 6080 PUSH1 0x80 ; save argument memory offset
+0131 52 MSTORE ; save argument
+0132 6024 PUSH1 0x24 ; argument calldata offset
+0134 35 CALLDATALOAD ; read argument
+0135 80 DUP1 ; retain address for use
+0136 60a0 PUSH1 0xa0 ; reject noncanonical high address bits
+0138 1c SHR ; high address bits
+0139 61031a PUSH2 0x031a ; destination reject
+013c 57 JUMPI ; branch to reject
+013d 60a0 PUSH1 0xa0 ; save argument memory offset
+013f 52 MSTORE ; save argument
+0140 6080 PUSH1 0x80 ; allowance owner memory offset
+0142 51 MLOAD ; allowance owner
+0143 5f PUSH0 ; outer mapping owner memory offset
+0144 52 MSTORE ; outer mapping owner
+0145 6002 PUSH1 0x02 ; allowances base slot
+0147 6020 PUSH1 0x20 ; outer mapping base memory offset
+0149 52 MSTORE ; outer mapping base
+014a 6040 PUSH1 0x40 ; two ABI words
+014c 5f PUSH0 ; mapping key buffer
+014d 20 KECCAK256 ; mapping storage key
+014e 6020 PUSH1 0x20 ; inner mapping base memory offset
+0150 52 MSTORE ; inner mapping base
+0151 60a0 PUSH1 0xa0 ; allowance spender memory offset
+0153 51 MLOAD ; allowance spender
+0154 5f PUSH0 ; inner mapping key memory offset
+0155 52 MSTORE ; inner mapping key
+0156 6040 PUSH1 0x40 ; two ABI words
+0158 5f PUSH0 ; mapping key buffer
+0159 20 KECCAK256 ; mapping storage key
+015a 54 SLOAD ; read allowance
+015b 610313 PUSH2 0x0313 ; destination return-word
+015e 56 JUMP ; branch to return-word
+015f 5b JUMPDEST ; approve
+0160 50 POP ; discard selector
+0161 6044 PUSH1 0x44 ; required calldata head
+0163 36 CALLDATASIZE ; actual calldata length
+0164 10 LT ; reject truncated argument head
+0165 61031a PUSH2 0x031a ; destination reject
+0168 57 JUMPI ; branch to reject
+0169 33 CALLER ; approval owner
+016a 6080 PUSH1 0x80 ; approval owner memory offset
+016c 52 MSTORE ; approval owner
+016d 6004 PUSH1 0x04 ; argument calldata offset
+016f 35 CALLDATALOAD ; read argument
+0170 80 DUP1 ; retain address for use
+0171 60a0 PUSH1 0xa0 ; reject noncanonical high address bits
+0173 1c SHR ; high address bits
+0174 61031a PUSH2 0x031a ; destination reject
+0177 57 JUMPI ; branch to reject
+0178 60a0 PUSH1 0xa0 ; save argument memory offset
+017a 52 MSTORE ; save argument
+017b 6024 PUSH1 0x24 ; argument calldata offset
+017d 35 CALLDATALOAD ; read argument
+017e 60c0 PUSH1 0xc0 ; save argument memory offset
+0180 52 MSTORE ; save argument
+0181 60c0 PUSH1 0xc0 ; new allowance memory offset
+0183 51 MLOAD ; new allowance
+0184 6080 PUSH1 0x80 ; allowance owner memory offset
+0186 51 MLOAD ; allowance owner
+0187 5f PUSH0 ; outer mapping owner memory offset
+0188 52 MSTORE ; outer mapping owner
+0189 6002 PUSH1 0x02 ; allowances base slot
+018b 6020 PUSH1 0x20 ; outer mapping base memory offset
+018d 52 MSTORE ; outer mapping base
+018e 6040 PUSH1 0x40 ; two ABI words
+0190 5f PUSH0 ; mapping key buffer
+0191 20 KECCAK256 ; mapping storage key
+0192 6020 PUSH1 0x20 ; inner mapping base memory offset
+0194 52 MSTORE ; inner mapping base
+0195 60a0 PUSH1 0xa0 ; allowance spender memory offset
+0197 51 MLOAD ; allowance spender
+0198 5f PUSH0 ; inner mapping key memory offset
+0199 52 MSTORE ; inner mapping key
+019a 6040 PUSH1 0x40 ; two ABI words
+019c 5f PUSH0 ; mapping key buffer
+019d 20 KECCAK256 ; mapping storage key
+019e 55 SSTORE ; replace allowance
+019f 60c0 PUSH1 0xc0 ; event amount memory offset
+01a1 51 MLOAD ; event amount
+01a2 5f PUSH0 ; unindexed event data memory offset
+01a3 52 MSTORE ; unindexed event data
+01a4 60a0 PUSH1 0xa0 ; second indexed address memory offset
+01a6 51 MLOAD ; second indexed address
+01a7 6080 PUSH1 0x80 ; first indexed address memory offset
+01a9 51 MLOAD ; first indexed address
+01aa 7f8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925 PUSH32 0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925 ; Approval signature topic
+01cb 6020 PUSH1 0x20 ; event data size
+01cd 5f PUSH0 ; event data offset
+01ce a3 LOG3 ; Approval event
+01cf 610310 PUSH2 0x0310 ; destination return-true
+01d2 56 JUMP ; branch to return-true
+01d3 5b JUMPDEST ; transfer
+01d4 50 POP ; discard selector
+01d5 6044 PUSH1 0x44 ; required calldata head
+01d7 36 CALLDATASIZE ; actual calldata length
+01d8 10 LT ; reject truncated argument head
+01d9 61031a PUSH2 0x031a ; destination reject
+01dc 57 JUMPI ; branch to reject
+01dd 33 CALLER ; source account
+01de 6080 PUSH1 0x80 ; source account memory offset
+01e0 52 MSTORE ; source account
+01e1 6004 PUSH1 0x04 ; argument calldata offset
+01e3 35 CALLDATALOAD ; read argument
+01e4 80 DUP1 ; retain address for use
+01e5 60a0 PUSH1 0xa0 ; reject noncanonical high address bits
+01e7 1c SHR ; high address bits
+01e8 61031a PUSH2 0x031a ; destination reject
+01eb 57 JUMPI ; branch to reject
+01ec 80 DUP1 ; retain nonzero address
+01ed 15 ISZERO ; reject zero transfer address
+01ee 61031a PUSH2 0x031a ; destination reject
+01f1 57 JUMPI ; branch to reject
+01f2 60a0 PUSH1 0xa0 ; save argument memory offset
+01f4 52 MSTORE ; save argument
+01f5 6024 PUSH1 0x24 ; argument calldata offset
+01f7 35 CALLDATALOAD ; read argument
+01f8 60c0 PUSH1 0xc0 ; save argument memory offset
+01fa 52 MSTORE ; save argument
+01fb 610276 PUSH2 0x0276 ; destination move
+01fe 56 JUMP ; branch to move
+01ff 5b JUMPDEST ; transferFrom
+0200 50 POP ; discard selector
+0201 6064 PUSH1 0x64 ; required calldata head
+0203 36 CALLDATASIZE ; actual calldata length
+0204 10 LT ; reject truncated argument head
+0205 61031a PUSH2 0x031a ; destination reject
+0208 57 JUMPI ; branch to reject
+0209 6004 PUSH1 0x04 ; argument calldata offset
+020b 35 CALLDATALOAD ; read argument
+020c 80 DUP1 ; retain address for use
+020d 60a0 PUSH1 0xa0 ; reject noncanonical high address bits
+020f 1c SHR ; high address bits
+0210 61031a PUSH2 0x031a ; destination reject
+0213 57 JUMPI ; branch to reject
+0214 80 DUP1 ; retain nonzero address
+0215 15 ISZERO ; reject zero transfer address
+0216 61031a PUSH2 0x031a ; destination reject
+0219 57 JUMPI ; branch to reject
+021a 6080 PUSH1 0x80 ; save argument memory offset
+021c 52 MSTORE ; save argument
+021d 6024 PUSH1 0x24 ; argument calldata offset
+021f 35 CALLDATALOAD ; read argument
+0220 80 DUP1 ; retain address for use
+0221 60a0 PUSH1 0xa0 ; reject noncanonical high address bits
+0223 1c SHR ; high address bits
+0224 61031a PUSH2 0x031a ; destination reject
+0227 57 JUMPI ; branch to reject
+0228 80 DUP1 ; retain nonzero address
+0229 15 ISZERO ; reject zero transfer address
+022a 61031a PUSH2 0x031a ; destination reject
+022d 57 JUMPI ; branch to reject
+022e 60a0 PUSH1 0xa0 ; save argument memory offset
+0230 52 MSTORE ; save argument
+0231 6044 PUSH1 0x44 ; argument calldata offset
+0233 35 CALLDATALOAD ; read argument
+0234 60c0 PUSH1 0xc0 ; save argument memory offset
+0236 52 MSTORE ; save argument
+0237 6080 PUSH1 0x80 ; allowance owner memory offset
+0239 51 MLOAD ; allowance owner
+023a 5f PUSH0 ; outer mapping owner memory offset
+023b 52 MSTORE ; outer mapping owner
+023c 6002 PUSH1 0x02 ; allowances base slot
+023e 6020 PUSH1 0x20 ; outer mapping base memory offset
+0240 52 MSTORE ; outer mapping base
+0241 6040 PUSH1 0x40 ; two ABI words
+0243 5f PUSH0 ; mapping key buffer
+0244 20 KECCAK256 ; mapping storage key
+0245 6020 PUSH1 0x20 ; inner mapping base memory offset
+0247 52 MSTORE ; inner mapping base
+0248 33 CALLER ; allowance spender
+0249 5f PUSH0 ; inner mapping key memory offset
+024a 52 MSTORE ; inner mapping key
+024b 6040 PUSH1 0x40 ; two ABI words
+024d 5f PUSH0 ; mapping key buffer
+024e 20 KECCAK256 ; mapping storage key
+024f 80 DUP1 ; retain allowance key
+0250 610120 PUSH2 0x0120 ; allowance key memory offset
+0253 52 MSTORE ; allowance key
+0254 54 SLOAD ; remaining allowance
+0255 610160 PUSH2 0x0160 ; remaining allowance memory offset
+0258 52 MSTORE ; remaining allowance
+0259 60c0 PUSH1 0xc0 ; spend amount memory offset
+025b 51 MLOAD ; spend amount
+025c 610160 PUSH2 0x0160 ; remaining allowance memory offset
+025f 51 MLOAD ; remaining allowance
+0260 10 LT ; reject allowance underflow
+0261 61031a PUSH2 0x031a ; destination reject
+0264 57 JUMPI ; branch to reject
+0265 60c0 PUSH1 0xc0 ; spend amount memory offset
+0267 51 MLOAD ; spend amount
+0268 610160 PUSH2 0x0160 ; remaining allowance memory offset
+026b 51 MLOAD ; remaining allowance
+026c 03 SUB ; deduct allowance
+026d 610120 PUSH2 0x0120 ; allowance key memory offset
+0270 51 MLOAD ; allowance key
+0271 55 SSTORE ; save allowance before transfer; revert rolls it back
+0272 610276 PUSH2 0x0276 ; destination move
+0275 56 JUMP ; branch to move
+0276 5b JUMPDEST ; move
+0277 6080 PUSH1 0x80 ; balance owner memory offset
+0279 51 MLOAD ; balance owner
+027a 5f PUSH0 ; mapping owner word memory offset
+027b 52 MSTORE ; mapping owner word
+027c 6001 PUSH1 0x01 ; balances base slot
+027e 6020 PUSH1 0x20 ; mapping base word memory offset
+0280 52 MSTORE ; mapping base word
+0281 6040 PUSH1 0x40 ; two ABI words
+0283 5f PUSH0 ; mapping key buffer
+0284 20 KECCAK256 ; mapping storage key
+0285 80 DUP1 ; retain source balance key
+0286 60e0 PUSH1 0xe0 ; source balance key memory offset
+0288 52 MSTORE ; source balance key
+0289 54 SLOAD ; source balance
+028a 610140 PUSH2 0x0140 ; source balance memory offset
+028d 52 MSTORE ; source balance
+028e 60c0 PUSH1 0xc0 ; transfer amount memory offset
+0290 51 MLOAD ; transfer amount
+0291 610140 PUSH2 0x0140 ; source balance memory offset
+0294 51 MLOAD ; source balance
+0295 10 LT ; reject balance underflow
+0296 61031a PUSH2 0x031a ; destination reject
+0299 57 JUMPI ; branch to reject
+029a 60c0 PUSH1 0xc0 ; transfer amount memory offset
+029c 51 MLOAD ; transfer amount
+029d 610140 PUSH2 0x0140 ; source balance memory offset
+02a0 51 MLOAD ; source balance
+02a1 03 SUB ; debit source balance
+02a2 60e0 PUSH1 0xe0 ; source balance key memory offset
+02a4 51 MLOAD ; source balance key
+02a5 55 SSTORE ; save debit before loading destination, including aliases
+02a6 60a0 PUSH1 0xa0 ; balance owner memory offset
+02a8 51 MLOAD ; balance owner
+02a9 5f PUSH0 ; mapping owner word memory offset
+02aa 52 MSTORE ; mapping owner word
+02ab 6001 PUSH1 0x01 ; balances base slot
+02ad 6020 PUSH1 0x20 ; mapping base word memory offset
+02af 52 MSTORE ; mapping base word
+02b0 6040 PUSH1 0x40 ; two ABI words
+02b2 5f PUSH0 ; mapping key buffer
+02b3 20 KECCAK256 ; mapping storage key
+02b4 80 DUP1 ; retain destination balance key
+02b5 610100 PUSH2 0x0100 ; destination balance key memory offset
+02b8 52 MSTORE ; destination balance key
+02b9 54 SLOAD ; destination balance after debit
+02ba 610160 PUSH2 0x0160 ; destination balance memory offset
+02bd 52 MSTORE ; destination balance
+02be 60c0 PUSH1 0xc0 ; transfer amount memory offset
+02c0 51 MLOAD ; transfer amount
+02c1 610160 PUSH2 0x0160 ; destination balance memory offset
+02c4 51 MLOAD ; destination balance
+02c5 01 ADD ; credit destination
+02c6 610180 PUSH2 0x0180 ; new destination balance memory offset
+02c9 52 MSTORE ; new destination balance
+02ca 610160 PUSH2 0x0160 ; old destination balance memory offset
+02cd 51 MLOAD ; old destination balance
+02ce 610180 PUSH2 0x0180 ; new destination balance memory offset
+02d1 51 MLOAD ; new destination balance
+02d2 10 LT ; reject destination overflow
+02d3 61031a PUSH2 0x031a ; destination reject
+02d6 57 JUMPI ; branch to reject
+02d7 610180 PUSH2 0x0180 ; new destination balance memory offset
+02da 51 MLOAD ; new destination balance
+02db 610100 PUSH2 0x0100 ; destination balance key memory offset
+02de 51 MLOAD ; destination balance key
+02df 55 SSTORE ; save destination balance
+02e0 60c0 PUSH1 0xc0 ; event amount memory offset
+02e2 51 MLOAD ; event amount
+02e3 5f PUSH0 ; unindexed event data memory offset
+02e4 52 MSTORE ; unindexed event data
+02e5 60a0 PUSH1 0xa0 ; second indexed address memory offset
+02e7 51 MLOAD ; second indexed address
+02e8 6080 PUSH1 0x80 ; first indexed address memory offset
+02ea 51 MLOAD ; first indexed address
+02eb 7fddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef PUSH32 0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef ; Transfer signature topic
+030c 6020 PUSH1 0x20 ; event data size
+030e 5f PUSH0 ; event data offset
+030f a3 LOG3 ; Transfer event
+0310 5b JUMPDEST ; return-true
+0311 6001 PUSH1 0x01 ; ABI boolean true
+0313 5b JUMPDEST ; return-word
+0314 5f PUSH0 ; ABI result word memory offset
+0315 52 MSTORE ; ABI result word
+0316 6020 PUSH1 0x20 ; one ABI word
+0318 5f PUSH0 ; return offset
+0319 f3 RETURN ; return result
+031a 5b JUMPDEST ; reject
+031b 5f PUSH0 ; empty revert size
+031c 5f PUSH0 ; empty revert offset
+031d fd REVERT ; atomic rejection

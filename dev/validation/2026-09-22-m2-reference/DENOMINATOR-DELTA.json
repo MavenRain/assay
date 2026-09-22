@@ -1,0 +1,21 @@
+{
+  "before": 137,
+  "after": 147,
+  "changed": [
+    "dev/gates.sh",
+    "dev/stage-a-gates.py"
+  ],
+  "removed": [],
+  "added": [
+    "dev/erc20-test.py",
+    "reference/erc20/MANIFEST.json",
+    "reference/erc20/abi.json",
+    "reference/erc20/cases.json",
+    "reference/erc20/init-prefix.evm",
+    "reference/erc20/init.hex",
+    "reference/erc20/layout.json",
+    "reference/erc20/runtime.evm",
+    "reference/erc20/runtime.hex",
+    "reference/erc20/slots.json"
+  ]
+}

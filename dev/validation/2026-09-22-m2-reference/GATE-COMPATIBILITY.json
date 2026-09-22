@@ -1,0 +1,377 @@
+{
+  "baseline": "c99a54db37b45a51c290d47f1f5435b0506cdbef2f16308f66b7e0e2d6e9dfca",
+  "current": "d4a132cb55c810a97e532f5bb673eea450e58961650ccbbb78825b79129b7295",
+  "unchanged_modes": [
+    {
+      "mode": [],
+      "stage": "A",
+      "legs": 11,
+      "sha256": "a86d8a4efad46b15b9e450585648ad17a8a6cb026d065f57ebac5c3c6f0ec383"
+    },
+    {
+      "mode": [
+        "--asm"
+      ],
+      "stage": "C",
+      "legs": 16,
+      "sha256": "ca878de9c6f1c414ff9203f381c092dcd31d81899c99cd207b2a7e5f4026861c"
+    },
+    {
+      "mode": [
+        "--emit"
+      ],
+      "stage": "E",
+      "legs": 29,
+      "sha256": "039dd985b16f71a78f911bf58dfe58eca3892bfd407e62b6fd68b3d2dff155b4"
+    },
+    {
+      "mode": [
+        "--keccak"
+      ],
+      "stage": "B",
+      "legs": 13,
+      "sha256": "245aa404c2a37084e643160d5eb22d9bb4b6848e214525f5f4f124dcf23e162e"
+    },
+    {
+      "mode": [
+        "--m0"
+      ],
+      "stage": "F",
+      "legs": 34,
+      "sha256": "8fa4fcb6779c3e64245a1d26fb446216b0fd0d35c98dc3f9ecf9f0d08f126b0a"
+    },
+    {
+      "mode": [
+        "--m1-address"
+      ],
+      "stage": "M1-ADDRESS",
+      "legs": 73,
+      "sha256": "35a557192b1f026ffcd52f9141b01663924f6d24425ee099be6866d7c40de085"
+    },
+    {
+      "mode": [
+        "--m1-calldataload"
+      ],
+      "stage": "M1-CALLDATALOAD",
+      "legs": 72,
+      "sha256": "ac13f15443a410d828f4a5f7a822290b57e62fa24b382e9e95bd810bcfe451a0"
+    },
+    {
+      "mode": [
+        "--m1-calldatasize"
+      ],
+      "stage": "M1-CALLDATASIZE",
+      "legs": 71,
+      "sha256": "93fcd8746f9c2d29315b92be94500a4b02887b14ca646fa68d75adcddb88b818"
+    },
+    {
+      "mode": [
+        "--m1-callvalue"
+      ],
+      "stage": "M1-CALLVALUE",
+      "legs": 70,
+      "sha256": "79a26e437717eb2dc8b8a7b191e539fa3b391dac927fb2459149a5aa92c4d6d7"
+    },
+    {
+      "mode": [
+        "--m1-close"
+      ],
+      "stage": "M1-CLOSE",
+      "legs": 75,
+      "sha256": "9ff9e58dd9b903aadf0430263c56e26d490e3e9e3ebc6463464f2e785dcde40b"
+    },
+    {
+      "mode": [
+        "--m1-compound-guards"
+      ],
+      "stage": "M1-COMPOUND-GUARDS",
+      "legs": 51,
+      "sha256": "adf592c82d2ee838d6977df42755d7781fa3fc160d38ae4e907529c4e8c90382"
+    },
+    {
+      "mode": [
+        "--m1-compound-invariants"
+      ],
+      "stage": "M1-COMPOUND-INVARIANTS",
+      "legs": 50,
+      "sha256": "34ae30a35da95bcca38e3b36ad665847f57b99a8b2d3042fd423833b9724c759"
+    },
+    {
+      "mode": [
+        "--m1-context"
+      ],
+      "stage": "M1-CONTEXT",
+      "legs": 59,
+      "sha256": "48d57b5724463fbc528bc4de47900c7cb7ac4d6218712a763c464fbec329e7a8"
+    },
+    {
+      "mode": [
+        "--m1-context-surface"
+      ],
+      "stage": "M1-CONTEXT-SURFACE",
+      "legs": 60,
+      "sha256": "cd6d26a9a98e83d94258f9313e1328a89f6074802450978a1a99fc60feaaedce"
+    },
+    {
+      "mode": [
+        "--m1-counter"
+      ],
+      "stage": "M1-COUNTER",
+      "legs": 36,
+      "sha256": "7ef748ff4c815f4ebd1c842e6d65d3d79b385de44565485b8374a6496b8957a3"
+    },
+    {
+      "mode": [
+        "--m1-diff-caller"
+      ],
+      "stage": "M1-DIFF-CALLER",
+      "legs": 68,
+      "sha256": "7322ebb537f99716c2cd8a9a30b34fcd2d0ad08a3d9646efa16331e449ac5655"
+    },
+    {
+      "mode": [
+        "--m1-diff-value"
+      ],
+      "stage": "M1-DIFF-VALUE",
+      "legs": 65,
+      "sha256": "780db910e9ac614f82e3d360b26a7d1f5fc30e92af2ffa0ff7ac5c7e9f211dd9"
+    },
+    {
+      "mode": [
+        "--m1-emission"
+      ],
+      "stage": "M1-EMISSION",
+      "legs": 37,
+      "sha256": "9c5256be832ff15a482183d1c92f22976859d12f5aead6a6f4f477bfa4155a42"
+    },
+    {
+      "mode": [
+        "--m1-equality"
+      ],
+      "stage": "M1-EQUALITY",
+      "legs": 61,
+      "sha256": "d6752f287e0b75325f4d361b6559dbbf0bd6c5e8781b3cf92ca801b9f123be96"
+    },
+    {
+      "mode": [
+        "--m1-errors"
+      ],
+      "stage": "M1-ERRORS",
+      "legs": 43,
+      "sha256": "3bfa8262e1e53d10b971ac2dce3f62a076dbfddbc5c450c029609c772f515232"
+    },
+    {
+      "mode": [
+        "--m1-executor"
+      ],
+      "stage": "M1-EXECUTOR",
+      "legs": 35,
+      "sha256": "054c76c31cda93b6d34f276e088ab2774da62506ca13003484a70411ede19c33"
+    },
+    {
+      "mode": [
+        "--m1-fallback"
+      ],
+      "stage": "M1-FALLBACK",
+      "legs": 64,
+      "sha256": "62137d7001bbd141d288754eda670adbe1bdeee0fdd740097d4b497d58a3cfec"
+    },
+    {
+      "mode": [
+        "--m1-guards"
+      ],
+      "stage": "M1-GUARDS",
+      "legs": 44,
+      "sha256": "0744de4dcc4c3c1d9495b9c97afbbbb0e95b1d97ad9351583af297ee1014ecef"
+    },
+    {
+      "mode": [
+        "--m1-hex-literals"
+      ],
+      "stage": "M1-HEX-LITERALS",
+      "legs": 62,
+      "sha256": "97a69d98c88e09bea3a2f612eaee9d5520c3289cbb2d15b544df074f923e589f"
+    },
+    {
+      "mode": [
+        "--m1-inferred-arithmetic"
+      ],
+      "stage": "M1-INFERRED-ARITHMETIC",
+      "legs": 54,
+      "sha256": "c23055d7d9efc54c6be3d0d548ae1c6cd44a61db9508ac8b20bf7f090bc014d4"
+    },
+    {
+      "mode": [
+        "--m1-inferred-bindings"
+      ],
+      "stage": "M1-INFERRED-BINDINGS",
+      "legs": 57,
+      "sha256": "2115f69e7e881e5c7612c95eaa36a64fa7d78899b3d5d821d91bb7bdd643a5fe"
+    },
+    {
+      "mode": [
+        "--m1-inferred-guard-bindings"
+      ],
+      "stage": "M1-INFERRED-GUARD-BINDINGS",
+      "legs": 58,
+      "sha256": "d70ad12317918e41894da8cd49c95f3ceaac7aaffeabac4caa9688910609d6a7"
+    },
+    {
+      "mode": [
+        "--m1-inferred-guards"
+      ],
+      "stage": "M1-INFERRED-GUARDS",
+      "legs": 53,
+      "sha256": "b539d27cf2858d63af45d2884c0c641a39a0d266247e3deae68e063e46be3706"
+    },
+    {
+      "mode": [
+        "--m1-inferred-helpers"
+      ],
+      "stage": "M1-INFERRED-HELPERS",
+      "legs": 55,
+      "sha256": "203868c60e5813a8b0e1b406cbbb7f7b22849d3e7dc264295b9e5536a2c0c5c2"
+    },
+    {
+      "mode": [
+        "--m1-inferred-words"
+      ],
+      "stage": "M1-INFERRED-WORDS",
+      "legs": 63,
+      "sha256": "23b30c79f1c10c3ef2eb4bff5ec06809ce20efe2154e4cc4d942ef8ab3fb77c3"
+    },
+    {
+      "mode": [
+        "--m1-invariants"
+      ],
+      "stage": "M1-INVARIANTS",
+      "legs": 46,
+      "sha256": "cd0399264a8a393ac9d86efdeb9cad2342982578eb98655097cc3d0e19bdd75b"
+    },
+    {
+      "mode": [
+        "--m1-named-guards"
+      ],
+      "stage": "M1-NAMED-GUARDS",
+      "legs": 52,
+      "sha256": "2d7c78d406a0714cc8caaf3351f06508b01a073e667cfbcd537e4bf4229ffd3e"
+    },
+    {
+      "mode": [
+        "--m1-nullary"
+      ],
+      "stage": "M1-NULLARY",
+      "legs": 42,
+      "sha256": "f24a26fb0c074bdcadb83661492824ca9c80631c639d0cb406c73920034a8ca4"
+    },
+    {
+      "mode": [
+        "--m1-payable"
+      ],
+      "stage": "M1-PAYABLE",
+      "legs": 69,
+      "sha256": "4a89ca3da8295aff57c1294a4d81984acdc7492cd0dc74f9c9a2ea6b61cd93a5"
+    },
+    {
+      "mode": [
+        "--m1-predicates"
+      ],
+      "stage": "M1-PREDICATES",
+      "legs": 49,
+      "sha256": "9090d2f35aff93341bf3628c0abe74484653921c2d9d24fba88599c8d58e1981"
+    },
+    {
+      "mode": [
+        "--m1-proof-bundles"
+      ],
+      "stage": "M1-PROOF-BUNDLES",
+      "legs": 48,
+      "sha256": "e7f8ab6fa41a0f64a3ef36d593d508b5e73a257fd84d4309ade34bc0eb035d84"
+    },
+    {
+      "mode": [
+        "--m1-proof-helpers"
+      ],
+      "stage": "M1-PROOF-HELPERS",
+      "legs": 47,
+      "sha256": "51082f305720948fe9af90deb89c71594595d0bd6c84b6268eda3d251ebce9fd"
+    },
+    {
+      "mode": [
+        "--m1-proof-holes"
+      ],
+      "stage": "M1-PROOF-HOLES",
+      "legs": 56,
+      "sha256": "2d0fcde0900c205bc73fd546b7f404b0fd3a830faa6fb97f16d94e153227052f"
+    },
+    {
+      "mode": [
+        "--m1-proof-terms"
+      ],
+      "stage": "M1-PROOF-TERMS",
+      "legs": 45,
+      "sha256": "96b56a016f830798cd60902d24d43fa4524c5b19392a93e1e661464cc979d08e"
+    },
+    {
+      "mode": [
+        "--m1-proofs"
+      ],
+      "stage": "M1-PROOFS",
+      "legs": 41,
+      "sha256": "c766047d1d8df63d69fa62baebe15d3c3158629221a67ba5c501b97d13809ae4"
+    },
+    {
+      "mode": [
+        "--m1-run"
+      ],
+      "stage": "M1-RUN",
+      "legs": 38,
+      "sha256": "7c515782306ea23bda31f02227d692cf47494ae8a879c0bfb70630afcaf1be60"
+    },
+    {
+      "mode": [
+        "--m1-surface"
+      ],
+      "stage": "M1-SURFACE",
+      "legs": 39,
+      "sha256": "2e7d73e1c5194efdd53bab2fb5948461f80f3fa3a3e623c51384f5e827a4cd55"
+    },
+    {
+      "mode": [
+        "--m1-trace-caller"
+      ],
+      "stage": "M1-TRACE-CALLER",
+      "legs": 67,
+      "sha256": "e1611a22d1fa3fa71bb8b972be1e5da931eafab00d3890a96c8b33d5efe7b4c8"
+    },
+    {
+      "mode": [
+        "--m1-trace-value"
+      ],
+      "stage": "M1-TRACE-VALUE",
+      "legs": 66,
+      "sha256": "cdd80781ec5db69b80cdf32e27c6c190f1bb65087f24c1cd8b5e81728afc94e3"
+    },
+    {
+      "mode": [
+        "--reference"
+      ],
+      "stage": "D",
+      "legs": 21,
+      "sha256": "11677ff2f50eacd002bbdb344714bf5312a6ab2a977967cea8202e2cd2d32713"
+    }
+  ],
+  "new_stage": "M2-REFERENCE",
+  "new_legs": 76,
+  "appended": [
+    "ERC20-REFERENCE",
+    300,
+    [
+      "python3",
+      "-P",
+      "dev/erc20-test.py"
+    ],
+    "ERC20-REFERENCE cases=85 creates=4 mutants=11 covered=431 scope=reference OK"
+  ],
+  "ok": true
+}

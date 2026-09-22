@@ -10,9 +10,11 @@ import time
 
 def main():
     root = Path(__file__).resolve().parent.parent
-    close = sys.argv[1:] == ["--m1-close"]
+    erc20 = sys.argv[1:] == ["--m2-reference"]
+    close = erc20 or sys.argv[1:] == ["--m1-close"]
     if not close and sys.argv[1:] not in ([], ["--keccak"], ["--asm"], ["--reference"], ["--emit"], ["--m0"], ["--m1-executor"], ["--m1-counter"], ["--m1-emission"], ["--m1-run"], ["--m1-surface"], ["--m1-proofs"], ["--m1-nullary"], ["--m1-errors"], ["--m1-guards"], ["--m1-proof-terms"], ["--m1-invariants"], ["--m1-proof-helpers"], ["--m1-proof-bundles"], ["--m1-predicates"], ["--m1-compound-invariants"], ["--m1-compound-guards"], ["--m1-named-guards"], ["--m1-inferred-guards"], ["--m1-inferred-arithmetic"], ["--m1-inferred-helpers"], ["--m1-proof-holes"], ["--m1-inferred-bindings"], ["--m1-inferred-guard-bindings"], ["--m1-context"], ["--m1-context-surface"], ["--m1-equality"], ["--m1-hex-literals"], ["--m1-inferred-words"], ["--m1-fallback"], ["--m1-diff-value"], ["--m1-trace-value"], ["--m1-trace-caller"], ["--m1-diff-caller"], ["--m1-payable"], ["--m1-callvalue"], ["--m1-calldatasize"], ["--m1-calldataload"], ["--m1-address"]):
         print("usage: stage-a-gates.py [--keccak|--asm|--reference|--emit|--m0|--m1-executor|--m1-counter|--m1-emission|--m1-run|--m1-surface|--m1-proofs|--m1-nullary|--m1-errors|--m1-guards|--m1-proof-terms|--m1-invariants|--m1-proof-helpers|--m1-proof-bundles|--m1-predicates|--m1-compound-invariants|--m1-compound-guards|--m1-named-guards|--m1-inferred-guards|--m1-inferred-arithmetic|--m1-inferred-helpers|--m1-proof-holes|--m1-inferred-bindings|--m1-inferred-guard-bindings|--m1-context|--m1-context-surface|--m1-equality|--m1-hex-literals|--m1-inferred-words|--m1-fallback|--m1-diff-value|--m1-trace-value|--m1-trace-caller|--m1-diff-caller|--m1-payable|--m1-callvalue|--m1-calldatasize|--m1-calldataload|--m1-address|--m1-close]")
+        print("       stage-a-gates.py --m2-reference")
         return 64
     address = close or sys.argv[1:] == ["--m1-address"]
     calldataload = address or sys.argv[1:] == ["--m1-calldataload"]
@@ -315,6 +317,11 @@ def main():
             ("BEND2-RATIO-TEST", 60, ("python3", "-P", "dev/bend2-ratio-test.py"),
              "BEND2-RATIO-TEST controls=3 refused=37 mutants=6 OK"),
         ])
+    if erc20:
+        stage = "M2-REFERENCE"
+        m1_names.add("ERC20-REFERENCE")
+        legs.append(("ERC20-REFERENCE", 300, ("python3", "-P", "dev/erc20-test.py"),
+                     "ERC20-REFERENCE cases=85 creates=4 mutants=11 covered=431 scope=reference OK"))
     work = root / (".gatework/stage-" + stage.lower())
     work.mkdir(parents=True, exist_ok=True)
     failed = False

@@ -1,0 +1,51 @@
+; M2 ERC-20 constructor; fixed supply 1000 to CALLER.
+0000 34 CALLVALUE ; nonpayable constructor
+0001 610067 PUSH2 0x0067 ; destination reject
+0004 57 JUMPI ; branch to reject
+0005 6103e8 PUSH2 0x03e8 ; fixed supply
+0008 5f PUSH0 ; totalSupply slot
+0009 55 SSTORE ; initialize totalSupply
+000a 33 CALLER ; deployer receives supply
+000b 60a0 PUSH1 0xa0 ; mint recipient memory offset
+000d 52 MSTORE ; mint recipient
+000e 5f PUSH0 ; mint source is zero
+000f 6080 PUSH1 0x80 ; mint source memory offset
+0011 52 MSTORE ; mint source
+0012 6103e8 PUSH2 0x03e8 ; mint amount
+0015 60c0 PUSH1 0xc0 ; mint amount memory offset
+0017 52 MSTORE ; mint amount
+0018 6103e8 PUSH2 0x03e8 ; initial deployer balance
+001b 60a0 PUSH1 0xa0 ; balance owner memory offset
+001d 51 MLOAD ; balance owner
+001e 5f PUSH0 ; mapping owner word memory offset
+001f 52 MSTORE ; mapping owner word
+0020 6001 PUSH1 0x01 ; balances base slot
+0022 6020 PUSH1 0x20 ; mapping base word memory offset
+0024 52 MSTORE ; mapping base word
+0025 6040 PUSH1 0x40 ; two ABI words
+0027 5f PUSH0 ; mapping key buffer
+0028 20 KECCAK256 ; mapping storage key
+0029 55 SSTORE ; initialize deployer balance
+002a 60c0 PUSH1 0xc0 ; event amount memory offset
+002c 51 MLOAD ; event amount
+002d 5f PUSH0 ; unindexed event data memory offset
+002e 52 MSTORE ; unindexed event data
+002f 60a0 PUSH1 0xa0 ; second indexed address memory offset
+0031 51 MLOAD ; second indexed address
+0032 6080 PUSH1 0x80 ; first indexed address memory offset
+0034 51 MLOAD ; first indexed address
+0035 7fddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef PUSH32 0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef ; Transfer signature topic
+0056 6020 PUSH1 0x20 ; event data size
+0058 5f PUSH0 ; event data offset
+0059 a3 LOG3 ; Transfer event
+005a 61031e PUSH2 0x031e ; runtime size
+005d 61006b PUSH2 0x006b ; runtime starts after constructor
+0060 5f PUSH0 ; copy destination
+0061 39 CODECOPY ; copy frozen runtime
+0062 61031e PUSH2 0x031e ; runtime size
+0065 5f PUSH0 ; return offset
+0066 f3 RETURN ; install runtime
+0067 5b JUMPDEST ; reject
+0068 5f PUSH0 ; empty revert size
+0069 5f PUSH0 ; empty revert offset
+006a fd REVERT ; reject constructor value

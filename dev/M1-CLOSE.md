@@ -39,7 +39,7 @@ to close the speed requirement; no existing OCaml report can do so.
 
 The [Bend 2 comparison](M1-BEND2.md) supplies the paired corpus, pinned
 toolchains, complete compilation intervals, output validation, frozen
-measurement and refusal tests. The default 75-leg battery now uses its
+measurement and refusal tests. The 75-leg `--m1-close` battery uses its
 two gates in place of the former OCaml M1 ratio legs. The comparison's
 scope is six closed pure programs; stateful M1 behavior retains its
 separate functional gates.
@@ -107,9 +107,10 @@ commands, deadlines and markers for the 44 historical modes and probed the
 failure class of the three `--m1-close` legs only. The historical M0/M1
 classes were unchanged because the scheduler change only added rows under
 `--m1-close`. The two ratio legs were classified as M1 failures. The M0
-ratification message remained. Since 2026-09-22 `zsh -f dev/gates.sh` runs
-the same battery with BEND2-RATIO and BEND2-RATIO-TEST in their place (see
-[M1-BEND2.md](M1-BEND2.md)).
+ratification message remained. Since 2026-09-22 `--m1-close` runs the
+same battery with BEND2-RATIO and BEND2-RATIO-TEST in their place (see
+[M1-BEND2.md](M1-BEND2.md)). The default wrapper now appends the
+[M2 reference gate](M2-REFERENCE.md), for 76 checks.
 
 That ratio test used synthetic reports to exercise the public command; these
 were decision tests and provided no timing evidence. It checked the

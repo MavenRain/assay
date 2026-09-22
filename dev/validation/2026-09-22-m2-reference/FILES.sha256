@@ -1,0 +1,17 @@
+7711f8b58c54b0736d31e85c76718dcae67eea426f1f79ee05633e04e6090479  dev/validation/2026-09-22-m2-reference/DENOMINATOR-DELTA.json
+5ea4dbda4e8ff68068f07b2b506b8366b6ce7094e0483ca71995e615c2376fe7  dev/validation/2026-09-22-m2-reference/ERC20-CAPTURES.tar.gz
+9e7350271314d8f4298313bbe77e896995b41f5bdd599d2dc825db2995f3cc9d  dev/validation/2026-09-22-m2-reference/GATE-COMPATIBILITY.json
+afc62cc60d0c60e422f57a700f8c3dab8ac977bbf3f47e9311ad8421b296d954  dev/validation/2026-09-22-m2-reference/GATE-LOGS.tar.gz
+4cb5f4216fc2ef356919dfd771a82283c788726f21219aab5eeb3ac06796979b  dev/validation/2026-09-22-m2-reference/README.md
+3947bb5ea23ebf68c01d258690a53fb6669ee291995bd2c2437e7baa8b4b2016  dev/validation/2026-09-22-m2-reference/SOURCES.json
+c3d0b28a884c7bb9efbd94491c7bb456e6486cae7f1272fbae7be479be98c30c  dev/validation/2026-09-22-m2-reference/SUMMARY.json
+f7e37603f39e98aaf5aab7b186397068a54b803467a620273bf4fdcbff2d455a  dev/validation/2026-09-22-m2-reference/build.json
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  dev/validation/2026-09-22-m2-reference/build.log
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  dev/validation/2026-09-22-m2-reference/build.stderr
+58574771419af05ddaaf5a53939203434610dfe93bf3aa3479d8a2057a8e22b2  dev/validation/2026-09-22-m2-reference/default-gates.json
+ab97d8c675e84498698ef737cba8b85e977f94e1961709a655c82ed84074639f  dev/validation/2026-09-22-m2-reference/default-gates.log
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  dev/validation/2026-09-22-m2-reference/default-gates.stderr
+0caf4b359e0c8edf8cae8cf8f6b77f37f06505c31e6e3216964bd536d0c1f94b  dev/validation/2026-09-22-m2-reference/focused-gate.json
+506ec0561fe1fd04d9513378851427eab788eb4c30ecf731a953e866418f63d2  dev/validation/2026-09-22-m2-reference/focused-gate.log
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  dev/validation/2026-09-22-m2-reference/focused-gate.stderr
+d6292f3d5f968cd93803a9e8a762e75525243bcf0436089d1a49cdb58d110b6b  dev/validation/2026-09-22-m2-reference/gate-compatibility.py

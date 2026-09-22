@@ -6,7 +6,9 @@ on six matched pure programs.
 
 The [M1 closure gate](dev/M1-CLOSE.md) combines the bounded counter,
 surface, proof and executor checks with the binding compiler performance
-limit. `zsh -f dev/gates.sh` runs all 75 checks.
+limit. The [first M2 slice](dev/M2-REFERENCE.md) adds a frozen,
+hand-assembled [ERC-20 reference](reference/erc20/README.md), with mappings,
+events and dynamic string returns. `zsh -f dev/gates.sh` runs all 76 checks.
 
 Assay is a Kanon language fork for EVM contracts.  It inherits the kernel and
 surface at `2c2e6e6`.  M0 Stage A supplies the checker, erasure, axiom disclosure
@@ -338,9 +340,9 @@ and five mutations with restored controls.
 The address gate adds 1920 core comparisons, 128 artifact pairs,
 40 surface cases, 55 signed calls, seven public command checks,
 24 refusals and five mutations with restored controls.
-`dev/gates.sh` selects `--m1-close`. Its 75 legs
-include the proof-bundle, named-predicate, compound-invariant,
-named-guard, inferred-guard and inferred-arithmetic suites.
+`dev/gates.sh` selects `--m2-reference`: the 75 `--m1-close` legs
+(proof-bundle, named-predicate, compound-invariant, named-guard,
+inferred-guard and inferred-arithmetic suites) then ERC20-REFERENCE, for 76 legs.
 The inferred-helper gate adds 254 source/EVM comparisons, two creation
 outcomes, 26 refusals, 24 five-file erasure pairs, six accepted boundary
 forms and five mutations with restored controls.

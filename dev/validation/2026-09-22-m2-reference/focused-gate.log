@@ -1,0 +1,97 @@
+ERC20-CASE read-name status=success OK
+ERC20-CASE read-symbol status=success OK
+ERC20-CASE read-decimals status=success OK
+ERC20-CASE read-totalSupply status=success OK
+ERC20-CASE balance-alice status=success OK
+ERC20-CASE balance-bob status=success OK
+ERC20-CASE balance-carol status=success OK
+ERC20-CASE balance-zero status=success OK
+ERC20-CASE balance-maximum status=success OK
+ERC20-CASE allowance-forward status=success OK
+ERC20-CASE allowance-reverse status=success OK
+ERC20-CASE allowance-zero status=success OK
+ERC20-CASE allowance-maximum status=success OK
+ERC20-CASE transfer-success status=success OK
+ERC20-CASE transfer-all status=success OK
+ERC20-CASE transfer-zero status=success OK
+ERC20-CASE transfer-self status=success OK
+ERC20-CASE transfer-self-all status=success OK
+ERC20-CASE transfer-carol status=success OK
+ERC20-CASE transfer-maximum-address status=success OK
+ERC20-CASE transfer-second-caller status=success OK
+ERC20-CASE transfer-empty-zero status=success OK
+ERC20-CASE transfer-insufficient status=revert OK
+ERC20-CASE transfer-self-insufficient status=revert OK
+ERC20-CASE transfer-zero-address status=revert OK
+ERC20-CASE transfer-recipient-overflow status=revert OK
+ERC20-CASE transfer-maximum-word status=success OK
+ERC20-CASE approve-success status=success OK
+ERC20-CASE approve-overwrite status=success OK
+ERC20-CASE approve-zero status=success OK
+ERC20-CASE approve-maximum-word status=success OK
+ERC20-CASE approve-zero-spender status=success OK
+ERC20-CASE approve-maximum-spender status=success OK
+ERC20-CASE approve-second-caller status=success OK
+ERC20-CASE transferFrom-success status=success OK
+ERC20-CASE transferFrom-all-allowance status=success OK
+ERC20-CASE transferFrom-zero status=success OK
+ERC20-CASE transferFrom-self status=success OK
+ERC20-CASE transferFrom-maximum-allowance status=success OK
+ERC20-CASE transferFrom-allowance-short status=revert OK
+ERC20-CASE transferFrom-balance-short status=revert OK
+ERC20-CASE transferFrom-recipient-overflow status=revert OK
+ERC20-CASE transferFrom-zero-owner status=revert OK
+ERC20-CASE transferFrom-zero-recipient status=revert OK
+ERC20-CASE transferFrom-owner-needs-approval status=revert OK
+ERC20-CASE transferFrom-owner-approved status=success OK
+ERC20-CASE selector-empty status=revert OK
+ERC20-CASE selector-one-byte status=revert OK
+ERC20-CASE selector-three-bytes status=revert OK
+ERC20-CASE selector-unknown status=revert OK
+ERC20-CASE balanceOf-selector-only status=revert OK
+ERC20-CASE balanceOf-short-final-word status=revert OK
+ERC20-CASE balanceOf-dirty-address-0 status=revert OK
+ERC20-CASE allowance-selector-only status=revert OK
+ERC20-CASE allowance-short-final-word status=revert OK
+ERC20-CASE allowance-dirty-address-0 status=revert OK
+ERC20-CASE allowance-dirty-address-1 status=revert OK
+ERC20-CASE transfer-selector-only status=revert OK
+ERC20-CASE transfer-short-final-word status=revert OK
+ERC20-CASE transfer-dirty-address-0 status=revert OK
+ERC20-CASE approve-selector-only status=revert OK
+ERC20-CASE approve-short-final-word status=revert OK
+ERC20-CASE approve-dirty-address-0 status=revert OK
+ERC20-CASE transferFrom-selector-only status=revert OK
+ERC20-CASE transferFrom-short-final-word status=revert OK
+ERC20-CASE transferFrom-dirty-address-0 status=revert OK
+ERC20-CASE transferFrom-dirty-address-1 status=revert OK
+ERC20-CASE value-name status=revert OK
+ERC20-CASE value-symbol status=revert OK
+ERC20-CASE value-decimals status=revert OK
+ERC20-CASE value-totalSupply status=revert OK
+ERC20-CASE value-balanceOf status=revert OK
+ERC20-CASE value-allowance status=revert OK
+ERC20-CASE value-transfer status=revert OK
+ERC20-CASE value-approve status=revert OK
+ERC20-CASE value-transferFrom status=revert OK
+ERC20-CASE read-name-trailing status=success OK
+ERC20-CASE read-symbol-trailing status=success OK
+ERC20-CASE read-decimals-trailing status=success OK
+ERC20-CASE read-totalSupply-trailing status=success OK
+ERC20-CASE balance-alice-trailing status=success OK
+ERC20-CASE allowance-forward-trailing status=success OK
+ERC20-CASE transfer-success-trailing status=success OK
+ERC20-CASE approve-success-trailing status=success OK
+ERC20-CASE transferFrom-success-trailing status=success OK
+ERC20-MUTANT CALLVALUE witness=value-transfer killed control=OK
+ERC20-MUTANT BALANCE-SLOT witness=balance-alice killed control=OK
+ERC20-MUTANT ALLOWANCE-SLOT witness=approve-success killed control=OK
+ERC20-MUTANT ALLOWANCE-BOUND witness=transferFrom-allowance-short killed control=OK
+ERC20-MUTANT ALLOWANCE-SPEND witness=transferFrom-success killed control=OK
+ERC20-MUTANT BALANCE-BOUND witness=transfer-insufficient killed control=OK
+ERC20-MUTANT OVERFLOW witness=transfer-recipient-overflow killed control=OK
+ERC20-MUTANT EVENT-TOPIC witness=transfer-success killed control=OK
+ERC20-MUTANT EVENT-DATA witness=transfer-success killed control=OK
+ERC20-MUTANT DYNAMIC-OFFSET witness=read-name killed control=OK
+ERC20-MUTANT ADDRESS-WIDTH witness=balanceOf-dirty-address-0 killed control=OK
+ERC20-REFERENCE cases=85 creates=4 mutants=11 covered=431 scope=reference OK

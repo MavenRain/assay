@@ -87,9 +87,10 @@ active freeze automatically.
 The BEND2-RATIO leg in `dev/stage-a-gates.py` also requires
 `informational=false` on the row before the OK marker, so an informational
 run cannot pass the leg.
-The default 75-leg battery replaces the two historical OCaml M1 ratio
+The 75-leg `--m1-close` battery replaces the two historical OCaml M1 ratio
 legs with `BEND2-RATIO` and `BEND2-RATIO-TEST`. OCaml measurement tools and
-their archived results remain available as diagnostics.
+their archived results remain available as diagnostics. The default wrapper
+also runs the [M2 reference gate](M2-REFERENCE.md), for 76 checks.
 
 `dev/bend2-ratio-test.py` passes three controls, rejects 37 invalid cases,
 and kills six mutations. It covers the inclusive boundary, a ratio above

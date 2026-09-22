@@ -1,0 +1,62 @@
+{
+  "version": 1,
+  "fork": "Cancun",
+  "runtime_bytes": 798,
+  "init_prefix_bytes": 107,
+  "runtime_instructions": 431,
+  "init_instructions": 50,
+  "cases": 85,
+  "labels": {
+    "name": 121,
+    "symbol": 172,
+    "decimals": 223,
+    "totalSupply": 231,
+    "balanceOf": 239,
+    "allowance": 282,
+    "approve": 351,
+    "transfer": 467,
+    "transferFrom": 511,
+    "move": 630,
+    "return-true": 784,
+    "return-word": 787,
+    "reject": 794
+  },
+  "mutation_sites": {
+    "callvalue": 0,
+    "name-offset": 123,
+    "address-width": 253,
+    "balance-base": 268,
+    "approve-base": 393,
+    "allowance-bound": 608,
+    "allowance-subtraction": 620,
+    "balance-bound": 661,
+    "recipient-overflow": 722,
+    "transfer-topic": 747,
+    "transfer-data-size": 780
+  },
+  "selectors": {
+    "name()": "06fdde03",
+    "symbol()": "95d89b41",
+    "decimals()": "313ce567",
+    "totalSupply()": "18160ddd",
+    "balanceOf(address)": "70a08231",
+    "allowance(address,address)": "dd62ed3e",
+    "transfer(address,uint256)": "a9059cbb",
+    "approve(address,uint256)": "095ea7b3",
+    "transferFrom(address,address,uint256)": "23b872dd"
+  },
+  "topics": {
+    "Transfer": "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+    "Approval": "0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925"
+  },
+  "files": {
+    "runtime.evm": "178d75ec70ae5aa2ebc6621fa700176218c7165245e6e286dfdacc2955894117",
+    "runtime.hex": "4051dbb20c0c52ec2ef864239f221fbb6cdab5470bb411c9dacd2d3d80dc6e40",
+    "init-prefix.evm": "973fbe50d3205b0b484631acfb57da89646939448e59cc837f65990316bd2d65",
+    "init.hex": "484b0946af61d3034fa7f0bb4e8aba292f7cdedbdcc21c6ded75a4e2d9ccd78f",
+    "abi.json": "7715636c0342b68c68f6b93c1daf97e35d901770d2a7086055607bff8c31d3df",
+    "layout.json": "30c09d0fac992177a1498365520059905e19de34a1fa6e2c98f971e47fd79f48",
+    "slots.json": "d01b4f3f8223d95b199ee7e04674e059b114c1b29c29e6e4bc580322e4d70e76",
+    "cases.json": "62cf183de7a336f601b966237a9e96e75deabab4d6232c5be887abf2fe6dcb79"
+  }
+}
