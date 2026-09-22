@@ -48,13 +48,23 @@ def save_measurement(target, report):
         raise ValueError(f'RATIO-WINDOW seconds={duration:.3f} limit=60 {totals}; rejected_report={path}')
 
 
-def measure(root, target):
+def compiler_sources(root):
+    paths = [root / 'dune', root / 'dune-project']
+    for directory in ('lib', 'surface', 'abi', 'asm', 'bin', 'emit', 'keccak'):
+        paths.extend(path for path in (root / directory).rglob('*')
+                     if path.is_file() and (path.suffix in ('.ml', '.mli') or path.name == 'dune'))
+    data = module(root)
+    return {str(path.relative_to(root)): data.digest(path) for path in sorted(paths)}
+
+
+def measure(root, target, milestone='M0'):
     data = module(root)
     data.require(not target.exists(), 'RATIO-OUTPUT exists')
     frozen = data.manifest(root)
     binary = root / '_build/default/bin/assay.exe'
     identities = {path: data.digest(root / path) for path in
                   ('_build/default/bin/assay.exe', 'corpus/MANIFEST.json', 'dev/ratio.py', 'dev/corpus-data.py')}
+    sources = compiler_sources(root)
     groups = {name: [row for row in frozen['cases'] if row['group'] == name]
               for name in ('contracts', 'proofs')}
     tools = {name: shutil.which(name) for name in ('ocamlopt', 'ocamlc', 'ocamldep')}
@@ -120,12 +130,13 @@ def measure(root, target):
     data.manifest(root)
     data.require(all(data.digest(root / path) == expected for path, expected in identities.items()),
                  'RATIO-CHANGED executable, corpus or measurement code changed during timing')
+    data.require(compiler_sources(root) == sources, 'RATIO-CHANGED compiler sources changed during timing')
     rows = {name: summary(values,
                 sum(row['lines'] for row in groups[name]) if name in groups else
                 sum(row['lines'] for row in frozen['ocaml']) if name != 'fixed' else 0,
                 len(groups[name]) if name in groups else 1)
             for name, values in samples.items()}
-    report = dict(version=1, stage='M0 Stage F', date=started[:10],
+    report = dict(version=1, stage='M1' if milestone == 'M1' else 'M0 Stage F', date=started[:10],
                   method='One warm run, five interleaved wall-clock runs.  Assay parses through five closed files.  No fixed-cost subtraction.',
                   fixed_method='One spec-count invocation, process startup plus R0 formatting; an upper-bound proxy, not an empty compile.',
                   host=dict(system=platform.platform(), ncpu=os.cpu_count()),
@@ -133,13 +144,15 @@ def measure(root, target):
                   versions=versions, executable_sha256=identities['_build/default/bin/assay.exe'],
                   corpus_sha256=identities['corpus/MANIFEST.json'],
                   measurement_sha256=identities['dev/ratio.py'], rows=rows, commands=runs)
+    if milestone == 'M1':
+        report['compiler_sources_sha256'] = sources
     save_measurement(target, report)
-    print(f'M0-MEASURE file={target} rounds=5 window_seconds={duration:.3f}; freeze before reporting ratios')
+    print(f'{milestone}-MEASURE file={target} rounds=5 window_seconds={duration:.3f}; freeze before reporting ratios')
 
 
 def validate(report, frozen):
     require = module(Path(__file__).resolve().parent.parent).require
-    require(report['version'] == 1 and report['stage'] == 'M0 Stage F', 'RATIO-VERSION')
+    require(report['version'] == 1 and report['stage'] in ('M0 Stage F', 'M1'), 'RATIO-VERSION')
     # Review round 2026-09-12 (C-1):  save_measurement marks a rejected window in the
     # retained report.  A report that carries the marker fails here, whatever its
     # window values say, so edited window seconds cannot publish it.
@@ -160,7 +173,16 @@ def validate(report, frozen):
         require(command['elapsed_ms'] == report['rows'][command['workload']]['samples_ms'][command['round'] - 1], 'RATIO-TIMING')
 
 
-def report(root):
+def require_m1(root, value):
+    require = module(root).require
+    require(value['stage'] == 'M1', 'RATIO-MILESTONE need an M1 measurement')
+    require(value.get('compiler_sources_sha256') == compiler_sources(root), 'RATIO-SOURCES')
+    rows = value['rows']
+    require(rows['contracts']['ms_per_kloc'] <= rows['ocamlopt']['ms_per_kloc'],
+            'RATIO-BOUND M1 limit=1.0')
+
+
+def report(root, milestone='M0'):
     data = module(root)
     checked(['shasum', '-a', '256', '-c', 'dev/DENOMINATORS.sha256'], root)
     frozen = data.manifest(root)
@@ -168,25 +190,30 @@ def report(root):
     validate(value, frozen)
     data.require(value['corpus_sha256'] == data.digest(root / 'corpus/MANIFEST.json'), 'RATIO-CORPUS')
     data.require(value['measurement_sha256'] == data.digest(root / 'dev/ratio.py'), 'RATIO-METHOD')
+    if milestone == 'M1':
+        require_m1(root, value)
     # Rebuilt binaries may differ by absolute build paths.  Source identities
     # are covered by DENOMINATORS; the original executable hash is provenance.
     rows = value['rows']
     assay = rows['contracts']['ms_per_kloc']
     native = rows['ocamlopt']['ms_per_kloc']
-    print(f'M0-RATIO assay_ms_per_kloc={assay:.3f} ocamlopt={native:.3f} ocamlc={rows["ocamlc"]["ms_per_kloc"]:.3f} '
-          f'ratio={assay/native:.6f} fixed_ms={rows["fixed"]["median_ms"]:.3f} load={value["window"]["load_start"][0]:.2f} informational=true')
-    print(f'M0-PROOF-RATIO ms_per_kloc={rows["proofs"]["ms_per_kloc"]:.3f} files={rows["proofs"]["invocations"]} separate=true')
-    print('M0-RATIO provenance=dev/denominators.json fixed=spec-count-proxy subtraction=none OK')
+    informational = 'false limit=1.0' if milestone == 'M1' else 'true'
+    print(f'{milestone}-RATIO assay_ms_per_kloc={assay:.3f} ocamlopt={native:.3f} ocamlc={rows["ocamlc"]["ms_per_kloc"]:.3f} '
+          f'ratio={assay/native:.6f} fixed_ms={rows["fixed"]["median_ms"]:.3f} load={value["window"]["load_start"][0]:.2f} informational={informational}')
+    print(f'{milestone}-PROOF-RATIO ms_per_kloc={rows["proofs"]["ms_per_kloc"]:.3f} files={rows["proofs"]["invocations"]} separate=true')
+    print(f'{milestone}-RATIO provenance=dev/denominators.json fixed=spec-count-proxy subtraction=none OK')
 
 
 def main():
     root = Path(__file__).resolve().parent.parent
     if sys.argv[1:] == []:
         report(root)
-    elif len(sys.argv) == 3 and sys.argv[1] == '--measure':
-        measure(root, Path(sys.argv[2]).absolute())
+    elif sys.argv[1:] == ['--m1']:
+        report(root, 'M1')
+    elif len(sys.argv) == 3 and sys.argv[1] in ('--measure', '--measure-m1'):
+        measure(root, Path(sys.argv[2]).absolute(), 'M1' if sys.argv[1] == '--measure-m1' else 'M0')
     else:
-        print('usage: ratio.sh [--measure NEW_JSON]')
+        print('usage: ratio.sh [--m1 | --measure NEW_JSON | --measure-m1 NEW_JSON]')
         return 64
     return 0
 
@@ -195,5 +222,6 @@ if __name__ == '__main__':
     try:
         sys.exit(main())
     except (OSError, ValueError, KeyError, TypeError, subprocess.SubprocessError) as error:
-        print('M0-RATIO FAIL ' + str(error))
+        milestone = 'M1' if sys.argv[1:2] in (['--m1'], ['--measure-m1']) else 'M0'
+        print(f'{milestone}-RATIO FAIL ' + str(error))
         sys.exit(1)

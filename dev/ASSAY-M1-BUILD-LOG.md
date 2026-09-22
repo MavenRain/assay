@@ -1,5 +1,81 @@
 # Assay M1 build log
 
+## 2026-09-21: M1 closure performance gate
+
+The thirty-ninth M1 slice starts at `ec27e6f`. It adds the binding R3
+performance check to a 75-leg default battery. The compatibility check
+compares commands, deadlines and markers for the 44 historical modes and
+probes the failure class of the three `--m1-close` legs only. The
+historical M0/M1 classes are unchanged because the scheduler change
+only adds rows under `--m1-close`. The compiler, kernel and trusted-line
+limits are unchanged.
+
+M1 remains open. The active five-round measurement completes within
+44.217 seconds but reports a ratio of 1.956099 against the 1.0 limit.
+The first attempt completes within 18.560 seconds and reports 1.163762.
+Both dated reports are retained. The second follows an M1 failure-label
+correction, which changes the measurement script hash. The corpus,
+comparison, fixed-cost treatment and timing protocol are unchanged.
+
+`--m1` requires a current M1 report, exact compiler source inventory and
+the unrounded inclusive bound. It rejects stale or missing source hashes,
+including source additions. Five accepted controls, 15 refusals and four
+source mutation witnesses exercise the public command. The old M0 mode
+remains informational. The refreshed 122-path checksum manifest migrates
+the deleted wrapper entry (replaced by `dev/dune.sh` in commit
+`4836427`). The prior measurement and checksum file are preserved in the
+archive.
+
+The initial default rerun passes 38 checks before explicit cancellation.
+It is retained as interrupted, not as a complete battery. A comparison
+against the prior full validation matches 272 of 275 inputs exactly;
+only the gate wrapper, gate scheduler and ratio script changed. Those
+functional results are reused. The seven focused closure checks pass
+six checks and fail only M1-RATIO at the measured performance bound.
+
+Evidence and reproduction commands are in
+[the validation record](validation/2026-09-21-m1-close/README.md), with
+the [closure contract](M1-CLOSE.md). The remaining M1 work is meeting R3;
+this slice does not claim milestone completion or create a commit.
+
+### Review round 2026-09-21 (M1 closure performance gate)
+
+A-1 (high): reported, unfixed pending a user ruling. The gate binds the
+M1 bound to a source inventory it never proves was compiled into the
+timed executable, so a stale binary can pass. Any byte change to
+`dev/ratio.py` refuses the frozen report, so the code fix forces a new
+measurement. The closure contract and the record now direct a build
+immediately before `--measure-m1` and state the unchecked freshness.
+
+B-1 (medium): the decision test took its source inventory from the walk
+under test, so a directory or suffix dropped from `compiler_sources`
+survived M1-RATIO-TEST; now the test requires the walk to match the
+frozen report inventory before it runs, and the checksum snapshot is
+regenerated for the edited test.
+
+B-2 (low): the M1-RATIO-TEST gate marker was the bare OK row, so an
+edited test that dropped refusals or mutants stayed green; now the leg
+pins `M1-RATIO-TEST controls=5 refused=15 mutants=4`, and the checksum
+snapshot is regenerated for the edited scheduler.
+
+C-1 (medium): the README still said `dev/gates.sh` selects
+`--m1-address` with 73 legs, and two milestone documents dropped the
+open performance status; now the README says `--m1-close` with 75 legs
+and both documents state that the bound remains open.
+
+C-2 (medium): this log and the closure contract claimed the
+compatibility check proves the historical M0/M1 classifications; now
+both state that the check compares commands, deadlines and markers and
+probes only the three new legs, and that the historical classes are
+unchanged because the scheduler change only adds rows.
+
+D-2 (low): new prose named a deleted private wrapper, and record files
+carried machine-absolute paths and an undisclosed launch directory; now
+this log and the record README name the deleted wrapper entry by its
+replacement, and the record README discloses the external launch
+directory. The absolute paths in the record JSON and diagnostic script
+remain for the record unit.
+
 ## 2026-09-21: Contract-address snapshots
 
 The thirty-eighth M1 slice starts at `0eed12b`. `self <- address`

@@ -17,8 +17,9 @@ This slice uses the carried grammar. It adds no kernel former and changes
 no file under `lib/` or `surface/`. The subsequent [contract surface](M1-SURFACE.md)
 adds bounded `contract`, `storage`, `entry` and `do` sugar. The later
 [guard slice](M1-GUARDS.md) adds proof-producing bounds and arithmetic
-that consumes erased proofs. The M1 performance threshold remains open. The
-[source model](M1-RUN.md) adds public `run`, and the
+that consumes erased proofs. The [M1 closure gate](M1-CLOSE.md) enforces
+the performance threshold on the frozen contract corpus; that bound
+remains open. The [source model](M1-RUN.md) adds public `run`, and the
 [source proofs](M1-PROOFS.md) establish overflow freedom for its Lean model.
 These tests are not a proof of the
 OCaml compiler. The two executors are geth entry points, not independent

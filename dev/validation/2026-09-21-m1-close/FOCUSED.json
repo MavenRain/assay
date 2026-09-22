@@ -1,0 +1,111 @@
+[
+  {
+    "name": "DENOMINATORS",
+    "command": [
+      "shasum",
+      "-a",
+      "256",
+      "-c",
+      "dev/DENOMINATORS.sha256"
+    ],
+    "cwd": "/Users/oobi/Documents/assay",
+    "timeout": 10,
+    "exit_code": 0,
+    "passed": true,
+    "marker": "dev/denominators.json: OK",
+    "elapsed_ms": 117.62970899872016
+  },
+  {
+    "name": "M0-RATIO",
+    "command": [
+      "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "-B",
+      "-P",
+      "dev/ratio.py"
+    ],
+    "cwd": "/Users/oobi/Documents/assay",
+    "timeout": 60,
+    "exit_code": 0,
+    "passed": true,
+    "marker": "M0-RATIO provenance=dev/denominators.json fixed=spec-count-proxy subtraction=none OK",
+    "elapsed_ms": 253.77570900309365
+  },
+  {
+    "name": "M1-RATIO",
+    "command": [
+      "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "-B",
+      "-P",
+      "dev/ratio.py",
+      "--m1"
+    ],
+    "cwd": "/Users/oobi/Documents/assay",
+    "timeout": 60,
+    "exit_code": 1,
+    "passed": false,
+    "marker": "M1-RATIO provenance=dev/denominators.json fixed=spec-count-proxy subtraction=none OK",
+    "elapsed_ms": 620.9224999984144
+  },
+  {
+    "name": "M1-RATIO-TEST",
+    "command": [
+      "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "-B",
+      "-P",
+      "dev/m1-ratio-test.py"
+    ],
+    "cwd": "/Users/oobi/Documents/assay",
+    "timeout": 60,
+    "exit_code": 0,
+    "passed": true,
+    "marker": "M1-RATIO-TEST OK",
+    "elapsed_ms": 7374.651958998584
+  },
+  {
+    "name": "F-MUTANTS",
+    "command": [
+      "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "-B",
+      "-P",
+      "dev/corpus-test.py",
+      "mutants"
+    ],
+    "cwd": "/Users/oobi/Documents/assay",
+    "timeout": 180,
+    "exit_code": 0,
+    "passed": true,
+    "marker": "F-MUTANTS killed=7/7 controls=5 OK",
+    "elapsed_ms": 1472.0254170024418
+  },
+  {
+    "name": "HOUSE",
+    "command": [
+      "zsh",
+      "-f",
+      "dev/house.sh"
+    ],
+    "cwd": "/Users/oobi/Documents/assay",
+    "timeout": 30,
+    "exit_code": 0,
+    "passed": true,
+    "marker": "HOUSE OK",
+    "elapsed_ms": 1653.0476250045467
+  },
+  {
+    "name": "GATE-COMPATIBILITY",
+    "command": [
+      "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "-B",
+      "-P",
+      "/Users/oobi/Documents/gpt1/assay-m1-close/gate-compatibility.py",
+      "/Users/oobi/Documents/gpt1/assay-m1-close/gates-before.py",
+      "/Users/oobi/Documents/assay/dev/stage-a-gates.py"
+    ],
+    "cwd": "/Users/oobi/Documents/assay",
+    "timeout": 60,
+    "exit_code": 0,
+    "passed": true,
+    "marker": "GATE-COMPATIBILITY modes=44 old=73 new=75 classifications=3 OK",
+    "elapsed_ms": 2967.625124998449
+  }
+]

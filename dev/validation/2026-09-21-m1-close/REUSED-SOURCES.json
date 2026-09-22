@@ -1,0 +1,11 @@
+{
+  "source_manifest": "dev/validation/2026-09-21-m1-address/VALIDATED-SOURCES.json",
+  "source_manifest_sha256": "aced22a04adc8980a7922f0f5fac18fea4cf8b64c88d48b05cf258964dc9090b",
+  "expected_files": 275,
+  "unchanged": 272,
+  "changed": [
+    "dev/gates.sh",
+    "dev/ratio.py",
+    "dev/stage-a-gates.py"
+  ]
+}

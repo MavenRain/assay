@@ -1,0 +1,9 @@
+M1: enforce the closure performance bound
+
+Add the binding ratio gate with compiler-source identities, boundary
+checks and mutation witnesses. Preserve historical gate modes and both
+dated measurements while refreshing the denominator checksum snapshot.
+
+M1 remains open: the active ratio is 1.956099 against the 1.0 limit.
+Retain focused validation and the interrupted rerun, reusing verified
+unchanged functional evidence.

@@ -113,8 +113,10 @@ The current [M1 core emitter](M1-EMISSION.md) also compiles the counter
 dispatcher and arithmetic effects. The same public `diff` command now
 executes those source programs with calldata. The [source model](M1-RUN.md)
 also interprets their specialized effects through public `run`.
-Surface sugar, the source overflow-freedom theorem and the M1 performance
-bound remain open.
+The subsequent surface and source-proof slices provide contract sugar
+and the source overflow-freedom theorem. The [M1 closure gate](M1-CLOSE.md)
+adds the binding performance check to the complete battery; the bound
+remains open.
 
 The [hand-assembled counter reference](../reference/counter/README.md) is the
 second M1 slice in this tree, including its nonpayable guard and offline

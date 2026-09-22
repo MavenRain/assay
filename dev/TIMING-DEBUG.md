@@ -1,6 +1,18 @@
 # Timing window diagnosis
 
-The timing measurement is paused at the user's request on 2026-09-12.
+The [M1 closure work](M1-CLOSE.md) resumed measurement on 2026-09-21.
+The final five-round window completed in 44.217 seconds with the same
+60-second limit and no fixed-cost subtraction. The dated report and
+compiler source identities are retained in `denominators-m1-2026-09-21-02.json`.
+The first 18.560-second measurement is retained as
+`denominators-m1-2026-09-21.json`; its M1 ratio failed at 1.163762.
+The second measurement follows a correction to the failure-label prefix,
+which changes the measurement script's identity. The timing method is unchanged.
+Its ratio is 1.956099 at starting load 32.99, so M1 remains open on R3.
+The earlier report and checksum manifest are archived in
+`validation/2026-09-21-m1-close/` before refreshing the active copies.
+
+The timing measurement was paused at the user's request on 2026-09-12.
 Three attempts exceeded the existing 60-second window. No successful
 replacement measurement was produced, and the preceding nullary report
 remains preserved. It does not validate the current compiler and timing
@@ -67,7 +79,7 @@ continue to fail ordinary report validation.
 The existing corpus mutation leg now checks exact-boundary and over-bound
 failures, retention of both reports, and an accepted control. These tests
 use synthetic timing data and run no compiler timing window. The full
-timing gate remains paused after this fix.
+timing gate remained paused after this fix until the M1 closure work above.
 
 The validation archive's `diagnostics/` directory retains both diagnostic
 result sets, the scripts used to collect them, and the original timing

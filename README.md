@@ -1,5 +1,12 @@
 # assay
 
+M1 remains open on performance: the current frozen ratio is 1.956099
+against the required limit of 1.0.
+
+The [M1 closure gate](dev/M1-CLOSE.md) combines the bounded counter,
+surface, proof and executor checks with the binding compiler performance
+limit. `zsh -f dev/gates.sh` runs all 75 checks.
+
 Assay is a Kanon language fork for EVM contracts.  It inherits the kernel and
 surface at `2c2e6e6`.  M0 Stage A supplies the checker, erasure, axiom disclosure
 and carry gates.  Stage B adds Keccak-256 and selector derivation.
@@ -330,7 +337,7 @@ and five mutations with restored controls.
 The address gate adds 1920 core comparisons, 128 artifact pairs,
 40 surface cases, 55 signed calls, seven public command checks,
 24 refusals and five mutations with restored controls.
-`dev/gates.sh` selects `--m1-address`. Its 73 legs
+`dev/gates.sh` selects `--m1-close`. Its 75 legs
 include the proof-bundle, named-predicate, compound-invariant,
 named-guard, inferred-guard and inferred-arithmetic suites.
 The inferred-helper gate adds 254 source/EVM comparisons, two creation
@@ -354,16 +361,17 @@ outputs and four mutations with restored controls.
 The equality gate adds eight five-file comparisons, 53 execution cases,
 33 signed Cancun comparisons, eight creation outcomes, six boundary
 forms, 17 refusals and four mutations with restored controls.
-The current slice's timing gate is paused following the
-[measurement diagnosis](dev/TIMING-DEBUG.md); it has no fresh timing verdict.
-The preserved denominator manifest and measurement describe an older
-compiler, so `DENOMINATORS` and `M0-RATIO` currently fail.
+The [M1 measurement](dev/denominators-m1-2026-09-21-02.json) completes five
+interleaved rounds in 44.217 seconds. The binding `M1-RATIO` gate requires
+parse-through-output time per thousand lines at most equal to `ocamlopt -c`
+on the frozen corpus. It verifies the current compiler source inventory.
+`DENOMINATORS` and the informational `M0-RATIO` use the refreshed frozen
+report. The [earlier timing diagnosis](dev/TIMING-DEBUG.md) remains recorded.
 The final M0-EXIT stamp still requires explicit user ratification.
 The core counter source, dispatcher, ABI/layout emission, differential gate
 and source model are implemented, along with bounded contract/entry/do
 sugar, typed custom reverts, proof-producing guards and bounded supplied
-proof terms and bounded storage invariant declarations. The M1 performance
-bound remains unfinished. The Lean source
+proof terms and bounded storage invariant declarations. The Lean source
 model has an overflow-freedom theorem with tested compiler correspondence.
 The core source keeps the inherited grammar and specializes continuations;
 it emits no general-purpose closures. The reference was committed before
