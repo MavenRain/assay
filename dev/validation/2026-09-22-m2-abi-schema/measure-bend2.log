@@ -1,0 +1,1 @@
+BEND2-MEASURE file=/Users/oobi/Documents/gpt1/assay-m2-abi/.gatework/abi-schema/bend2-baseline.json rounds=5 cases=6 window_seconds=2.862; freeze before gating

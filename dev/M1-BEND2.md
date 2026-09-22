@@ -1,9 +1,9 @@
 # M1 Bend 2 compilation comparison
 
 The 2026-09-22 compilation-speed requirement is an Assay/Bend 2 ratio at
-most 1.0. The frozen comparison now passes: 42.228541 ms for Assay and
-581.546582 ms for Bend 2 per six-file batch, giving a ratio of 0.072614202.
-Five measured rounds completed in a 3.219-second window. These are elapsed
+most 1.0. The frozen comparison now passes: 37.538958 ms for Assay and
+530.014084 ms for Bend 2 per six-file batch, giving a ratio of 0.070826341.
+Five measured rounds completed in a 2.862-second window. These are elapsed
 compilation times on one machine, including process startup. No time is
 subtracted and no line-count normalization is applied.
 
@@ -74,10 +74,11 @@ The measured window must include all timed intervals and remain below
 
 ## Freeze and gate
 
-`dev/measurements/2026-09-22-m1-bend2.json` retains the measurement;
+`dev/validation/2026-09-22-m2-abi-schema/bend2-baseline.json` retains the
+measurement refreshed for the typed ABI compiler sources;
 `dev/bend2-baseline.json` is its active copy. `dev/BEND2.sha256` seals the
 active report, and `dev/DENOMINATORS.sha256` also pins the new gate, the
-retained measurement file and the corpus files. A compiler, method, or
+active report and the corpus files; the record's `FILES.sha256` seals the retained copy. A compiler, method, or
 workload change requires a fresh measurement and an explicit freeze of the
 new report. Measurement never overwrites an existing report or updates the
 active freeze automatically.
@@ -90,7 +91,8 @@ run cannot pass the leg.
 The 75-leg `--m1-close` battery replaces the two historical OCaml M1 ratio
 legs with `BEND2-RATIO` and `BEND2-RATIO-TEST`. OCaml measurement tools and
 their archived results remain available as diagnostics. The default wrapper
-also runs the [M2 reference gate](M2-REFERENCE.md), for 76 checks.
+also runs the [M2 reference gate](M2-REFERENCE.md) and the
+[ABI-SCHEMA leg](M2-ABI-SCHEMA.md), for 77 checks.
 
 `dev/bend2-ratio-test.py` passes three controls, rejects 37 invalid cases,
 and kills six mutations. It covers the inclusive boundary, a ratio above

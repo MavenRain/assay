@@ -1,0 +1,85 @@
+PASS BUILD exit=0 elapsed_ms=231.0
+PASS PIN-CARRY exit=0 elapsed_ms=517.7
+FAIL R0-COUNT exit=1 elapsed_ms=19.0
+R0-COUNT FAIL: SPEC.md has no '## R0 counts' heading
+dev/r0-count.sh:25: command not found: rg
+
+PASS R0-AUDIT exit=0 elapsed_ms=39.9
+FAIL HOUSE exit=1 elapsed_ms=61.3
+HOUSE no-exception FAIL
+HOUSE named catch-all scan failed: [Errno 2] No such file or directory: 'rg'
+HOUSE no-mutable-state OK
+HOUSE no-mutable-state roots=lib emit asm keccak abi
+HOUSE one-catch-site FAIL
+
+HOUSE no-bool-match OK
+HOUSE no-em-dash OK
+HOUSE no-loop-keyword OK
+HOUSE no-bare-division OK
+HOUSE FAIL
+scan:4: command not found: rg
+scan:5: command not found: rg
+dev/house.sh:85: command not found: rg
+scan:4: command not found: rg
+scan:5: command not found: rg
+dev/house.sh:91: command not found: rg
+scan:4: command not found: rg
+scan:5: command not found: rg
+dev/house.sh:106: command not found: rg
+scan:4: command not found: rg
+scan:5: command not found: rg
+scan:4: command not found: rg
+scan:5: command not found: rg
+
+PASS TRUSTED-LINES exit=0 elapsed_ms=37.1
+PASS SUITE-KERNEL exit=0 elapsed_ms=505.3
+PASS SUITE-SURFACE exit=0 elapsed_ms=273.8
+PASS DRIVER exit=0 elapsed_ms=167.2
+FAIL MUTANTS exit=1 elapsed_ms=5439.8
+MUTANT PIN killed exit=1
+MUTANT CARRY killed exit=1
+MUTANT CARRY-NEW killed exit=1
+MUTANT CARRY-GONE killed exit=1
+MUTANT R0-COUNT killed exit=1
+MUTANT R0-AUDIT killed exit=1
+MUTANT R0-AUDIT-SPEC killed exit=1
+MUTANT HOUSE killed exit=1
+MUTANT HOUSE-LOOP FAIL exit=1 stdout="HOUSE no-exception FAIL\nHOUSE named catch-all scan failed: [Errno 2] No such file or directory: 'rg'\nHOUSE no-mutable-state OK\nHOUSE no-mutable-state roots=lib\nHOUSE one-catch-site FAIL\n\nHOUSE no-bool-match OK\nHOUSE no-em-dash OK\nHOUSE no-loop-keyword OK\nHOUSE no-bare-division OK\nHOUSE FAIL\n" stderr='scan:4: command not found: rg\nscan:5: command not found: rg\n/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-mutants-q60wjqg2/dev/house.sh:85: command not found: rg\nscan:4: command not found: rg\nscan:5: command not found: rg\n/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-mutants-q60wjqg2/dev/house.sh:91: command not found: rg\nscan:4: command not found: rg\nscan:5: command not found: rg\n/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-mutants-q60wjqg2/dev/house.sh:106: command not found: rg\nscan:4: command not found: rg\nscan:5: command not found: rg\nscan:4: command not found: rg\nscan:5: command not found: rg\n'
+
+PASS DENOMINATORS exit=0 elapsed_ms=89.0
+PASS KECCAK-VEC exit=0 elapsed_ms=1329.8
+PASS KECCAK-MUTANTS exit=0 elapsed_ms=6185.2
+PASS STACK-HEIGHT exit=0 elapsed_ms=3800.2
+PASS DISASM-3WAY exit=0 elapsed_ms=1131.8
+PASS ASM-MUTANTS exit=0 elapsed_ms=19249.7
+PASS FORK-DRIFT exit=0 elapsed_ms=222.5
+PASS M0-TRACE exit=0 elapsed_ms=122.0
+PASS CREATE-EQ exit=0 elapsed_ms=116.1
+PASS REFERENCE-CHECKS exit=0 elapsed_ms=152.0
+PASS REFERENCE-MUTANTS exit=0 elapsed_ms=1552.3
+PASS EMIT-CONSTRUCTORS exit=0 elapsed_ms=282.0
+PASS WORD-UNBOX exit=0 elapsed_ms=4.7
+PASS STORAGE-NOCLOS exit=0 elapsed_ms=4.8
+PASS ABI-GOLD exit=0 elapsed_ms=225.5
+PASS EMITTED-TRACE exit=0 elapsed_ms=318.6
+PASS EMIT-SOURCES exit=0 elapsed_ms=1217.3
+PASS EMIT-MUTANTS exit=0 elapsed_ms=11577.8
+FAIL AXIOMS exit=1 elapsed_ms=48.3
+AXIOMS FAIL [Errno 2] No such file or directory: 'rg'
+AXIOMS-HOST elan present, skip refused
+
+PASS TRACE-DRIVER exit=0 elapsed_ms=671.4
+PASS CORPUS exit=0 elapsed_ms=740.5
+PASS ERASED-BYTES exit=0 elapsed_ms=89.9
+PASS M0-RATIO exit=0 elapsed_ms=95.4
+PASS F-MUTANTS exit=0 elapsed_ms=196.4
+PASS DIFF-EXECUTOR exit=0 elapsed_ms=3369.0
+PASS COUNTER-REFERENCE exit=0 elapsed_ms=2305.6
+PASS M1-EMISSION exit=0 elapsed_ms=49928.7
+PASS SOURCE-MODEL exit=0 elapsed_ms=19855.3
+PASS CONTRACT-SURFACE exit=0 elapsed_ms=26230.6
+PASS CONTRACT-ROUTE exit=0 elapsed_ms=342.1
+FAIL SOURCE-PROOFS exit=1 elapsed_ms=58.3
+SOURCE-PROOFS FAIL [Errno 2] No such file or directory: 'leancho'
+
+PASS NULLARY-ENTRIES exit=0 elapsed_ms=22043.8

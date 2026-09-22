@@ -1,14 +1,16 @@
 # assay
 
 The [frozen Bend 2 compilation comparison](dev/M1-BEND2.md) passes M1's
-speed bound: Assay/Bend 2 = 0.072614202 against the required limit of 1.0
+speed bound: Assay/Bend 2 = 0.070826341 against the required limit of 1.0
 on six matched pure programs.
 
 The [M1 closure gate](dev/M1-CLOSE.md) combines the bounded counter,
 surface, proof and executor checks with the binding compiler performance
 limit. The [first M2 slice](dev/M2-REFERENCE.md) adds a frozen,
 hand-assembled [ERC-20 reference](reference/erc20/README.md), with mappings,
-events and dynamic string returns. `zsh -f dev/gates.sh` runs all 76 checks.
+events and dynamic string returns. The [second M2 slice](dev/M2-ABI-SCHEMA.md)
+adds typed ABI metadata and checks the printer against that reference.
+`zsh -f dev/gates.sh` runs all 77 checks.
 
 Assay is a Kanon language fork for EVM contracts.  It inherits the kernel and
 surface at `2c2e6e6`.  M0 Stage A supplies the checker, erasure, axiom disclosure
@@ -340,9 +342,10 @@ and five mutations with restored controls.
 The address gate adds 1920 core comparisons, 128 artifact pairs,
 40 surface cases, 55 signed calls, seven public command checks,
 24 refusals and five mutations with restored controls.
-`dev/gates.sh` selects `--m2-reference`: the 75 `--m1-close` legs
+`dev/gates.sh` selects `--m2-abi-schema`: the 75 `--m1-close` legs
 (proof-bundle, named-predicate, compound-invariant, named-guard,
-inferred-guard and inferred-arithmetic suites) then ERC20-REFERENCE, for 76 legs.
+inferred-guard and inferred-arithmetic suites), then ERC20-REFERENCE and
+ABI-SCHEMA, for 77 legs. `--m2-reference` retains its 76-leg schedule.
 The inferred-helper gate adds 254 source/EVM comparisons, two creation
 outcomes, 26 refusals, 24 five-file erasure pairs, six accepted boundary
 forms and five mutations with restored controls.
@@ -377,7 +380,7 @@ Require an Assay/Bend 2 compilation-time ratio <= 1.0, with pinned toolchains,
 the same machine and matched cache conditions. Speed is informational at
 M0 and binding from M1 onward. The [Bend 2 gate](dev/M1-BEND2.md) now pins
 six paired pure programs, checks their emitted outputs, and measures five
-alternating rounds. Its frozen ratio is 0.072614202. The default battery
+alternating rounds. Its frozen ratio is 0.070826341. The default battery
 enforces this unrounded comparison with `BEND2-RATIO`; `BEND2-RATIO-TEST`
 checks refusals and mutations. Existing `M1-RATIO` and `M0-RATIO` reports
 compare OCaml timings for historical diagnostics. Their OCaml thresholds

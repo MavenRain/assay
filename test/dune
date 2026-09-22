@@ -30,3 +30,8 @@
  (name contract_route)
  (modules contract_route)
  (libraries assay_emit))
+
+(executable
+ (name abi_schema)
+ (modules abi_schema)
+ (libraries assay_abi assay_keccak))
