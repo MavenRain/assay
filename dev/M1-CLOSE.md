@@ -2,7 +2,7 @@
 
 Status: the current R3 speed gate passes. The requirement, set by the
 user on 2026-09-22, is compilation speed at least as fast as Bend 2.
-The [frozen paired comparison](M1-BEND2.md) measures a ratio of 0.070826341
+The [frozen paired comparison](M1-BEND2.md) measures a ratio of 0.073514764
 against the 1.0 limit. The four retained OCaml measurements below are
 historical diagnostics.
 
@@ -110,7 +110,8 @@ classes were unchanged because the scheduler change only added rows under
 ratification message remained. Since 2026-09-22 `--m1-close` runs the
 same battery with BEND2-RATIO and BEND2-RATIO-TEST in their place (see
 [M1-BEND2.md](M1-BEND2.md)). The default wrapper now appends the
-[M2 reference gate](M2-REFERENCE.md) and [ABI-SCHEMA](M2-ABI-SCHEMA.md), for 77 checks.
+[M2 reference gate](M2-REFERENCE.md), [ABI-SCHEMA](M2-ABI-SCHEMA.md) and
+[ABI-CODEC](M2-ABI-CODEC.md), for 78 checks.
 
 That ratio test used synthetic reports to exercise the public command; these
 were decision tests and provided no timing evidence. It checked the

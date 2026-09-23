@@ -1,2 +1,3 @@
 (library
- (name assay_abi))
+ (name assay_abi)
+ (libraries zarith))

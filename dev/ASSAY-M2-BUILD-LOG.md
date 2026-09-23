@@ -135,3 +135,85 @@ that builds test/abi_schema.exe, now has its dev/DENOMINATORS.sha256 row
 test/emit_cases.ml) and is a SOURCES.json input (159 inputs). The
 record refresh re-hashed the DENOMINATORS section and FILES.sha256; no
 log or tarball was edited.
+### M2 typed ABI values, 2026-09-22
+
+Base: `1c6968f`. Added the sealed `Abi.Codec` API for raw tuples of
+Uint8, Uint256, Address, Bool and String values. Encoding returns typed
+range and size errors. Decoding enforces canonical offsets, lengths,
+padding, boolean values and numeric widths, and consumes the complete
+tuple. Raw string bytes round trip unchanged. The ABI module measures
+171/400 lines; all artifact and kernel bounds are unchanged.
+
+The codec gate checks 48 cast encodings, 49 round trips, five frozen
+ERC-20 return values, 26 explicit refusals, 288 truncation prefixes,
+128 perturbed input probes and ten compiling semantic mutants with
+named witnesses. The default wrapper appends this gate to the previous
+77-leg schedule. A compatibility check preserves all 47 historical
+modes and checks five failure classifications.
+
+The complete default run passed 77 legs and failed HOUSE on the initial
+test adapter's list lookup and catch-all patterns. The adapter was
+rewritten without weakening the house rules, and HOUSE then passed in
+its rerun. test/abi_codec.ml and dev/DENOMINATORS.sha256 were rewritten
+while the default run was in flight, after its DENOMINATORS leg; the
+record holds no artifact that dates the rewrite against the ABI-CODEC
+leg, and that leg's log is byte-identical to the pre-rewrite focused
+capture, so the default run does not attest the corrected adapter. Its
+compile and harness pass rest on the review-round ladders. Final source
+pins, budgets, speed and whitespace checks passed. All 78 legs are
+validated across the complete run, the HOUSE rerun and the review-round
+ladders; the record retains the original failing verdict.
+
+Fresh five-round measurements took 9.643 seconds for the OCaml diagnostic
+and 3.319 seconds for the six-program Bend comparison. The binding
+Assay/Bend 2 ratio is 0.073514764 against the unchanged 1.0 limit.
+The 154 source-pin entries cover the new adapter and gate. Validation
+and diagnostic captures, per-leg logs, vectors, measurements and source
+hashes are in `dev/validation/2026-09-22-m2-abi-codec`.
+
+Source typing and EVM ABI integration, mappings, events, packing and the
+M2 Lean negative mutants remain pending. This codec slice does not close M2.
+
+### Review round 2026-09-22 (M2 typed ABI values: the Abi.Codec host codec)
+
+Six review items were applied to the staged tree in text; the pin
+re-freeze (A-1, B-1) and the record refresh (D-2) await their own units.
+
+A-1 (medium): the 128 input probes of dev/abi-codec-test.py drew random
+bytes, so seed 0xAB1 accepted none and the re-encode identity ran on
+zero inputs. The probes now derive from valid encodings of drawn values,
+half of them perturbed once (a flipped byte, a dropped final word, an
+appended byte or zero word, or a random offset or length word). Every
+accepted probe must encode back to identical bytes and at least 32 must
+be accepted (FUZZ-ACCEPTED, printed as FUZZ trials=128 accepted=N). The
+marker row is unchanged. dev/M2-ABI-CODEC.md describes the probes.
+
+A-2 (low): dev/M2-ABI-CODEC.md said a restored control runs afterward.
+Mutants build in a scratch copy and the control reruns the unmodified
+root build; the note now says so.
+
+B-1 (low): dev/bend2-m2-codec-2026-09-22.json and
+dev/denominators-m2-codec-2026-09-22.json were not pinned by
+dev/DENOMINATORS.sha256; the second fix round re-froze the file from
+its own path set (shasum -a 256, never typed rows), adding both rows in
+sorted position, giving 154 rows, together with the new digest of
+dev/abi-codec-test.py; shasum -a 256 -c prints 154 OK rows. The record
+twin REC/DENOMINATORS.sha256 keeps the 152-row run-time list.
+
+C-1 (medium): dev/M1-CLOSE.md row 5 published the predecessor ratio
+0.070826341; it now quotes 0.073514764.
+
+C-2 (low): dev/M2-ABI-SCHEMA.md stated in the present tense that the
+ratio is 0.070826341; it now dates that value to its slice and points
+to the codec re-measurement 0.073514764.
+
+D-1 (medium): this record's README and the paragraph above claimed that
+the default run's ABI-CODEC leg exercised the corrected adapter. Both
+now state the in-flight rewrite and that the default run does not
+attest it; the compile and harness pass rest on the review-round
+ladders.
+
+D-2 (low, residual): REC/RESULT.json performance_ratio and count and
+the FINAL-CHECKS source-pins=152 marker are typed literals at
+archive.py:102 and final-checks.py:13, not derived from the captured
+outputs; the derivation lands in the main-loop record refresh.

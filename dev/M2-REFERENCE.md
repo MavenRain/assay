@@ -16,7 +16,8 @@ reference leg has a 300-second deadline and requires the exact marker:
 ERC20-REFERENCE cases=85 creates=4 mutants=11 covered=431 scope=reference OK
 ```
 
-The current default extends this schedule with [ABI-SCHEMA](M2-ABI-SCHEMA.md).
+The current default extends this schedule with [ABI-SCHEMA](M2-ABI-SCHEMA.md)
+and [ABI-CODEC](M2-ABI-CODEC.md).
 
 The reference has 798 runtime bytes and a 107-byte constructor prefix.
 All 431 runtime instructions and all constructor instructions are covered.

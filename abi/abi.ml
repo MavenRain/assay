@@ -66,6 +66,95 @@ module Schema = struct
     "[" ^ String.concat "," (List.map row declarations) ^ "]\n"
 end
 
+(* Raw ABI tuples, without a selector. Decode requires the canonical encoding:
+   tails in declaration order, no gaps or aliases, zero padding, no suffix. *)
+module Codec : sig
+  type value = Uint8 of int | Uint256 of Z.t | Address of Z.t
+    | Bool of bool | String of string
+  type error = Out_of_range of Schema.value_type | Too_large | Truncated
+    | Invalid_bool | Invalid_offset | Nonzero_padding | Trailing_data
+  val encode : value list -> (string, error) result
+  val decode : Schema.value_type list -> string -> (value list, error) result
+end = struct
+  type value = Uint8 of int | Uint256 of Z.t | Address of Z.t
+    | Bool of bool | String of string
+  type error = Out_of_range of Schema.value_type | Too_large | Truncated
+    | Invalid_bool | Invalid_offset | Nonzero_padding | Trailing_data
+  let ( let* ) = Result.bind
+  let within bits n = Z.sign n >= 0 && Z.compare n (Z.shift_left Z.one bits) < 0
+  let word n =
+    let bytes = Z.to_bits n in
+    let reversed = String.of_seq (List.to_seq (List.rev (List.of_seq (String.to_seq bytes)))) in
+    String.make (32 - String.length bytes) '\000' ^ reversed
+  let slice data pos length =
+    if pos < 0 || length < 0 || pos > String.length data ||
+       length > String.length data - pos then Error Truncated
+    else Ok (String.sub data pos length) (* @total-accessor *)
+  let read_word data offset =
+    let* bytes = slice data offset 32 in
+    Ok (String.fold_left (fun n c -> Z.add (Z.shift_left n 8) (Z.of_int (Char.code c))) Z.zero bytes)
+  let padding length = (32 - (length land 31)) land 31
+  let scalar typ bits n =
+    if within bits n then Ok (word n) else Error (Out_of_range typ)
+  let encode values =
+    let count = List.length values in
+    if count > Sys.max_string_length lsr 5 then Error Too_large else
+    let rec build offset heads tails = function
+      | [] -> Ok (String.concat "" (List.rev heads @ List.rev tails))
+      | value :: rest ->
+        let append result =
+          let* head = result in build offset (head :: heads) tails rest in
+        match value with
+        | String data ->
+          let length = String.length data in
+          let pad = padding length in
+          let available = Sys.max_string_length - offset in
+          if available < 32 || length > available - 32 ||
+             pad > available - 32 - length then Error Too_large else
+          let tail = word (Z.of_int length) ^ data ^ String.make pad '\000' in
+          build (offset + 32 + length + pad)
+            (word (Z.of_int offset) :: heads) (tail :: tails) rest
+        | Uint8 n -> append (scalar Schema.Uint8 8 (Z.of_int n))
+        | Uint256 n -> append (scalar Schema.Uint256 256 n)
+        | Address n -> append (scalar Schema.Address 160 n)
+        | Bool b -> append (Ok (word (if b then Z.one else Z.zero)))
+    in build (count * 32) [] [] values
+  let decode types data =
+    let size = String.length data in
+    let count = List.length types in
+    if count > size lsr 5 then Error Truncated else
+    let rec read head tail values = function
+      | [] -> if tail = size then Ok (List.rev values) else Error Trailing_data
+      | typ :: rest ->
+        let* n = read_word data head in
+        let* value, next = match typ with
+          | Schema.Uint8 -> if within 8 n then Ok (Uint8 (Z.to_int n), tail)
+            else Error (Out_of_range Schema.Uint8)
+          | Schema.Uint256 -> Ok (Uint256 n, tail)
+          | Schema.Address -> if within 160 n then Ok (Address n, tail)
+            else Error (Out_of_range Schema.Address)
+          | Schema.Bool ->
+            if Z.equal n Z.zero then Ok (Bool false, tail)
+            else if Z.equal n Z.one then Ok (Bool true, tail)
+            else Error Invalid_bool
+          | Schema.String ->
+            if not (Z.equal n (Z.of_int tail)) then Error Invalid_offset
+            else if size - tail < 32 then Error Truncated else
+            let* length = read_word data tail in
+            let available = size - tail - 32 in
+            if Z.compare length (Z.of_int available) > 0 then Error Truncated else
+            let length = Z.to_int length in
+            let pad = padding length in
+            if pad > available - length then Error Truncated else
+            let start = tail + 32 in
+            let* suffix = slice data (start + length) pad in
+            if suffix <> String.make pad '\000' then Error Nonzero_padding else
+            let* text = slice data start length in
+            Ok (String text, start + length + pad)
+        in read (head + 32) next (value :: values) rest
+    in read 0 (count * 32) [] types
+end
+
 let word name : Schema.parameter = { name; typ = Schema.Uint256 }
 let accepts_value entry = match entry.mutability with
   | Payable -> true

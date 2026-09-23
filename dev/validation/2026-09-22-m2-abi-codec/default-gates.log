@@ -1,0 +1,96 @@
+PASS BUILD exit=0 elapsed_ms=1421.0
+PASS PIN-CARRY exit=0 elapsed_ms=522.9
+PASS R0-COUNT exit=0 elapsed_ms=58.5
+PASS R0-AUDIT exit=0 elapsed_ms=41.7
+FAIL HOUSE exit=1 elapsed_ms=767.8
+HOUSE no-exception FAIL
+/Users/oobi/Documents/gpt1/assay-m2-abi-codec/test/abi_codec.ml:16:      let c = Option.value ~default:'\000' (List.nth_opt bytes 0) in
+test/abi_codec.ml:27:  | chars -> digits Z.zero chars
+test/abi_codec.ml:35:        | "string" -> Ok S.String | _ -> Error "ADAPTER-TYPE" in
+test/abi_codec.ml:44:    | "false" -> Ok (C.Bool false) | _ -> Error "ADAPTER-BOOL")
+test/abi_codec.ml:68:  | _ -> Error "ADAPTER-USAGE"
+HOUSE no-mutable-state OK
+HOUSE no-mutable-state roots=lib emit asm keccak abi
+HOUSE one-catch-site OK
+/Users/oobi/Documents/gpt1/assay-m2-abi-codec/test/sys_io.ml:19:  try Ok (thunk ()) with Sys_error m -> Error m
+HOUSE no-bool-match OK
+HOUSE no-em-dash OK
+HOUSE no-loop-keyword OK
+HOUSE no-bare-division OK
+HOUSE FAIL
+
+PASS TRUSTED-LINES exit=0 elapsed_ms=89.6
+PASS SUITE-KERNEL exit=0 elapsed_ms=458.7
+PASS SUITE-SURFACE exit=0 elapsed_ms=259.1
+PASS DRIVER exit=0 elapsed_ms=162.4
+PASS MUTANTS exit=0 elapsed_ms=5612.9
+PASS DENOMINATORS exit=0 elapsed_ms=38.6
+PASS KECCAK-VEC exit=0 elapsed_ms=816.4
+PASS KECCAK-MUTANTS exit=0 elapsed_ms=3911.1
+PASS STACK-HEIGHT exit=0 elapsed_ms=2874.4
+PASS DISASM-3WAY exit=0 elapsed_ms=527.1
+PASS ASM-MUTANTS exit=0 elapsed_ms=15159.3
+PASS FORK-DRIFT exit=0 elapsed_ms=193.3
+PASS M0-TRACE exit=0 elapsed_ms=113.9
+PASS CREATE-EQ exit=0 elapsed_ms=106.0
+PASS REFERENCE-CHECKS exit=0 elapsed_ms=143.1
+PASS REFERENCE-MUTANTS exit=0 elapsed_ms=1443.5
+PASS EMIT-CONSTRUCTORS exit=0 elapsed_ms=280.1
+PASS WORD-UNBOX exit=0 elapsed_ms=5.1
+PASS STORAGE-NOCLOS exit=0 elapsed_ms=4.8
+PASS ABI-GOLD exit=0 elapsed_ms=227.6
+PASS EMITTED-TRACE exit=0 elapsed_ms=126.7
+PASS EMIT-SOURCES exit=0 elapsed_ms=878.0
+PASS EMIT-MUTANTS exit=0 elapsed_ms=10654.3
+PASS AXIOMS exit=0 elapsed_ms=3191.0
+PASS TRACE-DRIVER exit=0 elapsed_ms=686.7
+PASS CORPUS exit=0 elapsed_ms=730.1
+PASS ERASED-BYTES exit=0 elapsed_ms=101.5
+PASS M0-RATIO exit=0 elapsed_ms=110.7
+PASS F-MUTANTS exit=0 elapsed_ms=203.9
+PASS DIFF-EXECUTOR exit=0 elapsed_ms=3691.2
+PASS COUNTER-REFERENCE exit=0 elapsed_ms=2117.4
+PASS M1-EMISSION exit=0 elapsed_ms=48907.3
+PASS SOURCE-MODEL exit=0 elapsed_ms=18323.7
+PASS CONTRACT-SURFACE exit=0 elapsed_ms=20531.7
+PASS CONTRACT-ROUTE exit=0 elapsed_ms=276.3
+PASS SOURCE-PROOFS exit=0 elapsed_ms=45618.1
+PASS NULLARY-ENTRIES exit=0 elapsed_ms=13733.3
+PASS CUSTOM-ERRORS exit=0 elapsed_ms=17267.0
+PASS PROOF-GUARDS exit=0 elapsed_ms=18018.4
+PASS PROOF-TERMS exit=0 elapsed_ms=16232.2
+PASS INVARIANTS exit=0 elapsed_ms=14905.1
+PASS PROOF-HELPERS exit=0 elapsed_ms=19123.8
+PASS PROOF-BUNDLES exit=0 elapsed_ms=16828.6
+PASS PREDICATES exit=0 elapsed_ms=17684.5
+PASS COMPOUND-INVARIANTS exit=0 elapsed_ms=13790.7
+PASS COMPOUND-GUARDS exit=0 elapsed_ms=16718.8
+PASS NAMED-GUARDS exit=0 elapsed_ms=15061.4
+PASS INFERRED-GUARDS exit=0 elapsed_ms=26794.4
+PASS INFERRED-ARITHMETIC exit=0 elapsed_ms=20597.5
+PASS INFERRED-HELPERS exit=0 elapsed_ms=30795.6
+PASS PROOF-HOLES exit=0 elapsed_ms=26342.9
+PASS INFERRED-BINDINGS exit=0 elapsed_ms=32037.8
+PASS INFERRED-GUARD-BINDINGS exit=0 elapsed_ms=28875.0
+PASS EVM-CONTEXT exit=0 elapsed_ms=24666.7
+PASS SURFACE-CONTEXT exit=0 elapsed_ms=22377.5
+PASS WORD-EQUALITY exit=0 elapsed_ms=16060.6
+PASS HEX-LITERALS exit=0 elapsed_ms=15801.1
+PASS INFERRED-WORDS exit=0 elapsed_ms=17888.6
+PASS FALLBACK exit=0 elapsed_ms=21654.5
+PASS DIFF-VALUE exit=0 elapsed_ms=6386.3
+PASS TRACE-VALUE exit=0 elapsed_ms=2773.5
+PASS TRACE-CALLER exit=0 elapsed_ms=3497.7
+PASS DIFF-CALLER exit=0 elapsed_ms=9791.9
+PASS PAYABLE exit=0 elapsed_ms=18766.2
+PASS CALLVALUE exit=0 elapsed_ms=29987.1
+PASS CALLDATASIZE exit=0 elapsed_ms=58239.7
+PASS CALLDATALOAD exit=0 elapsed_ms=110469.0
+PASS ADDRESS exit=0 elapsed_ms=116503.0
+PASS BEND2-RATIO exit=0 elapsed_ms=90.1
+PASS BEND2-RATIO-TEST exit=0 elapsed_ms=630.7
+PASS ERC20-REFERENCE exit=0 elapsed_ms=5381.1
+PASS ABI-SCHEMA exit=0 elapsed_ms=6403.7
+PASS ABI-CODEC exit=0 elapsed_ms=15467.8
+M0-VALIDATION FAIL; M0-EXIT requires the user commit and ratification
+STAGE-M2-ABI-CODEC FAIL

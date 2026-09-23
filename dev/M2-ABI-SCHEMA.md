@@ -20,8 +20,9 @@ constructs the ERC-20 declarations directly; the source compiler still
 accepts the existing Word ABI. The schema does not validate declaration
 names, duplicate selectors or event topic limits. Source typing and
 runtime validation must enforce those constraints when using it.
-Calldata and return encoding, mapping lowering, event emission, packing,
-other ABI types and the M2 Lean negative mutants remain pending. Matching
+Source integration of calldata and return encoding, mapping lowering,
+event emission, packing, other ABI types and the M2 Lean negative mutants
+remain pending. Matching
 this golden file alone does not close M2-ABI.
 
 ## Validation
@@ -40,9 +41,10 @@ uint8, address or boolean types; string changed to bytes; inverted indexed
 or anonymous flags; dropped outputs; and return types added to selectors.
 Compiler errors never count as mutation kills.
 
-The default `zsh -f dev/gates.sh` selects `--m2-abi-schema`. It appends
+The explicit `--m2-abi-schema` gate mode appends
 ABI-SCHEMA to the existing 76-leg M2 reference schedule, for 77 legs.
-Earlier explicit modes keep their commands, deadlines, markers and failure
+The default additionally runs [ABI-CODEC](M2-ABI-CODEC.md). Earlier explicit
+modes keep their commands, deadlines, markers and failure
 classification. The new leg has a 300-second deadline and requires:
 
 ```text
@@ -50,10 +52,11 @@ ABI-SCHEMA functions=9 events=2 edges=7 legacy=6 mutants=8 scope=metadata OK
 ```
 
 The ABI printer stays within its existing 400-line trusted-code limit.
-The compiler change requires fresh performance measurements and source
-pins. The six-program Assay/Bend 2 ratio is 0.070826341, below the unchanged
-1.0 bound. The frozen reference, kernel, workloads and measurement methods
-are unchanged. Evidence is retained in
+The compiler change required fresh performance measurements and source pins.
+At this slice the six-program Assay/Bend 2 ratio measured 0.070826341, below
+the unchanged 1.0 bound; the codec slice re-measured it to 0.073514764 (see
+[M2-ABI-CODEC.md](M2-ABI-CODEC.md)). The frozen reference, kernel, workloads
+and measurement methods are unchanged. Evidence is retained in
 [`validation/2026-09-22-m2-abi-schema`](validation/2026-09-22-m2-abi-schema/README.md).
 
 ### Review round 2026-09-22 (M2 ABI schema: typed ABI metadata)

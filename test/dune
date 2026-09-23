@@ -35,3 +35,8 @@
  (name abi_schema)
  (modules abi_schema)
  (libraries assay_abi assay_keccak))
+
+(executable
+ (name abi_codec)
+ (modules abi_codec)
+ (libraries assay_abi zarith))
