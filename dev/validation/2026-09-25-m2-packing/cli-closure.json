@@ -1,0 +1,6 @@
+{
+  "identical": true,
+  "bytes": 1358153,
+  "sha256": "1a17d2428180a0e613abb59f654c112026813b1123bfd913026fadf38987269d",
+  "scope": "Bundled reachable production CLI source, excluding OS imports rewritten by the builder"
+}

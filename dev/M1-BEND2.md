@@ -1,7 +1,10 @@
 # M1 Bend 2 compilation comparison
 
 The 2026-09-22 compilation-speed requirement is an Assay/Bend 2 ratio at
-most 1.0. The frozen comparison now passes: 40.444959 ms for Assay and
+most 1.0. The current native Bend comparison is 1.727570573 and does not
+pass. See [M2-PACKING.md](M2-PACKING.md) for the current source and record.
+
+The pre-migration codec comparison passed: 40.444959 ms for Assay and
 550.161042 ms for Bend 2 per six-file batch, giving a ratio of 0.073514764.
 Five measured rounds completed in a 3.319-second window. These are elapsed
 compilation times on one machine, including process startup. No time is
@@ -40,7 +43,8 @@ counter, storage, guards, ABI, source proofs, and Cancun execution.
 
 The upstream is [bendlang/bend](https://github.com/bendlang/bend/tree/c65bcb788dbfb298bb434c1d858b47c193841dc0),
 tag `v2.0.25`, commit `c65bcb788dbfb298bb434c1d858b47c193841dc0`.
-Use Bun 1.3.11, OCaml 5.2.1, Dune 3.24.2, and a C compiler on PATH.
+Use Bun 1.3.11, Node.js v23.10.0 exactly (the ratio harness pins it),
+Python 3.11 or newer, and a C compiler (`cc`) on PATH.
 No global Bend installation is required.
 
 ```sh
@@ -49,7 +53,7 @@ python3 -P dev/bend2-ratio.py --measure NEW.json --bend-root ../bend2-v2.0.25
 ```
 
 The harness checks the pinned source hashes and versions, builds
-`bin/assay.exe`, and builds Bend's standalone CLI with
+`_build/bin/assay`, and builds Bend's standalone CLI with
 `bun build --compile --minify bend2/main.ts --outfile bin/bend`. It records
 both executable hashes, the build tools, the host and load, source hashes,
 all individual samples, and validated output hashes. It checks source and
@@ -74,9 +78,10 @@ The measured window must include all timed intervals and remain below
 
 ## Freeze and gate
 
-`dev/validation/2026-09-22-m2-abi-codec/bend2-baseline.json` retains the
-measurement refreshed for the ABI codec compiler sources;
-`dev/bend2-baseline.json` is its active copy. `dev/BEND2.sha256` seals the
+`dev/measurements/2026-09-25-m2-packing-bend2.json` retains the current
+native measurement; `dev/validation/2026-09-22-m2-abi-codec/bend2-baseline.json`
+retains the pre-migration codec measurement. `dev/bend2-baseline.json` is
+the active native copy. `dev/BEND2.sha256` seals the
 active report, and `dev/DENOMINATORS.sha256` also pins the new gate, the
 active report and the corpus files; the record's `FILES.sha256` seals the retained copy. A compiler, method, or
 workload change requires a fresh measurement and an explicit freeze of the
@@ -88,11 +93,12 @@ active freeze automatically.
 The BEND2-RATIO leg in `dev/stage-a-gates.py` also requires
 `informational=false` on the row before the OK marker, so an informational
 run cannot pass the leg.
-The 75-leg `--m1-close` battery replaces the two historical OCaml M1 ratio
-legs with `BEND2-RATIO` and `BEND2-RATIO-TEST`. OCaml measurement tools and
-their archived results remain available as diagnostics. The default wrapper
-also runs the [M2 reference gate](M2-REFERENCE.md) and the
-[ABI-SCHEMA leg](M2-ABI-SCHEMA.md) and [ABI-CODEC](M2-ABI-CODEC.md), for 78 checks.
+The 77-leg `--m1-close` battery replaces the two historical OCaml M1 ratio
+legs with `BEND2-RATIO` and `BEND2-RATIO-TEST`. It also includes the
+NATIVE-MAPS and NATIVE-IO checks. OCaml measurement tools and their
+archived results remain available as diagnostics. The native default adds
+the [M2 reference gate](M2-REFERENCE.md), [ABI-SCHEMA](M2-ABI-SCHEMA.md),
+[ABI-CODEC](M2-ABI-CODEC.md) and [packing](M2-PACKING.md), for 81 checks.
 
 `dev/bend2-ratio-test.py` passes three controls, rejects 37 invalid cases,
 and kills six mutations. It covers the inclusive boundary, a ratio above

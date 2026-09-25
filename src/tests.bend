@@ -1370,3 +1370,93 @@ def Tests.contract_route(args: ListOf(String)) -> IO(Unit):
       Native.choose(&1, IO(Unit), NativeString.equal(mode, "copy"), _ => Tests.route_probe(+source => Tests.route_copy(source)), _ =>
       Native.choose(&1, IO(Unit), NativeString.equal(mode, "allocate"), _ => Tests.route_probe(+source => Tests.route_allocate(source)), _ => NativeIO.die(Unit, 64, "contract_route [copy|allocate]")))
     case _: NativeIO.die(Unit, 64, "contract_route [copy|allocate]")
+
+def Packed_layout.error(error: Layout.Packed.Error) -> String:
+  match error:
+    case Layout.Packed.Error.Unsupported_type{}: "unsupported-type"
+    case Layout.Packed.Error.Empty_name{}: "empty-name"
+    case Layout.Packed.Error.Duplicate_name{name}: String.append("duplicate-name:", name)
+    case Layout.Packed.Error.Invalid_location{}: "invalid-location"
+    case Layout.Packed.Error.Invalid_word{}: "invalid-word"
+    case Layout.Packed.Error.Out_of_range{typ}: String.append("out-of-range:", Abi.Schema.type_name(typ))
+def Packed_layout.show(result: Layout.Packed.Result(Big)) -> String:
+  match result:
+    case Done{value}: String.append("OK ", Big.show(value))
+    case Fail{error}: String.append("ERR ", Packed_layout.error(error))
+@unsafe
+def Packed_layout.params(types: ListOf(Abi.Schema.Value_type), names: ListOf(String)) -> StringResult(ListOf(Abi.Schema.Parameter)):
+  match types names:
+    case Nil{} Nil{}: Done{[]}
+    case Con{typ, ts} Con{name, ns}:
+      StringResult.bind(ListOf(Abi.Schema.Parameter), ListOf(Abi.Schema.Parameter), Packed_layout.params(ts, ns), +rest => Done{MkAbi_Schema_Parameter{name, typ} <> rest})
+    case Nil{} Con{_, _}: Fail{"ADAPTER-ARITY"}
+    case Con{_, _} Nil{}: Fail{"ADAPTER-ARITY"}
+@unsafe
+def Packed_layout.numbers(values: ListOf(String)) -> StringResult(ListOf(Big)):
+  match values:
+    case Nil{}: Done{[]}
+    case Con{value, tail}:
+      StringResult.bind(Big, ListOf(Big), Abi_codec.number(value), +number =>
+        StringResult.bind(ListOf(Big), ListOf(Big), Packed_layout.numbers(tail), +rest => Done{number <> rest}))
+@unsafe
+def Packed_layout.access(+command: String, types: ListOf(Abi.Schema.Value_type), +values: ListOf(Big)) -> StringResult(String):
+  match types:
+    case Nil{}: Fail{"ADAPTER-USAGE"}
+    case Con{typ, rest}: Packed_layout.scalar(command, typ, rest, values)
+@unsafe
+def Packed_layout.scalar(command: String, typ: Abi.Schema.Value_type, rest: ListOf(Abi.Schema.Value_type), values: ListOf(Big)) -> StringResult(String):
+  match rest:
+    case Nil{}: Packed_layout.access_numbers(command, typ, values)
+    case Con{_, _}: Fail{"ADAPTER-USAGE"}
+@unsafe
+def Packed_layout.access_numbers(+command: String, +typ: Abi.Schema.Value_type, +values: ListOf(Big)) -> StringResult(String):
+  match values:
+    case Nil{}: Fail{"ADAPTER-USAGE"}
+    case Con{_, Nil{}}: Fail{"ADAPTER-USAGE"}
+    case Con{_, Con{_, Nil{}}}: Fail{"ADAPTER-USAGE"}
+    case Con{offset, Con{slot, Con{word, tail}}}:
+      Big.when(StringResult(String), Abi.Codec.within(Big.of_nat(48n), offset), _ => Packed_layout.access_valid(command, typ, Big.to_nat(offset), slot, word, tail), _ => Done{"ERR invalid-location"})
+@unsafe
+def Packed_layout.access_valid(+command: String, typ: Abi.Schema.Value_type, offset: Nat, slot: Big, +word: Big, tail: ListOf(Big)) -> StringResult(String):
+  Packed_layout.access_field(command, Layout.Packed.Field{"field", typ, slot, offset}, word, tail)
+@unsafe
+def Packed_layout.access_field(+command: String, +field: Layout.Packed.Field, +word: Big, tail: ListOf(Big)) -> StringResult(String):
+  match tail:
+    case Nil{}: Big.when(StringResult(String), NativeString.equal(command, "read"), _ => Done{Packed_layout.show(Layout.Packed.read(field, word))}, _ => Fail{"ADAPTER-USAGE"})
+    case Con{value, Nil{}}: Big.when(StringResult(String), NativeString.equal(command, "write"), _ => Done{Packed_layout.show(Layout.Packed.write(field, word, value))}, _ => Fail{"ADAPTER-USAGE"})
+    case Con{_, Con{_, _}}: Fail{"ADAPTER-USAGE"}
+def Packed_layout.print_result(result: Layout.Packed.Result(String)) -> StringResult(String):
+  match result:
+    case Done{json}: Done{json}
+    case Fail{error}: Done{String.append("ERR ", Packed_layout.error(error))}
+@unsafe
+def Packed_layout.schema_types(+contract: String, +names: String, +types: ListOf(Abi.Schema.Value_type)) -> StringResult(String):
+  +bare = List.is_empty(&2, Abi.Schema.Value_type, types)
+  +labels = Big.when(ListOf(String), NativeString.equal(names, ""), _ => Big.when(ListOf(String), bare, _ => [], _ => [""]), _ => NativeString.split(Char.from_u32(44), names))
+  StringResult.bind(ListOf(Abi.Schema.Parameter), String, Packed_layout.params(types, labels), +fields => Packed_layout.print_result(Layout.Packed.print(contract, fields)))
+@unsafe
+def Packed_layout.schema(+contract: String, types: String, rest: ListOf(String)) -> StringResult(String):
+  match rest:
+    case Nil{}: Fail{"ADAPTER-USAGE"}
+    case Con{names, Nil{}}: StringResult.bind(ListOf(Abi.Schema.Value_type), String, Abi_codec.types(types), +ts => Packed_layout.schema_types(contract, names, ts))
+    case Con{_, Con{_, _}}: Fail{"ADAPTER-USAGE"}
+@unsafe
+def Packed_layout.query(+parts: ListOf(String)) -> StringResult(String):
+  match parts:
+    case Nil{}: Fail{"ADAPTER-USAGE"}
+    case Con{_, Nil{}}: Fail{"ADAPTER-USAGE"}
+    case Con{_, Con{_, Nil{}}}: Fail{"ADAPTER-USAGE"}
+    case Con{command, Con{first, Con{second, rest}}}:
+      Big.when(StringResult(String), NativeString.equal(command, "layout"), _ => Packed_layout.schema(first, second, rest), _ =>
+        StringResult.bind(ListOf(Abi.Schema.Value_type), String, Abi_codec.types(first), +types =>
+          StringResult.bind(ListOf(Big), String, Packed_layout.numbers(second <> rest), +values => Packed_layout.access(command, types, values))))
+@unsafe
+def Packed_layout.join(+row: String, tail: ListOf(String)) -> StringResult(String):
+  match tail:
+    case Nil{}: Done{row}
+    case Con{head, rest}: StringResult.bind(String, String, Packed_layout.main(head <> rest), +rows => Done{String.concat([row, "\n", rows])})
+@unsafe
+def Packed_layout.main(args: ListOf(String)) -> StringResult(String):
+  match args:
+    case Nil{}: Done{""}
+    case Con{query, tail}: StringResult.bind(String, String, Packed_layout.query(NativeString.split(Char.from_u32(124), query)), +row => Packed_layout.join(row, tail))

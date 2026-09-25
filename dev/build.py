@@ -15,12 +15,13 @@ from bend_source import bundle, declarations, reachable
 
 PIN = json.loads((ROOT / 'dev/toolchain.json').read_text())
 OUT = ROOT / '_build/bend'
-ADAPTERS = ('sl_surface', 'abi_codec', 'abi_schema', 'keccak_vec', 'asm_cases', 'asm_compact', 'emit_cases', 'contract_route', 'one_paths', 'export_mu', 'roundtrip')
-BACKENDS = ('abi_codec', 'abi_schema', 'keccak_vec', 'asm_cases', 'asm_compact')
+ADAPTERS = ('sl_surface', 'abi_codec', 'abi_schema', 'layout_packed', 'keccak_vec', 'asm_cases', 'asm_compact', 'emit_cases', 'contract_route', 'one_paths', 'export_mu', 'roundtrip')
+BACKENDS = ('abi_codec', 'abi_schema', 'layout_packed', 'keccak_vec', 'asm_cases', 'asm_compact')
 ENTRIES = {
     'sl_surface': 'Tests.surface(Sl_surface.cases(), 0n)',
     'abi_codec': 'Tests.adapter(Abi_codec.main("abi_codec" <> args))',
     'abi_schema': 'NativeIO.print(Abi_schema.output())',
+    'layout_packed': 'Tests.adapter(Packed_layout.main(args))',
     'keccak_vec': 'Tests.keccak(Keccak_vec.dispatch("keccak_vec" <> args))',
     'asm_cases': 'Tests.asm_cases(args)',
     'asm_compact': 'Tests.compact_all()',
@@ -43,6 +44,7 @@ RUNTEST = (
     ('abi_codec', ('encode', 'uint256,bool', '1', 'true'), 'OK ' + ABI_ONE_TRUE),
     ('abi_codec', ('decode', 'uint256,bool', ABI_ONE_TRUE), 'OK ["1","true"]'),
     ('abi_schema', (), ''),
+    ('layout_packed', ('write|uint8|1|0|65535|0', 'read|uint8|1|0|65535'), 'OK 255\nOK 255'),
     ('keccak_vec', ('hash', ''), KECCAK_EMPTY),
     ('keccak_vec', ('selector', TRANSFER_SIGNATURE), '0xa9059cbb'),
     ('asm_cases', ('suite',), None),

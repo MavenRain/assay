@@ -24,8 +24,8 @@ rejects extra calldata suffixes and nonminimal offsets that a Solidity
 runtime decoder may accept.
 
 This is a host codec for the schema. Source typing, generated EVM ABI handling,
-mapping lowering, event execution, packing, other ABI types and the M2 Lean
-negative mutants remain pending. The existing Word source language and its
+mapping lowering, event execution, source integration of packing, other ABI
+types and the M2 Lean negative mutants remain pending. The existing Word source language and its
 runtime dispatch policy are unchanged. This slice does not close M2-ABI.
 
 ## Validation
@@ -46,8 +46,9 @@ fail at its named witness; compilation or process failure never counts as a
 mutation kill. Mutants build in a scratch copy; a control run on the
 unmodified root build follows.
 
-The default `zsh -f dev/gates.sh` selects `--m2-abi-codec`, appending one leg to
-the unchanged 77-leg schema schedule. The new leg has a 300-second deadline:
+The explicit `--m2-abi-codec` gate mode appends one leg to the unchanged
+79-leg schema schedule, for 80 legs. The default additionally runs
+[LAYOUT-PACKED](M2-PACKING.md). The ABI-CODEC leg has a 300-second deadline:
 
 ```text
 ABI-CODEC cast=48 vectors=49 reference=5 negative=26 prefixes=288 fuzz=128 mutants=10 scope=codec OK

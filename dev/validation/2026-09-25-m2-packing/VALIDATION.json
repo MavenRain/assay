@@ -1,0 +1,258 @@
+{
+  "base": "f80689217a7557a7b3bd200f2ed865cde9d59e10",
+  "scoped_validation_passed": true,
+  "full_gate_completed": false,
+  "performance_gate_passed": false,
+  "captures": {
+    "packing": {
+      "artifact": "run-Nw1cQx",
+      "exit_code": 0
+    },
+    "make-test": {
+      "artifact": "run-NRoB1O",
+      "exit_code": 0
+    },
+    "house": {
+      "artifact": "run-TDoq4y",
+      "exit_code": 0
+    },
+    "trusted-lines": {
+      "artifact": "run-wiC32e",
+      "exit_code": 0
+    },
+    "axioms": {
+      "artifact": "run-LLUr1z",
+      "exit_code": 0
+    },
+    "carry": {
+      "artifact": "run-DC93qI",
+      "exit_code": 0
+    },
+    "audit-mutants": {
+      "artifact": "run-mLbrOF",
+      "exit_code": 0
+    },
+    "abi-schema": {
+      "artifact": "run-80X3Fo",
+      "exit_code": 0
+    },
+    "abi-codec": {
+      "artifact": "run-b1hZQj",
+      "exit_code": 0
+    },
+    "benchmark-controls": {
+      "artifact": "run-7Bcmib",
+      "exit_code": 0
+    },
+    "binding-performance": {
+      "artifact": "run-Ug97dv",
+      "exit_code": 1
+    },
+    "normalized-performance": {
+      "artifact": "run-FgBEuE",
+      "exit_code": 1
+    },
+    "measure-paired": {
+      "artifact": "run-pvIWEl",
+      "exit_code": 0
+    },
+    "measure-corpus": {
+      "artifact": "run-zhe9cA",
+      "exit_code": 0
+    },
+    "make-gates-partial": {
+      "artifact": "run-IFLh1g",
+      "exit_code": 143
+    }
+  },
+  "broad_run": [
+    {
+      "status": "PASS",
+      "leg": "BUILD"
+    },
+    {
+      "status": "FAIL",
+      "leg": "PIN-CARRY"
+    },
+    {
+      "status": "PASS",
+      "leg": "R0-COUNT"
+    },
+    {
+      "status": "PASS",
+      "leg": "R0-AUDIT"
+    },
+    {
+      "status": "PASS",
+      "leg": "HOUSE"
+    },
+    {
+      "status": "PASS",
+      "leg": "NATIVE-MAPS"
+    },
+    {
+      "status": "PASS",
+      "leg": "NATIVE-IO"
+    },
+    {
+      "status": "PASS",
+      "leg": "TRUSTED-LINES"
+    },
+    {
+      "status": "PASS",
+      "leg": "SUITE-KERNEL"
+    },
+    {
+      "status": "PASS",
+      "leg": "SUITE-SURFACE"
+    },
+    {
+      "status": "PASS",
+      "leg": "DRIVER"
+    },
+    {
+      "status": "PASS",
+      "leg": "MUTANTS"
+    },
+    {
+      "status": "PASS",
+      "leg": "DENOMINATORS"
+    },
+    {
+      "status": "PASS",
+      "leg": "KECCAK-VEC"
+    },
+    {
+      "status": "PASS",
+      "leg": "KECCAK-MUTANTS"
+    },
+    {
+      "status": "PASS",
+      "leg": "STACK-HEIGHT"
+    },
+    {
+      "status": "PASS",
+      "leg": "DISASM-3WAY"
+    },
+    {
+      "status": "PASS",
+      "leg": "ASM-MUTANTS"
+    },
+    {
+      "status": "PASS",
+      "leg": "FORK-DRIFT"
+    },
+    {
+      "status": "PASS",
+      "leg": "M0-TRACE"
+    },
+    {
+      "status": "PASS",
+      "leg": "CREATE-EQ"
+    },
+    {
+      "status": "PASS",
+      "leg": "REFERENCE-CHECKS"
+    },
+    {
+      "status": "PASS",
+      "leg": "REFERENCE-MUTANTS"
+    },
+    {
+      "status": "PASS",
+      "leg": "EMIT-CONSTRUCTORS"
+    },
+    {
+      "status": "PASS",
+      "leg": "WORD-UNBOX"
+    },
+    {
+      "status": "PASS",
+      "leg": "STORAGE-NOCLOS"
+    },
+    {
+      "status": "PASS",
+      "leg": "ABI-GOLD"
+    },
+    {
+      "status": "PASS",
+      "leg": "EMITTED-TRACE"
+    },
+    {
+      "status": "PASS",
+      "leg": "EMIT-SOURCES"
+    },
+    {
+      "status": "PASS",
+      "leg": "EMIT-MUTANTS"
+    },
+    {
+      "status": "FAIL",
+      "leg": "AXIOMS"
+    },
+    {
+      "status": "PASS",
+      "leg": "TRACE-DRIVER"
+    },
+    {
+      "status": "PASS",
+      "leg": "CORPUS"
+    },
+    {
+      "status": "PASS",
+      "leg": "ERASED-BYTES"
+    },
+    {
+      "status": "PASS",
+      "leg": "M0-RATIO"
+    },
+    {
+      "status": "PASS",
+      "leg": "F-MUTANTS"
+    },
+    {
+      "status": "PASS",
+      "leg": "DIFF-EXECUTOR"
+    },
+    {
+      "status": "PASS",
+      "leg": "COUNTER-REFERENCE"
+    },
+    {
+      "status": "PASS",
+      "leg": "M1-EMISSION"
+    },
+    {
+      "status": "PASS",
+      "leg": "SOURCE-MODEL"
+    },
+    {
+      "status": "PASS",
+      "leg": "CONTRACT-SURFACE"
+    },
+    {
+      "status": "PASS",
+      "leg": "CONTRACT-ROUTE"
+    },
+    {
+      "status": "PASS",
+      "leg": "SOURCE-PROOFS"
+    },
+    {
+      "status": "PASS",
+      "leg": "NULLARY-ENTRIES"
+    },
+    {
+      "status": "PASS",
+      "leg": "CUSTOM-ERRORS"
+    },
+    {
+      "status": "PASS",
+      "leg": "PROOF-GUARDS"
+    }
+  ],
+  "corrected_failures": [
+    "PIN-CARRY",
+    "AXIOMS"
+  ]
+}

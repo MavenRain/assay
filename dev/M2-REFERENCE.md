@@ -7,17 +7,17 @@ nine methods, two events, mapping and nested-mapping storage, dynamic string
 returns and deployment initialization.
 
 The explicit `python3 -P dev/stage-a-gates.py --m2-reference` runs the
-75 M1 closure checks followed by ERC20-REFERENCE, for 76 legs. Existing
+77 M1 closure checks followed by ERC20-REFERENCE, for 78 legs. Existing
 explicit modes retain their commands, deadlines, success markers and
-failure classification. `--m1-close` remains the 75-leg M1 battery. The
+failure classification. `--m1-close` remains the 77-leg M1 battery. The
 reference leg has a 300-second deadline and requires the exact marker:
 
 ```text
 ERC20-REFERENCE cases=85 creates=4 mutants=11 covered=431 scope=reference OK
 ```
 
-The current default extends this schedule with [ABI-SCHEMA](M2-ABI-SCHEMA.md)
-and [ABI-CODEC](M2-ABI-CODEC.md).
+The current default extends this schedule with [ABI-SCHEMA](M2-ABI-SCHEMA.md),
+[ABI-CODEC](M2-ABI-CODEC.md) and [LAYOUT-PACKED](M2-PACKING.md).
 
 The reference has 798 runtime bytes and a 107-byte constructor prefix.
 All 431 runtime instructions and all constructor instructions are covered.

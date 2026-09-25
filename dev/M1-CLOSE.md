@@ -1,9 +1,9 @@
 # M1 closure
 
-Status: the current R3 speed gate passes. The requirement, set by the
-user on 2026-09-22, is compilation speed at least as fast as Bend 2.
-The [frozen paired comparison](M1-BEND2.md) measures a ratio of 0.073514764
-against the 1.0 limit. The four retained OCaml measurements below are
+Status: the native Bend compiler's speed gate remains open. The requirement,
+set by the user on 2026-09-22, is compilation speed at least as fast as Bend 2.
+The [current paired comparison](M2-PACKING.md) measures a ratio of 1.727570573
+against the unchanged 1.0 limit. The four retained OCaml measurements below are
 historical diagnostics.
 
 This historical slice starts at `ec27e6f`. It implements the former OCaml
@@ -39,7 +39,7 @@ to close the speed requirement; no existing OCaml report can do so.
 
 The [Bend 2 comparison](M1-BEND2.md) supplies the paired corpus, pinned
 toolchains, complete compilation intervals, output validation, frozen
-measurement and refusal tests. The 75-leg `--m1-close` battery uses its
+measurement and refusal tests. The 77-leg `--m1-close` battery uses its
 two gates in place of the former OCaml M1 ratio legs. The comparison's
 scope is six closed pure programs; stateful M1 behavior retains its
 separate functional gates.
@@ -109,9 +109,10 @@ classes were unchanged because the scheduler change only added rows under
 `--m1-close`. The two ratio legs were classified as M1 failures. The M0
 ratification message remained. Since 2026-09-22 `--m1-close` runs the
 same battery with BEND2-RATIO and BEND2-RATIO-TEST in their place (see
-[M1-BEND2.md](M1-BEND2.md)). The default wrapper now appends the
-[M2 reference gate](M2-REFERENCE.md), [ABI-SCHEMA](M2-ABI-SCHEMA.md) and
-[ABI-CODEC](M2-ABI-CODEC.md), for 78 checks.
+[M1-BEND2.md](M1-BEND2.md)). It also includes the NATIVE-MAPS and
+NATIVE-IO checks, for 77 legs. The native default adds the
+[M2 reference gate](M2-REFERENCE.md), [ABI-SCHEMA](M2-ABI-SCHEMA.md),
+[ABI-CODEC](M2-ABI-CODEC.md) and [packing](M2-PACKING.md), for 81 checks.
 
 That ratio test used synthetic reports to exercise the public command; these
 were decision tests and provided no timing evidence. It checked the

@@ -1,0 +1,59 @@
+python3 -P dev/build.py build
+BEND BUILD assay cached
+BEND BUILD tests cached
+BEND BUILD backends OK
+python3 -P dev/stage-a-gates.py --m2-packing
+PASS BUILD exit=0 elapsed_ms=662.6 deadline_s=120
+FAIL PIN-CARRY exit=1 elapsed_ms=62.3 deadline_s=30
+CARRY changed src/layout.bend
+CARRY changed src/tests.bend
+PIN 2c2e6e6831a0b2cf3107fa4aad392606109a2bcf
+CARRY files=12/12 diff=2 unlisted=0
+
+PASS R0-COUNT exit=0 elapsed_ms=203.0 deadline_s=10
+PASS R0-AUDIT exit=0 elapsed_ms=54.8 deadline_s=10
+PASS HOUSE exit=0 elapsed_ms=565.6 deadline_s=30
+PASS NATIVE-MAPS exit=0 elapsed_ms=365.2 deadline_s=180
+PASS NATIVE-IO exit=0 elapsed_ms=1449.7 deadline_s=180
+PASS TRUSTED-LINES exit=0 elapsed_ms=97.3 deadline_s=10
+PASS SUITE-KERNEL exit=0 elapsed_ms=6722.7 deadline_s=300
+PASS SUITE-SURFACE exit=0 elapsed_ms=151.3 deadline_s=60
+PASS DRIVER exit=0 elapsed_ms=1845.3 deadline_s=30
+PASS MUTANTS exit=0 elapsed_ms=5127.2 deadline_s=300
+PASS DENOMINATORS exit=0 elapsed_ms=75.2 deadline_s=10
+PASS KECCAK-VEC exit=0 elapsed_ms=4799.4 deadline_s=120
+PASS KECCAK-MUTANTS exit=0 elapsed_ms=24500.3 deadline_s=660
+PASS STACK-HEIGHT exit=0 elapsed_ms=18208.7 deadline_s=780
+PASS DISASM-3WAY exit=0 elapsed_ms=3141.4 deadline_s=120
+PASS ASM-MUTANTS exit=0 elapsed_ms=48525.2 deadline_s=1860
+PASS FORK-DRIFT exit=0 elapsed_ms=203.0 deadline_s=120
+PASS M0-TRACE exit=0 elapsed_ms=262.4 deadline_s=120
+PASS CREATE-EQ exit=0 elapsed_ms=305.0 deadline_s=120
+PASS REFERENCE-CHECKS exit=0 elapsed_ms=484.9 deadline_s=180
+PASS REFERENCE-MUTANTS exit=0 elapsed_ms=2724.1 deadline_s=1200
+PASS EMIT-CONSTRUCTORS exit=0 elapsed_ms=98.9 deadline_s=30
+PASS WORD-UNBOX exit=0 elapsed_ms=66.7 deadline_s=30
+PASS STORAGE-NOCLOS exit=0 elapsed_ms=60.6 deadline_s=30
+PASS ABI-GOLD exit=0 elapsed_ms=502.2 deadline_s=60
+PASS EMITTED-TRACE exit=0 elapsed_ms=464.6 deadline_s=120
+PASS EMIT-SOURCES exit=0 elapsed_ms=5608.0 deadline_s=600
+PASS EMIT-MUTANTS exit=0 elapsed_ms=36499.2 deadline_s=1200
+FAIL AXIOMS exit=1 elapsed_ms=63.0 deadline_s=480
+AXIOMS FAIL AXIOMS missing preprovisioned dependency: kan-tactics, see the offline provisioning recipe in dev/TOOLCHAIN.md
+AXIOMS-HOST elan present, skip refused
+
+PASS TRACE-DRIVER exit=0 elapsed_ms=3381.3 deadline_s=120
+PASS CORPUS exit=0 elapsed_ms=3192.0 deadline_s=600
+PASS ERASED-BYTES exit=0 elapsed_ms=1015.3 deadline_s=120
+PASS M0-RATIO exit=0 elapsed_ms=116.2 deadline_s=60
+PASS F-MUTANTS exit=0 elapsed_ms=563.8 deadline_s=180
+PASS DIFF-EXECUTOR exit=0 elapsed_ms=9866.8 deadline_s=180
+PASS COUNTER-REFERENCE exit=0 elapsed_ms=2452.3 deadline_s=300
+PASS M1-EMISSION exit=0 elapsed_ms=94817.9 deadline_s=600
+PASS SOURCE-MODEL exit=0 elapsed_ms=83418.4 deadline_s=600
+PASS CONTRACT-SURFACE exit=0 elapsed_ms=80658.1 deadline_s=600
+PASS CONTRACT-ROUTE exit=0 elapsed_ms=925.2 deadline_s=90
+PASS SOURCE-PROOFS exit=0 elapsed_ms=122513.4 deadline_s=600
+PASS NULLARY-ENTRIES exit=0 elapsed_ms=60113.8 deadline_s=600
+PASS CUSTOM-ERRORS exit=0 elapsed_ms=158727.1 deadline_s=600
+PASS PROOF-GUARDS exit=0 elapsed_ms=148991.4 deadline_s=600

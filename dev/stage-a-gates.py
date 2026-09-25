@@ -72,7 +72,8 @@ def leg_deadline(name, carried, recorded):
 
 def main():
     root = Path(__file__).resolve().parent.parent
-    abi_codec = sys.argv[1:] == ["--m2-abi-codec"]
+    packing = sys.argv[1:] == ["--m2-packing"]
+    abi_codec = packing or sys.argv[1:] == ["--m2-abi-codec"]
     abi_schema = abi_codec or sys.argv[1:] == ["--m2-abi-schema"]
     erc20 = abi_schema or sys.argv[1:] == ["--m2-reference"]
     close = erc20 or sys.argv[1:] == ["--m1-close"]
@@ -81,6 +82,7 @@ def main():
         print("       stage-a-gates.py --m2-reference")
         print("       stage-a-gates.py --m2-abi-schema")
         print("       stage-a-gates.py --m2-abi-codec")
+        print("M2 modes: --m2-reference|--m2-abi-schema|--m2-abi-codec|--m2-packing")
         return 64
 
     recorded, gaps, record_path = recorded_runs(root)
@@ -408,6 +410,11 @@ def main():
         m1_names.add("ABI-CODEC")
         legs.append(("ABI-CODEC", 300, ("python3", "-P", "dev/abi-codec-test.py"),
                      "ABI-CODEC cast=48 vectors=49 reference=5 negative=26 prefixes=288 fuzz=128 mutants=10 scope=codec OK"))
+    if packing:
+        stage = "M2-PACKING"
+        m1_names.add("LAYOUT-PACKED")
+        legs.append(("LAYOUT-PACKED", 300, ("python3", "-P", "dev/layout-packed-test.py"),
+                     "LAYOUT-PACKED layouts=11 accesses=1685 negative=40 mutants=11 scope=packing OK"))
     work = root / (".gatework/stage-" + stage.lower())
     work.mkdir(parents=True, exist_ok=True)
     failed = False

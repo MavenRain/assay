@@ -1,0 +1,15 @@
+{
+  "inventory": 12,
+  "fingerprints_updated": [
+    "src/layout.bend",
+    "src/tests.bend"
+  ],
+  "legacy_test_prefix": "identical",
+  "legacy_layout": "identical",
+  "upstream_commit": "2c2e6e6831a0b2cf3107fa4aad392606109a2bcf",
+  "migration_baseline": "2cd3259f10d085dfedb405395d9adb341ef816ed",
+  "pins": 114,
+  "review_fix_fingerprints": [
+    "src/tests.bend"
+  ]
+}

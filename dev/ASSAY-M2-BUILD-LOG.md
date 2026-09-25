@@ -1,5 +1,33 @@
 # Assay M2 build log
 
+## 2026-09-25: M2 packed storage
+
+Base: `f806892`. Added `Layout.Packed` for scalar field placement,
+storage metadata and checked packed-word reads and writes. It supports
+uint8, uint256, address and bool. Writes preserve neighboring bits;
+invalid locations, words, values, duplicate names and dynamic types are
+explicit errors. The legacy layout printer is unchanged. Source lowering
+for packed declarations remains pending.
+
+The packing gate passes 11 layout fixtures, 1,685 distinct access/readback
+cases, 40 refusals, 11 compiling semantic mutants and a restored control.
+The inherited test run passes 12 adapters and 18 commands. House and
+trusted-source audits pass without changing their rules or limits.
+The new default appends one leg, for 81 checks; all 48 older modes retain
+their schedules, deadlines and failure classification.
+
+The paired benchmark ratio is 1.727570573 and the normalized corpus ratio
+is 1.599478. Fresh source pins retain all 110 previous denominator paths
+and add the packing test, both measurements and native carry manifest.
+The two changed carry fingerprints retain all 12 inventory entries and
+unchanged upstream provenance; the old layout and test definitions are
+byte-identical. Both ratios exceed the
+unchanged 1.0 bound; the binding speed requirement remains open.
+
+See [M2-PACKING.md](M2-PACKING.md) for the API and
+[the validation record](validation/2026-09-25-m2-packing/README.md) for
+completed checks and full gate outcomes. M2 is not closed.
+
 ## 2026-09-22: ERC-20 reference
 
 Base: `8f61dd5a30b24628317caf5a27544522c221a25e`.

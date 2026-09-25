@@ -1,0 +1,58 @@
+{
+  "layouts": 11,
+  "accesses": 1685,
+  "negative": 40,
+  "mutants": [
+    {
+      "name": "EXACT-SPILL",
+      "witness": "layout.exact"
+    },
+    {
+      "name": "LATE-SPILL",
+      "witness": "layout.late-spill"
+    },
+    {
+      "name": "ADDRESS-WIDTH",
+      "witness": "layout.mixed"
+    },
+    {
+      "name": "BOOL-RANGE",
+      "witness": "negative.value.bool.2"
+    },
+    {
+      "name": "READ-SHIFT",
+      "witness": "access.small.uint8.4"
+    },
+    {
+      "name": "WRITE-CLEAR",
+      "witness": "access.write.uint8.0.1.0"
+    },
+    {
+      "name": "OFFSET-BOUND",
+      "witness": "negative.offset.read.uint8.32"
+    },
+    {
+      "name": "WORD-RANGE",
+      "witness": "negative.word.read.-1"
+    },
+    {
+      "name": "SLOT-RANGE",
+      "witness": "negative.slot.read.-1"
+    },
+    {
+      "name": "DUPLICATE",
+      "witness": "negative.duplicate"
+    },
+    {
+      "name": "TYPE-DEDUPE",
+      "witness": "layout.bools"
+    }
+  ],
+  "restored_control": "OK",
+  "sources": {
+    "src/layout.bend": "9e963475ad48e31ab9abdf4ed582c699eb5391e5bf2530b2af3f48dbc3ef68d1",
+    "src/tests.bend": "a746ad0a6674d9ce3eaafcb0a7b4f5909485a1625d9a3d8850465a8762f678fa",
+    "dev/build.py": "524d8c290ed0384aa9fbc018cbae0e8361e8d1dbe32b04d596137348ba7e7fc4",
+    "dev/layout-packed-test.py": "8221afdf57035d847167b1529d600be3dc02701b9bbc097f223ca8bf7a612aa9"
+  }
+}
