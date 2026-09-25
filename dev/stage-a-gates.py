@@ -138,7 +138,7 @@ def main():
         ("R0-AUDIT", 10, ("zsh", "-f", "dev/r0-audit.sh"), "R0-AUDIT OK"),
         ("HOUSE", 30, ("zsh", "-f", "dev/house.sh"), "HOUSE OK"),
         ("NATIVE-MAPS", 180, ("python3", "-P", "dev/native-maps-test.py"), "NATIVE-MAPS cases=35 OK"),
-        ("NATIVE-IO", 180, ("python3", "-P", "dev/native-io-test.py"), "NATIVE-IO cases=8 bytes=65797 OK"),
+        ("NATIVE-IO", 180, ("python3", "-P", "dev/native-io-test.py"), "NATIVE-IO cases=12 bytes=65797 OK"),
         ("TRUSTED-LINES", 10, ("zsh", "-f", "dev/trusted-lines.sh"), "TRUSTED-LINES OK"),
         ("SUITE-KERNEL", 300, ("_build/test/main", "test"), "SUITE-KERNEL OK"),
         ("SUITE-SURFACE", 60, ("_build/test/sl_surface",), "SL-SURFACE OK"),

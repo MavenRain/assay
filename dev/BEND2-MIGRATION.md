@@ -120,3 +120,7 @@ MUTANTS and AXIOMS are red in the battery only because the gate copy has no .git
 The ABI-CODEC leg hit its 300 s deadline under a box load above 100. Sibling legs with
 identical code slowed by the same factor and passed. That leg needs one rerun on a quiet box.
 The full gate battery is not green.
+
+The subsequent [byte-string IO follow-up](BEND2-IO.md) refreshes the live
+benchmark reports and repairs compiler discovery in mutation-test copies.
+The measurements and outcomes above remain the migration review snapshot.

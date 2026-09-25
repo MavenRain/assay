@@ -190,6 +190,17 @@ def check_catchalls(root):
         print(f'HOUSE unapproved catch-all: {name} ({path})')
     for name, path, _digest in sorted(gone):
         print(f'HOUSE missing named catch-all: {name} ({path})')
+    # Rows with the same key pair in line order, so a moved arm names its row.
+    ident = lambda row: (row.get('definition', ''), row.get('path', ''), row.get('arm_sha256', ''))
+    lines = lambda rows, wanted: sorted((row.get('line') for row in rows if isinstance(row, dict) and ident(row) == wanted),
+                                        key=lambda line: (type(line).__name__, str(line).zfill(12)))
+    drift = [(*wanted[:2], recorded, scanned)
+             for wanted in sorted(key(expected) & key(actual))
+             for recorded, scanned in zip(lines(expected, wanted), lines(actual, wanted))
+             if recorded != scanned]
+    for name, path, recorded, scanned in drift:
+        print(f'HOUSE catch-all line drift: {name} ({path}) records line {recorded}, scan finds line {scanned}')
+    good = good and not drift
     for record in expected:
         blank = [field for field in ROW_FIELDS if not isinstance(record, dict) or not str(record.get(field, '')).strip()]
         if blank:

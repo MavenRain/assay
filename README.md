@@ -4,7 +4,9 @@ Assay's compiler, trusted kernel, frontend, EVM backend and test adapters are
 implemented in Bend 2. The pinned compiler emits JavaScript for Node.js;
 the hand-written JavaScript boundary only provides operating-system effects.
 See [the migration notes](dev/BEND2-MIGRATION.md) for the source layout,
-audit boundaries and validation evidence.
+audit boundaries and validation evidence. The [byte-string IO follow-up](dev/BEND2-IO.md)
+removes temporary byte lists from file transfers and repairs compiler discovery
+in mutation-test copies.
 
 The [M1 closure gate](dev/M1-CLOSE.md) combines the bounded counter,
 surface, proof and executor checks with the binding compiler performance

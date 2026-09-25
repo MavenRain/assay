@@ -38,7 +38,7 @@
   {
     "definition": "Cli.show_rows",
     "path": "src/cli.bend",
-    "line": 245,
+    "line": 235,
     "arm": "case _: NativeIO.stdout(String.concat(SeqList.map(&2, &2, String, String, +s => String.append(s, \"\\n\"), Elab.axiom_names(rows))))",
     "arm_sha256": "898645b36c0a6d67b647fe6eb51aeb41b9993dc55d0f886e46218ed7ef2e5c41",
     "arity": 1,
@@ -47,7 +47,7 @@
   {
     "definition": "Cli.dispatch_check",
     "path": "src/cli.bend",
-    "line": 385,
+    "line": 375,
     "arm": "case _: Cli.usage()",
     "arm_sha256": "28a6ea6fd054b199faf665f07f886bf3bb619e7556d310966265f089662a198e",
     "arity": 1,
@@ -56,7 +56,7 @@
   {
     "definition": "Cli.dispatch_emit",
     "path": "src/cli.bend",
-    "line": 391,
+    "line": 381,
     "arm": "case _: Cli.usage()",
     "arm_sha256": "28a6ea6fd054b199faf665f07f886bf3bb619e7556d310966265f089662a198e",
     "arity": 1,
@@ -65,7 +65,7 @@
   {
     "definition": "Cli.axioms",
     "path": "src/cli.bend",
-    "line": 395,
+    "line": 385,
     "arm": "case _: Cli.usage()",
     "arm_sha256": "28a6ea6fd054b199faf665f07f886bf3bb619e7556d310966265f089662a198e",
     "arity": 1,
@@ -74,7 +74,7 @@
   {
     "definition": "Cli.count",
     "path": "src/cli.bend",
-    "line": 399,
+    "line": 389,
     "arm": "case _: Cli.usage()",
     "arm_sha256": "28a6ea6fd054b199faf665f07f886bf3bb619e7556d310966265f089662a198e",
     "arity": 1,

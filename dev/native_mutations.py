@@ -41,6 +41,13 @@ def copy_project(root, target):
 
 
 def copy_build(root, target):
+    # Scratch builds use the same pinned local compiler as the source checkout.
+    # An explicit BEND setting still takes precedence in the builder.
+    compiler = Path(root) / '.tools/bend'
+    if compiler.is_dir():
+        tools = Path(target) / '.tools'
+        tools.mkdir(exist_ok=True)
+        (tools / 'bend').symlink_to(compiler.resolve(), target_is_directory=True)
     # Seed only verified build products. The builder checks their input and
     # output digests before accepting them, including for restored controls.
     destination = Path(target) / '_build/bend'

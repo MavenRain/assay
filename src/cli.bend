@@ -110,9 +110,9 @@ def Differential.signal_name(+signal_283: Big) -> String:
 def Differential.error(+param_449: Differential.Error) -> String:
   (+scrut16100 = param_449
   Match.Differential_Error(&2, String, scrut16100, +p16101 => (String.append("DIFF_VALUE: ", p16101)), +p16102 => (String.append("DIFF_CALLER: ", p16102)), _ => ("DIFF_TOOL: python3 is not on PATH"), _ => ("DIFF_HELPER: cannot read evm/diff.py"), +p16103 => (String.append("DIFF_RUNNER: exit ", Big.show(p16103))), +p16104 => (String.append("DIFF_RUNNER: killed by ", Differential.signal_name(p16104))), +p16109 => (String.append("DIFF_RUNNER: stopped by ", Differential.signal_name(p16109)))))
-def NativeIO.read_bytes(file: File, max: U32) -> IO(File & Result<&1, &1, U32 & String, List<&2, U32>>):
+def NativeIO.read_bytes(file: File, max: U32) -> IO(File & Result<&1, &1, U32 & String, String>):
   import "./os.js"
-def NativeIO.write_bytes(file: File, bytes: List<&2, U32>) -> IO(File & Result<&1, &1, U32 & String, Unit>):
+def NativeIO.write_bytes(file: File, bytes: String) -> IO(File & Result<&1, &1, U32 & String, Unit>):
   import "./os.js"
 def NativeIO.exit(code: U32) -> IO(Unit):
   import "./os.js"
@@ -127,28 +127,18 @@ def NativeIO.open(path: String, mode: String) -> IO(Result<&1, &1, U32 & String,
   import "./os.js"
 
 # File contents are byte strings, matching the source language and ABI.
-def NativeIO.from_bytes_go(bytes: List<&2, U32>, acc: String) -> String:
-  match bytes:
-    case Nil{}: String.reverse(acc)
-    case Con{byte, rest}: NativeIO.from_bytes_go(rest, SCon{Char.from_u32(byte), acc})
-def NativeIO.from_bytes(bytes: List<&2, U32>) -> String: NativeIO.from_bytes_go(bytes, SNil{})
-def NativeIO.to_bytes_go(text: String, acc: List<&2, U32>) -> List<&2, U32>:
-  match text:
-    case SNil{}: List.reverse(&2, U32, acc)
-    case SCon{c, rest}: NativeIO.to_bytes_go(rest, Char.to_u32(c) <> acc)
-def NativeIO.to_bytes(text: String) -> List<&2, U32>: NativeIO.to_bytes_go(text, Nil{})
 law NativeIO.read_loop: for file: File for chunks: List<&2, String> IO(Result<&2, &2, String, String>)
 @unsafe
-def NativeIO.read_chunk(file: File, chunks: List<&2, String>, result: Result<&1, &1, U32 & String, List<&2, U32>>) -> IO(Result<&2, &2, String, String>):
+def NativeIO.read_chunk(file: File, chunks: List<&2, String>, result: Result<&1, &1, U32 & String, String>) -> IO(Result<&2, &2, String, String>):
   match result:
     case Fail{(code, message)}: IO.bind(Unit, Result<&2, &2, String, String>, File.close(file), _ => IO.pure(Result<&2, &2, String, String>, Fail{message}))
-    case Done{Nil{}}: IO.bind(Unit, Result<&2, &2, String, String>, File.close(file), _ => IO.pure(Result<&2, &2, String, String>, Done{String.concat(List.reverse(&2, String, chunks))}))
-    case Done{Con{byte, rest}}: NativeIO.read_loop(file, NativeIO.from_bytes(byte <> rest) <> chunks)
-def NativeIO.read_pair(response: File & Result<&1, &1, U32 & String, List<&2, U32>>, chunks: List<&2, String>) -> IO(Result<&2, &2, String, String>):
+    case Done{SNil{}}: IO.bind(Unit, Result<&2, &2, String, String>, File.close(file), _ => IO.pure(Result<&2, &2, String, String>, Done{String.concat(List.reverse(&2, String, chunks))}))
+    case Done{SCon{byte, rest}}: NativeIO.read_loop(file, SCon{byte, rest} <> chunks)
+def NativeIO.read_pair(response: File & Result<&1, &1, U32 & String, String>, chunks: List<&2, String>) -> IO(Result<&2, &2, String, String>):
   (file, result) = response
   NativeIO.read_chunk(file, chunks, result)
 @unsafe
-def NativeIO.read_loop(file, chunks): IO.bind(File & Result<&1, &1, U32 & String, List<&2, U32>>, Result<&2, &2, String, String>, NativeIO.read_bytes(file, 65536), response => NativeIO.read_pair(response, chunks))
+def NativeIO.read_loop(file, chunks): IO.bind(File & Result<&1, &1, U32 & String, String>, Result<&2, &2, String, String>, NativeIO.read_bytes(file, 65536), response => NativeIO.read_pair(response, chunks))
 def NativeIO.read_open(result: Result<&1, &1, U32 & String, File>) -> IO(Result<&2, &2, String, String>):
   match result:
     case Fail{(code, message)}: IO.pure(Result<&2, &2, String, String>, Fail{message})
@@ -164,7 +154,7 @@ def NativeIO.write_pair(response: File & Result<&1, &1, U32 & String, Unit>) -> 
 def NativeIO.write_open(result: Result<&1, &1, U32 & String, File>, contents: String) -> IO(Result<&2, &2, String, Unit>):
   match result:
     case Fail{(code, message)}: IO.pure(Result<&2, &2, String, Unit>, Fail{message})
-    case Done{file}: IO.bind(File & Result<&1, &1, U32 & String, Unit>, Result<&2, &2, String, Unit>, NativeIO.write_bytes(file, NativeIO.to_bytes(contents)), response => NativeIO.write_pair(response))
+    case Done{file}: IO.bind(File & Result<&1, &1, U32 & String, Unit>, Result<&2, &2, String, Unit>, NativeIO.write_bytes(file, contents), response => NativeIO.write_pair(response))
 def NativeIO.write(path: String, contents: String) -> IO(Result<&2, &2, String, Unit>): IO.bind(Result<&1, &1, U32 & String, File>, Result<&2, &2, String, Unit>, NativeIO.open(path, "w"), result => NativeIO.write_open(result, contents))
 type OS.Process is Data: OS.Process{kind: U32, code: U32, signal: String, output: String}
 def OS.regular(path: String) -> IO(Bool):

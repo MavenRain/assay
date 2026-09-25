@@ -55,6 +55,13 @@ def main():
         if slow.returncode or errors or output != payload:
             raise ValueError('slow stdout reader lost bytes or failed under pipe backpressure')
         cases.append({'case': 'slow-stdout', 'passed': True, 'exit': 0})
+        for name, size in (('empty', 0), ('before-chunk', 65535),
+                           ('exact-chunk', 65536), ('multiple-chunks', 131072)):
+            contents = (bytes(range(256)) * ((size + 255) // 256))[:size]
+            source_path.write_bytes(contents)
+            check('copy-' + name, ['copy', source_path, output_path], 0, b'')
+            if output_path.read_bytes() != contents:
+                raise ValueError('copy-' + name + ' changed bytes or failed to truncate output')
         check('unicode-argv', ['argv', 'λ/é'], 0, 'λ/é'.encode())
         check('missing-file', ['read', temporary / 'missing'], 17, b'')
         check('read-directory', ['read', temporary], 17, b'')

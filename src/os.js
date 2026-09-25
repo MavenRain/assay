@@ -43,16 +43,12 @@ function nativeio_read_bytes(file, max) {
   const bytes = Buffer.alloc(Math.min(max, 65536));
   return os_attempt(() => {
     const count = require('fs').readSync(file, bytes, 0, bytes.length, null);
-    let result = { $: 'Nil' };
-    for (let i = count; i > 0; --i) result = { $: 'Con', head: bytes[i - 1], tail: result };
-    return io_tup(file, io_done(result));
+    return io_tup(file, io_done(bytes.toString('latin1', 0, count)));
   }, error => io_tup(file, nativeio_failure(error)));
 }
 function nativeio_write_bytes(file, bytes) {
   return os_attempt(() => {
-    const values = [];
-    for (let xs = bytes; xs.$ === 'Con'; xs = xs.tail) values.push(xs.head);
-    const buffer = Buffer.from(values);
+    const buffer = Buffer.from(bytes, 'latin1');
     let at = 0;
     while (at < buffer.length) at += require('fs').writeSync(file, buffer, at, buffer.length - at);
     return io_tup(file, io_done({ $: 'Unit' }));

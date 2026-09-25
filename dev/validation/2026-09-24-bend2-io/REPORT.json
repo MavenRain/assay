@@ -1,0 +1,219 @@
+{
+  "base_commit": "f29b4282a9ec706934ac0941572019984d3600e6",
+  "objective": "Remove per-byte IO allocation and restore default compiler discovery in mutation copies.",
+  "source_sha256": {
+    "src/cli.bend": "a99c1a815912ed21ff672be3bc9502204b1a52ca7642abb05640fc36515b2525",
+    "src/os.js": "d58a97bdf93d5929d49ad395326035a1e30b545731af46b9c9f3c7b72874d753",
+    "dev/native_mutations.py": "473c6aa8763d9088e66968f259d153bc40a77d06b9b0440fdc38acfbef518764",
+    "dev/native-io-test.py": "0055d6081cc00f1e4fa8dd8121f1e9e0e558145a2935b365fa3b96ecc69833d7",
+    "dev/stage-a-gates.py": "5c3245e0c226487aea03e71ead9388e6b0958169055946b750c8972c7456eea1",
+    "dev/native-carry.json": "dc5efae51613a17812022030d42365767cd2746a272ceaa5f4fa8767e4ee54b6",
+    "dev/bend2-baseline.json": "90f40038a8213a4d455792a8981548f3e5c94bc1dc348f10def9b8b06882015c",
+    "dev/BEND2.sha256": "68d6fb1e524e4ea45fd62b99d1ec3cfa2351dffeac2c4527d9741a2b05db7b0e",
+    "dev/denominators.json": "4202772760c65319797e75744c99fcfd1aca6fdc86bb1ae801e13bc9283149a2",
+    "dev/DENOMINATORS.sha256": "5accea214a0c31b7b517bd6204c1dd85a5e640f93b8df84a62e6d8ca5485565e"
+  },
+  "runs": [
+    {
+      "name": "full-gates-attempt",
+      "status": "interrupted",
+      "exit_code": 143,
+      "argv": [
+        "env",
+        "BEND_NO_TELEMETRY=1",
+        "make",
+        "gates"
+      ],
+      "signal": 15,
+      "timed_out": false,
+      "stdout": {
+        "path": "full-gates-attempt.log",
+        "sha256": "31c44b4580998f8f95c688e750ec47f1e058587cbf5bc9bce588be41d5d65aa3",
+        "bytes": 3342,
+        "raw_sha256": "57cc00e2caa03525ef2c24c0ce78e2ec973c3081d3479726e8575b0d18a56a16",
+        "normalization": "Trailing blank lines removed; all nonblank output retained."
+      },
+      "stderr": {
+        "path": "full-gates-attempt.stderr",
+        "sha256": "53a17c1cd071cd7e9ad54be356fb7cab532f3064e0101ac83debe71712d9dfe4",
+        "bytes": 33
+      },
+      "note": "Interrupted before the compiler-discovery fix; not a completed gate battery.",
+      "native_mutations_sha256": "c9b66fa270bbcf5511a3b41d92db82decd6a6eda01f27a174de131f674f41e04"
+    },
+    {
+      "name": "make-test",
+      "status": "complete",
+      "exit_code": 0,
+      "argv": [
+        "env",
+        "BEND_NO_TELEMETRY=1",
+        "make",
+        "test"
+      ],
+      "signal": 0,
+      "timed_out": false,
+      "stdout": {
+        "path": "make-test.log",
+        "sha256": "ebfd1eda33ce2bb63917e2443e40b10ec863a591191b09988a95ad660c9cb65b",
+        "bytes": 10507
+      }
+    },
+    {
+      "name": "keccak-mutants",
+      "status": "complete",
+      "exit_code": 0,
+      "argv": [
+        "env",
+        "BEND_NO_TELEMETRY=1",
+        "python3",
+        "-P",
+        "dev/keccak-test.py",
+        "mutants"
+      ],
+      "signal": 0,
+      "timed_out": false,
+      "stdout": {
+        "path": "keccak-mutants.log",
+        "sha256": "a0bea46820c2218ab8dfdd229eaa08e0fcded2ce0190972d2228cf802ea630a7",
+        "bytes": 231
+      }
+    },
+    {
+      "name": "abi-codec",
+      "status": "complete",
+      "exit_code": 0,
+      "argv": [
+        "env",
+        "BEND_NO_TELEMETRY=1",
+        "python3",
+        "-P",
+        "dev/abi-codec-test.py"
+      ],
+      "signal": 0,
+      "timed_out": false,
+      "stdout": {
+        "path": "abi-codec.log",
+        "sha256": "92099eb85489008fea8bd7e33d71228dea263fc1c8ca929b5dddf8821ab130c3",
+        "bytes": 711
+      }
+    },
+    {
+      "name": "matched-performance",
+      "status": "complete",
+      "exit_code": 1,
+      "argv": [
+        "python3",
+        "-P",
+        "dev/bend2-ratio.py"
+      ],
+      "signal": 0,
+      "timed_out": false,
+      "stdout": {
+        "path": "matched-performance.log",
+        "sha256": "476970ae2e3c90adcfab1aa5e198e77c5765492e55fe038a42ecdfae229b712e",
+        "bytes": 64
+      }
+    }
+  ],
+  "native_io": {
+    "path": "native-io.log",
+    "sha256": "32fd698aa9585ab59f40b6ef4c16a585eff5a368e5a2e973d604cf9c14cfe430",
+    "bytes": 34
+  },
+  "same_session_baseline": {
+    "path": "before-ratio.json",
+    "sha256": "7030526cbc64f75ef8c46fac0862c8d00aeb458877b1cd151eb7c22761a53f5f",
+    "bytes": 16934
+  },
+  "integrity_checks": [
+    {
+      "status": "fulfilled",
+      "value": {
+        "chunk_id": "239e12",
+        "wall_time_seconds": 7.291e-06,
+        "exit_code": 0,
+        "original_token_count": 57,
+        "output": "HOUSE no-exception OK\nHOUSE named-catchalls OK\nHOUSE no-mutable-state OK\nHOUSE one-catch-site OK\nHOUSE foreign-boundary OK\nHOUSE bool-dispatch OK\nHOUSE no-loop-keyword OK\nHOUSE no-bare-division OK\nHOUSE no-em-dash OK\nHOUSE OK\n"
+      },
+      "kanon_call": {
+        "version": 1,
+        "id": "1a0d69d29f3a3bd7d1befe1e8:0",
+        "command_hash": "068bdf7a5e9aa74c6e0f7bc10280c1801359da46726a2d401c06be5db4954428",
+        "started_at": 1790307019
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "chunk_id": "efc823",
+        "wall_time_seconds": 0.337965084,
+        "exit_code": 0,
+        "original_token_count": 21,
+        "output": "PIN 2c2e6e6831a0b2cf3107fa4aad392606109a2bcf\nCARRY files=12/12 diff=0 unlisted=0\n"
+      },
+      "kanon_call": {
+        "version": 1,
+        "id": "1a0d69d29f3a3bd7d1befe1e8:1",
+        "command_hash": "644e20b65d4bc387ff407b4a46909d2e72b1c9d64879b52639485b7c2f61d80c",
+        "started_at": 1790307019
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "chunk_id": "d89d23",
+        "wall_time_seconds": 1.6167e-05,
+        "exit_code": 0,
+        "original_token_count": 42,
+        "output": "BEND2-RATIO assay_ms=3212.437417 bend2_ms=2222.780125 ratio=1.445234003 limit=1.0 informational=true\nBEND2-RATIO cases=6 rounds=5 source-pins=OK subtraction=none OK\n"
+      },
+      "kanon_call": {
+        "version": 1,
+        "id": "1a0d69d29f3a3bd7d1befe1e8:2",
+        "command_hash": "6b6b73d56641c253a190f15ffc197cb9d73c66c4235b5b4a9f4e6a15bdc893b7",
+        "started_at": 1790307019
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "chunk_id": "116714",
+        "wall_time_seconds": 0.361856958,
+        "exit_code": 0,
+        "original_token_count": 72,
+        "output": "3\t1\tREADME.md\n4\t0\tdev/BEND2-MIGRATION.md\n1\t1\tdev/BEND2.sha256\n6\t6\tdev/DENOMINATORS.sha256\n70\t70\tdev/bend2-baseline.json\n427\t427\tdev/denominators.json\n2\t2\tdev/native-carry.json\n7\t0\tdev/native-io-test.py\n7\t0\tdev/native_mutations.py\n1\t1\tdev/stage-a-gates.py\n8\t18\tsrc/cli.bend\n2\t6\tsrc/os.js\n"
+      },
+      "kanon_call": {
+        "version": 1,
+        "id": "1a0d69d29f3a3bd7d1befe1e8:3",
+        "command_hash": "72b76aa2e902e2dcbb1ed2de2360d72da1b1274651c548a3a39ebfde55e20780",
+        "started_at": 1790307019
+      }
+    }
+  ],
+  "normalized_performance_check": {
+    "status": "fulfilled",
+    "value": {
+      "chunk_id": "bb6dba",
+      "wall_time_seconds": 0.17677875,
+      "exit_code": 1,
+      "original_token_count": 10,
+      "output": "M1-RATIO FAIL RATIO-BOUND M1 limit=1.0\n"
+    },
+    "kanon_call": {
+      "version": 1,
+      "id": "1a0d697912c0648bdc81e29d:1",
+      "command_hash": "c0bf0a5c6375cda5684ab58fac951817028429fb3d0c3a0ae02a88e25a32ebda",
+      "started_at": 1790306652
+    }
+  },
+  "performance": {
+    "limit": 1.0,
+    "matched_ratio": 1.4452340026209294,
+    "normalized_ratio": 1.198461694877782,
+    "binding_passed": false
+  },
+  "full_gate_completed": false,
+  "next_work": "Recover binding performance and inherited large-boundary failures, then complete the broad battery."
+}
