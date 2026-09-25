@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
 """Stage E source emission, independent execution, JSON and mutation gates."""
 from pathlib import Path
+
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import native_mutations
 import hashlib
 import importlib.util
 import json
@@ -35,7 +39,7 @@ def checked(root, *argv, timeout=120):
 
 
 def emit(root, source, directory, *extra):
-    checked(root, str(root / '_build/default/bin/assay.exe'), 'emit', str(source), '-o', str(directory), *extra)
+    checked(root, str(root / '_build/bin/assay'), 'emit', str(source), '-o', str(directory), *extra)
     names = {'runtime.hex', 'init.hex', 'abi.json', 'layout.json', 'axioms.txt'}
     require({path.name for path in directory.iterdir()} == names, 'EMIT-FILES')
     files = {name: (directory / name).read_text() for name in names}
@@ -89,7 +93,7 @@ def abi(root):
         layout = json.loads(files['layout.json'])
         require(canonical(root, layout) == canonical(root, json.loads((root / 'reference/layout.json').read_text())),
                 'LAYOUT-GOLD mismatch')
-        disclosure = checked(root, str(root / '_build/default/bin/assay.exe'), 'axioms', 'examples/Ref20.asy')
+        disclosure = checked(root, str(root / '_build/bin/assay'), 'axioms', 'examples/Ref20.asy')
         require(files['axioms.txt'] == disclosure == 'EvmOpcodes\n', 'AXIOM-DISCLOSURE')
         # M0 has an empty ABI.  The nonempty synthetic row tests the comparator,
         # without claiming that M0 emits a function dispatcher.
@@ -98,7 +102,7 @@ def abi(root):
         # marker.  The count was literal text before.
         row = {'type': 'function', 'name': 'sample', 'inputs': [], 'outputs': [], 'stateMutability': 'pure'}
         reordered = dict(reversed(list(row.items())))
-        escaped = json.loads(checked(root, str(root / '_build/default/test/emit_cases.exe'), 'layout'))
+        escaped = json.loads(checked(root, str(root / '_build/test/emit_cases'), 'layout'))
         controls = [
             ('ABI-ORDER control', canonical(root, [row]) == canonical(root, [reordered])),
             ('ABI-RENAME survived', canonical(root, [row]) != canonical(root, [{**row, 'name': 'renamed'}])),
@@ -172,9 +176,9 @@ def source_cases(root):
         for name, text, marker in refusals:
             path = work / (name + '.asy')
             path.write_text(text)
-            checked(root, str(root / '_build/default/bin/assay.exe'), 'check', str(path))
+            checked(root, str(root / '_build/bin/assay'), 'check', str(path))
             directory = work / name
-            result = run(root, str(root / '_build/default/bin/assay.exe'), 'emit', str(path), '-o', str(directory))
+            result = run(root, str(root / '_build/bin/assay'), 'emit', str(path), '-o', str(directory))
             require(result.returncode == 2 and marker in result.stderr and not directory.exists(), 'EMIT-REFUSE ' + name + ': ' + result.stderr)
             print('EMIT-REFUSE ' + name + ' OK')
         # Review round 2026-09-10 (A-1):  the driver checks are collected and
@@ -184,10 +188,10 @@ def source_cases(root):
         driver = [('EXPORT-ALIAS', alias['runtime.hex'] == (work / 'reference/runtime.hex').read_text())]
         directory = work / 'alias'
         before = {p.name: p.read_bytes() for p in directory.iterdir()}
-        result = run(root, str(root / '_build/default/bin/assay.exe'), 'emit', str(path), '-o', str(directory))
+        result = run(root, str(root / '_build/bin/assay'), 'emit', str(path), '-o', str(directory))
         driver.append(('OUTPUT-EXISTS', result.returncode == 64 and 'OUTPUT_PATH' in result.stderr and
                        before == {p.name: p.read_bytes() for p in directory.iterdir()}))
-        result = run(root, str(root / '_build/default/bin/assay.exe'), 'emit', str(path), '-o', str(work / 'missing'), '--export', 'gone')
+        result = run(root, str(root / '_build/bin/assay'), 'emit', str(path), '-o', str(work / 'missing'), '--export', 'gone')
         driver.append(('EXPORT-MISSING', result.returncode == 2 and 'EMIT_MISSING' in result.stderr
                        and not (work / 'missing').exists()))
         for label, ok in driver:
@@ -196,47 +200,33 @@ def source_cases(root):
 
 
 def mutants(root):
-    cases = [
-        ('WORD-BOX', 'emit/recognize.ml', 'else Ok (Word n)', 'else Ok (Struct (word_tid, [Nat n]))',
-         'words', 'word-zero'),
-        ('WORD-RANGE', 'emit/recognize.ml', 'Z.numbits n > 256', 'Z.numbits n > 257', 'words', 'word-overflow'),
-        ('STORAGE-CLOSURE', 'emit/recognize.ml', '| Eterm.KClos _ | Eterm.KTail _ -> Error Storage_closure',
-         '| Eterm.KClos _ | Eterm.KTail _ -> Ok ()', 'storage', 'storage-closure'),
-        ('STORAGE-ALIAS', 'emit/recognize.ml', '~some:(fun body -> no_closure lookup (name :: seen) body)',
-         '~some:(fun _body -> Ok ())', 'storage', 'storage-hidden'),
-        ('GLOBAL-APP', 'emit/emit.ml', 'else eval env (List.rev args) fuel fn.body',
-         'else eval env (List.rev args) fuel (Eterm.KLit (Literal.LInt Z.zero))', 'constructors', 'app'),
-        ('ABI-ENTRY', 'abi/abi.ml', 'let empty = "[]\\n"',
-         'let empty = "[{}]\\n"', 'abi', 'ABI-GOLD mismatch'),
-        ('LAYOUT-SLOT', 'abi/layout.ml', '(string_of_int index))) fields',
-         '(string_of_int (index + 1)))) fields', 'abi', 'LAYOUT-GOLD mismatch'),
-    ]
+    cases = native_mutations.load(__file__)
     with tempfile.TemporaryDirectory(prefix='assay-emit-mutants-') as temporary:
         copy = Path(temporary) / 'copy'
-        shutil.copytree(root, copy, ignore=shutil.ignore_patterns('.*', '_build', '.gatework', '.lake', 'vendor', 'validation'))
+        native_mutations.copy_project(root, copy)
         logs = root / '.gatework'
         logs.mkdir(exist_ok=True)
         for name, relative, before, after, mode, marker in cases:
             path = copy / relative
             original = path.read_text()
-            require(original.count(before) == 1, 'MUTANT-ANCHOR ' + name)
-            path.write_text(original.replace(before, after))
-            build = run(copy, 'zsh', '-f', 'dev/dune.sh', 'build')
+            require(native_mutations.count(original, before) == 1, 'MUTANT-ANCHOR ' + name)
+            path.write_text(native_mutations.replace(original, before, after))
+            build = run(copy, 'zsh', '-f', 'dev/build.sh', 'build', 'bin/assay', 'test/emit_cases')
             require(build.returncode == 0, 'MUTANT-BUILD ' + name + build.stdout + build.stderr)
             result = (run(copy, 'python3', '-P', 'dev/emit-test.py', mode) if mode == 'abi'
-                      else run(copy, str(copy / '_build/default/test/emit_cases.exe'), mode))
+                      else run(copy, str(copy / '_build/test/emit_cases'), mode))
             (logs / ('emit-mutant-' + name + '.log')).write_text(build.stdout + result.stdout + result.stderr)
             witness = ('EMIT-GATE FAIL ' if mode == 'abi' else 'EMIT-CASES FAIL ') + marker
             require(result.returncode == 1 and witness in result.stdout + result.stderr, 'MUTANT-SURVIVED ' + name)
             path.write_text(original)
             print('EMIT-MUTANT ' + name + ' killed by ' + marker)
-        build = run(copy, 'zsh', '-f', 'dev/dune.sh', 'build')
+        build = run(copy, 'zsh', '-f', 'dev/build.sh', 'build', 'bin/assay', 'test/emit_cases')
         require(build.returncode == 0, 'EMIT-CONTROL-BUILD')
         # Review round 2026-09-10 (A-1):  the restored controls are counted, so
         # removing one moves the printed number.
         controls = []
         for mode in ('words', 'storage', 'constructors'):
-            output = checked(copy, str(copy / '_build/default/test/emit_cases.exe'), mode)
+            output = checked(copy, str(copy / '_build/test/emit_cases'), mode)
             (logs / ('emit-control-' + mode + '.log')).write_text(output)
             controls.append(mode)
         output = checked(copy, 'python3', '-P', 'dev/emit-test.py', 'abi')

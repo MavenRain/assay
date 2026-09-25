@@ -1,112 +1,111 @@
 {
-  "version": 1,
+  "version": 2,
   "stage": "M1",
-  "date": "2026-09-22",
-  "method": "One warm run, five interleaved wall-clock runs.  Assay parses through five closed files.  No fixed-cost subtraction.",
+  "date": "2026-09-24",
+  "method": "One warm run, five interleaved wall-clock runs.  Assay parses through five closed files. Bend emits C or checks the frozen paired corpus. C execution is validated outside timing. No fixed-cost subtraction.",
   "fixed_method": "One spec-count invocation, process startup plus R0 formatting; an upper-bound proxy, not an empty compile.",
   "host": {
     "system": "macOS-26.4-arm64-arm-64bit-Mach-O",
     "ncpu": 12
   },
   "window": {
-    "started": "2026-09-22T23:20:24.276717+00:00",
-    "ended": "2026-09-22T23:20:33.919541+00:00",
-    "seconds": 9.642662749974988,
+    "started": "2026-09-24T05:54:54.000770+00:00",
+    "ended": "2026-09-24T05:55:24.150708+00:00",
+    "seconds": 30.14746154198656,
     "load_start": [
-      14.12841796875,
-      18.6474609375,
-      17.89990234375
+      28.73974609375,
+      26.98486328125,
+      29.38671875
     ],
     "load_end": [
-      15.46923828125,
-      18.80224609375,
-      17.96435546875
+      26.19775390625,
+      26.62744140625,
+      29.17919921875
     ]
   },
   "versions": {
-    "ocamlopt": "5.2.1",
-    "ocamlc": "5.2.1",
-    "ocamldep": "ocamldep, version 5.2.1"
+    "bend": "bend 2.0.25",
+    "node": "v23.10.0"
   },
-  "executable_sha256": "8621a58f40c86e275d22589413d2bfb4938d0b21e383b7e989f2074b34cceccd",
-  "corpus_sha256": "f6cb9272fae851f7921fa2ced76d63d242d05ffd8ad437b473e7fccc786c0b9e",
-  "measurement_sha256": "e8d18a451fe91cdd295ff3a10efe49bc2c447098e331cbdd1e496e883afa3120",
+  "executable_sha256": "89b183e075b18da76bb2711ec67c0aac2ab6172779a60e614abb329cbcc4adbb",
+  "corpus_sha256": "cc62f7d50c241175e5a121a6123a0eba9f50dc3de6ee2be630ea08cb34b4feb1",
+  "measurement_sha256": "a5c221ed6cdebfa2bcf99968b2d4d0c1999b747cb5655787c54c4b4cf68cbd71",
   "rows": {
     "contracts": {
       "samples_ms": [
-        55.094916,
-        54.121418000000006,
-        53.364959000000006,
-        53.587334,
-        62.345958
+        5554.915125,
+        2203.1993329999996,
+        2355.033375,
+        2243.115459,
+        2522.688042
       ],
-      "median_ms": 54.121418000000006,
-      "min_ms": 53.364959000000006,
-      "max_ms": 62.345958,
+      "median_ms": 2355.033375,
+      "min_ms": 2203.1993329999996,
+      "max_ms": 5554.915125,
       "runs": 5,
       "lines": 135,
       "invocations": 8,
-      "ms_per_kloc": 400.8993925925926
+      "ms_per_kloc": 17444.691666666666
     },
     "proofs": {
       "samples_ms": [
-        18.984209,
-        19.108957000000004,
-        18.362292,
-        20.737958,
-        20.895042
+        1522.8674999999998,
+        742.69125,
+        766.0074179999999,
+        710.61925,
+        767.8872079999999
       ],
-      "median_ms": 19.108957000000004,
-      "min_ms": 18.362292,
-      "max_ms": 20.895042,
+      "median_ms": 766.0074179999999,
+      "min_ms": 710.61925,
+      "max_ms": 1522.8674999999998,
       "runs": 5,
       "lines": 48,
       "invocations": 3,
-      "ms_per_kloc": 398.1032708333334
+      "ms_per_kloc": 15958.487874999999
     },
-    "ocamlopt": {
+    "bend_compile": {
       "samples_ms": [
-        1894.373916,
-        1462.206584,
-        1459.265291,
-        1555.943125,
-        1491.554292
+        1466.444791,
+        1279.237084,
+        1047.633001,
+        932.062168,
+        881.3092519999999
       ],
-      "median_ms": 1491.554292,
-      "min_ms": 1459.265291,
-      "max_ms": 1894.373916,
+      "median_ms": 1047.633001,
+      "min_ms": 881.3092519999999,
+      "max_ms": 1466.444791,
       "runs": 5,
-      "lines": 6215,
-      "invocations": 1,
-      "ms_per_kloc": 239.992645534996
+      "lines": 74,
+      "invocations": 6,
+      "ms_per_kloc": 14157.202716216216
     },
-    "ocamlc": {
+    "bend_check": {
       "samples_ms": [
-        281.146791,
-        232.206167,
-        241.456292,
-        265.108625,
-        246.015375
+        1033.382334,
+        879.9185409999999,
+        913.594542,
+        807.4775830000001,
+        882.1010850000001
       ],
-      "median_ms": 246.015375,
-      "min_ms": 232.206167,
-      "max_ms": 281.146791,
+      "median_ms": 882.1010850000001,
+      "min_ms": 807.4775830000001,
+      "max_ms": 1033.382334,
       "runs": 5,
-      "lines": 6215,
-      "invocations": 1,
-      "ms_per_kloc": 39.584131134352376
+      "lines": 74,
+      "invocations": 6,
+      "ms_per_kloc": 11920.284932432434
     },
     "fixed": {
       "samples_ms": [
-        6.545041,
-        5.78225,
-        6.467917,
-        12.258708,
-        6.572958
+        96.124709,
+        119.078333,
+        90.621917,
+        166.992375,
+        87.025916
       ],
-      "median_ms": 6.545041,
-      "min_ms": 5.78225,
-      "max_ms": 12.258708,
+      "median_ms": 96.124709,
+      "min_ms": 87.025916,
+      "max_ms": 166.992375,
       "runs": 5,
       "lines": 0,
       "invocations": 1,
@@ -119,929 +118,943 @@
       "workload": "contracts",
       "argv": [
         [
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/_build/default/bin/assay.exe",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/_build/bin/assay",
           "emit",
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/corpus/contracts/Ref20.asy",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/contracts/Ref20.asy",
           "-o",
-          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-anmtal4t/1-contracts/Ref20"
+          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-1yef5kih/1-contracts/Ref20"
         ],
         [
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/_build/default/bin/assay.exe",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/_build/bin/assay",
           "emit",
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/corpus/contracts/Return.asy",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/contracts/Return.asy",
           "-o",
-          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-anmtal4t/1-contracts/Return"
+          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-1yef5kih/1-contracts/Return"
         ],
         [
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/_build/default/bin/assay.exe",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/_build/bin/assay",
           "emit",
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/corpus/contracts/Zero.asy",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/contracts/Zero.asy",
           "-o",
-          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-anmtal4t/1-contracts/Zero"
+          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-1yef5kih/1-contracts/Zero"
         ],
         [
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/_build/default/bin/assay.exe",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/_build/bin/assay",
           "emit",
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/corpus/contracts/Maximum.asy",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/contracts/Maximum.asy",
           "-o",
-          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-anmtal4t/1-contracts/Maximum"
+          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-1yef5kih/1-contracts/Maximum"
         ],
         [
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/_build/default/bin/assay.exe",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/_build/bin/assay",
           "emit",
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/corpus/contracts/Arithmetic.asy",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/contracts/Arithmetic.asy",
           "-o",
-          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-anmtal4t/1-contracts/Arithmetic"
+          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-1yef5kih/1-contracts/Arithmetic"
         ],
         [
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/_build/default/bin/assay.exe",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/_build/bin/assay",
           "emit",
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/corpus/contracts/Pair.asy",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/contracts/Pair.asy",
           "-o",
-          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-anmtal4t/1-contracts/Pair"
+          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-1yef5kih/1-contracts/Pair"
         ],
         [
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/_build/default/bin/assay.exe",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/_build/bin/assay",
           "emit",
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/corpus/contracts/TwoSlots.asy",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/contracts/TwoSlots.asy",
           "-o",
-          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-anmtal4t/1-contracts/TwoSlots"
+          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-1yef5kih/1-contracts/TwoSlots"
         ],
         [
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/_build/default/bin/assay.exe",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/_build/bin/assay",
           "emit",
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/corpus/contracts/WideLabel.asy",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/contracts/WideLabel.asy",
           "-o",
-          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-anmtal4t/1-contracts/WideLabel"
+          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-1yef5kih/1-contracts/WideLabel"
         ]
       ],
-      "cwd": "/Users/oobi/Documents/gpt1/assay-m2-abi-codec",
-      "elapsed_ms": 55.094916
+      "cwd": "/Users/oobi/Documents/gpt1/assay-bend-migration",
+      "elapsed_ms": 5554.915125
     },
     {
       "round": 1,
       "workload": "proofs",
       "argv": [
         [
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/_build/default/bin/assay.exe",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/_build/bin/assay",
           "emit",
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/corpus/proofs/Leaf.asy",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/proofs/Leaf.asy",
           "-o",
-          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-anmtal4t/1-proofs/Leaf"
+          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-1yef5kih/1-proofs/Leaf"
         ],
         [
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/_build/default/bin/assay.exe",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/_build/bin/assay",
           "emit",
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/corpus/proofs/Apply.asy",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/proofs/Apply.asy",
           "-o",
-          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-anmtal4t/1-proofs/Apply"
+          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-1yef5kih/1-proofs/Apply"
         ],
         [
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/_build/default/bin/assay.exe",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/_build/bin/assay",
           "emit",
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/corpus/proofs/Let.asy",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/proofs/Let.asy",
           "-o",
-          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-anmtal4t/1-proofs/Let"
+          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-1yef5kih/1-proofs/Let"
         ]
       ],
-      "cwd": "/Users/oobi/Documents/gpt1/assay-m2-abi-codec",
-      "elapsed_ms": 18.984209
+      "cwd": "/Users/oobi/Documents/gpt1/assay-bend-migration",
+      "elapsed_ms": 1522.8674999999998
     },
     {
       "round": 1,
-      "workload": "ocamlopt",
+      "workload": "bend_compile",
       "argv": [
-        "/Users/oobi/.opam/zxcaml-p1/bin/ocamlopt",
-        "-c",
-        "-I",
-        "/Users/oobi/.opam/zxcaml-p1/lib/zarith",
-        "bignum.ml",
-        "budget.mli",
-        "error.ml",
-        "level.mli",
-        "literal.ml",
-        "quantity.ml",
-        "shape.ml",
-        "level.ml",
-        "eterm.ml",
-        "budget.ml",
-        "term.ml",
-        "value.ml",
-        "pp.ml",
-        "positivity.ml",
-        "rules.ml",
-        "spec_count.ml",
-        "prim.ml",
-        "order.ml",
-        "global.ml",
-        "eval.ml",
-        "conv.ml",
-        "check.ml",
-        "erase.ml",
-        "totality.ml"
+        [
+          "/Users/oobi/Documents/gpt1/assay-bend2-v2.0.25/bin/bend",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/bend2/Return.bend",
+          "-o",
+          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-1yef5kih/1-bend_compile/Return.c"
+        ],
+        [
+          "/Users/oobi/Documents/gpt1/assay-bend2-v2.0.25/bin/bend",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/bend2/Arithmetic.bend",
+          "-o",
+          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-1yef5kih/1-bend_compile/Arithmetic.c"
+        ],
+        [
+          "/Users/oobi/Documents/gpt1/assay-bend2-v2.0.25/bin/bend",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/bend2/Pair.bend",
+          "-o",
+          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-1yef5kih/1-bend_compile/Pair.c"
+        ],
+        [
+          "/Users/oobi/Documents/gpt1/assay-bend2-v2.0.25/bin/bend",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/bend2/Leaf.bend",
+          "-o",
+          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-1yef5kih/1-bend_compile/Leaf.c"
+        ],
+        [
+          "/Users/oobi/Documents/gpt1/assay-bend2-v2.0.25/bin/bend",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/bend2/Apply.bend",
+          "-o",
+          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-1yef5kih/1-bend_compile/Apply.c"
+        ],
+        [
+          "/Users/oobi/Documents/gpt1/assay-bend2-v2.0.25/bin/bend",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/bend2/Let.bend",
+          "-o",
+          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-1yef5kih/1-bend_compile/Let.c"
+        ]
       ],
-      "cwd": "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-anmtal4t/1-ocamlopt",
-      "elapsed_ms": 1894.373916
+      "cwd": "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-1yef5kih/1-bend_compile",
+      "elapsed_ms": 1466.444791
     },
     {
       "round": 1,
-      "workload": "ocamlc",
+      "workload": "bend_check",
       "argv": [
-        "/Users/oobi/.opam/zxcaml-p1/bin/ocamlc",
-        "-c",
-        "-I",
-        "/Users/oobi/.opam/zxcaml-p1/lib/zarith",
-        "bignum.ml",
-        "budget.mli",
-        "error.ml",
-        "level.mli",
-        "literal.ml",
-        "quantity.ml",
-        "shape.ml",
-        "level.ml",
-        "eterm.ml",
-        "budget.ml",
-        "term.ml",
-        "value.ml",
-        "pp.ml",
-        "positivity.ml",
-        "rules.ml",
-        "spec_count.ml",
-        "prim.ml",
-        "order.ml",
-        "global.ml",
-        "eval.ml",
-        "conv.ml",
-        "check.ml",
-        "erase.ml",
-        "totality.ml"
+        [
+          "/Users/oobi/Documents/gpt1/assay-bend2-v2.0.25/bin/bend",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/bend2/Return.bend",
+          "--check-only"
+        ],
+        [
+          "/Users/oobi/Documents/gpt1/assay-bend2-v2.0.25/bin/bend",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/bend2/Arithmetic.bend",
+          "--check-only"
+        ],
+        [
+          "/Users/oobi/Documents/gpt1/assay-bend2-v2.0.25/bin/bend",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/bend2/Pair.bend",
+          "--check-only"
+        ],
+        [
+          "/Users/oobi/Documents/gpt1/assay-bend2-v2.0.25/bin/bend",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/bend2/Leaf.bend",
+          "--check-only"
+        ],
+        [
+          "/Users/oobi/Documents/gpt1/assay-bend2-v2.0.25/bin/bend",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/bend2/Apply.bend",
+          "--check-only"
+        ],
+        [
+          "/Users/oobi/Documents/gpt1/assay-bend2-v2.0.25/bin/bend",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/bend2/Let.bend",
+          "--check-only"
+        ]
       ],
-      "cwd": "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-anmtal4t/1-ocamlc",
-      "elapsed_ms": 281.146791
+      "cwd": "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-1yef5kih/1-bend_check",
+      "elapsed_ms": 1033.382334
     },
     {
       "round": 1,
       "workload": "fixed",
       "argv": [
-        "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/_build/default/bin/assay.exe",
+        "/Users/oobi/Documents/gpt1/assay-bend-migration/_build/bin/assay",
         "spec-count"
       ],
-      "cwd": "/Users/oobi/Documents/gpt1/assay-m2-abi-codec",
-      "elapsed_ms": 6.545041
+      "cwd": "/Users/oobi/Documents/gpt1/assay-bend-migration",
+      "elapsed_ms": 96.124709
     },
     {
       "round": 2,
       "workload": "contracts",
       "argv": [
         [
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/_build/default/bin/assay.exe",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/_build/bin/assay",
           "emit",
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/corpus/contracts/Ref20.asy",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/contracts/Ref20.asy",
           "-o",
-          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-anmtal4t/2-contracts/Ref20"
+          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-1yef5kih/2-contracts/Ref20"
         ],
         [
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/_build/default/bin/assay.exe",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/_build/bin/assay",
           "emit",
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/corpus/contracts/Return.asy",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/contracts/Return.asy",
           "-o",
-          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-anmtal4t/2-contracts/Return"
+          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-1yef5kih/2-contracts/Return"
         ],
         [
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/_build/default/bin/assay.exe",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/_build/bin/assay",
           "emit",
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/corpus/contracts/Zero.asy",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/contracts/Zero.asy",
           "-o",
-          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-anmtal4t/2-contracts/Zero"
+          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-1yef5kih/2-contracts/Zero"
         ],
         [
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/_build/default/bin/assay.exe",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/_build/bin/assay",
           "emit",
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/corpus/contracts/Maximum.asy",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/contracts/Maximum.asy",
           "-o",
-          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-anmtal4t/2-contracts/Maximum"
+          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-1yef5kih/2-contracts/Maximum"
         ],
         [
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/_build/default/bin/assay.exe",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/_build/bin/assay",
           "emit",
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/corpus/contracts/Arithmetic.asy",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/contracts/Arithmetic.asy",
           "-o",
-          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-anmtal4t/2-contracts/Arithmetic"
+          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-1yef5kih/2-contracts/Arithmetic"
         ],
         [
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/_build/default/bin/assay.exe",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/_build/bin/assay",
           "emit",
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/corpus/contracts/Pair.asy",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/contracts/Pair.asy",
           "-o",
-          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-anmtal4t/2-contracts/Pair"
+          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-1yef5kih/2-contracts/Pair"
         ],
         [
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/_build/default/bin/assay.exe",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/_build/bin/assay",
           "emit",
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/corpus/contracts/TwoSlots.asy",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/contracts/TwoSlots.asy",
           "-o",
-          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-anmtal4t/2-contracts/TwoSlots"
+          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-1yef5kih/2-contracts/TwoSlots"
         ],
         [
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/_build/default/bin/assay.exe",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/_build/bin/assay",
           "emit",
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/corpus/contracts/WideLabel.asy",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/contracts/WideLabel.asy",
           "-o",
-          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-anmtal4t/2-contracts/WideLabel"
+          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-1yef5kih/2-contracts/WideLabel"
         ]
       ],
-      "cwd": "/Users/oobi/Documents/gpt1/assay-m2-abi-codec",
-      "elapsed_ms": 54.121418000000006
+      "cwd": "/Users/oobi/Documents/gpt1/assay-bend-migration",
+      "elapsed_ms": 2203.1993329999996
     },
     {
       "round": 2,
       "workload": "proofs",
       "argv": [
         [
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/_build/default/bin/assay.exe",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/_build/bin/assay",
           "emit",
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/corpus/proofs/Leaf.asy",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/proofs/Leaf.asy",
           "-o",
-          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-anmtal4t/2-proofs/Leaf"
+          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-1yef5kih/2-proofs/Leaf"
         ],
         [
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/_build/default/bin/assay.exe",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/_build/bin/assay",
           "emit",
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/corpus/proofs/Apply.asy",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/proofs/Apply.asy",
           "-o",
-          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-anmtal4t/2-proofs/Apply"
+          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-1yef5kih/2-proofs/Apply"
         ],
         [
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/_build/default/bin/assay.exe",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/_build/bin/assay",
           "emit",
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/corpus/proofs/Let.asy",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/proofs/Let.asy",
           "-o",
-          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-anmtal4t/2-proofs/Let"
+          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-1yef5kih/2-proofs/Let"
         ]
       ],
-      "cwd": "/Users/oobi/Documents/gpt1/assay-m2-abi-codec",
-      "elapsed_ms": 19.108957000000004
+      "cwd": "/Users/oobi/Documents/gpt1/assay-bend-migration",
+      "elapsed_ms": 742.69125
     },
     {
       "round": 2,
-      "workload": "ocamlopt",
+      "workload": "bend_compile",
       "argv": [
-        "/Users/oobi/.opam/zxcaml-p1/bin/ocamlopt",
-        "-c",
-        "-I",
-        "/Users/oobi/.opam/zxcaml-p1/lib/zarith",
-        "bignum.ml",
-        "budget.mli",
-        "error.ml",
-        "level.mli",
-        "literal.ml",
-        "quantity.ml",
-        "shape.ml",
-        "level.ml",
-        "eterm.ml",
-        "budget.ml",
-        "term.ml",
-        "value.ml",
-        "pp.ml",
-        "positivity.ml",
-        "rules.ml",
-        "spec_count.ml",
-        "prim.ml",
-        "order.ml",
-        "global.ml",
-        "eval.ml",
-        "conv.ml",
-        "check.ml",
-        "erase.ml",
-        "totality.ml"
+        [
+          "/Users/oobi/Documents/gpt1/assay-bend2-v2.0.25/bin/bend",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/bend2/Return.bend",
+          "-o",
+          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-1yef5kih/2-bend_compile/Return.c"
+        ],
+        [
+          "/Users/oobi/Documents/gpt1/assay-bend2-v2.0.25/bin/bend",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/bend2/Arithmetic.bend",
+          "-o",
+          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-1yef5kih/2-bend_compile/Arithmetic.c"
+        ],
+        [
+          "/Users/oobi/Documents/gpt1/assay-bend2-v2.0.25/bin/bend",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/bend2/Pair.bend",
+          "-o",
+          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-1yef5kih/2-bend_compile/Pair.c"
+        ],
+        [
+          "/Users/oobi/Documents/gpt1/assay-bend2-v2.0.25/bin/bend",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/bend2/Leaf.bend",
+          "-o",
+          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-1yef5kih/2-bend_compile/Leaf.c"
+        ],
+        [
+          "/Users/oobi/Documents/gpt1/assay-bend2-v2.0.25/bin/bend",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/bend2/Apply.bend",
+          "-o",
+          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-1yef5kih/2-bend_compile/Apply.c"
+        ],
+        [
+          "/Users/oobi/Documents/gpt1/assay-bend2-v2.0.25/bin/bend",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/bend2/Let.bend",
+          "-o",
+          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-1yef5kih/2-bend_compile/Let.c"
+        ]
       ],
-      "cwd": "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-anmtal4t/2-ocamlopt",
-      "elapsed_ms": 1462.206584
+      "cwd": "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-1yef5kih/2-bend_compile",
+      "elapsed_ms": 1279.237084
     },
     {
       "round": 2,
-      "workload": "ocamlc",
+      "workload": "bend_check",
       "argv": [
-        "/Users/oobi/.opam/zxcaml-p1/bin/ocamlc",
-        "-c",
-        "-I",
-        "/Users/oobi/.opam/zxcaml-p1/lib/zarith",
-        "bignum.ml",
-        "budget.mli",
-        "error.ml",
-        "level.mli",
-        "literal.ml",
-        "quantity.ml",
-        "shape.ml",
-        "level.ml",
-        "eterm.ml",
-        "budget.ml",
-        "term.ml",
-        "value.ml",
-        "pp.ml",
-        "positivity.ml",
-        "rules.ml",
-        "spec_count.ml",
-        "prim.ml",
-        "order.ml",
-        "global.ml",
-        "eval.ml",
-        "conv.ml",
-        "check.ml",
-        "erase.ml",
-        "totality.ml"
+        [
+          "/Users/oobi/Documents/gpt1/assay-bend2-v2.0.25/bin/bend",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/bend2/Return.bend",
+          "--check-only"
+        ],
+        [
+          "/Users/oobi/Documents/gpt1/assay-bend2-v2.0.25/bin/bend",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/bend2/Arithmetic.bend",
+          "--check-only"
+        ],
+        [
+          "/Users/oobi/Documents/gpt1/assay-bend2-v2.0.25/bin/bend",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/bend2/Pair.bend",
+          "--check-only"
+        ],
+        [
+          "/Users/oobi/Documents/gpt1/assay-bend2-v2.0.25/bin/bend",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/bend2/Leaf.bend",
+          "--check-only"
+        ],
+        [
+          "/Users/oobi/Documents/gpt1/assay-bend2-v2.0.25/bin/bend",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/bend2/Apply.bend",
+          "--check-only"
+        ],
+        [
+          "/Users/oobi/Documents/gpt1/assay-bend2-v2.0.25/bin/bend",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/bend2/Let.bend",
+          "--check-only"
+        ]
       ],
-      "cwd": "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-anmtal4t/2-ocamlc",
-      "elapsed_ms": 232.206167
+      "cwd": "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-1yef5kih/2-bend_check",
+      "elapsed_ms": 879.9185409999999
     },
     {
       "round": 2,
       "workload": "fixed",
       "argv": [
-        "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/_build/default/bin/assay.exe",
+        "/Users/oobi/Documents/gpt1/assay-bend-migration/_build/bin/assay",
         "spec-count"
       ],
-      "cwd": "/Users/oobi/Documents/gpt1/assay-m2-abi-codec",
-      "elapsed_ms": 5.78225
+      "cwd": "/Users/oobi/Documents/gpt1/assay-bend-migration",
+      "elapsed_ms": 119.078333
     },
     {
       "round": 3,
       "workload": "contracts",
       "argv": [
         [
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/_build/default/bin/assay.exe",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/_build/bin/assay",
           "emit",
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/corpus/contracts/Ref20.asy",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/contracts/Ref20.asy",
           "-o",
-          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-anmtal4t/3-contracts/Ref20"
+          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-1yef5kih/3-contracts/Ref20"
         ],
         [
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/_build/default/bin/assay.exe",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/_build/bin/assay",
           "emit",
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/corpus/contracts/Return.asy",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/contracts/Return.asy",
           "-o",
-          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-anmtal4t/3-contracts/Return"
+          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-1yef5kih/3-contracts/Return"
         ],
         [
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/_build/default/bin/assay.exe",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/_build/bin/assay",
           "emit",
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/corpus/contracts/Zero.asy",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/contracts/Zero.asy",
           "-o",
-          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-anmtal4t/3-contracts/Zero"
+          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-1yef5kih/3-contracts/Zero"
         ],
         [
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/_build/default/bin/assay.exe",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/_build/bin/assay",
           "emit",
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/corpus/contracts/Maximum.asy",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/contracts/Maximum.asy",
           "-o",
-          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-anmtal4t/3-contracts/Maximum"
+          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-1yef5kih/3-contracts/Maximum"
         ],
         [
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/_build/default/bin/assay.exe",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/_build/bin/assay",
           "emit",
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/corpus/contracts/Arithmetic.asy",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/contracts/Arithmetic.asy",
           "-o",
-          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-anmtal4t/3-contracts/Arithmetic"
+          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-1yef5kih/3-contracts/Arithmetic"
         ],
         [
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/_build/default/bin/assay.exe",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/_build/bin/assay",
           "emit",
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/corpus/contracts/Pair.asy",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/contracts/Pair.asy",
           "-o",
-          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-anmtal4t/3-contracts/Pair"
+          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-1yef5kih/3-contracts/Pair"
         ],
         [
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/_build/default/bin/assay.exe",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/_build/bin/assay",
           "emit",
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/corpus/contracts/TwoSlots.asy",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/contracts/TwoSlots.asy",
           "-o",
-          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-anmtal4t/3-contracts/TwoSlots"
+          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-1yef5kih/3-contracts/TwoSlots"
         ],
         [
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/_build/default/bin/assay.exe",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/_build/bin/assay",
           "emit",
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/corpus/contracts/WideLabel.asy",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/contracts/WideLabel.asy",
           "-o",
-          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-anmtal4t/3-contracts/WideLabel"
+          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-1yef5kih/3-contracts/WideLabel"
         ]
       ],
-      "cwd": "/Users/oobi/Documents/gpt1/assay-m2-abi-codec",
-      "elapsed_ms": 53.364959000000006
+      "cwd": "/Users/oobi/Documents/gpt1/assay-bend-migration",
+      "elapsed_ms": 2355.033375
     },
     {
       "round": 3,
       "workload": "proofs",
       "argv": [
         [
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/_build/default/bin/assay.exe",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/_build/bin/assay",
           "emit",
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/corpus/proofs/Leaf.asy",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/proofs/Leaf.asy",
           "-o",
-          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-anmtal4t/3-proofs/Leaf"
+          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-1yef5kih/3-proofs/Leaf"
         ],
         [
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/_build/default/bin/assay.exe",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/_build/bin/assay",
           "emit",
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/corpus/proofs/Apply.asy",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/proofs/Apply.asy",
           "-o",
-          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-anmtal4t/3-proofs/Apply"
+          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-1yef5kih/3-proofs/Apply"
         ],
         [
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/_build/default/bin/assay.exe",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/_build/bin/assay",
           "emit",
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/corpus/proofs/Let.asy",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/proofs/Let.asy",
           "-o",
-          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-anmtal4t/3-proofs/Let"
+          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-1yef5kih/3-proofs/Let"
         ]
       ],
-      "cwd": "/Users/oobi/Documents/gpt1/assay-m2-abi-codec",
-      "elapsed_ms": 18.362292
+      "cwd": "/Users/oobi/Documents/gpt1/assay-bend-migration",
+      "elapsed_ms": 766.0074179999999
     },
     {
       "round": 3,
-      "workload": "ocamlopt",
+      "workload": "bend_compile",
       "argv": [
-        "/Users/oobi/.opam/zxcaml-p1/bin/ocamlopt",
-        "-c",
-        "-I",
-        "/Users/oobi/.opam/zxcaml-p1/lib/zarith",
-        "bignum.ml",
-        "budget.mli",
-        "error.ml",
-        "level.mli",
-        "literal.ml",
-        "quantity.ml",
-        "shape.ml",
-        "level.ml",
-        "eterm.ml",
-        "budget.ml",
-        "term.ml",
-        "value.ml",
-        "pp.ml",
-        "positivity.ml",
-        "rules.ml",
-        "spec_count.ml",
-        "prim.ml",
-        "order.ml",
-        "global.ml",
-        "eval.ml",
-        "conv.ml",
-        "check.ml",
-        "erase.ml",
-        "totality.ml"
+        [
+          "/Users/oobi/Documents/gpt1/assay-bend2-v2.0.25/bin/bend",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/bend2/Return.bend",
+          "-o",
+          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-1yef5kih/3-bend_compile/Return.c"
+        ],
+        [
+          "/Users/oobi/Documents/gpt1/assay-bend2-v2.0.25/bin/bend",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/bend2/Arithmetic.bend",
+          "-o",
+          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-1yef5kih/3-bend_compile/Arithmetic.c"
+        ],
+        [
+          "/Users/oobi/Documents/gpt1/assay-bend2-v2.0.25/bin/bend",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/bend2/Pair.bend",
+          "-o",
+          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-1yef5kih/3-bend_compile/Pair.c"
+        ],
+        [
+          "/Users/oobi/Documents/gpt1/assay-bend2-v2.0.25/bin/bend",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/bend2/Leaf.bend",
+          "-o",
+          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-1yef5kih/3-bend_compile/Leaf.c"
+        ],
+        [
+          "/Users/oobi/Documents/gpt1/assay-bend2-v2.0.25/bin/bend",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/bend2/Apply.bend",
+          "-o",
+          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-1yef5kih/3-bend_compile/Apply.c"
+        ],
+        [
+          "/Users/oobi/Documents/gpt1/assay-bend2-v2.0.25/bin/bend",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/bend2/Let.bend",
+          "-o",
+          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-1yef5kih/3-bend_compile/Let.c"
+        ]
       ],
-      "cwd": "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-anmtal4t/3-ocamlopt",
-      "elapsed_ms": 1459.265291
+      "cwd": "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-1yef5kih/3-bend_compile",
+      "elapsed_ms": 1047.633001
     },
     {
       "round": 3,
-      "workload": "ocamlc",
+      "workload": "bend_check",
       "argv": [
-        "/Users/oobi/.opam/zxcaml-p1/bin/ocamlc",
-        "-c",
-        "-I",
-        "/Users/oobi/.opam/zxcaml-p1/lib/zarith",
-        "bignum.ml",
-        "budget.mli",
-        "error.ml",
-        "level.mli",
-        "literal.ml",
-        "quantity.ml",
-        "shape.ml",
-        "level.ml",
-        "eterm.ml",
-        "budget.ml",
-        "term.ml",
-        "value.ml",
-        "pp.ml",
-        "positivity.ml",
-        "rules.ml",
-        "spec_count.ml",
-        "prim.ml",
-        "order.ml",
-        "global.ml",
-        "eval.ml",
-        "conv.ml",
-        "check.ml",
-        "erase.ml",
-        "totality.ml"
+        [
+          "/Users/oobi/Documents/gpt1/assay-bend2-v2.0.25/bin/bend",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/bend2/Return.bend",
+          "--check-only"
+        ],
+        [
+          "/Users/oobi/Documents/gpt1/assay-bend2-v2.0.25/bin/bend",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/bend2/Arithmetic.bend",
+          "--check-only"
+        ],
+        [
+          "/Users/oobi/Documents/gpt1/assay-bend2-v2.0.25/bin/bend",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/bend2/Pair.bend",
+          "--check-only"
+        ],
+        [
+          "/Users/oobi/Documents/gpt1/assay-bend2-v2.0.25/bin/bend",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/bend2/Leaf.bend",
+          "--check-only"
+        ],
+        [
+          "/Users/oobi/Documents/gpt1/assay-bend2-v2.0.25/bin/bend",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/bend2/Apply.bend",
+          "--check-only"
+        ],
+        [
+          "/Users/oobi/Documents/gpt1/assay-bend2-v2.0.25/bin/bend",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/bend2/Let.bend",
+          "--check-only"
+        ]
       ],
-      "cwd": "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-anmtal4t/3-ocamlc",
-      "elapsed_ms": 241.456292
+      "cwd": "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-1yef5kih/3-bend_check",
+      "elapsed_ms": 913.594542
     },
     {
       "round": 3,
       "workload": "fixed",
       "argv": [
-        "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/_build/default/bin/assay.exe",
+        "/Users/oobi/Documents/gpt1/assay-bend-migration/_build/bin/assay",
         "spec-count"
       ],
-      "cwd": "/Users/oobi/Documents/gpt1/assay-m2-abi-codec",
-      "elapsed_ms": 6.467917
+      "cwd": "/Users/oobi/Documents/gpt1/assay-bend-migration",
+      "elapsed_ms": 90.621917
     },
     {
       "round": 4,
       "workload": "contracts",
       "argv": [
         [
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/_build/default/bin/assay.exe",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/_build/bin/assay",
           "emit",
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/corpus/contracts/Ref20.asy",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/contracts/Ref20.asy",
           "-o",
-          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-anmtal4t/4-contracts/Ref20"
+          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-1yef5kih/4-contracts/Ref20"
         ],
         [
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/_build/default/bin/assay.exe",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/_build/bin/assay",
           "emit",
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/corpus/contracts/Return.asy",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/contracts/Return.asy",
           "-o",
-          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-anmtal4t/4-contracts/Return"
+          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-1yef5kih/4-contracts/Return"
         ],
         [
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/_build/default/bin/assay.exe",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/_build/bin/assay",
           "emit",
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/corpus/contracts/Zero.asy",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/contracts/Zero.asy",
           "-o",
-          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-anmtal4t/4-contracts/Zero"
+          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-1yef5kih/4-contracts/Zero"
         ],
         [
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/_build/default/bin/assay.exe",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/_build/bin/assay",
           "emit",
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/corpus/contracts/Maximum.asy",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/contracts/Maximum.asy",
           "-o",
-          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-anmtal4t/4-contracts/Maximum"
+          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-1yef5kih/4-contracts/Maximum"
         ],
         [
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/_build/default/bin/assay.exe",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/_build/bin/assay",
           "emit",
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/corpus/contracts/Arithmetic.asy",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/contracts/Arithmetic.asy",
           "-o",
-          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-anmtal4t/4-contracts/Arithmetic"
+          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-1yef5kih/4-contracts/Arithmetic"
         ],
         [
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/_build/default/bin/assay.exe",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/_build/bin/assay",
           "emit",
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/corpus/contracts/Pair.asy",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/contracts/Pair.asy",
           "-o",
-          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-anmtal4t/4-contracts/Pair"
+          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-1yef5kih/4-contracts/Pair"
         ],
         [
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/_build/default/bin/assay.exe",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/_build/bin/assay",
           "emit",
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/corpus/contracts/TwoSlots.asy",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/contracts/TwoSlots.asy",
           "-o",
-          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-anmtal4t/4-contracts/TwoSlots"
+          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-1yef5kih/4-contracts/TwoSlots"
         ],
         [
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/_build/default/bin/assay.exe",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/_build/bin/assay",
           "emit",
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/corpus/contracts/WideLabel.asy",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/contracts/WideLabel.asy",
           "-o",
-          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-anmtal4t/4-contracts/WideLabel"
+          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-1yef5kih/4-contracts/WideLabel"
         ]
       ],
-      "cwd": "/Users/oobi/Documents/gpt1/assay-m2-abi-codec",
-      "elapsed_ms": 53.587334
+      "cwd": "/Users/oobi/Documents/gpt1/assay-bend-migration",
+      "elapsed_ms": 2243.115459
     },
     {
       "round": 4,
       "workload": "proofs",
       "argv": [
         [
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/_build/default/bin/assay.exe",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/_build/bin/assay",
           "emit",
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/corpus/proofs/Leaf.asy",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/proofs/Leaf.asy",
           "-o",
-          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-anmtal4t/4-proofs/Leaf"
+          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-1yef5kih/4-proofs/Leaf"
         ],
         [
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/_build/default/bin/assay.exe",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/_build/bin/assay",
           "emit",
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/corpus/proofs/Apply.asy",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/proofs/Apply.asy",
           "-o",
-          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-anmtal4t/4-proofs/Apply"
+          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-1yef5kih/4-proofs/Apply"
         ],
         [
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/_build/default/bin/assay.exe",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/_build/bin/assay",
           "emit",
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/corpus/proofs/Let.asy",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/proofs/Let.asy",
           "-o",
-          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-anmtal4t/4-proofs/Let"
+          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-1yef5kih/4-proofs/Let"
         ]
       ],
-      "cwd": "/Users/oobi/Documents/gpt1/assay-m2-abi-codec",
-      "elapsed_ms": 20.737958
+      "cwd": "/Users/oobi/Documents/gpt1/assay-bend-migration",
+      "elapsed_ms": 710.61925
     },
     {
       "round": 4,
-      "workload": "ocamlopt",
+      "workload": "bend_compile",
       "argv": [
-        "/Users/oobi/.opam/zxcaml-p1/bin/ocamlopt",
-        "-c",
-        "-I",
-        "/Users/oobi/.opam/zxcaml-p1/lib/zarith",
-        "bignum.ml",
-        "budget.mli",
-        "error.ml",
-        "level.mli",
-        "literal.ml",
-        "quantity.ml",
-        "shape.ml",
-        "level.ml",
-        "eterm.ml",
-        "budget.ml",
-        "term.ml",
-        "value.ml",
-        "pp.ml",
-        "positivity.ml",
-        "rules.ml",
-        "spec_count.ml",
-        "prim.ml",
-        "order.ml",
-        "global.ml",
-        "eval.ml",
-        "conv.ml",
-        "check.ml",
-        "erase.ml",
-        "totality.ml"
+        [
+          "/Users/oobi/Documents/gpt1/assay-bend2-v2.0.25/bin/bend",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/bend2/Return.bend",
+          "-o",
+          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-1yef5kih/4-bend_compile/Return.c"
+        ],
+        [
+          "/Users/oobi/Documents/gpt1/assay-bend2-v2.0.25/bin/bend",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/bend2/Arithmetic.bend",
+          "-o",
+          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-1yef5kih/4-bend_compile/Arithmetic.c"
+        ],
+        [
+          "/Users/oobi/Documents/gpt1/assay-bend2-v2.0.25/bin/bend",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/bend2/Pair.bend",
+          "-o",
+          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-1yef5kih/4-bend_compile/Pair.c"
+        ],
+        [
+          "/Users/oobi/Documents/gpt1/assay-bend2-v2.0.25/bin/bend",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/bend2/Leaf.bend",
+          "-o",
+          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-1yef5kih/4-bend_compile/Leaf.c"
+        ],
+        [
+          "/Users/oobi/Documents/gpt1/assay-bend2-v2.0.25/bin/bend",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/bend2/Apply.bend",
+          "-o",
+          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-1yef5kih/4-bend_compile/Apply.c"
+        ],
+        [
+          "/Users/oobi/Documents/gpt1/assay-bend2-v2.0.25/bin/bend",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/bend2/Let.bend",
+          "-o",
+          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-1yef5kih/4-bend_compile/Let.c"
+        ]
       ],
-      "cwd": "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-anmtal4t/4-ocamlopt",
-      "elapsed_ms": 1555.943125
+      "cwd": "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-1yef5kih/4-bend_compile",
+      "elapsed_ms": 932.062168
     },
     {
       "round": 4,
-      "workload": "ocamlc",
+      "workload": "bend_check",
       "argv": [
-        "/Users/oobi/.opam/zxcaml-p1/bin/ocamlc",
-        "-c",
-        "-I",
-        "/Users/oobi/.opam/zxcaml-p1/lib/zarith",
-        "bignum.ml",
-        "budget.mli",
-        "error.ml",
-        "level.mli",
-        "literal.ml",
-        "quantity.ml",
-        "shape.ml",
-        "level.ml",
-        "eterm.ml",
-        "budget.ml",
-        "term.ml",
-        "value.ml",
-        "pp.ml",
-        "positivity.ml",
-        "rules.ml",
-        "spec_count.ml",
-        "prim.ml",
-        "order.ml",
-        "global.ml",
-        "eval.ml",
-        "conv.ml",
-        "check.ml",
-        "erase.ml",
-        "totality.ml"
+        [
+          "/Users/oobi/Documents/gpt1/assay-bend2-v2.0.25/bin/bend",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/bend2/Return.bend",
+          "--check-only"
+        ],
+        [
+          "/Users/oobi/Documents/gpt1/assay-bend2-v2.0.25/bin/bend",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/bend2/Arithmetic.bend",
+          "--check-only"
+        ],
+        [
+          "/Users/oobi/Documents/gpt1/assay-bend2-v2.0.25/bin/bend",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/bend2/Pair.bend",
+          "--check-only"
+        ],
+        [
+          "/Users/oobi/Documents/gpt1/assay-bend2-v2.0.25/bin/bend",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/bend2/Leaf.bend",
+          "--check-only"
+        ],
+        [
+          "/Users/oobi/Documents/gpt1/assay-bend2-v2.0.25/bin/bend",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/bend2/Apply.bend",
+          "--check-only"
+        ],
+        [
+          "/Users/oobi/Documents/gpt1/assay-bend2-v2.0.25/bin/bend",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/bend2/Let.bend",
+          "--check-only"
+        ]
       ],
-      "cwd": "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-anmtal4t/4-ocamlc",
-      "elapsed_ms": 265.108625
+      "cwd": "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-1yef5kih/4-bend_check",
+      "elapsed_ms": 807.4775830000001
     },
     {
       "round": 4,
       "workload": "fixed",
       "argv": [
-        "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/_build/default/bin/assay.exe",
+        "/Users/oobi/Documents/gpt1/assay-bend-migration/_build/bin/assay",
         "spec-count"
       ],
-      "cwd": "/Users/oobi/Documents/gpt1/assay-m2-abi-codec",
-      "elapsed_ms": 12.258708
+      "cwd": "/Users/oobi/Documents/gpt1/assay-bend-migration",
+      "elapsed_ms": 166.992375
     },
     {
       "round": 5,
       "workload": "contracts",
       "argv": [
         [
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/_build/default/bin/assay.exe",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/_build/bin/assay",
           "emit",
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/corpus/contracts/Ref20.asy",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/contracts/Ref20.asy",
           "-o",
-          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-anmtal4t/5-contracts/Ref20"
+          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-1yef5kih/5-contracts/Ref20"
         ],
         [
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/_build/default/bin/assay.exe",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/_build/bin/assay",
           "emit",
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/corpus/contracts/Return.asy",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/contracts/Return.asy",
           "-o",
-          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-anmtal4t/5-contracts/Return"
+          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-1yef5kih/5-contracts/Return"
         ],
         [
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/_build/default/bin/assay.exe",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/_build/bin/assay",
           "emit",
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/corpus/contracts/Zero.asy",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/contracts/Zero.asy",
           "-o",
-          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-anmtal4t/5-contracts/Zero"
+          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-1yef5kih/5-contracts/Zero"
         ],
         [
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/_build/default/bin/assay.exe",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/_build/bin/assay",
           "emit",
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/corpus/contracts/Maximum.asy",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/contracts/Maximum.asy",
           "-o",
-          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-anmtal4t/5-contracts/Maximum"
+          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-1yef5kih/5-contracts/Maximum"
         ],
         [
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/_build/default/bin/assay.exe",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/_build/bin/assay",
           "emit",
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/corpus/contracts/Arithmetic.asy",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/contracts/Arithmetic.asy",
           "-o",
-          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-anmtal4t/5-contracts/Arithmetic"
+          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-1yef5kih/5-contracts/Arithmetic"
         ],
         [
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/_build/default/bin/assay.exe",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/_build/bin/assay",
           "emit",
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/corpus/contracts/Pair.asy",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/contracts/Pair.asy",
           "-o",
-          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-anmtal4t/5-contracts/Pair"
+          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-1yef5kih/5-contracts/Pair"
         ],
         [
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/_build/default/bin/assay.exe",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/_build/bin/assay",
           "emit",
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/corpus/contracts/TwoSlots.asy",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/contracts/TwoSlots.asy",
           "-o",
-          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-anmtal4t/5-contracts/TwoSlots"
+          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-1yef5kih/5-contracts/TwoSlots"
         ],
         [
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/_build/default/bin/assay.exe",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/_build/bin/assay",
           "emit",
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/corpus/contracts/WideLabel.asy",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/contracts/WideLabel.asy",
           "-o",
-          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-anmtal4t/5-contracts/WideLabel"
+          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-1yef5kih/5-contracts/WideLabel"
         ]
       ],
-      "cwd": "/Users/oobi/Documents/gpt1/assay-m2-abi-codec",
-      "elapsed_ms": 62.345958
+      "cwd": "/Users/oobi/Documents/gpt1/assay-bend-migration",
+      "elapsed_ms": 2522.688042
     },
     {
       "round": 5,
       "workload": "proofs",
       "argv": [
         [
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/_build/default/bin/assay.exe",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/_build/bin/assay",
           "emit",
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/corpus/proofs/Leaf.asy",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/proofs/Leaf.asy",
           "-o",
-          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-anmtal4t/5-proofs/Leaf"
+          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-1yef5kih/5-proofs/Leaf"
         ],
         [
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/_build/default/bin/assay.exe",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/_build/bin/assay",
           "emit",
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/corpus/proofs/Apply.asy",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/proofs/Apply.asy",
           "-o",
-          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-anmtal4t/5-proofs/Apply"
+          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-1yef5kih/5-proofs/Apply"
         ],
         [
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/_build/default/bin/assay.exe",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/_build/bin/assay",
           "emit",
-          "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/corpus/proofs/Let.asy",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/proofs/Let.asy",
           "-o",
-          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-anmtal4t/5-proofs/Let"
+          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-1yef5kih/5-proofs/Let"
         ]
       ],
-      "cwd": "/Users/oobi/Documents/gpt1/assay-m2-abi-codec",
-      "elapsed_ms": 20.895042
+      "cwd": "/Users/oobi/Documents/gpt1/assay-bend-migration",
+      "elapsed_ms": 767.8872079999999
     },
     {
       "round": 5,
-      "workload": "ocamlopt",
+      "workload": "bend_compile",
       "argv": [
-        "/Users/oobi/.opam/zxcaml-p1/bin/ocamlopt",
-        "-c",
-        "-I",
-        "/Users/oobi/.opam/zxcaml-p1/lib/zarith",
-        "bignum.ml",
-        "budget.mli",
-        "error.ml",
-        "level.mli",
-        "literal.ml",
-        "quantity.ml",
-        "shape.ml",
-        "level.ml",
-        "eterm.ml",
-        "budget.ml",
-        "term.ml",
-        "value.ml",
-        "pp.ml",
-        "positivity.ml",
-        "rules.ml",
-        "spec_count.ml",
-        "prim.ml",
-        "order.ml",
-        "global.ml",
-        "eval.ml",
-        "conv.ml",
-        "check.ml",
-        "erase.ml",
-        "totality.ml"
+        [
+          "/Users/oobi/Documents/gpt1/assay-bend2-v2.0.25/bin/bend",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/bend2/Return.bend",
+          "-o",
+          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-1yef5kih/5-bend_compile/Return.c"
+        ],
+        [
+          "/Users/oobi/Documents/gpt1/assay-bend2-v2.0.25/bin/bend",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/bend2/Arithmetic.bend",
+          "-o",
+          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-1yef5kih/5-bend_compile/Arithmetic.c"
+        ],
+        [
+          "/Users/oobi/Documents/gpt1/assay-bend2-v2.0.25/bin/bend",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/bend2/Pair.bend",
+          "-o",
+          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-1yef5kih/5-bend_compile/Pair.c"
+        ],
+        [
+          "/Users/oobi/Documents/gpt1/assay-bend2-v2.0.25/bin/bend",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/bend2/Leaf.bend",
+          "-o",
+          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-1yef5kih/5-bend_compile/Leaf.c"
+        ],
+        [
+          "/Users/oobi/Documents/gpt1/assay-bend2-v2.0.25/bin/bend",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/bend2/Apply.bend",
+          "-o",
+          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-1yef5kih/5-bend_compile/Apply.c"
+        ],
+        [
+          "/Users/oobi/Documents/gpt1/assay-bend2-v2.0.25/bin/bend",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/bend2/Let.bend",
+          "-o",
+          "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-1yef5kih/5-bend_compile/Let.c"
+        ]
       ],
-      "cwd": "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-anmtal4t/5-ocamlopt",
-      "elapsed_ms": 1491.554292
+      "cwd": "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-1yef5kih/5-bend_compile",
+      "elapsed_ms": 881.3092519999999
     },
     {
       "round": 5,
-      "workload": "ocamlc",
+      "workload": "bend_check",
       "argv": [
-        "/Users/oobi/.opam/zxcaml-p1/bin/ocamlc",
-        "-c",
-        "-I",
-        "/Users/oobi/.opam/zxcaml-p1/lib/zarith",
-        "bignum.ml",
-        "budget.mli",
-        "error.ml",
-        "level.mli",
-        "literal.ml",
-        "quantity.ml",
-        "shape.ml",
-        "level.ml",
-        "eterm.ml",
-        "budget.ml",
-        "term.ml",
-        "value.ml",
-        "pp.ml",
-        "positivity.ml",
-        "rules.ml",
-        "spec_count.ml",
-        "prim.ml",
-        "order.ml",
-        "global.ml",
-        "eval.ml",
-        "conv.ml",
-        "check.ml",
-        "erase.ml",
-        "totality.ml"
+        [
+          "/Users/oobi/Documents/gpt1/assay-bend2-v2.0.25/bin/bend",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/bend2/Return.bend",
+          "--check-only"
+        ],
+        [
+          "/Users/oobi/Documents/gpt1/assay-bend2-v2.0.25/bin/bend",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/bend2/Arithmetic.bend",
+          "--check-only"
+        ],
+        [
+          "/Users/oobi/Documents/gpt1/assay-bend2-v2.0.25/bin/bend",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/bend2/Pair.bend",
+          "--check-only"
+        ],
+        [
+          "/Users/oobi/Documents/gpt1/assay-bend2-v2.0.25/bin/bend",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/bend2/Leaf.bend",
+          "--check-only"
+        ],
+        [
+          "/Users/oobi/Documents/gpt1/assay-bend2-v2.0.25/bin/bend",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/bend2/Apply.bend",
+          "--check-only"
+        ],
+        [
+          "/Users/oobi/Documents/gpt1/assay-bend2-v2.0.25/bin/bend",
+          "/Users/oobi/Documents/gpt1/assay-bend-migration/corpus/bend2/Let.bend",
+          "--check-only"
+        ]
       ],
-      "cwd": "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-anmtal4t/5-ocamlc",
-      "elapsed_ms": 246.015375
+      "cwd": "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-ratio-1yef5kih/5-bend_check",
+      "elapsed_ms": 882.1010850000001
     },
     {
       "round": 5,
       "workload": "fixed",
       "argv": [
-        "/Users/oobi/Documents/gpt1/assay-m2-abi-codec/_build/default/bin/assay.exe",
+        "/Users/oobi/Documents/gpt1/assay-bend-migration/_build/bin/assay",
         "spec-count"
       ],
-      "cwd": "/Users/oobi/Documents/gpt1/assay-m2-abi-codec",
-      "elapsed_ms": 6.572958
+      "cwd": "/Users/oobi/Documents/gpt1/assay-bend-migration",
+      "elapsed_ms": 87.025916
     }
   ],
   "compiler_sources_sha256": {
-    "abi/abi.ml": "c95e4145d15b1da481ded0acf0d9f5cddb775e179acea70d2c96cea706c6be36",
-    "abi/dune": "ad180ef3e8d206557ff7c709738816fa76fe6a2a04da53523fdef5833d3ea398",
-    "abi/layout.ml": "5c2be57456f6788c85f151bd10ce9ba1daaa4b42627cd8131da39d1e11cf6f57",
-    "asm/asm.ml": "956319be1ad805dec311383433e630ef349b4a85bf14bbdd35882e843de67f56",
-    "asm/dune": "0b0f2bb979fd95dc5927a34f861bbd7c8ef3715542d4769da2cf1772bc795036",
-    "asm/listing.ml": "8424958745c5246771f31805454c08437668336a460240951a9d282b6d47a2f9",
-    "bin/assay.ml": "0e793c350181728215adeb9f29927ec3002c518381d8dcce3292599eff3d555d",
-    "bin/differential.ml": "6cdeb90140be72b3d6a0f8edc6f299e5cfc1ba7af9e1d57dba6792429f3d4e63",
-    "bin/dune": "b3cfd0ed2aa3d424a887f4fe54d3c8c83e5805f9c407b72a25e1d33f8b08b99f",
-    "bin/trace.ml": "9ebbbccda6f7e025488bf918e00ea0ba451345f6c720b01e4a1deaaef25413d4",
-    "dune": "a52a26b962f1c151063f898b64225c3c032c0658ef3c8e609b1de25b54db16b8",
-    "dune-project": "70fb3327524485dd86c3dffb80f92856c4e531789e7bcb3c816e8227939180ac",
-    "emit/contract.ml": "116d6b863ad53eda4ccc47cc894a8494e2da1de5ee28f08a0b0050351a032971",
-    "emit/contract.mli": "a19f6ad65739ecdf04a245efaa903fe0751ccc80f417a08c3e287b97b26570d8",
-    "emit/dune": "0ec144095ce543954f6dfd69cbf8a1f18afe234c1b2c284e5d2cb76ecf3bfef7",
-    "emit/emit.ml": "ae78ab5862c58966417798773f1cf5ebf5e8d2267b045d81bc58dfc8c8e3600e",
-    "emit/model.ml": "2ac06c258cc7af3ac3570cb03dcad88b30019589b74314ed208d913df48d1b32",
-    "emit/model.mli": "88f365cec9a75f2d35488c1d0606d53acc4cf967fbcc21779598c59bdaeb9055",
-    "emit/recognize.ml": "a67029643cf4f724cd08730f2d53194390f4ddcb42fcc7f1938ae8db5eb50f95",
-    "keccak/dune": "26c3bd15e1a951c858afc8dd6fb3b4ef42f6e215867fb70876d57db7761670d7",
-    "keccak/keccak.ml": "c334fd6277a58d3182855e535f4b61bef762360fdef8f453b741009601704210",
-    "lib/bignum.ml": "7159dd7e75fa08a5fc272cba76a8ec6214c7d190151dabf7db1a13bf5ecddd72",
-    "lib/budget.ml": "7d8b2afc86883415c892d6fea0e56c2115e4d859b6b6daa21c611b4e9517f028",
-    "lib/budget.mli": "b830149c9eb6d9362786d2e92c2dc8322f4d31f7b4cfc960ac6e1681d385578f",
-    "lib/check.ml": "cdc3712bf5ed0fa49d8dae34ea946d85a195ea94b25235c821b155570010e335",
-    "lib/conv.ml": "e73e707bcdac54808d8f8a1d9e9a174062edf0afd970972dee2c6d024f6bbe39",
-    "lib/dune": "0e60f3ebdbbf7182dba98dd70eb2d494bd83d6e2934dd1f344f98e4b0e392ec0",
-    "lib/erase.ml": "a6d03447ab9dfedf8e53bceff26cd7da57f113bb4b5d1453aecd618fac508a88",
-    "lib/error.ml": "44c9c263479575ec04db5056404a5940d6bb5514a5b9e1ec6215385c6eccb5b6",
-    "lib/eterm.ml": "028ff6e790f9c391463b961f7a3eac12e105d484285cfde1597e52c5b9ac69c7",
-    "lib/eval.ml": "155ddf7578d4ad68352505064616bed6afa7a260a88f3ddf1722b95fa6a6bd18",
-    "lib/global.ml": "2e5d2d932dfddcb329bcfdf237df87a70f2d79820470dc236e337ec6d275c329",
-    "lib/level.ml": "344bb9819870d8c459154ac8109ba1d69a4ee4312670f3887c6ed30d3dbca448",
-    "lib/level.mli": "c143b2b97e417724a81f8e83548b946d3339917488758b4d5fbf9da9e72e6811",
-    "lib/literal.ml": "80554b1d98c8dde3b474023a01ac57cc4abcaba2a5f20b707041cc5f0361b617",
-    "lib/order.ml": "d2cc3258fde25b61ba33093eaf19112c319329dc5b46ba029b3f042c14388e94",
-    "lib/positivity.ml": "97cb5fc9484ecaec360b4be1ac42f0668ae767aad25efc10ddbc1d4143185471",
-    "lib/pp.ml": "69618578ebb33a3d9803e604760252c77c64681aef2d847f3e1b40f9464e3895",
-    "lib/prim.ml": "5224df4f75e499b8fb962fad2a256b31086fcc9de5ab2f353eb90f61a8408aaa",
-    "lib/quantity.ml": "bf3f633c40a0dbb362cf85ca41b798ae0c9e1d4eca7e09f9b6f482bab2bfbb8b",
-    "lib/rules.ml": "b625cec31061ca79f77669889039e4ae2658393911e39076dc65189022f702ab",
-    "lib/shape.ml": "dafd7741b4332dcab6faba9cb9afb131fb3654172e0d375b1edd1046e69f7f7b",
-    "lib/spec_count.ml": "9a4cb97373ddbabb6156b04f92cc41803ee1b714391ccb669cf38e60d36437e6",
-    "lib/term.ml": "2de6729958bfbc3af10ed2e9c51d6591ab40fa16bd19b7acea1fbf37adf60690",
-    "lib/totality.ml": "046c608584ac21d465d46b05119a89dca5488a15113359eea30ed318a3f7c028",
-    "lib/value.ml": "997f4634df60744c49555e896c1de8d60e51a1086e731e547b48450def9c68c7",
-    "surface/dune": "c45bcc3721c5711848423635d08c3d5e41691bb32adda95efa0be17b7f3a3be4",
-    "surface/elab.ml": "657b134e25e495e6edc5435bb3c9335bc48637915045fba91da9a595d2e3280d",
-    "surface/lexer.ml": "bb524f0202a01ab0b7a2e94745c9af50c5eede2a4c7d3fa450be785e2eb14254",
-    "surface/parser.ml": "107bb45cfba1335a41cf0268e6c28e05dbb961c1c454c47ef364683d6e04d977",
-    "surface/syntax.ml": "774c0c713f2cdfe493656131b446eb10614e9415ef4d3a0d7cf8a64d2da04c5a",
-    "surface/token.ml": "cd93b520f023f2aa80f42a4e352b47e63fd0c05e399f4c2344af898054fbb6db"
+    "Makefile": "b3a5d81e20832434a7bf4d4e235754a523c6b13d11b79331e09fa39de62c9a5e",
+    "assay": "34963dcf64733713c42962064f0a29c77ffc398d5a00b63aaec1a94c193b701b",
+    "dev/bend_source.py": "4b2661b5bc0a9abe0321f019501582280914d9fdd0f409e24d457b1772bf8030",
+    "dev/build.py": "3b738bbdcd51774834faf05c17119ddb1834d65816f16283d46d3386e09e6fc0",
+    "dev/build.sh": "0e3beb755f726a9946f67a2fb3677bdcc7366f7168316778a593c07bc47fb0c0",
+    "dev/toolchain.json": "8147934637be14ae612adfb1096075e837fdb7f5d41e917915ad5099df633157",
+    "src/abi.bend": "398cc6d2966137146dfeda592fea287975a4499515265d5c13e33a1c2883f14e",
+    "src/assembler.bend": "926e906d011f53dd4b92ff2ffbd090d472a46cca7fae72829b9cb3bd98223c9d",
+    "src/cli.bend": "be3108862ee0b69fc5990673b6a9b3ec66b76d871ca79cca6dc9b0ac06a494c4",
+    "src/emitter.bend": "36f2d023f6490b086017de8bc08c777989432389e0d0e0327af1d5888240aef1",
+    "src/frontend.bend": "902925080b710539f33ea9b6b399ae0ac9a6f4ff5c4678024f73080164d3d6b5",
+    "src/keccak.bend": "cbfb3275116d3703a803181ceeafe8dc3e74d53f21cb9a539f29c28c5bc8e98a",
+    "src/kernel.bend": "12657d56799719ee73fd354eae52335847cd20fd5d31aa791434a9e34bac717e",
+    "src/layout.bend": "89e938a9e0c8f548f7ada86016ce7a5802cacf114aeb30b33505986ff2a6d5a5",
+    "src/listing.bend": "697b9869205fc92f12b6a50fd4e82c6875440e677f01a06eecf83cb2982934ab",
+    "src/os.js": "69ce5ef48a5ed5c384003bce03d38e5087eb16b5a5a468ad250b47e61c711e1e"
   }
 }

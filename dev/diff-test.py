@@ -10,6 +10,9 @@ import subprocess
 import sys
 import tempfile
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import native_mutations
+
 ROOT = Path(__file__).resolve().parent.parent
 SPEC = importlib.util.spec_from_file_location('differential', ROOT / 'evm/diff.py')
 DIFF = importlib.util.module_from_spec(SPEC)
@@ -50,7 +53,7 @@ def live():
                 and report['storage'].get(DIFF.RECEIVER, {}) == slots, 'DIFF-LIVE ' + name)
         receipts.append(dict(name=name, report=report, evidence=evidence))
         print('DIFF-LIVE ' + name + ' OK')
-    binary = str(ROOT / '_build/default/bin/assay.exe')
+    binary = str(ROOT / '_build/bin/assay')
     for source in sorted((ROOT / 'corpus').glob('*/*.asy')):
         with tempfile.TemporaryDirectory(prefix='assay-diff-corpus-') as directory:
             output = Path(directory) / 'out'
@@ -63,7 +66,7 @@ def live():
 
 
 def driver():
-    binary = str(ROOT / '_build/default/bin/assay.exe')
+    binary = str(ROOT / '_build/bin/assay')
     source = str(ROOT / 'examples/Ref20.asy')
     receipts = []
     with tempfile.TemporaryDirectory(prefix='assay-diff-driver-') as directory:
@@ -136,17 +139,17 @@ def driver():
         wrapper.write_text('#!/bin/sh\nprintf "warning\\n" >&2\nprintf "{}"\n')
         invoke('executor-stderr', args, 2, 'DIFF_EXECUTOR: unexpected stderr')
         # A copied binary under a tree without evm/diff.py reaches the helper
-        # guard of bin/differential.ml.  The fixture keeps the default
+        # guard of Differential in src/cli.bend. The fixture keeps the default
         # prestate readable, so only the helper is absent.
         nest = commands / 'tree'
-        (nest / '_build/default/bin').mkdir(parents=True)
+        (nest / '_build/bin').mkdir(parents=True)
         (nest / 'evm/fixtures').mkdir(parents=True)
         shutil.copy2(ROOT / 'evm/fixtures/cancun.json', nest / 'evm/fixtures/cancun.json')
-        shutil.copy2(binary, nest / '_build/default/bin/assay.exe')
+        native_mutations.copy_build(ROOT, nest)
         invoke('missing-helper', args, 2, 'DIFF_HELPER: cannot read evm/diff.py',
-               program=str(nest / '_build/default/bin/assay.exe'))
+               program=str(nest / '_build/bin/assay'))
         # A python3 that dies by a signal reaches the WSIGNALED arm.  The
-        # report must name the signal, not the OCaml encoding of it.
+        # report must name the signal, not an encoded signal number.
         runner = commands / 'python3'
         runner.unlink()
         runner.write_text('#!/bin/sh\nkill -TERM $$\n')

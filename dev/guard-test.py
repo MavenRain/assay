@@ -5,6 +5,10 @@ import importlib.util
 import json
 import os
 from pathlib import Path
+
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import native_mutations
 import shutil
 import subprocess
 import sys
@@ -12,7 +16,7 @@ import tempfile
 
 ROOT = Path(__file__).resolve().parent.parent
 WORK = ROOT / '.gatework/guards'
-BINARY = ROOT / '_build/default/bin/assay.exe'
+BINARY = ROOT / '_build/bin/assay'
 spec = importlib.util.spec_from_file_location('guard_errors', ROOT / 'dev/errors-test.py')
 E = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(E)
@@ -232,36 +236,18 @@ def witness(name):
 
 
 def mutants():
-    cases = [
-        ('CLAIM', 'emit/contract.ml', 'let* condition = resolved_condition predicates env name condition in\n        let* ty = resolved_claim env claim in',
-         'let* condition = resolved_condition predicates env name condition in\n        let rec inferred_claim = function\n'
-         '          | Runtime_check (op, a, b) -> Atomic (app (if op = "guardLe" then "Le" else "AddFits") [a; b])\n'
-         '          | Runtime_both (a, b) -> Bundle (inferred_claim a, inferred_claim b) in\n'
-         '        let ty = inferred_claim condition in\n        let _claim = claim in\n        let _ = resolved_claim in',
-         'proof', 'ERROR-REFUSAL'),
-        ('SCHEMA', 'emit/recognize.ml', 'Global.find name globals = Global.find name expected then Ok ()',
-         '(name = "wordNat" || Global.find name globals = Global.find name expected) then Ok ()', 'schema', 'ERROR-REFUSAL'),
-        ('SUB', 'emit/emit.ml', 'let op = if tag = (if errors = [] then 9 else 10) then Add else Sub in',
-         'let op = if tag = (if errors = [] then 9 else 10) then Add else Add in', 'sub', 'MODEL-EXPECTED'),
-        ('OVERFLOW', 'emit/emit.ml', 'if addition then Arithmetic (Add, left, right, index, yes, no)',
-         'if addition then Arithmetic (Add, left, right, index, no, yes)', 'overflow', 'MODEL-EXEC'),
-        ('MODEL', 'emit/model.ml', 'else transaction input storage ((index, result) :: memory) next',
-         'else transaction input storage ((index, Z.zero) :: memory) next', 'model', 'MODEL-EXPECTED'),
-        ('OPCODE', 'emit/emit.ml', '| Sub -> read_operand right @ read_operand left @ [A.Op "SUB"] in',
-         '| Sub -> read_operand left @ read_operand right @ [A.Op "SUB"] in', 'sub', 'COUNTER-EXPECTED'),
-    ]
+    cases = native_mutations.load(__file__)
     with tempfile.TemporaryDirectory(prefix='assay-guard-mutants-') as temporary:
         copy = Path(temporary) / 'copy'
-        shutil.copytree(ROOT, copy, ignore=shutil.ignore_patterns('.*', '_build', '.gatework',
-            '.lake', 'vendor', 'validation', '__pycache__'))
+        native_mutations.copy_project(ROOT, copy)
         for name, relative, before, after, example, marker in cases:
             path = copy / relative
             original = path.read_text()
-            require(original.count(before) == 1, 'GUARD-MUTANT-ANCHOR ' + name)
+            require(native_mutations.count(original, before) == 1, 'GUARD-MUTANT-ANCHOR ' + name)
             for mutated in (True, False):
-                path.write_text(original.replace(before, after) if mutated else original)
+                path.write_text(native_mutations.replace(original, before, after) if mutated else original)
                 label = ('mutant-' if mutated else 'control-') + name
-                build = M.capture(label + '-build', ['zsh', '-f', 'dev/dune.sh', 'build'], cwd=copy, timeout=120)
+                build = M.capture(label + '-build', ['zsh', '-f', 'dev/build.sh', 'build', 'bin/assay'], cwd=copy, timeout=120)
                 require(build.returncode == 0, 'GUARD-MUTANT-BUILD ' + label)
                 result = M.capture(label, ['python3', '-P', 'dev/guard-test.py', 'witness', example], cwd=copy)
                 require(result.returncode == (1 if mutated else 0) and (not mutated or marker in result.stdout), 'GUARD-MUTANT ' + label)

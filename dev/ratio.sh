@@ -1,4 +1,3 @@
-#!/bin/zsh
+#!/bin/sh
 set -eu
-export PATH=/Users/oobi/.opam/zxcaml-p1/bin:$PATH
-exec python3 -P ${0:A:h}/ratio.py "$@"
+exec python3 -P "${0%/*}/ratio.py" "$@"

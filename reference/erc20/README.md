@@ -52,7 +52,7 @@ allowance(owner, spender) =
 The layout describes this reference only and promises no proxy layout
 compatibility. Packing and dynamic input decoding are later M2 work.
 
-Run `python3 -P dev/erc20-test.py` after `zsh -f dev/dune.sh build`.
+Run `python3 -P dev/erc20-test.py` after `zsh -f dev/build.sh build`.
 The gate checks the manifest hashes without regenerating fixtures, compares
 each instruction with the in-tree listing and two external disassemblers,
 and checks selectors, event topics and mapping preimages with both the

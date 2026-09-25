@@ -4,12 +4,17 @@ Assay status: M0 Stage A, 2026-09-10.  The grammar below is inherited from
 kanon `2c2e6e6`; its original specification date is 2026-09-05.  The gate
 legs R0-COUNT and R0-AUDIT read the unchanged inherited counts.
 
+Implementation: native Bend 2. The inherited constructor tables retain
+their algebraic notation. Source locations below refer to the native
+implementation; pinned upstream citations retain their original locations.
+See [the migration notes](dev/BEND2-MIGRATION.md) for build and audit details.
+
 ## 1 The claim
 
 kanon has two type formers, Lan and Ran.  Every type comes from one of the
 two, applied to a shape and a diagram.  There are four schema
 constructors: In and Elim for Lan, Sec and Out for Ran.  There is one
-dispatch point, lib/rules.ml, which maps a shape to its rule pack.  No
+dispatch point, Rules in src/kernel.bend, which maps a shape to its rule pack.  No
 other module in the kernel reads a shape name.
 
 Every surface form in section 8 is sugar for one kernel constructor.  No
@@ -29,20 +34,20 @@ accepted (R-M0-1).  A module path is dotted PascalCase, and a module name
 equals its path under the source root.  The driver rejects every other
 suffix with exit 64 and a named message.
 
-### 2.1 Shapes, lib/shape.ml
+### 2.1 Shapes, Shape in src/kernel.bend
 
 | constructor | milestone | refused by |
 | --- | --- | --- |
-| `SPi of Quantity.t * string * 'a` | M0 | admitted |
-| `SColl of int` | M0 | admitted |
-| `SPar of 'a * 'a` | M2 | rules.ml |
-| `SMu of string * 'a list` | M1 | admitted |
-| `SNu of string * 'a list` | M2 | rules.ml |
+| `SPi{quantity: Quantity, name: String, domain: A}` | M0 | admitted |
+| `SColl{arity: Big}` | M0 | admitted |
+| `SPar{left: A, right: A}` | M2 | kernel.bend |
+| `SMu{name: String, arguments: List<A>}` | M1 | admitted |
+| `SNu{name: String, arguments: List<A>}` | M2 | kernel.bend |
 
-The type parameter is the kernel term.  lib/term.ml therefore spells no
+The type parameter is the kernel term.  Term in src/kernel.bend therefore spells no
 shape name (SA-D5).
 
-Strict positivity, M1 Stage G, lib/positivity.ml.  A constructor field
+Strict positivity, M1 Stage G, Positivity in src/kernel.bend.  A constructor field
 admits the family it declares only strictly positively.  An occurrence
 to the right of an arrow is admitted.  An occurrence to the left of an
 arrow, an occurrence in an argument of a former, and an occurrence under
@@ -52,7 +57,7 @@ and is never reduced to a positive form (D-M1-2, R-Q5).  The check runs
 once, when the constructors are installed, and formation reads the
 stored verdict (A4).
 
-The fibered elimination, M1 Stage H, lib/rules.ml.  An `Elim` at a mu
+The fibered elimination, M1 Stage H, Rules in src/kernel.bend.  An `Elim` at a mu
 shape takes a motive, and an `Elim` with `e_motive` of `None` is refused
 with the word `an elimination at a mu shape needs a motive`:  the branch
 types of an indexed family are not recoverable from the type of the
@@ -70,7 +75,7 @@ constructor's result index expressions and at that constructor's own
 introduction.  An `Elim` at `In (SMu .., ACtor c, args)` reduces to the
 branch at `c` with the arguments substituted.
 
-### 2.2 Terms, lib/term.ml
+### 2.2 Terms, Term in src/kernel.bend
 
 Thirteen constructors.  Two of them form types.
 
@@ -78,39 +83,39 @@ Thirteen constructors.  Two of them form types.
 | --- | --- | --- |
 | `Var of int` | M0 | admitted |
 | `Univ of Level.t`.  Prop is `Univ zero` and `Type n` is `Univ (n + 1)` (SB-D2) | M0 | admitted |
-| `Lan of t Shape.t * t` | M0 | rules.ml, per shape |
-| `Ran of t Shape.t * t` | M0 | rules.ml, per shape |
-| `In of t Shape.t * addr * t list` | M0 | rules.ml, per shape |
-| `Elim of elim` | M0 | rules.ml, per shape |
-| `Sec of t Shape.t * leg list` | M0 | rules.ml, per shape |
-| `Out of t Shape.t * addr * t` | M0 | rules.ml, per shape |
+| `Lan of t Shape.t * t` | M0 | Rules in src/kernel.bend, per shape |
+| `Ran of t Shape.t * t` | M0 | Rules in src/kernel.bend, per shape |
+| `In of t Shape.t * addr * t list` | M0 | Rules in src/kernel.bend, per shape |
+| `Elim of elim` | M0 | Rules in src/kernel.bend, per shape |
+| `Sec of t Shape.t * leg list` | M0 | Rules in src/kernel.bend, per shape |
+| `Out of t Shape.t * addr * t` | M0 | Rules in src/kernel.bend, per shape |
 | `Let of string * t * t * t` | M0 | admitted |
 | `Ann of t * t` | M0 | admitted |
 | `Global of string` | M0 | admitted |
 | `Lit of Literal.t` | M0 | admitted |
-| `Auto` | M2 | check.ml, "instances arrive at M2" |
+| `Auto` | M2 | Check in src/kernel.bend, "instances arrive at M2" |
 
 Addresses.  `APt` is the point address and carries the argument.  `ALeg`
 is the leg address.  `ACtor` is the constructor address of the two
 recursive shapes, so it arrives at M1 and M2.
 
-### 2.3 The erased form, lib/eterm.ml
+### 2.3 The erased form, Eterm in src/frontend.bend
 
 | constructor | milestone | refused by |
 | --- | --- | --- |
 | `KVar KLit KGlobal KErased KLet` | M0 | admitted |
 | `KClos KApp KTail` | M0 | admitted |
 | `KStruct KProj KTag KCase` | M0 | admitted |
-| `KDelay KForce` | M2 | emit.ml |
+| `KDelay KForce` | M2 | Emit in src/emitter.bend |
 | `RI31 RStruct RUnion RFunc` | M0 | admitted |
-| `RThunk` | M2 | emit.ml |
+| `RThunk` | M2 | Emit in src/emitter.bend |
 | `KFun KRec` | M0 | admitted |
 
-`tid` and `fid` are symbolic names and never integers.  lib/link.ml
+`tid` and `fid` are symbolic names and never integers.  the future linker
 resolves them to indices in one pass, so the emitter never computes an
 index.
 
-lib/erase.ml maps each kernel form to one erased form.  The table below
+Erase in src/frontend.bend maps each kernel form to one erased form.  The table below
 has one row for each row of the erasure section of the plan.  The third
 column gives the name the row writes, either a `tid` or a `fid`.
 
@@ -195,7 +200,7 @@ no eta 3: Lan-SColl Ran-SMu Lan-SMu
 ```
 
 Every number in the block is the length of the list printed after it.
-lib/spec_count.ml reads the shape lists from Shape and the former and
+Spec_count in src/frontend.bend reads the shape lists from Shape and the former and
 schema lists from Term.
 
 ## 4 The eta table
@@ -213,9 +218,9 @@ ends.  The table below is derived from that test, not declared.
 
 Lan at SColl n has n introduction addresses, one per leg, so the
 criterion fails and the row is absent.  Ran at SColl 0 holds, and it
-gives Unit its eta.  conv.ml applies each row by expansion.
+gives Unit its eta.  Conv in src/kernel.bend applies each row by expansion.
 
-### 4.1 The rule pack, lib/rules.ml
+### 4.1 The rule pack, Rules in src/kernel.bend
 
 `rules : 'a Shape.t -> (rule_pack, Error.t) result` is the one dispatch
 point.  It gives a pack to the two admitted shapes.  It gives
@@ -241,8 +246,8 @@ pack has these fields, as built.
 | `lan_lvl` | the level function of the left former |
 | `ran_lvl` | the level function of the right former |
 
-A rule reads the checker through an `ops` record, so rules.ml does not
-depend on check.ml and no ref cell exists in lib/ (SB-D12).
+A rule reads the checker through an `ops` record, so Rules in src/kernel.bend does not
+depend on Check in src/kernel.bend and no mutable reference exists in the native kernel (SB-D12).
 
 ## 5 The named rules ledger
 
@@ -251,11 +256,11 @@ declared;  two are present at M0 and the third arrives at M1 Stage H.
 
 | rule | status | where |
 | --- | --- | --- |
-| proof-irrelevance | present at M0 | conv.ml, step one: two terms at a type in `Univ zero` are equal |
-| subsingleton-large-elimination | present | conv.ml, step one, through the `subsingleton` field of the rule pack.  The three-part criterion is tot's, at kan-lang-tot-pin/lib/check.ml:219 and :223 |
-| literal-fast-path | present at M0 | conv.ml, step three: `Lit` compares by value and the five prims reduce on literal arguments |
+| proof-irrelevance | present at M0 | Conv in src/kernel.bend, step one: two terms at a type in `Univ zero` are equal |
+| subsingleton-large-elimination | present | Conv in src/kernel.bend, step one, through the `subsingleton` field of the rule pack.  The three-part criterion is tot's, at kan-lang-tot-pin/lib/check.ml:219 and :223 |
+| literal-fast-path | present at M0 | Conv in src/kernel.bend, step three: `Lit` compares by value and the five prims reduce on literal arguments |
 
-The criterion, M1 Stage H, lib/rules.ml `mu_zero_eliminable`, ported
+The criterion, M1 Stage H, Rules in src/kernel.bend `mu_zero_eliminable`, ported
 part for part from kan-lang-tot-pin/lib/check.ml:223.  Part one: the
 family has no constructor, which is the empty family and gives ex falso
 (pin check.ml:227), or it has exactly one constructor (pin
@@ -311,7 +316,7 @@ Level rules are functions per shape (R-Q6).  `ran_lvl` at SPi is
 is a framework axiom of kanon.  It gives Prop its impredicativity.  M0
 uses closed levels only.  Level variables arrive at M2.
 
-As built, in lib/rules.ml under the comment `(* SB-M3 site *)`:
+As built, in Rules in src/kernel.bend under the comment `(* SB-M3 site *)`:
 
     let imax l l' = if Level.equal l' Level.zero then Level.zero
                     else Level.max l l'
@@ -492,7 +497,7 @@ an erased type parameter changes the field's checked repr but leaves its
 storage type unchanged; nested aggregates retain this property.  The
 emitter casts each field read from eq to its checked repr.  The symbolic
 tids stay distinct, but same-width aggregates have equivalent final
-Wasm struct types.  link.ml maps each repr to a value type for locals and
+Wasm struct types.  the future linker maps each repr to a value type for locals and
 function signatures.  The
 repr `i31` gives a reference to i31.  A pair or a tuple gives a
 reference to its struct type.  A function gives a reference to the
@@ -609,4 +614,4 @@ closes it.
 | finite agreement of the literal fast path | M1 | discharged by Stage K SK-G5 under ruling 2026-09-06 (d): all 5445 unary witnesses and 2000 independent full-range cases described in section 5 pass |
 | subsingleton large elimination | M1 | discharged by Stage H SH-G7: singleton and empty Prop families admit large elimination, non-subsingleton and self-recursive families are refused.  Section 5 records the criterion and its origin in tot |
 | structural recursion certificate | M1 | the elaborator calls `Totality.guard` before it translates a recursive definition into `Elim`.  M0 holds the entry point and no caller.  discharged at M1 Stage I: surface/elab.ml:1004 calls `Totality.guard_group` and only a certificate reaches `Order.translate` at surface/elab.ml:1029 (SI-D9, SI-D13) |
-| the `any` repr | M1 | discharged at Stage D: a runtime value of a variable type takes the tid `any`, which link.ml maps to eqref (SD-D6) |
+| the `any` repr | M1 | discharged at Stage D: a runtime value of a variable type takes the tid `any`, which the future linker maps to eqref (SD-D6) |

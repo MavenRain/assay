@@ -4,6 +4,10 @@ import hashlib
 import importlib.util
 import json
 from pathlib import Path
+
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import native_mutations
 import shutil
 import sys
 import tempfile
@@ -177,34 +181,19 @@ def witness(name):
 
 
 def mutants():
-    cases = [
-        ('ENTRY-EVIDENCE', 'state written (evidence_for fresh ty evidence) rest in\n        Ok (erased_apply',
-         'state written evidence rest in\n        Ok (erased_apply', 'binding-evidence', 'M1-TOOL binding-evidence'),
-        ('LOCAL-EVIDENCE', '~evidence:(evidence_for fresh claim evidence)', '~evidence', 'local-evidence', 'M1-TOOL local-evidence'),
-        ('ANNOTATION', '~some:(fun claim -> let* ty = resolved_claim predicates env claim in Ok (Some ty)) claim',
-         '~some:(fun claim -> let* _ty = resolved_claim predicates env claim in Ok None) claim',
-         'wrong-annotation', 'ERROR-REFUSAL ib-wrong-annotation'),
-        ('UNUSED', 'Ok (erased_apply fresh (claim_type ty) "Tx" term next)\n      | Proven',
-         'let _ = term in Ok next\n      | Proven', 'unused-false', 'ERROR-REFUSAL ib-unused-false'),
-        ('BUNDLE-LIMIT', 'let* _remaining = count 0 4096 ty in Ok ty',
-         'let* _remaining = count 0 8192 ty in Ok ty', 'bundle-expansion', 'ERROR-REFUSAL ib-bundle-expansion'),
-        ('DEPTH-LIMIT', 'if (inferred && depth > 32) || remaining = 0 then fail at "LIMIT" "inferred proof claim',
-         'if (inferred && depth > 1024) || remaining = 0 then fail at "LIMIT" "inferred proof claim',
-         'spine-depth', 'ERROR-REFUSAL ib-spine-depth'),
-    ]
+    cases = native_mutations.load(__file__)
     captures = []
     with tempfile.TemporaryDirectory(prefix='assay-inferred-binding-mutants-') as temporary:
         copy = Path(temporary) / 'copy'
-        shutil.copytree(ROOT, copy, ignore=shutil.ignore_patterns('.*', '_build', '.gatework',
-            '.lake', 'vendor', 'validation', '__pycache__'))
-        path = copy / 'emit/contract.ml'
+        native_mutations.copy_project(ROOT, copy)
+        path = copy / 'src/emitter.bend'
         original = path.read_text()
         for name, before, after, case, marker in cases:
-            require(original.count(before) == 1, 'IB-MUTANT-ANCHOR ' + name)
+            require(native_mutations.count(original, before) == 1, 'IB-MUTANT-ANCHOR ' + name)
             for mutated in (True, False):
-                path.write_text(original.replace(before, after) if mutated else original)
+                path.write_text(native_mutations.replace(original, before, after) if mutated else original)
                 label = ('mutant-' if mutated else 'control-') + name
-                build = M.capture(label + '-build', ['zsh', '-f', 'dev/dune.sh', 'build'], cwd=copy, timeout=120)
+                build = M.capture(label + '-build', ['zsh', '-f', 'dev/build.sh', 'build', 'bin/assay'], cwd=copy, timeout=120)
                 require(build.returncode == 0, 'IB-MUTANT-BUILD ' + label)
                 result = M.capture(label, ['python3', '-P', 'dev/inferred-binding-test.py', 'witness', case], cwd=copy)
                 require(result.returncode == (1 if mutated else 0) and (not mutated or marker in result.stdout), 'IB-MUTANT ' + label)

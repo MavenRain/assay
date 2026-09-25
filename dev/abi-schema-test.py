@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 """Check typed metadata against frozen ABI, selector and event-topic oracles."""
 from pathlib import Path
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import native_mutations
 import json
 import shutil
 import subprocess
@@ -8,7 +11,7 @@ import tempfile
 
 ROOT = Path(__file__).resolve().parent.parent
 WORK = ROOT / '.gatework/abi-schema'
-TARGET = 'test/abi_schema.exe'
+TARGET = 'test/abi_schema'
 
 
 def require(ok, label):
@@ -28,7 +31,7 @@ def argument(name, typ):
 
 
 def inspect(root):
-    text = run(root, str(root / '_build/default' / TARGET))
+    text = run(root, str(root / '_build' / TARGET))
     actual = json.loads(text)
     golden = ROOT / 'reference/erc20/abi.json'
     # jq checks the exact canonicalization used by M2-ABI, including array order.
@@ -79,37 +82,23 @@ def inspect(root):
     return text
 
 
-MUTANTS = [
-    ('UINT8', 'Uint8 -> "uint8"', 'Uint8 -> "uint256"', 'ERC20-JSON'),
-    ('ADDRESS', 'Address -> "address"', 'Address -> "uint256"', 'ERC20-JSON'),
-    ('BOOL', 'Bool -> "bool"', 'Bool -> "uint256"', 'ERC20-JSON'),
-    ('STRING', 'String -> "string"', 'String -> "bytes"', 'ERC20-JSON'),
-    ('INDEXED', 'string_of_bool p.indexed', 'string_of_bool (not p.indexed)', 'ERC20-JSON'),
-    ('OUTPUTS', 'parameters fn.outputs', 'parameters []', 'ERC20-JSON'),
-    ('SIGNATURE', 'signature fn.name fn.inputs', 'signature fn.name (fn.inputs @ fn.outputs)', 'SELECTORS'),
-    ('ANONYMOUS', 'string_of_bool anonymous', 'string_of_bool (not anonymous)', 'ERC20-JSON'),
-]
+MUTANTS = native_mutations.load(__file__)
 
 
 def main():
     WORK.mkdir(parents=True, exist_ok=True)
-    run(ROOT, 'dune', 'build', TARGET)
+    run(ROOT, sys.executable, '-P', 'dev/build.py', 'build', TARGET)
     (WORK / 'control.json').write_text(inspect(ROOT))
-    source = (ROOT / 'abi/abi.ml').read_text()
+    source = (ROOT / 'src/abi.bend').read_text()
     killed = 0
     for name, old, new, witness in MUTANTS:
-        require(source.count(old) == 1, 'MUTANT-PATTERN ' + name)
+        require(native_mutations.count(source, old) == 1, 'MUTANT-PATTERN ' + name)
         with tempfile.TemporaryDirectory(prefix='assay-abi-') as temporary:
-            work = Path(temporary)
-            for relative in ('dune', 'dune-project', 'abi/dune', 'abi/abi.ml', 'abi/layout.ml',
-                             'keccak/dune', 'keccak/keccak.ml', 'test/abi_schema.ml'):
-                target = work / relative
-                target.parent.mkdir(parents=True, exist_ok=True)
-                shutil.copyfile(ROOT / relative, target)
-            (work / 'test/dune').write_text('(executable (name abi_schema) (modules abi_schema) (libraries assay_abi assay_keccak))\n')
-            (work / 'abi/abi.ml').write_text(source.replace(old, new))
+            work = Path(temporary) / "copy"
+            native_mutations.copy_project(ROOT, work)
+            (work / 'src/abi.bend').write_text(native_mutations.replace(source, old, new))
             # A compile error never counts as killing a semantic mutant.
-            run(work, 'dune', 'build', TARGET)
+            run(work, sys.executable, '-P', 'dev/build.py', 'build', TARGET)
             try:
                 inspect(work)
             except ValueError as error:

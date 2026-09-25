@@ -1,0 +1,53 @@
+{
+  "source": "src/keccak.bend",
+  "cases": [
+    [
+      "PADDING",
+      [
+        {
+          "definition": "K.padding",
+          "sha256": "b5ae60b7fa7e47c69e9c5593a8d9135cc6716877a51f713d12c9b750de5c7dcc",
+          "replacement": "def K.padding(left: Nat, first: Bool) -> List<&2, U32>:\n  match left:\n    case 0n: Nil{}\n    case 1n+ +p: (Bool.pick(U32, first, 6, 0) .|. Bool.pick(U32, Nat.is_eq(p, 0n), 128, 0) : U32) <> K.padding(p, False{})\n"
+        }
+      ],
+      null,
+      "K2"
+    ],
+    [
+      "END-BIT",
+      [
+        {
+          "definition": "K.padding",
+          "sha256": "b5ae60b7fa7e47c69e9c5593a8d9135cc6716877a51f713d12c9b750de5c7dcc",
+          "replacement": "def K.padding(left: Nat, first: Bool) -> List<&2, U32>:\n  match left:\n    case 0n: Nil{}\n    case 1n+ +p: (Bool.pick(U32, first, 1, 0) .|. Bool.pick(U32, Nat.is_eq(p, 0n), 0, 0) : U32) <> K.padding(p, False{})\n"
+        }
+      ],
+      null,
+      "K2"
+    ],
+    [
+      "EXACT-RATE",
+      [
+        {
+          "definition": "K.block",
+          "sha256": "ad0707f04d74ea14c0ec5dd9a4ed61c16d5147302e991f8e5e1e4093df56bb89",
+          "replacement": "@unsafe\ndef K.block(block: K.Block, +state: K.State) -> K.State:\n  match block:\n    case K.Block{+bytes, 136n, +rest}: Bool.pick(K.State, NativeString.equal(rest, \"\"), K.absorb(bytes, state, K.I0{}, K.I0{}, 0n), K.sponge(rest, K.absorb(bytes, state, K.I0{}, K.I0{}, 0n)))\n    case K.Block{bytes, count, _}: K.absorb(List.append(&2, U32, bytes, K.padding((136n - count : Nat), True{})), state, K.I0{}, K.I0{}, 0n)\n"
+        }
+      ],
+      null,
+      "B136"
+    ],
+    [
+      "SELECTOR",
+      [
+        {
+          "definition": "Keccak.selector",
+          "sha256": "af53f743e2229d3709b2d44737409570f2991e863d7021bdf16e02bbc8cb7268",
+          "replacement": "def Keccak.selector(signature: String) -> String: K.prefix(8n, Mutation.Keccak.drop(8n, Keccak.keccak256(signature)))\n\ndef Mutation.Keccak.drop(left: Nat, text: String) -> String:\n  match left text:\n    case 0n rest: rest\n    case 1n+p \"\": \"\"\n    case 1n+p SCon{_, rest}: Mutation.Keccak.drop(p, rest)\n"
+        }
+      ],
+      null,
+      "S1"
+    ]
+  ]
+}

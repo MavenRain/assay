@@ -5,6 +5,10 @@ import importlib.util
 import itertools
 import json
 from pathlib import Path
+
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import native_mutations
 import shutil
 import subprocess
 import sys
@@ -216,35 +220,19 @@ def refusals(only_schema=False):
 
 
 def mutants():
-    rows = [
-        ('SURFACE', 'emit/contract.ml', 'next (Context (Recognize.Calldataload offset, name)) rest',
-         'next (Bind (name, offset)) rest', 'probe', 'PAYABLE-MODEL cdl-read-0'),
-        ('EMITTER', 'emit/emit.ml', 'String.uppercase_ascii (R.context_name source)',
-         '(if R.context_name source = "calldataload" then "MLOAD" else String.uppercase_ascii (R.context_name source))',
-         'probe', 'PAYABLE-EVM cdl-read-0'),
-        ('MODEL', 'emit/model.ml', "String.make (64 - length) '0'", "String.make (64 - length) 'f'",
-         'probe', 'PAYABLE-MODEL cdl-read-31'),
-        ('SCHEMA', 'emit/recognize.ml', 'calldataload : Word 256 -> (Word 256 -> Tx)',
-         'calldataload : Word 160 -> (Word 256 -> Tx)', 'schema', 'CALLDATALOAD-REFUSAL wrong-width'),
-        ('SNAPSHOT', 'emit/emit.ml',
-         'continuation fuel (fresh + 1) fn (R.Runtime_word fresh) in\n'
-         '       Ok (Context (source, fresh, next), fuel, next_fresh)',
-         'continuation fuel (fresh + if R.context_name source = "calldataload" then 0 else 1) fn (R.Runtime_word fresh) in\n'
-         '       Ok (Context (source, fresh, next), fuel, next_fresh)',
-         'probe', 'PAYABLE-MODEL cdl-snapshot'),
-    ]
+    rows = native_mutations.load(__file__)
     records = []
     with tempfile.TemporaryDirectory(prefix='assay-calldataload-mutants-') as temporary:
         copy = Path(temporary) / 'copy'
-        shutil.copytree(ROOT, copy, ignore=shutil.ignore_patterns('.*', '_build', 'vendor', 'validation', '__pycache__'))
+        native_mutations.copy_project(ROOT, copy)
         for name, file, before, after, mode, marker in rows:
             path = copy / file
             original = path.read_text()
-            require(original.count(before) == 1, 'CALLDATALOAD-MUTANT anchor ' + name)
+            require(native_mutations.count(original, before) == 1, 'CALLDATALOAD-MUTANT anchor ' + name)
             for mutated in (True, False):
-                path.write_text(original.replace(before, after) if mutated else original)
+                path.write_text(native_mutations.replace(original, before, after) if mutated else original)
                 label = ('mutant-' if mutated else 'control-') + name
-                build = C.capture(label + '-build', ['zsh', '-f', 'dev/dune.sh', 'build'], cwd=copy, timeout=120)
+                build = C.capture(label + '-build', ['zsh', '-f', 'dev/build.sh', 'build', 'bin/assay'], cwd=copy, timeout=120)
                 require(build.returncode == 0, 'CALLDATALOAD-MUTANT build ' + label)
                 result = C.capture(label, ['python3', '-P', 'dev/calldataload-test.py', mode], cwd=copy, timeout=120)
                 require(result.returncode == (1 if mutated else 0) and (not mutated or marker in result.stdout),

@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 """Check ABI tuple bytes, strict decoding, frozen returns and semantic mutants."""
 from pathlib import Path
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import native_mutations
 import json
 import random
 import shutil
@@ -9,7 +12,7 @@ import tempfile
 
 ROOT = Path(__file__).resolve().parent.parent
 WORK = ROOT / '.gatework/abi-codec'
-TARGET = 'test/abi_codec.exe'
+TARGET = 'test/abi_codec'
 
 
 def require(ok, label):
@@ -25,7 +28,7 @@ def run(root, *command):
 
 
 def call(root, mode, types, *args):
-    return run(root, str(root / '_build/default' / TARGET), mode, ','.join(types) or '-', *args)
+    return run(root, str(root / '_build' / TARGET), mode, ','.join(types) or '-', *args)
 
 
 def word(n):
@@ -174,41 +177,26 @@ def malformed(root, rows):
     return prefixes, trials
 
 
-MUTANTS = [
-    ('ENCODE-UINT8', 'scalar Schema.Uint8 8', 'scalar Schema.Uint8 16', 'ENCODE-UINT8-RANGE'),
-    ('ENCODE-ADDRESS', 'scalar Schema.Address 160', 'scalar Schema.Address 256', 'ENCODE-ADDRESS-RANGE'),
-    ('DECODE-UINT8', 'if within 8 n', 'if within 16 n', 'DECODE-UINT8-RANGE'),
-    ('DECODE-ADDRESS', 'if within 160 n', 'if within 256 n', 'DECODE-ADDRESS-RANGE'),
-    ('BOOL', 'Z.one then Ok (Bool true, tail)', 'Z.one then Ok (Bool false, tail)', 'DECODE-VALUES'),
-    ('OFFSET', '(word (Z.of_int offset) :: heads)', '(word (Z.of_int (offset + 32)) :: heads)', 'ENCODE-BYTES'),
-    ('PADDING', "if suffix <> String.make pad '\\000'", "if suffix <> String.make pad '\\000' && false", 'DECODE-PADDING'),
-    ('TRAILING', 'if tail = size then', 'if tail <= size then', 'DECODE-SUFFIX'),
-    ('LENGTH', 'Z.compare length (Z.of_int available) > 0', 'Z.compare length (Z.of_int available) >= 0', 'DECODE-VALUES'),
-    ('ENDIAN', 'List.rev (List.of_seq (String.to_seq bytes))', 'List.map Fun.id (List.of_seq (String.to_seq bytes))', 'ENCODE-BYTES'),
-]
+MUTANTS = native_mutations.load(__file__)
 
 
 def main():
     WORK.mkdir(parents=True, exist_ok=True)
-    run(ROOT, 'dune', 'build', TARGET)
+    run(ROOT, sys.executable, '-P', 'dev/build.py', 'build', TARGET)
     rows, cast_count = fixtures()
     (WORK / 'vectors.json').write_text(json.dumps(rows, indent=2) + '\n')
     inspect(ROOT, rows)
     reference_count = reference(ROOT)
     prefixes, fuzz = malformed(ROOT, rows)
-    source = (ROOT / 'abi/abi.ml').read_text()
+    source = (ROOT / 'src/abi.bend').read_text()
     killed = 0
     for name, old, new, witness in MUTANTS:
-        require(source.count(old) == 1, 'MUTANT-PATTERN ' + name)
+        require(native_mutations.count(source, old) == 1, 'MUTANT-PATTERN ' + name)
         with tempfile.TemporaryDirectory(prefix='assay-codec-') as temporary:
-            work = Path(temporary)
-            for relative in ['dune', 'dune-project', 'abi/dune', 'abi/abi.ml', 'abi/layout.ml', 'test/abi_codec.ml']:
-                target = work / relative
-                target.parent.mkdir(parents=True, exist_ok=True)
-                shutil.copyfile(ROOT / relative, target)
-            (work / 'test/dune').write_text('(executable (name abi_codec) (modules abi_codec) (libraries assay_abi zarith))\n')
-            (work / 'abi/abi.ml').write_text(source.replace(old, new))
-            run(work, 'dune', 'build', TARGET)
+            work = Path(temporary) / "copy"
+            native_mutations.copy_project(ROOT, work)
+            (work / 'src/abi.bend').write_text(native_mutations.replace(source, old, new))
+            run(work, sys.executable, '-P', 'dev/build.py', 'build', TARGET)
             try:
                 inspect(work, rows)
             except ValueError as error:

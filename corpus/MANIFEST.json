@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 2,
   "cases": [
     {
       "path": "corpus/contracts/Ref20.asy",
@@ -176,126 +176,42 @@
       }
     }
   ],
-  "ocaml": [
+  "bend": [
     {
-      "path": "lib/bignum.ml",
-      "lines": 51,
-      "sha256": "7159dd7e75fa08a5fc272cba76a8ec6214c7d190151dabf7db1a13bf5ecddd72"
+      "path": "corpus/bend2/Return.bend",
+      "sha256": "141990c1ae79b60394241f9338b236e4585833f4aa1734c345f673ad6e288b1a",
+      "lines": 4,
+      "answer": "37"
     },
     {
-      "path": "lib/budget.ml",
-      "lines": 27,
-      "sha256": "7d8b2afc86883415c892d6fea0e56c2115e4d859b6b6daa21c611b4e9517f028"
+      "path": "corpus/bend2/Arithmetic.bend",
+      "sha256": "ade52737001ce2ce73ba6d6388960d3a5a69c1aa30961e0628189b127f628269",
+      "lines": 7,
+      "answer": "42"
     },
     {
-      "path": "lib/budget.mli",
-      "lines": 9,
-      "sha256": "b830149c9eb6d9362786d2e92c2dc8322f4d31f7b4cfc960ac6e1681d385578f"
-    },
-    {
-      "path": "lib/check.ml",
-      "lines": 538,
-      "sha256": "cdc3712bf5ed0fa49d8dae34ea946d85a195ea94b25235c821b155570010e335"
-    },
-    {
-      "path": "lib/conv.ml",
-      "lines": 396,
-      "sha256": "e73e707bcdac54808d8f8a1d9e9a174062edf0afd970972dee2c6d024f6bbe39"
-    },
-    {
-      "path": "lib/erase.ml",
-      "lines": 1484,
-      "sha256": "a6d03447ab9dfedf8e53bceff26cd7da57f113bb4b5d1453aecd618fac508a88"
-    },
-    {
-      "path": "lib/error.ml",
-      "lines": 82,
-      "sha256": "44c9c263479575ec04db5056404a5940d6bb5514a5b9e1ec6215385c6eccb5b6"
-    },
-    {
-      "path": "lib/eterm.ml",
-      "lines": 117,
-      "sha256": "028ff6e790f9c391463b961f7a3eac12e105d484285cfde1597e52c5b9ac69c7"
-    },
-    {
-      "path": "lib/eval.ml",
-      "lines": 297,
-      "sha256": "155ddf7578d4ad68352505064616bed6afa7a260a88f3ddf1722b95fa6a6bd18"
-    },
-    {
-      "path": "lib/global.ml",
-      "lines": 130,
-      "sha256": "2e5d2d932dfddcb329bcfdf237df87a70f2d79820470dc236e337ec6d275c329"
-    },
-    {
-      "path": "lib/level.ml",
+      "path": "corpus/bend2/Pair.bend",
+      "sha256": "f5ac9721309dcdf5dd01daa9e9e595cd9903d00b287e7145f4ccbf6ebb09a302",
       "lines": 11,
-      "sha256": "344bb9819870d8c459154ac8109ba1d69a4ee4312670f3887c6ed30d3dbca448"
+      "answer": "4"
     },
     {
-      "path": "lib/level.mli",
-      "lines": 13,
-      "sha256": "c143b2b97e417724a81f8e83548b946d3339917488758b4d5fbf9da9e72e6811"
+      "path": "corpus/bend2/Leaf.bend",
+      "sha256": "4a7672796c36f6f01deeb4c16e65e4a3f2a2cd8ebf4b430dfa0bf0239e007f4e",
+      "lines": 16,
+      "answer": "42"
     },
     {
-      "path": "lib/literal.ml",
-      "lines": 14,
-      "sha256": "80554b1d98c8dde3b474023a01ac57cc4abcaba2a5f20b707041cc5f0361b617"
+      "path": "corpus/bend2/Apply.bend",
+      "sha256": "60aa69704cd2c59f369c30eaadcb17d4bee0cb51eeed8c721b6f6486bfc36176",
+      "lines": 16,
+      "answer": "42"
     },
     {
-      "path": "lib/order.ml",
-      "lines": 510,
-      "sha256": "d2cc3258fde25b61ba33093eaf19112c319329dc5b46ba029b3f042c14388e94"
-    },
-    {
-      "path": "lib/positivity.ml",
-      "lines": 118,
-      "sha256": "97cb5fc9484ecaec360b4be1ac42f0668ae767aad25efc10ddbc1d4143185471"
-    },
-    {
-      "path": "lib/pp.ml",
-      "lines": 102,
-      "sha256": "69618578ebb33a3d9803e604760252c77c64681aef2d847f3e1b40f9464e3895"
-    },
-    {
-      "path": "lib/prim.ml",
-      "lines": 139,
-      "sha256": "5224df4f75e499b8fb962fad2a256b31086fcc9de5ab2f353eb90f61a8408aaa"
-    },
-    {
-      "path": "lib/quantity.ml",
-      "lines": 158,
-      "sha256": "bf3f633c40a0dbb362cf85ca41b798ae0c9e1d4eca7e09f9b6f482bab2bfbb8b"
-    },
-    {
-      "path": "lib/rules.ml",
-      "lines": 1481,
-      "sha256": "b625cec31061ca79f77669889039e4ae2658393911e39076dc65189022f702ab"
-    },
-    {
-      "path": "lib/shape.ml",
-      "lines": 60,
-      "sha256": "dafd7741b4332dcab6faba9cb9afb131fb3654172e0d375b1edd1046e69f7f7b"
-    },
-    {
-      "path": "lib/spec_count.ml",
-      "lines": 62,
-      "sha256": "9a4cb97373ddbabb6156b04f92cc41803ee1b714391ccb669cf38e60d36437e6"
-    },
-    {
-      "path": "lib/term.ml",
-      "lines": 133,
-      "sha256": "2de6729958bfbc3af10ed2e9c51d6591ab40fa16bd19b7acea1fbf37adf60690"
-    },
-    {
-      "path": "lib/totality.ml",
-      "lines": 146,
-      "sha256": "046c608584ac21d465d46b05119a89dca5488a15113359eea30ed318a3f7c028"
-    },
-    {
-      "path": "lib/value.ml",
-      "lines": 137,
-      "sha256": "997f4634df60744c49555e896c1de8d60e51a1086e731e547b48450def9c68c7"
+      "path": "corpus/bend2/Let.bend",
+      "sha256": "fc8b49b5283d6059ec76955e8e0d16d6adb9b2df12d25ee26ff7e058f40b7d03",
+      "lines": 20,
+      "answer": "42"
     }
   ]
 }

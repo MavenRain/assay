@@ -9,19 +9,22 @@ import subprocess
 import sys
 import tempfile
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import native_mutations
+from bend_source import declarations, signature
+
 
 def run(root, *args, timeout=30):
     return subprocess.run(args, cwd=root, capture_output=True, text=True, timeout=timeout)
 
 
 def interface(root):
-    """Pin the sealed signature of assay_keccak against its frozen text."""
-    source = (root / "keccak/keccak.ml").read_text()
+    """Pin the public Bend hash signatures against their frozen text."""
+    source = (root / "src/keccak.bend").read_text()
     frozen = (root / "dev/keccak-iface.txt").read_text()
-    index = source.find("end : sig")
-    sealed = source[index:] if index >= 0 else ""
+    sealed = '\n'.join(signature(r)[2].rstrip(':') for r in declarations(source, 'src/keccak.bend') if r.kind == 'def' and r.name.startswith('Keccak.')) + '\n'
     if sealed != frozen:
-        print("KECCAK-IFACE FAIL: the sealed signature of keccak/keccak.ml "
+        print("KECCAK-IFACE FAIL: the public signatures of src/keccak.bend "
               "differs from dev/keccak-iface.txt")
         return 1
     print(f"KECCAK-IFACE OK lines={len(frozen.splitlines())}")
@@ -31,7 +34,7 @@ def interface(root):
 def vectors(root, oracle=True):
     if interface(root):
         return 1
-    binary = root / "_build/default/test/keccak_vec.exe"
+    binary = root / "_build/test/keccak_vec"
     spike = (root / "dev/SPIKE-KECCAK.md").read_text()
     rows = []
     for name, text, encoding, expected in re.findall(
@@ -92,38 +95,23 @@ def vectors(root, oracle=True):
 
 
 def mutants(root):
-    original = (root / "keccak/keccak.ml").read_text()
-    cases = [
-        ("PADDING", "let suffix = 0x01", "let suffix = 0x06", "K2"),
-        ("END-BIT", "then 0x80 else 0", "then 0x00 else 0", "K2"),
-        ("EXACT-RATE", "if count = 136 then sponge (absorb state bytes) rest",
-         "if count = 136 then (if Seq.is_empty rest then absorb state bytes else sponge (absorb state bytes) rest)", "B136"),
-        ("SELECTOR", "String.to_seq |> Seq.take 8", "String.to_seq |> Seq.drop 8 |> Seq.take 8", "S1"),
-    ]
+    original = (root / "src/keccak.bend").read_text()
+    cases = native_mutations.load(__file__)
     workdir = root / ".gatework"
     workdir.mkdir(exist_ok=True)
-    # Keep the copy outside this Dune workspace so root discovery is independent.
+    # Keep each control independent of the working checkout.
     with tempfile.TemporaryDirectory(prefix="assay-keccak-mutants-") as directory:
         copy = Path(directory) / "copy"
         # This executable depends only on assay_keccak.  Keep mutation builds
         # scoped to that library and the same adapter and vector gate.
-        for relative in ("dune-project", "dune", "keccak/dune", "keccak/keccak.ml",
-                         "test/keccak_vec.ml", "dev/dune.sh", "dev/keccak-test.py",
-                         "dev/SPIKE-KECCAK.md", "dev/keccak-vectors.json",
-                         "dev/keccak-iface.txt"):
-            target = copy / relative
-            target.parent.mkdir(parents=True, exist_ok=True)
-            shutil.copy2(root / relative, target)
-        (copy / "vendor").mkdir()
-        (copy / "test/dune").write_text(
-            "(executable (name keccak_vec) (libraries assay_keccak))\n")
-        path = copy / "keccak/keccak.ml"
+        native_mutations.copy_project(root, copy)
+        path = copy / "src/keccak.bend"
         for name, before, after, witness in cases:
-            if original.count(before) != 1:
+            if native_mutations.count(original, before) != 1:
                 print(f"KECCAK-MUTANT {name} FAIL: mutation site is not unique")
                 return 1
-            path.write_text(original.replace(before, after))
-            build = run(copy, "zsh", "-f", "dev/dune.sh", "build", timeout=120)
+            path.write_text(native_mutations.replace(original, before, after))
+            build = run(copy, "zsh", "-f", "dev/build.sh", "build", "test/keccak_vec", timeout=120)
             if build.returncode != 0:
                 print(f"KECCAK-MUTANT {name} FAIL: build failure is not a kill\n{build.stdout}{build.stderr}")
                 return 1
@@ -135,7 +123,7 @@ def mutants(root):
             print(f"KECCAK-MUTANT {name} killed witness={witness} exit=1")
         # Restore the source and require the same frozen gate to pass.
         path.write_text(original)
-        build = run(copy, "zsh", "-f", "dev/dune.sh", "build", timeout=120)
+        build = run(copy, "zsh", "-f", "dev/build.sh", "build", "test/keccak_vec", timeout=120)
         control = run(copy, sys.executable, "-P", "dev/keccak-test.py", "frozen", timeout=60)
         if build.returncode != 0 or control.returncode != 0:
             print(f"KECCAK-MUTANTS FAIL restored control\n{build.stdout}{build.stderr}{control.stdout}{control.stderr}")

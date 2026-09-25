@@ -1,0 +1,101 @@
+{
+  "source": "src/abi.bend",
+  "cases": [
+    [
+      "UINT8",
+      [
+        {
+          "definition": "Abi.Schema.type_name",
+          "sha256": "09e2f05421559b0ca4b1f01148736c15aa499f08948b3a6c7fea851e3d915ba3",
+          "replacement": "@unsafe\ndef Abi.Schema.type_name(+param_622: Abi.Schema.Value_type) -> String:\n  (+scrut1 = param_622\n  Match.Abi_Schema_Value_type(&2, String, scrut1, _ => (\"uint256\"), _ => (\"uint256\"), _ => (\"address\"), _ => (\"bool\"), _ => (\"string\")))\n\n"
+        }
+      ],
+      null,
+      "ERC20-JSON"
+    ],
+    [
+      "ADDRESS",
+      [
+        {
+          "definition": "Abi.Schema.type_name",
+          "sha256": "09e2f05421559b0ca4b1f01148736c15aa499f08948b3a6c7fea851e3d915ba3",
+          "replacement": "@unsafe\ndef Abi.Schema.type_name(+param_622: Abi.Schema.Value_type) -> String:\n  (+scrut1 = param_622\n  Match.Abi_Schema_Value_type(&2, String, scrut1, _ => (\"uint8\"), _ => (\"uint256\"), _ => (\"uint256\"), _ => (\"bool\"), _ => (\"string\")))\n\n"
+        }
+      ],
+      null,
+      "ERC20-JSON"
+    ],
+    [
+      "BOOL",
+      [
+        {
+          "definition": "Abi.Schema.type_name",
+          "sha256": "09e2f05421559b0ca4b1f01148736c15aa499f08948b3a6c7fea851e3d915ba3",
+          "replacement": "@unsafe\ndef Abi.Schema.type_name(+param_622: Abi.Schema.Value_type) -> String:\n  (+scrut1 = param_622\n  Match.Abi_Schema_Value_type(&2, String, scrut1, _ => (\"uint8\"), _ => (\"uint256\"), _ => (\"address\"), _ => (\"uint256\"), _ => (\"string\")))\n\n"
+        }
+      ],
+      null,
+      "ERC20-JSON"
+    ],
+    [
+      "STRING",
+      [
+        {
+          "definition": "Abi.Schema.type_name",
+          "sha256": "09e2f05421559b0ca4b1f01148736c15aa499f08948b3a6c7fea851e3d915ba3",
+          "replacement": "@unsafe\ndef Abi.Schema.type_name(+param_622: Abi.Schema.Value_type) -> String:\n  (+scrut1 = param_622\n  Match.Abi_Schema_Value_type(&2, String, scrut1, _ => (\"uint8\"), _ => (\"uint256\"), _ => (\"address\"), _ => (\"bool\"), _ => (\"bytes\")))\n\n"
+        }
+      ],
+      null,
+      "ERC20-JSON"
+    ],
+    [
+      "INDEXED",
+      [
+        {
+          "definition": "Abi.Schema.print",
+          "sha256": "0d2ba7f3906e6a44c40f1f63dab58f359eca4eaf01d39a6127e26d96d041789f",
+          "replacement": "@unsafe\ndef Abi.Schema.print(+declarations_650: ListOf(Abi.Schema.Declaration)) -> String:\n  (+scrut22 = {(+local2 => ((+scrut3 = local2\n  Match.Abi_Schema_Declaration(&2, String, scrut3, +p4 => +p5 => (String.append(\"{\\u{22}type\\u{22}:\\u{22}constructor\\u{22},\\u{22}inputs\\u{22}:\", String.append(Abi.Schema.parameters(p4), String.append(\",\\u{22}stateMutability\\u{22}:\", String.append(Abi.quote(Abi.mutability_name(Abi.Schema.value_mutability(p5))), \"}\"))))), +p12 => (String.append(\"{\\u{22}type\\u{22}:\\u{22}function\\u{22},\\u{22}name\\u{22}:\", String.append(Abi.quote(Get.Abi.Schema.Function_.name(p12)), String.append(\",\\u{22}inputs\\u{22}:\", String.append(Abi.Schema.parameters(Get.Abi.Schema.Function_.inputs(p12)), String.append(\",\\u{22}outputs\\u{22}:\", String.append(Abi.Schema.parameters(Get.Abi.Schema.Function_.outputs(p12)), String.append(\",\\u{22}stateMutability\\u{22}:\", String.append(Abi.quote(Abi.mutability_name(Get.Abi.Schema.Function_.mutability(p12))), \"}\"))))))))), +p13 => +p14 => (String.append(\"{\\u{22}type\\u{22}:\\u{22}error\\u{22},\\u{22}name\\u{22}:\", String.append(Abi.quote(p13), String.append(\",\\u{22}inputs\\u{22}:\", String.append(Abi.Schema.parameters(p14), \"}\"))))), +p15 => +p16 => +p17 => ((+scrut20 = {(+local19 => (String.append(\"{\", String.append(Abi.Schema.parameter_fields(Get.Abi.Schema.Event_parameter.parameter(local19)), String.append(\",\\u{22}indexed\\u{22}:\", String.append(NativeBool.show(Bool.not(Get.Abi.Schema.Event_parameter.indexed(local19))), \"}\")))))) : Reusable(Abi.Schema.Event_parameter, String)}\n  String.append(\"{\\u{22}type\\u{22}:\\u{22}event\\u{22},\\u{22}name\\u{22}:\", String.append(Abi.quote(p15), String.append(\",\\u{22}anonymous\\u{22}:\", String.append(NativeBool.show(p17), String.append(\",\\u{22}inputs\\u{22}:[\", String.append(String.join(SeqList.map(&2, &2, Abi.Schema.Event_parameter, String, scrut20, p16), \",\"), \"]}\")))))))), +p21 => (String.append(\"{\\u{22}type\\u{22}:\\u{22}fallback\\u{22},\\u{22}stateMutability\\u{22}:\", String.append(Abi.quote(Abi.mutability_name(Abi.Schema.value_mutability(p21))), \"}\"))))))) : Reusable(Abi.Schema.Declaration, String)}\n  String.append(\"[\", String.append(String.join(SeqList.map(&2, &2, Abi.Schema.Declaration, String, scrut22, declarations_650), \",\"), \"]\\u{a}\")))\n\n"
+        }
+      ],
+      null,
+      "ERC20-JSON"
+    ],
+    [
+      "OUTPUTS",
+      [
+        {
+          "definition": "Abi.Schema.print",
+          "sha256": "0d2ba7f3906e6a44c40f1f63dab58f359eca4eaf01d39a6127e26d96d041789f",
+          "replacement": "@unsafe\ndef Abi.Schema.print(+declarations_650: ListOf(Abi.Schema.Declaration)) -> String:\n  (+scrut22 = {(+local2 => ((+scrut3 = local2\n  Match.Abi_Schema_Declaration(&2, String, scrut3, +p4 => +p5 => (String.append(\"{\\u{22}type\\u{22}:\\u{22}constructor\\u{22},\\u{22}inputs\\u{22}:\", String.append(Abi.Schema.parameters(p4), String.append(\",\\u{22}stateMutability\\u{22}:\", String.append(Abi.quote(Abi.mutability_name(Abi.Schema.value_mutability(p5))), \"}\"))))), +p12 => (String.append(\"{\\u{22}type\\u{22}:\\u{22}function\\u{22},\\u{22}name\\u{22}:\", String.append(Abi.quote(Get.Abi.Schema.Function_.name(p12)), String.append(\",\\u{22}inputs\\u{22}:\", String.append(Abi.Schema.parameters(Get.Abi.Schema.Function_.inputs(p12)), String.append(\",\\u{22}outputs\\u{22}:\", String.append(Abi.Schema.parameters(Nil{}), String.append(\",\\u{22}stateMutability\\u{22}:\", String.append(Abi.quote(Abi.mutability_name(Get.Abi.Schema.Function_.mutability(p12))), \"}\"))))))))), +p13 => +p14 => (String.append(\"{\\u{22}type\\u{22}:\\u{22}error\\u{22},\\u{22}name\\u{22}:\", String.append(Abi.quote(p13), String.append(\",\\u{22}inputs\\u{22}:\", String.append(Abi.Schema.parameters(p14), \"}\"))))), +p15 => +p16 => +p17 => ((+scrut20 = {(+local19 => (String.append(\"{\", String.append(Abi.Schema.parameter_fields(Get.Abi.Schema.Event_parameter.parameter(local19)), String.append(\",\\u{22}indexed\\u{22}:\", String.append(NativeBool.show(Get.Abi.Schema.Event_parameter.indexed(local19)), \"}\")))))) : Reusable(Abi.Schema.Event_parameter, String)}\n  String.append(\"{\\u{22}type\\u{22}:\\u{22}event\\u{22},\\u{22}name\\u{22}:\", String.append(Abi.quote(p15), String.append(\",\\u{22}anonymous\\u{22}:\", String.append(NativeBool.show(p17), String.append(\",\\u{22}inputs\\u{22}:[\", String.append(String.join(SeqList.map(&2, &2, Abi.Schema.Event_parameter, String, scrut20, p16), \",\"), \"]}\")))))))), +p21 => (String.append(\"{\\u{22}type\\u{22}:\\u{22}fallback\\u{22},\\u{22}stateMutability\\u{22}:\", String.append(Abi.quote(Abi.mutability_name(Abi.Schema.value_mutability(p21))), \"}\"))))))) : Reusable(Abi.Schema.Declaration, String)}\n  String.append(\"[\", String.append(String.join(SeqList.map(&2, &2, Abi.Schema.Declaration, String, scrut22, declarations_650), \",\"), \"]\\u{a}\")))\n\n"
+        }
+      ],
+      null,
+      "ERC20-JSON"
+    ],
+    [
+      "SIGNATURE",
+      [
+        {
+          "definition": "Abi.Schema.function_signature",
+          "sha256": "96c850a2235c5bd3689ddd954ea5f819e82e863765bd60c4d0fbafa6782bc556",
+          "replacement": "@unsafe\ndef Abi.Schema.function_signature(+fn_630: Abi.Schema.Function_) -> String:\n  Abi.Schema.signature(Get.Abi.Schema.Function_.name(fn_630), List.append(&2, Abi.Schema.Parameter, Get.Abi.Schema.Function_.inputs(fn_630), Get.Abi.Schema.Function_.outputs(fn_630)))\n\n"
+        }
+      ],
+      null,
+      "SELECTORS"
+    ],
+    [
+      "ANONYMOUS",
+      [
+        {
+          "definition": "Abi.Schema.print",
+          "sha256": "0d2ba7f3906e6a44c40f1f63dab58f359eca4eaf01d39a6127e26d96d041789f",
+          "replacement": "@unsafe\ndef Abi.Schema.print(+declarations_650: ListOf(Abi.Schema.Declaration)) -> String:\n  (+scrut22 = {(+local2 => ((+scrut3 = local2\n  Match.Abi_Schema_Declaration(&2, String, scrut3, +p4 => +p5 => (String.append(\"{\\u{22}type\\u{22}:\\u{22}constructor\\u{22},\\u{22}inputs\\u{22}:\", String.append(Abi.Schema.parameters(p4), String.append(\",\\u{22}stateMutability\\u{22}:\", String.append(Abi.quote(Abi.mutability_name(Abi.Schema.value_mutability(p5))), \"}\"))))), +p12 => (String.append(\"{\\u{22}type\\u{22}:\\u{22}function\\u{22},\\u{22}name\\u{22}:\", String.append(Abi.quote(Get.Abi.Schema.Function_.name(p12)), String.append(\",\\u{22}inputs\\u{22}:\", String.append(Abi.Schema.parameters(Get.Abi.Schema.Function_.inputs(p12)), String.append(\",\\u{22}outputs\\u{22}:\", String.append(Abi.Schema.parameters(Get.Abi.Schema.Function_.outputs(p12)), String.append(\",\\u{22}stateMutability\\u{22}:\", String.append(Abi.quote(Abi.mutability_name(Get.Abi.Schema.Function_.mutability(p12))), \"}\"))))))))), +p13 => +p14 => (String.append(\"{\\u{22}type\\u{22}:\\u{22}error\\u{22},\\u{22}name\\u{22}:\", String.append(Abi.quote(p13), String.append(\",\\u{22}inputs\\u{22}:\", String.append(Abi.Schema.parameters(p14), \"}\"))))), +p15 => +p16 => +p17 => ((+scrut20 = {(+local19 => (String.append(\"{\", String.append(Abi.Schema.parameter_fields(Get.Abi.Schema.Event_parameter.parameter(local19)), String.append(\",\\u{22}indexed\\u{22}:\", String.append(NativeBool.show(Get.Abi.Schema.Event_parameter.indexed(local19)), \"}\")))))) : Reusable(Abi.Schema.Event_parameter, String)}\n  String.append(\"{\\u{22}type\\u{22}:\\u{22}event\\u{22},\\u{22}name\\u{22}:\", String.append(Abi.quote(p15), String.append(\",\\u{22}anonymous\\u{22}:\", String.append(NativeBool.show(Bool.not(p17)), String.append(\",\\u{22}inputs\\u{22}:[\", String.append(String.join(SeqList.map(&2, &2, Abi.Schema.Event_parameter, String, scrut20, p16), \",\"), \"]}\")))))))), +p21 => (String.append(\"{\\u{22}type\\u{22}:\\u{22}fallback\\u{22},\\u{22}stateMutability\\u{22}:\", String.append(Abi.quote(Abi.mutability_name(Abi.Schema.value_mutability(p21))), \"}\"))))))) : Reusable(Abi.Schema.Declaration, String)}\n  String.append(\"[\", String.append(String.join(SeqList.map(&2, &2, Abi.Schema.Declaration, String, scrut22, declarations_650), \",\"), \"]\\u{a}\")))\n\n"
+        }
+      ],
+      null,
+      "ERC20-JSON"
+    ]
+  ]
+}

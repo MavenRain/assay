@@ -4,6 +4,10 @@ import hashlib
 import importlib.util
 import json
 from pathlib import Path
+
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import native_mutations
 import shutil
 import subprocess
 import sys
@@ -215,30 +219,19 @@ def refusals(only=None):
 
 
 def mutants():
-    cases = [
-        ('CALLER', 'next (Context (Recognize.Caller, name)) rest', 'next (Bind (name, Literal { name with text = "0" })) rest',
-         'pairs', 'SURFACE-CONTEXT-PAIR'),
-        ('DEPLOYER', 'Ok (app "deployer" [field; next])', 'Ok (app "put" [field; "(word 256 0)"; next])',
-         'pairs', 'SURFACE-CONTEXT-PAIR'),
-        ('STATE', '| Deployer field -> Ok (List.remove_assoc field.text state)', '| Deployer _ -> Ok state',
-         'stale-invariant', 'SURFACE-CONTEXT-REFUSAL stale-invariant'),
-        ('SLOT', 'let* field = slot fields field in Ok (app "deployer" [field; next])',
-         'let* _field = slot fields field in Ok (app "deployer" ["(word 256 0)"; next])',
-         'composition', 'SURFACE-CONTEXT-ORDER deployer-only'),
-    ]
+    cases = native_mutations.load(__file__)
     records = []
     with tempfile.TemporaryDirectory(prefix='assay-surface-context-mutants-') as temporary:
         copy = Path(temporary) / 'copy'
-        shutil.copytree(ROOT, copy, ignore=shutil.ignore_patterns('.*', '_build', '.gatework',
-            '.lake', 'vendor', 'validation', '__pycache__'))
-        path = copy / 'emit/contract.ml'
+        native_mutations.copy_project(ROOT, copy)
+        path = copy / 'src/emitter.bend'
         original = path.read_text()
         for name, before, after, witness, marker in cases:
-            require(original.count(before) == 1, 'SURFACE-CONTEXT-MUTANT anchor ' + name)
+            require(native_mutations.count(original, before) == 1, 'SURFACE-CONTEXT-MUTANT anchor ' + name)
             for mutated in (True, False):
-                path.write_text(original.replace(before, after) if mutated else original)
+                path.write_text(native_mutations.replace(original, before, after) if mutated else original)
                 label = ('mutant-' if mutated else 'control-') + name
-                build = C.capture(label + '-build', ['zsh', '-f', 'dev/dune.sh', 'build'], cwd=copy, timeout=120)
+                build = C.capture(label + '-build', ['zsh', '-f', 'dev/build.sh', 'build', 'bin/assay'], cwd=copy, timeout=120)
                 require(build.returncode == 0, 'SURFACE-CONTEXT-MUTANT build ' + label)
                 result = C.capture(label, ['python3', '-P', 'dev/context-surface-test.py', witness], cwd=copy, timeout=180)
                 require(result.returncode == (1 if mutated else 0) and (not mutated or marker in result.stdout),

@@ -1,0 +1,61 @@
+{
+  "source": "src/emitter.bend",
+  "cases": [
+    [
+      "RADIX",
+      "src/emitter.bend",
+      [
+        {
+          "definition": "Recognize.parse_word",
+          "sha256": "decaa095dc91338da5c406a9741d935dd92ea91ba5be274be1746e4eb0be20c7",
+          "replacement": "@unsafe\ndef Recognize.parse_word(-q0: Quant, -A0: Kind(q0), +invalid_335: A0, +overflow_336: A0, +text_337: String) -> Result<q0, &2, A0, Big>:\n  (+scrut10260 = {NativeString.lower(text_337) : String}\n  (+scrut10261 = {String.starts_with(scrut10260, \"0x\") : Bool}\n  (+scrut10262 = {Native.choose(&2, String, scrut10261, _ => (NativeString.of_list(Series.to_list(&2, Char, Series.drop(&2, Char, Big.to_nat(Big.of_nat(2n)), Series.from_string(scrut10260))))), _ => (scrut10260)) : String}\n  ((+scrut10265 = {(+local10264 => (Big.when(Bool, Big.when(Bool, U32.is_le(Char.to_u32(Char.from_u32(48)), Char.to_u32(local10264)), _ => (U32.is_le(Char.to_u32(local10264), Char.to_u32(Char.from_u32(57)))), _ => (False{})), _ => (True{}), _ => (Big.when(Bool, scrut10261, _ => (Big.when(Bool, U32.is_le(Char.to_u32(Char.from_u32(97)), Char.to_u32(local10264)), _ => (U32.is_le(Char.to_u32(local10264), Char.to_u32(Char.from_u32(102)))), _ => (False{}))), _ => (False{})))))) : Reusable(Char, Bool)}\nNative.choose(q0, Result<q0, &2, A0, Big>, Big.when(Bool, NativeString.equal(scrut10262, \"\"), _ => (True{}), _ => (Big.when(Bool, Big.is_lt(Native.choose(&2, Big, scrut10261, _ => (Big.of_nat(64n)), _ => (Big.of_nat(78n))), Big.of_nat(String.length(scrut10262))), _ => (True{}), _ => (Bool.not(NativeString.all(scrut10265, scrut10262)))))), _ => (Fail{invalid_335}), _ => ((+scrut10266 = {Big.read_validated(Big.of_nat(10n), scrut10262) : Big}\nNative.choose(q0, Result<q0, &2, A0, Big>, Big.is_lt(Big.of_nat(256n), Big.of_nat(Big.bit_length(scrut10266))), _ => (Fail{overflow_336}), _ => (Done{scrut10266}))))))))))\n\n"
+        }
+      ],
+      null,
+      "pairs",
+      "HEX-PAIR value-00 runtime.hex"
+    ],
+    [
+      "EMPTY",
+      "src/emitter.bend",
+      [
+        {
+          "definition": "Recognize.parse_word",
+          "sha256": "decaa095dc91338da5c406a9741d935dd92ea91ba5be274be1746e4eb0be20c7",
+          "replacement": "@unsafe\ndef Recognize.parse_word(-q0: Quant, -A0: Kind(q0), +invalid_335: A0, +overflow_336: A0, +text_337: String) -> Result<q0, &2, A0, Big>:\n  (+scrut10260 = {NativeString.lower(text_337) : String}\n  (+scrut10261 = {String.starts_with(scrut10260, \"0x\") : Bool}\n  (+scrut10262 = {Native.choose(&2, String, scrut10261, _ => (NativeString.of_list(Series.to_list(&2, Char, Series.drop(&2, Char, Big.to_nat(Big.of_nat(2n)), Series.from_string(scrut10260))))), _ => (scrut10260)) : String}\n  (+scrut10263 = {Native.choose(&2, String, NativeString.equal(scrut10262, \"\"), _ => (\"0\"), _ => (scrut10262)) : String}\n  ((+scrut10266 = {(+local10265 => (Big.when(Bool, Big.when(Bool, U32.is_le(Char.to_u32(Char.from_u32(48)), Char.to_u32(local10265)), _ => (U32.is_le(Char.to_u32(local10265), Char.to_u32(Char.from_u32(57)))), _ => (False{})), _ => (True{}), _ => (Big.when(Bool, scrut10261, _ => (Big.when(Bool, U32.is_le(Char.to_u32(Char.from_u32(97)), Char.to_u32(local10265)), _ => (U32.is_le(Char.to_u32(local10265), Char.to_u32(Char.from_u32(102)))), _ => (False{}))), _ => (False{})))))) : Reusable(Char, Bool)}\nNative.choose(q0, Result<q0, &2, A0, Big>, Big.when(Bool, NativeString.equal(scrut10263, \"\"), _ => (True{}), _ => (Big.when(Bool, Big.is_lt(Native.choose(&2, Big, scrut10261, _ => (Big.of_nat(64n)), _ => (Big.of_nat(78n))), Big.of_nat(String.length(scrut10263))), _ => (True{}), _ => (Bool.not(NativeString.all(scrut10266, scrut10263)))))), _ => (Fail{invalid_335}), _ => ((+scrut10267 = {Big.read_validated(Native.choose(&2, Big, scrut10261, _ => (Big.of_nat(16n)), _ => (Big.of_nat(10n))), scrut10263) : Big}\nNative.choose(q0, Result<q0, &2, A0, Big>, Big.is_lt(Big.of_nat(256n), Big.of_nat(Big.bit_length(scrut10267))), _ => (Fail{overflow_336}), _ => (Done{scrut10267})))))))))))\n\n"
+        }
+      ],
+      null,
+      "refusals",
+      "HEX-REFUSAL empty-lower check"
+    ],
+    [
+      "RANGE",
+      "src/emitter.bend",
+      [
+        {
+          "definition": "Recognize.parse_word",
+          "sha256": "decaa095dc91338da5c406a9741d935dd92ea91ba5be274be1746e4eb0be20c7",
+          "replacement": "@unsafe\ndef Recognize.parse_word(-q0: Quant, -A0: Kind(q0), +invalid_335: A0, +overflow_336: A0, +text_337: String) -> Result<q0, &2, A0, Big>:\n  (+scrut10260 = {NativeString.lower(text_337) : String}\n  (+scrut10261 = {String.starts_with(scrut10260, \"0x\") : Bool}\n  (+scrut10262 = {Native.choose(&2, String, scrut10261, _ => (NativeString.of_list(Series.to_list(&2, Char, Series.drop(&2, Char, Big.to_nat(Big.of_nat(2n)), Series.from_string(scrut10260))))), _ => (scrut10260)) : String}\n  ((+scrut10265 = {(+local10264 => (Big.when(Bool, Big.when(Bool, U32.is_le(Char.to_u32(Char.from_u32(48)), Char.to_u32(local10264)), _ => (U32.is_le(Char.to_u32(local10264), Char.to_u32(Char.from_u32(57)))), _ => (False{})), _ => (True{}), _ => (Big.when(Bool, scrut10261, _ => (Big.when(Bool, U32.is_le(Char.to_u32(Char.from_u32(97)), Char.to_u32(local10264)), _ => (U32.is_le(Char.to_u32(local10264), Char.to_u32(Char.from_u32(102)))), _ => (False{}))), _ => (False{})))))) : Reusable(Char, Bool)}\nNative.choose(q0, Result<q0, &2, A0, Big>, Big.when(Bool, NativeString.equal(scrut10262, \"\"), _ => (True{}), _ => (Big.when(Bool, Big.is_lt(Native.choose(&2, Big, scrut10261, _ => (Big.of_nat(64n)), _ => (Big.of_nat(78n))), Big.of_nat(String.length(scrut10262))), _ => (True{}), _ => (Bool.not(NativeString.all(scrut10265, scrut10262)))))), _ => (Fail{invalid_335}), _ => ((+scrut10266 = {Big.read_validated(Native.choose(&2, Big, scrut10261, _ => (Big.of_nat(16n)), _ => (Big.of_nat(10n))), scrut10262) : Big}\nNative.choose(q0, Result<q0, &2, A0, Big>, Big.is_gt(scrut10266, Big.shift_left(Big.one(), Big.to_nat(Big.of_nat(256n)))), _ => (Fail{overflow_336}), _ => (Done{scrut10266}))))))))))\n\n"
+        }
+      ],
+      null,
+      "refusals",
+      "HEX-REFUSAL decimal-overflow check"
+    ],
+    [
+      "NORMALIZE",
+      "src/emitter.bend",
+      [
+        {
+          "definition": "Contract.literal",
+          "sha256": "e84189d055c5cdf73d29bc16735b9d8fee88c6b0e696e74ec77c5f81a12f088f",
+          "replacement": "@unsafe\ndef Contract.literal(+at_826: Contract.Token) -> CheckResult(Contract.Word):\n  (+scrut10361 = {Error.Parse{\"SURFACE_WORD: expected a decimal or hexadecimal uint256\", Get.Contract.Token.line(at_826), Get.Contract.Token.col(at_826)} : Error}\n  Match.Result(&2, Big, &2, Error, &2, CheckResult(Contract.Word), Recognize.parse_word(&2, Error, scrut10361, scrut10361, Get.Contract.Token.text(at_826)), +item10365 => ((+local10364 => (Done{Contract.Word.Literal{MkContract_Token{Native.choose(&2, String, String.starts_with(NativeString.lower(Get.Contract.Token.text(at_826)), \"0x\"), _ => (Big.show(local10364)), _ => (Get.Contract.Token.text(at_826))), Get.Contract.Token.line(at_826), Get.Contract.Token.col(at_826)}}}))(item10365)), +item10366 => Fail{item10366}))\n\n"
+        }
+      ],
+      null,
+      "pairs",
+      "HEX-EMIT proof-inference"
+    ]
+  ]
+}

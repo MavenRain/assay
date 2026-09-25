@@ -2,10 +2,72 @@
 """Run the carried battery and optional emission and executor legs with finite deadlines."""
 
 from pathlib import Path
+import json
+import math
 import shutil
 import subprocess
 import sys
 import time
+
+
+# Review round 2026-09-24 (F7):  every deadline in the leg tables below is the constant the OCaml/dune battery
+# used, where a leg drove a native _build binary.  The Bend/node driver pays two Bend compilations and a node
+# launch for each probe, so a carried constant is sound only while a Bend/node run of that leg has finished
+# inside it.  The migration record dev/validation/bend2-native/REPORT.json holds the Bend/node runs of the
+# carried battery, and it names nine legs whose run the carried constant killed or barely allowed.  This file
+# copies no second out of that record:  RECORDED_COMMANDS names, per leg, the exact command the record ran, and
+# recorded_runs() reads the seconds and the outcome of the longest such run out of the record at run time.  A
+# re-record therefore moves every derived deadline with it, and a leg whose command the record no longer names
+# stops the battery with a RECORD-GAP row instead of falling back to an unexplained constant.
+#   "finished"  the run ended inside its limit, so the seconds are the cost of the leg on a quiet box.
+#   "killed"    the deadline killed the run, so the seconds are a lower bound and the cost stays unmeasured.
+# A deadline is a hang ceiling, not a cost estimate.  The record also measures how far contention moves a leg:
+# the battery killed dev/asm-test.py stack at 240.022 s while the same leg alone ended in 33.758 s, and it
+# killed dev/diff-caller-test.py at 180.013 s while the same leg alone ended in 105.314 s.  CONTENTION_FACTOR
+# carries that spread, so a leg that reaches its deadline has hung or costs more than three times every run on
+# record.  Each leg row prints deadline_s beside elapsed_ms, so the first run that finishes a "killed" leg
+# measures its cost and the row below becomes a measurement.
+CONTENTION_FACTOR = 3
+
+# The migration record, and the sections of it that carry one row per measured command.
+RECORD_PATH = "dev/validation/bend2-native/REPORT.json"
+RECORD_SECTIONS = ("full_leg_attempts", "final_focused_checks", "focused_repairs")
+
+# leg name: the command the record names for that leg.  The seconds live in the record, never here.
+RECORDED_COMMANDS = {
+    "STACK-HEIGHT": ("python3", "-P", "dev/asm-test.py", "stack"),
+    "ASM-MUTANTS": ("python3", "-P", "dev/asm-test.py", "mutants"),
+    "TRACE-CALLER": ("python3", "-P", "dev/trace-caller-test.py"),
+    "DIFF-CALLER": ("python3", "-P", "dev/diff-caller-test.py"),
+    "PAYABLE": ("python3", "-P", "dev/payable-test.py"),
+    "CALLVALUE": ("python3", "-P", "dev/callvalue-test.py"),
+    "CALLDATASIZE": ("python3", "-P", "dev/calldatasize-test.py"),
+    "CALLDATALOAD": ("python3", "-P", "dev/calldataload-test.py"),
+    "ADDRESS": ("python3", "-P", "dev/address-test.py"),
+}
+
+
+def recorded_runs(root):
+    """Read the migration record; return {leg: (seconds, outcome)} and the legs the record cannot answer."""
+    path = root / RECORD_PATH
+    text = path.read_text() if path.is_file() else ""
+    record = json.loads(text) if text.strip() else {}
+    rows = [row for section in RECORD_SECTIONS for row in (record.get(section) or [])
+            if isinstance(row, dict) and isinstance(row.get("seconds"), (int, float))
+            and not isinstance(row.get("seconds"), bool)]
+    longest = {name: max((row for row in rows if tuple(row.get("command") or ()) == command),
+                         key=lambda row: row["seconds"], default=None)
+               for name, command in RECORDED_COMMANDS.items()}
+    runs = {name: (row["seconds"], "killed" if row.get("timeout") else "finished")
+            for name, row in longest.items() if row is not None}
+    return runs, sorted(name for name, row in longest.items() if row is None), path
+
+
+def leg_deadline(name, carried, recorded):
+    """Return one leg deadline in seconds: the carried limit, or the ceiling the record derives from it."""
+    run = recorded.get(name)
+    return (carried if run is None
+            else max(carried, 60 * math.ceil(run[0] * CONTENTION_FACTOR / 60)))
 
 
 def main():
@@ -20,6 +82,12 @@ def main():
         print("       stage-a-gates.py --m2-abi-schema")
         print("       stage-a-gates.py --m2-abi-codec")
         return 64
+
+    recorded, gaps, record_path = recorded_runs(root)
+    if gaps:
+        # The deadlines are derived, not carried:  a record that no longer names a leg is a gap, not a default.
+        print("RECORD-GAP " + str(record_path) + " names no run for " + " ".join(gaps))
+        return 70
     address = close or sys.argv[1:] == ["--m1-address"]
     calldataload = address or sys.argv[1:] == ["--m1-calldataload"]
     calldatasize = calldataload or sys.argv[1:] == ["--m1-calldatasize"]
@@ -64,15 +132,19 @@ def main():
     assembler = reference or sys.argv[1:] == ["--asm"]
     keccak = assembler or sys.argv[1:] == ["--keccak"]
     legs = [
-        ("BUILD", 120, ("zsh", "-f", "dev/dune.sh", "build"), ""),
+        ("BUILD", 120, ("zsh", "-f", "dev/build.sh", "build"), ""),
         ("PIN-CARRY", 30, ("zsh", "-f", "dev/carry-check.sh"), "diff=0 unlisted=0"),
         ("R0-COUNT", 10, ("zsh", "-f", "dev/r0-count.sh"), "R0-COUNT OK"),
         ("R0-AUDIT", 10, ("zsh", "-f", "dev/r0-audit.sh"), "R0-AUDIT OK"),
         ("HOUSE", 30, ("zsh", "-f", "dev/house.sh"), "HOUSE OK"),
+        ("NATIVE-MAPS", 180, ("python3", "-P", "dev/native-maps-test.py"), "NATIVE-MAPS cases=35 OK"),
+        ("NATIVE-IO", 180, ("python3", "-P", "dev/native-io-test.py"), "NATIVE-IO cases=8 bytes=65797 OK"),
         ("TRUSTED-LINES", 10, ("zsh", "-f", "dev/trusted-lines.sh"), "TRUSTED-LINES OK"),
-        ("SUITE-KERNEL", 300, ("_build/default/test/main.exe", "test"), "SUITE-KERNEL OK"),
-        ("SUITE-SURFACE", 60, ("_build/default/test/sl_surface.exe",), "SL-SURFACE OK"),
-        ("DRIVER", 30, ("python3", "-P", "dev/stage-a-test.py", "driver"), "DRIVER cases=24 OK"),
+        ("SUITE-KERNEL", 300, ("_build/test/main", "test"), "SUITE-KERNEL OK"),
+        ("SUITE-SURFACE", 60, ("_build/test/sl_surface",), "SL-SURFACE OK"),
+        # Review round 2026-09-24 (F4):  the argv fix of src/os.js put the four refused argv tokens
+        # (--help, --, --threads, --gpu) into the runnable driver suite, so the suite prints 28 cases.
+        ("DRIVER", 30, ("python3", "-P", "dev/stage-a-test.py", "driver"), "DRIVER cases=28 OK"),
         # The 13 subprocess-based checks exceed two minutes under host load 80+.
         ("MUTANTS", 300, ("python3", "-P", "dev/stage-a-test.py", "mutants"), "MUTANTS killed=13/13 OK"),
         ("DENOMINATORS", 10, ("shasum", "-a", "256", "-c", "dev/DENOMINATORS.sha256"), "dev/denominators.json: OK"),
@@ -105,11 +177,11 @@ def main():
         ])
     if emission:
         legs.extend([
-            ("EMIT-CONSTRUCTORS", 30, ("_build/default/test/emit_cases.exe", "constructors"),
+            ("EMIT-CONSTRUCTORS", 30, ("_build/test/emit_cases", "constructors"),
              "EMIT-CONSTRUCTORS cases=22 OK"),
-            ("WORD-UNBOX", 30, ("_build/default/test/emit_cases.exe", "words"),
+            ("WORD-UNBOX", 30, ("_build/test/emit_cases", "words"),
              "WORD-UNBOX ktag=0 kstruct=0 words=3 cases=9 OK"),
-            ("STORAGE-NOCLOS", 30, ("_build/default/test/emit_cases.exe", "storage"),
+            ("STORAGE-NOCLOS", 30, ("_build/test/emit_cases", "storage"),
              "STORAGE-NOCLOS kclos=0 ktail=0 fields=2 cases=9 OK"),
             ("ABI-GOLD", 60, ("zsh", "-f", "dev/abi-gold.sh"),
              "ABI-GOLD jq_sorted=equal provenance=dev/ABI-PROVENANCE.md controls=4 OK"),
@@ -153,7 +225,7 @@ def main():
                      "CONTRACT-SURFACE counter=30 variants=14 refusals=36 mutants=8 OK"))
     if proofs:
         legs.extend([
-            ("CONTRACT-ROUTE", 30, ("_build/default/test/contract_route.exe",), "bound=131072 OK"),
+            ("CONTRACT-ROUTE", 90, ("python3", "-P", "dev/contract-route-test.py"), "CONTRACT-ROUTE-CONTROLS killed=2/2 OK"),
             ("SOURCE-PROOFS", 600, ("python3", "-P", "dev/source-proof-test.py"),
              "SOURCE-PROOFS theorems=11 arithmetic=226 evm=16 recovery=6 effects=7 invalid=13 mutants=6 controls=4 OK"),
         ])
@@ -340,7 +412,10 @@ def main():
     work.mkdir(parents=True, exist_ok=True)
     failed = False
     failed_m1 = False
-    for name, timeout, command, marker in legs:
+    for name, carried, command, marker in legs:
+        # The carried constant is the floor; a leg the record has already measured or killed under Bend/node
+        # runs against the ceiling that record derives, so a kill reads as a hang and not as a small constant.
+        timeout = leg_deadline(name, carried, recorded)
         start = time.monotonic()
         try:
             result = subprocess.run(command, cwd=root,
@@ -366,9 +441,17 @@ def main():
             streams = (getattr(error, "stdout", None), getattr(error, "stderr", None))
             partial = "".join(text if isinstance(text, str) else text.decode("utf-8", "replace")
                               for text in streams if text)
-            output, good, code = partial + str(error) + "\n", False, 1
+            # Review round 2026-09-24 (F7):  a killed leg names its own deadline in the log, so a later reader
+            # can tell a leg that hung from a leg whose cost is above the ceiling this run allowed.
+            run = recorded.get(name)
+            seen = "" if run is None else f" record_s={run[0]:.3f} record_outcome={run[1]}"
+            witness = ("LEG-TIMEOUT " + name + f" deadline_s={timeout}"
+                       f" elapsed_s={time.monotonic() - start:.3f} cost=unmeasured" + seen + "\n"
+                       if isinstance(error, subprocess.TimeoutExpired) else "")
+            output, good, code = partial + str(error) + "\n" + witness, False, 1
         (work / (name + ".log")).write_text(output)
-        print(f"{'PASS' if good else 'FAIL'} {name} exit={code} elapsed_ms={(time.monotonic() - start) * 1000:.1f}", flush=True)
+        print(f"{'PASS' if good else 'FAIL'} {name} exit={code} elapsed_ms={(time.monotonic() - start) * 1000:.1f}"
+              f" deadline_s={timeout}", flush=True)
         if not good:
             print(output, flush=True)
             failed_m1 = failed_m1 or name in m1_names

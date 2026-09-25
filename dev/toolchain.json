@@ -1,0 +1,11 @@
+{
+  "bend": {
+    "repository": "https://github.com/bendlang/bend.git",
+    "version": "2.0.25",
+    "commit": "c65bcb788dbfb298bb434c1d858b47c193841dc0"
+  },
+  "backend": "javascript",
+  "runtime": "node",
+  "node_minimum_major": 22,
+  "stack_kib": 65500
+}

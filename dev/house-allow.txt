@@ -1,1 +1,0 @@
-bin/assay.ml	dispatch	| _unknown -> bad_usage ()	Inherited CLI string dispatch, renamed from bin/kanon.ml.

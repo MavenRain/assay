@@ -13,7 +13,7 @@ def run(root, *args):
 
 
 def driver(root):
-    binary = str(root / "_build/default/bin/assay.exe")
+    binary = str(root / "_build/bin/assay")
     count = 0
     with tempfile.TemporaryDirectory(prefix="assay-driver-") as directory:
         work = Path(directory)
@@ -55,6 +55,14 @@ def driver(root):
              1, "", None),
             (("emit", str(source)), 64, "", "usage: assay"),
             ((), 64, "", "usage: assay"),
+            # The Bend runtime removes these four token classes from the
+            # process arguments before the program starts. The driver must
+            # see each token and refuse it with exit 64, as the OCaml driver
+            # did.
+            (("--help",), 64, "", "usage: assay"),
+            (("--", "check", str(source)), 64, "", "usage: assay"),
+            (("--threads", "4", "spec-count"), 64, "", "usage: assay"),
+            (("--gpu", "spec-count"), 64, "", "usage: assay"),
         ]
         for args, code, stdout, stderr in cases:
             result = run(root, binary, *args)
@@ -73,25 +81,25 @@ def driver(root):
 
 
 def mutants(root):
-    driver_source = (root / "bin/assay.ml").read_text()
+    driver_source = (root / "src/cli.bend").read_text()
     cases = [
         ("PIN", "dev/PIN", "0" * 40 + "\n", "carry-check.sh", "PIN FAIL"),
-        ("CARRY", "lib/check.ml", (root / "lib/check.ml").read_text() + "\n", "carry-check.sh", "CARRY changed lib/check.ml"),
-        ("CARRY-NEW", "lib/unlisted.ml", "let hidden = 0\n", "carry-check.sh", "CARRY extra lib/unlisted.ml"),
-        ("CARRY-GONE", "lib/pp.ml", None, "carry-check.sh", "CARRY missing lib/pp.ml"),
+        ("CARRY", "src/kernel.bend", (root / "src/kernel.bend").read_text() + "\n", "carry-check.sh", "CARRY changed src/kernel.bend"),
+        ("CARRY-NEW", "src/unlisted.bend", "def hidden() -> U32:\n  0\n", "carry-check.sh", "CARRY extra src/unlisted.bend"),
+        ("CARRY-GONE", "src/frontend.bend", None, "carry-check.sh", "CARRY missing src/frontend.bend"),
         ("R0-COUNT", "SPEC.md", (root / "SPEC.md").read_text().replace("formers 2:", "formers 3:"), "r0-count.sh", "R0-COUNT FAIL"),
-        ("R0-AUDIT", "lib/unlisted.ml", "(* SColl *)\n", "r0-audit.sh", "R0-AUDIT FAIL"),
-        ("R0-AUDIT-SPEC", "SPEC.md", (root / "SPEC.md").read_text().replace("| M2 | rules.ml |", "| M2 | gone.ml |", 1), "r0-audit.sh", "cites the absent refuser gone.ml"),
-        ("HOUSE", "bin/assay.ml", driver_source + "\nlet bad () = failwith \"bad\"\n", "house.sh", "HOUSE FAIL"),
-        ("HOUSE-LOOP", "bin/assay.ml", driver_source + "\nlet count n = for i = 0 to n do ignore i done\n", "house.sh", "HOUSE no-loop-keyword FAIL"),
-        ("HOUSE-DIVISION", "bin/assay.ml", driver_source + "\nlet half n = n / 2\n", "house.sh", "HOUSE no-bare-division FAIL"),
-        ("TRUSTED-LINES", "lib/check.ml", (root / "lib/check.ml").read_text() + "\n", "trusted-lines.sh", "TRUSTED-LINES FAIL"),
-        ("TRUSTED-UNPRICED", "emit/hidden.ml", "let hidden = 0\n", "trusted-lines.sh", "unpriced=emit/hidden.ml"),
-        ("TRUSTED-BOUND", "keccak/keccak.ml", "\n" * 251, "trusted-lines.sh", "TRUSTED-LINES FAIL"),
+        ("R0-AUDIT", "src/unlisted.bend", "# SColl\n", "r0-audit.sh", "R0-AUDIT FAIL"),
+        ("R0-AUDIT-SPEC", "SPEC.md", (root / "SPEC.md").read_text().replace("| M2 | kernel.bend |", "| M2 | gone.bend |", 1), "r0-audit.sh", "cites the absent refuser gone.bend"),
+        ("HOUSE", "src/cli.bend", driver_source + "\ndef bad() -> U32:\n  panic(\"bad\")\n", "house.sh", "HOUSE FAIL"),
+        ("HOUSE-LOOP", "src/cli.bend", driver_source + "\ndef bad() -> U32:\n  while True{}: 0\n", "house.sh", "HOUSE no-loop-keyword FAIL"),
+        ("HOUSE-DIVISION", "src/cli.bend", driver_source + "\ndef half(n: U32) -> U32:\n  n / 2\n", "house.sh", "HOUSE no-bare-division FAIL"),
+        ("TRUSTED-LINES", "src/kernel.bend", (root / "src/kernel.bend").read_text() + "\n" * 4001, "trusted-lines.sh", "TRUSTED-LINES FAIL"),
+        ("TRUSTED-UNPRICED", "src/hidden.bend", "def hidden() -> U32:\n  0\n", "trusted-lines.sh", "unpriced=src/hidden.bend"),
+        ("TRUSTED-BOUND", "src/keccak.bend", "\n" * 251, "trusted-lines.sh", "TRUSTED-LINES FAIL"),
     ]
     with tempfile.TemporaryDirectory(prefix="assay-mutants-") as directory:
         work = Path(directory)
-        for folder in ("lib", "surface", "bin", "test", "dev"):
+        for folder in ("src", "test", "dev"):
             shutil.copytree(root / folder, work / folder)
         shutil.copy2(root / "SPEC.md", work / "SPEC.md")
         (work / ".git").symlink_to(root / ".git", target_is_directory=True)

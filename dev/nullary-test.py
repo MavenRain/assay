@@ -4,6 +4,10 @@ import hashlib
 import importlib.util
 import json
 from pathlib import Path
+
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import native_mutations
 import shutil
 import subprocess
 import sys
@@ -11,7 +15,7 @@ import tempfile
 
 ROOT = Path(__file__).resolve().parent.parent
 WORK = ROOT / '.gatework/nullary'
-BINARY = ROOT / '_build/default/bin/assay.exe'
+BINARY = ROOT / '_build/bin/assay'
 spec = importlib.util.spec_from_file_location('nullary_model', ROOT / 'dev/model-test.py')
 M = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(M)
@@ -188,26 +192,18 @@ def witness(name):
 
 
 def mutants():
-    cases = [
-        ('SURFACE-UNIVERSE', 'emit/contract.ml', 'if nullary then "(prod () : Type 0)"',
-         'if nullary then "prod ()"', 'surface'),
-        ('UNIT-RECOGNIZER', 'emit/recognize.ml', 'level = Level.one -> Ok []',
-         'level = Level.zero -> Ok []', 'core'),
-        ('UNIT-SCHEMA', 'emit/recognize.ml', 'if typed_unit globals name then',
-         'if typed_unit globals name && false then', 'core'),
-    ]
+    cases = native_mutations.load(__file__)
     with tempfile.TemporaryDirectory(prefix='assay-nullary-mutants-') as temporary:
         copy = Path(temporary) / 'copy'
-        shutil.copytree(ROOT, copy, ignore=shutil.ignore_patterns('.*', '_build', '.gatework',
-            '.lake', 'vendor', 'validation', '__pycache__'))
+        native_mutations.copy_project(ROOT, copy)
         for name, relative, before, after, example in cases:
             path = copy / relative
             original = path.read_text()
-            require(original.count(before) == 1, 'NULLARY-MUTANT-ANCHOR ' + name)
+            require(native_mutations.count(original, before) == 1, 'NULLARY-MUTANT-ANCHOR ' + name)
             for mutated in (True, False):
-                path.write_text(original.replace(before, after) if mutated else original)
+                path.write_text(native_mutations.replace(original, before, after) if mutated else original)
                 label = ('mutant-' if mutated else 'control-') + name
-                build = M.capture(label + '-build', ['zsh', '-f', 'dev/dune.sh', 'build'], cwd=copy, timeout=120)
+                build = M.capture(label + '-build', ['zsh', '-f', 'dev/build.sh', 'build', 'bin/assay'], cwd=copy, timeout=120)
                 require(build.returncode == 0, 'NULLARY-BUILD ' + label)
                 result = M.capture(label, ['python3', '-P', 'dev/nullary-test.py', 'witness', example], cwd=copy)
                 require(result.returncode == (1 if mutated else 0) and

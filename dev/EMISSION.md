@@ -19,7 +19,7 @@ driver boundary; a failed write can leave a partial new directory.
 ## The M0 protocol
 
 The `Word`, `Eff`, constructor and `EvmOpcodes` declarations at the start
-of `Ref20.asy` define the M0 protocol.  `emit/recognize.ml` checks those
+of `Ref20.asy` define the M0 protocol.  `Recognize` in `src/emitter.bend` checks those
 declarations against a checked canonical schema, including the family
 tables.  A matching spelling alone cannot attach EVM meaning to a different
 type.  This is a backend convention, with zero new kernel formers.

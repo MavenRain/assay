@@ -5,6 +5,10 @@ import importlib.util
 import itertools
 import json
 from pathlib import Path
+
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import native_mutations
 import shutil
 import subprocess
 import sys
@@ -212,36 +216,19 @@ def refusals(only_schema=False):
 
 
 def mutants():
-    rows = [
-        ('SURFACE', 'emit/contract.ml', 'next (Context (Recognize.Address, name)) rest',
-         'next (Context (Recognize.Caller, name)) rest', 'probe', 'ADDRESS-MODEL probe-0-observe'),
-        ('MODEL', 'emit/model.ml', 'Recognize.Address -> Ok input.address',
-         'Recognize.Address -> Ok input.caller', 'probe', 'ADDRESS-MODEL probe-0-observe'),
-        ('EMITTER', 'emit/emit.ml', 'String.uppercase_ascii (R.context_name source)',
-         '(if R.context_name source = "address" then "CALLER" else String.uppercase_ascii (R.context_name source))',
-         'probe', 'ADDRESS-EVM probe-0-observe'),
-        ('SCHEMA', 'emit/recognize.ml', 'context_name source ^ " : (Word 256 -> Tx) -> Tx\\n"',
-         'context_name source ^ (if source = Address then " : (Word 160 -> Tx) -> Tx\\n" else " : (Word 256 -> Tx) -> Tx\\n")',
-         'schema', 'ADDRESS-REFUSAL wrong-width'),
-        ('SNAPSHOT', 'emit/emit.ml',
-         'continuation fuel (fresh + 1) fn (R.Runtime_word fresh) in\n'
-         '       Ok (Context (source, fresh, next), fuel, next_fresh)',
-         'continuation fuel (fresh + if R.context_name source = "address" then 0 else 1) fn (R.Runtime_word fresh) in\n'
-         '       Ok (Context (source, fresh, next), fuel, next_fresh)',
-         'probe', 'ADDRESS-MODEL probe-0-snapshot'),
-    ]
+    rows = native_mutations.load(__file__)
     records = []
     with tempfile.TemporaryDirectory(prefix='assay-address-mutants-') as temporary:
         copy = Path(temporary) / 'copy'
-        shutil.copytree(ROOT, copy, ignore=shutil.ignore_patterns('.*', '_build', 'vendor', 'validation', '__pycache__'))
+        native_mutations.copy_project(ROOT, copy)
         for name, file, before, after, mode, marker in rows:
             path = copy / file
             original = path.read_text()
-            require(original.count(before) == 1, 'ADDRESS-MUTANT anchor ' + name)
+            require(native_mutations.count(original, before) == 1, 'ADDRESS-MUTANT anchor ' + name)
             for mutated in (True, False):
-                path.write_text(original.replace(before, after) if mutated else original)
+                path.write_text(native_mutations.replace(original, before, after) if mutated else original)
                 label = ('mutant-' if mutated else 'control-') + name
-                build = C.capture(label + '-build', ['zsh', '-f', 'dev/dune.sh', 'build', '-j', '2'], cwd=copy, timeout=120)
+                build = C.capture(label + '-build', ['zsh', '-f', 'dev/build.sh', 'build', '-j', '2', 'bin/assay'], cwd=copy, timeout=120)
                 require(build.returncode == 0, 'ADDRESS-MUTANT build ' + label)
                 result = C.capture(label, ['python3', '-P', 'dev/address-test.py', mode], cwd=copy, timeout=120)
                 require(result.returncode == (1 if mutated else 0) and (not mutated or marker in result.stdout),

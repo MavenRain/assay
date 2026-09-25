@@ -1,5 +1,20 @@
 # Assay carried sources
 
+The current implementation is a native Bend 2 rewrite of Assay at
+`2cd3259f10d085dfedb405395d9adb341ef816ed`. The upstream ancestry pin in
+`dev/PIN` remains unchanged. `dev/native-carry.json` binds the native kernel
+and frontend hashes, the migration base, and the complete production source
+inventory. CARRY rejects altered carried sources and unlisted additions.
+The kernel's 4,000-line limit and the backend limits remain enforced.
+
+The following ledger records the earlier byte-preserved OCaml carry. Its
+paths and integration decisions describe the pre-migration repository.
+The native implementation and its validation are described in
+`dev/BEND2-MIGRATION.md`. The unused upstream submodule and obsolete Wasm
+driver scripts are removed; Assay had already removed that backend at Stage A.
+
+## Historical carry ledger
+
 The upstream is kanon commit `2c2e6e6831a0b2cf3107fa4aad392606109a2bcf`.
 `dev/PIN` holds this full object name and one newline.  The local Git history
 contains the pin.  The carry gate reads committed objects from this repository.

@@ -49,10 +49,9 @@ def save_measurement(target, report):
 
 
 def compiler_sources(root):
-    paths = [root / 'dune', root / 'dune-project']
-    for directory in ('lib', 'surface', 'abi', 'asm', 'bin', 'emit', 'keccak'):
-        paths.extend(path for path in (root / directory).rglob('*')
-                     if path.is_file() and (path.suffix in ('.ml', '.mli') or path.name == 'dune'))
+    paths = [root / path for path in ('assay', 'Makefile', 'dev/build.py', 'dev/build.sh', 'dev/bend_source.py', 'dev/toolchain.json')]
+    paths.extend(path for path in (root / 'src').glob('*')
+                 if path.is_file() and path.name not in ('tests.bend', 'test-os.js'))
     data = module(root)
     return {str(path.relative_to(root)): data.digest(path) for path in sorted(paths)}
 
@@ -61,27 +60,25 @@ def measure(root, target, milestone='M0'):
     data = module(root)
     data.require(not target.exists(), 'RATIO-OUTPUT exists')
     frozen = data.manifest(root)
-    binary = root / '_build/default/bin/assay.exe'
+    checked([sys.executable, '-P', 'dev/build.py', 'build', 'bin/assay'], root)
+    binary = root / '_build/bin/assay'
     identities = {path: data.digest(root / path) for path in
-                  ('_build/default/bin/assay.exe', 'corpus/MANIFEST.json', 'dev/ratio.py', 'dev/corpus-data.py')}
+                  ('_build/bin/assay', '_build/bend/assay.js', 'corpus/MANIFEST.json', 'dev/ratio.py', 'dev/corpus-data.py')}
     sources = compiler_sources(root)
     groups = {name: [row for row in frozen['cases'] if row['group'] == name]
               for name in ('contracts', 'proofs')}
-    tools = {name: shutil.which(name) for name in ('ocamlopt', 'ocamlc', 'ocamldep')}
-    data.require(all(tools.values()), 'RATIO-TOOLS need the zxcaml-p1 switch')
-    versions = {name: checked([path, '-version'], root) for name, path in tools.items()}
-    samples = {name: [] for name in ('contracts', 'proofs', 'ocamlopt', 'ocamlc', 'fixed')}
+    spec = importlib.util.spec_from_file_location('assay_build', root / 'dev/build.py')
+    builder = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(builder)
+    bend, node = builder.compiler(), builder.runtime()
+    tools = {'bend_compile': str(bend), 'bend_check': str(bend), 'cc': shutil.which('cc')}
+    data.require(tools['cc'], 'RATIO-TOOLS need a C compiler to validate the Bend outputs')
+    versions = {'bend': checked([str(bend), 'version'], root), 'node': checked([node, '--version'], root)}
+    native_outputs = {}
+    samples = {name: [] for name in ('contracts', 'proofs', 'bend_compile', 'bend_check', 'fixed')}
     runs = []
     with tempfile.TemporaryDirectory(prefix='assay-ratio-') as temporary:
         work = Path(temporary)
-        source = work / 'ocaml'
-        source.mkdir()
-        for row in frozen['ocaml']:
-            shutil.copy2(root / row['path'], source / Path(row['path']).name)
-        order = checked([tools['ocamldep'], '-sort', *[Path(row['path']).name for row in frozen['ocaml']]], source).split()
-        data.require(set(order) == {Path(row['path']).name for row in frozen['ocaml']}, 'RATIO-OCAML-ORDER')
-        zarith = Path(tools['ocamlopt']).resolve().parent.parent / 'lib/zarith'
-        data.require(zarith.is_dir(), 'RATIO-ZARITH')
         # Warm each complete workload, then interleave five measured rounds.
         for index in range(6):
             if index == 1:
@@ -91,16 +88,27 @@ def measure(root, target, milestone='M0'):
             for name in samples:
                 folder = work / f'{index}-{name}'
                 folder.mkdir()
-                if name in ('ocamlopt', 'ocamlc'):
-                    for row in frozen['ocaml']:
-                        shutil.copy2(source / Path(row['path']).name, folder / Path(row['path']).name)
-                    argv = [tools[name], '-c', '-I', str(zarith), *order]
-                    begin = time.perf_counter_ns()
-                    checked(argv, folder)
-                    elapsed = (time.perf_counter_ns() - begin) / 1e6
-                    extension = '.cmx' if name == 'ocamlopt' else '.cmo'
-                    data.require(all((folder / Path(path).with_suffix(extension)).is_file()
-                                     for path in order if path.endswith('.ml')), 'RATIO-OCAML-OUTPUT')
+                if name in ('bend_compile', 'bend_check'):
+                    elapsed, argv = 0.0, []
+                    for row in frozen['bend']:
+                        out = folder / (Path(row['path']).stem + '.c')
+                        command = [str(bend), str(root / row['path'])]
+                        command += ['-o', str(out)] if name == 'bend_compile' else ['--check-only']
+                        begin = time.perf_counter_ns()
+                        output = checked(command, folder)
+                        elapsed += (time.perf_counter_ns() - begin) / 1e6
+                        argv.append(command)
+                        if name == 'bend_compile':
+                            identity = data.digest(out)
+                            if index == 0:
+                                native_outputs[row['path']] = identity
+                                executable = out.with_suffix('.native')
+                                checked([tools['cc'], '-std=c11', '-O0', str(out), '-lpthread', '-lm', '-o', str(executable)], folder)
+                                data.require(checked([str(executable)], folder) == row['answer'], 'RATIO-BEND-ANSWER')
+                            else:
+                                data.require(native_outputs[row['path']] == identity, 'RATIO-BEND-OUTPUT')
+                        else:
+                            data.require('All terms check' in output, 'RATIO-BEND-CHECK')
                 elif name == 'fixed':
                     argv = [str(binary), 'spec-count']
                     begin = time.perf_counter_ns()
@@ -123,7 +131,7 @@ def measure(root, target, milestone='M0'):
                 if index:
                     samples[name].append(elapsed)
                     runs.append(dict(round=index, workload=name, argv=argv,
-                                     cwd=str(folder if name in ('ocamlopt', 'ocamlc') else root), elapsed_ms=elapsed))
+                                     cwd=str(folder if name in ('bend_compile', 'bend_check') else root), elapsed_ms=elapsed))
         duration = time.monotonic() - start_wall
         ended = datetime.datetime.now(datetime.timezone.utc).isoformat()
     # Recheck the inputs after the run.  No run can bless changed sources.
@@ -133,15 +141,15 @@ def measure(root, target, milestone='M0'):
     data.require(compiler_sources(root) == sources, 'RATIO-CHANGED compiler sources changed during timing')
     rows = {name: summary(values,
                 sum(row['lines'] for row in groups[name]) if name in groups else
-                sum(row['lines'] for row in frozen['ocaml']) if name != 'fixed' else 0,
-                len(groups[name]) if name in groups else 1)
+                sum(row['lines'] for row in frozen['bend']) if name != 'fixed' else 0,
+                len(groups[name]) if name in groups else len(frozen['bend']) if name != 'fixed' else 1)
             for name, values in samples.items()}
-    report = dict(version=1, stage='M1' if milestone == 'M1' else 'M0 Stage F', date=started[:10],
-                  method='One warm run, five interleaved wall-clock runs.  Assay parses through five closed files.  No fixed-cost subtraction.',
+    report = dict(version=2, stage='M1' if milestone == 'M1' else 'M0 Stage F', date=started[:10],
+                  method='One warm run, five interleaved wall-clock runs.  Assay parses through five closed files. Bend emits C or checks the frozen paired corpus. C execution is validated outside timing. No fixed-cost subtraction.',
                   fixed_method='One spec-count invocation, process startup plus R0 formatting; an upper-bound proxy, not an empty compile.',
                   host=dict(system=platform.platform(), ncpu=os.cpu_count()),
                   window=dict(started=started, ended=ended, seconds=duration, load_start=load_start, load_end=os.getloadavg()),
-                  versions=versions, executable_sha256=identities['_build/default/bin/assay.exe'],
+                  versions=versions, executable_sha256=identities['_build/bend/assay.js'],
                   corpus_sha256=identities['corpus/MANIFEST.json'],
                   measurement_sha256=identities['dev/ratio.py'], rows=rows, commands=runs)
     if milestone == 'M1':
@@ -152,19 +160,19 @@ def measure(root, target, milestone='M0'):
 
 def validate(report, frozen):
     require = module(Path(__file__).resolve().parent.parent).require
-    require(report['version'] == 1 and report['stage'] in ('M0 Stage F', 'M1'), 'RATIO-VERSION')
+    require(report['version'] == 2 and report['stage'] in ('M0 Stage F', 'M1'), 'RATIO-VERSION')
     # Review round 2026-09-12 (C-1):  save_measurement marks a rejected window in the
     # retained report.  A report that carries the marker fails here, whatever its
     # window values say, so edited window seconds cannot publish it.
     require('rejection' not in report and 'window_limit_seconds' not in report, 'RATIO-REJECTED')
     require(0 < report['window']['seconds'] < 60, 'RATIO-WINDOW')
-    for name in ('contracts', 'proofs', 'ocamlopt', 'ocamlc', 'fixed'):
+    for name in ('contracts', 'proofs', 'bend_compile', 'bend_check', 'fixed'):
         row = report['rows'][name]
         samples = row['samples_ms']
         require(len(samples) == 5 and all(type(v) in (float, int) and math.isfinite(v) and v > 0 for v in samples), 'RATIO-SAMPLES')
-        selected = frozen['ocaml'] if name in ('ocamlopt', 'ocamlc') else [r for r in frozen['cases'] if r['group'] == name]
+        selected = frozen['bend'] if name in ('bend_compile', 'bend_check') else [r for r in frozen['cases'] if r['group'] == name]
         lines = sum(r['lines'] for r in selected)
-        invocations = len(selected) if name in ('contracts', 'proofs') else 1
+        invocations = 1 if name == 'fixed' else len(selected)
         require(row == summary(samples, lines, invocations), 'RATIO-SUMMARY ' + name)
     commands = report['commands']
     require(len(commands) == 25 and {(row['round'], row['workload']) for row in commands} ==
@@ -178,7 +186,7 @@ def require_m1(root, value):
     require(value['stage'] == 'M1', 'RATIO-MILESTONE need an M1 measurement')
     require(value.get('compiler_sources_sha256') == compiler_sources(root), 'RATIO-SOURCES')
     rows = value['rows']
-    require(rows['contracts']['ms_per_kloc'] <= rows['ocamlopt']['ms_per_kloc'],
+    require(rows['contracts']['ms_per_kloc'] <= rows['bend_compile']['ms_per_kloc'],
             'RATIO-BOUND M1 limit=1.0')
 
 
@@ -196,9 +204,9 @@ def report(root, milestone='M0'):
     # are covered by DENOMINATORS; the original executable hash is provenance.
     rows = value['rows']
     assay = rows['contracts']['ms_per_kloc']
-    native = rows['ocamlopt']['ms_per_kloc']
+    native = rows['bend_compile']['ms_per_kloc']
     informational = 'false limit=1.0' if milestone == 'M1' else 'true'
-    print(f'{milestone}-RATIO assay_ms_per_kloc={assay:.3f} ocamlopt={native:.3f} ocamlc={rows["ocamlc"]["ms_per_kloc"]:.3f} '
+    print(f'{milestone}-RATIO assay_ms_per_kloc={assay:.3f} bend_compile={native:.3f} bend_check={rows["bend_check"]["ms_per_kloc"]:.3f} '
           f'ratio={assay/native:.6f} fixed_ms={rows["fixed"]["median_ms"]:.3f} load={value["window"]["load_start"][0]:.2f} informational={informational}')
     print(f'{milestone}-PROOF-RATIO ms_per_kloc={rows["proofs"]["ms_per_kloc"]:.3f} files={rows["proofs"]["invocations"]} separate=true')
     print(f'{milestone}-RATIO provenance=dev/denominators.json fixed=spec-count-proxy subtraction=none OK')

@@ -1,0 +1,57 @@
+{
+  "source": "src/emitter.bend",
+  "cases": [
+    [
+      "LEFT",
+      [
+        {
+          "definition": "Contract.obligations",
+          "sha256": "fa1e052b56db25eb8e7e15d25885d50dff4a9680b6aee91b46ef9870b12fd697",
+          "replacement": "@unsafe\ndef Contract.obligations(+predicates_1896: ListOf(Contract.Predicate_row), +invariants_1897: ListOf(Contract.Invariant), +state_1898: ListOf(TupleOf2(String, Contract.Binding)), +evidence_1899: ListOf(TupleOf2(String, String)), +result_1900: String, +next_1901: String) -> CheckResult(String):\n  SeqList.fold_right(&2, &2, Contract.Invariant, CheckResult(String), (+local12814 => +local12816 => (Match.Result(&2, String, &2, Error, &2, CheckResult(String), local12816, +item12847 => ((+local12819 => (Match.Result(&2, Unit, &2, Error, &2, CheckResult(String), SeqList.fold(&2, &2, String, CheckResult(Unit), (+local12822 => +local12824 => (Match.Result(&2, Unit, &2, Error, &2, CheckResult(Unit), local12822, +item12829 => ((+local12827 => ((+scrut12828 = local12827\n  Native.choose(&2, CheckResult(Unit), Maybe.is_some(&2, Contract.Binding, SeqList.assoc(&2, &2, String, Contract.Binding, +x => +y => NativeString.equal(x, y), local12824, state_1898)), _ => (Done{Unit{}}), _ => (Contract.fail(&2, Unit, Get.Contract.Invariant.invariant_name(local12814), \"INVARIANT\", String.append(\"load or store field \", String.append(local12824, \" before proving the final state\"))))))))(item12829)), +item12830 => Fail{item12830}))), Contract.invariant_fields(local12814), Done{Unit{}}), +item12845 => ((+local12832 => ((+scrut12833 = local12832\n  Match.Result(&2, Contract.Resolved_claim, &2, Error, &2, CheckResult(String), Contract.resolved_claim(predicates_1896, state_1898, Get.Contract.Invariant.claim(local12814)), +item12843 => ((+local12836 => ((+scrut12841 = {(+scrut12837 = local12836\n  Match.Contract_Resolved_claim(&2, Contract.Resolved_claim, scrut12837, +p12838 => (local12836), +p12839 => +p12840 => (p12840))) : Contract.Resolved_claim}\n  (+scrut12842 = {Contract.invariant_proof(evidence_1899, scrut12841) : String}\n  Done{Contract.erased_apply(String.append(\"_assay_inv_\", Get.Contract.Token.text(Get.Contract.Invariant.invariant_name(local12814))), Contract.claim_type(scrut12841), result_1900, scrut12842, local12819)}))))(item12843)), +item12844 => Fail{item12844}))))(item12845)), +item12846 => Fail{item12846})))(item12847)), +item12848 => Fail{item12848}))), invariants_1897, Done{next_1901})\n\n"
+        }
+      ],
+      null,
+      "constructor-left",
+      "ERROR-REFUSAL constructor-left"
+    ],
+    [
+      "RIGHT",
+      [
+        {
+          "definition": "Contract.obligations",
+          "sha256": "fa1e052b56db25eb8e7e15d25885d50dff4a9680b6aee91b46ef9870b12fd697",
+          "replacement": "@unsafe\ndef Contract.obligations(+predicates_1896: ListOf(Contract.Predicate_row), +invariants_1897: ListOf(Contract.Invariant), +state_1898: ListOf(TupleOf2(String, Contract.Binding)), +evidence_1899: ListOf(TupleOf2(String, String)), +result_1900: String, +next_1901: String) -> CheckResult(String):\n  SeqList.fold_right(&2, &2, Contract.Invariant, CheckResult(String), (+local12814 => +local12816 => (Match.Result(&2, String, &2, Error, &2, CheckResult(String), local12816, +item12847 => ((+local12819 => (Match.Result(&2, Unit, &2, Error, &2, CheckResult(String), SeqList.fold(&2, &2, String, CheckResult(Unit), (+local12822 => +local12824 => (Match.Result(&2, Unit, &2, Error, &2, CheckResult(Unit), local12822, +item12829 => ((+local12827 => ((+scrut12828 = local12827\n  Native.choose(&2, CheckResult(Unit), Maybe.is_some(&2, Contract.Binding, SeqList.assoc(&2, &2, String, Contract.Binding, +x => +y => NativeString.equal(x, y), local12824, state_1898)), _ => (Done{Unit{}}), _ => (Contract.fail(&2, Unit, Get.Contract.Invariant.invariant_name(local12814), \"INVARIANT\", String.append(\"load or store field \", String.append(local12824, \" before proving the final state\"))))))))(item12829)), +item12830 => Fail{item12830}))), Contract.invariant_fields(local12814), Done{Unit{}}), +item12845 => ((+local12832 => ((+scrut12833 = local12832\n  Match.Result(&2, Contract.Resolved_claim, &2, Error, &2, CheckResult(String), Contract.resolved_claim(predicates_1896, state_1898, Get.Contract.Invariant.claim(local12814)), +item12843 => ((+local12836 => ((+scrut12841 = {(+scrut12837 = local12836\n  Match.Contract_Resolved_claim(&2, Contract.Resolved_claim, scrut12837, +p12838 => (local12836), +p12839 => +p12840 => (p12839))) : Contract.Resolved_claim}\n  (+scrut12842 = {Contract.invariant_proof(evidence_1899, scrut12841) : String}\n  Done{Contract.erased_apply(String.append(\"_assay_inv_\", Get.Contract.Token.text(Get.Contract.Invariant.invariant_name(local12814))), Contract.claim_type(scrut12841), result_1900, scrut12842, local12819)}))))(item12843)), +item12844 => Fail{item12844}))))(item12845)), +item12846 => Fail{item12846})))(item12847)), +item12848 => Fail{item12848}))), invariants_1897, Done{next_1901})\n\n"
+        }
+      ],
+      null,
+      "constructor-right",
+      "ERROR-REFUSAL constructor-right"
+    ],
+    [
+      "RIGHT-FIELDS",
+      [
+        {
+          "definition": "Contract.invariant_fields",
+          "sha256": "ecfbad0468ba68d541cf3c88a4b1070f46b1c656ea386e51c31558db07e80f20",
+          "replacement": "@unsafe\ndef Contract.invariant_fields(+row_1881: Contract.Invariant) -> ListOf(String):\n  SeqList.filter_map(&2, &2, Contract.Word, String, (+local12799 => ((+scrut12800 = local12799\n  Match.Contract_Word(&2, OptionOf(String), scrut12800, +p12801 => (None{}), +p12802 => (Some{Get.Contract.Token.text(p12802)}))))), Mutation.compound_invariant.RIGHT_FIELDS.Local.Contract.operands.f12797(Get.Contract.Invariant.claim(row_1881)))\n@unsafe\ndef Mutation.compound_invariant.RIGHT_FIELDS.Local.Contract.operands.f12797(+param_1891: Contract.Claim) -> ListOf(Contract.Word):\n  (+scrut12803 = param_1891\n  Match.Contract_Claim(&2, ListOf(Contract.Word), scrut12803, +p12804 => (Match.Contract_Predicate(&2, ListOf(Contract.Word), p12804, +p12805 => +p12806 => (Con{p12805, Con{p12806, Nil{}}}), +p12807 => +p12808 => (Con{p12807, Con{p12808, Nil{}}}))), +p12809 => +p12810 => (Mutation.compound_invariant.RIGHT_FIELDS.Local.Contract.operands.f12797(p12809)), +p12811 => +p12812 => (p12812)))\n"
+        }
+      ],
+      null,
+      "right-write",
+      "ERROR-REFUSAL right-write"
+    ],
+    [
+      "COMPONENT-EVIDENCE",
+      [
+        {
+          "definition": "Contract.invariant_proof",
+          "sha256": "5397a2b5452ab95c114e1bba2a8dddf44c22d4be8e367922f312e036cf54196b",
+          "replacement": "@unsafe\ndef Contract.invariant_proof(+evidence_1687: ListOf(TupleOf2(String, String)), +ty_1688: Contract.Resolved_claim) -> String:\n  (+scrut12281 = {(+local12275 => ((+scrut12276 = local12275\n  (+scrut12277 = ty_1688\n  Match.Contract_Resolved_claim(&2, String, scrut12277, +p12278 => (\"(tuple ())\"), +p12279 => +p12280 => (Contract.invariant_proof(evidence_1687, p12279))))))) : Reusable(Unit, String)}\n  Match.Maybe(&2, String, &1, Reusable(Unit, String), SeqList.assoc(&2, &2, String, String, +x => +y => NativeString.equal(x, y), Contract.claim_type(ty_1688), evidence_1687), _ => (scrut12281), +value => ((+local12283 => +local12285 => ((+scrut12286 = local12285\n  local12283)))(value)))(Unit{}))\n\n"
+        }
+      ],
+      null,
+      "component-evidence",
+      "M1-TOOL component-evidence"
+    ]
+  ]
+}

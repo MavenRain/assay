@@ -85,7 +85,7 @@ def frozen():
                             outputs=[dict(name='', type='uint256')],
                             stateMutability='view' if name == 'get' else 'nonpayable'), 'COUNTER-ABI ' + name)
         signature = name + ('()' if name == 'get' else '(uint256)')
-        ours = run(name + '-selector', str(ROOT / '_build/default/test/keccak_vec.exe'),
+        ours = run(name + '-selector', str(ROOT / '_build/test/keccak_vec'),
                    'selector', signature.encode().hex()).strip()
         other = run(name + '-cast-selector', 'cast', 'sig', signature).strip()
         require(ours == other == '0x' + expected_selectors[signature], 'COUNTER-SELECTOR ' + name)

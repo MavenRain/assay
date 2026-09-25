@@ -173,9 +173,9 @@ bytes are restored between cases.  The source checkout is never mutated.
 | Mutant | Damage | Rejection |
 | --- | --- | --- |
 | PIN | Replace dev/PIN with forty zeroes | PIN FAIL |
-| CARRY | Append a newline to lib/check.ml | CARRY changed lib/check.ml |
-| CARRY-NEW | Add lib/unlisted.ml | CARRY extra lib/unlisted.ml |
-| CARRY-GONE | Delete the carried lib/pp.ml | CARRY missing lib/pp.ml |
+| CARRY | Append a newline to src/kernel.bend | CARRY changed src/kernel.bend |
+| CARRY-NEW | Add src/unlisted.bend | CARRY extra src/unlisted.bend |
+| CARRY-GONE | Delete the carried src/frontend.bend | CARRY missing src/frontend.bend |
 | R0-COUNT | Change the documented former count to 3 | R0-COUNT FAIL |
 | R0-AUDIT | Put SColl in an unapproved kernel file | R0-AUDIT FAIL |
 | R0-AUDIT-SPEC | Cite an absent refusing module in the SPEC.md shape table | cites the absent refuser gone.ml |

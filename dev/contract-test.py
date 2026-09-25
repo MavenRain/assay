@@ -5,6 +5,10 @@ import importlib.util
 import json
 import os
 from pathlib import Path
+
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import native_mutations
 import shutil
 import subprocess
 import sys
@@ -12,7 +16,7 @@ import tempfile
 
 ROOT = Path(__file__).resolve().parent.parent
 WORK = ROOT / '.gatework/contract'
-BINARY = ROOT / '_build/default/bin/assay.exe'
+BINARY = ROOT / '_build/bin/assay'
 spec = importlib.util.spec_from_file_location('contract_model', ROOT / 'dev/model-test.py')
 M = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(M)
@@ -233,35 +237,22 @@ def witness(name):
 
 
 def mutants():
-    cases = [
-        ('SLOT', '"storage." ^ string_of_int i', '"storage." ^ string_of_int (1 - i)', 'get-nonzero'),
-        ('ARGUMENT', '"_assay_args." ^ string_of_int i', '"_assay_args." ^ string_of_int (1 - i)', 'two-args'),
-        ('SUBTRACTION', 'arithmetic "sub" name a b', 'arithmetic "add" name a b', 'decrement-success'),
-        ('GUARD', 'app "le" [a; b; next; "abort"]', 'app "le" [b; a; next; "abort"]', 'increment-success'),
-        ('STORE', 'app "store" [key; v; next]',
-         'app "store" [key; (if v = "" then v else "(word 256 0)"); next]', 'increment-success'),
-        ('SHADOW', 'let bind name = lower (index + 1) ((name.text, Word_value fresh) :: env)',
-         'let bind name = lower (index + 1) (env @ [(name.text, Word_value fresh)])', 'shadow'),
-        ('SHADOW-LOAD', 'let* next = lower (index + 1) ((name.text, Word_value fresh) :: env)',
-         'let* next = lower (index + 1) (env @ [(name.text, Word_value fresh)])', 'shadow-load'),
-        ('LITERAL', 'Z.numbits value > 256', 'Z.numbits value > 257', 'word-range'),
-    ]
+    cases = native_mutations.load(__file__)
     with tempfile.TemporaryDirectory(prefix='assay-contract-mutants-') as temporary:
         copy = Path(temporary) / 'copy'
-        shutil.copytree(ROOT, copy, ignore=shutil.ignore_patterns('.*', '_build', '.gatework',
-            '.lake', 'vendor', 'validation', '__pycache__'))
+        native_mutations.copy_project(ROOT, copy)
         for name, before, after, example in cases:
-            path = copy / ('emit/recognize.ml' if name == 'LITERAL' else 'emit/contract.ml')
+            path = copy / ('src/emitter.bend' if name == 'LITERAL' else 'src/emitter.bend')
             original = path.read_text()
-            require(original.count(before) == 1, 'SURFACE-MUTANT-ANCHOR ' + name)
-            path.write_text(original.replace(before, after))
-            build = M.capture('mutant-' + name + '-build', ['zsh', '-f', 'dev/dune.sh', 'build'], cwd=copy, timeout=120)
+            require(native_mutations.count(original, before) == 1, 'SURFACE-MUTANT-ANCHOR ' + name)
+            path.write_text(native_mutations.replace(original, before, after))
+            build = M.capture('mutant-' + name + '-build', ['zsh', '-f', 'dev/build.sh', 'build', 'bin/assay'], cwd=copy, timeout=120)
             require(build.returncode == 0, 'SURFACE-MUTANT-BUILD ' + name)
             result = M.capture('mutant-' + name, ['python3', '-P', 'dev/contract-test.py', 'witness', example], cwd=copy)
             marker = 'SURFACE-REFUSAL ' if name == 'LITERAL' else 'MODEL-EXPECTED '
             require(result.returncode == 1 and marker + example in result.stdout, 'SURFACE-MUTANT-WITNESS ' + name)
             path.write_text(original)
-            build = M.capture('control-' + name + '-build', ['zsh', '-f', 'dev/dune.sh', 'build'], cwd=copy, timeout=120)
+            build = M.capture('control-' + name + '-build', ['zsh', '-f', 'dev/build.sh', 'build', 'bin/assay'], cwd=copy, timeout=120)
             require(build.returncode == 0, 'SURFACE-CONTROL-BUILD ' + name)
             result = M.capture('control-' + name, ['python3', '-P', 'dev/contract-test.py', 'witness', example], cwd=copy)
             require(result.returncode == 0 and not result.stderr, 'SURFACE-CONTROL ' + name)

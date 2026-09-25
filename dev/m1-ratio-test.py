@@ -39,12 +39,12 @@ def main():
         value = copy.deepcopy(baseline)
         for name, selected, scale in (
                 ('contracts', [r for r in frozen['cases'] if r['group'] == 'contracts'], multiplier),
-                ('ocamlopt', frozen['ocaml'], 1.0)):
+                ('bend_compile', frozen['bend'], 1.0)):
             lines = sum(row['lines'] for row in selected)
             sample = lines * scale
             value['rows'][name] = dict(samples_ms=[sample] * 5, median_ms=sample,
                                       min_ms=sample, max_ms=sample, runs=5, lines=lines,
-                                      invocations=len(selected) if name == 'contracts' else 1,
+                                      invocations=len(selected),
                                       ms_per_kloc=sample * 1000 / lines)
             for command in value['commands']:
                 if command['workload'] == name:
@@ -54,7 +54,7 @@ def main():
     with tempfile.TemporaryDirectory(prefix='assay-m1-ratio-test-') as temporary:
         work = Path(temporary)
         paths = set(sources) | {'dev/ratio.py', 'dev/corpus-data.py', 'corpus/MANIFEST.json'}
-        paths.update(row['path'] for row in frozen['cases'] + frozen['ocaml'])
+        paths.update(row['path'] for row in frozen['cases'] + frozen['bend'])
         for name in sorted(paths):
             target = work / name
             target.parent.mkdir(parents=True, exist_ok=True)
@@ -106,13 +106,13 @@ def main():
         missing = boundary(0.5)
         del missing['compiler_sources_sha256']
         invoke(missing, 'RATIO-SOURCES')
-        added = work / 'bin/m1_ratio_probe.ml'
-        added.write_text('(* Source inventory mutation. *)\n')
+        added = work / 'src/m1_ratio_probe.bend'
+        added.write_text('# Source inventory mutation.\n')
         invoke(boundary(0.5), 'RATIO-SOURCES')
         added.unlink()
-        changed = work / 'bin/assay.ml'
+        changed = work / 'src/cli.bend'
         original_source = changed.read_bytes()
-        changed.write_bytes(original_source + b'\n(* Source identity mutation. *)\n')
+        changed.write_bytes(original_source + b'\n# Source identity mutation.\n')
         invoke(boundary(0.5), 'RATIO-SOURCES')
         changed.write_bytes(original_source)
         for seconds in (0, 60, 61):
@@ -137,7 +137,7 @@ def main():
         # Each weakened program admits a report that the restored driver refuses.
         changes = (
             ('dispatch', "        require_m1(root, value)", "        pass", over),
-            ('bound', "rows['contracts']['ms_per_kloc'] <= rows['ocamlopt']['ms_per_kloc']", "True", over),
+            ('bound', "rows['contracts']['ms_per_kloc'] <= rows['bend_compile']['ms_per_kloc']", "True", over),
             ('sources', "value.get('compiler_sources_sha256') == compiler_sources(root)", "True", stale),
             ('milestone', "value['stage'] == 'M1'", "True", legacy),
         )

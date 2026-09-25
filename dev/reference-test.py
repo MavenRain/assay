@@ -11,6 +11,9 @@ import shutil
 import subprocess
 import sys
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import native_mutations
+
 RUNTIME = "602a5f55600b56fefefefe5b5f545f5260205ff3"
 RECEIVER = "0x0000000000000000000000007265636569766572"
 SENDER = "0x000000000000000000000000000073656e646572"
@@ -26,7 +29,7 @@ TRACE_STACKS = [[], [42], [42, 0], [], [11], [], [], [0], [42], [42, 0], [], [32
 # in-mutation plain controls fit in the remainder.
 ORACLE_TIMEOUT = 12
 CLONE_TIMEOUT = 100
-ARTIFACT = "_build/default/test/asm_cases.exe"
+ARTIFACT = "_build/test/asm_cases"
 
 
 class GateError(ValueError):
@@ -361,8 +364,8 @@ def checks(root):
     # assembler run is damaged in its reference row, so the checked-block
     # require is proved able to fail.  No mutant can reach it:  every in-tree
     # edit of reference/ref20.evm fails at REFERENCE-BYTES first, and the
-    # fixture column comes from test/asm_cases.ml, which is outside the mutants()
-    # copy list and needs a dune rebuild.
+    # fixture column comes from src/tests.bend, which is outside the mutants()
+    # copy list and needs a native rebuild.
     receipt = json.loads((root / ".gatework/reference/assembler-fixtures.json").read_text())
     fixtures = receipt["stdout"]
     rejected("assembler-row", "REFERENCE-ASSEMBLER",
@@ -439,12 +442,13 @@ def mutants(root):
         if not alive(stale.name[len("mutants-"):]):
             shutil.rmtree(stale, ignore_errors=True)
     try:
-        paths = ["dev/reference-test.py", "reference/ref20.evm", "reference/ref20-init.evm",
+        paths = ["dev/reference-test.py", "dev/native_mutations.py", "dev/bend_source.py", "reference/ref20.evm", "reference/ref20-init.evm",
                  "evm/fixtures/cancun.json", ARTIFACT]
         for relative in paths:
             target = clone / relative
             target.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(root / relative, target)
+        native_mutations.copy_build(root, clone)
         for name, relative, changed, mode, witness in cases:
             original = (root / relative).read_text()
             # B-4: the two prestate cases are reserialized JSON, whose text
@@ -491,7 +495,7 @@ def main():
     # listing artifact.  Name the missing build instead of failing later with a
     # bare file error that carries no gate code.
     require(mode == "fork" or (root / ARTIFACT).is_file(), "BUILD-MISSING",
-            "run zsh -f dev/dune.sh build")
+            "run zsh -f dev/build.sh build")
     print("REFERENCE-ORACLE " + run(root, "evm-version", "evm", "--version").strip())
     print("REFERENCE-ORACLE " + run(root, "cast-version", "cast", "--version").strip())
     {"trace": trace, "create": create, "fork": fork, "checks": checks, "mutants": mutants}[mode](root)

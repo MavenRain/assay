@@ -5,6 +5,10 @@ import importlib.util
 import json
 import os
 from pathlib import Path
+
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import native_mutations
 import shutil
 import subprocess
 import sys
@@ -12,7 +16,7 @@ import tempfile
 
 ROOT = Path(__file__).resolve().parent.parent
 WORK = ROOT / '.gatework/model'
-BINARY = ROOT / '_build/default/bin/assay.exe'
+BINARY = ROOT / '_build/bin/assay'
 spec = importlib.util.spec_from_file_location('model_emission', ROOT / 'dev/m1-emit-test.py')
 P = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(P)
@@ -203,36 +207,23 @@ def driver():
 
 
 def mutants():
-    cases = [
-        ('VALUE', 'not (Z.equal input.value Z.zero)', 'false', 'value-get'),
-        ('OVERFLOW', 'if Z.sign result < 0 || Z.numbits result > 256\n    then transaction',
-         'if Z.sign result < 0 || Z.numbits result > 257\n    then transaction', 'add-recovery'),
-        ('UNDERFLOW', 'if Z.sign result < 0 || Z.numbits result > 256\n    then transaction',
-         'if Z.sign result < -1 || Z.numbits result > 256\n    then transaction', 'sub-recovery'),
-        ('BOUND', 'Z.leq left right', 'Z.lt left right', 'increment-at-limit'),
-        ('SNAPSHOT', '(index, get storage slot)', '(index, Z.mul (get storage slot) Z.zero)', 'snapshot'),
-        ('ROLLBACK', '| E.Abort -> Ok (revert input.initial)', '| E.Abort -> Ok (revert storage)', 'write-abort'),
-        ('HEAD', 'String.length input.data < 8 + 64 * count', 'String.length input.data < 8', 'short-two'),
-        ('M0-WRITE', 'closed caller (put storage slot value) next',
-         'closed caller (put storage slot (Z.mul value Z.zero)) next', 'm0-write'),
-    ]
+    cases = native_mutations.load(__file__)
     with tempfile.TemporaryDirectory(prefix='assay-model-mutants-') as temporary:
         copy = Path(temporary) / 'copy'
-        shutil.copytree(ROOT, copy, ignore=shutil.ignore_patterns('.*', '_build', '.gatework',
-            '.lake', 'vendor', 'validation', '__pycache__'))
-        path = copy / 'emit/model.ml'
+        native_mutations.copy_project(ROOT, copy)
+        path = copy / 'src/emitter.bend'
         original = path.read_text()
         for name, before, after, witness_name in cases:
-            require(original.count(before) == 1, 'MODEL-MUTANT-ANCHOR ' + name)
-            path.write_text(original.replace(before, after))
-            build = capture('mutant-' + name + '-build', ['zsh', '-f', 'dev/dune.sh', 'build'], cwd=copy, timeout=120)
+            require(native_mutations.count(original, before) == 1, 'MODEL-MUTANT-ANCHOR ' + name)
+            path.write_text(native_mutations.replace(original, before, after))
+            build = capture('mutant-' + name + '-build', ['zsh', '-f', 'dev/build.sh', 'build', 'bin/assay'], cwd=copy, timeout=120)
             require(build.returncode == 0, 'MODEL-MUTANT-BUILD ' + name)
             result = capture('mutant-' + name, ['python3', '-P', 'dev/model-test.py', 'witness', witness_name], cwd=copy)
             require(result.returncode != 0, 'MODEL-MUTANT-SURVIVED ' + name)
             require(result.returncode == 1 and 'MODEL-EXPECTED ' + witness_name in result.stdout,
                     'MODEL-MUTANT-WITNESS ' + name)
             path.write_text(original)
-            build = capture('control-' + name + '-build', ['zsh', '-f', 'dev/dune.sh', 'build'], cwd=copy, timeout=120)
+            build = capture('control-' + name + '-build', ['zsh', '-f', 'dev/build.sh', 'build', 'bin/assay'], cwd=copy, timeout=120)
             require(build.returncode == 0, 'MODEL-CONTROL-BUILD ' + name)
             result = capture('control-' + name, ['python3', '-P', 'dev/model-test.py', 'witness', witness_name], cwd=copy)
             require(result.returncode == 0 and not result.stderr, 'MODEL-CONTROL ' + name)

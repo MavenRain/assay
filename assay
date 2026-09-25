@@ -1,0 +1,5 @@
+#!/bin/sh
+set -eu
+ASSAY_ROOT=$(CDPATH= cd -- "${0%/*}" && pwd)
+export ASSAY_ROOT
+exec "$ASSAY_ROOT/_build/bin/assay" "$@"

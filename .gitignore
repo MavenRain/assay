@@ -1,7 +1,9 @@
 _build/
+.tools/
 *.install
 .gatework/
 .kanon-exec/
 .kanon-wait/
+.kanonx/
 proofs/.lake/
 __pycache__/

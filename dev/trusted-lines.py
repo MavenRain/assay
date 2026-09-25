@@ -1,73 +1,63 @@
 #!/usr/bin/env python3
-"""Measure the inherited kernel and all six assay artifact budgets."""
-
+"""Count native source, including all kernel support, against ratified limits."""
 from pathlib import Path
 import sys
 
-KERNEL = "shape term rules check value eval conv totality positivity global order bignum".split()
-ARTIFACTS = (
-    ("emitter", 1800, "emit", ("emit.ml", "recognize.ml", "model.ml", "model.mli", "contract.ml", "contract.mli")),
-    ("assembler", 600, "asm", ("asm.ml",)),
-    ("keccak", 250, "keccak", ("keccak.ml",)),
-    ("abi", 400, "abi", ("abi.ml",)),
-    ("layout", 250, "abi", ("layout.ml",)),
-    ("listing", 250, "asm", ("listing.ml",)),
-)
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from bend_source import declarations, identifiers
 
-
-def lines(path):
-    return path.read_bytes().count(b"\n")
-
-
-KERNEL_WANT = 3997
 KERNEL_BOUND = 4000
-RATIFIED_TOTAL = 3550  # R-M0-3: the six artifact rows sum to the printed total.
+ARTIFACTS = {'emitter': 1800, 'assembler': 600, 'keccak': 250, 'abi': 400, 'layout': 250, 'listing': 250}
+RATIFIED_TOTAL = 3550
+SOURCES = {'kernel', 'frontend', 'cli', 'tests'} | ARTIFACTS.keys()
 
 
 def check(root):
-    counts = {name: lines(root / "lib" / (name + ".ml")) for name in KERNEL}
-    kernel = sum(counts.values())
-    good = kernel == KERNEL_WANT
-    print(f"TRUSTED-LINES kernel={kernel} want={KERNEL_WANT} bound={KERNEL_BOUND}")
-    if not good:
-        print(f"TRUSTED-LINES kernel FAIL: the carried kernel must stay at "
-              f"{KERNEL_WANT} lines, and it measures {kernel}")
-        for name, count in sorted(counts.items()):
-            print(f"TRUSTED-LINES kernel-file lib/{name}.ml={count}")
-    owners = set()
-    measured = 0
-    for name, bound, folder, names in ARTIFACTS:
-        paths = [root / folder / source for source in names]
-        owners.update(paths)
-        present = [path for path in paths if path.exists()]
-        if not present:
-            print(f"TRUSTED-LINES {name}=N/{bound} pending")
-        elif len(present) != len(paths):
-            print(f"TRUSTED-LINES {name}=INCOMPLETE/{bound} FAIL")
+    good = True
+    counts = {}
+    symbols = {}
+    records = []
+    for name in sorted(SOURCES):
+        path = root / 'src' / (name + '.bend')
+        if not path.is_file() or path.is_symlink():
+            print(f'TRUSTED-LINES missing=src/{name}.bend FAIL')
             good = False
-        else:
-            count = sum(lines(path) for path in paths)
-            print(f"TRUSTED-LINES {name}={count}/{bound}")
-            measured += count
-            good = good and count <= bound
-    budget = sum(bound for _name, bound, _folder, _names in ARTIFACTS)
-    print(f"TRUSTED-LINES total={measured}/{budget} ratified={RATIFIED_TOTAL}")
-    if budget != RATIFIED_TOTAL:
-        print(f"TRUSTED-LINES total FAIL: the six artifact bounds sum to "
-              f"{budget} and R-M0-3 ratifies {RATIFIED_TOTAL}")
-        good = False
-    for folder in ("emit", "asm", "keccak", "abi"):
-        for path in (root / folder).rglob("*.ml*"):
-            if path not in owners:
-                print("TRUSTED-LINES unpriced=" + str(path.relative_to(root)))
+            continue
+        counts[name] = path.read_bytes().count(b'\n')
+        for record in declarations(path.read_text(), path.relative_to(root)):
+            if record.kind != 'law':
+                symbols[record.name] = name
+                records.append((name, record))
+    allowed_paths = {root / 'src' / (name + '.bend') for name in SOURCES} | {root / 'src/os.js', root / 'src/test-os.js'}
+    for path in (root / 'src').rglob('*'):
+        if path.is_file() and path not in allowed_paths:
+            print('TRUSTED-LINES unpriced=' + str(path.relative_to(root)))
+            good = False
+    for name, bound in {'kernel': KERNEL_BOUND, **ARTIFACTS}.items():
+        count = counts.get(name, 0)
+        print(f'TRUSTED-LINES {name}={count}/{bound}')
+        good = good and 0 < count <= bound
+    # Shared support is charged to the kernel. Its dependencies stay there.
+    # Artifact implementations cannot hide logic in the CLI or tests.
+    for owner, record in records:
+        for dependency in identifiers(record.source) & symbols.keys():
+            other = symbols[dependency]
+            illegal = owner == 'kernel' and other != 'kernel'
+            illegal |= owner in ARTIFACTS and other in ('cli', 'tests')
+            illegal |= owner == 'cli' and other == 'tests'
+            if illegal:
+                print(f'TRUSTED-LINES boundary FAIL: {record.name} -> {dependency} ({other})')
                 good = False
-    print("TRUSTED-LINES " + ("OK" if good else "FAIL"))
+    total = sum(counts.get(name, 0) for name in ARTIFACTS)
+    print(f'TRUSTED-LINES total={total}/{sum(ARTIFACTS.values())} ratified={RATIFIED_TOTAL}')
+    good = good and sum(ARTIFACTS.values()) == RATIFIED_TOTAL
+    print('TRUSTED-LINES ' + ('OK' if good else 'FAIL'))
     return 0 if good else 1
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     try:
-        sys.exit(check(Path(sys.argv[1]).resolve()))
-    except OSError as error:
-        print(f"TRUSTED-LINES FAIL: {error}")
-        sys.exit(1)
+        raise SystemExit(check(Path(sys.argv[1]).resolve()))
+    except (OSError, ValueError) as error:
+        print(f'TRUSTED-LINES FAIL: {error}')
+        raise SystemExit(1)

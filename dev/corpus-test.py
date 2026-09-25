@@ -74,7 +74,7 @@ def erased(root):
         work = Path(temporary)
         for row in rows:
             source = root / row['path']
-            checked = emission.checked(root, str(root / '_build/default/bin/assay.exe'), 'check', '--print', str(source))
+            checked = emission.checked(root, str(root / '_build/bin/assay'), 'check', '--print', str(source))
             forms.append(checked)
             files = emission.emit(root, source, work / source.stem)
             data.outputs(work / source.stem, row)
@@ -149,7 +149,7 @@ def mutations(root):
         controls += 1
         shutil.copytree(root / 'corpus', work / 'corpus')
         (work / 'lib').mkdir()
-        for row in frozen['ocaml']:
+        for row in frozen['bend']:
             shutil.copy2(root / row['path'], work / row['path'])
         source = work / frozen['cases'][0]['path']
         original = source.read_bytes()
@@ -193,7 +193,7 @@ def mutations(root):
             try:
                 ratio.save_measurement(target, damaged)
             except ValueError as error:
-                caught = 'RATIO-WINDOW' in str(error) and 'ocamlopt=' in str(error) and 'rejected_report=' in str(error)
+                caught = 'RATIO-WINDOW' in str(error) and 'bend_compile=' in str(error) and 'rejected_report=' in str(error)
             data.require(caught and not target.exists(), 'RATIO-DIAGNOSTICS accepted a failed window')
             paths = set(Path(temporary).glob('measurement.json.rejected-*.json')) - set(retained)
             data.require(len(paths) == 1, 'RATIO-DIAGNOSTICS missing capture')

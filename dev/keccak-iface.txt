@@ -1,7 +1,2 @@
-end : sig
-  (** Hash arbitrary bytes.  Return 64 lowercase hex digits without a prefix. *)
-  val keccak256 : string -> string
-  (** Hash a canonical function or error signature.  Return eight hex digits.
-      The caller supplies canonical ABI spelling; this function does not parse it. *)
-  val selector : string -> string
-end)
+def Keccak.keccak256(input: String) -> String
+def Keccak.selector(signature: String) -> String

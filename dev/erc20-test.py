@@ -43,7 +43,7 @@ def run(name, *argv):
 
 
 def hash_check(name, preimage, expected):
-    ours = run(name + '-ours', str(ROOT / '_build/default/test/keccak_vec.exe'), 'hash', preimage[2:])
+    ours = run(name + '-ours', str(ROOT / '_build/test/keccak_vec'), 'hash', preimage[2:])
     other = run(name + '-cast', 'cast', 'keccak', preimage)
     require(ours == other == expected, 'ERC20-HASH ' + name)
 
@@ -64,7 +64,7 @@ def metadata(manifest):
                              outputs=[dict(name='', type=output)],
                              stateMutability='nonpayable' if output == 'bool' else 'view'))
         signature = name + '(' + ','.join(t for _n, t in inputs) + ')'
-        ours = run(name + '-selector', str(ROOT / '_build/default/test/keccak_vec.exe'),
+        ours = run(name + '-selector', str(ROOT / '_build/test/keccak_vec'),
                    'selector', signature.encode().hex())
         other = run(name + '-cast-selector', 'cast', 'sig', signature)
         require(ours == other, 'ERC20-SELECTOR ' + name)

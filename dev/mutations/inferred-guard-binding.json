@@ -1,0 +1,57 @@
+{
+  "source": "src/emitter.bend",
+  "cases": [
+    [
+      "ANNOTATION",
+      [
+        {
+          "definition": "Contract.proof_guard",
+          "sha256": "3b8355b61176295ef44e155e025f27337ecd2b78086dd85fa7ad3ef2f6597c68",
+          "replacement": "@unsafe\ndef Contract.proof_guard(+tokens_1231: ListOf(Contract.Token)) -> CheckResult(TupleOf2(Contract.Step, ListOf(Contract.Token))):\n  Match.Result(&2, TupleOf2(TupleOf2(Contract.Token, OptionOf(Contract.Claim)), ListOf(Contract.Token)), &2, Error, &2, CheckResult(TupleOf2(Contract.Step, ListOf(Contract.Token))), Contract.proof_binding(tokens_1231), +item11199 => ((+local11168 => ((+scrut11169 = local11168\n  Match.Tuple2(&2, TupleOf2(Contract.Token, OptionOf(Contract.Claim)), &2, ListOf(Contract.Token), &2, CheckResult(TupleOf2(Contract.Step, ListOf(Contract.Token))), scrut11169, +p11170 => +p11171 => (Match.Tuple2(&2, Contract.Token, &2, OptionOf(Contract.Claim), &2, CheckResult(TupleOf2(Contract.Step, ListOf(Contract.Token))), p11170, +p11172 => +p11173 => ((Match.Result(&2, ListOf(Contract.Token), &2, Error, &2, CheckResult(TupleOf2(Contract.Step, ListOf(Contract.Token))), Contract.sequence(Con{\"<-\", Con{\"guard\", Nil{}}}, p11171), +item11196 => ((+local11176 => (Match.Result(&2, TupleOf2(TupleOf2(OptionOf(TupleOf2(Contract.Token, ListOf(Contract.Word))), Contract.Condition), ListOf(Contract.Token)), &2, Error, &2, CheckResult(TupleOf2(Contract.Step, ListOf(Contract.Token))), Contract.guard_condition(local11176), +item11194 => ((+local11179 => ((+scrut11180 = local11179\nMatch.Tuple2(&2, TupleOf2(OptionOf(TupleOf2(Contract.Token, ListOf(Contract.Word))), Contract.Condition), &2, ListOf(Contract.Token), &2, CheckResult(TupleOf2(Contract.Step, ListOf(Contract.Token))), scrut11180, +p11181 => +p11182 => (Match.Tuple2(&2, OptionOf(TupleOf2(Contract.Token, ListOf(Contract.Word))), &2, Contract.Condition, &2, CheckResult(TupleOf2(Contract.Step, ListOf(Contract.Token))), p11181, +p11183 => +p11184 => ((+scrut11193 = {Match.Maybe(&2, Contract.Claim, &1, Reusable(Unit, Contract.Claim), p11173, _ => ((+local11186 => ((+scrut11187 = local11186\nContract.condition_claim(p11184))))), +value => ((+local11189 => +local11191 => ((+scrut11192 = local11191\nContract.condition_claim(p11184))))(value)))(Unit{}) : Contract.Claim}\nDone{Tup2{Contract.Step.Prove{p11172, scrut11193, p11183, p11184}, p11182}}))))))))(item11194)), +item11195 => Fail{item11195})))(item11196)), +item11197 => Fail{item11197})))))))))(item11199)), +item11200 => Fail{item11200})\n\n"
+        }
+      ],
+      null,
+      "annotation",
+      "ERROR-REFUSAL igb-annotation"
+    ],
+    [
+      "BINDING",
+      [
+        {
+          "definition": "Contract.proof_guard",
+          "sha256": "3b8355b61176295ef44e155e025f27337ecd2b78086dd85fa7ad3ef2f6597c68",
+          "replacement": "@unsafe\ndef Contract.proof_guard(+tokens_1231: ListOf(Contract.Token)) -> CheckResult(TupleOf2(Contract.Step, ListOf(Contract.Token))):\n  Match.Result(&2, TupleOf2(TupleOf2(Contract.Token, OptionOf(Contract.Claim)), ListOf(Contract.Token)), &2, Error, &2, CheckResult(TupleOf2(Contract.Step, ListOf(Contract.Token))), Contract.proof_binding(tokens_1231), +item11199 => ((+local11168 => ((+scrut11169 = local11168\n  Match.Tuple2(&2, TupleOf2(Contract.Token, OptionOf(Contract.Claim)), &2, ListOf(Contract.Token), &2, CheckResult(TupleOf2(Contract.Step, ListOf(Contract.Token))), scrut11169, +p11170 => +p11171 => (Match.Tuple2(&2, Contract.Token, &2, OptionOf(Contract.Claim), &2, CheckResult(TupleOf2(Contract.Step, ListOf(Contract.Token))), p11170, +p11172 => +p11173 => ((Match.Result(&2, ListOf(Contract.Token), &2, Error, &2, CheckResult(TupleOf2(Contract.Step, ListOf(Contract.Token))), Contract.sequence(Con{\"<-\", Con{\"guard\", Nil{}}}, p11171), +item11196 => ((+local11176 => (Match.Result(&2, TupleOf2(TupleOf2(OptionOf(TupleOf2(Contract.Token, ListOf(Contract.Word))), Contract.Condition), ListOf(Contract.Token)), &2, Error, &2, CheckResult(TupleOf2(Contract.Step, ListOf(Contract.Token))), Contract.guard_condition(local11176), +item11194 => ((+local11179 => ((+scrut11180 = local11179\nMatch.Tuple2(&2, TupleOf2(OptionOf(TupleOf2(Contract.Token, ListOf(Contract.Word))), Contract.Condition), &2, ListOf(Contract.Token), &2, CheckResult(TupleOf2(Contract.Step, ListOf(Contract.Token))), scrut11180, +p11181 => +p11182 => (Match.Tuple2(&2, OptionOf(TupleOf2(Contract.Token, ListOf(Contract.Word))), &2, Contract.Condition, &2, CheckResult(TupleOf2(Contract.Step, ListOf(Contract.Token))), p11181, +p11183 => +p11184 => ((+scrut11193 = {Match.Maybe(&2, Contract.Claim, &1, Reusable(Unit, Contract.Claim), p11173, _ => ((+local11186 => ((+scrut11187 = local11186\nContract.condition_claim(p11184))))), +value => ((+local11189 => +local11191 => ((+scrut11192 = local11191\nlocal11189)))(value)))(Unit{}) : Contract.Claim}\nDone{Tup2{Contract.Step.Prove{MkContract_Token{\"_assay_guard\", Get.Contract.Token.line(p11172), Get.Contract.Token.col(p11172)}, scrut11193, p11183, p11184}, p11182}}))))))))(item11194)), +item11195 => Fail{item11195})))(item11196)), +item11197 => Fail{item11197})))))))))(item11199)), +item11200 => Fail{item11200})\n\n"
+        }
+      ],
+      null,
+      "named",
+      "M1-TOOL named"
+    ],
+    [
+      "ATOMIC-CLAIM",
+      [
+        {
+          "definition": "Contract.condition_claim",
+          "sha256": "f35cdccdea07863fdb23efc17d1dcac172e4fff29fccb43d9895fbc7f2efb96a",
+          "replacement": "@unsafe\ndef Contract.condition_claim(+param_1231: Contract.Condition) -> Contract.Claim:\n  (+scrut11160 = param_1231\n  Match.Contract_Condition(&2, Contract.Claim, scrut11160, +p11161 => (Match.Contract_Predicate(&2, Contract.Claim, p11161, +p11162 => +p11163 => (Contract.Claim.Bound{Contract.Predicate.Ordered{p11163, p11162}}), +p11164 => +p11165 => (Contract.Claim.Bound{Contract.Predicate.Fits{p11164, p11165}}))), +p11166 => +p11167 => (Contract.Claim.Both{Contract.condition_claim(p11166), Contract.condition_claim(p11167)}), +p11168 => +p11169 => (Contract.Claim.Named{p11168, p11169})))\n\n"
+        }
+      ],
+      null,
+      "atomic",
+      "M1-TOOL atomic"
+    ],
+    [
+      "NAMED-ARGUMENTS",
+      [
+        {
+          "definition": "Contract.condition_claim",
+          "sha256": "f35cdccdea07863fdb23efc17d1dcac172e4fff29fccb43d9895fbc7f2efb96a",
+          "replacement": "@unsafe\ndef Contract.condition_claim(+param_1228: Contract.Condition) -> Contract.Claim:\n  (+scrut11160 = param_1228\n  Match.Contract_Condition(&2, Contract.Claim, scrut11160, +p11161 => (Contract.Claim.Bound{p11161}), +p11162 => +p11163 => (Contract.Claim.Both{Contract.condition_claim(p11162), Contract.condition_claim(p11163)}), +p11164 => +p11165 => (Contract.Claim.Named{p11164, List.reverse(&2, Contract.Word, p11165)})))\n\n"
+        }
+      ],
+      null,
+      "named",
+      "M1-TOOL named"
+    ]
+  ]
+}

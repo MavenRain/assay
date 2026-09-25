@@ -4,6 +4,10 @@ import hashlib
 import importlib.util
 import json
 from pathlib import Path
+
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import native_mutations
 import shutil
 import subprocess
 import sys
@@ -11,7 +15,7 @@ import tempfile
 
 ROOT = Path(__file__).resolve().parent.parent
 WORK = ROOT / '.gatework/m1-emission'
-BINARY = ROOT / '_build/default/bin/assay.exe'
+BINARY = ROOT / '_build/bin/assay'
 
 
 def module(name, path):
@@ -48,7 +52,7 @@ def emit(source, output, name, *extra):
 
 
 def listing(name, runtime):
-    data = checked(name + '-listing', [ROOT / '_build/default/test/asm_cases.exe', 'listing', runtime])
+    data = checked(name + '-listing', [ROOT / '_build/test/asm_cases', 'listing', runtime])
     ours = C.ASM.normalized(data, pc_base=16)
     cast = C.ASM.normalized(checked(name + '-cast', ['cast', 'disassemble', '0x' + runtime]), pc_base=16)
     path = WORK / (name + '.hex')
@@ -146,7 +150,7 @@ def sources():
     collision += f'  | 1 (args : {collision_name}) => done (word 256 5)\n'
     for name in (zero_name, collision_name):
         signature = name + '(uint256)'
-        ours = checked('collision-ours-' + name, [ROOT / '_build/default/test/keccak_vec.exe', 'selector', signature.encode().hex()]).strip()
+        ours = checked('collision-ours-' + name, [ROOT / '_build/test/keccak_vec', 'selector', signature.encode().hex()]).strip()
         other = checked('collision-cast-' + name, ['cast', 'sig', signature]).strip()
         require(ours == other == '0x00000000', 'M1-COLLISION fixture')
     selector = checked('mix-selector', ['cast', 'sig', 'mix(uint256,uint256)']).strip()[2:]
@@ -202,39 +206,21 @@ def sources():
 
 
 def mutants():
-    cases = [
-        ('CALLVALUE', 'emit/emit.ml', 'block "nonpayable" [A.Op "CALLVALUE"]',
-         'block "nonpayable" [number 0]', 'counter', 'COUNTER-EXPECTED value-increment'),
-        ('OVERFLOW', 'emit/emit.ml', 'read_operand left @ read_operand (Memory index) @ [A.Op "LT"]',
-         'read_operand left @ read_operand (Memory index) @ [A.Op "GT"]', 'counter', 'COUNTER-EXPECTED increment-success'),
-        ('BOUND', 'emit/emit.ml', 'marked label (read_operand right @ read_operand left @ [A.Op "GT"])',
-         'marked label (read_operand right @ read_operand left @ [A.Op "LT"])', 'counter', 'COUNTER-EXPECTED increment-success'),
-        ('SUBTRACTION', 'emit/emit.ml', 'read_operand right @ read_operand left @ [A.Op "SUB"],',
-         'read_operand right @ read_operand left @ [A.Op "ADD"],', 'counter', 'COUNTER-EXPECTED decrement-success'),
-        ('HEAD', 'emit/emit.ml', 'number (4 + 32 * List.length entry.abi_entry.inputs)',
-         'number 4', 'counter', 'COUNTER-EXPECTED increment-short-0'),
-        ('INIT-VALUE', 'emit/emit.ml', 'block "constructor" [A.Op "CALLVALUE"]',
-         'block "constructor" [number 0]', 'counter', 'COUNTER-CREATE status'),
-        ('ABI-MUTABILITY', 'emit/emit.ml', 'else if readonly tx then',
-         'else if not (readonly tx) then', 'counter', 'M1-GOLD abi.json'),
-        ('SCHEMA', 'emit/recognize.ml', '~prefix:"M1 " ["Tx"] globals source',
-         '~prefix:"M1 " [] globals source', 'sources', 'M1-REFUSAL schema'),
-    ]
+    cases = native_mutations.load(__file__)
     with tempfile.TemporaryDirectory(prefix='assay-m1-mutants-') as temporary:
         copy = Path(temporary) / 'copy'
-        shutil.copytree(ROOT, copy, ignore=shutil.ignore_patterns('.*', '_build', '.gatework',
-            '.lake', 'vendor', 'validation', '__pycache__'))
+        native_mutations.copy_project(ROOT, copy)
         for name, relative, before, after, mode, witness in cases:
             path = copy / relative
             original = path.read_text()
-            require(original.count(before) == 1, 'M1-MUTANT-ANCHOR ' + name)
-            path.write_text(original.replace(before, after))
-            build = capture('mutant-' + name + '-build', ['zsh', '-f', 'dev/dune.sh', 'build'], cwd=copy, timeout=120)
+            require(native_mutations.count(original, before) == 1, 'M1-MUTANT-ANCHOR ' + name)
+            path.write_text(native_mutations.replace(original, before, after))
+            build = capture('mutant-' + name + '-build', ['zsh', '-f', 'dev/build.sh', 'build', 'bin/assay'], cwd=copy, timeout=120)
             require(build.returncode == 0, 'M1-MUTANT-BUILD ' + name + build.stdout)
             result = capture('mutant-' + name + '-test', ['python3', '-P', 'dev/m1-emit-test.py', mode], cwd=copy, timeout=120)
             require(result.returncode == 1 and 'M1-EMISSION FAIL: ' + witness in result.stdout, 'M1-MUTANT-SURVIVED ' + name + result.stdout)
             path.write_text(original)
-            build = capture('control-' + name + '-build', ['zsh', '-f', 'dev/dune.sh', 'build'], cwd=copy, timeout=120)
+            build = capture('control-' + name + '-build', ['zsh', '-f', 'dev/build.sh', 'build', 'bin/assay'], cwd=copy, timeout=120)
             require(build.returncode == 0, 'M1-CONTROL-BUILD ' + name)
             result = capture('control-' + name + '-test', ['python3', '-P', 'dev/m1-emit-test.py', mode], cwd=copy, timeout=120)
             require(result.returncode == 0, 'M1-CONTROL ' + name + result.stdout)

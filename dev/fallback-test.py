@@ -4,6 +4,10 @@ import hashlib
 import importlib.util
 import json
 from pathlib import Path
+
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import native_mutations
 import shutil
 import subprocess
 import sys
@@ -226,28 +230,19 @@ def boundaries():
 
 
 def mutants():
-    rows = [
-        ('SHORT', 'emit/emit.ml', 'branch_to default "selector"', 'branch_to "reject" "selector"', 'smoke', 'FALLBACK-EVM nullary-empty'),
-        ('UNKNOWN', 'emit/emit.ml', 'then default else select_label', 'then "reject" else select_label', 'smoke', 'FALLBACK-EVM nullary-unknown'),
-        ('VALUE', 'emit/emit.ml', 'block "nonpayable" [A.Op "CALLVALUE"] (branch_to "reject" "head")',
-         'block "nonpayable" [A.Op "CALLVALUE"] (branch_to default "head")', 'smoke', 'FALLBACK-EVM nullary-value-unknown'),
-        ('MODEL', 'emit/model.ml', 'Option.fold ~none:default', 'Option.fold ~none:(Ok (revert input.initial))', 'smoke', 'FALLBACK-MODEL nullary-unknown'),
-        ('CLOSED', 'emit/emit.ml', 'Error (M1_shape "fallback must be a closed revert")', 'Ok (Some tx)', 'core-refusals', 'FALLBACK-REFUSAL core-return emit'),
-        ('ABI', 'abi/abi.ml', 'if fallback then', 'if fallback && false then', 'smoke', 'FALLBACK-ABI nullary'),
-    ]
+    rows = native_mutations.load(__file__)
     records = []
     with tempfile.TemporaryDirectory(prefix='assay-fallback-mutants-') as temporary:
         copy = Path(temporary) / 'copy'
-        shutil.copytree(ROOT, copy, ignore=shutil.ignore_patterns('.*', '_build', '.gatework',
-            '.lake', 'vendor', 'validation', '__pycache__'))
+        native_mutations.copy_project(ROOT, copy)
         for name, file, before, after, witness, marker in rows:
             path = copy / file
             original = path.read_text()
-            require(original.count(before) == 1, 'FALLBACK-MUTANT anchor ' + name)
+            require(native_mutations.count(original, before) == 1, 'FALLBACK-MUTANT anchor ' + name)
             for mutated in (True, False):
-                path.write_text(original.replace(before, after) if mutated else original)
+                path.write_text(native_mutations.replace(original, before, after) if mutated else original)
                 label = ('mutant-' if mutated else 'control-') + name
-                build = C.capture(label + '-build', ['zsh', '-f', 'dev/dune.sh', 'build'], cwd=copy, timeout=120)
+                build = C.capture(label + '-build', ['zsh', '-f', 'dev/build.sh', 'build', 'bin/assay'], cwd=copy, timeout=120)
                 require(build.returncode == 0, 'FALLBACK-MUTANT build ' + label)
                 result = C.capture(label, ['python3', '-P', 'dev/fallback-test.py', witness], cwd=copy, timeout=120)
                 require(result.returncode == (1 if mutated else 0) and (not mutated or marker in result.stdout),

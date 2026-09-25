@@ -1,3 +1,0 @@
-(library
- (name assay_emit)
- (libraries kanon_kernel kanon_surface assay_asm assay_abi assay_keccak zarith))

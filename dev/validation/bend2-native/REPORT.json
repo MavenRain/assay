@@ -1,0 +1,1587 @@
+{
+  "version": 1,
+  "recorded_utc": "2026-09-24T06:07:56.187184+00:00",
+  "base_commit": "2cd3259f10d085dfedb405395d9adb341ef816ed",
+  "full_stage_passed": false,
+  "scope": "Iterative migration checks. Earlier attempts retain their own identities; focused checks do not imply a green full stage.",
+  "final_source_sha256": {
+    "src/abi.bend": "398cc6d2966137146dfeda592fea287975a4499515265d5c13e33a1c2883f14e",
+    "src/assembler.bend": "926e906d011f53dd4b92ff2ffbd090d472a46cca7fae72829b9cb3bd98223c9d",
+    "src/cli.bend": "be3108862ee0b69fc5990673b6a9b3ec66b76d871ca79cca6dc9b0ac06a494c4",
+    "src/emitter.bend": "36f2d023f6490b086017de8bc08c777989432389e0d0e0327af1d5888240aef1",
+    "src/frontend.bend": "902925080b710539f33ea9b6b399ae0ac9a6f4ff5c4678024f73080164d3d6b5",
+    "src/keccak.bend": "cbfb3275116d3703a803181ceeafe8dc3e74d53f21cb9a539f29c28c5bc8e98a",
+    "src/kernel.bend": "12657d56799719ee73fd354eae52335847cd20fd5d31aa791434a9e34bac717e",
+    "src/layout.bend": "89e938a9e0c8f548f7ada86016ce7a5802cacf114aeb30b33505986ff2a6d5a5",
+    "src/listing.bend": "697b9869205fc92f12b6a50fd4e82c6875440e677f01a06eecf83cb2982934ab",
+    "src/os.js": "1ed3654b260f009ffcebada0fb8a8387a8b7b4c597221627e55317480b8f23d6",
+    "src/test-os.js": "cea57ed301de92861eb27f641564777d2156c7c371ab5eff1e00fd6cddbccb14",
+    "src/tests.bend": "fb46d47f9087ad908b59e3a48989d4f6020918dd8eb7a67383ce4751e763e493"
+  },
+  "final_assay_js_sha256": "89b183e075b18da76bb2711ec67c0aac2ab6172779a60e614abb329cbcc4adbb",
+  "final_focused_checks": [
+    {
+      "name": "model",
+      "command": [
+        "python3",
+        "-P",
+        "dev/model-test.py"
+      ],
+      "exit": 0,
+      "timeout": false,
+      "seconds": 230.36616587499157,
+      "assay_js_sha256": "89b183e075b18da76bb2711ec67c0aac2ab6172779a60e614abb329cbcc4adbb",
+      "passed": true
+    },
+    {
+      "name": "kernel",
+      "command": [
+        "python3",
+        "-P",
+        "dev/kernel-suite.py"
+      ],
+      "exit": 0,
+      "timeout": false,
+      "seconds": 15.447123875026591,
+      "assay_js_sha256": "89b183e075b18da76bb2711ec67c0aac2ab6172779a60e614abb329cbcc4adbb",
+      "passed": true
+    },
+    {
+      "name": "stack",
+      "command": [
+        "python3",
+        "-P",
+        "dev/asm-test.py",
+        "stack"
+      ],
+      "exit": 0,
+      "timeout": false,
+      "seconds": 33.75811875000363,
+      "assay_js_sha256": "89b183e075b18da76bb2711ec67c0aac2ab6172779a60e614abb329cbcc4adbb",
+      "passed": true
+    },
+    {
+      "name": "audit-controls",
+      "command": [
+        "python3",
+        "-P",
+        "dev/stage-a-test.py",
+        "mutants"
+      ],
+      "exit": 0,
+      "timeout": false,
+      "seconds": 21.759510791976936,
+      "assay_js_sha256": "89b183e075b18da76bb2711ec67c0aac2ab6172779a60e614abb329cbcc4adbb",
+      "passed": true
+    }
+  ],
+  "focused_repairs": [
+    {
+      "name": "proof-hole-boundaries",
+      "command": [
+        "python3",
+        "-P",
+        "dev/proof-hole-test.py",
+        "boundaries"
+      ],
+      "exit": 0,
+      "timeout": false,
+      "seconds": 108.47164166698349,
+      "assay_js_sha256": "25ed43dc22c58dc6d90e82fa944f72130fc78d2f3e69fc393e140c11ae2ccec0",
+      "passed": true
+    },
+    {
+      "name": "proof-hole-mutants",
+      "command": [
+        "python3",
+        "-P",
+        "dev/proof-hole-test.py",
+        "mutants"
+      ],
+      "exit": 1,
+      "timeout": false,
+      "seconds": 53.66611695798929,
+      "assay_js_sha256": "25ed43dc22c58dc6d90e82fa944f72130fc78d2f3e69fc393e140c11ae2ccec0",
+      "passed": false
+    },
+    {
+      "name": "inferred-helper-mutants",
+      "command": [
+        "python3",
+        "-P",
+        "dev/inferred-helper-test.py",
+        "mutants"
+      ],
+      "exit": 1,
+      "timeout": false,
+      "seconds": 170.88715975001105,
+      "assay_js_sha256": "25ed43dc22c58dc6d90e82fa944f72130fc78d2f3e69fc393e140c11ae2ccec0",
+      "passed": false
+    },
+    {
+      "name": "proof-helpers",
+      "command": [
+        "python3",
+        "-P",
+        "dev/proof-helper-test.py"
+      ],
+      "exit": 0,
+      "timeout": false,
+      "seconds": 305.1404680419946,
+      "assay_js_sha256": "25ed43dc22c58dc6d90e82fa944f72130fc78d2f3e69fc393e140c11ae2ccec0",
+      "passed": true
+    },
+    {
+      "name": "compound-invariant-boundaries",
+      "command": [
+        "python3",
+        "-P",
+        "dev/compound-invariant-test.py",
+        "boundaries"
+      ],
+      "exit": 0,
+      "timeout": false,
+      "seconds": 10.732808208005736,
+      "assay_js_sha256": "25ed43dc22c58dc6d90e82fa944f72130fc78d2f3e69fc393e140c11ae2ccec0",
+      "passed": true
+    },
+    {
+      "name": "compound-invariant-mutants",
+      "command": [
+        "python3",
+        "-P",
+        "dev/compound-invariant-test.py",
+        "mutants"
+      ],
+      "exit": 0,
+      "timeout": false,
+      "seconds": 38.466503917006776,
+      "assay_js_sha256": "25ed43dc22c58dc6d90e82fa944f72130fc78d2f3e69fc393e140c11ae2ccec0",
+      "passed": true
+    },
+    {
+      "name": "inferred-guard-boundaries",
+      "command": [
+        "python3",
+        "-P",
+        "dev/inferred-guard-test.py",
+        "boundaries"
+      ],
+      "exit": 1,
+      "timeout": false,
+      "seconds": 41.94965504101128,
+      "assay_js_sha256": "25ed43dc22c58dc6d90e82fa944f72130fc78d2f3e69fc393e140c11ae2ccec0",
+      "passed": false
+    },
+    {
+      "name": "inferred-guard-mutants",
+      "command": [
+        "python3",
+        "-P",
+        "dev/inferred-guard-test.py",
+        "mutants"
+      ],
+      "exit": 0,
+      "timeout": false,
+      "seconds": 74.9121812080266,
+      "assay_js_sha256": "25ed43dc22c58dc6d90e82fa944f72130fc78d2f3e69fc393e140c11ae2ccec0",
+      "passed": true
+    },
+    {
+      "name": "inferred-binding-boundaries",
+      "command": [
+        "python3",
+        "-P",
+        "dev/inferred-binding-test.py",
+        "boundaries"
+      ],
+      "exit": 1,
+      "timeout": false,
+      "seconds": 91.81746074999683,
+      "assay_js_sha256": "25ed43dc22c58dc6d90e82fa944f72130fc78d2f3e69fc393e140c11ae2ccec0",
+      "passed": false
+    },
+    {
+      "name": "inferred-binding-mutants",
+      "command": [
+        "python3",
+        "-P",
+        "dev/inferred-binding-test.py",
+        "mutants"
+      ],
+      "exit": 0,
+      "timeout": false,
+      "seconds": 70.33335141700809,
+      "assay_js_sha256": "25ed43dc22c58dc6d90e82fa944f72130fc78d2f3e69fc393e140c11ae2ccec0",
+      "passed": true
+    },
+    {
+      "name": "inferred-guard-binding-boundaries",
+      "command": [
+        "python3",
+        "-P",
+        "dev/inferred-guard-binding-test.py",
+        "boundaries"
+      ],
+      "exit": 1,
+      "timeout": false,
+      "seconds": 41.56867016700562,
+      "assay_js_sha256": "25ed43dc22c58dc6d90e82fa944f72130fc78d2f3e69fc393e140c11ae2ccec0",
+      "passed": false
+    },
+    {
+      "name": "inferred-guard-binding-mutants",
+      "command": [
+        "python3",
+        "-P",
+        "dev/inferred-guard-binding-test.py",
+        "mutants"
+      ],
+      "exit": 0,
+      "timeout": false,
+      "seconds": 69.70019466598751,
+      "assay_js_sha256": "25ed43dc22c58dc6d90e82fa944f72130fc78d2f3e69fc393e140c11ae2ccec0",
+      "passed": true
+    },
+    {
+      "name": "diff-caller",
+      "command": [
+        "python3",
+        "-P",
+        "dev/diff-caller-test.py"
+      ],
+      "exit": 0,
+      "timeout": false,
+      "seconds": 105.31405612500384,
+      "assay_js_sha256": "25ed43dc22c58dc6d90e82fa944f72130fc78d2f3e69fc393e140c11ae2ccec0",
+      "passed": true
+    },
+    {
+      "name": "payable",
+      "command": [
+        "python3",
+        "-P",
+        "dev/payable-test.py"
+      ],
+      "exit": -15,
+      "timeout": true,
+      "seconds": 180.00609987499774,
+      "assay_js_sha256": "25ed43dc22c58dc6d90e82fa944f72130fc78d2f3e69fc393e140c11ae2ccec0",
+      "passed": false
+    },
+    {
+      "name": "callvalue",
+      "command": [
+        "python3",
+        "-P",
+        "dev/callvalue-test.py"
+      ],
+      "exit": -15,
+      "timeout": true,
+      "seconds": 240.00686266701086,
+      "assay_js_sha256": "25ed43dc22c58dc6d90e82fa944f72130fc78d2f3e69fc393e140c11ae2ccec0",
+      "passed": false
+    },
+    {
+      "name": "calldatasize",
+      "command": [
+        "python3",
+        "-P",
+        "dev/calldatasize-test.py"
+      ],
+      "exit": -15,
+      "timeout": true,
+      "seconds": 600.0102080840152,
+      "assay_js_sha256": "25ed43dc22c58dc6d90e82fa944f72130fc78d2f3e69fc393e140c11ae2ccec0",
+      "passed": false
+    }
+  ],
+  "full_leg_attempts": [
+    {
+      "name": "SUITE-SURFACE",
+      "identity": "b6a06c7f1cd90d23a17fb33bda490d221dc54750bff66b6514ab501510618fe3",
+      "command": [
+        "_build/test/sl_surface"
+      ],
+      "seconds": 1.312316459021531,
+      "timeout": false,
+      "exit": 0,
+      "marker": "SL-SURFACE OK",
+      "passed": true
+    },
+    {
+      "name": "DRIVER",
+      "identity": "b6a06c7f1cd90d23a17fb33bda490d221dc54750bff66b6514ab501510618fe3",
+      "command": [
+        "python3",
+        "-P",
+        "dev/stage-a-test.py",
+        "driver"
+      ],
+      "seconds": 14.995843124983367,
+      "timeout": false,
+      "exit": 0,
+      "marker": "DRIVER cases=24 OK",
+      "passed": true
+    },
+    {
+      "name": "KECCAK-VEC",
+      "identity": "b6a06c7f1cd90d23a17fb33bda490d221dc54750bff66b6514ab501510618fe3",
+      "command": [
+        "python3",
+        "-P",
+        "dev/keccak-test.py",
+        "vectors"
+      ],
+      "seconds": 25.176012458017794,
+      "timeout": false,
+      "exit": 0,
+      "marker": "KECCAK-VEC vectors=35 ok=35 adapter=5 OK",
+      "passed": true
+    },
+    {
+      "name": "STACK-HEIGHT",
+      "identity": "b6a06c7f1cd90d23a17fb33bda490d221dc54750bff66b6514ab501510618fe3",
+      "command": [
+        "python3",
+        "-P",
+        "dev/asm-test.py",
+        "stack"
+      ],
+      "seconds": 240.02164637498208,
+      "timeout": true,
+      "exit": -15,
+      "marker": "STACK-HEIGHT blocks=30 cases=64 opcodes=149 effect_cases=370 OK",
+      "passed": false
+    },
+    {
+      "name": "DISASM-3WAY",
+      "identity": "b6a06c7f1cd90d23a17fb33bda490d221dc54750bff66b6514ab501510618fe3",
+      "command": [
+        "python3",
+        "-P",
+        "dev/asm-test.py",
+        "disasm"
+      ],
+      "seconds": 7.592353250016458,
+      "timeout": false,
+      "exit": 0,
+      "marker": "DISASM-3WAY ours=272 cast=272 evm=272 fixtures=7 negative=38 OK",
+      "passed": true
+    },
+    {
+      "name": "ASM-MUTANTS",
+      "identity": "b6a06c7f1cd90d23a17fb33bda490d221dc54750bff66b6514ab501510618fe3",
+      "command": [
+        "python3",
+        "-P",
+        "dev/asm-test.py",
+        "mutants"
+      ],
+      "seconds": 610.6062253749988,
+      "timeout": false,
+      "exit": 0,
+      "marker": "ASM-MUTANTS killed=9/9 control=OK",
+      "passed": true
+    },
+    {
+      "name": "FORK-DRIFT",
+      "identity": "b6a06c7f1cd90d23a17fb33bda490d221dc54750bff66b6514ab501510618fe3",
+      "command": [
+        "zsh",
+        "-f",
+        "dev/fork-check.sh"
+      ],
+      "seconds": 0.21783716598292813,
+      "timeout": false,
+      "exit": 0,
+      "marker": "FORK-DRIFT push0=OK tload=OK tstore=OK mcopy=OK clz=INVALID OK",
+      "passed": true
+    },
+    {
+      "name": "M0-TRACE",
+      "identity": "b6a06c7f1cd90d23a17fb33bda490d221dc54750bff66b6514ab501510618fe3",
+      "command": [
+        "python3",
+        "-P",
+        "dev/reference-test.py",
+        "trace"
+      ],
+      "seconds": 0.2394687080231961,
+      "timeout": false,
+      "exit": 0,
+      "marker": "M0-TRACE scope=reference bytes=20 listing=17 cast=17 evm=13 skipped=4 storage=42 return=42 OK",
+      "passed": true
+    },
+    {
+      "name": "CREATE-EQ",
+      "identity": "b6a06c7f1cd90d23a17fb33bda490d221dc54750bff66b6514ab501510618fe3",
+      "command": [
+        "python3",
+        "-P",
+        "dev/reference-test.py",
+        "create"
+      ],
+      "seconds": 0.27107454198994674,
+      "timeout": false,
+      "exit": 0,
+      "marker": "CREATE-EQ bytes=20 returned=20 installed=1 OK",
+      "passed": true
+    },
+    {
+      "name": "REFERENCE-CHECKS",
+      "identity": "b6a06c7f1cd90d23a17fb33bda490d221dc54750bff66b6514ab501510618fe3",
+      "command": [
+        "python3",
+        "-P",
+        "dev/reference-test.py",
+        "checks"
+      ],
+      "seconds": 0.4495386659982614,
+      "timeout": false,
+      "exit": 0,
+      "marker": "REFERENCE-CHECKS cases=32 controls=2 OK",
+      "passed": true
+    },
+    {
+      "name": "REFERENCE-MUTANTS",
+      "identity": "b6a06c7f1cd90d23a17fb33bda490d221dc54750bff66b6514ab501510618fe3",
+      "command": [
+        "python3",
+        "-P",
+        "dev/reference-test.py",
+        "mutants"
+      ],
+      "seconds": 0.8173265830264427,
+      "timeout": false,
+      "exit": 1,
+      "marker": "REFERENCE-MUTANTS killed=8/8 controls=3 OK",
+      "passed": false
+    },
+    {
+      "name": "EMIT-CONSTRUCTORS",
+      "identity": "b6a06c7f1cd90d23a17fb33bda490d221dc54750bff66b6514ab501510618fe3",
+      "command": [
+        "_build/test/emit_cases",
+        "constructors"
+      ],
+      "seconds": 0.29298879200359806,
+      "timeout": false,
+      "exit": 0,
+      "marker": "EMIT-CONSTRUCTORS cases=22 OK",
+      "passed": true
+    },
+    {
+      "name": "WORD-UNBOX",
+      "identity": "b6a06c7f1cd90d23a17fb33bda490d221dc54750bff66b6514ab501510618fe3",
+      "command": [
+        "_build/test/emit_cases",
+        "words"
+      ],
+      "seconds": 0.06597912500728853,
+      "timeout": false,
+      "exit": 0,
+      "marker": "WORD-UNBOX ktag=0 kstruct=0 words=3 cases=9 OK",
+      "passed": true
+    },
+    {
+      "name": "STORAGE-NOCLOS",
+      "identity": "b6a06c7f1cd90d23a17fb33bda490d221dc54750bff66b6514ab501510618fe3",
+      "command": [
+        "_build/test/emit_cases",
+        "storage"
+      ],
+      "seconds": 0.06427470801281743,
+      "timeout": false,
+      "exit": 0,
+      "marker": "STORAGE-NOCLOS kclos=0 ktail=0 fields=2 cases=9 OK",
+      "passed": true
+    },
+    {
+      "name": "ABI-GOLD",
+      "identity": "b6a06c7f1cd90d23a17fb33bda490d221dc54750bff66b6514ab501510618fe3",
+      "command": [
+        "zsh",
+        "-f",
+        "dev/abi-gold.sh"
+      ],
+      "seconds": 1.188635583006544,
+      "timeout": false,
+      "exit": 0,
+      "marker": "ABI-GOLD jq_sorted=equal provenance=dev/ABI-PROVENANCE.md controls=4 OK",
+      "passed": true
+    },
+    {
+      "name": "EMIT-SOURCES",
+      "identity": "b6a06c7f1cd90d23a17fb33bda490d221dc54750bff66b6514ab501510618fe3",
+      "command": [
+        "python3",
+        "-P",
+        "dev/emit-test.py",
+        "sources"
+      ],
+      "seconds": 13.716193375003058,
+      "timeout": false,
+      "exit": 0,
+      "marker": "EMIT-SOURCES success=15 refusal=9 driver=3 OK",
+      "passed": true
+    },
+    {
+      "name": "EMIT-MUTANTS",
+      "identity": "b6a06c7f1cd90d23a17fb33bda490d221dc54750bff66b6514ab501510618fe3",
+      "command": [
+        "python3",
+        "-P",
+        "dev/emit-test.py",
+        "mutants"
+      ],
+      "seconds": 6.718669916008366,
+      "timeout": false,
+      "exit": 1,
+      "marker": "EMIT-MUTANTS killed=7/7 controls=4 OK",
+      "passed": false
+    },
+    {
+      "name": "AXIOMS",
+      "identity": "b6a06c7f1cd90d23a17fb33bda490d221dc54750bff66b6514ab501510618fe3",
+      "command": [
+        "python3",
+        "-P",
+        "dev/proofs-test.py"
+      ],
+      "seconds": 0.058751875010784715,
+      "timeout": false,
+      "exit": 1,
+      "marker": "AXIOMS sorryAx=0 theorems=42 carried_files=28 controls=3 OK",
+      "passed": false
+    },
+    {
+      "name": "TRACE-DRIVER",
+      "identity": "b6a06c7f1cd90d23a17fb33bda490d221dc54750bff66b6514ab501510618fe3",
+      "command": [
+        "python3",
+        "-P",
+        "dev/trace-test.py"
+      ],
+      "seconds": 4.714984916005051,
+      "timeout": false,
+      "exit": 0,
+      "marker": "TRACE-DRIVER cases=20 explicit_prestate=true literal_argv=true OK",
+      "passed": true
+    },
+    {
+      "name": "CORPUS",
+      "identity": "b6a06c7f1cd90d23a17fb33bda490d221dc54750bff66b6514ab501510618fe3",
+      "command": [
+        "python3",
+        "-P",
+        "dev/corpus-test.py",
+        "corpus"
+      ],
+      "seconds": 6.803544082998997,
+      "timeout": false,
+      "exit": 0,
+      "marker": "CORPUS cases=11 five_files=5 OK",
+      "passed": true
+    },
+    {
+      "name": "ERASED-BYTES",
+      "identity": "b6a06c7f1cd90d23a17fb33bda490d221dc54750bff66b6514ab501510618fe3",
+      "command": [
+        "python3",
+        "-P",
+        "dev/corpus-test.py",
+        "erased"
+      ],
+      "seconds": 1.5897385000134818,
+      "timeout": false,
+      "exit": 0,
+      "marker": "ERASED-BYTES mutants=2 caught=1 equal=2 scope=M0-seed OK",
+      "passed": true
+    },
+    {
+      "name": "F-MUTANTS",
+      "identity": "b6a06c7f1cd90d23a17fb33bda490d221dc54750bff66b6514ab501510618fe3",
+      "command": [
+        "python3",
+        "-P",
+        "dev/corpus-test.py",
+        "mutants"
+      ],
+      "seconds": 0.7206478329899255,
+      "timeout": false,
+      "exit": 1,
+      "marker": "F-MUTANTS killed=7/7 controls=5 OK",
+      "passed": false
+    },
+    {
+      "name": "DIFF-EXECUTOR",
+      "identity": "b6a06c7f1cd90d23a17fb33bda490d221dc54750bff66b6514ab501510618fe3",
+      "command": [
+        "python3",
+        "-P",
+        "dev/diff-test.py"
+      ],
+      "seconds": 10.39991670899326,
+      "timeout": false,
+      "exit": 1,
+      "marker": "DIFF-EXECUTOR live=20 driver=28 rejected=24 OK",
+      "passed": false
+    },
+    {
+      "name": "COUNTER-REFERENCE",
+      "identity": "b6a06c7f1cd90d23a17fb33bda490d221dc54750bff66b6514ab501510618fe3",
+      "command": [
+        "python3",
+        "-P",
+        "dev/counter-test.py"
+      ],
+      "seconds": 2.4181919590046164,
+      "timeout": false,
+      "exit": 0,
+      "marker": "COUNTER-REFERENCE cases=30 creates=2 mutants=8 value_rejected=5 covered=120 scope=reference OK",
+      "passed": true
+    },
+    {
+      "name": "M1-EMISSION",
+      "identity": "b6a06c7f1cd90d23a17fb33bda490d221dc54750bff66b6514ab501510618fe3",
+      "command": [
+        "python3",
+        "-P",
+        "dev/m1-emit-test.py"
+      ],
+      "seconds": 23.045473334001144,
+      "timeout": false,
+      "exit": 1,
+      "marker": "M1-EMISSION counter=30 sources=8 refusals=11 mutants=8 OK",
+      "passed": false
+    },
+    {
+      "name": "SOURCE-MODEL",
+      "identity": "b6a06c7f1cd90d23a17fb33bda490d221dc54750bff66b6514ab501510618fe3",
+      "command": [
+        "python3",
+        "-P",
+        "dev/model-test.py"
+      ],
+      "seconds": 50.31980054199812,
+      "timeout": false,
+      "exit": 1,
+      "marker": "SOURCE-MODEL counter=30 variants=10 corpus=11 invalid=28 refusals=6 mutants=8 OK",
+      "passed": false
+    },
+    {
+      "name": "CONTRACT-SURFACE",
+      "identity": "b6a06c7f1cd90d23a17fb33bda490d221dc54750bff66b6514ab501510618fe3",
+      "command": [
+        "python3",
+        "-P",
+        "dev/contract-test.py"
+      ],
+      "seconds": 92.6926239169843,
+      "timeout": false,
+      "exit": 0,
+      "marker": "CONTRACT-SURFACE counter=30 variants=14 refusals=36 mutants=8 OK",
+      "passed": true
+    },
+    {
+      "name": "SOURCE-PROOFS",
+      "identity": "b6a06c7f1cd90d23a17fb33bda490d221dc54750bff66b6514ab501510618fe3",
+      "command": [
+        "python3",
+        "-P",
+        "dev/source-proof-test.py"
+      ],
+      "seconds": 155.84607862500707,
+      "timeout": false,
+      "exit": 0,
+      "marker": "SOURCE-PROOFS theorems=11 arithmetic=226 evm=16 recovery=6 effects=7 invalid=13 mutants=6 controls=4 OK",
+      "passed": true
+    },
+    {
+      "name": "NULLARY-ENTRIES",
+      "identity": "b6a06c7f1cd90d23a17fb33bda490d221dc54750bff66b6514ab501510618fe3",
+      "command": [
+        "python3",
+        "-P",
+        "dev/nullary-test.py"
+      ],
+      "seconds": 82.7690831660002,
+      "timeout": false,
+      "exit": 0,
+      "marker": "NULLARY-ENTRIES cases=53 creates=2 refusals=4 mutants=3 OK",
+      "passed": true
+    },
+    {
+      "name": "CUSTOM-ERRORS",
+      "identity": "b6a06c7f1cd90d23a17fb33bda490d221dc54750bff66b6514ab501510618fe3",
+      "command": [
+        "python3",
+        "-P",
+        "dev/errors-test.py"
+      ],
+      "seconds": 222.3564833330165,
+      "timeout": false,
+      "exit": 0,
+      "marker": "CUSTOM-ERRORS cases=66 creates=2 refusals=26 mutants=5 OK",
+      "passed": true
+    },
+    {
+      "name": "PROOF-GUARDS",
+      "identity": "b6a06c7f1cd90d23a17fb33bda490d221dc54750bff66b6514ab501510618fe3",
+      "command": [
+        "python3",
+        "-P",
+        "dev/guard-test.py"
+      ],
+      "seconds": 219.58962012501433,
+      "timeout": false,
+      "exit": 0,
+      "marker": "PROOF-GUARDS cases=83 creates=2 refusals=26 erasure=3 mutants=6 OK",
+      "passed": true
+    },
+    {
+      "name": "PROOF-TERMS",
+      "identity": "b6a06c7f1cd90d23a17fb33bda490d221dc54750bff66b6514ab501510618fe3",
+      "command": [
+        "python3",
+        "-P",
+        "dev/proof-term-test.py"
+      ],
+      "seconds": 179.0572312909935,
+      "timeout": false,
+      "exit": 0,
+      "marker": "PROOF-TERMS cases=98 creates=2 refusals=25 erasure=5 mutants=4 OK",
+      "passed": true
+    },
+    {
+      "name": "INVARIANTS",
+      "identity": "b6a06c7f1cd90d23a17fb33bda490d221dc54750bff66b6514ab501510618fe3",
+      "command": [
+        "python3",
+        "-P",
+        "dev/invariant-test.py"
+      ],
+      "seconds": 133.34266475000186,
+      "timeout": false,
+      "exit": 0,
+      "marker": "INVARIANTS cases=52 creates=2 refusals=30 erasure=4 mutants=4 OK",
+      "passed": true
+    },
+    {
+      "name": "PROOF-HELPERS",
+      "identity": "b6a06c7f1cd90d23a17fb33bda490d221dc54750bff66b6514ab501510618fe3",
+      "command": [
+        "python3",
+        "-P",
+        "dev/proof-helper-test.py"
+      ],
+      "seconds": 143.63762658298947,
+      "timeout": false,
+      "exit": 1,
+      "marker": "PROOF-HELPERS cases=104 creates=2 refusals=50 erasure=7 mutants=4 OK",
+      "passed": false
+    },
+    {
+      "name": "COMPOUND-INVARIANTS",
+      "identity": "3ced0da4f2c21b00de06e0d9b14ebd1369e5bcc7ab4ef5a1d8dfcb810dc2f6a2",
+      "command": [
+        "python3",
+        "-P",
+        "dev/compound-invariant-test.py"
+      ],
+      "seconds": 105.01313008301076,
+      "timeout": false,
+      "exit": 1,
+      "marker": "COMPOUND-INVARIANTS cases=64 creates=2 refusals=24 erasure=8 boundaries=10 mutants=4 OK",
+      "passed": false
+    },
+    {
+      "name": "PREDICATES",
+      "identity": "3ced0da4f2c21b00de06e0d9b14ebd1369e5bcc7ab4ef5a1d8dfcb810dc2f6a2",
+      "command": [
+        "python3",
+        "-P",
+        "dev/predicate-test.py"
+      ],
+      "seconds": 181.06681004198617,
+      "timeout": false,
+      "exit": 0,
+      "marker": "PREDICATES cases=72 creates=2 refusals=44 erasure=7 boundaries=12 mutants=4 OK",
+      "passed": true
+    },
+    {
+      "name": "PROOF-BUNDLES",
+      "identity": "3ced0da4f2c21b00de06e0d9b14ebd1369e5bcc7ab4ef5a1d8dfcb810dc2f6a2",
+      "command": [
+        "python3",
+        "-P",
+        "dev/proof-bundle-test.py"
+      ],
+      "seconds": 242.31479229198885,
+      "timeout": false,
+      "exit": 0,
+      "marker": "PROOF-BUNDLES cases=102 creates=2 refusals=41 erasure=8 boundaries=11 mutants=4 OK",
+      "passed": true
+    },
+    {
+      "name": "COMPOUND-GUARDS",
+      "identity": "3ced0da4f2c21b00de06e0d9b14ebd1369e5bcc7ab4ef5a1d8dfcb810dc2f6a2",
+      "command": [
+        "python3",
+        "-P",
+        "dev/compound-guard-test.py"
+      ],
+      "seconds": 197.15098704199772,
+      "timeout": false,
+      "exit": 0,
+      "marker": "COMPOUND-GUARDS cases=88 creates=2 refusals=26 erasure=7 boundaries=7 mutants=4 OK",
+      "passed": true
+    },
+    {
+      "name": "NAMED-GUARDS",
+      "identity": "3ced0da4f2c21b00de06e0d9b14ebd1369e5bcc7ab4ef5a1d8dfcb810dc2f6a2",
+      "command": [
+        "python3",
+        "-P",
+        "dev/named-guard-test.py"
+      ],
+      "seconds": 173.46561316601583,
+      "timeout": false,
+      "exit": 0,
+      "marker": "NAMED-GUARDS cases=96 creates=2 refusals=27 erasure=10 boundaries=6 mutants=4 OK",
+      "passed": true
+    },
+    {
+      "name": "INFERRED-GUARDS",
+      "identity": "3ced0da4f2c21b00de06e0d9b14ebd1369e5bcc7ab4ef5a1d8dfcb810dc2f6a2",
+      "command": [
+        "python3",
+        "-P",
+        "dev/inferred-guard-test.py"
+      ],
+      "seconds": 193.23605279199546,
+      "timeout": false,
+      "exit": 1,
+      "marker": "INFERRED-GUARDS cases=112 creates=2 refusals=24 erasure_pairs=14 boundaries=6 mutants=4 OK",
+      "passed": false
+    },
+    {
+      "name": "INFERRED-ARITHMETIC",
+      "identity": "3ced0da4f2c21b00de06e0d9b14ebd1369e5bcc7ab4ef5a1d8dfcb810dc2f6a2",
+      "command": [
+        "python3",
+        "-P",
+        "dev/inferred-arithmetic-test.py"
+      ],
+      "seconds": 293.73234675001004,
+      "timeout": false,
+      "exit": 0,
+      "marker": "INFERRED-ARITHMETIC cases=158 creates=2 refusals=24 erasure_pairs=16 mutants=4 OK",
+      "passed": true
+    },
+    {
+      "name": "PROOF-HOLES",
+      "identity": "3ced0da4f2c21b00de06e0d9b14ebd1369e5bcc7ab4ef5a1d8dfcb810dc2f6a2",
+      "command": [
+        "python3",
+        "-P",
+        "dev/proof-hole-test.py"
+      ],
+      "seconds": 400.9175018329988,
+      "timeout": false,
+      "exit": 1,
+      "marker": "PROOF-HOLES cases=242 creates=2 refusals=25 erasure_pairs=23 boundaries=6 mutants=4 OK",
+      "passed": false
+    },
+    {
+      "name": "INFERRED-HELPERS",
+      "identity": "3ced0da4f2c21b00de06e0d9b14ebd1369e5bcc7ab4ef5a1d8dfcb810dc2f6a2",
+      "command": [
+        "python3",
+        "-P",
+        "dev/inferred-helper-test.py"
+      ],
+      "seconds": 515.5929564170074,
+      "timeout": false,
+      "exit": 1,
+      "marker": "INFERRED-HELPERS cases=254 creates=2 refusals=26 erasure_pairs=24 boundaries=6 mutants=5 OK",
+      "passed": false
+    },
+    {
+      "name": "INFERRED-BINDINGS",
+      "identity": "3ced0da4f2c21b00de06e0d9b14ebd1369e5bcc7ab4ef5a1d8dfcb810dc2f6a2",
+      "command": [
+        "python3",
+        "-P",
+        "dev/inferred-binding-test.py"
+      ],
+      "seconds": 445.59255612498964,
+      "timeout": false,
+      "exit": 1,
+      "marker": "INFERRED-BINDINGS cases=229 creates=2 refusals=25 erasure_pairs=21 boundaries=6 mutants=6 OK",
+      "passed": false
+    },
+    {
+      "name": "EVM-CONTEXT",
+      "identity": "3ced0da4f2c21b00de06e0d9b14ebd1369e5bcc7ab4ef5a1d8dfcb810dc2f6a2",
+      "command": [
+        "python3",
+        "-P",
+        "dev/context-test.py"
+      ],
+      "seconds": 326.24122458300553,
+      "timeout": false,
+      "exit": 0,
+      "marker": "EVM-CONTEXT cases=224 signed=56 creates=64 refusals=7 inputs=7 nested=2 independent=6 mutants=6 OK",
+      "passed": true
+    },
+    {
+      "name": "INFERRED-GUARD-BINDINGS",
+      "identity": "3ced0da4f2c21b00de06e0d9b14ebd1369e5bcc7ab4ef5a1d8dfcb810dc2f6a2",
+      "command": [
+        "python3",
+        "-P",
+        "dev/inferred-guard-binding-test.py"
+      ],
+      "seconds": 401.092196957994,
+      "timeout": false,
+      "exit": 1,
+      "marker": "INFERRED-GUARD-BINDINGS cases=160 creates=2 refusals=27 erasure_pairs=20 boundaries=4 mutants=4 OK",
+      "passed": false
+    },
+    {
+      "name": "SURFACE-CONTEXT",
+      "identity": "3ced0da4f2c21b00de06e0d9b14ebd1369e5bcc7ab4ef5a1d8dfcb810dc2f6a2",
+      "command": [
+        "python3",
+        "-P",
+        "dev/context-surface-test.py"
+      ],
+      "seconds": 492.1500986670144,
+      "timeout": false,
+      "exit": 0,
+      "marker": "SURFACE-CONTEXT cases=224 signed=56 creates=64 pairs=8 composition=6 order=4 refusals=17 mutants=4 OK",
+      "passed": true
+    },
+    {
+      "name": "WORD-EQUALITY",
+      "identity": "3ced0da4f2c21b00de06e0d9b14ebd1369e5bcc7ab4ef5a1d8dfcb810dc2f6a2",
+      "command": [
+        "python3",
+        "-P",
+        "dev/equality-test.py"
+      ],
+      "seconds": 387.23367541699554,
+      "timeout": false,
+      "exit": 0,
+      "marker": "EQUALITY pairs=8 cases=53 signed=33 creates=8 boundaries=6 refusals=17 mutants=4 OK",
+      "passed": true
+    },
+    {
+      "name": "HEX-LITERALS",
+      "identity": "3ced0da4f2c21b00de06e0d9b14ebd1369e5bcc7ab4ef5a1d8dfcb810dc2f6a2",
+      "command": [
+        "python3",
+        "-P",
+        "dev/hex-literals-test.py"
+      ],
+      "seconds": 401.5807378340105,
+      "timeout": false,
+      "exit": 0,
+      "marker": "HEX-LITERALS pairs=30 cases=46 signed=25 creates=23 refusals=23 mutants=4 OK",
+      "passed": true
+    },
+    {
+      "name": "DIFF-VALUE",
+      "identity": "726ad42c4b9a02b966caedc3c66f9a5ee06bf0dee168d1c7758b502f7ef18dba",
+      "command": [
+        "python3",
+        "-P",
+        "dev/diff-value-test.py"
+      ],
+      "seconds": 79.91889758399338,
+      "timeout": false,
+      "exit": 0,
+      "marker": "DIFF-VALUE live=32 signed=32 refused=31 OK",
+      "passed": true
+    },
+    {
+      "name": "TRACE-VALUE",
+      "identity": "726ad42c4b9a02b966caedc3c66f9a5ee06bf0dee168d1c7758b502f7ef18dba",
+      "command": [
+        "python3",
+        "-P",
+        "dev/trace-value-test.py"
+      ],
+      "seconds": 93.99090904099285,
+      "timeout": false,
+      "exit": 0,
+      "marker": "TRACE-VALUE live=36 funding=2 refused=34 OK",
+      "passed": true
+    },
+    {
+      "name": "FALLBACK",
+      "identity": "726ad42c4b9a02b966caedc3c66f9a5ee06bf0dee168d1c7758b502f7ef18dba",
+      "command": [
+        "python3",
+        "-P",
+        "dev/fallback-test.py"
+      ],
+      "seconds": 325.57962120798766,
+      "timeout": false,
+      "exit": 0,
+      "marker": "FALLBACK cases=99 signed=99 creates=10 refusals=23 boundaries=2 mutants=6 OK",
+      "passed": true
+    },
+    {
+      "name": "INFERRED-WORDS",
+      "identity": "726ad42c4b9a02b966caedc3c66f9a5ee06bf0dee168d1c7758b502f7ef18dba",
+      "command": [
+        "python3",
+        "-P",
+        "dev/inferred-word-test.py"
+      ],
+      "seconds": 381.4405661250057,
+      "timeout": false,
+      "exit": 0,
+      "marker": "INFERRED-WORDS pairs=21 cases=40 signed=40 refusals=19 boundaries=2 mutants=4 OK",
+      "passed": true
+    },
+    {
+      "name": "TRACE-CALLER",
+      "identity": "726ad42c4b9a02b966caedc3c66f9a5ee06bf0dee168d1c7758b502f7ef18dba",
+      "command": [
+        "python3",
+        "-P",
+        "dev/trace-caller-test.py"
+      ],
+      "seconds": 141.90275620800094,
+      "timeout": false,
+      "exit": 0,
+      "marker": "TRACE-CALLER live=45 funding=2 refused=31 OK",
+      "passed": true
+    },
+    {
+      "name": "DIFF-CALLER",
+      "identity": "726ad42c4b9a02b966caedc3c66f9a5ee06bf0dee168d1c7758b502f7ef18dba",
+      "command": [
+        "python3",
+        "-P",
+        "dev/diff-caller-test.py"
+      ],
+      "seconds": 180.01275108300615,
+      "timeout": true,
+      "exit": -15,
+      "marker": "DIFF-CALLER live=45 signed=45 rejected=4 refused=33 helper=5 OK",
+      "passed": false
+    },
+    {
+      "name": "PAYABLE",
+      "identity": "726ad42c4b9a02b966caedc3c66f9a5ee06bf0dee168d1c7758b502f7ef18dba",
+      "command": [
+        "python3",
+        "-P",
+        "dev/payable-test.py"
+      ],
+      "seconds": 180.0153870829963,
+      "timeout": true,
+      "exit": -15,
+      "marker": "PAYABLE cases=216 signed=24 pairs=8 probes=6 public=6 refusals=18 mutants=4 OK",
+      "passed": false
+    },
+    {
+      "name": "CALLVALUE",
+      "identity": "726ad42c4b9a02b966caedc3c66f9a5ee06bf0dee168d1c7758b502f7ef18dba",
+      "command": [
+        "python3",
+        "-P",
+        "dev/callvalue-test.py"
+      ],
+      "seconds": 240.01792554202257,
+      "timeout": true,
+      "exit": -15,
+      "marker": "CALLVALUE cases=480 signed=18 pairs=16 probes=12 public=2 refusals=13 mutants=4 OK",
+      "passed": false
+    },
+    {
+      "name": "NATIVE-IO",
+      "identity": "726ad42c4b9a02b966caedc3c66f9a5ee06bf0dee168d1c7758b502f7ef18dba",
+      "command": [
+        "python3",
+        "-P",
+        "dev/native-io-test.py"
+      ],
+      "seconds": 2.9485257499909494,
+      "timeout": false,
+      "exit": 0,
+      "marker": "NATIVE-IO cases=8 bytes=65797 OK",
+      "passed": true
+    },
+    {
+      "name": "CALLDATASIZE",
+      "identity": "726ad42c4b9a02b966caedc3c66f9a5ee06bf0dee168d1c7758b502f7ef18dba",
+      "command": [
+        "python3",
+        "-P",
+        "dev/calldatasize-test.py"
+      ],
+      "seconds": 600.0298022909847,
+      "timeout": true,
+      "exit": -15,
+      "marker": "CALLDATASIZE cases=1024 signed=28 pairs=32 probes=16 public=2 refusals=13 mutants=5 OK",
+      "passed": false
+    },
+    {
+      "name": "CALLDATALOAD",
+      "identity": "726ad42c4b9a02b966caedc3c66f9a5ee06bf0dee168d1c7758b502f7ef18dba",
+      "command": [
+        "python3",
+        "-P",
+        "dev/calldataload-test.py"
+      ],
+      "seconds": 600.0378512079769,
+      "timeout": true,
+      "exit": -15,
+      "marker": "CALLDATALOAD cases=2240 signed=35 pairs=64 probes=31 public=2 refusals=18 mutants=5 OK",
+      "passed": false
+    },
+    {
+      "name": "ERC20-REFERENCE",
+      "identity": "726ad42c4b9a02b966caedc3c66f9a5ee06bf0dee168d1c7758b502f7ef18dba",
+      "command": [
+        "python3",
+        "-P",
+        "dev/erc20-test.py"
+      ],
+      "seconds": 21.41506416699849,
+      "timeout": false,
+      "exit": 0,
+      "marker": "ERC20-REFERENCE cases=85 creates=4 mutants=11 covered=431 scope=reference OK",
+      "passed": true
+    },
+    {
+      "name": "ADDRESS",
+      "identity": "726ad42c4b9a02b966caedc3c66f9a5ee06bf0dee168d1c7758b502f7ef18dba",
+      "command": [
+        "python3",
+        "-P",
+        "dev/address-test.py"
+      ],
+      "seconds": 600.0583758749999,
+      "timeout": true,
+      "exit": -15,
+      "marker": "ADDRESS cases=1920 signed=15 pairs=128 probes=40 public=7 refusals=24 mutants=5 OK",
+      "passed": false
+    },
+    {
+      "name": "PIN-CARRY",
+      "identity": "726ad42c4b9a02b966caedc3c66f9a5ee06bf0dee168d1c7758b502f7ef18dba",
+      "command": [
+        "zsh",
+        "-f",
+        "dev/carry-check.sh"
+      ],
+      "seconds": 0.1542911249853205,
+      "timeout": false,
+      "exit": 0,
+      "marker": "diff=0 unlisted=0",
+      "passed": true
+    },
+    {
+      "name": "R0-COUNT",
+      "identity": "726ad42c4b9a02b966caedc3c66f9a5ee06bf0dee168d1c7758b502f7ef18dba",
+      "command": [
+        "zsh",
+        "-f",
+        "dev/r0-count.sh"
+      ],
+      "seconds": 0.24698774999706075,
+      "timeout": false,
+      "exit": 0,
+      "marker": "R0-COUNT OK",
+      "passed": true
+    },
+    {
+      "name": "R0-AUDIT",
+      "identity": "726ad42c4b9a02b966caedc3c66f9a5ee06bf0dee168d1c7758b502f7ef18dba",
+      "command": [
+        "zsh",
+        "-f",
+        "dev/r0-audit.sh"
+      ],
+      "seconds": 0.12558616601745598,
+      "timeout": false,
+      "exit": 0,
+      "marker": "R0-AUDIT OK",
+      "passed": true
+    },
+    {
+      "name": "HOUSE",
+      "identity": "726ad42c4b9a02b966caedc3c66f9a5ee06bf0dee168d1c7758b502f7ef18dba",
+      "command": [
+        "zsh",
+        "-f",
+        "dev/house.sh"
+      ],
+      "seconds": 0.75493991698022,
+      "timeout": false,
+      "exit": 0,
+      "marker": "HOUSE OK",
+      "passed": true
+    },
+    {
+      "name": "TRUSTED-LINES",
+      "identity": "726ad42c4b9a02b966caedc3c66f9a5ee06bf0dee168d1c7758b502f7ef18dba",
+      "command": [
+        "zsh",
+        "-f",
+        "dev/trusted-lines.sh"
+      ],
+      "seconds": 0.25691270901006646,
+      "timeout": false,
+      "exit": 0,
+      "marker": "TRUSTED-LINES OK",
+      "passed": true
+    },
+    {
+      "name": "CONTRACT-ROUTE",
+      "identity": "726ad42c4b9a02b966caedc3c66f9a5ee06bf0dee168d1c7758b502f7ef18dba",
+      "command": [
+        "python3",
+        "-P",
+        "dev/contract-route-test.py"
+      ],
+      "seconds": 2.143550791981397,
+      "timeout": false,
+      "exit": 0,
+      "marker": "CONTRACT-ROUTE-CONTROLS killed=2/2 OK",
+      "passed": true
+    },
+    {
+      "name": "PIN-CARRY",
+      "identity": "bea8845cfb1629857125488baa5c638e5f0ed04ba076d4c19cced340a21ba81a",
+      "command": [
+        "zsh",
+        "-f",
+        "dev/carry-check.sh"
+      ],
+      "seconds": 0.08379833298386075,
+      "timeout": false,
+      "exit": 0,
+      "marker": "diff=0 unlisted=0",
+      "passed": true
+    },
+    {
+      "name": "R0-COUNT",
+      "identity": "bea8845cfb1629857125488baa5c638e5f0ed04ba076d4c19cced340a21ba81a",
+      "command": [
+        "zsh",
+        "-f",
+        "dev/r0-count.sh"
+      ],
+      "seconds": 0.13782208299380727,
+      "timeout": false,
+      "exit": 0,
+      "marker": "R0-COUNT OK",
+      "passed": true
+    },
+    {
+      "name": "R0-AUDIT",
+      "identity": "bea8845cfb1629857125488baa5c638e5f0ed04ba076d4c19cced340a21ba81a",
+      "command": [
+        "zsh",
+        "-f",
+        "dev/r0-audit.sh"
+      ],
+      "seconds": 0.08632120900438167,
+      "timeout": false,
+      "exit": 0,
+      "marker": "R0-AUDIT OK",
+      "passed": true
+    },
+    {
+      "name": "HOUSE",
+      "identity": "bea8845cfb1629857125488baa5c638e5f0ed04ba076d4c19cced340a21ba81a",
+      "command": [
+        "zsh",
+        "-f",
+        "dev/house.sh"
+      ],
+      "seconds": 0.5275891659839544,
+      "timeout": false,
+      "exit": 0,
+      "marker": "HOUSE OK",
+      "passed": true
+    },
+    {
+      "name": "TRUSTED-LINES",
+      "identity": "bea8845cfb1629857125488baa5c638e5f0ed04ba076d4c19cced340a21ba81a",
+      "command": [
+        "zsh",
+        "-f",
+        "dev/trusted-lines.sh"
+      ],
+      "seconds": 0.13225900000543334,
+      "timeout": false,
+      "exit": 0,
+      "marker": "TRUSTED-LINES OK",
+      "passed": true
+    },
+    {
+      "name": "CONTRACT-ROUTE",
+      "identity": "bea8845cfb1629857125488baa5c638e5f0ed04ba076d4c19cced340a21ba81a",
+      "command": [
+        "python3",
+        "-P",
+        "dev/contract-route-test.py"
+      ],
+      "seconds": 1.2868746249878313,
+      "timeout": false,
+      "exit": 0,
+      "marker": "CONTRACT-ROUTE-CONTROLS killed=2/2 OK",
+      "passed": true
+    },
+    {
+      "name": "DENOMINATORS",
+      "identity": "bea8845cfb1629857125488baa5c638e5f0ed04ba076d4c19cced340a21ba81a",
+      "command": [
+        "shasum",
+        "-a",
+        "256",
+        "-c",
+        "dev/DENOMINATORS.sha256"
+      ],
+      "seconds": 0.17302404198562726,
+      "timeout": false,
+      "exit": 1,
+      "marker": "dev/denominators.json: OK",
+      "passed": false
+    },
+    {
+      "name": "F-MUTANTS",
+      "identity": "bea8845cfb1629857125488baa5c638e5f0ed04ba076d4c19cced340a21ba81a",
+      "command": [
+        "python3",
+        "-P",
+        "dev/corpus-test.py",
+        "mutants"
+      ],
+      "seconds": 2.253072749997955,
+      "timeout": false,
+      "exit": 0,
+      "marker": "F-MUTANTS killed=7/7 controls=5 OK",
+      "passed": true
+    },
+    {
+      "name": "BEND2-RATIO",
+      "identity": "bea8845cfb1629857125488baa5c638e5f0ed04ba076d4c19cced340a21ba81a",
+      "command": [
+        "python3",
+        "-P",
+        "dev/bend2-ratio.py"
+      ],
+      "seconds": 0.2562373750261031,
+      "timeout": false,
+      "exit": 1,
+      "marker": "informational=false\nBEND2-RATIO cases=6 rounds=5 source-pins=OK subtraction=none OK",
+      "passed": false
+    },
+    {
+      "name": "BEND2-RATIO-TEST",
+      "identity": "bea8845cfb1629857125488baa5c638e5f0ed04ba076d4c19cced340a21ba81a",
+      "command": [
+        "python3",
+        "-P",
+        "dev/bend2-ratio-test.py"
+      ],
+      "seconds": 1.638208125019446,
+      "timeout": false,
+      "exit": 0,
+      "marker": "BEND2-RATIO-TEST controls=3 refused=37 mutants=6 OK",
+      "passed": true
+    },
+    {
+      "name": "DENOMINATORS",
+      "identity": "bea8845cfb1629857125488baa5c638e5f0ed04ba076d4c19cced340a21ba81a",
+      "command": [
+        "shasum",
+        "-a",
+        "256",
+        "-c",
+        "dev/DENOMINATORS.sha256"
+      ],
+      "seconds": 0.11501950002275407,
+      "timeout": false,
+      "exit": 0,
+      "marker": "dev/denominators.json: OK",
+      "passed": true
+    }
+  ],
+  "additional_results": {
+    "numeric": {
+      "source_sha256": "d1609da90c24665bbb299d560a5b8bd22ecaca1142a10101d13f8e19d76d14a9",
+      "cases": 3184,
+      "actual": 3184,
+      "mismatches": [],
+      "exit": 0,
+      "stderr": ""
+    },
+    "big_arithmetic": {
+      "source_sha256": "477322159d4227e1f7b8975b9c2921bc80c8c09d83cee61a5e6aac8e9f941ac8",
+      "cases": 1056,
+      "actual_count": 1056,
+      "exit": 0,
+      "mismatches": [],
+      "stderr": ""
+    },
+    "maps": {
+      "cases": 35,
+      "passed": 35
+    }
+  },
+  "benchmark": {
+    "report": "dev/bend2-baseline.json",
+    "sha256": "2e619db23fd5e684d4797a92cdb1e3e32b2be8ced985856847d9c220aeb8ed07",
+    "medians_ms": {
+      "assay": 1755.2864180000001,
+      "bend2": 1303.759208
+    },
+    "ratio": 1.3463271493918378,
+    "limit": 1.0,
+    "passed": false,
+    "measurement_window_seconds": 15.828627292008605,
+    "denominator_report_sha256": "1195140a41584b111d03ee82fb6d36b64c52c6b581671c07eae9978718c02718",
+    "denominator_window_seconds": 30.14746154198656
+  },
+  "stopped_retry": {
+    "name": "calldataload",
+    "reason": "Redundant retry stopped after repeated large-suite deadlines; original 600-second failure retained. Address was not retried."
+  },
+  "known_deadline_failures": [
+    "proof-hole mutants",
+    "inferred-helper sharing witness",
+    "inferred-guard boundaries",
+    "inferred-binding boundaries",
+    "inferred-guard-binding boundaries",
+    "payable",
+    "callvalue",
+    "calldatasize",
+    "calldataload",
+    "address"
+  ],
+  "logs_note": "Named logs are the latest capture at that path. Older full-leg attempts above retain result metadata, not an assertion that the latest log belongs to them.",
+  "logs": {
+    "battery/ABI-GOLD.log": "ABI-GOLD jq_sorted=equal provenance=dev/ABI-PROVENANCE.md controls=4 OK\n",
+    "battery/ADDRESS.log": "",
+    "battery/ASM-MUTANTS.log": "ASM-MUTANT STACK-EFFECT killed witness=ASM-CASE add-underflow FAIL\nASM-MUTANT EDGE-HEIGHT killed witness=ASM-CASE goto-height FAIL\nASM-MUTANT JUMP-PEAK killed witness=ASM-CASE branch-overflow FAIL\nASM-MUTANT LABEL-PC killed witness=ASM-CASE ref20 FAIL\nASM-MUTANT COMPACT-LIMIT killed witness=ASM-COMPACT FAIL branch-243\nASM-MUTANT COMPACT-PUSH killed witness=ASM-COMPACT FAIL payload-256-1\nASM-MUTANT COMPACT-BRANCH killed witness=ASM-COMPACT FAIL branch-0\nASM-MUTANT LISTING-OP killed witness=DISASM-3WAY ref20 FAIL\nASM-MUTANT LISTING-PC killed witness=DISASM-3WAY ref20 FAIL\nASM-MUTANTS killed=9/9 control=OK\n",
+    "battery/AXIOMS.log": "AXIOMS FAIL AXIOMS missing preprovisioned dependency: kan-tactics, see the offline provisioning recipe in dev/TOOLCHAIN.md\n",
+    "battery/BEND2-RATIO-TEST.log": "BEND2-RATIO-TEST controls=3 refused=37 mutants=6 OK\n",
+    "battery/BEND2-RATIO.log": "BEND2-RATIO FAIL BEND2-BOUND limit=1.0 ratio=1.3463271493918378\n",
+    "battery/CALLDATALOAD.log": "",
+    "battery/CALLDATASIZE.log": "",
+    "battery/CALLVALUE.log": "",
+    "battery/COMPOUND-GUARDS.log": "CG-LIVE cases=88 OK\nCG-ERASURE variants=7 groups=2 OK\nCG-REFUSALS cases=26 commands=3 OK\nCG-BOUNDARIES accepted=7 OK\nCG-MUTANT PAIR-ORDER killed control=OK\nCG-MUTANT ERROR-PAYLOAD killed control=OK\nCG-MUTANT COMPONENT-EVIDENCE killed control=OK\nCG-MUTANT CHECK-ORDER killed control=OK\nCOMPOUND-GUARDS cases=88 creates=2 refusals=26 erasure=7 boundaries=7 mutants=4 OK\n",
+    "battery/COMPOUND-INVARIANTS.log": "COMPOUND-LIVE cases=64 creates=2 erasure=8 OK\nCOMPOUND-REFUSALS cases=24 commands=3 OK\nCOMPOUND-INVARIANTS-FAIL M1-TOOL boundary-2: \n",
+    "battery/CONTRACT-ROUTE.log": "CONTRACT-ROUTE core=3 identity=true sampled_bytes=76608 bound=131072 OK\nCONTRACT-ROUTE-CONTROLS killed=2/2 OK\n",
+    "battery/CONTRACT-SURFACE.log": "SURFACE-LIVE counter=30 variants=14 creates=2 covered=216 five_files=5 executors=2 OK\nSURFACE-DRIVER refusals=36 commands=3 bounds=5 no_tools=true OK\nSURFACE-MUTANT SLOT witness=get-nonzero killed control=OK\nSURFACE-MUTANT ARGUMENT witness=two-args killed control=OK\nSURFACE-MUTANT LITERAL witness=word-range killed control=OK\nSURFACE-MUTANT SUBTRACTION witness=decrement-success killed control=OK\nSURFACE-MUTANT GUARD witness=increment-success killed control=OK\nSURFACE-MUTANT STORE witness=increment-success killed control=OK\nSURFACE-MUTANT SHADOW witness=shadow killed control=OK\nSURFACE-MUTANT SHADOW-LOAD witness=shadow-load killed control=OK\nSURFACE-MUTANTS killed=8/8 controls=8 OK\nCONTRACT-SURFACE counter=30 variants=14 refusals=36 mutants=8 OK\n",
+    "battery/CORPUS.log": "CORPUS-MEASURE {\"creation_gas\": 4022, \"gas\": 22232, \"group\": \"contracts\", \"init_bytes\": 30, \"listing\": 17, \"path\": \"corpus/contracts/Ref20.asy\", \"runtime_bytes\": 20, \"steps\": 13}\nCORPUS-MEASURE {\"creation_gas\": 1622, \"gas\": 16, \"group\": \"contracts\", \"init_bytes\": 18, \"listing\": 6, \"path\": \"corpus/contracts/Return.asy\", \"runtime_bytes\": 8, \"steps\": 6}\nCORPUS-MEASURE {\"creation_gas\": 3822, \"gas\": 2331, \"group\": \"contracts\", \"init_bytes\": 29, \"listing\": 17, \"path\": \"corpus/contracts/Zero.asy\", \"runtime_bytes\": 19, \"steps\": 13}\nCORPUS-MEASURE {\"creation_gas\": 10228, \"gas\": 22232, \"group\": \"contracts\", \"init_bytes\": 61, \"listing\": 17, \"path\": \"corpus/contracts/Maximum.asy\", \"runtime_bytes\": 51, \"steps\": 13}\nCORPUS-MEASURE {\"creation_gas\": 1622, \"gas\": 16, \"group\": \"contracts\", \"init_bytes\": 18, \"listing\": 6, \"path\": \"corpus/contracts/Arithmetic.asy\", \"runtime_bytes\": 8, \"steps\": 6}\nCORPUS-MEASURE {\"creation_gas\": 1622, \"gas\": 16, \"group\": \"contracts\", \"init_bytes\": 18, \"listing\": 6, \"path\": \"corpus/contracts/Pair.asy\", \"runtime_bytes\": 8, \"steps\": 6}\nCORPUS-MEASURE {\"creation_gas\": 6828, \"gas\": 44351, \"group\": \"contracts\", \"init_bytes\": 44, \"listing\": 27, \"path\": \"corpus/contracts/TwoSlots.asy\", \"runtime_bytes\": 34, \"steps\": 19}\nCORPUS-MEASURE {\"creation_gas\": 79694, \"gas\": 25625, \"group\": \"contracts\", \"init_bytes\": 410, \"listing\": 307, \"path\": \"corpus/contracts/WideLabel.asy\", \"runtime_bytes\": 398, \"steps\": 187}\nCORPUS-MEASURE {\"creation_gas\": 1622, \"gas\": 16, \"group\": \"proofs\", \"init_bytes\": 18, \"listing\": 6, \"path\": \"corpus/proofs/Leaf.asy\", \"runtime_bytes\": 8, \"steps\": 6}\nCORPUS-MEASURE {\"creation_gas\": 1622, \"gas\": 16, \"group\": \"proofs\", \"init_bytes\": 18, \"listing\": 6, \"path\": \"corpus/proofs/Apply.asy\", \"runtime_bytes\": 8, \"steps\": 6}\nCORPUS-MEASURE {\"creation_gas\": 1622, \"gas\": 16, \"group\": \"proofs\", \"init_bytes\": 18, \"listing\": 6, \"path\": \"corpus/proofs/Let.asy\", \"runtime_bytes\": 8, \"steps\": 6}\nCORPUS cases=11 five_files=5 OK\n",
+    "battery/COUNTER-REFERENCE.log": "COUNTER-CASE get-zero status=success run_gas=2252 OK\nCOUNTER-CASE get-nonzero status=success run_gas=2252 OK\nCOUNTER-CASE increment-success status=success run_gas=7332 OK\nCOUNTER-CASE increment-at-limit status=success run_gas=7332 OK\nCOUNTER-CASE increment-zero status=success run_gas=4532 OK\nCOUNTER-CASE increment-over-limit status=revert run_gas=4403 OK\nCOUNTER-CASE increment-overflow status=revert run_gas=2278 OK\nCOUNTER-CASE increment-max status=success run_gas=24432 OK\nCOUNTER-CASE increment-zero-limit status=success run_gas=4532 OK\nCOUNTER-CASE decrement-success status=success run_gas=5216 OK\nCOUNTER-CASE decrement-to-zero status=success run_gas=5216 OK\nCOUNTER-CASE decrement-zero status=success run_gas=2416 OK\nCOUNTER-CASE decrement-underflow status=revert run_gas=2279 OK\nCOUNTER-CASE decrement-max status=success run_gas=5216 OK\nCOUNTER-CASE empty-calldata status=revert run_gas=41 OK\nCOUNTER-CASE selector-short-1 status=revert run_gas=41 OK\nCOUNTER-CASE selector-short-2 status=revert run_gas=41 OK\nCOUNTER-CASE selector-short-3 status=revert run_gas=41 OK\nCOUNTER-CASE unknown-selector status=revert run_gas=143 OK\nCOUNTER-CASE increment-short-0 status=revert run_gas=106 OK\nCOUNTER-CASE increment-short-1 status=revert run_gas=106 OK\nCOUNTER-CASE increment-short-31 status=revert run_gas=106 OK\nCOUNTER-CASE decrement-short-0 status=revert run_gas=130 OK\nCOUNTER-CASE decrement-short-31 status=revert run_gas=130 OK\nCOUNTER-CASE increment-trailing status=success run_gas=7332 OK\nCOUNTER-CASE decrement-trailing status=success run_gas=5216 OK\nCOUNTER-CASE get-trailing status=success run_gas=2252 OK\nCOUNTER-CASE value-increment status=revert run_gas=20 OK\nCOUNTER-CASE value-decrement status=revert run_gas=20 OK\nCOUNTER-CASE value-get status=revert run_gas=20 OK\nCOUNTER-MUTANT CALLVALUE witness=value-increment killed control=OK\nCOUNTER-MUTANT OVERFLOW witness=increment-overflow killed control=OK\nCOUNTER-MUTANT BOUND witness=increment-over-limit killed control=OK\nCOUNTER-MUTANT UNDERFLOW witness=decrement-underflow killed control=OK\nCOUNTER-MUTANT SUBTRACTION witness=decrement-success killed control=OK\nCOUNTER-MUTANT STORE witness=increment-success killed control=OK\nCOUNTER-MUTANT SHORT-HEAD witness=increment-short-31 killed control=OK\nCOUNTER-MUTANT SELECTOR witness=increment-success killed control=OK\nCOUNTER-REFERENCE cases=30 creates=2 mutants=8 value_rejected=5 covered=120 scope=reference OK\n",
+    "battery/CREATE-EQ.log": "REFERENCE-ORACLE evm version 1.14.12-stable\nREFERENCE-ORACLE cast 0.3.0 (5a8bd89 2024-12-20T08:45:53.135759000Z)\nCREATE-MEASURE init_bytes=30 gas=4022 runtime_sha=e289c7e05023ac70a05725ddffd97143efe364fdbb882dedc9c04e3f8032a711 returned_sha=e289c7e05023ac70a05725ddffd97143efe364fdbb882dedc9c04e3f8032a711\nCREATE-EQ bytes=20 returned=20 installed=1 OK\n",
+    "battery/CUSTOM-ERRORS.log": "ERROR-LIVE cases=66 creates=2 covered=215 OK\nERROR-REFUSALS surface=18 schema=8 OK\nERROR-MUTANT ABI killed control=OK\nERROR-MUTANT SELECTOR killed control=OK\nERROR-MUTANT MEMORY killed control=OK\nERROR-MUTANT LENGTH killed control=OK\nERROR-MUTANT ROLLBACK killed control=OK\nCUSTOM-ERRORS cases=66 creates=2 refusals=26 mutants=5 OK\n",
+    "battery/DENOMINATORS.log": "Makefile: OK\nassay: OK\ncorpus/MANIFEST.json: OK\ncorpus/bend2/Apply.bend: OK\ncorpus/bend2/Arithmetic.bend: OK\ncorpus/bend2/Leaf.bend: OK\ncorpus/bend2/Let.bend: OK\ncorpus/bend2/MANIFEST.json: OK\ncorpus/bend2/Pair.bend: OK\ncorpus/bend2/Return.bend: OK\ncorpus/contracts/Arithmetic.asy: OK\ncorpus/contracts/Maximum.asy: OK\ncorpus/contracts/Pair.asy: OK\ncorpus/contracts/Ref20.asy: OK\ncorpus/contracts/Return.asy: OK\ncorpus/contracts/TwoSlots.asy: OK\ncorpus/contracts/WideLabel.asy: OK\ncorpus/contracts/Zero.asy: OK\ncorpus/proofs/Apply.asy: OK\ncorpus/proofs/Leaf.asy: OK\ncorpus/proofs/Let.asy: OK\ndev/BEND2.sha256: OK\ndev/M1-ERROR-MUTATIONS.md: OK\ndev/M1-ERRORS.md: OK\ndev/M1-NULLARY-MUTATIONS.md: OK\ndev/M1-NULLARY.md: OK\ndev/M1-PROOF-MUTATIONS.md: OK\ndev/M1-PROOFS.md: OK\ndev/M1-SURFACE-MUTATIONS.md: OK\ndev/M1-SURFACE.md: OK\ndev/PIN: OK\ndev/TIMING-DEBUG.md: OK\ndev/abi-codec-test.py: OK\ndev/abi-schema-test.py: OK\ndev/bend2-baseline.json: OK\ndev/bend2-m2-codec-2026-09-22.json: OK\ndev/bend2-ratio-test.py: OK\ndev/bend2-ratio.py: OK\ndev/bend_source.py: OK\ndev/build.py: OK\ndev/build.sh: OK\ndev/contract-test.py: OK\ndev/corpus-data.py: OK\ndev/corpus-test.py: OK\ndev/counter-test.py: OK\ndev/denominators-m1-2026-09-21-02.json: OK\ndev/denominators-m1-2026-09-21-03.json: OK\ndev/denominators-m1-2026-09-21-04.json: OK\ndev/denominators-m1-2026-09-21.json: OK\ndev/denominators-m2-codec-2026-09-22.json: OK\ndev/denominators-stage-0.json: OK\ndev/denominators.json: OK\ndev/diff-test.py: OK\ndev/emit-test.py: OK\ndev/erc20-test.py: OK\ndev/errors-test.py: OK\ndev/gates.sh: OK\ndev/import-check.sh: OK\ndev/m1-emit-test.py: OK\ndev/m1-ratio-test.py: OK\ndev/measurements/2026-09-11-m0-stage-f.json: OK\ndev/measurements/2026-09-11-m1-emission.json: OK\ndev/measurements/2026-09-12-m1-nullary.json: OK\ndev/measurements/2026-09-12-m1-proofs.json: OK\ndev/measurements/2026-09-12-m1-run.json: OK\ndev/measurements/2026-09-12-m1-surface.json: OK\ndev/measurements/2026-09-22-m1-bend2.json: OK\ndev/model-test.py: OK\ndev/nullary-test.py: OK\ndev/ratio.py: OK\ndev/ratio.sh: OK\ndev/source-proof-test.py: OK\ndev/stage-a-gates.py: OK\ndev/stage-a-test.py: OK\ndev/toolchain.json: OK\ndev/trace-test.py: OK\nevm/diff.py: OK\nexamples/Counter.asy: OK\nexamples/CounterSurface.asy: OK\nexamples/Errors.asy: OK\nexamples/Nullary.asy: OK\nreference/erc20/MANIFEST.json: OK\nreference/erc20/abi.json: OK\nreference/erc20/cases.json: OK\nreference/erc20/init-prefix.evm: OK\nreference/erc20/init.hex: OK\nreference/erc20/layout.json: OK\nreference/erc20/runtime.evm: OK\nreference/erc20/runtime.hex: OK\nreference/erc20/slots.json: OK\nsrc/abi.bend: OK\nsrc/assembler.bend: OK\nsrc/cli.bend: OK\nsrc/emitter.bend: OK\nsrc/frontend.bend: OK\nsrc/keccak.bend: OK\nsrc/kernel.bend: OK\nsrc/layout.bend: OK\nsrc/listing.bend: OK\nsrc/os.js: OK\nverification/.gitignore: OK\nverification/AssayProofs.lean: OK\nverification/AssayProofs/Arithmetic.lean: OK\nverification/AssayProofs/Source.lean: OK\nverification/Axioms.lean: OK\nverification/Main.lean: OK\nverification/README.md: OK\nverification/lake-manifest.json: OK\nverification/lakefile.lean: OK\nverification/lean-toolchain: OK\n",
+    "battery/DIFF-CALLER.log": "",
+    "battery/DIFF-EXECUTOR.log": "DIFF-LIVE reference OK\nDIFF-LIVE overwrite-preserve OK\nDIFF-LIVE read-nonzero OK\nDIFF-LIVE clear OK\nDIFF-LIVE return-calldata OK\nDIFF-LIVE revert-data OK\nDIFF-LIVE revert-rollback OK\nDIFF-LIVE caller OK\nDIFF-LIVE gas OK\nDIFF-DRIVER cases=28 literal_argv=true OK\nDIFF-CHECK STATUS killed witness=DIFF_MISMATCH: status\nDIFF-CHECK RETURN killed witness=DIFF_MISMATCH: output\nDIFF-CHECK STORAGE killed witness=DIFF_MISMATCH: storage\nDIFF-CHECK NO-RESULT killed witness=DIFF_T8N: missing result or alloc\nDIFF-CHECK NO-ALLOC killed witness=DIFF_T8N: missing result or alloc\nDIFF-CHECK REJECTED killed witness=DIFF_T8N: transaction rejected\nDIFF-CHECK NO-RECEIPT killed witness=DIFF_T8N: expected one receipt\nDIFF-CHECK DUP-RECEIPT killed witness=DIFF_T8N: expected one receipt\nDIFF-CHECK RECEIPT-STATUS killed witness=DIFF_T8N: receipt and trace disagree\nDIFF-CHECK RECEIPT-HASH killed witness=DIFF_T8N: missing or unrelated transaction trace\nDIFF-CHECK RECEIPT-INDEX killed witness=DIFF_T8N: wrong receipt index\nDIFF-CHECK BAD-STORAGE killed witness=DIFF_STORAGE: invalid word\nDIFF-CHECK NO-TRACE killed witness=DIFF_T8N: missing or unrelated transaction trace\nDIFF-CHECK TRAILING-JSON killed witness=DIFF_RUN: missing state dump\nDIFF-CHECK DUP-JSON killed witness=DIFF_JSON: duplicate key a\nDIFF-CHECK NO-STATE killed witness=DIFF_RUN: missing state dump\nDIFF-CHECK EVM-FAULT killed witness=DIFF_EXECUTION: EVM fault\nDIFF-CHECK EXCESS-GAS killed witness=DIFF_TRACE: gas exceeds execution allowance\nDIFF-CHECK DUP-ACCOUNT killed witness=DIFF_PRESTATE: only unique fixture sender and receiver accounts are supported\nDIFF-CHECK DUP-SLOT killed witness=DIFF_STORAGE: duplicate slot\nDIFF-CHECK LIVE-FAULT killed witness=DIFF_EXECUTION: EVM fault\nDIFF-CHECK GASLIMIT killed witness=DIFF_CONTEXT: GASLIMIT is not supported\nDIFF-CHECK BASEFEE killed witness=DIFF_CONTEXT: BASEFEE is not supported\nDIFF-CHECK BLOBBASEFEE killed witness=DIFF_CONTEXT: BLOBBASEFEE is not supported\nDIFF-CHECKS killed=24/24 controls=1 OK\nDIFF-EXECUTOR live=20 driver=28 rejected=24 OK\n",
+    "battery/DIFF-VALUE.log": "DIFF-VALUE live=32 signed=32 refused=31 OK\n",
+    "battery/DISASM-3WAY.log": "DISASM-ORACLE cast 0.3.0 (5a8bd89 2024-12-20T08:45:53.135759000Z)\nDISASM-ORACLE evm version 1.14.12-stable\nDISASM-3WAY ref20 OK offsets=17 bytes=20 alias=0\nDISASM-3WAY diamond OK offsets=14 bytes=20 alias=0\nDISASM-3WAY loop OK offsets=8 bytes=13 alias=0\nDISASM-3WAY pushes OK offsets=34 bytes=562 alias=0\nDISASM-3WAY depths OK offsets=50 bytes=50 alias=0\nDISASM-3WAY all-opcodes OK offsets=149 bytes=677 alias=2\nDISASM-3WAY empty OK offsets=0 bytes=0 alias=0\nDISASM-3WAY ours=272 cast=272 evm=272 fixtures=7 negative=38 OK\n",
+    "battery/DRIVER.log": "DRIVER cases=24 OK\n",
+    "battery/EMIT-CONSTRUCTORS.log": "EMIT-CONSTRUCTORS cases=22 OK\n",
+    "battery/EMIT-MUTANTS.log": "EMIT-MUTANT WORD-BOX killed by word-zero\nEMIT-MUTANT WORD-RANGE killed by word-overflow\nEMIT-GATE FAIL MUTANT-BUILD STORAGE-ALIASError:\n- expected : Result<&2, &2, Recognize.Error, Unit>\n- observed : non-inferrable term 'seen_1005 => term_1006 => Match.Eterm_Ktm(&2, Result<&2, &2, Recognize.Error, Unit>, term_1006, p8393 => Done{Unit{}}, p8394 => Done{Unit{}}, p8395 => Native.choose(&2, Result<&2, &2, Recognize.Error, Unit>, SeqList.exists(&2, String, item8396 => NativeString.equal(p8395, item8396), seen_1005), _ => Fail{Recognize.Error.Storage_closure{}}, _ => Match.Maybe(q0, A0, &2, Result<&2, &2, Recognize.Error, Unit>, lookup_1004(p8395), _ => Done{Unit{}}, value => Done{Unit{}})), _ => Done{Unit{}}, p8399 => p8400 => p8401 => Match.Result(&2, Unit, &2, Recognize.Error, &2, Result<&2, &2, Recognize.Error, Unit>, Recognize.no_closure(q0, A0, lookup_1004, seen_1005, p8400), item8389 => Recognize.no_closure(q0, A0, lookup_1004, seen_1005, p8401), item8390 => Fail{item8390}), p8402 => p8403 => p8404 => Fail{Recognize.Error.Storage_closure{}}, p8405 => p8406 => SeqList.fold(&2, &2, Eterm.Ktm, Result<&2, &2, Recognize.Error, Unit>, local8382 => local8384 => Match.Result(&2, Unit, &2, Recognize.Error, &2, Result<&2, &2, Recognize.Error, Unit>, local8382, item8389 => Recognize.no_closure(q0, A0, lookup_1004, seen_1005, local8384), item8390 => Fail{item8390}), p8406, Recognize.no_closure(q0, A0, lookup_1004, seen_1005, p8405)), p8407 => p8408 => Fail{Recognize.Error.Storage_closure{}}, p8409 => p8410 => SeqList.fold(&2, &2, Eterm.Ktm, Result<&2, &2, Recognize.Error, Unit>, local8382 => local8384 => Match.Result(&2, Unit, &2, Recognize.Error, &2, Result<&2, &2, Recognize.Error, Unit>, local8382, item8389 => Recognize.no_closure(q0, A0, lookup_1004, seen_1005, local8384), item8390 => Fail{item8390}), p8410, Done{Unit{}}), p8411 => p8412 => p8413 => Recognize.no_closure(q0, A0, lookup_1004, seen_1005, p8413), p8414 => p8415 => p8416 => SeqList.fold(&2, &2, Eterm.Ktm, Result<&2, &2, Recognize.Error, Unit>, local8382 => local8384 => Match.Result(&2, Unit, &2, Recognize.Error, &2, Result<&2, &2, Recognize.Error, Unit>, local8382, item8389 => Recognize.no_closure(q0, A0, lookup_1004, seen_1005, local8384), item8390 => Fail{item8390}), p8416, Done{Unit{}}), p8417 => p8418 => p8419 => SeqList.fold(&2, &2, Eterm.Ktm, Result<&2, &2, Recognize.Error, Unit>, local8382 => local8384 => Match.Result(&2, Unit, &2, Recognize.Error, &2, Result<&2, &2, Recognize.Error, Unit>, local8382, item8389 => Recognize.no_closure(q0, A0, lookup_1004, seen_1005, local8384), item8390 => Fail{item8390}), SeqList.map(&2, &2, Eterm.KbranchOf<Eterm.Ktm>, Eterm.Ktm, local8421 => Get.Eterm.Kbranch.body(local8421), p8419), Recognize.no_closure(q0, A0, lookup_1004, seen_1005, p8418)), p8422 => p8423 => Fail{Recognize.Error.Storage_closure{}}, p8424 => Recognize.no_closure(q0, A0, lookup_1004, seen_1005, p8424))'\nContext:\n- q0          : @+_:String -> Maybe<&2, Eterm.Ktm>\n- A0          : List<&2, String>\n- lookup_1004 : Eterm.Ktm\nLocation: Recognize.no_closure\n7195 | @unsafe\n7196>| def Recognize.no_closure(q0, A0, lookup_1004, seen_1005, term_1006):\n7197 |   (+scrut8391 = {(+local8380 => (SeqList.fold(&2, &2, Eterm.Ktm, ResultOf(Recognize.Error, Unit), (+local8382 => +local8384 => (Match.Result(&2, Unit, &2, Recognize.Error, &2, ResultOf(Recognize.Error, Unit), local8382, +item8389 => ((+local8387 => ((+scrut8388 = local8387\nBEND BUILD FAIL: Bend compilation failed, full log: /private/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-emit-mutants-qtb29zq2/copy/_build/bend/assay.log\n\n",
+    "battery/EMIT-SOURCES.log": "EMIT-SOURCE reference OK\nEMIT-SOURCE different OK\nEMIT-SOURCE zero OK\nEMIT-SOURCE maximum OK\nEMIT-SOURCE return OK\nEMIT-SOURCE let OK\nEMIT-SOURCE first-order OK\nEMIT-SOURCE pair OK\nEMIT-SOURCE equal OK\nEMIT-SOURCE not-equal OK\nEMIT-SOURCE less OK\nEMIT-SOURCE not-less OK\nEMIT-SOURCE two-slots OK\nEMIT-SOURCE wide-label OK\nEMIT-SOURCE quantity-zero OK\nEMIT-REFUSE overflow OK\nEMIT-REFUSE bad-slot OK\nEMIT-REFUSE slot-gap OK\nEMIT-REFUSE storage-width OK\nEMIT-REFUSE storage-closure OK\nEMIT-REFUSE higher-order OK\nEMIT-REFUSE postulate OK\nEMIT-REFUSE protocol OK\nEMIT-REFUSE runtime-nat OK\nEMIT-SOURCES success=15 refusal=9 driver=3 OK\n",
+    "battery/ERASED-BYTES.log": "ERASED-BYTES mutants=2 caught=1 equal=2 scope=M0-seed OK\n",
+    "battery/ERC20-REFERENCE.log": "ERC20-CASE read-name status=success OK\nERC20-CASE read-symbol status=success OK\nERC20-CASE read-decimals status=success OK\nERC20-CASE read-totalSupply status=success OK\nERC20-CASE balance-alice status=success OK\nERC20-CASE balance-bob status=success OK\nERC20-CASE balance-carol status=success OK\nERC20-CASE balance-zero status=success OK\nERC20-CASE balance-maximum status=success OK\nERC20-CASE allowance-forward status=success OK\nERC20-CASE allowance-reverse status=success OK\nERC20-CASE allowance-zero status=success OK\nERC20-CASE allowance-maximum status=success OK\nERC20-CASE transfer-success status=success OK\nERC20-CASE transfer-all status=success OK\nERC20-CASE transfer-zero status=success OK\nERC20-CASE transfer-self status=success OK\nERC20-CASE transfer-self-all status=success OK\nERC20-CASE transfer-carol status=success OK\nERC20-CASE transfer-maximum-address status=success OK\nERC20-CASE transfer-second-caller status=success OK\nERC20-CASE transfer-empty-zero status=success OK\nERC20-CASE transfer-insufficient status=revert OK\nERC20-CASE transfer-self-insufficient status=revert OK\nERC20-CASE transfer-zero-address status=revert OK\nERC20-CASE transfer-recipient-overflow status=revert OK\nERC20-CASE transfer-maximum-word status=success OK\nERC20-CASE approve-success status=success OK\nERC20-CASE approve-overwrite status=success OK\nERC20-CASE approve-zero status=success OK\nERC20-CASE approve-maximum-word status=success OK\nERC20-CASE approve-zero-spender status=success OK\nERC20-CASE approve-maximum-spender status=success OK\nERC20-CASE approve-second-caller status=success OK\nERC20-CASE transferFrom-success status=success OK\nERC20-CASE transferFrom-all-allowance status=success OK\nERC20-CASE transferFrom-zero status=success OK\nERC20-CASE transferFrom-self status=success OK\nERC20-CASE transferFrom-maximum-allowance status=success OK\nERC20-CASE transferFrom-allowance-short status=revert OK\nERC20-CASE transferFrom-balance-short status=revert OK\nERC20-CASE transferFrom-recipient-overflow status=revert OK\nERC20-CASE transferFrom-zero-owner status=revert OK\nERC20-CASE transferFrom-zero-recipient status=revert OK\nERC20-CASE transferFrom-owner-needs-approval status=revert OK\nERC20-CASE transferFrom-owner-approved status=success OK\nERC20-CASE selector-empty status=revert OK\nERC20-CASE selector-one-byte status=revert OK\nERC20-CASE selector-three-bytes status=revert OK\nERC20-CASE selector-unknown status=revert OK\nERC20-CASE balanceOf-selector-only status=revert OK\nERC20-CASE balanceOf-short-final-word status=revert OK\nERC20-CASE balanceOf-dirty-address-0 status=revert OK\nERC20-CASE allowance-selector-only status=revert OK\nERC20-CASE allowance-short-final-word status=revert OK\nERC20-CASE allowance-dirty-address-0 status=revert OK\nERC20-CASE allowance-dirty-address-1 status=revert OK\nERC20-CASE transfer-selector-only status=revert OK\nERC20-CASE transfer-short-final-word status=revert OK\nERC20-CASE transfer-dirty-address-0 status=revert OK\nERC20-CASE approve-selector-only status=revert OK\nERC20-CASE approve-short-final-word status=revert OK\nERC20-CASE approve-dirty-address-0 status=revert OK\nERC20-CASE transferFrom-selector-only status=revert OK\nERC20-CASE transferFrom-short-final-word status=revert OK\nERC20-CASE transferFrom-dirty-address-0 status=revert OK\nERC20-CASE transferFrom-dirty-address-1 status=revert OK\nERC20-CASE value-name status=revert OK\nERC20-CASE value-symbol status=revert OK\nERC20-CASE value-decimals status=revert OK\nERC20-CASE value-totalSupply status=revert OK\nERC20-CASE value-balanceOf status=revert OK\nERC20-CASE value-allowance status=revert OK\nERC20-CASE value-transfer status=revert OK\nERC20-CASE value-approve status=revert OK\nERC20-CASE value-transferFrom status=revert OK\nERC20-CASE read-name-trailing status=success OK\nERC20-CASE read-symbol-trailing status=success OK\nERC20-CASE read-decimals-trailing status=success OK\nERC20-CASE read-totalSupply-trailing status=success OK\nERC20-CASE balance-alice-trailing status=success OK\nERC20-CASE allowance-forward-trailing status=success OK\nERC20-CASE transfer-success-trailing status=success OK\nERC20-CASE approve-success-trailing status=success OK\nERC20-CASE transferFrom-success-trailing status=success OK\nERC20-MUTANT CALLVALUE witness=value-transfer killed control=OK\nERC20-MUTANT BALANCE-SLOT witness=balance-alice killed control=OK\nERC20-MUTANT ALLOWANCE-SLOT witness=approve-success killed control=OK\nERC20-MUTANT ALLOWANCE-BOUND witness=transferFrom-allowance-short killed control=OK\nERC20-MUTANT ALLOWANCE-SPEND witness=transferFrom-success killed control=OK\nERC20-MUTANT BALANCE-BOUND witness=transfer-insufficient killed control=OK\nERC20-MUTANT OVERFLOW witness=transfer-recipient-overflow killed control=OK\nERC20-MUTANT EVENT-TOPIC witness=transfer-success killed control=OK\nERC20-MUTANT EVENT-DATA witness=transfer-success killed control=OK\nERC20-MUTANT DYNAMIC-OFFSET witness=read-name killed control=OK\nERC20-MUTANT ADDRESS-WIDTH witness=balanceOf-dirty-address-0 killed control=OK\nERC20-REFERENCE cases=85 creates=4 mutants=11 covered=431 scope=reference OK\n",
+    "battery/EVM-CONTEXT.log": "CONTEXT-LIVE cases=224 signed=56 creates=64 OK\nCONTEXT-REFUSALS cases=7 OK\nCONTEXT-INPUT cases=7 OK\nCONTEXT-NESTED cases=2 OK\nCONTEXT-INDEPENDENT cases=6 OK\nCONTEXT-MUTANT DEPLOYER killed control=OK\nCONTEXT-MUTANT SNAPSHOT killed control=OK\nCONTEXT-MUTANT ADDRESS killed control=OK\nCONTEXT-MUTANT SCHEMA killed control=OK\nCONTEXT-MUTANT CALLER killed control=OK\nCONTEXT-MUTANT MODEL killed control=OK\nEVM-CONTEXT cases=224 signed=56 creates=64 refusals=7 inputs=7 nested=2 independent=6 mutants=6 OK\n",
+    "battery/F-MUTANTS.log": "F-MUTANT RUNTIME-BYTE-TRACE killed witness=TRACE-STACK\nF-MUTANT RUNTIME-BYTE-CREATE killed witness=CREATE-BYTES\nF-MUTANT CORPUS-BYTE killed witness=CORPUS-HASH\nF-MUTANT DENOMINATORS killed witness=sha256\nF-MUTANT RATIO-COUNT killed witness=RATIO-SUMMARY\nF-MUTANT RATIO-LINES killed witness=RATIO-SUMMARY\nF-MUTANT RATIO-MEDIAN killed witness=RATIO-SUMMARY\nRATIO-DIAGNOSTICS rejected=2 retained=2 repaired=1 control=1 limit=60 OK\nF-MUTANTS killed=7/7 controls=5 OK\n",
+    "battery/FALLBACK.log": "FALLBACK-MUTANT SHORT killed control=OK\nFALLBACK-MUTANT UNKNOWN killed control=OK\nFALLBACK-MUTANT VALUE killed control=OK\nFALLBACK-MUTANT MODEL killed control=OK\nFALLBACK-MUTANT CLOSED killed control=OK\nFALLBACK-MUTANT ABI killed control=OK\nFALLBACK cases=99 signed=99 creates=10 refusals=23 boundaries=2 mutants=6 OK\n",
+    "battery/FORK-DRIFT.log": "REFERENCE-ORACLE evm version 1.14.12-stable\nREFERENCE-ORACLE cast 0.3.0 (5a8bd89 2024-12-20T08:45:53.135759000Z)\nFORK-PROBE PUSH0 OK steps=2 gas=2\nFORK-PROBE TLOAD OK steps=3 gas=102\nFORK-PROBE TSTORE OK steps=6 gas=207\nFORK-PROBE MCOPY OK steps=10 gas=34\nFORK-PROBE CLZ INVALID invalid opcode: opcode 0x1e not defined\nFORK-DRIFT push0=OK tload=OK tstore=OK mcopy=OK clz=INVALID OK\n",
+    "battery/HEX-LITERALS.log": "HEX-MUTANT RADIX killed control=OK\nHEX-MUTANT EMPTY killed control=OK\nHEX-MUTANT RANGE killed control=OK\nHEX-MUTANT NORMALIZE killed control=OK\nHEX-LITERALS pairs=30 cases=46 signed=25 creates=23 refusals=23 mutants=4 OK\n",
+    "battery/HOUSE.log": "HOUSE no-exception OK\nHOUSE named-catchalls OK\nHOUSE no-mutable-state OK\nHOUSE one-catch-site OK\nHOUSE foreign-boundary OK\nHOUSE bool-dispatch OK\nHOUSE no-loop-keyword OK\nHOUSE no-bare-division OK\nHOUSE no-em-dash OK\nHOUSE OK\n",
+    "battery/INFERRED-ARITHMETIC.log": "IA-LIVE cases=158 creates=2 OK\nIA-ERASURE pairs=16 files=5 OK\nIA-REFUSALS cases=24 commands=3 OK\nIA-MUTANT BUNDLE killed control=OK\nIA-MUTANT EVIDENCE killed control=OK\nIA-MUTANT SUB-ORDER killed control=OK\nIA-MUTANT SUPPLIED killed control=OK\nINFERRED-ARITHMETIC cases=158 creates=2 refusals=24 erasure_pairs=16 mutants=4 OK\n",
+    "battery/INFERRED-BINDINGS.log": "IA-LIVE cases=229 creates=2 OK\nIA-ERASURE pairs=21 files=5 OK\nIB-REFUSALS cases=25 commands=3 OK\nTraceback (most recent call last):\n  File \"/Users/oobi/Documents/gpt1/assay-bend-migration/dev/inferred-binding-test.py\", line 232, in <module>\n    sys.exit(main())\n             ~~~~^^\n  File \"/Users/oobi/Documents/gpt1/assay-bend-migration/dev/inferred-binding-test.py\", line 224, in main\n    erased, invalid, limits, killed = IA.erasure(), refusals(), boundaries(), mutants()\n                                                                ~~~~~~~~~~^^\n  File \"/Users/oobi/Documents/gpt1/assay-bend-migration/dev/inferred-binding-test.py\", line 153, in boundaries\n    P.emit(source, folder / f'{depth}-{suffix}', f'nested-{depth}-{suffix}')\n    ~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/oobi/Documents/gpt1/assay-bend-migration/dev/m1-emit-test.py\", line 47, in emit\n    checked(name, [BINARY, 'emit', source, '-o', output, *extra])\n    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/oobi/Documents/gpt1/assay-bend-migration/dev/m1-emit-test.py\", line 41, in checked\n    result = capture(name, argv)\n  File \"/Users/oobi/Documents/gpt1/assay-bend-migration/dev/m1-emit-test.py\", line 34, in capture\n    result = subprocess.run([str(arg) for arg in argv], cwd=cwd, capture_output=True, text=True, timeout=timeout)\n  File \"/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py\", line 557, in run\n    stdout, stderr = process.communicate(input, timeout=timeout)\n                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py\", line 1221, in communicate\n    stdout, stderr = self._communicate(input, endtime, timeout)\n                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py\", line 2154, in _communicate\n    self._check_timeout(endtime, orig_timeout, stdout, stderr)\n    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py\", line 1268, in _check_timeout\n    raise TimeoutExpired(\n    ...<2 lines>...\n            stderr=b''.join(stderr_seq) if stderr_seq else None)\nsubprocess.TimeoutExpired: Command '['/Users/oobi/Documents/gpt1/assay-bend-migration/_build/bin/assay', 'emit', '/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-inferred-binding-boundaries-i87c0dc7/nested-128-inferred.asy', '-o', '/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-inferred-binding-boundaries-i87c0dc7/128-inferred']' timed out after 30 seconds\n",
+    "battery/INFERRED-GUARD-BINDINGS.log": "IG-LIVE cases=160 creates=2 OK\nIG-ERASURE pairs=20 files=5 OK\nIGB-REFUSALS cases=27 commands=3 OK\nTraceback (most recent call last):\n  File \"/Users/oobi/Documents/gpt1/assay-bend-migration/dev/inferred-guard-binding-test.py\", line 214, in <module>\n    sys.exit(main())\n             ~~~~^^\n  File \"/Users/oobi/Documents/gpt1/assay-bend-migration/dev/inferred-guard-binding-test.py\", line 206, in main\n    erased, invalid, accepted, killed = IG.erasure(), refusals(), boundaries(), mutants()\n                                                                  ~~~~~~~~~~^^\n  File \"/Users/oobi/Documents/gpt1/assay-bend-migration/dev/inferred-guard-binding-test.py\", line 148, in boundaries\n    P.emit(source, output, f'boundary-{name}-{index}')\n    ~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/oobi/Documents/gpt1/assay-bend-migration/dev/m1-emit-test.py\", line 47, in emit\n    checked(name, [BINARY, 'emit', source, '-o', output, *extra])\n    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/oobi/Documents/gpt1/assay-bend-migration/dev/m1-emit-test.py\", line 41, in checked\n    result = capture(name, argv)\n  File \"/Users/oobi/Documents/gpt1/assay-bend-migration/dev/m1-emit-test.py\", line 34, in capture\n    result = subprocess.run([str(arg) for arg in argv], cwd=cwd, capture_output=True, text=True, timeout=timeout)\n  File \"/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py\", line 557, in run\n    stdout, stderr = process.communicate(input, timeout=timeout)\n                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py\", line 1221, in communicate\n    stdout, stderr = self._communicate(input, endtime, timeout)\n                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py\", line 2154, in _communicate\n    self._check_timeout(endtime, orig_timeout, stdout, stderr)\n    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py\", line 1268, in _check_timeout\n    raise TimeoutExpired(\n    ...<2 lines>...\n            stderr=b''.join(stderr_seq) if stderr_seq else None)\nsubprocess.TimeoutExpired: Command '['/Users/oobi/Documents/gpt1/assay-bend-migration/_build/bin/assay', 'emit', '/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-guard-binding-boundaries-a0etk52_/steps-0.asy', '-o', '/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-guard-binding-boundaries-a0etk52_/steps-0']' timed out after 30 seconds\n",
+    "battery/INFERRED-GUARDS.log": "IG-LIVE cases=112 creates=2 OK\nIG-ERASURE pairs=14 files=5 OK\nIG-REFUSALS cases=24 commands=3 OK\nTraceback (most recent call last):\n  File \"/Users/oobi/Documents/gpt1/assay-bend-migration/dev/inferred-guard-test.py\", line 237, in <module>\n    sys.exit(main())\n             ~~~~^^\n  File \"/Users/oobi/Documents/gpt1/assay-bend-migration/dev/inferred-guard-test.py\", line 229, in main\n    erased, invalid, accepted, killed = erasure(), refusals(), boundaries(), mutants()\n                                                               ~~~~~~~~~~^^\n  File \"/Users/oobi/Documents/gpt1/assay-bend-migration/dev/inferred-guard-test.py\", line 179, in boundaries\n    P.emit(source, folder / str(index), f'boundary-{index}')\n    ~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/oobi/Documents/gpt1/assay-bend-migration/dev/m1-emit-test.py\", line 47, in emit\n    checked(name, [BINARY, 'emit', source, '-o', output, *extra])\n    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/oobi/Documents/gpt1/assay-bend-migration/dev/m1-emit-test.py\", line 41, in checked\n    result = capture(name, argv)\n  File \"/Users/oobi/Documents/gpt1/assay-bend-migration/dev/m1-emit-test.py\", line 34, in capture\n    result = subprocess.run([str(arg) for arg in argv], cwd=cwd, capture_output=True, text=True, timeout=timeout)\n  File \"/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py\", line 557, in run\n    stdout, stderr = process.communicate(input, timeout=timeout)\n                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py\", line 1221, in communicate\n    stdout, stderr = self._communicate(input, endtime, timeout)\n                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py\", line 2154, in _communicate\n    self._check_timeout(endtime, orig_timeout, stdout, stderr)\n    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py\", line 1268, in _check_timeout\n    raise TimeoutExpired(\n    ...<2 lines>...\n            stderr=b''.join(stderr_seq) if stderr_seq else None)\nsubprocess.TimeoutExpired: Command '['/Users/oobi/Documents/gpt1/assay-bend-migration/_build/bin/assay', 'emit', '/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-inferred-boundaries-i12jsesy/5.asy', '-o', '/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-inferred-boundaries-i12jsesy/5']' timed out after 30 seconds\n",
+    "battery/INFERRED-HELPERS.log": "IA-LIVE cases=254 creates=2 OK\nIA-ERASURE pairs=24 files=5 OK\nIH-REFUSALS cases=26 commands=3 OK\nIH-BOUNDARIES parameters=16 nested=128 positive=6 negative=1 OK\nIH-MUTANT EVIDENCE killed control=OK\nIH-MUTANT LOCAL killed control=OK\nIH-MUTANT PARAMETER killed control=OK\nIH-MUTANT SUPPLIED killed control=OK\nINFERRED-HELPERS FAIL IH-MUTANT-BUILD mutant-SHARING\n",
+    "battery/INFERRED-WORDS.log": "WORD-MUTANT IMPLICIT killed control=OK\nWORD-MUTANT ANNOTATION killed control=OK\nWORD-MUTANT ERASED killed control=OK\nWORD-MUTANT SHADOW killed control=OK\nINFERRED-WORDS pairs=21 cases=40 signed=40 refusals=19 boundaries=2 mutants=4 OK\n",
+    "battery/INVARIANTS.log": "INVARIANT-LIVE cases=52 creates=2 erasure=4 files=5 OK\nINVARIANT-REFUSALS cases=30 OK\nINVARIANT-MUTANT SECOND killed control=OK\nINVARIANT-MUTANT CONSTRUCTOR killed control=OK\nINVARIANT-MUTANT FINAL killed control=OK\nINVARIANT-MUTANT STORE killed control=OK\nINVARIANTS cases=52 creates=2 refusals=30 erasure=4 mutants=4 OK\n",
+    "battery/KECCAK-VEC.log": "KECCAK-IFACE OK lines=2\nKECCAK-ORACLE cast 0.3.0 (5a8bd89 2024-12-20T08:45:53.135759000Z)\nKECCAK-VEC K1 OK got=0xa9059cbb2ab09eb219583f4a59a5d0623ade346d962bcd4e46b11da047c9049b want=0xa9059cbb2ab09eb219583f4a59a5d0623ade346d962bcd4e46b11da047c9049b oracle=0xa9059cbb2ab09eb219583f4a59a5d0623ade346d962bcd4e46b11da047c9049b\nKECCAK-VEC K2 OK got=0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470 want=0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470 oracle=0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470\nKECCAK-VEC K3 OK got=0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470 want=0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470 oracle=0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470\nKECCAK-VEC K4 OK got=0x4e03657aea45a94fc7d47ba826c8d667c0d1e6e33a64a036ec44f58fa12d6c45 want=0x4e03657aea45a94fc7d47ba826c8d667c0d1e6e33a64a036ec44f58fa12d6c45 oracle=0x4e03657aea45a94fc7d47ba826c8d667c0d1e6e33a64a036ec44f58fa12d6c45\nKECCAK-VEC K5 OK got=0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef want=0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef oracle=0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef\nKECCAK-VEC K6 OK got=0x095ea7b334ae44009aa867bfb386f5c3b4b443ac6f0ee573fa91c4608fbadfba want=0x095ea7b334ae44009aa867bfb386f5c3b4b443ac6f0ee573fa91c4608fbadfba oracle=0x095ea7b334ae44009aa867bfb386f5c3b4b443ac6f0ee573fa91c4608fbadfba\nKECCAK-VEC S1 OK got=0xa9059cbb want=0xa9059cbb oracle=0xa9059cbb\nKECCAK-VEC S2 OK got=0x095ea7b3 want=0x095ea7b3 oracle=0x095ea7b3\nKECCAK-VEC B1 OK got=0x60811857dd566889ff6255277d82526f2d9b3bbcb96076be22a5860765ac3d06 want=0x60811857dd566889ff6255277d82526f2d9b3bbcb96076be22a5860765ac3d06 oracle=0x60811857dd566889ff6255277d82526f2d9b3bbcb96076be22a5860765ac3d06\nKECCAK-VEC B7 OK got=0xc0cc4e8dcb3e1ddcb58bcc5b13b7070f10de0904e12a87f320296653d3f0c70c want=0xc0cc4e8dcb3e1ddcb58bcc5b13b7070f10de0904e12a87f320296653d3f0c70c oracle=0xc0cc4e8dcb3e1ddcb58bcc5b13b7070f10de0904e12a87f320296653d3f0c70c\nKECCAK-VEC B8 OK got=0x37d3aa3cd9f8a44e1aa99ce12a2766e8c31fa98bbb84b87ce1476ba3aa80f951 want=0x37d3aa3cd9f8a44e1aa99ce12a2766e8c31fa98bbb84b87ce1476ba3aa80f951 oracle=0x37d3aa3cd9f8a44e1aa99ce12a2766e8c31fa98bbb84b87ce1476ba3aa80f951\nKECCAK-VEC B9 OK got=0x3fe6531b93af84ca1cb2f198de7a713161f3ac80bf3f6870b685afbb837b11b8 want=0x3fe6531b93af84ca1cb2f198de7a713161f3ac80bf3f6870b685afbb837b11b8 oracle=0x3fe6531b93af84ca1cb2f198de7a713161f3ac80bf3f6870b685afbb837b11b8\nKECCAK-VEC B31 OK got=0xa4a30e3d6d20235b3e48996762a6eca112eb3f714f794dc80809162666035eb5 want=0xa4a30e3d6d20235b3e48996762a6eca112eb3f714f794dc80809162666035eb5 oracle=0xa4a30e3d6d20235b3e48996762a6eca112eb3f714f794dc80809162666035eb5\nKECCAK-VEC B32 OK got=0x22a389c5239c785d8e829d6df32c764835a733c8d59a43e6a58c4d63229b024e want=0x22a389c5239c785d8e829d6df32c764835a733c8d59a43e6a58c4d63229b024e oracle=0x22a389c5239c785d8e829d6df32c764835a733c8d59a43e6a58c4d63229b024e\nKECCAK-VEC B33 OK got=0xea0d38fae60b143ffc028e4139d66af02df342283ef8f4a1b76edaa7f39162ea want=0xea0d38fae60b143ffc028e4139d66af02df342283ef8f4a1b76edaa7f39162ea oracle=0xea0d38fae60b143ffc028e4139d66af02df342283ef8f4a1b76edaa7f39162ea\nKECCAK-VEC B63 OK got=0x82913fc1f1900a2ab8d369480dbad32685a89110e5d96ac6318aa804e7e450ce want=0x82913fc1f1900a2ab8d369480dbad32685a89110e5d96ac6318aa804e7e450ce oracle=0x82913fc1f1900a2ab8d369480dbad32685a89110e5d96ac6318aa804e7e450ce\nKECCAK-VEC B64 OK got=0x3c6b3d90f07df6fdf87e3eb793245fb73272666899937b6455dd51eb910cf19a want=0x3c6b3d90f07df6fdf87e3eb793245fb73272666899937b6455dd51eb910cf19a oracle=0x3c6b3d90f07df6fdf87e3eb793245fb73272666899937b6455dd51eb910cf19a\nKECCAK-VEC B65 OK got=0xc0493b0375383e24d0da3b3fd57aa6f766482561246ec6016c7284f78d6c0177 want=0xc0493b0375383e24d0da3b3fd57aa6f766482561246ec6016c7284f78d6c0177 oracle=0xc0493b0375383e24d0da3b3fd57aa6f766482561246ec6016c7284f78d6c0177\nKECCAK-VEC B127 OK got=0x22ef2e99eb9a4bcb0e9f236b7ec6cccc89b5cb34355e366c4e84e0cb91339821 want=0x22ef2e99eb9a4bcb0e9f236b7ec6cccc89b5cb34355e366c4e84e0cb91339821 oracle=0x22ef2e99eb9a4bcb0e9f236b7ec6cccc89b5cb34355e366c4e84e0cb91339821\nKECCAK-VEC B128 OK got=0x64dc418022fc9e0733b2044641038cea60695fe9c22c010cf29ebb913d80576b want=0x64dc418022fc9e0733b2044641038cea60695fe9c22c010cf29ebb913d80576b oracle=0x64dc418022fc9e0733b2044641038cea60695fe9c22c010cf29ebb913d80576b\nKECCAK-VEC B134 OK got=0x1911219bb6453cca2626f9af0b2cd105096211a5c339cccb67514a81bbdb88af want=0x1911219bb6453cca2626f9af0b2cd105096211a5c339cccb67514a81bbdb88af oracle=0x1911219bb6453cca2626f9af0b2cd105096211a5c339cccb67514a81bbdb88af\nKECCAK-VEC B135 OK got=0xa5a103bc5c5e3f8072f76aca0f74c6d87043da8399b8624fcfc037d453b580d5 want=0xa5a103bc5c5e3f8072f76aca0f74c6d87043da8399b8624fcfc037d453b580d5 oracle=0xa5a103bc5c5e3f8072f76aca0f74c6d87043da8399b8624fcfc037d453b580d5\nKECCAK-VEC B136 OK got=0x45e8bc6d5f6a8046fbf51c11f8a698a4bd86ec498915719546c83e1ad6e98860 want=0x45e8bc6d5f6a8046fbf51c11f8a698a4bd86ec498915719546c83e1ad6e98860 oracle=0x45e8bc6d5f6a8046fbf51c11f8a698a4bd86ec498915719546c83e1ad6e98860\nKECCAK-VEC B137 OK got=0xe9f758bb182f8d8d1cdffa315443ea13d3688879de61e6d3d5d45f1c41e2516b want=0xe9f758bb182f8d8d1cdffa315443ea13d3688879de61e6d3d5d45f1c41e2516b oracle=0xe9f758bb182f8d8d1cdffa315443ea13d3688879de61e6d3d5d45f1c41e2516b\nKECCAK-VEC B138 OK got=0x9f9ca7f8dbd18918eed4e6f09bc5cc1255ed54bb217c5a6a7bcecae2e92f7e92 want=0x9f9ca7f8dbd18918eed4e6f09bc5cc1255ed54bb217c5a6a7bcecae2e92f7e92 oracle=0x9f9ca7f8dbd18918eed4e6f09bc5cc1255ed54bb217c5a6a7bcecae2e92f7e92\nKECCAK-VEC B255 OK got=0xa3601e1555e2e16c94fd3fecc1a224a54d6febe53953086557839d9173e3d29c want=0xa3601e1555e2e16c94fd3fecc1a224a54d6febe53953086557839d9173e3d29c oracle=0xa3601e1555e2e16c94fd3fecc1a224a54d6febe53953086557839d9173e3d29c\nKECCAK-VEC B256 OK got=0xa9f5e56cc9717f46cc18ede43139887270851e97b8371b7759309199d8ba4d81 want=0xa9f5e56cc9717f46cc18ede43139887270851e97b8371b7759309199d8ba4d81 oracle=0xa9f5e56cc9717f46cc18ede43139887270851e97b8371b7759309199d8ba4d81\nKECCAK-VEC B270 OK got=0xc270dc061e3b5b42101f7a9e2eaa8c88b7a257a31beaf0d326df86518a2f1007 want=0xc270dc061e3b5b42101f7a9e2eaa8c88b7a257a31beaf0d326df86518a2f1007 oracle=0xc270dc061e3b5b42101f7a9e2eaa8c88b7a257a31beaf0d326df86518a2f1007\nKECCAK-VEC B271 OK got=0x07f17e51b04343d2ce084bf11f2bd332cfc5e6194d893ce278b7e5033e2e5946 want=0x07f17e51b04343d2ce084bf11f2bd332cfc5e6194d893ce278b7e5033e2e5946 oracle=0x07f17e51b04343d2ce084bf11f2bd332cfc5e6194d893ce278b7e5033e2e5946\nKECCAK-VEC B272 OK got=0xa00118466fa466a5876da740c2c18d338deed105ba1dac20e8d9b0f63aae9b93 want=0xa00118466fa466a5876da740c2c18d338deed105ba1dac20e8d9b0f63aae9b93 oracle=0xa00118466fa466a5876da740c2c18d338deed105ba1dac20e8d9b0f63aae9b93\nKECCAK-VEC B273 OK got=0x2156f128cf997318796116835442f0954d460ef133f841f292553183620ae76f want=0x2156f128cf997318796116835442f0954d460ef133f841f292553183620ae76f oracle=0x2156f128cf997318796116835442f0954d460ef133f841f292553183620ae76f\nKECCAK-VEC B4096 OK got=0x330415e8299e99359f1b75fb50a5d0cd70dda8fc5a149c4ac810a7e11e288114 want=0x330415e8299e99359f1b75fb50a5d0cd70dda8fc5a149c4ac810a7e11e288114 oracle=0x330415e8299e99359f1b75fb50a5d0cd70dda8fc5a149c4ac810a7e11e288114\nKECCAK-VEC E1 OK got=0x08c379a0 want=0x08c379a0 oracle=0x08c379a0\nKECCAK-VEC E2 OK got=0x4e487b71 want=0x4e487b71 oracle=0x4e487b71\nKECCAK-VEC E3 OK got=0xdb42144d want=0xdb42144d oracle=0xdb42144d\nKECCAK-VEC vectors=35 ok=35 adapter=5 OK\n",
+    "battery/M0-TRACE.log": "REFERENCE-ORACLE evm version 1.14.12-stable\nREFERENCE-ORACLE cast 0.3.0 (5a8bd89 2024-12-20T08:45:53.135759000Z)\nREFERENCE-MEASURE runtime_bytes=20 gas=22232\nM0-TRACE scope=reference bytes=20 listing=17 cast=17 evm=13 skipped=4 storage=42 return=42 OK\n",
+    "battery/M1-EMISSION.log": "M1-DIFF cases=30 creates=2 covered=216 five_files=5 scope=core OK\nM1-SOURCES live=8 refusals=11 exports=2 OK\nM1-MUTANT CALLVALUE killed, restored control passed\nM1-MUTANT HEAD killed, restored control passed\nM1-MUTANT INIT-VALUE killed, restored control passed\nM1-MUTANT SCHEMA killed, restored control passed\nM1-MUTANT OVERFLOW killed, restored control passed\nM1-MUTANT BOUND killed, restored control passed\nM1-MUTANT SUBTRACTION killed, restored control passed\nM1-MUTANT ABI-MUTABILITY killed, restored control passed\nM1-MUTANTS killed=8/8 controls=8 OK\nM1-EMISSION counter=30 sources=8 refusals=11 mutants=8 OK\n",
+    "battery/NAMED-GUARDS.log": "NG-LIVE cases=96 OK\nNG-ERASURE variants=10 groups=3 OK\nNG-REFUSALS cases=27 commands=3 OK\nNG-BOUNDARIES accepted=6 OK\nNG-MUTANT EXPANDED-BOUNDS killed control=OK\nNG-MUTANT SHARED-BUDGET killed control=OK\nNG-MUTANT ARGUMENT-ORDER killed control=OK\nNG-MUTANT SHADOW killed control=OK\nNAMED-GUARDS cases=96 creates=2 refusals=27 erasure=10 boundaries=6 mutants=4 OK\n",
+    "battery/NATIVE-IO.log": "NATIVE-IO cases=8 bytes=65797 OK\n",
+    "battery/NULLARY-ENTRIES.log": "NULLARY-LIVE cases=18 widths=35 creates=2 covered=156 OK\nNULLARY-MUTANT SURFACE-UNIVERSE killed control=OK\nNULLARY-MUTANT UNIT-RECOGNIZER killed control=OK\nNULLARY-MUTANT UNIT-SCHEMA killed control=OK\nNULLARY-ENTRIES cases=53 creates=2 refusals=4 mutants=3 OK\n",
+    "battery/PAYABLE.log": "",
+    "battery/PIN-CARRY.log": "PIN 2c2e6e6831a0b2cf3107fa4aad392606109a2bcf\nCARRY files=12/12 diff=0 unlisted=0\n",
+    "battery/PREDICATES.log": "PREDICATE-LIVE cases=72 creates=2 erasure=7 OK\nPREDICATE-REFUSALS cases=44 commands=3 OK\nPREDICATE-BOUNDARIES accepted=12 OK\nPREDICATE-MUTANT UNUSED-DECLARATION killed control=OK\nPREDICATE-MUTANT UNUSED-ARGUMENT killed control=OK\nPREDICATE-MUTANT ARGUMENT-ORDER killed control=OK\nPREDICATE-MUTANT EXPANSION killed control=OK\nPREDICATES cases=72 creates=2 refusals=44 erasure=7 boundaries=12 mutants=4 OK\n",
+    "battery/PROOF-BUNDLES.log": "BUNDLE-LIVE cases=102 creates=2 erasure=8 OK\nBUNDLE-REFUSALS cases=41 commands=3 OK\nBUNDLE-BOUNDARIES accepted=11 rejected=1 OK\nBUNDLE-MUTANT PROJECTION killed control=OK\nBUNDLE-MUTANT INVARIANT-COMPONENTS killed control=OK\nBUNDLE-MUTANT SECOND-CHECK killed control=OK\nBUNDLE-MUTANT CLAIM-DEPTH killed control=OK\nPROOF-BUNDLES cases=102 creates=2 refusals=41 erasure=8 boundaries=11 mutants=4 OK\n",
+    "battery/PROOF-GUARDS.log": "GUARD-LIVE cases=83 creates=2 covered=252 OK\nGUARD-REFUSALS surface=20 schema=6 OK\nGUARD-ERASURE variants=3 five_files=5 removed_checks=1 OK\nGUARD-MUTANT SCHEMA killed control=OK\nGUARD-MUTANT SUB killed control=OK\nGUARD-MUTANT OVERFLOW killed control=OK\nGUARD-MUTANT CLAIM killed control=OK\nGUARD-MUTANT MODEL killed control=OK\nGUARD-MUTANT OPCODE killed control=OK\nPROOF-GUARDS cases=83 creates=2 refusals=26 erasure=3 mutants=6 OK\n",
+    "battery/PROOF-HELPERS.log": "HELPER-LIVE cases=104 creates=2 guarded_erasure=6 OK\nHELPER-REFUSALS cases=50 commands=3 OK\nHELPER-ERASURE variants=7 five_files=5 boundaries=6 OK\nHELPER-MUTANT DECLARATION killed control=OK\nHELPER-MUTANT-BUILD mutant-MEMBERS\n",
+    "battery/PROOF-HOLES.log": "IA-LIVE cases=242 creates=2 OK\nIA-ERASURE pairs=23 files=5 OK\nPH-REFUSALS cases=25 commands=3 OK\nPROOF-HOLES FAIL PH-NESTED check\n",
+    "battery/PROOF-TERMS.log": "TERM-LIVE cases=98 creates=2 guarded_erasure=6 OK\nTERM-REFUSALS cases=25 commands=3 OK\nTERM-ERASURE variants=5 five_files=5 removed_checks=1 OK\nTERM-MUTANT BINDING killed control=OK\nTERM-MUTANT ANNOTATION killed control=OK\nTERM-MUTANT SCOPE killed control=OK\nTERM-MUTANT NESTING killed control=OK\nPROOF-TERMS cases=98 creates=2 refusals=25 erasure=5 mutants=4 OK\n",
+    "battery/R0-AUDIT.log": "R0-AUDIT OK\n",
+    "battery/R0-COUNT.log": "R0-COUNT OK\n",
+    "battery/REFERENCE-CHECKS.log": "REFERENCE-ORACLE evm version 1.14.12-stable\nREFERENCE-ORACLE cast 0.3.0 (5a8bd89 2024-12-20T08:45:53.135759000Z)\nREFERENCE-MEASURE runtime_bytes=20 gas=22232\nM0-TRACE scope=reference bytes=20 listing=17 cast=17 evm=13 skipped=4 storage=42 return=42 OK\nCREATE-MEASURE init_bytes=30 gas=4022 runtime_sha=e289c7e05023ac70a05725ddffd97143efe364fdbb882dedc9c04e3f8032a711 returned_sha=e289c7e05023ac70a05725ddffd97143efe364fdbb882dedc9c04e3f8032a711\nCREATE-EQ bytes=20 returned=20 installed=1 OK\nREFERENCE-CHECK trace-1 rejected=TRACE-PC\nREFERENCE-CHECK trace-2 rejected=TRACE-OP\nREFERENCE-CHECK trace-3 rejected=TRACE-OP\nREFERENCE-CHECK trace-4 rejected=TRACE-STACK\nREFERENCE-CHECK trace-5 rejected=TRACE-RETURN\nREFERENCE-CHECK trace-6 rejected=TRACE-EXEC\nREFERENCE-CHECK trace-7 rejected=TRACE-EXEC\nREFERENCE-CHECK trace-8 rejected=TRACE-STORAGE\nREFERENCE-CHECK trace-9 rejected=TRACE-CODE\nREFERENCE-CHECK trace-10 rejected=TRACE-ACCOUNT\nREFERENCE-CHECK trace-11 rejected=TRACE-SHAPE\nREFERENCE-CHECK trace-12 rejected=TRACE-SHAPE\nREFERENCE-CHECK create-13 rejected=CREATE-BYTES\nREFERENCE-CHECK create-14 rejected=CREATE-INSTALLED\nREFERENCE-CHECK create-15 rejected=CREATE-ACCOUNT\nREFERENCE-CHECK create-16 rejected=CREATE-PC\nREFERENCE-CHECK create-17 rejected=CREATE-OP\nREFERENCE-CHECK create-18 rejected=CREATE-OP\nREFERENCE-CHECK create-19 rejected=CREATE-EXEC\nREFERENCE-CHECK create-20 rejected=CREATE-EXEC\nREFERENCE-CHECK trace-21 rejected=TRACE-ACCOUNT\nREFERENCE-CHECK create-22 rejected=CREATE-ACCOUNT\nREFERENCE-CHECK missing-step rejected=TRACE-PC\nREFERENCE-CHECK duplicate-step rejected=TRACE-PC\nREFERENCE-CHECK reordered-steps rejected=TRACE-PC\nREFERENCE-CHECK missing-summary rejected=TRACE-SHAPE\nREFERENCE-CHECK duplicate-summary rejected=TRACE-SHAPE\nREFERENCE-CHECK cast-truncated rejected=TRACE-CAST\nREFERENCE-CHECK cast-immediate rejected=TRACE-CAST\nREFERENCE-CHECK json-duplicate rejected=JSON-DUPLICATE\nREFERENCE-CHECK json-scalar rejected=JSON-SHAPE\nREFERENCE-CHECK assembler-row rejected=REFERENCE-ASSEMBLER\nREFERENCE-CHECKS cases=32 controls=2 OK\n",
+    "battery/REFERENCE-MUTANTS.log": "REFERENCE-ORACLE evm version 1.14.12-stable\nREFERENCE-ORACLE cast 0.3.0 (5a8bd89 2024-12-20T08:45:53.135759000Z)\nREFERENCE-MUTANT CANCUN-OFF killed witness=FORK-TLOAD invalid opcode: TLOAD\nREFERENCE-MUTANT SHANGHAI-OFF killed witness=FORK-PUSH0 invalid opcode: PUSH0\nREFERENCE-MUTANT REFERENCE-BYTE killed witness=REFERENCE-BYTES\nREFERENCE-MUTANT REFERENCE-PC killed witness=REFERENCE-PC\nREFERENCE-MUTANT REFERENCE-NAME killed witness=REFERENCE-LISTING\nREFERENCE-MUTANT INIT-OFFSET killed witness=CREATE-BYTES\nREFERENCE-MUTANT INIT-LENGTH killed witness=CREATE-BYTES\nREFERENCE-MUTANT INIT-REVERT killed witness=CREATE-EXEC execution reverted\nREFERENCE-MUTANTS killed=8/8 controls=3 OK\n",
+    "battery/SOURCE-MODEL.log": "MODEL-LIVE counter=30 variants=10 corpus=11 executors=2 OK\nSOURCE-MODEL FAIL: MODEL-DRIVER 5\n",
+    "battery/SOURCE-PROOFS.log": "SOURCE-PROOF-MUTANT EXACT-ADD killed control=OK\nSOURCE-PROOF-MUTANT UPPER-BOUND killed control=OK\nSOURCE-PROOF-MUTANT SUB-ORDER killed control=OK\nSOURCE-PROOF-MUTANT TRACE killed control=OK\nSOURCE-PROOF-MUTANT DISPATCH killed control=OK\nSOURCE-PROOF-MUTANT ERROR-BRANCH killed control=OK\nSOURCE-PROOFS theorems=11 arithmetic=226 evm=16 recovery=6 effects=7 invalid=13 mutants=6 controls=4 OK\n",
+    "battery/STACK-HEIGHT.log": "",
+    "battery/STORAGE-NOCLOS.log": "STORAGE-NOCLOS kclos=0 ktail=0 fields=2 cases=9 OK\n",
+    "battery/SUITE-SURFACE.log": "SL-SURFACE constructor-sugar OK\nSL-SURFACE mutual-sugar OK\nSL-SURFACE match-elaboration OK\nSL-SURFACE mu-roundtrip OK\nSL-SURFACE legacy-mu-roundtrip OK\nSL-SURFACE mutual-roundtrip OK\nSL-SURFACE legacy-mutual-roundtrip OK\nSL-SURFACE match-roundtrip OK\nSL-SURFACE case-roundtrip OK\nSL-SURFACE mixed-fields-roundtrip OK\nSL-SURFACE nested-match-roundtrip OK\nSL-SURFACE empty-match-roundtrip OK\nSL-SURFACE case-numeric-roundtrip OK\nSL-SURFACE match-numeric-refusal OK\nSL-SURFACE mutual-empty-refusal OK\nSL-SURFACE mutual-singleton-refusal OK\nSL-SURFACE mutual-unclosed-refusal OK\nSL-SURFACE mutual-and-refusal OK\nSL-SURFACE nu-term-refusal OK\nSL-SURFACE nu-declaration-refusal OK\nSL-SURFACE-OK 20/20\nSL-SURFACE OK\n",
+    "battery/SURFACE-CONTEXT.log": "SURFACE-CONTEXT-MUTANT CALLER killed control=OK\nSURFACE-CONTEXT-MUTANT DEPLOYER killed control=OK\nSURFACE-CONTEXT-MUTANT STATE killed control=OK\nSURFACE-CONTEXT-MUTANT SLOT killed control=OK\nSURFACE-CONTEXT cases=224 signed=56 creates=64 pairs=8 composition=6 order=4 refusals=17 mutants=4 OK\n",
+    "battery/TRACE-CALLER.log": "TRACE-CALLER budget warning: option-order-23 at 135.0s of 180s leg deadline\nTRACE-CALLER budget warning: option-order-23-model at 136.0s of 180s leg deadline\nTRACE-CALLER budget warning: unfunded-caller at 137.1s of 180s leg deadline\nTRACE-CALLER budget warning: insufficient-caller at 138.2s of 180s leg deadline\nTRACE-CALLER budget warning: invalid-address-0 at 138.3s of 180s leg deadline\nTRACE-CALLER budget warning: invalid-address-1 at 138.5s of 180s leg deadline\nTRACE-CALLER budget warning: invalid-address-2 at 138.6s of 180s leg deadline\nTRACE-CALLER budget warning: invalid-address-3 at 138.7s of 180s leg deadline\nTRACE-CALLER budget warning: invalid-address-4 at 138.8s of 180s leg deadline\nTRACE-CALLER budget warning: invalid-address-5 at 138.9s of 180s leg deadline\nTRACE-CALLER budget warning: invalid-address-6 at 139.0s of 180s leg deadline\nTRACE-CALLER budget warning: invalid-address-7 at 139.2s of 180s leg deadline\nTRACE-CALLER budget warning: invalid-address-8 at 139.3s of 180s leg deadline\nTRACE-CALLER budget warning: invalid-address-9 at 139.4s of 180s leg deadline\nTRACE-CALLER budget warning: invalid-address-10 at 139.5s of 180s leg deadline\nTRACE-CALLER budget warning: invalid-address-11 at 139.6s of 180s leg deadline\nTRACE-CALLER budget warning: invalid-address-12 at 139.7s of 180s leg deadline\nTRACE-CALLER budget warning: invalid-address-13 at 139.9s of 180s leg deadline\nTRACE-CALLER budget warning: invalid-address-14 at 140.0s of 180s leg deadline\nTRACE-CALLER budget warning: invalid-address-15 at 140.1s of 180s leg deadline\nTRACE-CALLER budget warning: invalid-address-16 at 140.2s of 180s leg deadline\nTRACE-CALLER budget warning: invalid-address-17 at 140.4s of 180s leg deadline\nTRACE-CALLER budget warning: invalid-address-18 at 140.5s of 180s leg deadline\nTRACE-CALLER budget warning: invalid-address-19 at 140.6s of 180s leg deadline\nTRACE-CALLER budget warning: invalid-address-20 at 140.7s of 180s leg deadline\nTRACE-CALLER budget warning: invalid-address-21 at 140.8s of 180s leg deadline\nTRACE-CALLER budget warning: invalid-options-0 at 140.9s of 180s leg deadline\nTRACE-CALLER budget warning: invalid-options-1 at 141.0s of 180s leg deadline\nTRACE-CALLER budget warning: invalid-options-2 at 141.1s of 180s leg deadline\nTRACE-CALLER budget warning: invalid-options-3 at 141.3s of 180s leg deadline\nTRACE-CALLER budget warning: invalid-options-4 at 141.4s of 180s leg deadline\nTRACE-CALLER budget warning: invalid-options-5 at 141.5s of 180s leg deadline\nTRACE-CALLER budget warning: invalid-options-6 at 141.6s of 180s leg deadline\nTRACE-CALLER budget warning: missing-calldata at 141.7s of 180s leg deadline\nTRACE-CALLER budget warning: caller-before-source at 141.8s of 180s leg deadline\nTRACE-CALLER live=45 funding=2 refused=31 OK\n",
+    "battery/TRACE-DRIVER.log": "TRACE-DRIVER cases=20 explicit_prestate=true literal_argv=true OK\n",
+    "battery/TRACE-VALUE.log": "TRACE-VALUE live=36 funding=2 refused=34 OK\n",
+    "battery/TRUSTED-LINES.log": "TRUSTED-LINES kernel=3767/4000\nTRUSTED-LINES emitter=1792/1800\nTRUSTED-LINES assembler=262/600\nTRUSTED-LINES keccak=181/250\nTRUSTED-LINES abi=249/400\nTRUSTED-LINES layout=5/250\nTRUSTED-LINES listing=64/250\nTRUSTED-LINES total=2553/3550 ratified=3550\nTRUSTED-LINES OK\n",
+    "battery/WORD-EQUALITY.log": "EQUALITY-MUTANT PAYLOAD killed control=OK\nEQUALITY-MUTANT RUNTIME killed control=OK\nEQUALITY-MUTANT CLAIM killed control=OK\nEQUALITY-MUTANT DEPTH killed control=OK\nEQUALITY pairs=8 cases=53 signed=33 creates=8 boundaries=6 refusals=17 mutants=4 OK\n",
+    "battery/WORD-UNBOX.log": "WORD-UNBOX ktag=0 kstruct=0 words=3 cases=9 OK\n",
+    "repair-validation/calldatasize.log": "",
+    "repair-validation/callvalue.log": "",
+    "repair-validation/compound-invariant-boundaries.log": "COMPOUND-BOUNDARIES accepted=10 OK\n",
+    "repair-validation/compound-invariant-mutants.log": "COMPOUND-MUTANT LEFT killed control=OK\nCOMPOUND-MUTANT RIGHT killed control=OK\nCOMPOUND-MUTANT RIGHT-FIELDS killed control=OK\nCOMPOUND-MUTANT COMPONENT-EVIDENCE killed control=OK\n",
+    "repair-validation/diff-caller.log": "DIFF-CALLER live=45 signed=45 rejected=4 refused=33 helper=5 OK\n",
+    "repair-validation/inferred-binding-boundaries.log": "Traceback (most recent call last):\n  File \"/Users/oobi/Documents/gpt1/assay-bend-migration/dev/inferred-binding-test.py\", line 232, in <module>\n    sys.exit(main())\n             ~~~~^^\n  File \"/Users/oobi/Documents/gpt1/assay-bend-migration/dev/inferred-binding-test.py\", line 221, in main\n    commands[args[0]]()\n    ~~~~~~~~~~~~~~~~~^^\n  File \"/Users/oobi/Documents/gpt1/assay-bend-migration/dev/inferred-binding-test.py\", line 153, in boundaries\n    P.emit(source, folder / f'{depth}-{suffix}', f'nested-{depth}-{suffix}')\n    ~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/oobi/Documents/gpt1/assay-bend-migration/dev/m1-emit-test.py\", line 47, in emit\n    checked(name, [BINARY, 'emit', source, '-o', output, *extra])\n    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/oobi/Documents/gpt1/assay-bend-migration/dev/m1-emit-test.py\", line 41, in checked\n    result = capture(name, argv)\n  File \"/Users/oobi/Documents/gpt1/assay-bend-migration/dev/m1-emit-test.py\", line 34, in capture\n    result = subprocess.run([str(arg) for arg in argv], cwd=cwd, capture_output=True, text=True, timeout=timeout)\n  File \"/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py\", line 557, in run\n    stdout, stderr = process.communicate(input, timeout=timeout)\n                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py\", line 1221, in communicate\n    stdout, stderr = self._communicate(input, endtime, timeout)\n                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py\", line 2154, in _communicate\n    self._check_timeout(endtime, orig_timeout, stdout, stderr)\n    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py\", line 1268, in _check_timeout\n    raise TimeoutExpired(\n    ...<2 lines>...\n            stderr=b''.join(stderr_seq) if stderr_seq else None)\nsubprocess.TimeoutExpired: Command '['/Users/oobi/Documents/gpt1/assay-bend-migration/_build/bin/assay', 'emit', '/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-inferred-binding-boundaries-6jekfonw/nested-128-inferred.asy', '-o', '/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-inferred-binding-boundaries-6jekfonw/128-inferred']' timed out after 30 seconds\n",
+    "repair-validation/inferred-binding-mutants.log": "IB-MUTANT BUNDLE-LIMIT killed control=OK\nIB-MUTANT DEPTH-LIMIT killed control=OK\nIB-MUTANT ENTRY-EVIDENCE killed control=OK\nIB-MUTANT LOCAL-EVIDENCE killed control=OK\nIB-MUTANT ANNOTATION killed control=OK\nIB-MUTANT UNUSED killed control=OK\n",
+    "repair-validation/inferred-guard-binding-boundaries.log": "Traceback (most recent call last):\n  File \"/Users/oobi/Documents/gpt1/assay-bend-migration/dev/inferred-guard-binding-test.py\", line 214, in <module>\n    sys.exit(main())\n             ~~~~^^\n  File \"/Users/oobi/Documents/gpt1/assay-bend-migration/dev/inferred-guard-binding-test.py\", line 203, in main\n    commands[args[0]]()\n    ~~~~~~~~~~~~~~~~~^^\n  File \"/Users/oobi/Documents/gpt1/assay-bend-migration/dev/inferred-guard-binding-test.py\", line 148, in boundaries\n    P.emit(source, output, f'boundary-{name}-{index}')\n    ~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/oobi/Documents/gpt1/assay-bend-migration/dev/m1-emit-test.py\", line 47, in emit\n    checked(name, [BINARY, 'emit', source, '-o', output, *extra])\n    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/oobi/Documents/gpt1/assay-bend-migration/dev/m1-emit-test.py\", line 41, in checked\n    result = capture(name, argv)\n  File \"/Users/oobi/Documents/gpt1/assay-bend-migration/dev/m1-emit-test.py\", line 34, in capture\n    result = subprocess.run([str(arg) for arg in argv], cwd=cwd, capture_output=True, text=True, timeout=timeout)\n  File \"/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py\", line 557, in run\n    stdout, stderr = process.communicate(input, timeout=timeout)\n                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py\", line 1221, in communicate\n    stdout, stderr = self._communicate(input, endtime, timeout)\n                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py\", line 2154, in _communicate\n    self._check_timeout(endtime, orig_timeout, stdout, stderr)\n    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py\", line 1268, in _check_timeout\n    raise TimeoutExpired(\n    ...<2 lines>...\n            stderr=b''.join(stderr_seq) if stderr_seq else None)\nsubprocess.TimeoutExpired: Command '['/Users/oobi/Documents/gpt1/assay-bend-migration/_build/bin/assay', 'emit', '/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-guard-binding-boundaries-guwjtyj8/steps-0.asy', '-o', '/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-guard-binding-boundaries-guwjtyj8/steps-0']' timed out after 30 seconds\n",
+    "repair-validation/inferred-guard-binding-mutants.log": "IGB-MUTANT ANNOTATION killed control=OK\nIGB-MUTANT BINDING killed control=OK\nIGB-MUTANT ATOMIC-CLAIM killed control=OK\nIGB-MUTANT NAMED-ARGUMENTS killed control=OK\n",
+    "repair-validation/inferred-guard-boundaries.log": "Traceback (most recent call last):\n  File \"/Users/oobi/Documents/gpt1/assay-bend-migration/dev/inferred-guard-test.py\", line 237, in <module>\n    sys.exit(main())\n             ~~~~^^\n  File \"/Users/oobi/Documents/gpt1/assay-bend-migration/dev/inferred-guard-test.py\", line 226, in main\n    commands[args[0]]()\n    ~~~~~~~~~~~~~~~~~^^\n  File \"/Users/oobi/Documents/gpt1/assay-bend-migration/dev/inferred-guard-test.py\", line 179, in boundaries\n    P.emit(source, folder / str(index), f'boundary-{index}')\n    ~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/oobi/Documents/gpt1/assay-bend-migration/dev/m1-emit-test.py\", line 47, in emit\n    checked(name, [BINARY, 'emit', source, '-o', output, *extra])\n    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/oobi/Documents/gpt1/assay-bend-migration/dev/m1-emit-test.py\", line 41, in checked\n    result = capture(name, argv)\n  File \"/Users/oobi/Documents/gpt1/assay-bend-migration/dev/m1-emit-test.py\", line 34, in capture\n    result = subprocess.run([str(arg) for arg in argv], cwd=cwd, capture_output=True, text=True, timeout=timeout)\n  File \"/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py\", line 557, in run\n    stdout, stderr = process.communicate(input, timeout=timeout)\n                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py\", line 1221, in communicate\n    stdout, stderr = self._communicate(input, endtime, timeout)\n                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py\", line 2154, in _communicate\n    self._check_timeout(endtime, orig_timeout, stdout, stderr)\n    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py\", line 1268, in _check_timeout\n    raise TimeoutExpired(\n    ...<2 lines>...\n            stderr=b''.join(stderr_seq) if stderr_seq else None)\nsubprocess.TimeoutExpired: Command '['/Users/oobi/Documents/gpt1/assay-bend-migration/_build/bin/assay', 'emit', '/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-inferred-boundaries-5rjtyu2b/5.asy', '-o', '/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-inferred-boundaries-5rjtyu2b/5']' timed out after 30 seconds\n",
+    "repair-validation/inferred-guard-mutants.log": "IG-MUTANT CLAIM killed control=OK\nIG-MUTANT NAMED-ARGUMENTS killed control=OK\nIG-MUTANT EVIDENCE killed control=OK\nIG-MUTANT STALE-STATE killed control=OK\n",
+    "repair-validation/inferred-helper-mutants.log": "IH-MUTANT EVIDENCE killed control=OK\nIH-MUTANT LOCAL killed control=OK\nIH-MUTANT PARAMETER killed control=OK\nIH-MUTANT SUPPLIED killed control=OK\nTraceback (most recent call last):\n  File \"/Users/oobi/Documents/gpt1/assay-bend-migration/dev/inferred-helper-test.py\", line 235, in <module>\n    sys.exit(main())\n             ~~~~^^\n  File \"/Users/oobi/Documents/gpt1/assay-bend-migration/dev/inferred-helper-test.py\", line 224, in main\n    commands[args[0]]()\n    ~~~~~~~~~~~~~~~~~^^\n  File \"/Users/oobi/Documents/gpt1/assay-bend-migration/dev/inferred-helper-test.py\", line 201, in mutants\n    result = M.capture(label, ['python3', '-P', 'dev/inferred-helper-test.py', 'witness', case], cwd=copy)\n  File \"/Users/oobi/Documents/gpt1/assay-bend-migration/dev/model-test.py\", line 27, in capture\n    result = subprocess.run([str(arg) for arg in argv], cwd=cwd, env=env,\n                            capture_output=True, text=True, timeout=timeout)\n  File \"/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py\", line 557, in run\n    stdout, stderr = process.communicate(input, timeout=timeout)\n                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py\", line 1221, in communicate\n    stdout, stderr = self._communicate(input, endtime, timeout)\n                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py\", line 2154, in _communicate\n    self._check_timeout(endtime, orig_timeout, stdout, stderr)\n    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py\", line 1268, in _check_timeout\n    raise TimeoutExpired(\n    ...<2 lines>...\n            stderr=b''.join(stderr_seq) if stderr_seq else None)\nsubprocess.TimeoutExpired: Command '['python3', '-P', 'dev/inferred-helper-test.py', 'witness', 'boundaries']' timed out after 30 seconds\n",
+    "repair-validation/payable.log": "PAYABLE-MUTANT ABI killed control=OK\nPAYABLE-MUTANT GUARD killed control=OK\nPAYABLE-MUTANT FALLBACK killed control=OK\n",
+    "repair-validation/proof-helpers.log": "HELPER-LIVE cases=104 creates=2 guarded_erasure=6 OK\nHELPER-REFUSALS cases=50 commands=3 OK\nHELPER-ERASURE variants=7 five_files=5 boundaries=6 OK\nHELPER-MUTANT DECLARATION killed control=OK\nHELPER-MUTANT MEMBERS killed control=OK\nHELPER-MUTANT SHADOW killed control=OK\nHELPER-MUTANT ARGUMENTS killed control=OK\nPROOF-HELPERS cases=104 creates=2 refusals=50 erasure=7 mutants=4 OK\n",
+    "repair-validation/proof-hole-boundaries.log": "PH-BOUNDARIES parameters=16 nested=128 positive=6 negative=2 OK\n",
+    "repair-validation/proof-hole-mutants.log": "Traceback (most recent call last):\n  File \"/Users/oobi/Documents/gpt1/assay-bend-migration/dev/proof-hole-test.py\", line 232, in <module>\n    sys.exit(main())\n             ~~~~^^\n  File \"/Users/oobi/Documents/gpt1/assay-bend-migration/dev/proof-hole-test.py\", line 221, in main\n    commands[args[0]]()\n    ~~~~~~~~~~~~~~~~~^^\n  File \"/Users/oobi/Documents/gpt1/assay-bend-migration/dev/proof-hole-test.py\", line 197, in mutants\n    result = M.capture(label, ['python3', '-P', 'dev/proof-hole-test.py', 'witness', case], cwd=copy)\n  File \"/Users/oobi/Documents/gpt1/assay-bend-migration/dev/model-test.py\", line 27, in capture\n    result = subprocess.run([str(arg) for arg in argv], cwd=cwd, env=env,\n                            capture_output=True, text=True, timeout=timeout)\n  File \"/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py\", line 557, in run\n    stdout, stderr = process.communicate(input, timeout=timeout)\n                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py\", line 1221, in communicate\n    stdout, stderr = self._communicate(input, endtime, timeout)\n                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py\", line 2154, in _communicate\n    self._check_timeout(endtime, orig_timeout, stdout, stderr)\n    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py\", line 1268, in _check_timeout\n    raise TimeoutExpired(\n    ...<2 lines>...\n            stderr=b''.join(stderr_seq) if stderr_seq else None)\nsubprocess.TimeoutExpired: Command '['python3', '-P', 'dev/proof-hole-test.py', 'witness', 'helper-add']' timed out after 30 seconds\n",
+    "repair-validation-tail/audit-controls.log": "MUTANT PIN killed exit=1\nMUTANT CARRY killed exit=1\nMUTANT CARRY-NEW killed exit=1\nMUTANT CARRY-GONE killed exit=1\nMUTANT R0-COUNT killed exit=1\nMUTANT R0-AUDIT killed exit=1\nMUTANT R0-AUDIT-SPEC killed exit=1\nMUTANT HOUSE killed exit=1\nMUTANT HOUSE-LOOP killed exit=1\nMUTANT HOUSE-DIVISION killed exit=1\nMUTANT TRUSTED-LINES killed exit=1\nMUTANT TRUSTED-UNPRICED killed exit=1\nMUTANT TRUSTED-BOUND killed exit=1\nMUTANTS killed=13/13 OK\n",
+    "repair-validation-tail/kernel.log": "PARSE a01-fun-app OK\nPARSE a02-arrow-star OK\nPARSE a03-pair-proj OK\nPARSE a04-inj-case OK\nPARSE a05-tuple-proj OK\nPARSE a06-unit-absurd OK\nPARSE a07-universes OK\nPARSE a08-nat-prims OK\nPARSE a09-let-ann OK\nPARSE a10-def-axiom OK\nPARSE b01-function-eta OK\nPARSE b02-pair-eta OK\nPARSE b03-tuple-eta OK\nPARSE b04-unit-eta OK\nPARSE b05-proof-irrelevance OK\nPARSE b06-impredicativity OK\nPARSE b07-nat-fast-path OK\nPARSE b08-axiom-disclosure OK\nPARSE b09-sum-prod OK\nPARSE b10-case-motive OK\nPARSE b11-leg-proj OK\nPARSE b12-bool-prims OK\nPARSE c01-prop-argument OK\nPARSE c02-zero-binder OK\nPARSE c03-tail-call OK\nPARSE c04-case-tags OK\nPARSE c05-let-erased OK\nPARSE c06-dependent-pair OK\nPARSE c07-dependent-case OK\nPARSE c08-dependent-let OK\nPARSE c09-partial-erased OK\nPARSE c10-eta-captures OK\nPARSE d01-lit-prims OK\nPARSE d02-tail-call OK\nPARSE d03-pair OK\nPARSE d04-tuple OK\nPARSE d05-sum-legs OK\nPARSE d06-closure-capture OK\nPARSE d07-partial-over OK\nPARSE d08-erased-poly OK\nPARSE d09-let-chain OK\nPARSE d10-i31-boundary OK\nPARSE d11-poly-pair OK\nPARSE d12-poly-case OK\nPARSE d13-function-case OK\nPARSE d14-generic-capture OK\nPARSE d15-generic-aggregates OK\nPARSE mu-cata-depth OK\nPARSE mu-constructor-scopes OK\nPARSE mu-dependent-copy OK\nPARSE mu-dependent-layout OK\nPARSE mu-direct OK\nPARSE mu-empty-large-elim OK\nPARSE mu-erase OK\nPARSE mu-indexed OK\nPARSE mu-mutual-emit OK\nPARSE mu-mutual OK\nPARSE mu-parameter-layout OK\nPARSE mu-prop-large-elim OK\nPARSE mu-rec-direct OK\nPARSE mu-rec-indexed OK\nPARSE mu-rec-mutual OK\nPARSE nat-big OK\nPARSE nat-runtime-capture OK\nPARSE nat-runtime-edges OK\nPARSE nat-runtime-export OK\nPARSE nat-runtime-mu OK\nPARSE one-branches OK\nPARSE one-fields OK\nPARSE one-identity OK\nPARSE one-recursive OK\nPARSE one-runtime-capture OK\nPARSE one-shadowing OK\nPARSE one-unreachable-capture OK\nPARSE sl-match-indexed OK\nPARSE sl-mutual-three OK\nPARSE mu-dependent-copy-index OK\nPARSE mu-field-universe OK\nPARSE mu-index-mismatch OK\nPARSE mu-index-runtime OK\nPARSE mu-large-elim-nonsub OK\nPARSE mu-large-elim-selfrec OK\nPARSE mu-missing-branch OK\nPARSE mu-motive-wrong-family OK\nPARSE mu-no-motive OK\nPARSE mu-nonpositive OK\nPARSE mu-nonstructural OK\nPARSE mu-rec-guard-order OK\nPARSE mu-rec-nondecreasing OK\nPARSE mu-rec-sibling-position OK\nPARSE mu-redeclared-mutual OK\nPARSE mu-redeclared OK\nPARSE mu-result-index-type OK\nPARSE mu-result-index-unbound OK\nPARSE mu-result-parameter-order OK\nPARSE mu-result-parameter OK\nPARSE mu-type-erased-cast OK\nPARSE n01-universe OK\nPARSE n02-quantity OK\nPARSE n03-sec-non-ran OK\nPARSE n04-wrong-leg OK\nPARSE n05-missing-branch OK\nPARSE n06-auto OK\nPARSE n07-self-global OK\nPARSE n08-pi-misuse OK\nPARSE n09-mismatch OK\nPARSE n10-unbound OK\nPARSE n11-not-a-function OK\nPARSE one-annotation-only OK\nPARSE one-closure-duplication OK\nPARSE one-eager-alias OK\nPARSE one-field-unused OK\nPARSE one-let-duplication OK\nPARSE one-many-consumer OK\nPARSE one-missing-branch OK\nPARSE one-recursive-leg OK\nPARSE one-scrutinee-branch OK\nPARSE one-shadowed-unused OK\nPARSE one-tuple-duplication OK\nPARSE one-unreachable-capture OK\nPARSE one-unreachable-closure OK\nPARSE one-unused OK\nPARSE one-used-twice OK\nPARSE one-zero-only OK\nPARSE sl-match-collection OK\nPARSE sl-match-dependent-annotation OK\nPARSE sl-match-field-annotation OK\nCHECK a01-fun-app OK\nERASE a01-fun-app OK\nCHECK a02-arrow-star OK\nERASE a02-arrow-star OK\nCHECK a03-pair-proj OK\nERASE a03-pair-proj OK\nCHECK a04-inj-case OK\nERASE a04-inj-case OK\nCHECK a05-tuple-proj OK\nERASE a05-tuple-proj OK\nCHECK a06-unit-absurd OK\nERASE a06-unit-absurd OK\nCHECK a07-universes OK\nERASE a07-universes OK\nCHECK a08-nat-prims OK\nERASE a08-nat-prims OK\nCHECK a09-let-ann OK\nERASE a09-let-ann OK\nCHECK a10-def-axiom OK\nERASE a10-def-axiom OK\nCHECK b01-function-eta OK\nERASE b01-function-eta OK\nCHECK b02-pair-eta OK\nERASE b02-pair-eta OK\nCHECK b03-tuple-eta OK\nERASE b03-tuple-eta OK\nCHECK b04-unit-eta OK\nERASE b04-unit-eta OK\nCHECK b05-proof-irrelevance OK\nERASE b05-proof-irrelevance OK\nCHECK b06-impredicativity OK\nERASE b06-impredicativity OK\nCHECK b07-nat-fast-path OK\nERASE b07-nat-fast-path OK\nCHECK b08-axiom-disclosure OK\nERASE b08-axiom-disclosure OK\nCHECK b09-sum-prod OK\nERASE b09-sum-prod OK\nCHECK b10-case-motive OK\nERASE b10-case-motive OK\nCHECK b11-leg-proj OK\nERASE b11-leg-proj OK\nCHECK b12-bool-prims OK\nERASE b12-bool-prims OK\nCHECK c01-prop-argument OK\nERASE c01-prop-argument OK\nCHECK c02-zero-binder OK\nERASE c02-zero-binder OK\nCHECK c03-tail-call OK\nERASE c03-tail-call OK\nCHECK c04-case-tags OK\nERASE c04-case-tags OK\nCHECK c05-let-erased OK\nERASE c05-let-erased OK\nCHECK c06-dependent-pair OK\nERASE c06-dependent-pair OK\nCHECK c07-dependent-case OK\nERASE c07-dependent-case OK\nCHECK c08-dependent-let OK\nERASE c08-dependent-let OK\nCHECK c09-partial-erased OK\nERASE c09-partial-erased OK\nCHECK c10-eta-captures OK\nERASE c10-eta-captures OK\nCHECK d01-lit-prims OK\nERASE d01-lit-prims OK\nCHECK d02-tail-call OK\nERASE d02-tail-call OK\nCHECK d03-pair OK\nERASE d03-pair OK\nCHECK d04-tuple OK\nERASE d04-tuple OK\nCHECK d05-sum-legs OK\nERASE d05-sum-legs OK\nCHECK d06-closure-capture OK\nERASE d06-closure-capture OK\nCHECK d07-partial-over OK\nERASE d07-partial-over OK\nCHECK d08-erased-poly OK\nERASE d08-erased-poly OK\nCHECK d09-let-chain OK\nERASE d09-let-chain OK\nCHECK d10-i31-boundary OK\nERASE d10-i31-boundary OK\nCHECK d11-poly-pair OK\nERASE d11-poly-pair OK\nCHECK d12-poly-case OK\nERASE d12-poly-case OK\nCHECK d13-function-case OK\nERASE d13-function-case OK\nCHECK d14-generic-capture OK\nERASE d14-generic-capture OK\nCHECK d15-generic-aggregates OK\nERASE d15-generic-aggregates OK\nCHECK mu-cata-depth OK\nERASE mu-cata-depth OK\nCHECK mu-constructor-scopes OK\nERASE mu-constructor-scopes OK\nCHECK mu-dependent-copy OK\nERASE mu-dependent-copy OK\nCHECK mu-dependent-layout OK\nERASE mu-dependent-layout OK\nCHECK mu-direct OK\nERASE mu-direct OK\nCHECK mu-empty-large-elim OK\nERASE mu-empty-large-elim OK\nCHECK mu-erase OK\nERASE mu-erase OK\nCHECK mu-indexed OK\nERASE mu-indexed OK\nCHECK mu-mutual-emit OK\nERASE mu-mutual-emit OK\nCHECK mu-mutual OK\nERASE mu-mutual OK\nCHECK mu-parameter-layout OK\nERASE mu-parameter-layout OK\nCHECK mu-prop-large-elim OK\nERASE mu-prop-large-elim OK\nCHECK mu-rec-direct OK\nERASE mu-rec-direct OK\nCHECK mu-rec-indexed OK\nERASE mu-rec-indexed OK\nCHECK mu-rec-mutual OK\nERASE mu-rec-mutual OK\nCHECK nat-big OK\nERASE nat-big OK\nCHECK nat-runtime-capture OK\nERASE nat-runtime-capture OK\nCHECK nat-runtime-edges OK\nERASE nat-runtime-edges OK\nCHECK nat-runtime-export OK\nERASE nat-runtime-export OK\nCHECK nat-runtime-mu OK\nERASE nat-runtime-mu OK\nCHECK one-branches OK\nERASE one-branches OK\nCHECK one-fields OK\nERASE one-fields OK\nCHECK one-identity OK\nERASE one-identity OK\nCHECK one-recursive OK\nERASE one-recursive OK\nCHECK one-runtime-capture OK\nERASE one-runtime-capture OK\nCHECK one-shadowing OK\nERASE one-shadowing OK\nCHECK one-unreachable-capture OK\nERASE one-unreachable-capture OK\nCHECK sl-match-indexed OK\nERASE sl-match-indexed OK\nCHECK sl-mutual-three OK\nERASE sl-mutual-three OK\nNEG mu-dependent-copy-index OK\nNEG mu-field-universe OK\nNEG mu-index-mismatch OK\nNEG mu-index-runtime OK\nNEG mu-large-elim-nonsub OK\nNEG mu-large-elim-selfrec OK\nNEG mu-missing-branch OK\nNEG mu-motive-wrong-family OK\nNEG mu-no-motive OK\nNEG mu-nonpositive OK\nNEG mu-nonstructural OK\nNEG mu-rec-guard-order OK\nNEG mu-rec-nondecreasing OK\nNEG mu-rec-sibling-position OK\nNEG mu-redeclared-mutual OK\nNEG mu-redeclared OK\nNEG mu-result-index-type OK\nNEG mu-result-index-unbound OK\nNEG mu-result-parameter-order OK\nNEG mu-result-parameter OK\nNEG mu-type-erased-cast OK\nNEG n01-universe OK\nNEG n02-quantity OK\nNEG n03-sec-non-ran OK\nNEG n04-wrong-leg OK\nNEG n05-missing-branch OK\nNEG n06-auto OK\nNEG n07-self-global OK\nNEG n08-pi-misuse OK\nNEG n09-mismatch OK\nNEG n10-unbound OK\nNEG n11-not-a-function OK\nNEG one-annotation-only OK\nNEG one-closure-duplication OK\nNEG one-eager-alias OK\nNEG one-field-unused OK\nNEG one-let-duplication OK\nNEG one-many-consumer OK\nNEG one-missing-branch OK\nNEG one-recursive-leg OK\nNEG one-scrutinee-branch OK\nNEG one-shadowed-unused OK\nNEG one-tuple-duplication OK\nNEG one-unreachable-capture OK\nNEG one-unreachable-closure OK\nNEG one-unused OK\nNEG one-used-twice OK\nNEG one-zero-only OK\nNEG sl-match-collection OK\nNEG sl-match-dependent-annotation OK\nNEG sl-match-field-annotation OK\nPARSE-OK 127/127\nCHECK-OK 76/76\nERASE-OK 76/76\nNEG-OK 51/51\nERASE-NEG-OK 0/0\nKNEG smu OK\nKNEG self OK\nREC values OK\nSUITE-KERNEL CORE OK\nMIGRATED mu-erase OK\nMIGRATED mu-rec-direct OK\nMIGRATED mu-rec-indexed OK\nMIGRATED mu-rec-mutual OK\nSUITE-KERNEL OK\n",
+    "repair-validation-tail/model.log": "MODEL-LIVE counter=30 variants=10 corpus=11 executors=2 OK\nMODEL-DRIVER invalid=28 positive=6 refusals=6 no_tools=true OK\nMODEL-MUTANT VALUE witness=value-get killed control=OK\nMODEL-MUTANT HEAD witness=short-two killed control=OK\nMODEL-MUTANT M0-WRITE witness=m0-write killed control=OK\nMODEL-MUTANT OVERFLOW witness=add-recovery killed control=OK\nMODEL-MUTANT UNDERFLOW witness=sub-recovery killed control=OK\nMODEL-MUTANT BOUND witness=increment-at-limit killed control=OK\nMODEL-MUTANT SNAPSHOT witness=snapshot killed control=OK\nMODEL-MUTANT ROLLBACK witness=write-abort killed control=OK\nMODEL-MUTANTS killed=8/8 controls=8 OK\nSOURCE-MODEL counter=30 variants=10 corpus=11 invalid=28 refusals=6 mutants=8 OK\n",
+    "repair-validation-tail/stack.log": "STACK-HEIGHT blocks=30 mismatch=0 cases=64 OK\nASM-COMPACT cases=618 OK\nSTACK-HEIGHT blocks=30 cases=64 opcodes=149 effect_cases=370 OK\n",
+    "additional/cli_parity_311": "{\"candidate_sha256\": \"4cba4918986593dbbed50d1566a16aa689243375d91fd43e58aa35ef0c531f25\", \"total\": 311, \"passed\": 311, \"failures\": []}\n",
+    "additional/lean_axioms": "AXIOMS sorryAx=0 theorems=42 carried_files=28 controls=3 OK\n",
+    "additional/proof_exports": "{\"total\": 12, \"passed\": 12, \"failures\": []}\none_paths: 0 ONE-DIRECT OK \n",
+    "additional/abi_codec": "FUZZ trials=128 accepted=78\nABI-CODEC-MUTANT ENDIAN killed witness=ENCODE-BYTES\nABI-CODEC-MUTANT ENCODE-UINT8 killed witness=ENCODE-UINT8-RANGE\nABI-CODEC-MUTANT ENCODE-ADDRESS killed witness=ENCODE-ADDRESS-RANGE\nABI-CODEC-MUTANT DECODE-UINT8 killed witness=DECODE-UINT8-RANGE\nABI-CODEC-MUTANT DECODE-ADDRESS killed witness=DECODE-ADDRESS-RANGE\nABI-CODEC-MUTANT BOOL killed witness=DECODE-VALUES\nABI-CODEC-MUTANT OFFSET killed witness=ENCODE-BYTES\nABI-CODEC-MUTANT PADDING killed witness=DECODE-PADDING\nABI-CODEC-MUTANT TRAILING killed witness=DECODE-SUFFIX\nABI-CODEC-MUTANT LENGTH killed witness=DECODE-VALUES\nABI-CODEC cast=48 vectors=49 reference=5 negative=26 prefixes=288 fuzz=128 mutants=10 scope=codec OK\n",
+    "additional/abi_schema": "ABI-SCHEMA-MUTANT UINT8 killed witness=ERC20-JSON\nABI-SCHEMA-MUTANT ADDRESS killed witness=ERC20-JSON\nABI-SCHEMA-MUTANT BOOL killed witness=ERC20-JSON\nABI-SCHEMA-MUTANT STRING killed witness=ERC20-JSON\nABI-SCHEMA-MUTANT INDEXED killed witness=ERC20-JSON\nABI-SCHEMA-MUTANT OUTPUTS killed witness=ERC20-JSON\nABI-SCHEMA-MUTANT SIGNATURE killed witness=SELECTORS\nABI-SCHEMA-MUTANT ANONYMOUS killed witness=ERC20-JSON\nABI-SCHEMA functions=9 events=2 edges=7 legacy=6 mutants=8 scope=metadata OK\n",
+    "additional/keccak_mutants": "KECCAK-MUTANT PADDING killed witness=K2 exit=1\nKECCAK-MUTANT END-BIT killed witness=K2 exit=1\nKECCAK-MUTANT EXACT-RATE killed witness=B136 exit=1\nKECCAK-MUTANT SELECTOR killed witness=S1 exit=1\nKECCAK-MUTANTS killed=4/4 control=OK\n",
+    "additional/emitter_mutants": "EMIT-MUTANT WORD-BOX killed by word-zero\nEMIT-MUTANT WORD-RANGE killed by word-overflow\nEMIT-MUTANT STORAGE-ALIAS killed by storage-hidden\nEMIT-MUTANT GLOBAL-APP killed by app\nEMIT-MUTANT ABI-ENTRY killed by ABI-GOLD mismatch\nEMIT-MUTANT LAYOUT-SLOT killed by LAYOUT-GOLD mismatch\nEMIT-MUTANT STORAGE-CLOSURE killed by storage-closure\nEMIT-MUTANTS killed=7/7 controls=4 OK\n",
+    "additional/reference_and_emission_retries": "{\"name\": \"REFERENCE-MUTANTS\", \"identity\": \"954acf7177c3e1ddfeb2c1f1eac7964883859d77b1e0945ce0c57757cd287b68\", \"command\": [\"python3\", \"-P\", \"dev/reference-test.py\", \"mutants\"], \"seconds\": 5.081714416999603, \"timeout\": false, \"exit\": 0, \"marker\": \"REFERENCE-MUTANTS killed=8/8 controls=3 OK\", \"passed\": true, \"log\": \"/Users/oobi/Documents/gpt1/assay-bend-migration/_build/native/battery/REFERENCE-MUTANTS.log\"}\n{\"name\": \"EMIT-MUTANTS\", \"identity\": \"954acf7177c3e1ddfeb2c1f1eac7964883859d77b1e0945ce0c57757cd287b68\", \"command\": [\"python3\", \"-P\", \"dev/emit-test.py\", \"mutants\"], \"seconds\": 18.049402917007683, \"timeout\": false, \"exit\": 1, \"marker\": \"EMIT-MUTANTS killed=7/7 controls=4 OK\", \"passed\": false, \"log\": \"/Users/oobi/Documents/gpt1/assay-bend-migration/_build/native/battery/EMIT-MUTANTS.log\"}\n{\"name\": \"DIFF-EXECUTOR\", \"identity\": \"954acf7177c3e1ddfeb2c1f1eac7964883859d77b1e0945ce0c57757cd287b68\", \"command\": [\"python3\", \"-P\", \"dev/diff-test.py\"], \"seconds\": 18.476591915998142, \"timeout\": false, \"exit\": 0, \"marker\": \"DIFF-EXECUTOR live=20 driver=28 rejected=24 OK\", \"passed\": true, \"log\": \"/Users/oobi/Documents/gpt1/assay-bend-migration/_build/native/battery/DIFF-EXECUTOR.log\"}\n{\"name\": \"M1-EMISSION\", \"identity\": \"954acf7177c3e1ddfeb2c1f1eac7964883859d77b1e0945ce0c57757cd287b68\", \"command\": [\"python3\", \"-P\", \"dev/m1-emit-test.py\"], \"seconds\": 219.17046908297925, \"timeout\": false, \"exit\": 0, \"marker\": \"M1-EMISSION counter=30 sources=8 refusals=11 mutants=8 OK\", \"passed\": true, \"log\": \"/Users/oobi/Documents/gpt1/assay-bend-migration/_build/native/battery/M1-EMISSION.log\"}\n{\"name\": \"SOURCE-MODEL\", \"identity\": \"954acf7177c3e1ddfeb2c1f1eac7964883859d77b1e0945ce0c57757cd287b68\", \"command\": [\"python3\", \"-P\", \"dev/model-test.py\"], \"seconds\": 67.11588958400534, \"timeout\": false, \"exit\": 1, \"marker\": \"SOURCE-MODEL counter=30 variants=10 corpus=11 invalid=28 refusals=6 mutants=8 OK\", \"passed\": false, \"log\": \"/Users/oobi/Documents/gpt1/assay-bend-migration/_build/native/battery/SOURCE-MODEL.log\"}\n"
+  },
+  "observed_native_driver": {
+    "command": "python3 -P dev/stage-a-test.py driver",
+    "exit": 0,
+    "stdout": "DRIVER cases=24 OK\n",
+    "native_session": 28380
+  },
+  "observed_m1_ratio_controls": {
+    "command": "python3 -P dev/m1-ratio-test.py",
+    "exit": 0,
+    "stdout": "M1-RATIO-TEST controls=5 refused=15 mutants=4\nM1-RATIO-TEST OK\n",
+    "native_session": 75223
+  }
+}

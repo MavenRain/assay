@@ -16,7 +16,7 @@ def main():
     spec = importlib.util.spec_from_file_location('reference', root / 'dev/reference-test.py')
     ref = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(ref)
-    binary = str(root / '_build/default/bin/assay.exe')
+    binary = str(root / '_build/bin/assay')
     source = root / 'examples/Ref20.asy'
     evm = shutil.which('evm')
     ref.require(evm is not None, 'TRACE-TEST-TOOL', 'evm')

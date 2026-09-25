@@ -4,6 +4,10 @@ import hashlib
 import importlib.util
 import json
 from pathlib import Path
+
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import native_mutations
 import shutil
 import subprocess
 import sys
@@ -235,25 +239,19 @@ def refusals():
 
 
 def mutants():
-    cases = [
-        ('RUNTIME', 'Check (Ordered (b, a))', 'Check (Ordered (a, b))', 'live', 'EQUALITY-MODEL words-0-1'),
-        ('CLAIM', 'Bound (Ordered (b, a))', 'Bound (Ordered (a, b))', 'pairs', 'EQUALITY-EMIT pair-typed'),
-        ('PAYLOAD', '["leWord"; "lt256"; "eqWord"]', '["leWord"; "lt256"]', 'pairs', 'EQUALITY-EMIT pair-typed'),
-        ('DEPTH', 'if depth = 32 then fail', 'if depth = 33 then fail', 'boundaries', 'EQUALITY-BOUNDARY claim-depth-32'),
-    ]
+    cases = native_mutations.load(__file__)
     records = []
     with tempfile.TemporaryDirectory(prefix='assay-equality-mutants-') as temporary:
         copy = Path(temporary) / 'copy'
-        shutil.copytree(ROOT, copy, ignore=shutil.ignore_patterns('.*', '_build', '.gatework',
-            '.lake', 'vendor', 'validation', '__pycache__'))
-        path = copy / 'emit/contract.ml'
+        native_mutations.copy_project(ROOT, copy)
+        path = copy / 'src/emitter.bend'
         original = path.read_text()
         for name, before, after, witness, marker in cases:
-            require(original.count(before) == 1, 'EQUALITY-MUTANT anchor ' + name)
+            require(native_mutations.count(original, before) == 1, 'EQUALITY-MUTANT anchor ' + name)
             for mutated in (True, False):
-                path.write_text(original.replace(before, after) if mutated else original)
+                path.write_text(native_mutations.replace(original, before, after) if mutated else original)
                 label = ('mutant-' if mutated else 'control-') + name
-                build = C.capture(label + '-build', ['zsh', '-f', 'dev/dune.sh', 'build'], cwd=copy, timeout=120)
+                build = C.capture(label + '-build', ['zsh', '-f', 'dev/build.sh', 'build', 'bin/assay'], cwd=copy, timeout=120)
                 require(build.returncode == 0, 'EQUALITY-MUTANT build ' + label)
                 result = C.capture(label, ['python3', '-P', 'dev/equality-test.py', witness], cwd=copy, timeout=180)
                 require(result.returncode == (1 if mutated else 0) and (not mutated or marker in result.stdout),

@@ -1,8 +1,10 @@
 # assay
 
-The [frozen Bend 2 compilation comparison](dev/M1-BEND2.md) passes M1's
-speed bound: Assay/Bend 2 = 0.073514764 against the required limit of 1.0
-on six matched pure programs.
+Assay's compiler, trusted kernel, frontend, EVM backend and test adapters are
+implemented in Bend 2. The pinned compiler emits JavaScript for Node.js;
+the hand-written JavaScript boundary only provides operating-system effects.
+See [the migration notes](dev/BEND2-MIGRATION.md) for the source layout,
+audit boundaries and validation evidence.
 
 The [M1 closure gate](dev/M1-CLOSE.md) combines the bounded counter,
 surface, proof and executor checks with the binding compiler performance
@@ -12,7 +14,7 @@ events and dynamic string returns. The [second M2 slice](dev/M2-ABI-SCHEMA.md)
 adds typed ABI metadata and checks the printer against that reference.
 The [third M2 slice](dev/M2-ABI-CODEC.md) adds typed ABI tuple encoding and
 strict decoding, including dynamic strings.
-`zsh -f dev/gates.sh` runs all 78 checks.
+`zsh -f dev/gates.sh` runs the complete gate battery.
 
 Assay is a Kanon language fork for EVM contracts.  It inherits the kernel and
 surface at `2c2e6e6`.  M0 Stage A supplies the checker, erasure, axiom disclosure
@@ -112,33 +114,34 @@ The thirty-eighth adds [contract-address snapshots](dev/M1-ADDRESS.md),
 reading the executing contract's address with `self <- address`.
 
 ```sh
-dune build
-_build/default/bin/assay.exe check examples/m0-spine.kan
-_build/default/bin/assay.exe check --erased examples/m0-spine.kan
-_build/default/bin/assay.exe axioms examples/m0-spine.kan
-_build/default/bin/assay.exe spec-count
-_build/default/bin/assay.exe emit examples/Ref20.asy -o Ref20-out
-_build/default/bin/assay.exe trace examples/Ref20.asy --calldata 0x
-_build/default/bin/assay.exe diff examples/Ref20.asy --calldata 0x
-_build/default/bin/assay.exe emit examples/Counter.asy -o Counter-out
-_build/default/bin/assay.exe diff examples/Counter.asy --calldata 0x6d4ce63c
-_build/default/bin/assay.exe run examples/Counter.asy --calldata 0x6d4ce63c --storage 0=7 --storage 1=100
-_build/default/bin/assay.exe emit examples/CounterSurface.asy -o Surface-out
-_build/default/bin/assay.exe emit examples/Nullary.asy -o Nullary-out
-_build/default/bin/assay.exe emit examples/Errors.asy -o Errors-out
-_build/default/bin/assay.exe emit examples/CounterProofs.asy -o ProofCounter-out
-_build/default/bin/assay.exe emit examples/ProofTerms.asy -o ProofTerms-out
-_build/default/bin/assay.exe emit examples/CompoundInvariants.asy -o Bounds-out
-_build/default/bin/assay.exe emit examples/NamedGuards.asy -o NamedGuards-out
-_build/default/bin/assay.exe emit examples/InferredGuards.asy -o InferredGuards-out
-_build/default/bin/assay.exe emit examples/InferredHelpers.asy -o InferredHelpers-out
-_build/default/bin/assay.exe emit examples/ProofHoles.asy -o ProofHoles-out
-_build/default/bin/assay.exe emit examples/InferredBindings.asy -o InferredBindings-out
-_build/default/bin/assay.exe emit examples/ContextCore.asy -o Context-out
-_build/default/bin/assay.exe emit examples/ContextSurface.asy -o ContextSurface-out
-_build/default/bin/assay.exe emit examples/CounterInvariant.asy -o CounterInvariant-out
-_build/default/bin/assay.exe emit examples/ProofHelpers.asy -o ProofHelpers-out
-_build/default/bin/assay.exe emit examples/ProofBundles.asy -o ProofBundles-out
+python3 -P dev/bootstrap-bend.py
+make
+_build/bin/assay check examples/m0-spine.kan
+_build/bin/assay check --erased examples/m0-spine.kan
+_build/bin/assay axioms examples/m0-spine.kan
+_build/bin/assay spec-count
+_build/bin/assay emit examples/Ref20.asy -o Ref20-out
+_build/bin/assay trace examples/Ref20.asy --calldata 0x
+_build/bin/assay diff examples/Ref20.asy --calldata 0x
+_build/bin/assay emit examples/Counter.asy -o Counter-out
+_build/bin/assay diff examples/Counter.asy --calldata 0x6d4ce63c
+_build/bin/assay run examples/Counter.asy --calldata 0x6d4ce63c --storage 0=7 --storage 1=100
+_build/bin/assay emit examples/CounterSurface.asy -o Surface-out
+_build/bin/assay emit examples/Nullary.asy -o Nullary-out
+_build/bin/assay emit examples/Errors.asy -o Errors-out
+_build/bin/assay emit examples/CounterProofs.asy -o ProofCounter-out
+_build/bin/assay emit examples/ProofTerms.asy -o ProofTerms-out
+_build/bin/assay emit examples/CompoundInvariants.asy -o Bounds-out
+_build/bin/assay emit examples/NamedGuards.asy -o NamedGuards-out
+_build/bin/assay emit examples/InferredGuards.asy -o InferredGuards-out
+_build/bin/assay emit examples/InferredHelpers.asy -o InferredHelpers-out
+_build/bin/assay emit examples/ProofHoles.asy -o ProofHoles-out
+_build/bin/assay emit examples/InferredBindings.asy -o InferredBindings-out
+_build/bin/assay emit examples/ContextCore.asy -o Context-out
+_build/bin/assay emit examples/ContextSurface.asy -o ContextSurface-out
+_build/bin/assay emit examples/CounterInvariant.asy -o CounterInvariant-out
+_build/bin/assay emit examples/ProofHelpers.asy -o ProofHelpers-out
+_build/bin/assay emit examples/ProofBundles.asy -o ProofBundles-out
 leancho -C verification
 zsh -f dev/gates.sh
 ```
@@ -164,7 +167,7 @@ compiles the source and prints geth's JSON
 steps, summary and state dump.  It uses the explicit Cancun fixture and
 literal process arguments.  Hex may have a `0x` prefix.  M0 programs
 ignore calldata.  The default fixture is resolved from the executable's
-`_build/default/bin` location, so the working directory can differ.
+`_build/bin` location, so the working directory can differ.
 Use `--prestate FILE` to select an explicit fixture and `--value WORD`
 to set the call value, which defaults to zero. Options can follow the
 source in any order and each may appear once. Unsigned decimal and
@@ -383,11 +386,11 @@ Require an Assay/Bend 2 compilation-time ratio <= 1.0, with pinned toolchains,
 the same machine and matched cache conditions. Speed is informational at
 M0 and binding from M1 onward. The [Bend 2 gate](dev/M1-BEND2.md) now pins
 six paired pure programs, checks their emitted outputs, and measures five
-alternating rounds. Its frozen ratio is 0.073514764. The default battery
+alternating rounds. The default battery
 enforces this unrounded comparison with `BEND2-RATIO`; `BEND2-RATIO-TEST`
-checks refusals and mutations. Existing `M1-RATIO` and `M0-RATIO` reports
-compare OCaml timings for historical diagnostics. Their OCaml thresholds
-no longer bind milestone completion. `DENOMINATORS` continues to verify
+checks refusals and mutations. New `M1-RATIO` and `M0-RATIO` measurements
+use the pinned Bend compiler and checker as denominators. Earlier reports
+remain historical diagnostics. `DENOMINATORS` continues to verify
 the compiler source inventory. The [earlier timing diagnosis](dev/TIMING-DEBUG.md)
 remains recorded.
 The final M0-EXIT stamp still requires explicit user ratification.
@@ -404,10 +407,10 @@ records the current battery and measurement evidence.
 The gates require Python 3.11 or newer (`-P`), Foundry `cast` and geth `evm`
 on PATH.  The oracles are `cast` 0.3.0 and geth 1.14.12.
 The proof seed uses Lean 4.33.1 and the dependencies in its pinned manifest.
-The OCaml build uses OCaml 5.2.1, Dune 3.24.2 and Zarith 1.14. Activate an
-opam switch with those packages before building. `dev/dune.sh` uses Dune
-from PATH and derives the repository root from its own path. The library
-names `kanon_kernel` and `kanon_surface` stay unchanged for a byte-exact carry.
-The tot submodule remains data only and is not needed for the Stage F build.
+The build uses Bend 2.0.25 at the commit in `dev/toolchain.json`, Node.js 22
+or newer, and Python 3.11 or newer. Bootstrap needs Git and Bun to build the
+pinned Bend CLI. An existing checkout can be selected with `BEND=/path/to/bin/bend`.
+`dev/build.sh` derives the repository root from its own path. Build receipts
+bind the generated program to its source, compiler and effect boundary.
 
 License: MIT OR Apache-2.0.

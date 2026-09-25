@@ -5,6 +5,10 @@ import importlib.util
 import itertools
 import json
 from pathlib import Path
+
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import native_mutations
 import shutil
 import subprocess
 import sys
@@ -188,35 +192,19 @@ def refusals(only_schema=False):
 
 
 def mutants():
-    rows = [
-        ('SURFACE', 'emit/contract.ml', 'next (Context (Recognize.Calldatasize, name)) rest',
-         'next (Bind (name, Literal { name with text = "0" })) rest', 'probe', 'PAYABLE-MODEL cds-observe'),
-        ('EMITTER', 'emit/emit.ml', 'String.uppercase_ascii (R.context_name source)',
-         '(if source = R.Calldatasize then "CALLVALUE" else String.uppercase_ascii (R.context_name source))',
-         'probe', 'PAYABLE-EVM cds-observe'),
-        ('MODEL', 'emit/model.ml', 'Int.div (String.length input.data) 2',
-         'String.length input.data', 'probe', 'PAYABLE-MODEL cds-observe'),
-        ('SCHEMA', 'emit/recognize.ml', 'context_name source ^ " : (Word 256 -> Tx) -> Tx',
-         'context_name source ^ " : (Word 160 -> Tx) -> Tx', 'schema', 'CALLDATASIZE-REFUSAL wrong-width'),
-        ('SNAPSHOT', 'emit/emit.ml',
-         'continuation fuel (fresh + 1) fn (R.Runtime_word fresh) in\n'
-         '       Ok (Context (source, fresh, next), fuel, next_fresh)',
-         'continuation fuel (fresh + if source = R.Calldatasize then 0 else 1) fn (R.Runtime_word fresh) in\n'
-         '       Ok (Context (source, fresh, next), fuel, next_fresh)',
-         'probe', 'PAYABLE-MODEL cds-mixed'),
-    ]
+    rows = native_mutations.load(__file__)
     records = []
     with tempfile.TemporaryDirectory(prefix='assay-calldatasize-mutants-') as temporary:
         copy = Path(temporary) / 'copy'
-        shutil.copytree(ROOT, copy, ignore=shutil.ignore_patterns('.*', '_build', 'vendor', 'validation', '__pycache__'))
+        native_mutations.copy_project(ROOT, copy)
         for name, file, before, after, mode, marker in rows:
             path = copy / file
             original = path.read_text()
-            require(original.count(before) == 1, 'CALLDATASIZE-MUTANT anchor ' + name)
+            require(native_mutations.count(original, before) == 1, 'CALLDATASIZE-MUTANT anchor ' + name)
             for mutated in (True, False):
-                path.write_text(original.replace(before, after) if mutated else original)
+                path.write_text(native_mutations.replace(original, before, after) if mutated else original)
                 label = ('mutant-' if mutated else 'control-') + name
-                build = C.capture(label + '-build', ['zsh', '-f', 'dev/dune.sh', 'build'], cwd=copy, timeout=120)
+                build = C.capture(label + '-build', ['zsh', '-f', 'dev/build.sh', 'build', 'bin/assay'], cwd=copy, timeout=120)
                 require(build.returncode == 0, 'CALLDATASIZE-MUTANT build ' + label)
                 result = C.capture(label, ['python3', '-P', 'dev/calldatasize-test.py', mode], cwd=copy, timeout=120)
                 require(result.returncode == (1 if mutated else 0) and (not mutated or marker in result.stdout),

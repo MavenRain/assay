@@ -18,7 +18,7 @@ import time
 
 
 COMMIT = 'c65bcb788dbfb298bb434c1d858b47c193841dc0'
-VERSIONS = {'bend': 'bend 2.0.25', 'bun': '1.3.11', 'ocamlopt': '5.2.1', 'dune': '3.24.2'}
+VERSIONS = {'bend': 'bend 2.0.25', 'node': 'v23.10.0'}
 CASES = ('Return', 'Arithmetic', 'Pair', 'Leaf', 'Apply', 'Let')
 MANIFEST = 'corpus/bend2/MANIFEST.json'
 REPORT = 'dev/bend2-baseline.json'
@@ -104,7 +104,7 @@ def validate(root, value, binding=True):
     require(value['bend_commit'] == COMMIT and
             value['bend_sources_sha256'] == frozen['bend_sources_sha256'], 'BEND-PIN')
     require(value['tools']['versions'] == VERSIONS, 'TOOLCHAIN')
-    require(set(value['tools']['sha256']) == {'assay', 'bend', 'bun', 'ocamlopt', 'dune', 'cc'} and
+    require(set(value['tools']['sha256']) == {'assay', 'bend', 'node', 'cc'} and
             all(re.fullmatch('[0-9a-f]{64}', sha) for sha in value['tools']['sha256'].values()), 'TOOLS-HASH')
     require(bool(value['tools']['cc_version']) and bool(value['host']['platform']) and
             bool(value['host']['machine']), 'HOST')
@@ -146,20 +146,20 @@ def measure(root, target, bend_root):
     frozen = corpus(root)
     require(checked(['git', 'rev-parse', 'HEAD'], bend_root) == COMMIT, 'BEND-COMMIT')
     require(hashes(bend_root, frozen['bend_sources_sha256']) == frozen['bend_sources_sha256'], 'BEND-SOURCES')
-    tools = {name: shutil.which(name) for name in ('bun', 'ocamlopt', 'dune', 'cc')}
-    require(all(tools.values()), 'TOOLS need bun, OCaml, Dune and cc')
+    tools = {name: shutil.which(name) for name in ('node', 'cc')}
+    require(all(tools.values()), 'TOOLS need Node and cc')
     versions = {name: checked([tools[name], flag], root) for name, flag in
-                (('bun', '--version'), ('ocamlopt', '-version'), ('dune', '--version'))}
+                (('node', '--version'),)}
     require(versions == {name: VERSIONS[name] for name in versions}, 'TOOLCHAIN')
-    checked(['zsh', '-f', 'dev/dune.sh', 'build', 'bin/assay.exe'], root)
-    checked([tools['bun'], 'build', '--compile', '--minify', 'bend2/main.ts', '--outfile', 'bin/bend'], bend_root)
-    tools.update(assay=str(root / '_build/default/bin/assay.exe'), bend=str(bend_root / 'bin/bend'))
+    build_env = dict(os.environ, BEND=str(bend_root / 'bin/bend'))
+    checked(['zsh', '-f', 'dev/build.sh', 'build', 'bin/assay'], root, build_env)
+    tools.update(assay=str(root / '_build/bin/assay'), bend=str(bend_root / 'bin/bend'))
     env = dict(os.environ, BEND_NO_TELEMETRY='1')
     versions['bend'] = checked([tools['bend'], 'version'], root, env)
     require(versions == VERSIONS, 'TOOLCHAIN')
     identity = identities(root)
     tool_info = dict(versions=versions, paths=tools,
-                     sha256={name: digest(Path(path)) for name, path in tools.items()},
+                     sha256={name: digest(root / '_build/bend/assay.js' if name == 'assay' else Path(path)) for name, path in tools.items()},
                      cc_version=checked([tools['cc'], '--version'], root).splitlines()[0])
     records, outputs = [], {}
     data = load_module(root, 'corpus-data')
@@ -201,7 +201,7 @@ def measure(root, target, bend_root):
         duration = time.monotonic() - start_wall
     require(identity == identities(root), 'SOURCES-CHANGED')
     require(hashes(bend_root, frozen['bend_sources_sha256']) == frozen['bend_sources_sha256'], 'BEND-SOURCES-CHANGED')
-    require(tool_info['sha256'] == {name: digest(Path(path)) for name, path in tools.items()}, 'TOOLS-CHANGED')
+    require(tool_info['sha256'] == {name: digest(root / '_build/bend/assay.js' if name == 'assay' else Path(path)) for name, path in tools.items()}, 'TOOLS-CHANGED')
     report = dict(version=1, stage='M1', method=METHOD, identities=identity, bend_commit=COMMIT,
                   bend_sources_sha256=frozen['bend_sources_sha256'], tools=tool_info,
                   host=dict(platform=platform.platform(), machine=platform.machine(), load_start=load_start),

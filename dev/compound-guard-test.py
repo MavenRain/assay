@@ -4,6 +4,10 @@ import hashlib
 import importlib.util
 import json
 from pathlib import Path
+
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import native_mutations
 import shutil
 import subprocess
 import sys
@@ -197,32 +201,18 @@ def witness(name):
 
 
 def mutants():
-    order = ('guards a left (local ^ "a") (fun p ->\n'
-             '              guards b right (local ^ "b") (fun q ->')
-    cases = [
-        ('PAIR-ORDER', 'continue ("(tuple (" ^ p ^ ", " ^ q ^ "))")',
-         'continue ("(tuple (" ^ q ^ ", " ^ p ^ "))")', 'custom', 'M1-TOOL custom'),
-        ('ERROR-PAYLOAD', 'let* no = Option.fold ~none:(Ok "abort") ~some:(reject env) error in',
-         'let* _checked_no = Option.fold ~none:(Ok "abort") ~some:(reject env) error in\n        let no = "abort" in',
-         'custom', 'MODEL-EXPECTED cg-custom-2'),
-        ('COMPONENT-EVIDENCE', '\n          state written (evidence_for fresh ty evidence) rest in',
-         '\n          state written evidence rest in', 'invariant', 'M1-TOOL invariant'),
-        ('CHECK-ORDER', order,
-         'guards b right (local ^ "b") (fun q ->\n              guards a left (local ^ "a") (fun p ->',
-         'erasure', 'CG-ERASURE five files'),
-    ]
+    cases = native_mutations.load(__file__)
     with tempfile.TemporaryDirectory(prefix='assay-compound-guards-mutants-') as temporary:
         copy = Path(temporary) / 'copy'
-        shutil.copytree(ROOT, copy, ignore=shutil.ignore_patterns('.*', '_build', '.gatework',
-            '.lake', 'vendor', 'validation', '__pycache__'))
-        path = copy / 'emit/contract.ml'
+        native_mutations.copy_project(ROOT, copy)
+        path = copy / 'src/emitter.bend'
         original = path.read_text()
         for name, before, after, case, marker in cases:
-            require(original.count(before) == 1, 'CG-MUTANT-ANCHOR ' + name)
+            require(native_mutations.count(original, before) == 1, 'CG-MUTANT-ANCHOR ' + name)
             for mutated in (True, False):
-                path.write_text(original.replace(before, after) if mutated else original)
+                path.write_text(native_mutations.replace(original, before, after) if mutated else original)
                 label = ('mutant-' if mutated else 'control-') + name
-                build = M.capture(label + '-build', ['zsh', '-f', 'dev/dune.sh', 'build'], cwd=copy, timeout=120)
+                build = M.capture(label + '-build', ['zsh', '-f', 'dev/build.sh', 'build', 'bin/assay'], cwd=copy, timeout=120)
                 require(build.returncode == 0, 'CG-MUTANT-BUILD ' + label)
                 result = M.capture(label, ['python3', '-P', 'dev/compound-guard-test.py', 'witness', case], cwd=copy)
                 require(result.returncode == (1 if mutated else 0) and (not mutated or marker in result.stdout),

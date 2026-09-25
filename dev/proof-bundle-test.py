@@ -4,6 +4,10 @@ import hashlib
 import importlib.util
 import json
 from pathlib import Path
+
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import native_mutations
 import shutil
 import subprocess
 import sys
@@ -223,30 +227,18 @@ def witness(name):
 
 
 def mutants():
-    cases = [
-        ('SECOND-CHECK', 'let* b_type, b = proof ~erased helpers (depth + 1) env b_type b in',
-         'let* b_type, b = proof ~erased helpers (depth + 1) env b_type (let _discarded = b in Proof_unit) in',
-         'argument-discarded', 'ERROR-REFUSAL argument-discarded'),
-        ('PROJECTION', '(if first then "0" else "1")', '(if first then "1" else "0")',
-         'projection-valid', 'M1-TOOL projection-valid'),
-        ('CLAIM-DEPTH', 'if depth > 32 then fail (here tokens) "LIMIT" "claim nesting exceeds 32"',
-         'if depth > 128 then fail (here tokens) "LIMIT" "claim nesting exceeds 32"',
-         'claim-depth', 'ERROR-REFUSAL claim-depth'),
-        ('INVARIANT-COMPONENTS', 'evidence_for (project false term) b (evidence_for (project true term) a evidence)',
-         'evidence_for term (Atomic (claim_type (Bundle (a, b)))) evidence', 'invariant-components', 'M1-TOOL invariant-components'),
-    ]
+    cases = native_mutations.load(__file__)
     with tempfile.TemporaryDirectory(prefix='assay-bundle-mutants-') as temporary:
         copy = Path(temporary) / 'copy'
-        shutil.copytree(ROOT, copy, ignore=shutil.ignore_patterns('.*', '_build', '.gatework',
-            '.lake', 'vendor', 'validation', '__pycache__'))
-        path = copy / 'emit/contract.ml'
+        native_mutations.copy_project(ROOT, copy)
+        path = copy / 'src/emitter.bend'
         original = path.read_text()
         for name, before, after, case, marker in cases:
-            require(original.count(before) == 1, 'BUNDLE-MUTANT-ANCHOR ' + name)
+            require(native_mutations.count(original, before) == 1, 'BUNDLE-MUTANT-ANCHOR ' + name)
             for mutated in (True, False):
-                path.write_text(original.replace(before, after) if mutated else original)
+                path.write_text(native_mutations.replace(original, before, after) if mutated else original)
                 label = ('mutant-' if mutated else 'control-') + name
-                build = M.capture(label + '-build', ['zsh', '-f', 'dev/dune.sh', 'build'], cwd=copy, timeout=120)
+                build = M.capture(label + '-build', ['zsh', '-f', 'dev/build.sh', 'build', 'bin/assay'], cwd=copy, timeout=120)
                 require(build.returncode == 0, 'BUNDLE-MUTANT-BUILD ' + label)
                 result = M.capture(label, ['python3', '-P', 'dev/proof-bundle-test.py', 'witness', case], cwd=copy)
                 require(result.returncode == (1 if mutated else 0) and

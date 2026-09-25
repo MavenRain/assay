@@ -4,6 +4,10 @@ import hashlib
 import importlib.util
 import json
 from pathlib import Path
+
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import native_mutations
 import shutil
 import sys
 import tempfile
@@ -173,30 +177,19 @@ def witness(name):
 
 
 def mutants():
-    cases = [
-        ('EVIDENCE', 'invariant_proof evidence (Atomic ty)', 'invariant_proof [] (Atomic ty)',
-         'anonymous-add', 'M1-TOOL anonymous-add'),
-        ('SUB-ORDER', 'else app "Le" [b; a]', 'else app "Le" [a; b]',
-         'bound-sub', 'M1-TOOL bound-sub'),
-        ('BUNDLE', '| Bundle (a, b) -> evidence_for (project false term) b (evidence_for (project true term) a evidence)',
-         '| Bundle (a, _b) -> evidence_for (project true term) a evidence', 'bundle', 'M1-TOOL bundle'),
-        ('SUPPLIED', '~some:(fun term () -> let* _ty, term = proof 0 env (Some (Atomic ty)) term in Ok term) term () in',
-         '~some:(fun _term () -> Ok (invariant_proof evidence (Atomic ty))) term () in',
-         'explicit-invalid', 'ERROR-REFUSAL ia-explicit-invalid'),
-    ]
+    cases = native_mutations.load(__file__)
     captures = []
     with tempfile.TemporaryDirectory(prefix='assay-inferred-arithmetic-mutants-') as temporary:
         copy = Path(temporary) / 'copy'
-        shutil.copytree(ROOT, copy, ignore=shutil.ignore_patterns('.*', '_build', '.gatework',
-            '.lake', 'vendor', 'validation', '__pycache__'))
-        path = copy / 'emit/contract.ml'
+        native_mutations.copy_project(ROOT, copy)
+        path = copy / 'src/emitter.bend'
         original = path.read_text()
         for name, before, after, case, marker in cases:
-            require(original.count(before) == 1, 'IA-MUTANT-ANCHOR ' + name)
+            require(native_mutations.count(original, before) == 1, 'IA-MUTANT-ANCHOR ' + name)
             for mutated in (True, False):
-                path.write_text(original.replace(before, after) if mutated else original)
+                path.write_text(native_mutations.replace(original, before, after) if mutated else original)
                 label = ('mutant-' if mutated else 'control-') + name
-                build = M.capture(label + '-build', ['zsh', '-f', 'dev/dune.sh', 'build'], cwd=copy, timeout=120)
+                build = M.capture(label + '-build', ['zsh', '-f', 'dev/build.sh', 'build', 'bin/assay'], cwd=copy, timeout=120)
                 require(build.returncode == 0, 'IA-MUTANT-BUILD ' + label)
                 result = M.capture(label, ['python3', '-P', 'dev/inferred-arithmetic-test.py', 'witness', case], cwd=copy)
                 require(result.returncode == (1 if mutated else 0) and (not mutated or marker in result.stdout),

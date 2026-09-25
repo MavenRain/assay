@@ -4,6 +4,10 @@ import hashlib
 import importlib.util
 import json
 from pathlib import Path
+
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import native_mutations
 import shutil
 import subprocess
 import sys
@@ -11,7 +15,7 @@ import tempfile
 
 ROOT = Path(__file__).resolve().parent.parent
 WORK = ROOT / '.gatework/invariants'
-BINARY = ROOT / '_build/default/bin/assay.exe'
+BINARY = ROOT / '_build/bin/assay'
 spec = importlib.util.spec_from_file_location('invariant_guards', ROOT / 'dev/guard-test.py')
 G = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(G)
@@ -215,28 +219,18 @@ def refusals(only=None):
 
 
 def mutants():
-    cases = [
-        ('CONSTRUCTOR', 'obligations predicates invariants initial [] "Type 0" "Eff"',
-         'obligations predicates [] initial [] "Type 0" "Eff"', 'constructor'),
-        ('FINAL', 'obligations changed state evidence "Tx" (app "done" [v])',
-         'let _ = changed in obligations [] state evidence "Tx" (app "done" [v])', 'final'),
-        ('STORE', 'lower index env ((field.text, Word_value v) :: List.remove_assoc field.text state)',
-         'lower index env state', 'stale-store'),
-        ('SECOND', 'invariants (Ok next)',
-         '(List.filteri (fun i _row -> i = 0) invariants) (Ok next)', 'second'),
-    ]
+    cases = native_mutations.load(__file__)
     with tempfile.TemporaryDirectory(prefix='assay-invariant-mutants-') as temporary:
         copy = Path(temporary) / 'copy'
-        shutil.copytree(ROOT, copy, ignore=shutil.ignore_patterns('.*', '_build', '.gatework',
-            '.lake', 'vendor', 'validation', '__pycache__'))
-        path = copy / 'emit/contract.ml'
+        native_mutations.copy_project(ROOT, copy)
+        path = copy / 'src/emitter.bend'
         original = path.read_text()
         for name, before, after, witness in cases:
-            require(original.count(before) == 1, 'INVARIANT-MUTANT-ANCHOR ' + name)
+            require(native_mutations.count(original, before) == 1, 'INVARIANT-MUTANT-ANCHOR ' + name)
             for mutated in (True, False):
-                path.write_text(original.replace(before, after) if mutated else original)
+                path.write_text(native_mutations.replace(original, before, after) if mutated else original)
                 label = ('mutant-' if mutated else 'control-') + name
-                build = M.capture(label + '-build', ['zsh', '-f', 'dev/dune.sh', 'build'], cwd=copy, timeout=120)
+                build = M.capture(label + '-build', ['zsh', '-f', 'dev/build.sh', 'build', 'bin/assay'], cwd=copy, timeout=120)
                 require(build.returncode == 0, 'INVARIANT-MUTANT-BUILD ' + label)
                 result = M.capture(label, ['python3', '-P', 'dev/invariant-test.py', 'witness', witness], cwd=copy)
                 require(result.returncode == (1 if mutated else 0) and

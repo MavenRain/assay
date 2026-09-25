@@ -18,18 +18,18 @@ def digest(path):
 
 def manifest(root):
     data = json.loads((root / 'corpus/MANIFEST.json').read_text())
-    require(data['version'] == 1, 'CORPUS-VERSION')
+    require(data['version'] == 2, 'CORPUS-VERSION')
     cases = data['cases']
     require(len(cases) == 11 and len({row['path'] for row in cases}) == 11, 'CORPUS-COUNT')
     require({row['group'] for row in cases} == {'contracts', 'proofs'}, 'CORPUS-GROUP')
     actual = {str(path.relative_to(root)) for path in (root / 'corpus').rglob('*.asy')}
     require(actual == {row['path'] for row in cases}, 'CORPUS-INVENTORY')
-    for row in cases + data['ocaml']:
+    for row in cases + data['bend']:
         path = Path(row['path'])
         require(not path.is_absolute() and '..' not in path.parts, 'CORPUS-PATH')
         require(digest(root / path) == row['sha256'], 'CORPUS-HASH ' + str(path))
         require(len((root / path).read_text().splitlines()) == row['lines'], 'CORPUS-LINES ' + str(path))
-    require(len(data['ocaml']) == 24, 'OCAML-COUNT')
+    require(len(data['bend']) == 6, 'BEND-COUNT')
     return data
 
 

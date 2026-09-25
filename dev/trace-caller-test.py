@@ -44,7 +44,7 @@ def require(ok, message):
 
 def main():
     WORK.mkdir(parents=True, exist_ok=True)
-    binary = str(ROOT / '_build/default/bin/assay.exe')
+    binary = str(ROOT / '_build/bin/assay')
     evm = shutil.which('evm')
     require(evm is not None, 'TRACE-CALLER missing evm')
     receipts, live, faults, refused = [], [], [], []

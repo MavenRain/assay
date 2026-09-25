@@ -6,15 +6,20 @@ from pathlib import Path
 import re
 import sys
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from bend_source import declarations
+
 SHAPES = r"SColl|SMu|SNu|SPar|SPi"
 ROW = re.compile(r"^\|\s*`(" + SHAPES + r")\b[^`]*`\s*\|\s*([^|]*?)\s*\|\s*([^|]*?)\s*\|\s*$")
 
 
 def declared_shapes(root):
     """The constructor names of the carried shape sum, in declaration order."""
-    text = (root / "lib/shape.ml").read_text()
+    source = (root / "src/kernel.bend").read_text()
+    text = next(record.source for record in declarations(source, "src/kernel.bend")
+                if record.kind == "type" and record.name == "Shape")
     return [match.group(1) for match in
-            re.finditer(r"^\s*\|\s*(" + SHAPES + r")\s+of\b", text, re.M)]
+            re.finditer(r"^\s*Shape\.(" + SHAPES + r")\{", text, re.M)]
 
 
 def table_rows(spec):
@@ -49,16 +54,16 @@ def audit_spec(root):
     for number, name, milestone, refuser in rows:
         if not re.fullmatch(r"M[0-9]", milestone):
             bad.append(f"SPEC.md:{number}: {name} names no milestone")
-        if refuser != "admitted" and not (root / "lib" / refuser).exists():
+        if refuser != "admitted" and not (root / "src" / refuser).exists():
             bad.append(f"SPEC.md:{number}: {name} cites the absent refuser {refuser}")
         if named.count(name) != 1:
             bad.append(f"SPEC.md:{number}: {name} has more than one refusal row")
     for name in declared_shapes(root):
         if name not in named:
-            bad.append(f"SPEC.md: {name} of lib/shape.ml has no refusal row")
+            bad.append(f"SPEC.md: {name} of src/kernel.bend has no refusal row")
     for name in named:
         if name not in declared_shapes(root):
-            bad.append(f"SPEC.md: {name} is named with no constructor in lib/shape.ml")
+            bad.append(f"SPEC.md: {name} is named with no constructor in src/kernel.bend")
     admitted = [name for _number, name, _milestone, refuser in rows
                 if refuser == "admitted"]
     if listed(spec, "shapes declared") != named:
@@ -69,19 +74,30 @@ def audit_spec(root):
 
 
 def check(root):
-    if not (root / "lib").is_dir():
-        print("R0-AUDIT FAIL: missing lib")
+    if not (root / "src/kernel.bend").is_file():
+        print("R0-AUDIT FAIL: missing native kernel")
         return 1
-    allowed = {"lib/shape.ml", "lib/rules.ml", "lib/pp.ml", "lib/erase.ml",
-               "emit/emit.ml", "emit/recognize.ml"}
+    allowed = {"Shape", "Rules", "Pp", "Erase", "Emit", "Recognize"}
     bad = []
-    for folder in ("lib", "emit", "asm", "keccak", "abi"):
-        for path in (root / folder).rglob("*.ml*"):
-            relative = str(path.relative_to(root))
-            if relative not in allowed:
-                for number, line in enumerate(path.read_text().splitlines(), 1):
+    for path in (root / "src").rglob("*.bend"):
+        if path.name in ("tests.bend", "cli.bend", "frontend.bend"):
+            # Erasure is scanned separately below; the surface grammar may name shapes.
+            if path.name != "frontend.bend":
+                continue
+        source = path.read_text()
+        records = list(declarations(source, path.relative_to(root)))
+        preamble = source.split(records[0].source, 1)[0] if records else source
+        if re.search(SHAPES, preamble):
+            bad.append(f"{path.relative_to(root)}: shape named outside an allowed declaration")
+        for record in records:
+            parts = record.name.split(".")
+            owner = parts[1].split("_")[0] if parts[0] in ("Local", "Case", "Get", "Match", "Equal") else parts[0]
+            if path.name == "frontend.bend" and owner != "Erase":
+                continue
+            if owner not in allowed:
+                for number, line in enumerate(record.source.splitlines(), 1):
                     if re.search(SHAPES, line):
-                        bad.append(f"{relative}:{number}:{line}")
+                        bad.append(f"{record.path}:{record.name}:{number}:{line[:200]}")
     bad.extend(audit_spec(root))
     for line in bad:
         print(line)

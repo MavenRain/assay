@@ -5,6 +5,10 @@ import importlib.util
 import itertools
 import json
 from pathlib import Path
+
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import native_mutations
 import shutil
 import subprocess
 import sys
@@ -187,29 +191,19 @@ def refusals(only_schema=False):
 
 
 def mutants():
-    rows = [
-        ('SURFACE', 'emit/contract.ml', 'next (Context (Recognize.Callvalue, name)) rest',
-         'next (Bind (name, Literal { name with text = "0" })) rest', 'probe', 'PAYABLE-MODEL cv-observe'),
-        ('EMITTER', 'emit/emit.ml', 'String.uppercase_ascii (R.context_name source)',
-         '(if source = R.Callvalue then "CALLER" else String.uppercase_ascii (R.context_name source))',
-         'probe', 'PAYABLE-EVM cv-observe'),
-        ('MODEL', 'emit/model.ml', 'Recognize.Callvalue -> Ok input.value',
-         'Recognize.Callvalue -> Ok input.caller', 'probe', 'PAYABLE-MODEL cv-observe'),
-        ('SCHEMA', 'emit/recognize.ml', 'context_name source ^ " : (Word 256 -> Tx) -> Tx',
-         'context_name source ^ " : (Word 160 -> Tx) -> Tx', 'schema', 'CALLVALUE-REFUSAL wrong-width'),
-    ]
+    rows = native_mutations.load(__file__)
     records = []
     with tempfile.TemporaryDirectory(prefix='assay-callvalue-mutants-') as temporary:
         copy = Path(temporary) / 'copy'
-        shutil.copytree(ROOT, copy, ignore=shutil.ignore_patterns('.*', '_build', 'vendor', 'validation', '__pycache__'))
+        native_mutations.copy_project(ROOT, copy)
         for name, file, before, after, mode, marker in rows:
             path = copy / file
             original = path.read_text()
-            require(original.count(before) == 1, 'CALLVALUE-MUTANT anchor ' + name)
+            require(native_mutations.count(original, before) == 1, 'CALLVALUE-MUTANT anchor ' + name)
             for mutated in (True, False):
-                path.write_text(original.replace(before, after) if mutated else original)
+                path.write_text(native_mutations.replace(original, before, after) if mutated else original)
                 label = ('mutant-' if mutated else 'control-') + name
-                build = C.capture(label + '-build', ['zsh', '-f', 'dev/dune.sh', 'build'], cwd=copy, timeout=120)
+                build = C.capture(label + '-build', ['zsh', '-f', 'dev/build.sh', 'build', 'bin/assay'], cwd=copy, timeout=120)
                 require(build.returncode == 0, 'CALLVALUE-MUTANT build ' + label)
                 result = C.capture(label, ['python3', '-P', 'dev/callvalue-test.py', mode], cwd=copy, timeout=90)
                 require(result.returncode == (1 if mutated else 0) and (not mutated or marker in result.stdout),

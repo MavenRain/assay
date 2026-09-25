@@ -1,0 +1,131 @@
+{
+  "source": "src/listing.bend",
+  "cases": [
+    [
+      "STACK-EFFECT",
+      "src/assembler.bend",
+      [
+        {
+          "definition": "Asm.table",
+          "sha256": "afe0e5edf7ed125b97c125a1cb0c09101b36e696b0d7dd5c9b2b4161a8a925ba",
+          "replacement": "@unsafe\ndef Asm.table() -> ListOf(Asm.Operation):\n  Con{Asm.op(Big.zero(), \"STOP\", Big.zero(), Big.zero()), Con{Asm.op(Big.one(), \"ADD\", Big.one(), Big.one()), Con{Asm.op(Big.of_nat(2n), \"MUL\", Big.of_nat(2n), Big.one()), Con{Asm.op(Big.of_nat(3n), \"SUB\", Big.of_nat(2n), Big.one()), Con{Asm.op(Big.of_nat(4n), \"DIV\", Big.of_nat(2n), Big.one()), Con{Asm.op(Big.of_nat(5n), \"SDIV\", Big.of_nat(2n), Big.one()), Con{Asm.op(Big.of_nat(6n), \"MOD\", Big.of_nat(2n), Big.one()), Con{Asm.op(Big.of_nat(7n), \"SMOD\", Big.of_nat(2n), Big.one()), Con{Asm.op(Big.of_nat(8n), \"ADDMOD\", Big.of_nat(3n), Big.one()), Con{Asm.op(Big.of_nat(9n), \"MULMOD\", Big.of_nat(3n), Big.one()), Con{Asm.op(Big.of_nat(10n), \"EXP\", Big.of_nat(2n), Big.one()), Con{Asm.op(Big.of_nat(11n), \"SIGNEXTEND\", Big.of_nat(2n), Big.one()), Con{Asm.op(Big.of_nat(16n), \"LT\", Big.of_nat(2n), Big.one()), Con{Asm.op(Big.of_nat(17n), \"GT\", Big.of_nat(2n), Big.one()), Con{Asm.op(Big.of_nat(18n), \"SLT\", Big.of_nat(2n), Big.one()), Con{Asm.op(Big.of_nat(19n), \"SGT\", Big.of_nat(2n), Big.one()), Con{Asm.op(Big.of_nat(20n), \"EQ\", Big.of_nat(2n), Big.one()), Con{Asm.op(Big.of_nat(21n), \"ISZERO\", Big.one(), Big.one()), Con{Asm.op(Big.of_nat(22n), \"AND\", Big.of_nat(2n), Big.one()), Con{Asm.op(Big.of_nat(23n), \"OR\", Big.of_nat(2n), Big.one()), Con{Asm.op(Big.of_nat(24n), \"XOR\", Big.of_nat(2n), Big.one()), Con{Asm.op(Big.of_nat(25n), \"NOT\", Big.one(), Big.one()), Con{Asm.op(Big.of_nat(26n), \"BYTE\", Big.of_nat(2n), Big.one()), Con{Asm.op(Big.of_nat(27n), \"SHL\", Big.of_nat(2n), Big.one()), Con{Asm.op(Big.of_nat(28n), \"SHR\", Big.of_nat(2n), Big.one()), Con{Asm.op(Big.of_nat(29n), \"SAR\", Big.of_nat(2n), Big.one()), Con{Asm.op(Big.of_nat(32n), \"KECCAK256\", Big.of_nat(2n), Big.one()), Con{Asm.op(Big.of_nat(48n), \"ADDRESS\", Big.zero(), Big.one()), Con{Asm.op(Big.of_nat(49n), \"BALANCE\", Big.one(), Big.one()), Con{Asm.op(Big.of_nat(50n), \"ORIGIN\", Big.zero(), Big.one()), Con{Asm.op(Big.of_nat(51n), \"CALLER\", Big.zero(), Big.one()), Con{Asm.op(Big.of_nat(52n), \"CALLVALUE\", Big.zero(), Big.one()), Con{Asm.op(Big.of_nat(53n), \"CALLDATALOAD\", Big.one(), Big.one()), Con{Asm.op(Big.of_nat(54n), \"CALLDATASIZE\", Big.zero(), Big.one()), Con{Asm.op(Big.of_nat(55n), \"CALLDATACOPY\", Big.of_nat(3n), Big.zero()), Con{Asm.op(Big.of_nat(56n), \"CODESIZE\", Big.zero(), Big.one()), Con{Asm.op(Big.of_nat(57n), \"CODECOPY\", Big.of_nat(3n), Big.zero()), Con{Asm.op(Big.of_nat(58n), \"GASPRICE\", Big.zero(), Big.one()), Con{Asm.op(Big.of_nat(59n), \"EXTCODESIZE\", Big.one(), Big.one()), Con{Asm.op(Big.of_nat(60n), \"EXTCODECOPY\", Big.of_nat(4n), Big.zero()), Con{Asm.op(Big.of_nat(61n), \"RETURNDATASIZE\", Big.zero(), Big.one()), Con{Asm.op(Big.of_nat(62n), \"RETURNDATACOPY\", Big.of_nat(3n), Big.zero()), Con{Asm.op(Big.of_nat(63n), \"EXTCODEHASH\", Big.one(), Big.one()), Con{Asm.op(Big.of_nat(64n), \"BLOCKHASH\", Big.one(), Big.one()), Con{Asm.op(Big.of_nat(65n), \"COINBASE\", Big.zero(), Big.one()), Con{Asm.op(Big.of_nat(66n), \"TIMESTAMP\", Big.zero(), Big.one()), Con{Asm.op(Big.of_nat(67n), \"NUMBER\", Big.zero(), Big.one()), Con{Asm.op(Big.of_nat(68n), \"PREVRANDAO\", Big.zero(), Big.one()), Con{Asm.op(Big.of_nat(69n), \"GASLIMIT\", Big.zero(), Big.one()), Con{Asm.op(Big.of_nat(70n), \"CHAINID\", Big.zero(), Big.one()), Con{Asm.op(Big.of_nat(71n), \"SELFBALANCE\", Big.zero(), Big.one()), Con{Asm.op(Big.of_nat(72n), \"BASEFEE\", Big.zero(), Big.one()), Con{Asm.op(Big.of_nat(73n), \"BLOBHASH\", Big.one(), Big.one()), Con{Asm.op(Big.of_nat(74n), \"BLOBBASEFEE\", Big.zero(), Big.one()), Con{Asm.op(Big.of_nat(80n), \"POP\", Big.one(), Big.zero()), Con{Asm.op(Big.of_nat(81n), \"MLOAD\", Big.one(), Big.one()), Con{Asm.op(Big.of_nat(82n), \"MSTORE\", Big.of_nat(2n), Big.zero()), Con{Asm.op(Big.of_nat(83n), \"MSTORE8\", Big.of_nat(2n), Big.zero()), Con{Asm.op(Big.of_nat(84n), \"SLOAD\", Big.one(), Big.one()), Con{Asm.op(Big.of_nat(85n), \"SSTORE\", Big.of_nat(2n), Big.zero()), Con{Asm.op(Big.of_nat(86n), \"JUMP\", Big.one(), Big.zero()), Con{Asm.op(Big.of_nat(87n), \"JUMPI\", Big.of_nat(2n), Big.zero()), Con{Asm.op(Big.of_nat(88n), \"PC\", Big.zero(), Big.one()), Con{Asm.op(Big.of_nat(89n), \"MSIZE\", Big.zero(), Big.one()), Con{Asm.op(Big.of_nat(90n), \"GAS\", Big.zero(), Big.one()), Con{Asm.op(Big.of_nat(91n), \"JUMPDEST\", Big.zero(), Big.zero()), Con{Asm.op(Big.of_nat(92n), \"TLOAD\", Big.one(), Big.one()), Con{Asm.op(Big.of_nat(93n), \"TSTORE\", Big.of_nat(2n), Big.zero()), Con{Asm.op(Big.of_nat(94n), \"MCOPY\", Big.of_nat(3n), Big.zero()), Con{Asm.op(Big.of_nat(160n), \"LOG0\", Big.of_nat(2n), Big.zero()), Con{Asm.op(Big.of_nat(161n), \"LOG1\", Big.of_nat(3n), Big.zero()), Con{Asm.op(Big.of_nat(162n), \"LOG2\", Big.of_nat(4n), Big.zero()), Con{Asm.op(Big.of_nat(163n), \"LOG3\", Big.of_nat(5n), Big.zero()), Con{Asm.op(Big.of_nat(164n), \"LOG4\", Big.of_nat(6n), Big.zero()), Con{Asm.op(Big.of_nat(240n), \"CREATE\", Big.of_nat(3n), Big.one()), Con{Asm.op(Big.of_nat(241n), \"CALL\", Big.of_nat(7n), Big.one()), Con{Asm.op(Big.of_nat(242n), \"CALLCODE\", Big.of_nat(7n), Big.one()), Con{Asm.op(Big.of_nat(243n), \"RETURN\", Big.of_nat(2n), Big.zero()), Con{Asm.op(Big.of_nat(244n), \"DELEGATECALL\", Big.of_nat(6n), Big.one()), Con{Asm.op(Big.of_nat(245n), \"CREATE2\", Big.of_nat(4n), Big.one()), Con{Asm.op(Big.of_nat(250n), \"STATICCALL\", Big.of_nat(6n), Big.one()), Con{Asm.op(Big.of_nat(253n), \"REVERT\", Big.of_nat(2n), Big.zero()), Con{Asm.op(Big.of_nat(254n), \"INVALID\", Big.zero(), Big.zero()), Con{Asm.op(Big.of_nat(255n), \"SELFDESTRUCT\", Big.one(), Big.zero()), Nil{}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}\n\n"
+        }
+      ],
+      null,
+      "stack",
+      "ASM-CASE add-underflow FAIL"
+    ],
+    [
+      "EDGE-HEIGHT",
+      "src/assembler.bend",
+      [
+        {
+          "definition": "Asm.target",
+          "sha256": "2acb23331eb1baa4b238dfe629ea51e095dc7306a288ba1057e1cae8f9ea23c3",
+          "replacement": "@unsafe\ndef Asm.target(-q0: Quant, -A0: Kind(q0), +labels_868: Assoc<q0, String, Tuple2<q0, &2, A0, Asm.Block>>, +source_869: String, +height_870: Big, +name_871: String) -> Result<&2, q0, Asm.Error, Tuple2<q0, &2, A0, Asm.Block>>:\n  Match.Result(q0, Tuple2<q0, &2, A0, Asm.Block>, &2, Asm.Error, q0, Result<&2, q0, Asm.Error, Tuple2<q0, &2, A0, Asm.Block>>, (+local636 => (Match.Maybe(q0, Tuple2<q0, &2, A0, Asm.Block>, q0, Result<&2, q0, Asm.Error, Tuple2<q0, &2, A0, Asm.Block>>, local636, _ => Fail{Asm.Error.Unknown_label{name_871}}, +x => Done{x})))(Assoc.find(q0, String, Tuple2<q0, &2, A0, Asm.Block>, (+a => +b => NativeString.order(a, b)), name_871, labels_868)), +item642 => ((+local638 => ((+scrut639 = local638\n  Match.Tuple2(q0, A0, &2, Asm.Block, q0, Result<&2, q0, Asm.Error, Tuple2<q0, &2, A0, Asm.Block>>, scrut639, +p640 => +p641 => (Native.choose(q0, Result<&2, q0, Asm.Error, Tuple2<q0, &2, A0, Asm.Block>>, Big.is_lt(height_870, Big.zero()), _ => (Fail{Asm.Error.Height_mismatch{source_869, name_871, height_870, Get.Asm.Block.stack_in(p641)}}), _ => (Done{Tup2{p640, p641}})))))))(item642)), +item643 => Fail{item643})\n\n"
+        }
+      ],
+      null,
+      "stack",
+      "ASM-CASE goto-height FAIL"
+    ],
+    [
+      "JUMP-PEAK",
+      "src/assembler.bend",
+      [
+        {
+          "definition": "Asm.step",
+          "sha256": "2931d631293ae8b69c09d72517bb32abc7c9a30d37d56424a6996ace7202e745",
+          "replacement": "@unsafe\ndef Asm.step(+label_696: String, +param_701: TupleOf2(Big, Big), +row_699: Asm.Operation) -> Asm.Result(TupleOf2(Big, Big)):\n  (+scrut521 = param_701\n  Match.Tuple2(&2, Big, &2, Big, &2, Asm.Result(TupleOf2(Big, Big)), scrut521, +p522 => +p523 => (Native.choose(&2, Asm.Result(TupleOf2(Big, Big)), Big.is_lt(p522, Get.Asm.Operation.pops(row_699)), _ => (Fail{Asm.Error.Underflow{label_696, Get.Asm.Operation.name(row_699), p522, Get.Asm.Operation.pops(row_699)}}), _ => ((+scrut524 = {NativeInt.add(NativeInt.sub(p522, Get.Asm.Operation.pops(row_699)), Get.Asm.Operation.pushes(row_699)) : Big}\n  Native.choose(&2, Asm.Result(TupleOf2(Big, Big)), Big.when(Bool, Big.is_lt(Big.of_nat(1024n), scrut524), _ => (Bool.not(NativeString.equal(Get.Asm.Operation.name(row_699), \"PUSH-label\"))), _ => (False{})), _ => (Fail{Asm.Error.Overflow{label_696, Get.Asm.Operation.name(row_699), scrut524}}), _ => (Done{Tup2{scrut524, Big.maximum(p523, scrut524)}}))))))))\n\n"
+        }
+      ],
+      null,
+      "stack",
+      "ASM-CASE branch-overflow FAIL"
+    ],
+    [
+      "LABEL-PC",
+      "src/assembler.bend",
+      [
+        {
+          "definition": "Asm.address",
+          "sha256": "3d0bc7fedbe26ce097ae6e128641a95cf28cac89030c760757f008d9a95a447e",
+          "replacement": "@unsafe\ndef Asm.address(+labels_877: Assoc<&2, String, TupleOf2(Big, Asm.Block)>, +source_878: String, +height_879: Big, +n_880: Big, +name_881: String) -> Asm.Result(String):\n  Match.Result(&2, TupleOf2(Big, Asm.Block), &2, Asm.Error, &2, Asm.Result(String), Asm.target(&2, Big, labels_877, source_878, height_879, name_881), +item650 => ((+local645 => ((+scrut646 = local645\n  Match.Tuple2(&2, Big, &2, Asm.Block, &2, Asm.Result(String), scrut646, +p647 => +p648 => (Native.choose(&2, Asm.Result(String), Bool.not(Get.Asm.Block.destination(p648)), _ => (Fail{Asm.Error.Not_destination{name_881}}), _ => ((+scrut649 = {String.concat([Big.hex(NativeInt.add(p647, Big.one()), False{})]) : String}\n  Native.choose(&2, Asm.Result(String), Big.is_lt(NativeInt.mul(n_880, Big.of_nat(2n)), Big.of_nat(String.length(scrut649))), _ => (Fail{Asm.Error.Label_overflow{name_881, n_880}}), _ => (Done{String.append(Asm.byte_hex(NativeInt.add(Big.of_nat(95n), n_880)), String.append(NativeString.repeat(Big.to_nat(NativeInt.sub(NativeInt.mul(n_880, Big.of_nat(2n)), Big.of_nat(String.length(scrut649)))), Char.from_u32(48)), scrut649))}))))))))))(item650)), +item651 => Fail{item651})\n\n"
+        }
+      ],
+      null,
+      "stack",
+      "ASM-CASE ref20 FAIL"
+    ],
+    [
+      "COMPACT-LIMIT",
+      "src/assembler.bend",
+      [
+        {
+          "definition": "Asm.assemble_compact",
+          "sha256": "b2dfa3ff4ed6499f6816ad9ac996db00b2daf1198eef4474a1e9d8fb56c1d7a9",
+          "replacement": "@unsafe\ndef Asm.assemble_compact(+blocks_946: ListOf(Asm.Block)) -> Asm.Result(Asm):\n  (+scrut8706 = {SeqList.fold(&2, &2, Asm.Block, TupleOf2(Big, ListOf(Asm.Block)), (+local8677 => +local8679 => ((+scrut8680 = local8677\n  Match.Tuple2(&2, Big, &2, ListOf(Asm.Block), &2, TupleOf2(Big, ListOf(Asm.Block)), scrut8680, +p8681 => +p8682 => (((+scrut8692 = {SeqList.fold(&2, &2, Asm.Instruction, Big, (+local8684 => +local8686 => ((+scrut8687 = local8686\nMatch.Asm_Instruction(&2, Big, scrut8687, +p8688 => (NativeInt.add(local8684, Big.one())), +p8689 => (NativeInt.add(NativeInt.add(local8684, Big.one()), Big.shift_right(Big.unsigned(63n, Big.of_nat(String.length(p8689))), Big.to_nat(Big.unsigned(6n, Big.one()))))), +p8690 => (NativeInt.add(local8684, Big.one())), +p8691 => (NativeInt.add(local8684, Big.one())))))), Get.Asm.Block.body(local8679), NativeInt.add(Native.choose(&2, Big, Get.Asm.Block.destination(local8679), _ => (Big.one()), _ => (Big.zero())), Match.Result(&2, Big, &2, Asm.Error, &2, Big, Asm.ending_size(Get.Asm.Block.ending(local8679)), +x => x, _ => (Big.of_nat(256n))))) : Big}\n((+scrut8703 = {(+scrut8693 = {Get.Asm.Block.ending(local8679) : Asm.Ending}\nMatch.Asm_Ending(&2, Asm.Ending, scrut8693, +p8694 => (Get.Asm.Block.ending(local8679)), +p8695 => +p8696 => ((+otherwise8697 = {_ => (Get.Asm.Block.ending(local8679)) : Unit -> Asm.Ending}\nNative.choose(&2, Asm.Ending, Big.is_eq(p8695, Big.of_nat(2n)), _ => (Asm.Ending.Goto{Big.one(), p8696}), _ => (otherwise8697(Unit{}))))), +p8698 => +p8699 => +p8700 => ((+otherwise8701 = {_ => (Get.Asm.Block.ending(local8679)) : Unit -> Asm.Ending}\nNative.choose(&2, Asm.Ending, Big.is_eq(p8698, Big.of_nat(2n)), _ => (Asm.Ending.Branch{Big.one(), p8699, p8700}), _ => (otherwise8701(Unit{}))))), +p8702 => (Get.Asm.Block.ending(local8679)))) : Asm.Ending}\nTup2{Big.minimum(Big.of_nat(256n), NativeInt.add(p8681, scrut8692)), Con{MkAsm_Block{Get.Asm.Block.label(local8679), Get.Asm.Block.destination(local8679), Get.Asm.Block.stack_in(local8679), Get.Asm.Block.body(local8679), scrut8703}, p8682}}))))))))), blocks_946, Tup2{Big.zero(), Nil{}}) : TupleOf2(Big, ListOf(Asm.Block))}\n  Match.Tuple2(&2, Big, &2, ListOf(Asm.Block), &2, Asm.Result(Asm), scrut8706, +p8707 => +p8708 => ((+scrut8712 = {(+local8710 => ((+scrut8711 = local8710\n  Asm.assemble(blocks_946)))) : Reusable(Unit, Asm.Result(Asm))}\n  Native.choose(&2, Asm.Result(Asm), Big.is_lt(Big.of_nat(256n), p8707), _ => (scrut8712(Unit{})), _ => ((+local8715 => (Match.Result(&2, Asm, &2, Asm.Error, &2, Asm.Result(Asm), local8715, +x => (+local8718 => (Done{local8718}))(x), +x => (+local8720 => (scrut8712(Unit{})))(x))))(Asm.assemble(List.reverse(&2, Asm.Block, p8708)))))))))\n\n"
+        }
+      ],
+      null,
+      "stack",
+      "ASM-COMPACT FAIL branch-243"
+    ],
+    [
+      "COMPACT-PUSH",
+      "src/assembler.bend",
+      [
+        {
+          "definition": "Asm.assemble_compact",
+          "sha256": "b2dfa3ff4ed6499f6816ad9ac996db00b2daf1198eef4474a1e9d8fb56c1d7a9",
+          "replacement": "@unsafe\ndef Asm.assemble_compact(+blocks_946: ListOf(Asm.Block)) -> Asm.Result(Asm):\n  (+scrut8706 = {SeqList.fold(&2, &2, Asm.Block, TupleOf2(Big, ListOf(Asm.Block)), (+local8677 => +local8679 => ((+scrut8680 = local8677\n  Match.Tuple2(&2, Big, &2, ListOf(Asm.Block), &2, TupleOf2(Big, ListOf(Asm.Block)), scrut8680, +p8681 => +p8682 => (((+scrut8692 = {SeqList.fold(&2, &2, Asm.Instruction, Big, (+local8684 => +local8686 => ((+scrut8687 = local8686\nMatch.Asm_Instruction(&2, Big, scrut8687, +p8688 => (NativeInt.add(local8684, Big.one())), +p8689 => (NativeInt.add(NativeInt.add(local8684, Big.one()), Big.shift_right(Big.unsigned(63n, Big.of_nat(String.length(p8689))), Big.to_nat(Big.unsigned(6n, Big.of_nat(2n)))))), +p8690 => (NativeInt.add(local8684, Big.one())), +p8691 => (NativeInt.add(local8684, Big.one())))))), Get.Asm.Block.body(local8679), NativeInt.add(Native.choose(&2, Big, Get.Asm.Block.destination(local8679), _ => (Big.one()), _ => (Big.zero())), Match.Result(&2, Big, &2, Asm.Error, &2, Big, Asm.ending_size(Get.Asm.Block.ending(local8679)), +x => x, _ => (Big.of_nat(256n))))) : Big}\n((+scrut8703 = {(+scrut8693 = {Get.Asm.Block.ending(local8679) : Asm.Ending}\nMatch.Asm_Ending(&2, Asm.Ending, scrut8693, +p8694 => (Get.Asm.Block.ending(local8679)), +p8695 => +p8696 => ((+otherwise8697 = {_ => (Get.Asm.Block.ending(local8679)) : Unit -> Asm.Ending}\nNative.choose(&2, Asm.Ending, Big.is_eq(p8695, Big.of_nat(2n)), _ => (Asm.Ending.Goto{Big.one(), p8696}), _ => (otherwise8697(Unit{}))))), +p8698 => +p8699 => +p8700 => ((+otherwise8701 = {_ => (Get.Asm.Block.ending(local8679)) : Unit -> Asm.Ending}\nNative.choose(&2, Asm.Ending, Big.is_eq(p8698, Big.of_nat(2n)), _ => (Asm.Ending.Branch{Big.one(), p8699, p8700}), _ => (otherwise8701(Unit{}))))), +p8702 => (Get.Asm.Block.ending(local8679)))) : Asm.Ending}\nTup2{Big.minimum(Big.of_nat(256n), NativeInt.add(p8681, scrut8692)), Con{MkAsm_Block{Get.Asm.Block.label(local8679), Get.Asm.Block.destination(local8679), Get.Asm.Block.stack_in(local8679), Get.Asm.Block.body(local8679), scrut8703}, p8682}}))))))))), blocks_946, Tup2{Big.zero(), Nil{}}) : TupleOf2(Big, ListOf(Asm.Block))}\n  Match.Tuple2(&2, Big, &2, ListOf(Asm.Block), &2, Asm.Result(Asm), scrut8706, +p8707 => +p8708 => ((+scrut8712 = {(+local8710 => ((+scrut8711 = local8710\n  Asm.assemble(blocks_946)))) : Reusable(Unit, Asm.Result(Asm))}\n  Native.choose(&2, Asm.Result(Asm), Big.is_lt(Big.of_nat(255n), p8707), _ => (scrut8712(Unit{})), _ => ((+local8715 => (Match.Result(&2, Asm, &2, Asm.Error, &2, Asm.Result(Asm), local8715, +x => (+local8718 => (Done{local8718}))(x), +x => (+local8720 => (scrut8712(Unit{})))(x))))(Asm.assemble(List.reverse(&2, Asm.Block, p8708)))))))))\n\n"
+        }
+      ],
+      null,
+      "stack",
+      "ASM-COMPACT FAIL payload-256-1"
+    ],
+    [
+      "COMPACT-BRANCH",
+      "src/assembler.bend",
+      [
+        {
+          "definition": "Asm.assemble_compact",
+          "sha256": "b2dfa3ff4ed6499f6816ad9ac996db00b2daf1198eef4474a1e9d8fb56c1d7a9",
+          "replacement": "@unsafe\ndef Asm.assemble_compact(+blocks_946: ListOf(Asm.Block)) -> Asm.Result(Asm):\n  (+scrut8706 = {SeqList.fold(&2, &2, Asm.Block, TupleOf2(Big, ListOf(Asm.Block)), (+local8677 => +local8679 => ((+scrut8680 = local8677\n  Match.Tuple2(&2, Big, &2, ListOf(Asm.Block), &2, TupleOf2(Big, ListOf(Asm.Block)), scrut8680, +p8681 => +p8682 => (((+scrut8692 = {SeqList.fold(&2, &2, Asm.Instruction, Big, (+local8684 => +local8686 => ((+scrut8687 = local8686\nMatch.Asm_Instruction(&2, Big, scrut8687, +p8688 => (NativeInt.add(local8684, Big.one())), +p8689 => (NativeInt.add(NativeInt.add(local8684, Big.one()), Big.shift_right(Big.unsigned(63n, Big.of_nat(String.length(p8689))), Big.to_nat(Big.unsigned(6n, Big.one()))))), +p8690 => (NativeInt.add(local8684, Big.one())), +p8691 => (NativeInt.add(local8684, Big.one())))))), Get.Asm.Block.body(local8679), NativeInt.add(Native.choose(&2, Big, Get.Asm.Block.destination(local8679), _ => (Big.one()), _ => (Big.zero())), Match.Result(&2, Big, &2, Asm.Error, &2, Big, Asm.ending_size(Get.Asm.Block.ending(local8679)), +x => x, _ => (Big.of_nat(256n))))) : Big}\n((+scrut8703 = {(+scrut8693 = {Get.Asm.Block.ending(local8679) : Asm.Ending}\nMatch.Asm_Ending(&2, Asm.Ending, scrut8693, +p8694 => (Get.Asm.Block.ending(local8679)), +p8695 => +p8696 => ((+otherwise8697 = {_ => (Get.Asm.Block.ending(local8679)) : Unit -> Asm.Ending}\nNative.choose(&2, Asm.Ending, Big.is_eq(p8695, Big.of_nat(2n)), _ => (Asm.Ending.Goto{Big.one(), p8696}), _ => (otherwise8697(Unit{}))))), +p8698 => +p8699 => +p8700 => ((+otherwise8701 = {_ => (Get.Asm.Block.ending(local8679)) : Unit -> Asm.Ending}\nNative.choose(&2, Asm.Ending, Big.is_eq(p8698, Big.of_nat(2n)), _ => (Asm.Ending.Branch{Big.of_nat(2n), p8699, p8700}), _ => (otherwise8701(Unit{}))))), +p8702 => (Get.Asm.Block.ending(local8679)))) : Asm.Ending}\nTup2{Big.minimum(Big.of_nat(256n), NativeInt.add(p8681, scrut8692)), Con{MkAsm_Block{Get.Asm.Block.label(local8679), Get.Asm.Block.destination(local8679), Get.Asm.Block.stack_in(local8679), Get.Asm.Block.body(local8679), scrut8703}, p8682}}))))))))), blocks_946, Tup2{Big.zero(), Nil{}}) : TupleOf2(Big, ListOf(Asm.Block))}\n  Match.Tuple2(&2, Big, &2, ListOf(Asm.Block), &2, Asm.Result(Asm), scrut8706, +p8707 => +p8708 => ((+scrut8712 = {(+local8710 => ((+scrut8711 = local8710\n  Asm.assemble(blocks_946)))) : Reusable(Unit, Asm.Result(Asm))}\n  Native.choose(&2, Asm.Result(Asm), Big.is_lt(Big.of_nat(255n), p8707), _ => (scrut8712(Unit{})), _ => ((+local8715 => (Match.Result(&2, Asm, &2, Asm.Error, &2, Asm.Result(Asm), local8715, +x => (+local8718 => (Done{local8718}))(x), +x => (+local8720 => (scrut8712(Unit{})))(x))))(Asm.assemble(List.reverse(&2, Asm.Block, p8708)))))))))\n\n"
+        }
+      ],
+      null,
+      "stack",
+      "ASM-COMPACT FAIL branch-0"
+    ],
+    [
+      "LISTING-OP",
+      "src/listing.bend",
+      [
+        {
+          "definition": "Listing.decode",
+          "sha256": "da4f175fadd33daf83df3ae8cff9b24f180a0149196de683870680697790cb39",
+          "replacement": "@unsafe\ndef Listing.decode(+hex_587: String) -> ResultOf(Listing.Error, ListOf(Listing.Row)):\n  Native.choose(&2, ResultOf(Listing.Error, ListOf(Listing.Row)), Big.when(Bool, Bool.not(Big.is_eq(Big.logand(Big.of_nat(String.length(hex_587)), Big.one()), Big.zero())), _ => (True{}), _ => (Bool.not(NativeString.all(Listing.hex_char, hex_587)))), _ => (Fail{Listing.Error.Invalid_hex{}}), _ => (Mutation.asm.LISTING_OP.Local.Listing.walk.f1(Big.zero(), Nil{}, Series.to_list(&2, Char, Series.from_string(hex_587)))))\nlaw Mutation.asm.LISTING_OP.Local.Listing.walk.f1: for +pc_589: Big for +acc_590: ListOf(Listing.Row) for +param_634: ListOf(Char) ResultOf(Listing.Error, ListOf(Listing.Row))\n@unsafe\ndef Mutation.asm.LISTING_OP.Local.Listing.walk.f1(pc_589, acc_590, param_634):\n  (+scrut2 = param_634\n  Match.List(&2, Char, &2, ResultOf(Listing.Error, ListOf(Listing.Row)), scrut2, _ => (Done{List.reverse(&2, Listing.Row, acc_590)}), +p3 => +p4 => (Match.List(&2, Char, &2, ResultOf(Listing.Error, ListOf(Listing.Row)), p4, _ => (Fail{Listing.Error.Invalid_hex{}}), +p5 => +p6 => ((+scrut7 = {NativeInt.add(NativeInt.mul(Big.of_nat(16n), Listing.nibble(p3)), Listing.nibble(p5)) : Big}\n  Match.Result(&2, Asm.Operation, &2, Listing.Error, &2, ResultOf(Listing.Error, ListOf(Listing.Row)), (+local16 => (Match.Maybe(&2, Asm.Operation, &2, ResultOf(Listing.Error, Asm.Operation), local16, _ => Fail{Listing.Error.Unknown_opcode{pc_589, scrut7}}, +x => Done{x})))(Asm.decode_opcode(scrut7)), +item29 => ((+local18 => ((+scrut19 = {Native.choose(&2, Big, Big.when(Bool, Big.is_le(Big.of_nat(96n), scrut7), _ => (Big.is_le(scrut7, Big.of_nat(127n))), _ => (False{})), _ => (NativeInt.sub(scrut7, Big.of_nat(95n))), _ => (Big.zero())) : Big}\n  ((+scrut23 = {Listing.take(&2, Char, NativeInt.mul(Big.of_nat(2n), scrut19), Nil{}, p6) : TupleOf2(ListOf(Char), ListOf(Char))}\nMatch.Tuple2(&2, ListOf(Char), &2, ListOf(Char), &2, ResultOf(Listing.Error, ListOf(Listing.Row)), scrut23, +p24 => +p25 => ((+scrut26 = {Big.shift_right(Big.unsigned(63n, Big.of_nat(List.length(&2, Char, p24))), Big.to_nat(Big.unsigned(6n, Big.one()))) : Big}\nNative.choose(&2, ResultOf(Listing.Error, ListOf(Listing.Row)), Bool.not(Big.is_eq(scrut26, scrut19)), _ => (Fail{Listing.Error.Truncated_push{pc_589, scrut19, scrut26}}), _ => ((+scrut27 = {MkListing_Row{pc_589, Listing.text(Con{p3, Con{p5, p24}}), Native.choose(&2, String, Big.is_eq(scrut7, Big.of_nat(85n)), _ => (\"SLOAD\"), _ => (Get.Asm.Operation.name(local18))), Listing.text(p24)} : Listing.Row}\nMutation.asm.LISTING_OP.Local.Listing.walk.f1(NativeInt.add(NativeInt.add(pc_589, Big.one()), scrut19), Con{scrut27, acc_590}, p25))))))))))))(item29)), +item30 => Fail{item30})))))))\n"
+        }
+      ],
+      null,
+      "disasm",
+      "DISASM-3WAY ref20 FAIL"
+    ],
+    [
+      "LISTING-PC",
+      "src/listing.bend",
+      [
+        {
+          "definition": "Listing.decode",
+          "sha256": "da4f175fadd33daf83df3ae8cff9b24f180a0149196de683870680697790cb39",
+          "replacement": "@unsafe\ndef Listing.decode(+hex_587: String) -> ResultOf(Listing.Error, ListOf(Listing.Row)):\n  Native.choose(&2, ResultOf(Listing.Error, ListOf(Listing.Row)), Big.when(Bool, Bool.not(Big.is_eq(Big.logand(Big.of_nat(String.length(hex_587)), Big.one()), Big.zero())), _ => (True{}), _ => (Bool.not(NativeString.all(Listing.hex_char, hex_587)))), _ => (Fail{Listing.Error.Invalid_hex{}}), _ => (Mutation.asm.LISTING_PC.Local.Listing.walk.f1(Big.zero(), Nil{}, Series.to_list(&2, Char, Series.from_string(hex_587)))))\nlaw Mutation.asm.LISTING_PC.Local.Listing.walk.f1: for +pc_589: Big for +acc_590: ListOf(Listing.Row) for +param_634: ListOf(Char) ResultOf(Listing.Error, ListOf(Listing.Row))\n@unsafe\ndef Mutation.asm.LISTING_PC.Local.Listing.walk.f1(pc_589, acc_590, param_634):\n  (+scrut2 = param_634\n  Match.List(&2, Char, &2, ResultOf(Listing.Error, ListOf(Listing.Row)), scrut2, _ => (Done{List.reverse(&2, Listing.Row, acc_590)}), +p3 => +p4 => (Match.List(&2, Char, &2, ResultOf(Listing.Error, ListOf(Listing.Row)), p4, _ => (Fail{Listing.Error.Invalid_hex{}}), +p5 => +p6 => ((+scrut7 = {NativeInt.add(NativeInt.mul(Big.of_nat(16n), Listing.nibble(p3)), Listing.nibble(p5)) : Big}\n  (Match.Result(&2, Asm.Operation, &2, Listing.Error, &2, ResultOf(Listing.Error, ListOf(Listing.Row)), (+local16 => (Match.Maybe(&2, Asm.Operation, &2, ResultOf(Listing.Error, Asm.Operation), local16, _ => Fail{Listing.Error.Unknown_opcode{pc_589, scrut7}}, +x => Done{x})))(Asm.decode_opcode(scrut7)), +item28 => ((+local18 => ((+scrut19 = {Native.choose(&2, Big, Big.when(Bool, Big.is_le(Big.of_nat(96n), scrut7), _ => (Big.is_le(scrut7, Big.of_nat(127n))), _ => (False{})), _ => (NativeInt.sub(scrut7, Big.of_nat(95n))), _ => (Big.zero())) : Big}\n(+scrut23 = {Listing.take(&2, Char, NativeInt.mul(Big.of_nat(2n), scrut19), Nil{}, p6) : TupleOf2(ListOf(Char), ListOf(Char))}\nMatch.Tuple2(&2, ListOf(Char), &2, ListOf(Char), &2, ResultOf(Listing.Error, ListOf(Listing.Row)), scrut23, +p24 => +p25 => ((+scrut26 = {Big.shift_right(Big.unsigned(63n, Big.of_nat(List.length(&2, Char, p24))), Big.to_nat(Big.unsigned(6n, Big.one()))) : Big}\nNative.choose(&2, ResultOf(Listing.Error, ListOf(Listing.Row)), Bool.not(Big.is_eq(scrut26, scrut19)), _ => (Fail{Listing.Error.Truncated_push{pc_589, scrut19, scrut26}}), _ => ((+scrut27 = {MkListing_Row{pc_589, Listing.text(Con{p3, Con{p5, p24}}), Get.Asm.Operation.name(local18), Listing.text(p24)} : Listing.Row}\nMutation.asm.LISTING_PC.Local.Listing.walk.f1(NativeInt.add(pc_589, Big.one()), Con{scrut27, acc_590}, p25)))))))))))(item28)), +item29 => Fail{item29}))))))))\n"
+        }
+      ],
+      null,
+      "disasm",
+      "DISASM-3WAY ref20 FAIL"
+    ]
+  ]
+}

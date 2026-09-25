@@ -4,6 +4,10 @@ import hashlib
 import importlib.util
 import json
 from pathlib import Path
+
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import native_mutations
 import shutil
 import subprocess
 import sys
@@ -201,31 +205,18 @@ def witness(name):
 
 
 def mutants():
-    cases = [
-        ('ARGUMENT-ORDER', 'arguments [] row.words args', 'arguments [] row.words (List.rev args)',
-         'named', 'M1-TOOL named'),
-        ('SHADOW', 'if List.mem_assoc at.text env then fail at "PREDICATE" "a local binding shadows this predicate" else',
-         'if false then fail at "PREDICATE" "a local binding shadows this predicate" else',
-         'word-shadow', 'ERROR-REFUSAL ng-word-shadow'),
-        ('EXPANDED-BOUNDS', 'if depth > 32 || remaining = 0 then\n      fail at "LIMIT" "expanded guard condition',
-         'if depth > 32 || remaining = min_int then\n      fail at "LIMIT" "expanded guard condition',
-         'expanded-bounds', 'ERROR-REFUSAL ng-expanded-bounds'),
-        ('SHARED-BUDGET', 'let* remaining = budget (depth + 1) remaining a in budget (depth + 1) remaining b',
-         'let* _remaining = budget (depth + 1) remaining a in budget (depth + 1) 64 b',
-         'aggregate-bounds', 'ERROR-REFUSAL ng-aggregate-bounds'),
-    ]
+    cases = native_mutations.load(__file__)
     with tempfile.TemporaryDirectory(prefix='assay-named-guards-mutants-') as temporary:
         copy = Path(temporary) / 'copy'
-        shutil.copytree(ROOT, copy, ignore=shutil.ignore_patterns('.*', '_build', '.gatework',
-            '.lake', 'vendor', 'validation', '__pycache__'))
-        path = copy / 'emit/contract.ml'
+        native_mutations.copy_project(ROOT, copy)
+        path = copy / 'src/emitter.bend'
         original = path.read_text()
         for name, before, after, case, marker in cases:
-            require(original.count(before) == 1, 'NG-MUTANT-ANCHOR ' + name)
+            require(native_mutations.count(original, before) == 1, 'NG-MUTANT-ANCHOR ' + name)
             for mutated in (True, False):
-                path.write_text(original.replace(before, after) if mutated else original)
+                path.write_text(native_mutations.replace(original, before, after) if mutated else original)
                 label = ('mutant-' if mutated else 'control-') + name
-                build = M.capture(label + '-build', ['zsh', '-f', 'dev/dune.sh', 'build'], cwd=copy, timeout=120)
+                build = M.capture(label + '-build', ['zsh', '-f', 'dev/build.sh', 'build', 'bin/assay'], cwd=copy, timeout=120)
                 require(build.returncode == 0, 'NG-MUTANT-BUILD ' + label)
                 result = M.capture(label, ['python3', '-P', 'dev/named-guard-test.py', 'witness', case], cwd=copy)
                 require(result.returncode == (1 if mutated else 0) and (not mutated or marker in result.stdout),

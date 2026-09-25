@@ -4,6 +4,10 @@ import hashlib
 import importlib.util
 import json
 from pathlib import Path
+
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import native_mutations
 import re
 import shutil
 import subprocess
@@ -235,31 +239,19 @@ def boundaries():
 
 
 def mutants():
-    annotation = 'sequence (match rest with { text = ":="; _ } :: _ -> [":="] | [] | _ :: _ -> [":"; "Word"; ":="]) rest'
-    cases = [
-        ('IMPLICIT', annotation, 'sequence [":"; "Word"; ":="] rest', 'pairs', 'WORD-EMIT decimal'),
-        ('ANNOTATION', annotation,
-         '(match rest with { text = ":"; _ } :: _ty :: rest -> expect ":=" rest | [] | _ :: _ -> expect ":=" rest)',
-         'refusals', 'WORD-REFUSAL wrong-annotation check'),
-        ('ERASED', 'Proof_value _ -> fail at "PROOF" "an erased proof is not a Word"',
-         'Proof_value _ -> Ok "(word 256 0)"', 'refusals', 'WORD-REFUSAL erased-value check'),
-        ('SHADOW', '((name.text, Word_value fresh) :: env) state written evidence rest',
-         '(env @ [(name.text, Word_value fresh)]) state written evidence rest',
-         'live', 'WORD-MODEL local-shadow-6'),
-    ]
+    cases = native_mutations.load(__file__)
     records = []
     with tempfile.TemporaryDirectory(prefix='assay-word-mutants-') as temporary:
         copy = Path(temporary) / 'copy'
-        shutil.copytree(ROOT, copy, ignore=shutil.ignore_patterns('.*', '_build', '.gatework',
-            '.lake', 'vendor', 'validation', '__pycache__'))
-        path = copy / 'emit/contract.ml'
+        native_mutations.copy_project(ROOT, copy)
+        path = copy / 'src/emitter.bend'
         original = path.read_text()
         for name, before, after, witness, marker in cases:
-            require(original.count(before) == 1, 'WORD-MUTANT anchor ' + name)
+            require(native_mutations.count(original, before) == 1, 'WORD-MUTANT anchor ' + name)
             for mutated in (True, False):
-                path.write_text(original.replace(before, after) if mutated else original)
+                path.write_text(native_mutations.replace(original, before, after) if mutated else original)
                 label = ('mutant-' if mutated else 'control-') + name
-                build = C.capture(label + '-build', ['zsh', '-f', 'dev/dune.sh', 'build'], cwd=copy, timeout=120)
+                build = C.capture(label + '-build', ['zsh', '-f', 'dev/build.sh', 'build', 'bin/assay'], cwd=copy, timeout=120)
                 require(build.returncode == 0, 'WORD-MUTANT build ' + label)
                 result = C.capture(label, ['python3', '-P', 'dev/inferred-word-test.py', witness], cwd=copy, timeout=180)
                 require(result.returncode == (1 if mutated else 0) and (not mutated or marker in result.stdout),

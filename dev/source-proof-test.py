@@ -15,7 +15,7 @@ ROOT = Path(__file__).resolve().parent.parent
 WORK = ROOT / '.gatework/source-proofs'
 PACKAGE = ROOT / 'verification'
 LEAN = PACKAGE / '.lake/build/bin/sourceModel'
-BINARY = ROOT / '_build/default/bin/assay.exe'
+BINARY = ROOT / '_build/bin/assay'
 BOUND = 2**256
 SELECTOR = 'b4bb58fb'
 

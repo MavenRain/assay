@@ -2,6 +2,10 @@
 """Stage C stack, disassembly, and mutation gates.  No EVM execution here."""
 
 from pathlib import Path
+
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import native_mutations
 import re
 import shutil
 import subprocess
@@ -14,7 +18,36 @@ def run(root, *args, timeout=60):
 
 
 def adapter(root, *args):
-    return run(root, str(root / "_build/default/test/asm_cases.exe"), *args)
+    return run(root, str(root / "_build/test/asm_cases"), *args)
+
+
+def effect_batch(root, probes):
+    with tempfile.TemporaryDirectory(prefix="assay-effects-") as directory:
+        manifest = Path(directory) / "cases"
+        manifest.write_bytes(b"".join(name.encode() + b"\0" + str(height).encode() + b"\0"
+                                      for name, height, _code, _want in probes))
+        result = adapter(root, "effect-batch", str(manifest))
+    if result.returncode or result.stderr:
+        raise ValueError("STACK-HEIGHT FAIL effect batch: " + result.stderr)
+    data = result.stdout
+    offset = 0
+    results = []
+    for _ in probes:
+        colon = data.find(":", offset)
+        if colon < 0 or not data[offset:colon].isdigit():
+            raise ValueError("STACK-HEIGHT FAIL malformed effect frame")
+        length = int(data[offset:colon])
+        end = colon + 1 + length
+        if end > len(data):
+            raise ValueError("STACK-HEIGHT FAIL truncated effect frame")
+        code, separator, output = data[colon + 1:end].partition("\n")
+        if not separator or code not in ("0", "2"):
+            raise ValueError("STACK-HEIGHT FAIL invalid effect status")
+        results.append((int(code), output))
+        offset = end
+    if offset != len(data):
+        raise ValueError("STACK-HEIGHT FAIL trailing effect frames")
+    return results
 
 
 def opcodes(root):
@@ -47,7 +80,7 @@ def stack(root):
         print("STACK-HEIGHT FAIL opcode metadata differs from the frozen Cancun table")
         return 1
     controls = {"STOP", "JUMP", "JUMPI", "JUMPDEST", "RETURN", "REVERT", "INVALID", "SELFDESTRUCT"}
-    count = 0
+    all_probes = []
     for _byte, name, pops, pushes in rows:
         if name in controls:
             continue
@@ -59,12 +92,19 @@ def stack(root):
         else:
             probes.append((1024, 0, f"{1024 - pops + pushes} 1024\n"))
         for height, code, want in probes:
-            result = adapter(root, "effect", name, str(height))
-            if result.returncode != code or result.stdout != want or result.stderr:
-                print(f"STACK-HEIGHT FAIL effect={name} input={height} want={want.strip()} got={result.stdout.strip()}")
-                return 1
-            count += 1
-    compact = run(root, str(root / "_build/default/test/asm_compact.exe"))
+            all_probes.append((name, height, code, want))
+    for (name, height, code, want), (actual_code, actual_output) in zip(all_probes, effect_batch(root, all_probes)):
+        if actual_code != code or actual_output != want:
+            print(f"STACK-HEIGHT FAIL effect={name} input={height} want={want.strip()} got={actual_output.strip()}")
+            return 1
+    # Exercise the process exit and output boundary for success and both errors.
+    for name, height, code, want in (probe for probe in all_probes if probe[:2] in (("ADD", 2), ("ADD", 1), ("PUSH1", 1024))):
+        result = adapter(root, "effect", name, str(height))
+        if result.returncode != code or result.stdout != want or result.stderr:
+            print(f"STACK-HEIGHT FAIL effect={name} input={height} want={want.strip()} got={result.stdout.strip()}")
+            return 1
+    count = len(all_probes)
+    compact = run(root, str(root / "_build/test/asm_compact"))
     if compact.returncode or compact.stderr or compact.stdout != "ASM-COMPACT cases=618 OK\n":
         print("STACK-HEIGHT FAIL compaction " + compact.stdout + compact.stderr)
         return 1
@@ -163,34 +203,18 @@ def disasm(root):
 
 
 def mutants(root):
-    cases = [
-        ("STACK-EFFECT", "asm/asm.ml", 'op 0x01 "ADD" 2 1', 'op 0x01 "ADD" 1 1', "stack", "ASM-CASE add-underflow FAIL"),
-        ("EDGE-HEIGHT", "asm/asm.ml", "if height <> block.stack_in then", "if height < 0 then", "stack", "ASM-CASE goto-height FAIL"),
-        ("JUMP-PEAK", "asm/asm.ml", "if next > 1024 then", "if next > 1024 && row.name <> \"PUSH-label\" then", "stack", "ASM-CASE branch-overflow FAIL"),
-        ("LABEL-PC", "asm/asm.ml", 'Printf.sprintf "%x" pc', 'Printf.sprintf "%x" (pc + 1)', "stack", "ASM-CASE ref20 FAIL"),
-        ("LISTING-OP", "asm/listing.ml", "mnemonic = op.name", 'mnemonic = (if byte = 0x55 then "SLOAD" else op.name)', "disasm", "DISASM-3WAY ref20 FAIL"),
-        ("LISTING-PC", "asm/listing.ml", "walk (pc + 1 + width)", "walk (pc + 1)", "disasm", "DISASM-3WAY ref20 FAIL"),
-        ("COMPACT-LIMIT", "asm/asm.ml", "if size > 255 then wide ()", "if size > 256 then wide ()", "stack", "ASM-COMPACT FAIL branch-243"),
-        ("COMPACT-PUSH", "asm/asm.ml", "total + 1 + (String.length bytes lsr 1)", "total + 1 + (String.length bytes lsr 2)", "stack", "ASM-COMPACT FAIL payload-256-1"),
-        ("COMPACT-BRANCH", "asm/asm.ml", "| Branch (2, yes, no) -> Branch (1, yes, no)", "| Branch (2, yes, no) -> Branch (2, yes, no)", "stack", "ASM-COMPACT FAIL branch-0"),
-    ]
+    cases = native_mutations.load(__file__)
     work = root / ".gatework"
     work.mkdir(exist_ok=True)
     with tempfile.TemporaryDirectory(prefix="assay-asm-mutants-") as directory:
         copy = Path(directory) / "copy"
-        for relative in ("dune", "dune-project", "asm/dune", "asm/asm.ml", "asm/listing.ml",
-                         "test/asm_cases.ml", "test/asm_compact.ml", "dev/dune.sh", "dev/asm-test.py", "dev/asm-opcodes.txt"):
-            target = copy / relative
-            target.parent.mkdir(parents=True, exist_ok=True)
-            shutil.copy2(root / relative, target)
-        (copy / "vendor").mkdir()
-        (copy / "test/dune").write_text("(executables (names asm_cases asm_compact) (libraries assay_asm))\n")
+        native_mutations.copy_project(root, copy)
         for name, relative, before, after, mode, witness in cases:
             source = (root / relative).read_text()
-            if source.count(before) != 1:
+            if native_mutations.count(source, before) != 1:
                 raise ValueError(name + " mutation site is not unique")
-            (copy / relative).write_text(source.replace(before, after))
-            build = run(copy, "zsh", "-f", "dev/dune.sh", "build", timeout=120)
+            (copy / relative).write_text(native_mutations.replace(source, before, after))
+            build = run(copy, "zsh", "-f", "dev/build.sh", "build", "test/asm_cases", "test/asm_compact", timeout=120)
             if build.returncode:
                 raise ValueError(name + " build failure is not a kill: " + build.stdout + build.stderr)
             result = run(copy, sys.executable, "-P", "dev/asm-test.py", mode, timeout=240)
@@ -199,7 +223,7 @@ def mutants(root):
                 raise ValueError(name + " was not killed by " + witness + ": " + result.stdout + result.stderr)
             print(f"ASM-MUTANT {name} killed witness={witness}", flush=True)
             (copy / relative).write_text(source)
-        build = run(copy, "zsh", "-f", "dev/dune.sh", "build", timeout=120)
+        build = run(copy, "zsh", "-f", "dev/build.sh", "build", "test/asm_cases", "test/asm_compact", timeout=120)
         if build.returncode:
             raise ValueError("restored build failed: " + build.stdout + build.stderr)
         for mode in ("stack", "disasm"):

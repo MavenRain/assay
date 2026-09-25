@@ -4,6 +4,10 @@ import hashlib
 import importlib.util
 import json
 from pathlib import Path
+
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import native_mutations
 import shutil
 import sys
 import tempfile
@@ -180,33 +184,19 @@ def witness(name):
 
 
 def mutants():
-    cases = [
-        ('EVIDENCE', 'let v = "(" ^ invariant_proof evidence ty ^ " : " ^ claim_type ty ^ ")" in',
-         'let v = "(" ^ invariant_proof [] ty ^ " : " ^ claim_type ty ^ ")" in', 'anonymous-add', 'M1-TOOL anonymous-add'),
-        ('LOCAL', '~evidence:(evidence_for fresh claim evidence)', '~evidence', 'proof-local-add', 'M1-TOOL proof-local-add'),
-        ('PARAMETER', 'proof ~erased:false ~evidence helpers 0 env (Some ty) row.proof_body',
-         'proof ~erased:false ~evidence:[] helpers 0 env (Some ty) row.proof_body', 'helper-body-add', 'M1-TOOL helper-body-add'),
-        ('SUPPLIED', 'let* _ty, v = proof ~erased ~evidence helpers (depth + 1) env (Some ty) arg in',
-         'let* _ty, v = let _ = arg in Ok (ty, invariant_proof evidence ty) in', 'explicit-invalid', 'ERROR-REFUSAL ih-explicit-invalid'),
-        ('SHARING', 'let fresh = "_assay_arg" ^ string_of_int depth ^ "_" ^ string_of_int (List.length values) in\n'
-         '          arguments substitution (fresh :: values) (evidence_for fresh ty evidence)\n'
-         '            ((fresh, ty, value) :: bindings) parameters args',
-         'arguments substitution (value :: values) (evidence_for value ty evidence) bindings parameters args',
-         'boundaries', 'IH-NESTED proof expression growth'),
-    ]
+    cases = native_mutations.load(__file__)
     captures = []
     with tempfile.TemporaryDirectory(prefix='assay-inferred-helper-mutants-') as temporary:
         copy = Path(temporary) / 'copy'
-        shutil.copytree(ROOT, copy, ignore=shutil.ignore_patterns('.*', '_build', '.gatework',
-            '.lake', 'vendor', 'validation', '__pycache__'))
-        path = copy / 'emit/contract.ml'
+        native_mutations.copy_project(ROOT, copy)
+        path = copy / 'src/emitter.bend'
         original = path.read_text()
         for name, before, after, case, marker in cases:
-            require(original.count(before) == 1, 'IH-MUTANT-ANCHOR ' + name)
+            require(native_mutations.count(original, before) == 1, 'IH-MUTANT-ANCHOR ' + name)
             for mutated in (True, False):
-                path.write_text(original.replace(before, after) if mutated else original)
+                path.write_text(native_mutations.replace(original, before, after) if mutated else original)
                 label = ('mutant-' if mutated else 'control-') + name
-                build = M.capture(label + '-build', ['zsh', '-f', 'dev/dune.sh', 'build'], cwd=copy, timeout=120)
+                build = M.capture(label + '-build', ['zsh', '-f', 'dev/build.sh', 'build', 'bin/assay'], cwd=copy, timeout=120)
                 require(build.returncode == 0, 'IH-MUTANT-BUILD ' + label)
                 result = M.capture(label, ['python3', '-P', 'dev/inferred-helper-test.py', 'witness', case], cwd=copy)
                 require(result.returncode == (1 if mutated else 0) and (not mutated or marker in result.stdout), 'IH-MUTANT ' + label)

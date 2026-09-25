@@ -4,6 +4,10 @@ import hashlib
 import importlib.util
 import json
 from pathlib import Path
+
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import native_mutations
 import shutil
 import subprocess
 import sys
@@ -11,7 +15,7 @@ import tempfile
 
 ROOT = Path(__file__).resolve().parent.parent
 WORK = ROOT / '.gatework/context'
-BINARY = ROOT / '_build/default/bin/assay.exe'
+BINARY = ROOT / '_build/bin/assay'
 spec = importlib.util.spec_from_file_location('context_diff', ROOT / 'evm/diff.py')
 D = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(D)
@@ -286,38 +290,19 @@ def independent():
 
 
 def mutants():
-    cases = [
-        ('CALLER', 'emit/emit.ml', 'String.uppercase_ascii (R.context_name source)',
-         '(if source = R.Caller then "ORIGIN" else String.uppercase_ascii (R.context_name source))',
-         'nested', 'CONTEXT-PROXY'),
-        ('DEPLOYER', 'emit/emit.ml', 'Ok ([A.Op "CALLER"; push slot; A.Op "SSTORE"] @ next)',
-         'Ok ([A.Op "ORIGIN"; push slot; A.Op "SSTORE"] @ next)', 'nested', 'CONTEXT-FACTORY'),
-        ('SNAPSHOT', 'emit/emit.ml', 'continuation fuel (fresh + 1) fn (R.Runtime_word fresh) in\n'
-         '       Ok (Context (source, fresh, next), fuel, next_fresh)',
-         'continuation fuel fresh fn (R.Runtime_word fresh) in\n'
-         '       Ok (Context (source, fresh, next), fuel, next_fresh)',
-         'live', 'CONTEXT-MODEL who'),
-        ('MODEL', 'emit/model.ml', 'Recognize.Caller -> Ok input.caller', 'Recognize.Caller -> Ok Z.zero',
-         'live', 'CONTEXT-MODEL who'),
-        ('ADDRESS', 'emit/model.ml', 'Z.numbits caller > 160', 'Z.numbits caller > 256',
-         'inputs', 'CONTEXT-INPUT 1'),
-        ('SCHEMA', 'emit/recognize.ml',
-         '~prefix:"M1 " ["Tx"] globals source',
-         '~prefix:"M1 " [] globals source', 'refusals', 'CONTEXT-REFUSAL caller-shape'),
-    ]
+    cases = native_mutations.load(__file__)
     results = []
     with tempfile.TemporaryDirectory(prefix='assay-context-mutants-') as temporary:
         copy = Path(temporary) / 'copy'
-        shutil.copytree(ROOT, copy, ignore=shutil.ignore_patterns('.*', '_build', '.gatework',
-            '.lake', 'vendor', 'validation', '__pycache__'))
+        native_mutations.copy_project(ROOT, copy)
         for name, relative, before, after, case, marker in cases:
             path = copy / relative
             original = path.read_text()
-            require(original.count(before) == 1, 'CONTEXT-MUTANT anchor ' + name)
+            require(native_mutations.count(original, before) == 1, 'CONTEXT-MUTANT anchor ' + name)
             for mutated in [True, False]:
-                path.write_text(original.replace(before, after) if mutated else original)
+                path.write_text(native_mutations.replace(original, before, after) if mutated else original)
                 label = ('mutant-' if mutated else 'control-') + name
-                build = capture(label + '-build', ['zsh', '-f', 'dev/dune.sh', 'build'], cwd=copy, timeout=120)
+                build = capture(label + '-build', ['zsh', '-f', 'dev/build.sh', 'build', 'bin/assay'], cwd=copy, timeout=120)
                 require(build.returncode == 0, 'CONTEXT-MUTANT build ' + label)
                 result = capture(label, ['python3', '-P', 'dev/context-test.py', 'witness', case], cwd=copy, timeout=90)
                 require(result.returncode == (1 if mutated else 0) and (not mutated or marker in result.stdout),

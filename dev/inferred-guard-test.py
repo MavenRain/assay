@@ -4,6 +4,10 @@ import hashlib
 import importlib.util
 import json
 from pathlib import Path
+
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import native_mutations
 import shutil
 import sys
 import tempfile
@@ -182,31 +186,19 @@ def witness(name):
 
 
 def mutants():
-    cases = [
-        ('CLAIM', '| Check predicate -> Bound predicate',
-         '| Check (Ordered (a, b)) -> Bound (Ordered (b, a))\n  | Check (Fits (a, b)) -> Bound (Fits (a, b))',
-         'separate-evidence', 'M1-TOOL separate-evidence'),
-        ('NAMED-ARGUMENTS', '\n  | Satisfy (name, args) -> Named (name, args)',
-         '\n  | Satisfy (name, args) -> Named (name, List.rev args)', 'named', 'MODEL-EXPECTED ig-named-1'),
-        ('EVIDENCE', '          state written (evidence_for fresh ty evidence) rest in',
-         '          state written evidence rest in', 'invariant', 'M1-TOOL invariant'),
-        ('STALE-STATE', 'obligations changed state evidence "Tx" (app "done" [v])',
-         'obligations (List.filter (fun _ -> false) changed) state evidence "Tx" (app "done" [v])',
-         'stale-invariant', 'ERROR-REFUSAL ig-stale-invariant'),
-    ]
+    cases = native_mutations.load(__file__)
     captures = []
     with tempfile.TemporaryDirectory(prefix='assay-inferred-mutants-') as temporary:
         copy = Path(temporary) / 'copy'
-        shutil.copytree(ROOT, copy, ignore=shutil.ignore_patterns('.*', '_build', '.gatework',
-            '.lake', 'vendor', 'validation', '__pycache__'))
-        path = copy / 'emit/contract.ml'
+        native_mutations.copy_project(ROOT, copy)
+        path = copy / 'src/emitter.bend'
         original = path.read_text()
         for name, before, after, case, marker in cases:
-            require(original.count(before) == 1, 'IG-MUTANT-ANCHOR ' + name)
+            require(native_mutations.count(original, before) == 1, 'IG-MUTANT-ANCHOR ' + name)
             for mutated in (True, False):
-                path.write_text(original.replace(before, after) if mutated else original)
+                path.write_text(native_mutations.replace(original, before, after) if mutated else original)
                 label = ('mutant-' if mutated else 'control-') + name
-                build = M.capture(label + '-build', ['zsh', '-f', 'dev/dune.sh', 'build'], cwd=copy, timeout=120)
+                build = M.capture(label + '-build', ['zsh', '-f', 'dev/build.sh', 'build', 'bin/assay'], cwd=copy, timeout=120)
                 require(build.returncode == 0, 'IG-MUTANT-BUILD ' + label)
                 result = M.capture(label, ['python3', '-P', 'dev/inferred-guard-test.py', 'witness', case], cwd=copy)
                 require(result.returncode == (1 if mutated else 0) and (not mutated or marker in result.stdout),

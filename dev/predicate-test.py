@@ -4,6 +4,10 @@ import hashlib
 import importlib.util
 import json
 from pathlib import Path
+
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import native_mutations
 import shutil
 import subprocess
 import sys
@@ -196,31 +200,18 @@ def witness(name):
 
 
 def mutants():
-    cases = [
-        ('UNUSED-DECLARATION', 'let* _ty = resolved_claim earlier env row.definition in Ok (row :: earlier)',
-         'let* _ty = (let _unused = env in Ok (Atomic "(prod ())")) in Ok (row :: earlier)',
-         'unused-declaration', 'ERROR-REFUSAL unused-declaration'),
-        ('UNUSED-ARGUMENT', 'let* v = word env arg in arguments ((name.text, Word_value v) :: substitution) parameters args',
-         'let* v = (let _unused = arg in Ok "(word 256 0)") in arguments ((name.text, Word_value v) :: substitution) parameters args',
-         'unused-argument', 'ERROR-REFUSAL unused-argument'),
-        ('ARGUMENT-ORDER', 'arguments [] row.words args', 'arguments [] row.words (List.rev args)',
-         'argument-order', 'M1-TOOL argument-order'),
-        ('EXPANSION', '(expanded && depth > 32) || remaining = 0',
-         '(expanded && depth > 32) || remaining = min_int',
-         'expanded-nodes', 'ERROR-REFUSAL expanded-nodes'),
-    ]
+    cases = native_mutations.load(__file__)
     with tempfile.TemporaryDirectory(prefix='assay-predicate-mutants-') as temporary:
         copy = Path(temporary) / 'copy'
-        shutil.copytree(ROOT, copy, ignore=shutil.ignore_patterns('.*', '_build', '.gatework',
-            '.lake', 'vendor', 'validation', '__pycache__'))
-        path = copy / 'emit/contract.ml'
+        native_mutations.copy_project(ROOT, copy)
+        path = copy / 'src/emitter.bend'
         original = path.read_text()
         for name, before, after, case, marker in cases:
-            require(original.count(before) == 1, 'PREDICATE-MUTANT-ANCHOR ' + name)
+            require(native_mutations.count(original, before) == 1, 'PREDICATE-MUTANT-ANCHOR ' + name)
             for mutated in (True, False):
-                path.write_text(original.replace(before, after) if mutated else original)
+                path.write_text(native_mutations.replace(original, before, after) if mutated else original)
                 label = ('mutant-' if mutated else 'control-') + name
-                build = M.capture(label + '-build', ['zsh', '-f', 'dev/dune.sh', 'build'], cwd=copy, timeout=120)
+                build = M.capture(label + '-build', ['zsh', '-f', 'dev/build.sh', 'build', 'bin/assay'], cwd=copy, timeout=120)
                 require(build.returncode == 0, 'PREDICATE-MUTANT-BUILD ' + label)
                 result = M.capture(label, ['python3', '-P', 'dev/predicate-test.py', 'witness', case], cwd=copy)
                 require(result.returncode == (1 if mutated else 0) and (not mutated or marker in result.stdout),
