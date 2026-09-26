@@ -1,0 +1,3 @@
+STACK-HEIGHT blocks=30 mismatch=0 cases=64 OK
+ASM-COMPACT cases=618 OK
+STACK-HEIGHT blocks=30 cases=64 opcodes=149 effect_cases=370 OK

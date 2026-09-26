@@ -1,4 +1,50 @@
 # Native Bend source, compiled by dev/build.py.
+type Layout.Mapping.Key is Data:
+  Layout.Mapping.Key{typ: Abi.Schema.Value_type, value: Big}
+type Layout.Mapping.Error is Data:
+  Layout.Mapping.Error.Invalid_slot{}
+  Layout.Mapping.Error.Unsupported_key{}
+  Layout.Mapping.Error.Out_of_range{typ: Abi.Schema.Value_type}
+  Layout.Mapping.Error.Empty_path{}
+def Layout.Mapping.Result(-A: Data) -> Data: Result<&2, &2, Layout.Mapping.Error, A>
+def Layout.Mapping.Result.bind(-A: Data, -B: Data, value: Layout.Mapping.Result(A), next: A -> Layout.Mapping.Result(B)) -> Layout.Mapping.Result(B):
+  match value:
+    case Done{x}: next(x)
+    case Fail{error}: Fail{error}
+def Layout.Mapping.key_word(key: Layout.Mapping.Key) -> Layout.Mapping.Result(String):
+  match key:
+    case Layout.Mapping.Key{typ, value}:
+      match typ:
+        case Abi.Schema.Value_type.String{}: Fail{Layout.Mapping.Error.Unsupported_key{}}
+        case Abi.Schema.Value_type.Uint8{}: Layout.Mapping.checked_word(typ, value, 8n)
+        case Abi.Schema.Value_type.Uint256{}: Layout.Mapping.checked_word(typ, value, 256n)
+        case Abi.Schema.Value_type.Address{}: Layout.Mapping.checked_word(typ, value, 160n)
+        case Abi.Schema.Value_type.Bool{}: Layout.Mapping.checked_word(typ, value, 1n)
+def Layout.Mapping.checked_word(+typ: Abi.Schema.Value_type, +value: Big, bits: Nat) -> Layout.Mapping.Result(String):
+  Big.when(Layout.Mapping.Result(String), Abi.Codec.within(Big.of_nat(bits), value), _ => Done{Abi.Codec.word(value)}, _ => Fail{Layout.Mapping.Error.Out_of_range{typ}})
+# This fold consumes the lowercase hexadecimal output of Keccak.keccak256.
+@unsafe
+def Layout.Mapping.digest_value(text: String, acc: Big) -> Big:
+  match text:
+    case "": acc
+    case SCon{char, tail}:
+      +code = U32.to_nat(Char.to_u32(char))
+      +digit = Big.when(Nat, Nat.is_lt(code, 58n), _ => (code - 48n: Nat), _ => (code - 87n: Nat))
+      Layout.Mapping.digest_value(tail, Big.add(Big.shift_left(acc, 4n), Big.of_nat(digit)))
+def Layout.Mapping.slot(+base: Big, key: Layout.Mapping.Key) -> Layout.Mapping.Result(Big):
+  Big.when(Layout.Mapping.Result(Big), Abi.Codec.within(Big.of_nat(256n), base), _ =>
+    Layout.Mapping.Result.bind(String, Big, Layout.Mapping.key_word(key), word =>
+      Done{Layout.Mapping.digest_value(Keccak.keccak256(String.append(word, Abi.Codec.word(base))), Big.zero())}), _ => Fail{Layout.Mapping.Error.Invalid_slot{}})
+@unsafe
+def Layout.Mapping.walk(base: Big, keys: ListOf(Layout.Mapping.Key)) -> Layout.Mapping.Result(Big):
+  match keys:
+    case Nil{}: Done{base}
+    case Con{key, tail}: Layout.Mapping.Result.bind(Big, Big, Layout.Mapping.slot(base, key), next => Layout.Mapping.walk(next, tail))
+def Layout.Mapping.path(base: Big, keys: ListOf(Layout.Mapping.Key)) -> Layout.Mapping.Result(Big):
+  match keys:
+    case Nil{}: Fail{Layout.Mapping.Error.Empty_path{}}
+    case Con{key, tail}: Layout.Mapping.walk(base, key <> tail)
+
 type Layout.Packed.Field is Data:
   Layout.Packed.Field{name: String, typ: Abi.Schema.Value_type, slot: Big, offset: Nat}
 type Layout.Packed.Error is Data:

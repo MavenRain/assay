@@ -55,8 +55,9 @@ failure to clear an old field, missing offset, word, slot or duplicate-name
 checks, and a missing type-row dedupe. Compiler failures do not count as kills. The restored control
 must pass the same witnesses.
 
-The default gate mode is `--m2-packing`, adding `LAYOUT-PACKED` to the
-previous 80 checks. All 48 prior modes preserve their schedules, deadlines
+The explicit `--m2-packing` gate mode appends `LAYOUT-PACKED` to the
+80-leg codec schedule, for 81 legs. The default additionally runs
+[LAYOUT-MAPPING](M2-MAPPING.md). All 48 prior modes preserve their schedules, deadlines
 and failure classification. The existing trusted-source limits are intact.
 The [validation record](validation/2026-09-25-m2-packing/README.md) records
 the actual commands and outcomes.

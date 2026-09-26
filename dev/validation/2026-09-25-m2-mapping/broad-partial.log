@@ -1,0 +1,159 @@
+PASS BUILD exit=0 elapsed_ms=1104.3 deadline_s=120
+PASS PIN-CARRY exit=0 elapsed_ms=129.6 deadline_s=30
+PASS R0-COUNT exit=0 elapsed_ms=183.9 deadline_s=10
+PASS R0-AUDIT exit=0 elapsed_ms=101.7 deadline_s=10
+PASS HOUSE exit=0 elapsed_ms=818.4 deadline_s=30
+PASS NATIVE-MAPS exit=0 elapsed_ms=680.9 deadline_s=180
+PASS NATIVE-IO exit=0 elapsed_ms=2094.3 deadline_s=180
+PASS TRUSTED-LINES exit=0 elapsed_ms=159.5 deadline_s=10
+PASS SUITE-KERNEL exit=0 elapsed_ms=16883.4 deadline_s=300
+PASS SUITE-SURFACE exit=0 elapsed_ms=409.4 deadline_s=60
+PASS DRIVER exit=0 elapsed_ms=3767.4 deadline_s=30
+PASS MUTANTS exit=0 elapsed_ms=11115.5 deadline_s=300
+FAIL DENOMINATORS exit=1 elapsed_ms=73.0 deadline_s=10
+Makefile: OK
+assay: OK
+corpus/MANIFEST.json: OK
+corpus/bend2/Apply.bend: OK
+corpus/bend2/Arithmetic.bend: OK
+corpus/bend2/Leaf.bend: OK
+corpus/bend2/Let.bend: OK
+corpus/bend2/MANIFEST.json: OK
+corpus/bend2/Pair.bend: OK
+corpus/bend2/Return.bend: OK
+corpus/contracts/Arithmetic.asy: OK
+corpus/contracts/Maximum.asy: OK
+corpus/contracts/Pair.asy: OK
+corpus/contracts/Ref20.asy: OK
+corpus/contracts/Return.asy: OK
+corpus/contracts/TwoSlots.asy: OK
+corpus/contracts/WideLabel.asy: OK
+corpus/contracts/Zero.asy: OK
+corpus/proofs/Apply.asy: OK
+corpus/proofs/Leaf.asy: OK
+corpus/proofs/Let.asy: OK
+dev/BEND2.sha256: FAILED
+dev/M1-ERROR-MUTATIONS.md: OK
+dev/M1-ERRORS.md: OK
+dev/M1-NULLARY-MUTATIONS.md: OK
+dev/M1-NULLARY.md: OK
+dev/M1-PROOF-MUTATIONS.md: OK
+dev/M1-PROOFS.md: OK
+dev/M1-SURFACE-MUTATIONS.md: OK
+dev/M1-SURFACE.md: OK
+dev/PIN: OK
+dev/TIMING-DEBUG.md: OK
+dev/abi-codec-test.py: OK
+dev/abi-schema-test.py: OK
+dev/bend2-baseline.json: OK
+dev/bend2-m2-codec-2026-09-22.json: OK
+dev/bend2-ratio-test.py: OK
+dev/bend2-ratio.py: OK
+dev/bend_source.py: OK
+dev/build.py: OK
+dev/build.sh: OK
+dev/contract-test.py: OK
+dev/corpus-data.py: OK
+dev/corpus-test.py: OK
+dev/counter-test.py: OK
+dev/denominators-m1-2026-09-21-02.json: OK
+dev/denominators-m1-2026-09-21-03.json: OK
+dev/denominators-m1-2026-09-21-04.json: OK
+dev/denominators-m1-2026-09-21.json: OK
+dev/denominators-m2-codec-2026-09-22.json: OK
+dev/denominators-stage-0.json: OK
+dev/denominators.json: OK
+dev/diff-test.py: OK
+dev/emit-test.py: OK
+dev/erc20-test.py: OK
+dev/errors-test.py: OK
+dev/gates.sh: OK
+dev/import-check.sh: OK
+dev/layout-mapping-test.py: OK
+dev/layout-packed-test.py: OK
+dev/m1-emit-test.py: OK
+dev/m1-ratio-test.py: OK
+dev/measurements/2026-09-11-m0-stage-f.json: OK
+dev/measurements/2026-09-11-m1-emission.json: OK
+dev/measurements/2026-09-12-m1-nullary.json: OK
+dev/measurements/2026-09-12-m1-proofs.json: OK
+dev/measurements/2026-09-12-m1-run.json: OK
+dev/measurements/2026-09-12-m1-surface.json: OK
+dev/measurements/2026-09-22-m1-bend2.json: OK
+dev/measurements/2026-09-25-m2-packing-bend2.json: OK
+dev/measurements/2026-09-25-m2-packing-corpus.json: OK
+dev/model-test.py: OK
+dev/native-carry.json: OK
+dev/nullary-test.py: OK
+dev/ratio.py: OK
+dev/ratio.sh: OK
+dev/source-proof-test.py: OK
+dev/stage-a-gates.py: OK
+dev/stage-a-test.py: OK
+dev/toolchain.json: OK
+dev/trace-test.py: OK
+evm/diff.py: OK
+examples/Counter.asy: OK
+examples/CounterSurface.asy: OK
+examples/Errors.asy: OK
+examples/Nullary.asy: OK
+reference/erc20/MANIFEST.json: OK
+reference/erc20/abi.json: OK
+reference/erc20/cases.json: OK
+reference/erc20/init-prefix.evm: OK
+reference/erc20/init.hex: OK
+reference/erc20/layout.json: OK
+reference/erc20/runtime.evm: OK
+reference/erc20/runtime.hex: OK
+reference/erc20/slots.json: OK
+src/abi.bend: OK
+src/assembler.bend: OK
+src/cli.bend: OK
+src/emitter.bend: OK
+src/frontend.bend: OK
+src/keccak.bend: OK
+src/kernel.bend: OK
+src/layout.bend: OK
+src/listing.bend: OK
+src/os.js: OK
+verification/.gitignore: OK
+verification/AssayProofs.lean: OK
+verification/AssayProofs/Arithmetic.lean: OK
+verification/AssayProofs/Source.lean: OK
+verification/Axioms.lean: OK
+verification/Main.lean: OK
+verification/README.md: OK
+verification/lake-manifest.json: OK
+verification/lakefile.lean: OK
+verification/lean-toolchain: OK
+shasum: WARNING: 1 computed checksum did NOT match
+
+PASS KECCAK-VEC exit=0 elapsed_ms=13139.0 deadline_s=120
+PASS KECCAK-MUTANTS exit=0 elapsed_ms=46862.5 deadline_s=660
+PASS STACK-HEIGHT exit=0 elapsed_ms=39260.6 deadline_s=780
+PASS DISASM-3WAY exit=0 elapsed_ms=5541.5 deadline_s=120
+PASS ASM-MUTANTS exit=0 elapsed_ms=93163.4 deadline_s=1860
+PASS FORK-DRIFT exit=0 elapsed_ms=492.4 deadline_s=120
+PASS M0-TRACE exit=0 elapsed_ms=510.7 deadline_s=120
+PASS CREATE-EQ exit=0 elapsed_ms=470.2 deadline_s=120
+PASS REFERENCE-CHECKS exit=0 elapsed_ms=752.0 deadline_s=180
+PASS REFERENCE-MUTANTS exit=0 elapsed_ms=4923.7 deadline_s=1200
+PASS EMIT-CONSTRUCTORS exit=0 elapsed_ms=122.9 deadline_s=30
+PASS WORD-UNBOX exit=0 elapsed_ms=105.5 deadline_s=30
+PASS STORAGE-NOCLOS exit=0 elapsed_ms=122.4 deadline_s=30
+PASS ABI-GOLD exit=0 elapsed_ms=1001.0 deadline_s=60
+PASS EMITTED-TRACE exit=0 elapsed_ms=803.7 deadline_s=120
+PASS EMIT-SOURCES exit=0 elapsed_ms=8983.8 deadline_s=600
+PASS EMIT-MUTANTS exit=0 elapsed_ms=63457.1 deadline_s=1200
+FAIL AXIOMS exit=1 elapsed_ms=96.5 deadline_s=480
+AXIOMS FAIL AXIOMS missing preprovisioned dependency: kan-tactics, see the offline provisioning recipe in dev/TOOLCHAIN.md
+AXIOMS-HOST elan present, skip refused
+
+PASS TRACE-DRIVER exit=0 elapsed_ms=11386.3 deadline_s=120
+PASS CORPUS exit=0 elapsed_ms=5298.8 deadline_s=600
+PASS ERASED-BYTES exit=0 elapsed_ms=1554.9 deadline_s=120
+PASS M0-RATIO exit=0 elapsed_ms=183.6 deadline_s=60
+PASS F-MUTANTS exit=0 elapsed_ms=1140.9 deadline_s=180
+PASS DIFF-EXECUTOR exit=0 elapsed_ms=21640.4 deadline_s=180
+PASS COUNTER-REFERENCE exit=0 elapsed_ms=4613.0 deadline_s=300
+PASS M1-EMISSION exit=0 elapsed_ms=195237.1 deadline_s=600

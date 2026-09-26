@@ -1460,3 +1460,53 @@ def Packed_layout.main(args: ListOf(String)) -> StringResult(String):
   match args:
     case Nil{}: Done{""}
     case Con{query, tail}: StringResult.bind(String, String, Packed_layout.query(NativeString.split(Char.from_u32(124), query)), +row => Packed_layout.join(row, tail))
+
+def Mapping_layout.error(error: Layout.Mapping.Error) -> String:
+  match error:
+    case Layout.Mapping.Error.Invalid_slot{}: "invalid-slot"
+    case Layout.Mapping.Error.Unsupported_key{}: "unsupported-key"
+    case Layout.Mapping.Error.Out_of_range{typ}: String.append("out-of-range:", Abi.Schema.type_name(typ))
+    case Layout.Mapping.Error.Empty_path{}: "empty-path"
+def Mapping_layout.show(result: Layout.Mapping.Result(Big)) -> String:
+  match result:
+    case Done{value}: String.append("OK ", Big.show(value))
+    case Fail{error}: String.append("ERR ", Mapping_layout.error(error))
+@unsafe
+def Mapping_layout.keys(types: ListOf(Abi.Schema.Value_type), values: ListOf(String)) -> StringResult(ListOf(Layout.Mapping.Key)):
+  match types values:
+    case Nil{} Nil{}: Done{[]}
+    case Nil{} Con{_, _}: Fail{"ADAPTER-ARITY"}
+    case Con{_, _} Nil{}: Fail{"ADAPTER-ARITY"}
+    case Con{typ, types_tail} Con{text, values_tail}:
+      StringResult.bind(Big, ListOf(Layout.Mapping.Key), Abi_codec.number(text), +value =>
+        StringResult.bind(ListOf(Layout.Mapping.Key), ListOf(Layout.Mapping.Key), Mapping_layout.keys(types_tail, values_tail), tail => Done{Layout.Mapping.Key{typ, value} <> tail}))
+def Mapping_layout.single(base: Big, keys: ListOf(Layout.Mapping.Key)) -> StringResult(String):
+  match keys:
+    case Con{key, Nil{}}: Done{Mapping_layout.show(Layout.Mapping.slot(base, key))}
+    case Nil{}: Fail{"ADAPTER-ARITY"}
+    case Con{_, Con{_, _}}: Fail{"ADAPTER-ARITY"}
+def Mapping_layout.dispatch(+command: String, +base: Big, +keys: ListOf(Layout.Mapping.Key)) -> StringResult(String):
+  Big.when(StringResult(String), NativeString.equal(command, "slot"), _ => Mapping_layout.single(base, keys), _ =>
+    Big.when(StringResult(String), NativeString.equal(command, "path"), _ => Done{Mapping_layout.show(Layout.Mapping.path(base, keys))}, _ => Fail{"ADAPTER-USAGE"}))
+def Mapping_layout.types(+text: String) -> StringResult(ListOf(Abi.Schema.Value_type)):
+  Big.when(StringResult(ListOf(Abi.Schema.Value_type)), NativeString.equal(text, ""), _ => Done{[]}, _ => Abi_codec.types(text))
+@unsafe
+def Mapping_layout.query(parts: ListOf(String)) -> StringResult(String):
+  match parts:
+    case Nil{}: Fail{"ADAPTER-USAGE"}
+    case Con{_, Nil{}}: Fail{"ADAPTER-USAGE"}
+    case Con{_, Con{_, Nil{}}}: Fail{"ADAPTER-USAGE"}
+    case Con{command, Con{types, Con{base, values}}}:
+      StringResult.bind(Big, String, Abi_codec.number(base), +slot =>
+        StringResult.bind(ListOf(Abi.Schema.Value_type), String, Mapping_layout.types(types), ts =>
+          StringResult.bind(ListOf(Layout.Mapping.Key), String, Mapping_layout.keys(ts, values), keys => Mapping_layout.dispatch(command, slot, keys))))
+@unsafe
+def Mapping_layout.join(+row: String, tail: ListOf(String)) -> StringResult(String):
+  match tail:
+    case Nil{}: Done{row}
+    case Con{head, rest}: StringResult.bind(String, String, Mapping_layout.main(head <> rest), rows => Done{String.concat([row, "\n", rows])})
+@unsafe
+def Mapping_layout.main(args: ListOf(String)) -> StringResult(String):
+  match args:
+    case Nil{}: Done{""}
+    case Con{query, tail}: StringResult.bind(String, String, Mapping_layout.query(NativeString.split(Char.from_u32(124), query)), row => Mapping_layout.join(row, tail))

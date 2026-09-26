@@ -1,8 +1,9 @@
 # M1 Bend 2 compilation comparison
 
 The 2026-09-22 compilation-speed requirement is an Assay/Bend 2 ratio at
-most 1.0. The current native Bend comparison is 1.727570573 and does not
-pass. See [M2-PACKING.md](M2-PACKING.md) for the current source and record.
+most 1.0. The current native Bend comparison is 1.495831642 and does not
+pass. See [M2-MAPPING.md](M2-MAPPING.md) for the current source and record.
+The previous comparison, 1.727570573, is in [M2-PACKING.md](M2-PACKING.md).
 
 The pre-migration codec comparison passed: 40.444959 ms for Assay and
 550.161042 ms for Bend 2 per six-file batch, giving a ratio of 0.073514764.
@@ -78,7 +79,11 @@ The measured window must include all timed intervals and remain below
 
 ## Freeze and gate
 
-`dev/measurements/2026-09-25-m2-packing-bend2.json` retains the current
+`dev/validation/2026-09-25-m2-mapping/paired-measurement.json` retains the
+current native measurement. It is a byte copy of the active report.
+`dev/validation/2026-09-25-m2-mapping/corpus-measurement.json` retains the
+current corpus measurement.
+`dev/measurements/2026-09-25-m2-packing-bend2.json` retains the previous
 native measurement; `dev/validation/2026-09-22-m2-abi-codec/bend2-baseline.json`
 retains the pre-migration codec measurement. `dev/bend2-baseline.json` is
 the active native copy. `dev/BEND2.sha256` seals the
@@ -98,7 +103,8 @@ legs with `BEND2-RATIO` and `BEND2-RATIO-TEST`. It also includes the
 NATIVE-MAPS and NATIVE-IO checks. OCaml measurement tools and their
 archived results remain available as diagnostics. The native default adds
 the [M2 reference gate](M2-REFERENCE.md), [ABI-SCHEMA](M2-ABI-SCHEMA.md),
-[ABI-CODEC](M2-ABI-CODEC.md) and [packing](M2-PACKING.md), for 81 checks.
+[ABI-CODEC](M2-ABI-CODEC.md), [packing](M2-PACKING.md) and
+[mapping locations](M2-MAPPING.md), for 82 checks.
 
 `dev/bend2-ratio-test.py` passes three controls, rejects 37 invalid cases,
 and kills six mutations. It covers the inclusive boundary, a ratio above

@@ -1,0 +1,1 @@
+negative.empty: expected ERR empty-path; got OK 0

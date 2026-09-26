@@ -72,7 +72,8 @@ def leg_deadline(name, carried, recorded):
 
 def main():
     root = Path(__file__).resolve().parent.parent
-    packing = sys.argv[1:] == ["--m2-packing"]
+    mapping = sys.argv[1:] == ["--m2-mapping"]
+    packing = mapping or sys.argv[1:] == ["--m2-packing"]
     abi_codec = packing or sys.argv[1:] == ["--m2-abi-codec"]
     abi_schema = abi_codec or sys.argv[1:] == ["--m2-abi-schema"]
     erc20 = abi_schema or sys.argv[1:] == ["--m2-reference"]
@@ -82,7 +83,7 @@ def main():
         print("       stage-a-gates.py --m2-reference")
         print("       stage-a-gates.py --m2-abi-schema")
         print("       stage-a-gates.py --m2-abi-codec")
-        print("M2 modes: --m2-reference|--m2-abi-schema|--m2-abi-codec|--m2-packing")
+        print("M2 modes: --m2-reference|--m2-abi-schema|--m2-abi-codec|--m2-packing|--m2-mapping")
         return 64
 
     recorded, gaps, record_path = recorded_runs(root)
@@ -415,6 +416,11 @@ def main():
         m1_names.add("LAYOUT-PACKED")
         legs.append(("LAYOUT-PACKED", 300, ("python3", "-P", "dev/layout-packed-test.py"),
                      "LAYOUT-PACKED layouts=11 accesses=1685 negative=40 mutants=11 scope=packing OK"))
+    if mapping:
+        stage = "M2-MAPPING"
+        m1_names.add("LAYOUT-MAPPING")
+        legs.append(("LAYOUT-MAPPING", 300, ("python3", "-P", "dev/layout-mapping-test.py"),
+                     "LAYOUT-MAPPING oracle=102 reference=10 negative=23 refusal=15 mutants=12 scope=mapping OK"))
     work = root / (".gatework/stage-" + stage.lower())
     work.mkdir(parents=True, exist_ok=True)
     failed = False

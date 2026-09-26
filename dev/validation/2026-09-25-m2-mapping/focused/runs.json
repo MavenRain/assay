@@ -1,0 +1,75 @@
+[
+  {
+    "name": "packing",
+    "command": [
+      "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "-P",
+      "dev/layout-packed-test.py"
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 63.144
+  },
+  {
+    "name": "abi-schema",
+    "command": [
+      "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "-P",
+      "dev/abi-schema-test.py"
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 24.812
+  },
+  {
+    "name": "abi-codec",
+    "command": [
+      "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "-P",
+      "dev/abi-codec-test.py"
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 225.883
+  },
+  {
+    "name": "benchmark-validation",
+    "command": [
+      "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "-P",
+      "dev/bend2-ratio-test.py"
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 0.642
+  },
+  {
+    "name": "denominators",
+    "command": [
+      "shasum",
+      "-a",
+      "256",
+      "-c",
+      "dev/DENOMINATORS.sha256"
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 0.068
+  },
+  {
+    "name": "normalized-ratio",
+    "command": [
+      "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "-P",
+      "dev/ratio.py",
+      "--m1"
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 0.117
+  },
+  {
+    "name": "paired-ratio",
+    "command": [
+      "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "-P",
+      "dev/bend2-ratio.py"
+    ],
+    "exit_code": 1,
+    "elapsed_seconds": 0.088
+  }
+]

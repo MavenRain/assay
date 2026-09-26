@@ -1,5 +1,38 @@
 # Assay M2 build log
 
+## 2026-09-25: M2 mapping storage locations
+
+This slice starts at `9e1cbe5` and adds checked scalar and nested mapping
+locations through `Layout.Mapping.slot` and `Layout.Mapping.path`. Keys
+support uint8, uint256, address and bool, with explicit range failures.
+Empty paths and unsupported string keys are rejected. The implementation
+uses the production ABI word encoder and Keccak-256.
+
+The mapping gate passes 102 cast comparisons, all 10 frozen ERC-20 balance
+and allowance locations, 23 refusals, 15 adapter refusals and 12 compiling
+semantic mutants.
+The restored control passes the same mutation witnesses. Normal tests
+pass with 13 adapters and 19 adapter commands. Packing, ABI schema, ABI
+codec, proof axioms and benchmark-validation checks also pass.
+
+The new default appends one leg, for 82 checks. All 49 earlier modes keep
+their commands, deadlines, markers and failure classifications. Existing
+packed-layout definitions, the old test-file prefix and the compiler
+CLI's reachable Bend bundle are byte-identical to the base. Layout is
+157/250 lines, and the trusted total is 2705/3550 with unchanged limits.
+
+The broad run was stopped after 39 reported legs. Its checksum and missing
+offline-dependency failures were repaired and rechecked. This is scoped
+validation, not a complete pass of the 82-leg battery. Full logs and the
+completed checks are in the [validation record](validation/2026-09-25-m2-mapping/README.md).
+
+Fresh source-pinned measurements give a paired Assay/Bend ratio of
+1.495831642, which fails the unchanged 1.0 bound, and a normalized corpus
+ratio of 0.660838, which passes. These separate timing runs do not establish
+a feature-specific speed change. Compiler integration, the remaining M2
+features and the paired speed requirement are still open. See
+[M2-MAPPING.md](M2-MAPPING.md) for the API and scope.
+
 ## 2026-09-25: M2 packed storage
 
 Base: `f806892`. Added `Layout.Packed` for scalar field placement,

@@ -1,0 +1,1 @@
+BEND2-MEASURE file=/Users/oobi/Documents/gpt1/assay-mapping-paired.json rounds=5 cases=6 window_seconds=15.663; freeze before gating

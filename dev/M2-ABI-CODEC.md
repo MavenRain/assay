@@ -48,7 +48,7 @@ unmodified root build follows.
 
 The explicit `--m2-abi-codec` gate mode appends one leg to the unchanged
 79-leg schema schedule, for 80 legs. The default additionally runs
-[LAYOUT-PACKED](M2-PACKING.md). The ABI-CODEC leg has a 300-second deadline:
+[LAYOUT-PACKED](M2-PACKING.md) and [LAYOUT-MAPPING](M2-MAPPING.md). The ABI-CODEC leg has a 300-second deadline:
 
 ```text
 ABI-CODEC cast=48 vectors=49 reference=5 negative=26 prefixes=288 fuzz=128 mutants=10 scope=codec OK

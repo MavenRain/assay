@@ -1,0 +1,8 @@
+{
+  "base": "9e1cbe59a4bf9fb9fabf5715bb4c239b83d7e19a",
+  "existing_layout": "byte-identical",
+  "existing_tests": "byte-identical prefix",
+  "cli_bundle": "byte-identical",
+  "bytes": 1358153,
+  "sha256": "1a17d2428180a0e613abb59f654c112026813b1123bfd913026fadf38987269d"
+}

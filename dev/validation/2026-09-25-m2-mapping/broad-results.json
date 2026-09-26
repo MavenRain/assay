@@ -1,0 +1,279 @@
+{
+  "interrupted": true,
+  "exit_code": 143,
+  "legs": [
+    {
+      "name": "BUILD",
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_ms": 1104.3,
+      "deadline_seconds": 120.0
+    },
+    {
+      "name": "PIN-CARRY",
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_ms": 129.6,
+      "deadline_seconds": 30.0
+    },
+    {
+      "name": "R0-COUNT",
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_ms": 183.9,
+      "deadline_seconds": 10.0
+    },
+    {
+      "name": "R0-AUDIT",
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_ms": 101.7,
+      "deadline_seconds": 10.0
+    },
+    {
+      "name": "HOUSE",
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_ms": 818.4,
+      "deadline_seconds": 30.0
+    },
+    {
+      "name": "NATIVE-MAPS",
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_ms": 680.9,
+      "deadline_seconds": 180.0
+    },
+    {
+      "name": "NATIVE-IO",
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_ms": 2094.3,
+      "deadline_seconds": 180.0
+    },
+    {
+      "name": "TRUSTED-LINES",
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_ms": 159.5,
+      "deadline_seconds": 10.0
+    },
+    {
+      "name": "SUITE-KERNEL",
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_ms": 16883.4,
+      "deadline_seconds": 300.0
+    },
+    {
+      "name": "SUITE-SURFACE",
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_ms": 409.4,
+      "deadline_seconds": 60.0
+    },
+    {
+      "name": "DRIVER",
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_ms": 3767.4,
+      "deadline_seconds": 30.0
+    },
+    {
+      "name": "MUTANTS",
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_ms": 11115.5,
+      "deadline_seconds": 300.0
+    },
+    {
+      "name": "DENOMINATORS",
+      "status": "FAIL",
+      "exit_code": 1,
+      "elapsed_ms": 73.0,
+      "deadline_seconds": 10.0
+    },
+    {
+      "name": "KECCAK-VEC",
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_ms": 13139.0,
+      "deadline_seconds": 120.0
+    },
+    {
+      "name": "KECCAK-MUTANTS",
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_ms": 46862.5,
+      "deadline_seconds": 660.0
+    },
+    {
+      "name": "STACK-HEIGHT",
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_ms": 39260.6,
+      "deadline_seconds": 780.0
+    },
+    {
+      "name": "DISASM-3WAY",
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_ms": 5541.5,
+      "deadline_seconds": 120.0
+    },
+    {
+      "name": "ASM-MUTANTS",
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_ms": 93163.4,
+      "deadline_seconds": 1860.0
+    },
+    {
+      "name": "FORK-DRIFT",
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_ms": 492.4,
+      "deadline_seconds": 120.0
+    },
+    {
+      "name": "M0-TRACE",
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_ms": 510.7,
+      "deadline_seconds": 120.0
+    },
+    {
+      "name": "CREATE-EQ",
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_ms": 470.2,
+      "deadline_seconds": 120.0
+    },
+    {
+      "name": "REFERENCE-CHECKS",
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_ms": 752.0,
+      "deadline_seconds": 180.0
+    },
+    {
+      "name": "REFERENCE-MUTANTS",
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_ms": 4923.7,
+      "deadline_seconds": 1200.0
+    },
+    {
+      "name": "EMIT-CONSTRUCTORS",
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_ms": 122.9,
+      "deadline_seconds": 30.0
+    },
+    {
+      "name": "WORD-UNBOX",
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_ms": 105.5,
+      "deadline_seconds": 30.0
+    },
+    {
+      "name": "STORAGE-NOCLOS",
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_ms": 122.4,
+      "deadline_seconds": 30.0
+    },
+    {
+      "name": "ABI-GOLD",
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_ms": 1001.0,
+      "deadline_seconds": 60.0
+    },
+    {
+      "name": "EMITTED-TRACE",
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_ms": 803.7,
+      "deadline_seconds": 120.0
+    },
+    {
+      "name": "EMIT-SOURCES",
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_ms": 8983.8,
+      "deadline_seconds": 600.0
+    },
+    {
+      "name": "EMIT-MUTANTS",
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_ms": 63457.1,
+      "deadline_seconds": 1200.0
+    },
+    {
+      "name": "AXIOMS",
+      "status": "FAIL",
+      "exit_code": 1,
+      "elapsed_ms": 96.5,
+      "deadline_seconds": 480.0
+    },
+    {
+      "name": "TRACE-DRIVER",
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_ms": 11386.3,
+      "deadline_seconds": 120.0
+    },
+    {
+      "name": "CORPUS",
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_ms": 5298.8,
+      "deadline_seconds": 600.0
+    },
+    {
+      "name": "ERASED-BYTES",
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_ms": 1554.9,
+      "deadline_seconds": 120.0
+    },
+    {
+      "name": "M0-RATIO",
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_ms": 183.6,
+      "deadline_seconds": 60.0
+    },
+    {
+      "name": "F-MUTANTS",
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_ms": 1140.9,
+      "deadline_seconds": 180.0
+    },
+    {
+      "name": "DIFF-EXECUTOR",
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_ms": 21640.4,
+      "deadline_seconds": 180.0
+    },
+    {
+      "name": "COUNTER-REFERENCE",
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_ms": 4613.0,
+      "deadline_seconds": 300.0
+    },
+    {
+      "name": "M1-EMISSION",
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_ms": 195237.1,
+      "deadline_seconds": 600.0
+    }
+  ]
+}

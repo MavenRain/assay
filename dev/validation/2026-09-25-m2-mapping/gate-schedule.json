@@ -1,0 +1,16 @@
+{
+  "prior_modes": 49,
+  "commands_deadlines_markers_classes": "unchanged",
+  "new_checks": 82,
+  "appended": [
+    "LAYOUT-MAPPING",
+    300,
+    [
+      "python3",
+      "-P",
+      "dev/layout-mapping-test.py"
+    ],
+    "LAYOUT-MAPPING oracle=102 reference=10 negative=23 refusal=15 mutants=12 scope=mapping OK",
+    true
+  ]
+}

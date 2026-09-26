@@ -23,10 +23,10 @@
     "src/frontend.bend": "902925080b710539f33ea9b6b399ae0ac9a6f4ff5c4678024f73080164d3d6b5",
     "src/keccak.bend": "cbfb3275116d3703a803181ceeafe8dc3e74d53f21cb9a539f29c28c5bc8e98a",
     "src/kernel.bend": "12657d56799719ee73fd354eae52335847cd20fd5d31aa791434a9e34bac717e",
-    "src/layout.bend": "9e963475ad48e31ab9abdf4ed582c699eb5391e5bf2530b2af3f48dbc3ef68d1",
+    "src/layout.bend": "02b32aba9f222d53dd2826dfda765df202e3517cc25518d09abad64b4684edf2",
     "src/listing.bend": "697b9869205fc92f12b6a50fd4e82c6875440e677f01a06eecf83cb2982934ab",
     "src/os.js": "d58a97bdf93d5929d49ad395326035a1e30b545731af46b9c9f3c7b72874d753",
     "src/test-os.js": "cea57ed301de92861eb27f641564777d2156c7c371ab5eff1e00fd6cddbccb14",
-    "src/tests.bend": "a746ad0a6674d9ce3eaafcb0a7b4f5909485a1625d9a3d8850465a8762f678fa"
+    "src/tests.bend": "501f8a62913a8907791e062bfedc273e98a0ca6d1ac12965325a793e212d1d1f"
   }
 }
