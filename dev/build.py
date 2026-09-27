@@ -15,9 +15,10 @@ from bend_source import bundle, declarations, reachable
 
 PIN = json.loads((ROOT / 'dev/toolchain.json').read_text())
 OUT = ROOT / '_build/bend'
-ADAPTERS = ('sl_surface', 'abi_codec', 'abi_schema', 'layout_packed', 'layout_mapping', 'keccak_vec', 'asm_cases', 'asm_compact', 'emit_cases', 'contract_route', 'one_paths', 'export_mu', 'roundtrip')
-BACKENDS = ('abi_codec', 'abi_schema', 'layout_packed', 'layout_mapping', 'keccak_vec', 'asm_cases', 'asm_compact')
+ADAPTERS = ('sl_surface', 'abi_codec', 'abi_schema', 'event_codec', 'layout_packed', 'layout_mapping', 'keccak_vec', 'asm_cases', 'asm_compact', 'emit_cases', 'contract_route', 'one_paths', 'export_mu', 'roundtrip')
+BACKENDS = ('abi_codec', 'abi_schema', 'event_codec', 'layout_packed', 'layout_mapping', 'keccak_vec', 'asm_cases', 'asm_compact')
 ENTRIES = {
+    'event_codec': 'Tests.adapter(Event_codec.main(args))',
     'sl_surface': 'Tests.surface(Sl_surface.cases(), 0n)',
     'abi_codec': 'Tests.adapter(Abi_codec.main("abi_codec" <> args))',
     'abi_schema': 'NativeIO.print(Abi_schema.output())',
@@ -41,6 +42,7 @@ TRANSFER_SIGNATURE = '7472616e7366657228616464726573732c75696e7432353629'
 # so its own output goes to the log; a string = compare the whole stdout with it; the empty
 # string = the adapter prints data, not a verdict, so read the exit code and drop the output.
 RUNTEST = (
+    ('event_codec', ('Empty|1|||',), 'OK |'),
     ('sl_surface', (), None),
     ('abi_codec', ('encode', 'uint256,bool', '1', 'true'), 'OK ' + ABI_ONE_TRUE),
     ('abi_codec', ('decode', 'uint256,bool', ABI_ONE_TRUE), 'OK ["1","true"]'),

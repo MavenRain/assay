@@ -1,0 +1,277 @@
+[
+  {
+    "name": "runtest",
+    "command": [
+      "python3",
+      "-P",
+      "dev/build.py",
+      "runtest"
+    ],
+    "exit_code": 0,
+    "seconds": 39.62
+  },
+  {
+    "name": "event-codec",
+    "command": [
+      "python3",
+      "-P",
+      "dev/event-codec-test.py"
+    ],
+    "exit_code": 0,
+    "seconds": 13.795
+  },
+  {
+    "name": "compatibility",
+    "command": [
+      "python3",
+      "-P",
+      "dev/event-compatibility.py"
+    ],
+    "exit_code": 0,
+    "seconds": 0.771
+  },
+  {
+    "name": "abi-schema",
+    "command": [
+      "python3",
+      "-P",
+      "dev/abi-schema-test.py"
+    ],
+    "exit_code": 0,
+    "seconds": 11.094
+  },
+  {
+    "name": "abi-codec",
+    "command": [
+      "python3",
+      "-P",
+      "dev/abi-codec-test.py"
+    ],
+    "exit_code": 1,
+    "seconds": 82.279
+  },
+  {
+    "name": "layout-mapping",
+    "command": [
+      "python3",
+      "-P",
+      "dev/layout-mapping-test.py"
+    ],
+    "exit_code": 0,
+    "seconds": 15.024
+  },
+  {
+    "name": "layout-packed",
+    "command": [
+      "python3",
+      "-P",
+      "dev/layout-packed-test.py"
+    ],
+    "exit_code": 0,
+    "seconds": 16.836
+  },
+  {
+    "name": "house",
+    "command": [
+      "python3",
+      "-P",
+      "dev/house.py"
+    ],
+    "exit_code": 0,
+    "seconds": 0.876
+  },
+  {
+    "name": "trusted-lines",
+    "command": [
+      "python3",
+      "-P",
+      "dev/trusted-lines.py",
+      "."
+    ],
+    "exit_code": 0,
+    "seconds": 0.129
+  },
+  {
+    "name": "carry",
+    "command": [
+      "zsh",
+      "-f",
+      "dev/carry-check.sh"
+    ],
+    "exit_code": 1,
+    "seconds": 0.078
+  },
+  {
+    "name": "denominators",
+    "command": [
+      "shasum",
+      "-a",
+      "256",
+      "-c",
+      "dev/DENOMINATORS.sha256"
+    ],
+    "exit_code": 0,
+    "seconds": 0.077
+  },
+  {
+    "name": "build-final",
+    "command": [
+      "python3",
+      "-P",
+      "dev/build.py",
+      "build"
+    ],
+    "exit_code": 0,
+    "seconds": 1.246
+  },
+  {
+    "name": "runtest-final",
+    "command": [
+      "python3",
+      "-P",
+      "dev/build.py",
+      "runtest"
+    ],
+    "exit_code": 0,
+    "seconds": 50.231
+  },
+  {
+    "name": "event-codec-final",
+    "command": [
+      "python3",
+      "-P",
+      "dev/event-codec-test.py"
+    ],
+    "exit_code": 0,
+    "seconds": 30.58
+  },
+  {
+    "name": "abi-schema-final",
+    "command": [
+      "python3",
+      "-P",
+      "dev/abi-schema-test.py"
+    ],
+    "exit_code": 0,
+    "seconds": 28.322
+  },
+  {
+    "name": "abi-codec-final",
+    "command": [
+      "python3",
+      "-P",
+      "dev/abi-codec-test.py"
+    ],
+    "exit_code": 0,
+    "seconds": 300.726
+  },
+  {
+    "name": "layout-mapping-final",
+    "command": [
+      "python3",
+      "-P",
+      "dev/layout-mapping-test.py"
+    ],
+    "exit_code": 0,
+    "seconds": 36.027
+  },
+  {
+    "name": "layout-packed-final",
+    "command": [
+      "python3",
+      "-P",
+      "dev/layout-packed-test.py"
+    ],
+    "exit_code": 0,
+    "seconds": 33.05
+  },
+  {
+    "name": "compatibility-final",
+    "command": [
+      "python3",
+      "-P",
+      "dev/event-compatibility.py"
+    ],
+    "exit_code": 0,
+    "seconds": 1.238
+  },
+  {
+    "name": "denominators-final",
+    "command": [
+      "shasum",
+      "-a",
+      "256",
+      "-c",
+      "dev/DENOMINATORS.sha256"
+    ],
+    "exit_code": 0,
+    "seconds": 0.068
+  },
+  {
+    "name": "carry-final",
+    "command": [
+      "zsh",
+      "-f",
+      "dev/carry-check.sh"
+    ],
+    "exit_code": 0,
+    "seconds": 0.118
+  },
+  {
+    "name": "trusted-lines-final",
+    "command": [
+      "python3",
+      "-P",
+      "dev/trusted-lines.py",
+      "."
+    ],
+    "exit_code": 0,
+    "seconds": 0.151
+  },
+  {
+    "name": "house-final",
+    "command": [
+      "python3",
+      "-P",
+      "dev/house.py"
+    ],
+    "exit_code": 0,
+    "seconds": 0.84
+  },
+  {
+    "name": "paired-measure",
+    "command": [
+      "env",
+      "BEND_NO_TELEMETRY=1",
+      "python3",
+      "-P",
+      "dev/bend2-ratio.py",
+      "--measure",
+      "/Users/oobi/Documents/gpt1/assay-events-paired.json",
+      "--bend-root",
+      "/Users/oobi/Documents/gpt1/assay-bend2-v2.0.25"
+    ],
+    "exit_code": 0,
+    "seconds": 17.485
+  },
+  {
+    "name": "bend2-ratio-test-final",
+    "command": [
+      "python3",
+      "-P",
+      "dev/bend2-ratio-test.py"
+    ],
+    "exit_code": 0,
+    "seconds": 0.52
+  },
+  {
+    "name": "bend2-ratio-final",
+    "command": [
+      "python3",
+      "-P",
+      "dev/bend2-ratio.py"
+    ],
+    "exit_code": 1,
+    "seconds": 0.108
+  }
+]

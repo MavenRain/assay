@@ -1,5 +1,35 @@
 # Assay M2 build log
 
+## 2026-09-26: M2 typed event log encoding
+
+Starting at `a1e7440`, `Abi.Event` constructs signature topics, indexed
+scalar and string topics, and non-indexed ABI tuple data. Anonymous events
+omit topic zero. Explicit errors cover topic limits, arity, type mismatch
+and codec failures; failed calls return no partial log.
+
+The event gate covers 71 cast comparisons, 21 distinct frozen ERC-20 logs,
+65 production refusals, 13 adapter refusals, 12 Cancun executions and 12
+compiling semantic mutants with a rebuilt passing control. The refusals
+include non-indexed type mismatches and nine rows that check the error
+order when two failures occur. The Cancun programs exercise LOG0 through
+LOG4 and receipt-log rollback, using the production encoder's bytes and
+independent expected results.
+
+The default now appends EVENT-CODEC for 83 legs. All 50 historical modes
+retain their schedules, deadlines, markers and failure classes. Existing
+ABI and test definitions and the reachable CLI compiler bundle retain
+their base bytes. The ABI module is 308/400 lines and trusted artifacts
+total 2764/3550, with all bounds unchanged.
+
+Commands and results are in
+`dev/validation/2026-09-26-m2-events`. Validation is scoped to native tests,
+the new event gate, neighboring ABI and storage gates and source audits.
+It does not claim a complete default battery. A fresh paired Bend 2
+measurement gives a ratio of 1.150474099, which still fails the unchanged
+1.0 bound, and the mapping corpus freeze is unchanged.
+Source event lowering and the remaining M2 compiler and proof work stay
+pending. See `dev/M2-EVENTS.md` for the API and remaining scope.
+
 ## 2026-09-25: M2 mapping storage locations
 
 This slice starts at `9e1cbe5` and adds checked scalar and nested mapping

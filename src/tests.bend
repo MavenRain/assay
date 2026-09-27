@@ -1510,3 +1510,54 @@ def Mapping_layout.main(args: ListOf(String)) -> StringResult(String):
   match args:
     case Nil{}: Done{""}
     case Con{query, tail}: StringResult.bind(String, String, Mapping_layout.query(NativeString.split(Char.from_u32(124), query)), row => Mapping_layout.join(row, tail))
+def Event_codec.error(error: Abi.Event.Error) -> String:
+  match error:
+    case Abi.Event.Error.Arity{}: "arity"
+    case Abi.Event.Error.Type_mismatch{}: "type-mismatch"
+    case Abi.Event.Error.Too_many_topics{}: "too-many-topics"
+    case Abi.Event.Error.Codec{error}: Abi_codec.error(error)
+@unsafe
+def Event_codec.show(result: Abi.Event.Result(Abi.Event.Log)) -> String:
+  match result:
+    case Fail{error}: String.append("ERR ", Event_codec.error(error))
+    case Done{Abi.Event.Log{topics, data}}:
+      String.concat(["OK ", String.join(SeqList.map(&2, &2, String, String, Abi_codec.hex, topics), ","), "|", Abi_codec.hex(data)])
+def Event_codec.flag(+text: String) -> StringResult(Bool):
+  Big.when(StringResult(Bool), NativeString.equal(text, "1"), _ => Done{True{}}, _ =>
+    Big.when(StringResult(Bool), NativeString.equal(text, "0"), _ => Done{False{}}, _ => Fail{"ADAPTER-FLAG"}))
+@unsafe
+def Event_codec.parameters(types: ListOf(Abi.Schema.Value_type), flags: ListOf(String)) -> StringResult(ListOf(Abi.Schema.Event_parameter)):
+  match types flags:
+    case Nil{} Nil{}: Done{[]}
+    case Nil{} Con{_, _}: Fail{"ADAPTER-ARITY"}
+    case Con{_, _} Nil{}: Fail{"ADAPTER-ARITY"}
+    case Con{typ, ts} Con{flag, fs}:
+      StringResult.bind(Bool, ListOf(Abi.Schema.Event_parameter), Event_codec.flag(flag), +indexed =>
+        StringResult.bind(ListOf(Abi.Schema.Event_parameter), ListOf(Abi.Schema.Event_parameter), Event_codec.parameters(ts, fs), tail => Done{MkAbi_Schema_Event_parameter{MkAbi_Schema_Parameter{"", typ}, indexed} <> tail}))
+def Event_codec.flags(+text: String) -> ListOf(String):
+  Big.when(ListOf(String), NativeString.equal(text, ""), _ => [], _ => NativeString.split(Char.from_u32(44), text))
+@unsafe
+def Event_codec.query(parts: ListOf(String)) -> StringResult(String):
+  match parts:
+    case Nil{}: Fail{"ADAPTER-USAGE"}
+    case Con{_, Nil{}}: Fail{"ADAPTER-USAGE"}
+    case Con{_, Con{_, Nil{}}}: Fail{"ADAPTER-USAGE"}
+    case Con{_, Con{_, Con{_, Nil{}}}}: Fail{"ADAPTER-USAGE"}
+    case Con{_, Con{_, Con{_, Con{_, Nil{}}}}}: Fail{"ADAPTER-USAGE"}
+    case Con{name, Con{anonymous, Con{types, Con{flags, Con{value_types, args}}}}}:
+      StringResult.bind(Bool, String, Event_codec.flag(anonymous), +anon =>
+        StringResult.bind(ListOf(Abi.Schema.Value_type), String, Mapping_layout.types(types), ts =>
+          StringResult.bind(ListOf(Abi.Schema.Event_parameter), String, Event_codec.parameters(ts, Event_codec.flags(flags)), +ps =>
+            StringResult.bind(ListOf(Abi.Schema.Value_type), String, Mapping_layout.types(value_types), vs =>
+              StringResult.bind(ListOf(Abi.Codec.Value), String, Abi_codec.values(vs, args), values => Done{Event_codec.show(Abi.Event.encode(name, ps, anon, values))})))))
+@unsafe
+def Event_codec.main(args: ListOf(String)) -> StringResult(String):
+  match args:
+    case Nil{}: Done{""}
+    case Con{query, tail}:
+      StringResult.bind(String, String, Event_codec.query(NativeString.split(Char.from_u32(124), query)), row => Event_codec.join(row, tail))
+@unsafe
+def Event_codec.join(+row: String, tail: ListOf(String)) -> StringResult(String):
+  match tail:
+    case Nil{}: Done{row}
+    case Con{head, rest}: StringResult.bind(String, String, Event_codec.main(head <> rest), rows => Done{String.concat([row, "\n", rows])})

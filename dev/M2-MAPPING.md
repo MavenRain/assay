@@ -58,11 +58,13 @@ checks, accepted empty paths, reversed key order, ignored inner keys and a
 mutant kill. Compiler failures, adapter failures and a wrong adapter output
 shape fail the gate.
 
-The default mode is `--m2-mapping`, appending `LAYOUT-MAPPING` to the
+The explicit mode `--m2-mapping` appends `LAYOUT-MAPPING` to the
 previous 81 checks. All 49 previous modes preserve their schedules,
 deadlines, markers and failure classifications. The
 [validation record](validation/2026-09-25-m2-mapping/README.md) records the
 actual full-suite outcome and performance results.
+
+The default now selects `--m2-events`, adding [EVENT-CODEC](M2-EVENTS.md).
 
 Source lowering, mapping declarations and metadata, event execution,
 dynamic ABI lowering and the M2 Lean negative mutants remain pending.

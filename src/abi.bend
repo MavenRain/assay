@@ -247,3 +247,62 @@ def Abi.Codec.decode(+types_971: ListOf(Abi.Schema.Value_type), +data_972: Strin
   (+scrut10168 = {Big.of_nat(String.length(data_972)) : Big}
   (+scrut10169 = {Big.of_nat(List.length(&2, Abi.Schema.Value_type, types_971)) : Big}
   Native.choose(&2, Abi.Codec.Result(ListOf(Abi.Codec.Value)), Big.is_lt(Big.shift_right(Big.unsigned(63n, scrut10168), Big.to_nat(Big.unsigned(6n, Big.of_nat(5n)))), scrut10169), _ => (Fail{Abi.Codec.Error.Truncated{}}), _ => ((+local10176 => +local10178 => +local10180 => +local10182 => (Local.Abi.read.f10170(scrut10168, data_972, local10176, local10178, local10180, local10182)))(Big.zero(), NativeInt.mul(scrut10169, Big.of_nat(32n)), Nil{}, types_971)))))
+type Abi.Event.Log is Data:
+  Abi.Event.Log{topics: ListOf(String), data: String}
+type Abi.Event.Error is Data:
+  Abi.Event.Error.Arity{}
+  Abi.Event.Error.Type_mismatch{}
+  Abi.Event.Error.Too_many_topics{}
+  Abi.Event.Error.Codec{error: Abi.Codec.Error}
+def Abi.Event.Result(-A: Data) -> Data: Result<&2, &2, Abi.Event.Error, A>
+def Abi.Event.Result.bind(-A: Data, -B: Data, value: Abi.Event.Result(A), next: A -> Abi.Event.Result(B)) -> Abi.Event.Result(B):
+  match value:
+    case Done{x}: next(x)
+    case Fail{error}: Fail{error}
+def Abi.Event.codec(result: Abi.Codec.Result(String)) -> Abi.Event.Result(String):
+  match result:
+    case Done{bytes}: Done{bytes}
+    case Fail{error}: Fail{Abi.Event.Error.Codec{error}}
+def Abi.Event.value_type(value: Abi.Codec.Value) -> Abi.Schema.Value_type:
+  match value:
+    case Abi.Codec.Value.Uint8{_}: Abi.Schema.Value_type.Uint8{}
+    case Abi.Codec.Value.Uint256{_}: Abi.Schema.Value_type.Uint256{}
+    case Abi.Codec.Value.Address{_}: Abi.Schema.Value_type.Address{}
+    case Abi.Codec.Value.Bool{_}: Abi.Schema.Value_type.Bool{}
+    case Abi.Codec.Value.String{_}: Abi.Schema.Value_type.String{}
+def Abi.Event.topic(value: Abi.Codec.Value) -> Abi.Event.Result(String):
+  match value:
+    case Abi.Codec.Value.Uint8{n}: Abi.Event.codec(Abi.Codec.scalar(Abi.Schema.Value_type.Uint8{}, Big.of_nat(8n), n))
+    case Abi.Codec.Value.Uint256{n}: Abi.Event.codec(Abi.Codec.scalar(Abi.Schema.Value_type.Uint256{}, Big.of_nat(256n), n))
+    case Abi.Codec.Value.Address{n}: Abi.Event.codec(Abi.Codec.scalar(Abi.Schema.Value_type.Address{}, Big.of_nat(160n), n))
+    case Abi.Codec.Value.Bool{b}: Abi.Event.codec(Abi.Codec.encode([Abi.Codec.Value.Bool{b}]))
+    case Abi.Codec.Value.String{bytes}: Done{Abi.Event.hash(bytes)}
+def Abi.Event.hash(bytes: String) -> String:
+  Abi.Codec.word(Big.read_validated(Big.of_nat(16n), Keccak.keccak256(bytes)))
+@unsafe
+def Abi.Event.count(inputs: ListOf(Abi.Schema.Event_parameter)) -> Nat:
+  match inputs:
+    case Nil{}: 0n
+    case Con{MkAbi_Schema_Event_parameter{_, indexed}, tail}:
+      (Big.when(Nat, indexed, _ => 1n, _ => 0n) + Abi.Event.count(tail): Nat)
+@unsafe
+def Abi.Event.collect(inputs: ListOf(Abi.Schema.Event_parameter), values: ListOf(Abi.Codec.Value), +topics: ListOf(String), +data: ListOf(Abi.Codec.Value)) -> Abi.Event.Result(Abi.Event.Log):
+  match inputs values:
+    case Nil{} Nil{}:
+      Abi.Event.Result.bind(String, Abi.Event.Log, Abi.Event.codec(Abi.Codec.encode(List.reverse(&2, Abi.Codec.Value, data))), bytes => Done{Abi.Event.Log{List.reverse(&2, String, topics), bytes}})
+    case Nil{} Con{_, _}: Fail{Abi.Event.Error.Arity{}}
+    case Con{_, _} Nil{}: Fail{Abi.Event.Error.Arity{}}
+    case Con{MkAbi_Schema_Event_parameter{MkAbi_Schema_Parameter{_, typ}, indexed}, tail} Con{value, rest}:
+      Abi.Event.field(typ, indexed, tail, value, rest, topics, data)
+@unsafe
+def Abi.Event.field(+typ: Abi.Schema.Value_type, +indexed: Bool, +tail: ListOf(Abi.Schema.Event_parameter), +value: Abi.Codec.Value, +rest: ListOf(Abi.Codec.Value), +topics: ListOf(String), +data: ListOf(Abi.Codec.Value)) -> Abi.Event.Result(Abi.Event.Log):
+  Big.when(Abi.Event.Result(Abi.Event.Log), NativeString.equal(Abi.Schema.type_name(typ), Abi.Schema.type_name(Abi.Event.value_type(value))), _ =>
+    Big.when(Abi.Event.Result(Abi.Event.Log), indexed,
+      _ => Abi.Event.Result.bind(String, Abi.Event.Log, Abi.Event.topic(value), topic => Abi.Event.collect(tail, rest, topic <> topics, data)),
+      _ => Abi.Event.collect(tail, rest, topics, value <> data)), _ => Fail{Abi.Event.Error.Type_mismatch{}})
+@unsafe
+def Abi.Event.encode(+name: String, +inputs: ListOf(Abi.Schema.Event_parameter), +anonymous: Bool, +values: ListOf(Abi.Codec.Value)) -> Abi.Event.Result(Abi.Event.Log):
+  +limit = Big.when(Nat, anonymous, _ => 4n, _ => 3n)
+  Big.when(Abi.Event.Result(Abi.Event.Log), Big.is_le(Big.of_nat(Abi.Event.count(inputs)), Big.of_nat(limit)), _ =>
+    +topics = Big.when(ListOf(String), anonymous, _ => [], _ => [Abi.Event.hash(Abi.Schema.event_signature(name, inputs))])
+    Abi.Event.collect(inputs, values, topics, []), _ => Fail{Abi.Event.Error.Too_many_topics{}})

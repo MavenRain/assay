@@ -20,7 +20,9 @@ The [fourth M2 slice](dev/M2-PACKING.md) adds packed storage layouts and
 checked word access for `uint8`, `uint256`, `address` and `bool`.
 The [fifth M2 slice](dev/M2-MAPPING.md) derives checked storage locations
 for scalar keys and nested mappings, including the ERC-20 reference slots.
-Source lowering for packed declarations and mappings remains pending.
+The [sixth M2 slice](dev/M2-EVENTS.md) encodes typed event topics and data,
+including anonymous events and indexed strings.
+Source lowering for packed declarations, mappings and events remains pending.
 `zsh -f dev/gates.sh` runs the complete gate battery.
 
 Assay is a Kanon language fork for EVM contracts.  It inherits the kernel and
@@ -354,13 +356,14 @@ and five mutations with restored controls.
 The address gate adds 1920 core comparisons, 128 artifact pairs,
 40 surface cases, 55 signed calls, seven public command checks,
 24 refusals and five mutations with restored controls.
-`dev/gates.sh` selects `--m2-mapping`: the 77 `--m1-close` legs
+`dev/gates.sh` selects `--m2-events`: the 77 `--m1-close` legs
 (proof-bundle, named-predicate, compound-invariant, named-guard,
 inferred-guard and inferred-arithmetic suites), then ERC20-REFERENCE,
-ABI-SCHEMA, ABI-CODEC, LAYOUT-PACKED and LAYOUT-MAPPING, for 82 legs. `--m2-reference`
+ABI-SCHEMA, ABI-CODEC, LAYOUT-PACKED, LAYOUT-MAPPING and EVENT-CODEC,
+for 83 legs. `--m2-reference`
 retains its 78-leg schedule, `--m2-abi-schema` retains its 79-leg schedule
 and `--m2-abi-codec` retains its 80-leg schedule. `--m2-packing` retains
-its 81-leg schedule.
+its 81-leg schedule, and `--m2-mapping` retains its 82-leg schedule.
 The inferred-helper gate adds 254 source/EVM comparisons, two creation
 outcomes, 26 refusals, 24 five-file erasure pairs, six accepted boundary
 forms and five mutations with restored controls.

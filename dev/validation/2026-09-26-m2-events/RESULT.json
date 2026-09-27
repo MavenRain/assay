@@ -1,0 +1,23 @@
+{
+  "status": "scoped-pass",
+  "checks": 11,
+  "native_adapters": 14,
+  "native_commands": 20,
+  "event_vectors": 157,
+  "cancun_executions": 12,
+  "log_topic_counts": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "original_failures": [
+    "abi-codec",
+    "carry"
+  ],
+  "full_default_battery": "not-run",
+  "performance": "paired-remeasured-ratio-1.150474099-bound-fail",
+  "adapter_refusals": 13,
+  "event_mutants": 12
+}

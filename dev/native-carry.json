@@ -16,7 +16,7 @@
     "src/tests.bend"
   ],
   "carried": {
-    "src/abi.bend": "398cc6d2966137146dfeda592fea287975a4499515265d5c13e33a1c2883f14e",
+    "src/abi.bend": "5ecb6ada6db1ce42aaf55aa279c574ad251994873deb84acbfeebc3e093efa97",
     "src/assembler.bend": "926e906d011f53dd4b92ff2ffbd090d472a46cca7fae72829b9cb3bd98223c9d",
     "src/cli.bend": "a99c1a815912ed21ff672be3bc9502204b1a52ca7642abb05640fc36515b2525",
     "src/emitter.bend": "36f2d023f6490b086017de8bc08c777989432389e0d0e0327af1d5888240aef1",
@@ -27,6 +27,6 @@
     "src/listing.bend": "697b9869205fc92f12b6a50fd4e82c6875440e677f01a06eecf83cb2982934ab",
     "src/os.js": "d58a97bdf93d5929d49ad395326035a1e30b545731af46b9c9f3c7b72874d753",
     "src/test-os.js": "cea57ed301de92861eb27f641564777d2156c7c371ab5eff1e00fd6cddbccb14",
-    "src/tests.bend": "501f8a62913a8907791e062bfedc273e98a0ca6d1ac12965325a793e212d1d1f"
+    "src/tests.bend": "6957d61213689f74068ab472239b26c0e14d4899f97ccde81bd23554c36c8d42"
   }
 }

@@ -1,0 +1,80 @@
+[
+  {
+    "command": "",
+    "exit_code": 64,
+    "stdout": "",
+    "stderr": "ADAPTER-USAGE"
+  },
+  {
+    "command": "x",
+    "exit_code": 64,
+    "stdout": "",
+    "stderr": "ADAPTER-USAGE"
+  },
+  {
+    "command": "x|0",
+    "exit_code": 64,
+    "stdout": "",
+    "stderr": "ADAPTER-USAGE"
+  },
+  {
+    "command": "x|0|",
+    "exit_code": 64,
+    "stdout": "",
+    "stderr": "ADAPTER-USAGE"
+  },
+  {
+    "command": "x|0||",
+    "exit_code": 64,
+    "stdout": "",
+    "stderr": "ADAPTER-USAGE"
+  },
+  {
+    "command": "x|2|||",
+    "exit_code": 64,
+    "stdout": "",
+    "stderr": "ADAPTER-FLAG"
+  },
+  {
+    "command": "x|0|uint8|2|uint8|1",
+    "exit_code": 64,
+    "stdout": "",
+    "stderr": "ADAPTER-FLAG"
+  },
+  {
+    "command": "x|0|uint8||uint8|1",
+    "exit_code": 64,
+    "stdout": "",
+    "stderr": "ADAPTER-ARITY"
+  },
+  {
+    "command": "x|0||1|",
+    "exit_code": 64,
+    "stdout": "",
+    "stderr": "ADAPTER-ARITY"
+  },
+  {
+    "command": "x|0|uint8|0|uint8",
+    "exit_code": 64,
+    "stdout": "",
+    "stderr": "ADAPTER-ARITY"
+  },
+  {
+    "command": "x|0|||uint8|",
+    "exit_code": 64,
+    "stdout": "",
+    "stderr": "ADAPTER-NUMBER"
+  },
+  {
+    "command": "x|0|||uint8|-",
+    "exit_code": 64,
+    "stdout": "",
+    "stderr": "ADAPTER-NUMBER"
+  },
+  {
+    "command": "x|0|||bool|2",
+    "exit_code": 64,
+    "stdout": "",
+    "stderr": "ADAPTER-BOOL"
+  }
+]
