@@ -1,0 +1,7 @@
+Error:
+- message  : a match on a parameter or field (this name is a def or a consumed binder: give the value its own def)
+Location:
+1441 |       StringResult.bind(ListOf(Abi.Schema.Value_type), String, Mapping_layout.types(types), +ts =>
+1442>|         match mode:
+1443 |           case "encode":
+BEND BUILD FAIL: Bend compilation failed, full log: /Users/oobi/Documents/gpt1/assay-m2-event-surface/_build/bend/test_call_codec.log

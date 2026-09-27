@@ -44,7 +44,7 @@ Compiler errors never count as mutation kills.
 The explicit `--m2-abi-schema` gate mode appends
 ABI-SCHEMA to the existing 78-leg M2 reference schedule, for 79 legs.
 The default additionally runs [ABI-CODEC](M2-ABI-CODEC.md),
-[LAYOUT-PACKED](M2-PACKING.md), [LAYOUT-MAPPING](M2-MAPPING.md) and [EVENT-CODEC](M2-EVENTS.md). Earlier explicit
+[LAYOUT-PACKED](M2-PACKING.md), [LAYOUT-MAPPING](M2-MAPPING.md), [EVENT-CODEC](M2-EVENTS.md) and [CALL-CODEC](M2-CALLDATA.md). Earlier explicit
 modes keep their commands, deadlines, markers and failure
 classification. The new leg has a 300-second deadline and requires:
 

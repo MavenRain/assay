@@ -1,0 +1,13 @@
+Error:
+- expected : @+arg0:Abi.Schema.Parameter -> Abi.Schema.Value_type
+- observed : @value:Abi.Schema.Parameter -> Abi.Schema.Value_type
+Context:
+- fn   : Abi.Schema.Function_
+- data : String
+- _    : Unit
+- _    : Unit
+Location: Abi.Call.decode
+1216 |     _ => Big.when(Abi.Call.Result(ListOf(Abi.Codec.Value)), NativeString.equal(NativeString.take(4n, data), Abi.Call.selector(fn)),
+1217>|       _ => Abi.Call.codec(ListOf(Abi.Codec.Value), Abi.Codec.decode(SeqList.map(&2, &2, Abi.Schema.Parameter, Abi.Schema.Value_type, Get.Abi.Schema.Parameter.typ, Get.Abi.Schema.Function_.inputs(fn)), NativeString.drop(4n, data))),
+1218 |       _ => Fail{Abi.Call.Error.Wrong_selector{}}))
+BEND BUILD FAIL: Bend compilation failed, full log: /Users/oobi/Documents/gpt1/assay-m2-event-surface/_build/bend/test_call_codec.log

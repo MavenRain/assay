@@ -1,0 +1,82 @@
+# M2 typed function calldata
+
+This slice starts at `0cf7d20` and adds `Abi.Call` in native Bend 2.
+It combines the typed function schema, Keccak selector and strict tuple
+codec into complete function call payloads.
+
+## API
+
+- `Abi.Call.selector(fn)` returns the four selector bytes.
+- `Abi.Call.encode(fn, values)` returns `Abi.Call.Result(String)`.
+- `Abi.Call.decode(fn, bytes)` returns
+  `Abi.Call.Result(ListOf(Abi.Codec.Value))`.
+
+The function is an `Abi.Schema.Function_`. Supported input types are
+`uint8`, `uint256`, `address`, `bool` and `string`. Input parameter
+names, outputs and mutability do not affect the selector. Declaration
+names have the schema layer's existing validation policy.
+
+The selector is the first four bytes of Keccak-256 of the canonical
+function signature. The argument tuple begins immediately afterward,
+and dynamic offsets are relative to that tuple. This follows the
+[Solidity function ABI](https://docs.soliditylang.org/en/latest/abi-spec.html#function-selector).
+For example, `transfer(address,uint256)` begins with `a9059cbb`,
+followed by two 32-byte words.
+
+Strings and payloads use the existing codec's byte-string convention.
+Arbitrary string bytes are preserved, including zero and high bytes.
+Callers supply encoded bytes, including UTF-8 bytes for Unicode text.
+
+Encoding checks schema/value pairs in declaration order. The first type
+mismatch or missing/extra argument reached returns `Type_mismatch` or
+`Arity`. After that traversal succeeds, the tuple codec validates scalar
+bounds and encodes all values. Decoding first rejects fewer than four
+bytes as `Short_selector`, then a selector mismatch as `Wrong_selector`,
+then applies the tuple decoder. Underlying errors are wrapped in
+`Abi.Call.Error.Codec`. Errors return no partial result.
+
+Decoding requires canonical argument bytes: exact scalar ranges, bool
+words zero or one, minimal consecutive dynamic offsets, zero padding and
+no trailing data. This inherits the tuple codec's stricter policy for
+suffixes and nonminimal offsets than Solidity runtime decoding.
+
+This is a host codec for one supplied function declaration. Compiler
+integration, typed source arguments, dynamic EVM ABI lowering, packed
+source declarations, mappings, events and M2 Lean mutants remain pending.
+It does not change the existing compiler's dispatch behavior or close M2.
+
+## Validation
+
+Run `python3 -P dev/call-codec-test.py`. It checks:
+
+- 57 oracle payloads from `cast calldata`, or a `cast` selector plus the
+  equivalent `bytes` encoding for binary strings. These include scalar
+  boundaries, string word boundaries, mixed tuples and 32 seeded cases.
+- 44 distinct canonical call payloads from the frozen ERC-20 reference.
+  Every oracle and reference case is encoded, decoded and encoded again
+  with different parameter names, output types and mutability.
+- 60 production errors, all 292 truncated prefixes of a mixed call, and
+  13 adapter refusals. Refusals exit 64 with no stdout.
+- Ten compiling mutants killed by named wrong-answer witnesses, followed
+  by a rebuilt scratch control. Compilation, tool and malformed-output
+  failures do not count as kills.
+
+`python3 -P dev/call-compatibility.py` preserves all 51 historical gate
+modes, including deadlines, expected markers and failure classes. The
+original ABI and test sources remain byte-identical prefixes, and the
+compiler CLI's reachable Bend bundle is byte-identical. The new default
+`--m2-calldata` appends CALL-CODEC, for 84 checks.
+
+The [validation record](validation/2026-09-27-m2-calldata/README.md) retains
+the scoped results, failed development attempts and source hashes.
+
+## Performance
+
+Changes to `Makefile`, `dev/build.py` and `src/abi.bend` require new
+compiler source pins. A fresh five-round paired measurement is frozen
+in `dev/bend2-baseline.json`; its measured window is 7.642 seconds.
+The Assay/Bend 2 ratio is 1.720827821, above the unchanged 1.0 bound.
+BEND2-RATIO therefore remains failing. BEND2-RATIO-TEST passes with the
+new pins. The corpus measurement is unchanged. The CLI bundle comparison
+shows no executable compiler change, so these separate timing runs do
+not establish a calldata-related performance change.

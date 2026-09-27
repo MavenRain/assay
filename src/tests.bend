@@ -1561,3 +1561,68 @@ def Event_codec.join(+row: String, tail: ListOf(String)) -> StringResult(String)
   match tail:
     case Nil{}: Done{row}
     case Con{head, rest}: StringResult.bind(String, String, Event_codec.main(head <> rest), rows => Done{String.concat([row, "\n", rows])})
+
+def Call_codec.error(error: Abi.Call.Error) -> String:
+  match error:
+    case Abi.Call.Error.Arity{}: "ARITY"
+    case Abi.Call.Error.Type_mismatch{}: "TYPE"
+    case Abi.Call.Error.Short_selector{}: "SHORT-SELECTOR"
+    case Abi.Call.Error.Wrong_selector{}: "WRONG-SELECTOR"
+    case Abi.Call.Error.Codec{error}: Abi_codec.error(error)
+@unsafe
+def Call_codec.function(+name: String, types: ListOf(Abi.Schema.Value_type), +metadata: Bool) -> Abi.Schema.Function_:
+  +inputs = SeqList.map(&2, &2, Abi.Schema.Value_type, Abi.Schema.Parameter, +typ => MkAbi_Schema_Parameter{Big.when(String, metadata, _ => "renamed", _ => ""), typ}, types)
+  Big.when(Abi.Schema.Function_, metadata,
+    _ => MkAbi_Schema_Function_{name, inputs, [MkAbi_Schema_Parameter{"result", Abi.Schema.Value_type.String{}}], Abi.Mutability.Payable{}},
+    _ => MkAbi_Schema_Function_{name, inputs, [], Abi.Mutability.View{}})
+@unsafe
+def Call_codec.show_encode(result: Abi.Call.Result(String)) -> String:
+  match result:
+    case Done{bytes}: String.concat(["OK ", Abi_codec.hex(bytes)])
+    case Fail{error}: String.concat(["ERR ", Call_codec.error(error)])
+@unsafe
+def Call_codec.values_text(values: ListOf(Abi.Codec.Value)) -> String:
+  match values:
+    case Nil{}: ""
+    case Con{value, Nil{}}: Abi_codec.show_value(value)
+    case Con{value, Con{head, tail}}: String.concat([Abi_codec.show_value(value), "|", Call_codec.values_text(head <> tail)])
+@unsafe
+def Call_codec.show_decode(result: Abi.Call.Result(ListOf(Abi.Codec.Value))) -> String:
+  match result:
+    case Done{values}: String.concat(["OK ", Call_codec.values_text(values)])
+    case Fail{error}: String.concat(["ERR ", Call_codec.error(error)])
+@unsafe
+def Call_codec.query(parts: ListOf(String)) -> StringResult(String):
+  match parts:
+    case Nil{}: Fail{"ADAPTER-USAGE"}
+    case Con{_, Nil{}}: Fail{"ADAPTER-USAGE"}
+    case Con{_, Con{_, Nil{}}}: Fail{"ADAPTER-USAGE"}
+    case Con{_, Con{_, Con{_, Nil{}}}}: Fail{"ADAPTER-USAGE"}
+    case Con{mode, Con{name, Con{types, Con{payload, args}}}}:
+      StringResult.bind(ListOf(Abi.Schema.Value_type), String, Mapping_layout.types(types), ts => Call_codec.dispatch(mode, name, ts, payload, args))
+@unsafe
+def Call_codec.dispatch(+mode: String, +name: String, +ts: ListOf(Abi.Schema.Value_type), +payload: String, +args: ListOf(String)) -> StringResult(String):
+  Big.when(StringResult(String), NativeString.equal(mode, "decode"), _ => Call_codec.decode_query(name, ts, payload, args), _ =>
+    Big.when(StringResult(String), NativeString.equal(mode, "encode"), _ => Call_codec.encode_query(name, ts, payload, args, False{}), _ =>
+      Big.when(StringResult(String), NativeString.equal(mode, "metadata"), _ => Call_codec.encode_query(name, ts, payload, args, True{}), _ => Fail{"ADAPTER-MODE"})))
+@unsafe
+def Call_codec.encode_query(+name: String, +ts: ListOf(Abi.Schema.Value_type), payload: String, args: ListOf(String), +metadata: Bool) -> StringResult(String):
+  StringResult.bind(ListOf(Abi.Schema.Value_type), String, Mapping_layout.types(payload), vs =>
+    StringResult.bind(ListOf(Abi.Codec.Value), String, Abi_codec.values(vs, args), values =>
+      Done{Call_codec.show_encode(Abi.Call.encode(Call_codec.function(name, ts, metadata), values))}))
+@unsafe
+def Call_codec.decode_query(+name: String, +ts: ListOf(Abi.Schema.Value_type), payload: String, args: ListOf(String)) -> StringResult(String):
+  match args:
+    case Nil{}: StringResult.bind(String, String, Abi_codec.unhex(payload), bytes => Done{Call_codec.show_decode(Abi.Call.decode(Call_codec.function(name, ts, False{}), bytes))})
+    case Con{_, _}: Fail{"ADAPTER-USAGE"}
+@unsafe
+def Call_codec.main(args: ListOf(String)) -> StringResult(String):
+  match args:
+    case Nil{}: Done{""}
+    case Con{query, tail}:
+      StringResult.bind(String, String, Call_codec.query(NativeString.split(Char.from_u32(124), query)), row => Call_codec.join(row, tail))
+@unsafe
+def Call_codec.join(+row: String, tail: ListOf(String)) -> StringResult(String):
+  match tail:
+    case Nil{}: Done{row}
+    case Con{head, rest}: StringResult.bind(String, String, Call_codec.main(head <> rest), rows => Done{String.concat([row, "\n", rows])})

@@ -306,3 +306,42 @@ def Abi.Event.encode(+name: String, +inputs: ListOf(Abi.Schema.Event_parameter),
   Big.when(Abi.Event.Result(Abi.Event.Log), Big.is_le(Big.of_nat(Abi.Event.count(inputs)), Big.of_nat(limit)), _ =>
     +topics = Big.when(ListOf(String), anonymous, _ => [], _ => [Abi.Event.hash(Abi.Schema.event_signature(name, inputs))])
     Abi.Event.collect(inputs, values, topics, []), _ => Fail{Abi.Event.Error.Too_many_topics{}})
+
+type Abi.Call.Error is Data:
+  Abi.Call.Error.Arity{}
+  Abi.Call.Error.Type_mismatch{}
+  Abi.Call.Error.Short_selector{}
+  Abi.Call.Error.Wrong_selector{}
+  Abi.Call.Error.Codec{error: Abi.Codec.Error}
+def Abi.Call.Result(-A: Data) -> Data: Result<&2, &2, Abi.Call.Error, A>
+def Abi.Call.Result.bind(-A: Data, -B: Data, value: Abi.Call.Result(A), next: A -> Abi.Call.Result(B)) -> Abi.Call.Result(B):
+  match value:
+    case Done{x}: next(x)
+    case Fail{error}: Fail{error}
+def Abi.Call.codec(-A: Data, result: Abi.Codec.Result(A)) -> Abi.Call.Result(A):
+  match result:
+    case Done{value}: Done{value}
+    case Fail{error}: Fail{Abi.Call.Error.Codec{error}}
+@unsafe
+def Abi.Call.selector(fn: Abi.Schema.Function_) -> String:
+  NativeString.take(4n, Abi.Codec.word(Big.read_validated(Big.of_nat(16n), Keccak.keccak256(Abi.Schema.function_signature(fn)))))
+@unsafe
+def Abi.Call.validate(inputs: ListOf(Abi.Schema.Parameter), values: ListOf(Abi.Codec.Value)) -> Abi.Call.Result(Unit):
+  match inputs values:
+    case Nil{} Nil{}: Done{Unit{}}
+    case Nil{} Con{_, _}: Fail{Abi.Call.Error.Arity{}}
+    case Con{_, _} Nil{}: Fail{Abi.Call.Error.Arity{}}
+    case Con{MkAbi_Schema_Parameter{_, typ}, tail} Con{value, rest}:
+      Big.when(Abi.Call.Result(Unit), NativeString.equal(Abi.Schema.type_name(typ), Abi.Schema.type_name(Abi.Event.value_type(value))),
+        _ => Abi.Call.validate(tail, rest), _ => Fail{Abi.Call.Error.Type_mismatch{}})
+@unsafe
+def Abi.Call.encode(+fn: Abi.Schema.Function_, +values: ListOf(Abi.Codec.Value)) -> Abi.Call.Result(String):
+  Abi.Call.Result.bind(Unit, String, Abi.Call.validate(Get.Abi.Schema.Function_.inputs(fn), values), _ =>
+    Abi.Call.Result.bind(String, String, Abi.Call.codec(String, Abi.Codec.encode(values)), bytes => Done{String.concat([Abi.Call.selector(fn), bytes])}))
+@unsafe
+def Abi.Call.decode(+fn: Abi.Schema.Function_, +data: String) -> Abi.Call.Result(ListOf(Abi.Codec.Value)):
+  Big.when(Abi.Call.Result(ListOf(Abi.Codec.Value)), Big.is_lt(Big.of_nat(String.length(data)), Big.of_nat(4n)),
+    _ => Fail{Abi.Call.Error.Short_selector{}},
+    _ => Big.when(Abi.Call.Result(ListOf(Abi.Codec.Value)), NativeString.equal(NativeString.take(4n, data), Abi.Call.selector(fn)),
+      _ => Abi.Call.codec(ListOf(Abi.Codec.Value), Abi.Codec.decode(SeqList.map(&2, &2, Abi.Schema.Parameter, Abi.Schema.Value_type, +parameter => Get.Abi.Schema.Parameter.typ(parameter), Get.Abi.Schema.Function_.inputs(fn)), NativeString.drop(4n, data))),
+      _ => Fail{Abi.Call.Error.Wrong_selector{}}))

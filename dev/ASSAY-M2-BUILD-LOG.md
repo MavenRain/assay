@@ -1,5 +1,42 @@
 # Assay M2 build log
 
+## 2026-09-27: M2 function calldata encoding
+
+Starting at `0cf7d20`, `Abi.Call` builds complete function call payloads
+from a typed function schema. `selector` returns the four Keccak
+selector bytes, `encode` returns the selector and argument tuple, and
+`decode` checks the selector and returns the typed values. Explicit
+errors cover `Type_mismatch`, `Arity`, `Short_selector`,
+`Wrong_selector` and wrapped codec failures; failed calls return no
+partial result.
+
+The calldata gate covers 57 cast oracle payloads, 44 distinct canonical
+ERC-20 reference calls, 60 production errors, all 292 truncated prefixes
+of a mixed call, 13 adapter refusals and 10 compiling mutants with a
+rebuilt scratch control. Every oracle and reference case is encoded,
+decoded and encoded again.
+
+The default `--m2-calldata` appends CALL-CODEC for 84 legs.
+CALL-COMPATIBILITY checks that all 51 historical modes retain their
+schedules, deadlines, markers and failure classes. The original ABI and
+test sources remain byte-identical prefixes of the extended files, and
+the compiler CLI's reachable Bend bundle is byte-identical. The ABI
+module is 347/400 lines and trusted artifacts total 2803/3550, with all
+bounds unchanged.
+
+Commands and results are in
+`dev/validation/2026-09-27-m2-calldata`. Validation is scoped to the new
+calldata gate, compatibility, native tests, the tuple and event codecs,
+house rules, the carry and denominator checks and trusted lines. It
+does not claim a complete default battery. A fresh paired Bend 2
+measurement gives a ratio of 1.720827821, which still fails the
+unchanged 1.0 bound, and the mapping corpus freeze is unchanged. The
+slice also refreshes the carried `src/abi.bend` and `src/tests.bend`
+hashes in `dev/native-carry.json`, pins the three new harness files in
+`dev/DENOMINATORS.sha256` and records elapsed times in `RUNS.json`.
+Compiler integration and the remaining M2 work stay pending. See
+`dev/M2-CALLDATA.md` for the API and remaining scope.
+
 ## 2026-09-26: M2 typed event log encoding
 
 Starting at `a1e7440`, `Abi.Event` constructs signature topics, indexed

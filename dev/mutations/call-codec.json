@@ -1,0 +1,145 @@
+{
+  "version": 1,
+  "cases": [
+    {
+      "name": "SELECTOR-END",
+      "path": "src/abi.bend",
+      "witnesses": [
+        "transfer-encode"
+      ],
+      "patches": [
+        {
+          "definition": "Abi.Call.selector",
+          "sha256": "491fa51ec1eb242f923905dd2459d3ec3deeee9cd688cca02fd367baaa72eee0",
+          "replacement": "@unsafe\ndef Abi.Call.selector(fn: Abi.Schema.Function_) -> String:\n  NativeString.drop(28n, Abi.Codec.word(Big.read_validated(Big.of_nat(16n), Keccak.keccak256(Abi.Schema.function_signature(fn)))))\n"
+        }
+      ]
+    },
+    {
+      "name": "SELECTOR-WIDTH",
+      "path": "src/abi.bend",
+      "witnesses": [
+        "empty-encode"
+      ],
+      "patches": [
+        {
+          "definition": "Abi.Call.selector",
+          "sha256": "491fa51ec1eb242f923905dd2459d3ec3deeee9cd688cca02fd367baaa72eee0",
+          "replacement": "@unsafe\ndef Abi.Call.selector(fn: Abi.Schema.Function_) -> String:\n  NativeString.take(3n, Abi.Codec.word(Big.read_validated(Big.of_nat(16n), Keccak.keccak256(Abi.Schema.function_signature(fn)))))\n"
+        }
+      ]
+    },
+    {
+      "name": "SELECTOR-NAME",
+      "path": "src/abi.bend",
+      "witnesses": [
+        "transfer-encode"
+      ],
+      "patches": [
+        {
+          "definition": "Abi.Call.selector",
+          "sha256": "491fa51ec1eb242f923905dd2459d3ec3deeee9cd688cca02fd367baaa72eee0",
+          "replacement": "@unsafe\ndef Abi.Call.selector(fn: Abi.Schema.Function_) -> String:\n  NativeString.take(4n, Abi.Codec.word(Big.read_validated(Big.of_nat(16n), Keccak.keccak256(Abi.Schema.signature(\"other\", Get.Abi.Schema.Function_.inputs(fn))))))\n"
+        }
+      ]
+    },
+    {
+      "name": "ENCODE-TYPE",
+      "path": "src/abi.bend",
+      "witnesses": [
+        "type-uint8-uint256"
+      ],
+      "patches": [
+        {
+          "definition": "Abi.Call.encode",
+          "sha256": "5ebec6de38ca8c795957b8b5cfac2c6432af00de44c6f87c8383204741dade9a",
+          "replacement": "@unsafe\ndef Abi.Call.encode(+fn: Abi.Schema.Function_, +values: ListOf(Abi.Codec.Value)) -> Abi.Call.Result(String):\n  Abi.Call.Result.bind(Unit, String, Done{Unit{}}, _ =>\n    Abi.Call.Result.bind(String, String, Abi.Call.codec(String, Abi.Codec.encode(values)), bytes => Done{String.concat([Abi.Call.selector(fn), bytes])}))\n"
+        }
+      ]
+    },
+    {
+      "name": "ENCODE-SELECTOR",
+      "path": "src/abi.bend",
+      "witnesses": [
+        "empty-encode"
+      ],
+      "patches": [
+        {
+          "definition": "Abi.Call.encode",
+          "sha256": "5ebec6de38ca8c795957b8b5cfac2c6432af00de44c6f87c8383204741dade9a",
+          "replacement": "@unsafe\ndef Abi.Call.encode(+fn: Abi.Schema.Function_, +values: ListOf(Abi.Codec.Value)) -> Abi.Call.Result(String):\n  Abi.Call.Result.bind(Unit, String, Abi.Call.validate(Get.Abi.Schema.Function_.inputs(fn), values), _ =>\n    Abi.Call.Result.bind(String, String, Abi.Call.codec(String, Abi.Codec.encode(values)), bytes => Done{bytes}))\n"
+        }
+      ]
+    },
+    {
+      "name": "VALIDATE-TAIL",
+      "path": "src/abi.bend",
+      "witnesses": [
+        "type-before-range"
+      ],
+      "patches": [
+        {
+          "definition": "Abi.Call.validate",
+          "sha256": "fee4411b46aca21f14253c60a7e523df38b33a90bf7ddd531b4fb622666593c8",
+          "replacement": "@unsafe\ndef Abi.Call.validate(inputs: ListOf(Abi.Schema.Parameter), values: ListOf(Abi.Codec.Value)) -> Abi.Call.Result(Unit):\n  match inputs values:\n    case Nil{} Nil{}: Done{Unit{}}\n    case Nil{} Con{_, _}: Fail{Abi.Call.Error.Arity{}}\n    case Con{_, _} Nil{}: Fail{Abi.Call.Error.Arity{}}\n    case Con{MkAbi_Schema_Parameter{_, typ}, tail} Con{value, rest}:\n      Big.when(Abi.Call.Result(Unit), NativeString.equal(Abi.Schema.type_name(typ), Abi.Schema.type_name(Abi.Event.value_type(value))),\n        _ => Done{Unit{}}, _ => Fail{Abi.Call.Error.Type_mismatch{}})\n"
+        }
+      ]
+    },
+    {
+      "name": "DECODE-SHORT",
+      "path": "src/abi.bend",
+      "witnesses": [
+        "selector-short-3"
+      ],
+      "patches": [
+        {
+          "definition": "Abi.Call.decode",
+          "sha256": "dfab3ea3730b8340282c403f81875ca2777390283a5a017774b7f331ef3509c1",
+          "replacement": "@unsafe\ndef Abi.Call.decode(+fn: Abi.Schema.Function_, +data: String) -> Abi.Call.Result(ListOf(Abi.Codec.Value)):\n  Big.when(Abi.Call.Result(ListOf(Abi.Codec.Value)), False{},\n    _ => Fail{Abi.Call.Error.Short_selector{}},\n    _ => Big.when(Abi.Call.Result(ListOf(Abi.Codec.Value)), NativeString.equal(NativeString.take(4n, data), Abi.Call.selector(fn)),\n      _ => Abi.Call.codec(ListOf(Abi.Codec.Value), Abi.Codec.decode(SeqList.map(&2, &2, Abi.Schema.Parameter, Abi.Schema.Value_type, +parameter => Get.Abi.Schema.Parameter.typ(parameter), Get.Abi.Schema.Function_.inputs(fn)), NativeString.drop(4n, data))),\n      _ => Fail{Abi.Call.Error.Wrong_selector{}}))\n"
+        }
+      ]
+    },
+    {
+      "name": "DECODE-SELECTOR",
+      "path": "src/abi.bend",
+      "witnesses": [
+        "selector-wrong-transfer"
+      ],
+      "patches": [
+        {
+          "definition": "Abi.Call.decode",
+          "sha256": "dfab3ea3730b8340282c403f81875ca2777390283a5a017774b7f331ef3509c1",
+          "replacement": "@unsafe\ndef Abi.Call.decode(+fn: Abi.Schema.Function_, +data: String) -> Abi.Call.Result(ListOf(Abi.Codec.Value)):\n  Big.when(Abi.Call.Result(ListOf(Abi.Codec.Value)), Big.is_lt(Big.of_nat(String.length(data)), Big.of_nat(4n)),\n    _ => Fail{Abi.Call.Error.Short_selector{}},\n    _ => Big.when(Abi.Call.Result(ListOf(Abi.Codec.Value)), True{},\n      _ => Abi.Call.codec(ListOf(Abi.Codec.Value), Abi.Codec.decode(SeqList.map(&2, &2, Abi.Schema.Parameter, Abi.Schema.Value_type, +parameter => Get.Abi.Schema.Parameter.typ(parameter), Get.Abi.Schema.Function_.inputs(fn)), NativeString.drop(4n, data))),\n      _ => Fail{Abi.Call.Error.Wrong_selector{}}))\n"
+        }
+      ]
+    },
+    {
+      "name": "DECODE-BASE",
+      "path": "src/abi.bend",
+      "witnesses": [
+        "empty-decode"
+      ],
+      "patches": [
+        {
+          "definition": "Abi.Call.decode",
+          "sha256": "dfab3ea3730b8340282c403f81875ca2777390283a5a017774b7f331ef3509c1",
+          "replacement": "@unsafe\ndef Abi.Call.decode(+fn: Abi.Schema.Function_, +data: String) -> Abi.Call.Result(ListOf(Abi.Codec.Value)):\n  Big.when(Abi.Call.Result(ListOf(Abi.Codec.Value)), Big.is_lt(Big.of_nat(String.length(data)), Big.of_nat(4n)),\n    _ => Fail{Abi.Call.Error.Short_selector{}},\n    _ => Big.when(Abi.Call.Result(ListOf(Abi.Codec.Value)), NativeString.equal(NativeString.take(4n, data), Abi.Call.selector(fn)),\n      _ => Abi.Call.codec(ListOf(Abi.Codec.Value), Abi.Codec.decode(SeqList.map(&2, &2, Abi.Schema.Parameter, Abi.Schema.Value_type, +parameter => Get.Abi.Schema.Parameter.typ(parameter), Get.Abi.Schema.Function_.inputs(fn)), data)),\n      _ => Fail{Abi.Call.Error.Wrong_selector{}}))\n"
+        }
+      ]
+    },
+    {
+      "name": "DECODE-SKIP",
+      "path": "src/abi.bend",
+      "witnesses": [
+        "transfer-decode"
+      ],
+      "patches": [
+        {
+          "definition": "Abi.Call.decode",
+          "sha256": "dfab3ea3730b8340282c403f81875ca2777390283a5a017774b7f331ef3509c1",
+          "replacement": "@unsafe\ndef Abi.Call.decode(+fn: Abi.Schema.Function_, +data: String) -> Abi.Call.Result(ListOf(Abi.Codec.Value)):\n  Big.when(Abi.Call.Result(ListOf(Abi.Codec.Value)), Big.is_lt(Big.of_nat(String.length(data)), Big.of_nat(4n)),\n    _ => Fail{Abi.Call.Error.Short_selector{}},\n    _ => Big.when(Abi.Call.Result(ListOf(Abi.Codec.Value)), NativeString.equal(NativeString.take(4n, data), Abi.Call.selector(fn)),\n      _ => Abi.Call.codec(ListOf(Abi.Codec.Value), Abi.Codec.decode(SeqList.map(&2, &2, Abi.Schema.Parameter, Abi.Schema.Value_type, +parameter => Get.Abi.Schema.Parameter.typ(parameter), Get.Abi.Schema.Function_.inputs(fn)), NativeString.drop(5n, data))),\n      _ => Fail{Abi.Call.Error.Wrong_selector{}}))\n"
+        }
+      ]
+    }
+  ]
+}

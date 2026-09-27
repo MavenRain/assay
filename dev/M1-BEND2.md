@@ -1,11 +1,13 @@
 # M1 Bend 2 compilation comparison
 
 The 2026-09-22 compilation-speed requirement is an Assay/Bend 2 ratio at
-most 1.0. The current native Bend comparison is 1.150474099 and does not
-pass. See [M2-EVENTS.md](M2-EVENTS.md) for the current source and record.
-Its five measured rounds completed in a 10.756-second window.
-The previous comparison, 1.495831642, is in [M2-MAPPING.md](M2-MAPPING.md).
-The comparison before it, 1.727570573, is in [M2-PACKING.md](M2-PACKING.md).
+most 1.0. The current native Bend comparison is 1.720827821 and does not
+pass. See [M2-CALLDATA.md](M2-CALLDATA.md) for the current source and record.
+Its five measured rounds completed in a 7.642-second window.
+The previous comparison, 1.150474099, is in [M2-EVENTS.md](M2-EVENTS.md).
+The comparison before it, 1.495831642, is in the
+[2026-09-25 mapping record](validation/2026-09-25-m2-mapping/README.md).
+Before that, 1.727570573 is in [M2-PACKING.md](M2-PACKING.md).
 
 The pre-migration codec comparison passed: 40.444959 ms for Assay and
 550.161042 ms for Bend 2 per six-file batch, giving a ratio of 0.073514764.
@@ -81,14 +83,16 @@ The measured window must include all timed intervals and remain below
 
 ## Freeze and gate
 
-`dev/validation/2026-09-26-m2-events/paired-measurement.json` retains the
+`dev/validation/2026-09-27-m2-calldata/paired-measurement.json` retains the
 current native measurement. It is a byte copy of the active report.
 `dev/validation/2026-09-25-m2-mapping/corpus-measurement.json` retains the
-current corpus measurement. The events slice did not remeasure the corpus.
-`dev/validation/2026-09-25-m2-mapping/paired-measurement.json` retains the
+current corpus measurement. The calldata slice did not remeasure the corpus.
+`dev/validation/2026-09-26-m2-events/paired-measurement.json` retains the
 previous native measurement.
-`dev/measurements/2026-09-25-m2-packing-bend2.json` retains the native
-measurement before it; `dev/validation/2026-09-22-m2-abi-codec/bend2-baseline.json`
+`dev/validation/2026-09-25-m2-mapping/paired-measurement.json` retains
+the mapping measurement before the events one.
+`dev/measurements/2026-09-25-m2-packing-bend2.json` retains the packing
+measurement before the mapping one; `dev/validation/2026-09-22-m2-abi-codec/bend2-baseline.json`
 retains the pre-migration codec measurement. `dev/bend2-baseline.json` is
 the active native copy. `dev/BEND2.sha256` seals the
 active report, and `dev/DENOMINATORS.sha256` also pins the new gate, the
@@ -108,7 +112,8 @@ NATIVE-MAPS and NATIVE-IO checks. OCaml measurement tools and their
 archived results remain available as diagnostics. The native default adds
 the [M2 reference gate](M2-REFERENCE.md), [ABI-SCHEMA](M2-ABI-SCHEMA.md),
 [ABI-CODEC](M2-ABI-CODEC.md), [packing](M2-PACKING.md),
-[mapping locations](M2-MAPPING.md) and [EVENT-CODEC](M2-EVENTS.md), for 83 checks.
+[mapping locations](M2-MAPPING.md), [EVENT-CODEC](M2-EVENTS.md) and
+[CALL-CODEC](M2-CALLDATA.md), for 84 checks.
 
 `dev/bend2-ratio-test.py` passes three controls, rejects 37 invalid cases,
 and kills six mutations. It covers the inclusive boundary, a ratio above

@@ -1,0 +1,362 @@
+[
+  {
+    "name": "call-codec",
+    "command": [
+      "python3",
+      "-P",
+      "dev/call-codec-test.py"
+    ],
+    "cwd": ".",
+    "exit_code": 0,
+    "seconds": 24.324,
+    "status": "passed",
+    "capture_artifact": "not retained",
+    "stdout": "call-codec.log",
+    "stderr": null
+  },
+  {
+    "name": "compatibility",
+    "command": [
+      "python3",
+      "-P",
+      "dev/call-compatibility.py"
+    ],
+    "cwd": ".",
+    "exit_code": 0,
+    "seconds": 0.771,
+    "status": "passed",
+    "capture_artifact": "not retained",
+    "stdout": "compatibility.log",
+    "stderr": null
+  },
+  {
+    "name": "runtest",
+    "command": [
+      "python3",
+      "-P",
+      "dev/build.py",
+      "runtest"
+    ],
+    "cwd": ".",
+    "exit_code": 0,
+    "seconds": 27.692,
+    "status": "passed",
+    "capture_artifact": "not retained",
+    "stdout": "runtest.log",
+    "stderr": null
+  },
+  {
+    "name": "abi-codec",
+    "command": [
+      "python3",
+      "-P",
+      "dev/abi-codec-test.py"
+    ],
+    "cwd": ".",
+    "exit_code": 0,
+    "seconds": 137.245,
+    "status": "passed",
+    "capture_artifact": "not retained",
+    "stdout": "abi-codec.log",
+    "stderr": null
+  },
+  {
+    "name": "event-codec",
+    "command": [
+      "python3",
+      "-P",
+      "dev/event-codec-test.py"
+    ],
+    "cwd": ".",
+    "exit_code": 0,
+    "seconds": 19.313,
+    "status": "passed",
+    "capture_artifact": "not retained",
+    "stdout": "event-codec.log",
+    "stderr": null
+  },
+  {
+    "name": "house",
+    "command": [
+      "python3",
+      "-P",
+      "dev/house.py"
+    ],
+    "cwd": ".",
+    "exit_code": 0,
+    "seconds": 0.768,
+    "status": "passed",
+    "capture_artifact": "not retained",
+    "stdout": "house.log",
+    "stderr": null
+  },
+  {
+    "name": "trusted-lines",
+    "command": [
+      "python3",
+      "-P",
+      "dev/trusted-lines.py",
+      "."
+    ],
+    "cwd": ".",
+    "exit_code": 0,
+    "seconds": 0.116,
+    "status": "passed",
+    "capture_artifact": "not retained",
+    "stdout": "trusted-lines.log",
+    "stderr": null
+  },
+  {
+    "name": "measure",
+    "command": [
+      "python3",
+      "-P",
+      "dev/bend2-ratio.py",
+      "--measure",
+      "/Users/oobi/Documents/gpt1/assay-calldata-paired.json",
+      "--bend-root",
+      "/Users/oobi/Documents/gpt1/assay-bend2-v2.0.25"
+    ],
+    "cwd": ".",
+    "exit_code": 0,
+    "seconds": 12.983,
+    "status": "passed",
+    "capture_artifact": "not retained",
+    "stdout": "measure.log",
+    "stderr": null
+  },
+  {
+    "name": "bend2-ratio-test",
+    "command": [
+      "python3",
+      "-P",
+      "dev/bend2-ratio-test.py"
+    ],
+    "cwd": ".",
+    "exit_code": 0,
+    "seconds": 0.441,
+    "status": "passed",
+    "capture_artifact": "not retained",
+    "stdout": "bend2-ratio-test.log",
+    "stderr": null
+  },
+  {
+    "name": "bend2-ratio",
+    "command": [
+      "python3",
+      "-P",
+      "dev/bend2-ratio.py"
+    ],
+    "cwd": ".",
+    "exit_code": 1,
+    "seconds": 0.09,
+    "status": "known-performance-failure",
+    "capture_artifact": "not retained",
+    "stdout": "bend2-ratio.log",
+    "stderr": null
+  },
+  {
+    "name": "denominator-pins",
+    "command": [
+      "shasum",
+      "-a",
+      "256",
+      "-c",
+      "dev/DENOMINATORS.sha256"
+    ],
+    "cwd": ".",
+    "exit_code": 0,
+    "seconds": 0.1,
+    "status": "passed",
+    "capture_artifact": "not retained",
+    "stdout": "denominator-pins.log",
+    "stderr": null
+  },
+  {
+    "name": "attempts/build-binder",
+    "command": [
+      "python3",
+      "-P",
+      "dev/build.py",
+      "build",
+      "test/call_codec"
+    ],
+    "cwd": ".",
+    "exit_code": 1,
+    "seconds": 0.363,
+    "status": "resolved-attempt",
+    "capture_artifact": "not retained",
+    "stdout": null,
+    "stderr": "attempts/build-binder.stderr"
+  },
+  {
+    "name": "attempts/build-quantity",
+    "command": [
+      "python3",
+      "-P",
+      "dev/build.py",
+      "build",
+      "test/call_codec"
+    ],
+    "cwd": ".",
+    "exit_code": 1,
+    "seconds": 0.48,
+    "status": "resolved-attempt",
+    "capture_artifact": "not retained",
+    "stdout": null,
+    "stderr": "attempts/build-quantity.stderr"
+  },
+  {
+    "name": "attempts/house",
+    "command": [
+      "python3",
+      "-P",
+      "dev/house.py"
+    ],
+    "cwd": ".",
+    "exit_code": 1,
+    "seconds": 0.614,
+    "status": "resolved-attempt",
+    "capture_artifact": "not retained",
+    "stdout": "attempts/house.log",
+    "stderr": null
+  },
+  {
+    "name": "attempts/trusted-invocation",
+    "command": [
+      "python3",
+      "-P",
+      "dev/trusted-lines.py"
+    ],
+    "cwd": ".",
+    "exit_code": 1,
+    "seconds": 0.052,
+    "status": "resolved-attempt",
+    "capture_artifact": "not retained",
+    "stdout": null,
+    "stderr": "attempts/trusted-invocation.stderr"
+  },
+  {
+    "name": "carry",
+    "command": [
+      "zsh",
+      "-f",
+      "dev/carry-check.sh"
+    ],
+    "cwd": ".",
+    "exit_code": 1,
+    "seconds": 0.128,
+    "status": "resolved-failure",
+    "capture_artifact": null,
+    "stdout": "carry.log",
+    "stderr": null
+  },
+  {
+    "name": "carry-final",
+    "command": [
+      "zsh",
+      "-f",
+      "dev/carry-check.sh"
+    ],
+    "cwd": ".",
+    "exit_code": 0,
+    "seconds": 0.109,
+    "status": "passed",
+    "capture_artifact": null,
+    "stdout": "carry-final.log",
+    "stderr": null
+  },
+  {
+    "name": "denominator-pins-final",
+    "command": [
+      "shasum",
+      "-a",
+      "256",
+      "-c",
+      "dev/DENOMINATORS.sha256"
+    ],
+    "cwd": ".",
+    "exit_code": 0,
+    "seconds": 0.043,
+    "status": "passed",
+    "capture_artifact": null,
+    "stdout": "denominator-pins-final.log",
+    "stderr": null
+  },
+  {
+    "name": "abi-codec-final",
+    "command": [
+      "python3",
+      "-P",
+      "dev/abi-codec-test.py"
+    ],
+    "cwd": ".",
+    "exit_code": 0,
+    "seconds": 213.168,
+    "status": "passed",
+    "capture_artifact": null,
+    "stdout": "abi-codec-final.log",
+    "stderr": null
+  },
+  {
+    "name": "call-codec-final",
+    "command": [
+      "python3",
+      "-P",
+      "dev/call-codec-test.py"
+    ],
+    "cwd": ".",
+    "exit_code": 0,
+    "seconds": 37.558,
+    "status": "passed",
+    "capture_artifact": null,
+    "stdout": "call-codec-final.log",
+    "stderr": null
+  },
+  {
+    "name": "compatibility-final",
+    "command": [
+      "python3",
+      "-P",
+      "dev/call-compatibility.py"
+    ],
+    "cwd": ".",
+    "exit_code": 0,
+    "seconds": 1.101,
+    "status": "passed",
+    "capture_artifact": null,
+    "stdout": "compatibility-final.log",
+    "stderr": null
+  },
+  {
+    "name": "house-final",
+    "command": [
+      "python3",
+      "-P",
+      "dev/house.py"
+    ],
+    "cwd": ".",
+    "exit_code": 0,
+    "seconds": 0.947,
+    "status": "passed",
+    "capture_artifact": null,
+    "stdout": "house-final.log",
+    "stderr": null
+  },
+  {
+    "name": "trusted-lines-final",
+    "command": [
+      "python3",
+      "-P",
+      "dev/trusted-lines.py",
+      "."
+    ],
+    "cwd": ".",
+    "exit_code": 0,
+    "seconds": 0.15,
+    "status": "passed",
+    "capture_artifact": null,
+    "stdout": "trusted-lines-final.log",
+    "stderr": null
+  }
+]

@@ -1,0 +1,12 @@
+HOUSE unapproved catch-all: Call_codec.dispatch (src/tests.bend)
+HOUSE unapproved catch-all: Call_codec.query (src/tests.bend)
+HOUSE no-exception OK
+HOUSE named-catchalls FAIL
+HOUSE no-mutable-state OK
+HOUSE one-catch-site OK
+HOUSE foreign-boundary OK
+HOUSE bool-dispatch OK
+HOUSE no-loop-keyword OK
+HOUSE no-bare-division OK
+HOUSE no-em-dash OK
+HOUSE FAIL
