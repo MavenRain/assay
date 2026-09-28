@@ -15,9 +15,11 @@ from bend_source import bundle, declarations, reachable
 
 PIN = json.loads((ROOT / 'dev/toolchain.json').read_text())
 OUT = ROOT / '_build/bend'
-ADAPTERS = ('sl_surface', 'abi_codec', 'abi_schema', 'event_codec', 'call_codec', 'layout_packed', 'layout_mapping', 'keccak_vec', 'asm_cases', 'asm_compact', 'emit_cases', 'contract_route', 'one_paths', 'export_mu', 'roundtrip')
-BACKENDS = ('abi_codec', 'abi_schema', 'event_codec', 'call_codec', 'layout_packed', 'layout_mapping', 'keccak_vec', 'asm_cases', 'asm_compact')
+ADAPTERS = ('sl_surface', 'abi_codec', 'abi_schema', 'event_codec', 'call_codec', 'return_codec', 'revert_codec', 'layout_packed', 'layout_mapping', 'keccak_vec', 'asm_cases', 'asm_compact', 'emit_cases', 'contract_route', 'one_paths', 'export_mu', 'roundtrip')
+BACKENDS = ('abi_codec', 'abi_schema', 'event_codec', 'call_codec', 'return_codec', 'revert_codec', 'layout_packed', 'layout_mapping', 'keccak_vec', 'asm_cases', 'asm_compact')
 ENTRIES = {
+    'revert_codec': 'Tests.adapter(Revert_codec.main(args))',
+    'return_codec': 'Tests.adapter(Return_codec.main(args))',
     'call_codec': 'Tests.adapter(Call_codec.main(args))',
     'event_codec': 'Tests.adapter(Event_codec.main(args))',
     'sl_surface': 'Tests.surface(Sl_surface.cases(), 0n)',
@@ -43,6 +45,8 @@ TRANSFER_SIGNATURE = '7472616e7366657228616464726573732c75696e7432353629'
 # so its own output goes to the log; a string = compare the whole stdout with it; the empty
 # string = the adapter prints data, not a verdict, so read the exit code and drop the output.
 RUNTEST = (
+    ('revert_codec', ('encode|error|Panic|uint256|uint256|17', 'decode|error|Panic|uint256|4e487b71' + f'{17:064x}'), 'OK 4e487b71' + f'{17:064x}' + '\nOK 17'),
+    ('return_codec', ('encode|result|uint256,bool|uint256,bool|1|true', 'decode|result|uint256,bool|' + ABI_ONE_TRUE), 'OK ' + ABI_ONE_TRUE + '\nOK 1|true'),
     ('call_codec', ('encode|transfer|address,uint256|address,uint256|1|2', 'decode|transfer|address,uint256|a9059cbb' + f'{1:064x}{2:064x}'), 'OK a9059cbb' + f'{1:064x}{2:064x}' + '\nOK 1|2'),
     ('event_codec', ('Empty|1|||',), 'OK |'),
     ('sl_surface', (), None),

@@ -2,7 +2,7 @@
 
 Status: the native Bend compiler's speed gate remains open. The requirement,
 set by the user on 2026-09-22, is compilation speed at least as fast as Bend 2.
-The [current paired comparison](M2-CALLDATA.md) measures a ratio of 1.720827821
+The [current paired comparison](M2-REVERTDATA.md) measures a ratio of 1.657532429
 against the unchanged 1.0 limit. The four retained OCaml measurements below are
 historical diagnostics.
 
@@ -113,7 +113,9 @@ same battery with BEND2-RATIO and BEND2-RATIO-TEST in their place (see
 NATIVE-IO checks, for 77 legs. The native default adds the
 [M2 reference gate](M2-REFERENCE.md), [ABI-SCHEMA](M2-ABI-SCHEMA.md),
 [ABI-CODEC](M2-ABI-CODEC.md), [packing](M2-PACKING.md),
-[mapping locations](M2-MAPPING.md), [EVENT-CODEC](M2-EVENTS.md) and [CALL-CODEC](M2-CALLDATA.md), for 84 checks.
+[mapping locations](M2-MAPPING.md), [EVENT-CODEC](M2-EVENTS.md),
+[CALL-CODEC](M2-CALLDATA.md), [RETURN-CODEC](M2-RETURNDATA.md) and
+[REVERT-CODEC](M2-REVERTDATA.md), for 86 checks.
 
 That ratio test used synthetic reports to exercise the public command; these
 were decision tests and provided no timing evidence. It checked the

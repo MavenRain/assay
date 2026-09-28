@@ -64,8 +64,10 @@ Run `python3 -P dev/call-codec-test.py`. It checks:
 `python3 -P dev/call-compatibility.py` preserves all 51 historical gate
 modes, including deadlines, expected markers and failure classes. The
 original ABI and test sources remain byte-identical prefixes, and the
-compiler CLI's reachable Bend bundle is byte-identical. The new default
-`--m2-calldata` appends CALL-CODEC, for 84 checks.
+compiler CLI's reachable Bend bundle is byte-identical. The `--m2-calldata`
+mode appends CALL-CODEC, for a total of 84 checks. The current default adds
+[RETURN-CODEC](M2-RETURNDATA.md) and [REVERT-CODEC](M2-REVERTDATA.md), for
+86 checks.
 
 The [validation record](validation/2026-09-27-m2-calldata/README.md) retains
 the scoped results, failed development attempts and source hashes.
@@ -73,10 +75,13 @@ the scoped results, failed development attempts and source hashes.
 ## Performance
 
 Changes to `Makefile`, `dev/build.py` and `src/abi.bend` require new
-compiler source pins. A fresh five-round paired measurement is frozen
-in `dev/bend2-baseline.json`; its measured window is 7.642 seconds.
-The Assay/Bend 2 ratio is 1.720827821, above the unchanged 1.0 bound.
-BEND2-RATIO therefore remains failing. BEND2-RATIO-TEST passes with the
-new pins. The corpus measurement is unchanged. The CLI bundle comparison
+compiler source pins. The calldata slice froze a fresh five-round paired
+measurement, retained as
+`dev/validation/2026-09-27-m2-calldata/paired-measurement.json`.
+It measured a 7.642-second window and a ratio of 1.720827821, above the
+unchanged 1.0 bound. BEND2-RATIO therefore remained failing.
+BEND2-RATIO-TEST passed with the new pins. Later refreshes superseded
+this report; see [M2-REVERTDATA.md](M2-REVERTDATA.md) for the active
+baseline. The corpus measurement is unchanged. The CLI bundle comparison
 shows no executable compiler change, so these separate timing runs do
 not establish a calldata-related performance change.

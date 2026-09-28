@@ -1,0 +1,173 @@
+{
+  "version": 1,
+  "cases": [
+    {
+      "name": "ACCEPT-CONSTRUCTOR",
+      "path": "src/abi.bend",
+      "witnesses": [
+        "constructor-encode"
+      ],
+      "patches": [
+        {
+          "definition": "Abi.Revert.apply",
+          "sha256": "72e0dd53a94e3d3fcf7dc8b59321ea5682bab08f3538cada9b97e9bf18bd7f22",
+          "replacement": "def Abi.Revert.apply(-A: Data, declaration: Abi.Schema.Declaration, action: Abi.Schema.Function_ -> Abi.Call.Result(A)) -> Abi.Revert.Result(A):\n  match declaration:\n    case Abi.Schema.Declaration.Error{name, parameters}: Abi.Revert.call(A, action(MkAbi_Schema_Function_{name, parameters, [], Abi.Mutability.Nonpayable{}}))\n    case Abi.Schema.Declaration.Constructor{parameters, _}: Abi.Revert.call(A, action(MkAbi_Schema_Function_{\"Constructor\", parameters, [], Abi.Mutability.Nonpayable{}}))\n    case Abi.Schema.Declaration.Function{_}: Fail{Abi.Revert.Error.Not_error{}}\n    case Abi.Schema.Declaration.Event{_, _, _}: Fail{Abi.Revert.Error.Not_error{}}\n    case Abi.Schema.Declaration.Fallback{_}: Fail{Abi.Revert.Error.Not_error{}}\n"
+        }
+      ]
+    },
+    {
+      "name": "ACCEPT-FUNCTION",
+      "path": "src/abi.bend",
+      "witnesses": [
+        "function-encode"
+      ],
+      "patches": [
+        {
+          "definition": "Abi.Revert.apply",
+          "sha256": "72e0dd53a94e3d3fcf7dc8b59321ea5682bab08f3538cada9b97e9bf18bd7f22",
+          "replacement": "def Abi.Revert.apply(-A: Data, declaration: Abi.Schema.Declaration, action: Abi.Schema.Function_ -> Abi.Call.Result(A)) -> Abi.Revert.Result(A):\n  match declaration:\n    case Abi.Schema.Declaration.Error{name, parameters}: Abi.Revert.call(A, action(MkAbi_Schema_Function_{name, parameters, [], Abi.Mutability.Nonpayable{}}))\n    case Abi.Schema.Declaration.Constructor{_, _}: Fail{Abi.Revert.Error.Not_error{}}\n    case Abi.Schema.Declaration.Function{MkAbi_Schema_Function_{name, parameters, _, _}}: Abi.Revert.call(A, action(MkAbi_Schema_Function_{name, parameters, [], Abi.Mutability.Nonpayable{}}))\n    case Abi.Schema.Declaration.Event{_, _, _}: Fail{Abi.Revert.Error.Not_error{}}\n    case Abi.Schema.Declaration.Fallback{_}: Fail{Abi.Revert.Error.Not_error{}}\n"
+        }
+      ]
+    },
+    {
+      "name": "ACCEPT-EVENT",
+      "path": "src/abi.bend",
+      "witnesses": [
+        "event-encode"
+      ],
+      "patches": [
+        {
+          "definition": "Abi.Revert.apply",
+          "sha256": "72e0dd53a94e3d3fcf7dc8b59321ea5682bab08f3538cada9b97e9bf18bd7f22",
+          "replacement": "def Abi.Revert.apply(-A: Data, declaration: Abi.Schema.Declaration, action: Abi.Schema.Function_ -> Abi.Call.Result(A)) -> Abi.Revert.Result(A):\n  match declaration:\n    case Abi.Schema.Declaration.Error{name, parameters}: Abi.Revert.call(A, action(MkAbi_Schema_Function_{name, parameters, [], Abi.Mutability.Nonpayable{}}))\n    case Abi.Schema.Declaration.Constructor{_, _}: Fail{Abi.Revert.Error.Not_error{}}\n    case Abi.Schema.Declaration.Function{_}: Fail{Abi.Revert.Error.Not_error{}}\n    case Abi.Schema.Declaration.Event{name, _, _}: Abi.Revert.call(A, action(MkAbi_Schema_Function_{name, [], [], Abi.Mutability.Nonpayable{}}))\n    case Abi.Schema.Declaration.Fallback{_}: Fail{Abi.Revert.Error.Not_error{}}\n"
+        }
+      ]
+    },
+    {
+      "name": "ACCEPT-FALLBACK",
+      "path": "src/abi.bend",
+      "witnesses": [
+        "fallback-encode"
+      ],
+      "patches": [
+        {
+          "definition": "Abi.Revert.apply",
+          "sha256": "72e0dd53a94e3d3fcf7dc8b59321ea5682bab08f3538cada9b97e9bf18bd7f22",
+          "replacement": "def Abi.Revert.apply(-A: Data, declaration: Abi.Schema.Declaration, action: Abi.Schema.Function_ -> Abi.Call.Result(A)) -> Abi.Revert.Result(A):\n  match declaration:\n    case Abi.Schema.Declaration.Error{name, parameters}: Abi.Revert.call(A, action(MkAbi_Schema_Function_{name, parameters, [], Abi.Mutability.Nonpayable{}}))\n    case Abi.Schema.Declaration.Constructor{_, _}: Fail{Abi.Revert.Error.Not_error{}}\n    case Abi.Schema.Declaration.Function{_}: Fail{Abi.Revert.Error.Not_error{}}\n    case Abi.Schema.Declaration.Event{_, _, _}: Fail{Abi.Revert.Error.Not_error{}}\n    case Abi.Schema.Declaration.Fallback{_}: Abi.Revert.call(A, action(MkAbi_Schema_Function_{\"Fallback\", [], [], Abi.Mutability.Nonpayable{}}))\n"
+        }
+      ]
+    },
+    {
+      "name": "ERROR-NAME",
+      "path": "src/abi.bend",
+      "witnesses": [
+        "empty-encode"
+      ],
+      "patches": [
+        {
+          "definition": "Abi.Revert.apply",
+          "sha256": "72e0dd53a94e3d3fcf7dc8b59321ea5682bab08f3538cada9b97e9bf18bd7f22",
+          "replacement": "def Abi.Revert.apply(-A: Data, declaration: Abi.Schema.Declaration, action: Abi.Schema.Function_ -> Abi.Call.Result(A)) -> Abi.Revert.Result(A):\n  match declaration:\n    case Abi.Schema.Declaration.Error{name, parameters}: Abi.Revert.call(A, action(MkAbi_Schema_Function_{\"WrongError\", parameters, [], Abi.Mutability.Nonpayable{}}))\n    case Abi.Schema.Declaration.Constructor{_, _}: Fail{Abi.Revert.Error.Not_error{}}\n    case Abi.Schema.Declaration.Function{_}: Fail{Abi.Revert.Error.Not_error{}}\n    case Abi.Schema.Declaration.Event{_, _, _}: Fail{Abi.Revert.Error.Not_error{}}\n    case Abi.Schema.Declaration.Fallback{_}: Fail{Abi.Revert.Error.Not_error{}}\n"
+        }
+      ]
+    },
+    {
+      "name": "ERROR-TYPES",
+      "path": "src/abi.bend",
+      "witnesses": [
+        "pair-encode"
+      ],
+      "patches": [
+        {
+          "definition": "Abi.Revert.apply",
+          "sha256": "72e0dd53a94e3d3fcf7dc8b59321ea5682bab08f3538cada9b97e9bf18bd7f22",
+          "replacement": "def Abi.Revert.apply(-A: Data, declaration: Abi.Schema.Declaration, action: Abi.Schema.Function_ -> Abi.Call.Result(A)) -> Abi.Revert.Result(A):\n  match declaration:\n    case Abi.Schema.Declaration.Error{name, parameters}: Abi.Revert.call(A, action(MkAbi_Schema_Function_{name, [], [], Abi.Mutability.Nonpayable{}}))\n    case Abi.Schema.Declaration.Constructor{_, _}: Fail{Abi.Revert.Error.Not_error{}}\n    case Abi.Schema.Declaration.Function{_}: Fail{Abi.Revert.Error.Not_error{}}\n    case Abi.Schema.Declaration.Event{_, _, _}: Fail{Abi.Revert.Error.Not_error{}}\n    case Abi.Schema.Declaration.Fallback{_}: Fail{Abi.Revert.Error.Not_error{}}\n"
+        }
+      ]
+    },
+    {
+      "name": "CALL-ERASURE",
+      "path": "src/abi.bend",
+      "witnesses": [
+        "uint8-overflow"
+      ],
+      "patches": [
+        {
+          "definition": "Abi.Revert.call",
+          "sha256": "fcb1b895350de6b6fc83f5e2bea158ba312e137a169c0c6eb5df3cd8f599678b",
+          "replacement": "def Abi.Revert.call(-A: Data, result: Abi.Call.Result(A)) -> Abi.Revert.Result(A):\n  match result:\n    case Done{value}: Done{value}\n    case Fail{error}: Fail{Abi.Revert.Error.Not_error{}}\n"
+        }
+      ]
+    },
+    {
+      "name": "IGNORE-ARITY",
+      "path": "src/abi.bend",
+      "witnesses": [
+        "arity-missing"
+      ],
+      "patches": [
+        {
+          "definition": "Abi.Call.validate",
+          "sha256": "fee4411b46aca21f14253c60a7e523df38b33a90bf7ddd531b4fb622666593c8",
+          "replacement": "@unsafe\ndef Abi.Call.validate(inputs: ListOf(Abi.Schema.Parameter), values: ListOf(Abi.Codec.Value)) -> Abi.Call.Result(Unit):\n  match inputs values:\n    case Nil{} Nil{}: Done{Unit{}}\n    case Nil{} Con{_, _}: Fail{Abi.Call.Error.Arity{}}\n    case Con{_, _} Nil{}: Done{Unit{}}\n    case Con{MkAbi_Schema_Parameter{_, typ}, tail} Con{value, rest}:\n      Big.when(Abi.Call.Result(Unit), NativeString.equal(Abi.Schema.type_name(typ), Abi.Schema.type_name(Abi.Event.value_type(value))),\n        _ => Abi.Call.validate(tail, rest), _ => Fail{Abi.Call.Error.Type_mismatch{}})\n"
+        }
+      ]
+    },
+    {
+      "name": "IGNORE-TYPE",
+      "path": "src/abi.bend",
+      "witnesses": [
+        "type-uint8-uint256"
+      ],
+      "patches": [
+        {
+          "definition": "Abi.Call.validate",
+          "sha256": "fee4411b46aca21f14253c60a7e523df38b33a90bf7ddd531b4fb622666593c8",
+          "replacement": "@unsafe\ndef Abi.Call.validate(inputs: ListOf(Abi.Schema.Parameter), values: ListOf(Abi.Codec.Value)) -> Abi.Call.Result(Unit):\n  match inputs values:\n    case Nil{} Nil{}: Done{Unit{}}\n    case Nil{} Con{_, _}: Fail{Abi.Call.Error.Arity{}}\n    case Con{_, _} Nil{}: Fail{Abi.Call.Error.Arity{}}\n    case Con{MkAbi_Schema_Parameter{_, typ}, tail} Con{value, rest}:\n      Big.when(Abi.Call.Result(Unit), NativeString.equal(Abi.Schema.type_name(typ), Abi.Schema.type_name(Abi.Event.value_type(value))),\n        _ => Abi.Call.validate(tail, rest), _ => Done{Unit{}})\n"
+        }
+      ]
+    },
+    {
+      "name": "SHORT-KIND",
+      "path": "src/abi.bend",
+      "witnesses": [
+        "prefix-0"
+      ],
+      "patches": [
+        {
+          "definition": "Abi.Call.decode",
+          "sha256": "dfab3ea3730b8340282c403f81875ca2777390283a5a017774b7f331ef3509c1",
+          "replacement": "@unsafe\ndef Abi.Call.decode(+fn: Abi.Schema.Function_, +data: String) -> Abi.Call.Result(ListOf(Abi.Codec.Value)):\n  Big.when(Abi.Call.Result(ListOf(Abi.Codec.Value)), Big.is_lt(Big.of_nat(String.length(data)), Big.of_nat(4n)),\n    _ => Fail{Abi.Call.Error.Wrong_selector{}},\n    _ => Big.when(Abi.Call.Result(ListOf(Abi.Codec.Value)), NativeString.equal(NativeString.take(4n, data), Abi.Call.selector(fn)),\n      _ => Abi.Call.codec(ListOf(Abi.Codec.Value), Abi.Codec.decode(SeqList.map(&2, &2, Abi.Schema.Parameter, Abi.Schema.Value_type, +parameter => Get.Abi.Schema.Parameter.typ(parameter), Get.Abi.Schema.Function_.inputs(fn)), NativeString.drop(4n, data))),\n      _ => Fail{Abi.Call.Error.Wrong_selector{}}))\n"
+        }
+      ]
+    },
+    {
+      "name": "ENCODE-SELECTOR",
+      "path": "src/abi.bend",
+      "witnesses": [
+        "empty-encode"
+      ],
+      "patches": [
+        {
+          "definition": "Abi.Call.encode",
+          "sha256": "5ebec6de38ca8c795957b8b5cfac2c6432af00de44c6f87c8383204741dade9a",
+          "replacement": "@unsafe\ndef Abi.Call.encode(+fn: Abi.Schema.Function_, +values: ListOf(Abi.Codec.Value)) -> Abi.Call.Result(String):\n  Abi.Call.Result.bind(Unit, String, Abi.Call.validate(Get.Abi.Schema.Function_.inputs(fn), values), _ =>\n    Abi.Call.Result.bind(String, String, Abi.Call.codec(String, Abi.Codec.encode(values)), bytes => Done{bytes}))\n"
+        }
+      ]
+    },
+    {
+      "name": "DECODE-SELECTOR",
+      "path": "src/abi.bend",
+      "witnesses": [
+        "wrong-selector-empty"
+      ],
+      "patches": [
+        {
+          "definition": "Abi.Call.decode",
+          "sha256": "dfab3ea3730b8340282c403f81875ca2777390283a5a017774b7f331ef3509c1",
+          "replacement": "@unsafe\ndef Abi.Call.decode(+fn: Abi.Schema.Function_, +data: String) -> Abi.Call.Result(ListOf(Abi.Codec.Value)):\n  Big.when(Abi.Call.Result(ListOf(Abi.Codec.Value)), Big.is_lt(Big.of_nat(String.length(data)), Big.of_nat(4n)),\n    _ => Fail{Abi.Call.Error.Short_selector{}},\n    _ => Big.when(Abi.Call.Result(ListOf(Abi.Codec.Value)), NativeString.equal(NativeString.take(4n, data), Abi.Call.selector(fn)),\n      _ => Abi.Call.codec(ListOf(Abi.Codec.Value), Abi.Codec.decode(SeqList.map(&2, &2, Abi.Schema.Parameter, Abi.Schema.Value_type, +parameter => Get.Abi.Schema.Parameter.typ(parameter), Get.Abi.Schema.Function_.inputs(fn)), NativeString.drop(4n, data))),\n      _ => Abi.Call.codec(ListOf(Abi.Codec.Value), Abi.Codec.decode(SeqList.map(&2, &2, Abi.Schema.Parameter, Abi.Schema.Value_type, +parameter => Get.Abi.Schema.Parameter.typ(parameter), Get.Abi.Schema.Function_.inputs(fn)), NativeString.drop(4n, data)))))\n"
+        }
+      ]
+    }
+  ]
+}

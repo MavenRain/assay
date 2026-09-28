@@ -1,0 +1,11 @@
+MUTANT SELECTOR-END killed: ANSWER transfer-encode
+MUTANT SELECTOR-WIDTH killed: ANSWER empty-encode
+MUTANT SELECTOR-NAME killed: ANSWER transfer-encode
+MUTANT ENCODE-TYPE killed: ANSWER type-uint8-uint256
+MUTANT ENCODE-SELECTOR killed: ANSWER empty-encode
+MUTANT VALIDATE-TAIL killed: ANSWER type-before-range
+MUTANT DECODE-SHORT killed: ANSWER selector-short-3
+MUTANT DECODE-SELECTOR killed: ANSWER selector-wrong-transfer
+MUTANT DECODE-BASE killed: ANSWER empty-decode
+MUTANT DECODE-SKIP killed: ANSWER transfer-decode
+CALL-CODEC oracle=57 reference=44 negative=60 prefixes=292 refusal=13 mutants=10 scope=calldata OK

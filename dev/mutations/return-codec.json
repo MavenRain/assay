@@ -1,0 +1,145 @@
+{
+  "version": 1,
+  "cases": [
+    {
+      "name": "ENCODE-INPUTS",
+      "path": "src/abi.bend",
+      "witnesses": [
+        "pair-encode"
+      ],
+      "patches": [
+        {
+          "definition": "Abi.Return.encode",
+          "sha256": "61ce12bcf0146ad6b3700e5fbfed9aaa0eebda2ebd5078d2ce8fbb8e9817e397",
+          "replacement": "@unsafe\ndef Abi.Return.encode(+fn: Abi.Schema.Function_, +values: ListOf(Abi.Codec.Value)) -> Abi.Return.Result(String):\n  Abi.Return.Result.bind(Unit, String, Abi.Return.validate(Get.Abi.Schema.Function_.inputs(fn), values), _ =>\n    Abi.Return.codec(String, Abi.Codec.encode(values)))\n"
+        }
+      ]
+    },
+    {
+      "name": "DECODE-INPUTS",
+      "path": "src/abi.bend",
+      "witnesses": [
+        "pair-decode"
+      ],
+      "patches": [
+        {
+          "definition": "Abi.Return.decode",
+          "sha256": "d703c13c0b036f9f19673182ec19192a13b0cb0d2827baad3fafbbd4a9c8385a",
+          "replacement": "@unsafe\ndef Abi.Return.decode(fn: Abi.Schema.Function_, data: String) -> Abi.Return.Result(ListOf(Abi.Codec.Value)):\n  Abi.Return.codec(ListOf(Abi.Codec.Value), Abi.Codec.decode(SeqList.map(&2, &2, Abi.Schema.Parameter, Abi.Schema.Value_type, +parameter => Get.Abi.Schema.Parameter.typ(parameter), Get.Abi.Schema.Function_.inputs(fn)), data))\n"
+        }
+      ]
+    },
+    {
+      "name": "ENCODE-TYPE",
+      "path": "src/abi.bend",
+      "witnesses": [
+        "type-uint8-uint256"
+      ],
+      "patches": [
+        {
+          "definition": "Abi.Return.validate",
+          "sha256": "c549423dd987628a07f739d3ca97ef91c733472e17c3d6be3bdc9eb307f8989a",
+          "replacement": "@unsafe\ndef Abi.Return.validate(outputs: ListOf(Abi.Schema.Parameter), values: ListOf(Abi.Codec.Value)) -> Abi.Return.Result(Unit):\n  match outputs values:\n    case Nil{} Nil{}: Done{Unit{}}\n    case Nil{} Con{_, _}: Fail{Abi.Return.Error.Arity{}}\n    case Con{_, _} Nil{}: Fail{Abi.Return.Error.Arity{}}\n    case Con{MkAbi_Schema_Parameter{_, typ}, tail} Con{value, rest}:\n      Big.when(Abi.Return.Result(Unit), NativeString.equal(Abi.Schema.type_name(typ), Abi.Schema.type_name(Abi.Event.value_type(value))),\n        _ => Abi.Return.validate(tail, rest), _ => Done{Unit{}})\n"
+        }
+      ]
+    },
+    {
+      "name": "VALIDATE-TAIL",
+      "path": "src/abi.bend",
+      "witnesses": [
+        "tail-type-uint8-uint256"
+      ],
+      "patches": [
+        {
+          "definition": "Abi.Return.validate",
+          "sha256": "c549423dd987628a07f739d3ca97ef91c733472e17c3d6be3bdc9eb307f8989a",
+          "replacement": "@unsafe\ndef Abi.Return.validate(outputs: ListOf(Abi.Schema.Parameter), values: ListOf(Abi.Codec.Value)) -> Abi.Return.Result(Unit):\n  match outputs values:\n    case Nil{} Nil{}: Done{Unit{}}\n    case Nil{} Con{_, _}: Fail{Abi.Return.Error.Arity{}}\n    case Con{_, _} Nil{}: Fail{Abi.Return.Error.Arity{}}\n    case Con{MkAbi_Schema_Parameter{_, typ}, tail} Con{value, rest}:\n      Big.when(Abi.Return.Result(Unit), NativeString.equal(Abi.Schema.type_name(typ), Abi.Schema.type_name(Abi.Event.value_type(value))),\n        _ => Done{Unit{}}, _ => Fail{Abi.Return.Error.Type_mismatch{}})\n"
+        }
+      ]
+    },
+    {
+      "name": "MISSING-OUTPUT",
+      "path": "src/abi.bend",
+      "witnesses": [
+        "arity-missing-tail"
+      ],
+      "patches": [
+        {
+          "definition": "Abi.Return.validate",
+          "sha256": "c549423dd987628a07f739d3ca97ef91c733472e17c3d6be3bdc9eb307f8989a",
+          "replacement": "@unsafe\ndef Abi.Return.validate(outputs: ListOf(Abi.Schema.Parameter), values: ListOf(Abi.Codec.Value)) -> Abi.Return.Result(Unit):\n  match outputs values:\n    case Nil{} Nil{}: Done{Unit{}}\n    case Nil{} Con{_, _}: Fail{Abi.Return.Error.Arity{}}\n    case Con{_, _} Nil{}: Done{Unit{}}\n    case Con{MkAbi_Schema_Parameter{_, typ}, tail} Con{value, rest}:\n      Big.when(Abi.Return.Result(Unit), NativeString.equal(Abi.Schema.type_name(typ), Abi.Schema.type_name(Abi.Event.value_type(value))),\n        _ => Abi.Return.validate(tail, rest), _ => Fail{Abi.Return.Error.Type_mismatch{}})\n"
+        }
+      ]
+    },
+    {
+      "name": "EXTRA-OUTPUT",
+      "path": "src/abi.bend",
+      "witnesses": [
+        "arity-extra-tail"
+      ],
+      "patches": [
+        {
+          "definition": "Abi.Return.validate",
+          "sha256": "c549423dd987628a07f739d3ca97ef91c733472e17c3d6be3bdc9eb307f8989a",
+          "replacement": "@unsafe\ndef Abi.Return.validate(outputs: ListOf(Abi.Schema.Parameter), values: ListOf(Abi.Codec.Value)) -> Abi.Return.Result(Unit):\n  match outputs values:\n    case Nil{} Nil{}: Done{Unit{}}\n    case Nil{} Con{_, _}: Done{Unit{}}\n    case Con{_, _} Nil{}: Fail{Abi.Return.Error.Arity{}}\n    case Con{MkAbi_Schema_Parameter{_, typ}, tail} Con{value, rest}:\n      Big.when(Abi.Return.Result(Unit), NativeString.equal(Abi.Schema.type_name(typ), Abi.Schema.type_name(Abi.Event.value_type(value))),\n        _ => Abi.Return.validate(tail, rest), _ => Fail{Abi.Return.Error.Type_mismatch{}})\n"
+        }
+      ]
+    },
+    {
+      "name": "ENCODE-SELECTOR",
+      "path": "src/abi.bend",
+      "witnesses": [
+        "empty-encode"
+      ],
+      "patches": [
+        {
+          "definition": "Abi.Return.encode",
+          "sha256": "61ce12bcf0146ad6b3700e5fbfed9aaa0eebda2ebd5078d2ce8fbb8e9817e397",
+          "replacement": "@unsafe\ndef Abi.Return.encode(+fn: Abi.Schema.Function_, +values: ListOf(Abi.Codec.Value)) -> Abi.Return.Result(String):\n  Abi.Return.Result.bind(Unit, String, Abi.Return.validate(Get.Abi.Schema.Function_.outputs(fn), values), _ =>\n    Abi.Return.Result.bind(String, String, Abi.Return.codec(String, Abi.Codec.encode(values)), bytes => Done{String.concat([Abi.Call.selector(fn), bytes])}))\n"
+        }
+      ]
+    },
+    {
+      "name": "DECODE-SKIP",
+      "path": "src/abi.bend",
+      "witnesses": [
+        "pair-decode"
+      ],
+      "patches": [
+        {
+          "definition": "Abi.Return.decode",
+          "sha256": "d703c13c0b036f9f19673182ec19192a13b0cb0d2827baad3fafbbd4a9c8385a",
+          "replacement": "@unsafe\ndef Abi.Return.decode(fn: Abi.Schema.Function_, data: String) -> Abi.Return.Result(ListOf(Abi.Codec.Value)):\n  Abi.Return.codec(ListOf(Abi.Codec.Value), Abi.Codec.decode(SeqList.map(&2, &2, Abi.Schema.Parameter, Abi.Schema.Value_type, +parameter => Get.Abi.Schema.Parameter.typ(parameter), Get.Abi.Schema.Function_.outputs(fn)), NativeString.drop(4n, data)))\n"
+        }
+      ]
+    },
+    {
+      "name": "CODEC-ERROR",
+      "path": "src/abi.bend",
+      "witnesses": [
+        "uint8-overflow"
+      ],
+      "patches": [
+        {
+          "definition": "Abi.Return.codec",
+          "sha256": "b01c8f342ba5f351e063fbb648ca703fe605d5626dcf1bfe5953f9043ca7d985",
+          "replacement": "def Abi.Return.codec(-A: Data, result: Abi.Codec.Result(A)) -> Abi.Return.Result(A):\n  match result:\n    case Done{value}: Done{value}\n    case Fail{error}: Fail{Abi.Return.Error.Arity{}}\n"
+        }
+      ]
+    },
+    {
+      "name": "DECODE-TYPE",
+      "path": "src/abi.bend",
+      "witnesses": [
+        "decode-bool"
+      ],
+      "patches": [
+        {
+          "definition": "Abi.Return.decode",
+          "sha256": "d703c13c0b036f9f19673182ec19192a13b0cb0d2827baad3fafbbd4a9c8385a",
+          "replacement": "@unsafe\ndef Abi.Return.decode(fn: Abi.Schema.Function_, data: String) -> Abi.Return.Result(ListOf(Abi.Codec.Value)):\n  Abi.Return.codec(ListOf(Abi.Codec.Value), Abi.Codec.decode(SeqList.map(&2, &2, Abi.Schema.Parameter, Abi.Schema.Value_type, +parameter => Abi.Schema.Value_type.Uint256{}, Get.Abi.Schema.Function_.outputs(fn)), data))\n"
+        }
+      ]
+    }
+  ]
+}

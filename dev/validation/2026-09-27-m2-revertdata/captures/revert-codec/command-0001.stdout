@@ -1,0 +1,13 @@
+MUTANT ACCEPT-CONSTRUCTOR killed: ANSWER constructor-encode
+MUTANT ACCEPT-FUNCTION killed: ANSWER function-encode
+MUTANT ACCEPT-EVENT killed: ANSWER event-encode
+MUTANT ACCEPT-FALLBACK killed: ANSWER fallback-encode
+MUTANT ERROR-NAME killed: ANSWER empty-encode
+MUTANT ERROR-TYPES killed: ANSWER pair-encode
+MUTANT CALL-ERASURE killed: ANSWER uint8-overflow
+MUTANT IGNORE-ARITY killed: ANSWER arity-missing
+MUTANT IGNORE-TYPE killed: ANSWER type-uint8-uint256
+MUTANT SHORT-KIND killed: ANSWER prefix-0
+MUTANT ENCODE-SELECTOR killed: ANSWER empty-encode
+MUTANT DECODE-SELECTOR killed: ANSWER wrong-selector-empty
+REVERT-CODEC oracle=60 reference=40 negative=90 prefixes=292 refusal=16 mutants=12 scope=revertdata OK

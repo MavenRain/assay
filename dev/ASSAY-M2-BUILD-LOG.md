@@ -1,5 +1,80 @@
 # Assay M2 build log
 
+## 2026-09-27: M2 typed custom-error revert data
+
+Starting from the staged return-data slice at `5e00ee7`, this slice adds
+`Abi.Revert.encode` and `Abi.Revert.decode`. Error declarations reuse the
+strict calldata codec for their selectors and argument tuples, including
+nullary errors, dynamic strings, `Error(string)` and `Panic(uint256)`.
+Other declaration variants return `Not_error`; `Call(error)` preserves
+the existing typed calldata and tuple errors.
+
+REVERT-CODEC passes with 60 cast oracle cases, 40 frozen ERC-20 empty
+reverts, 90 production errors, 292 truncated prefixes, 16 adapter
+refusals and twelve compiling mutants killed by named wrong answers.
+Every positive checks encoding, decoding and parameter-name independence.
+A restored scratch build passes the complete 662-case set. The ERC-20
+reference has no typed errors; its empty reverts exercise short-selector
+rejection.
+
+The new default `--m2-revertdata` appends REVERT-CODEC for 86 checks.
+Compatibility preserves all 53 earlier modes, their commands, deadlines,
+markers and failure classes. The staged ABI and test sources remain
+byte-identical prefixes, and the compiler CLI bundle is unchanged.
+
+Native tests, tuple/calldata/return/event codec regressions, house rules,
+carry, denominator pins, trusted-line bounds and BEND2-RATIO-TEST pass.
+The shared dispatch keeps the ABI module within its unchanged 400-line
+cap. Validation is scoped to this host-codec slice; the complete 86-leg
+default battery was not run. Commands, captures and hashes are retained
+under `dev/validation/2026-09-27-m2-revertdata`.
+
+A fresh five-round paired timing report is frozen in
+`dev/bend2-baseline.json`. The 13.432-second window yields an
+Assay/Bend 2 ratio of 1.657532429, above the unchanged 1.0 limit.
+BEND2-RATIO remains failing. These separate runs do not establish a
+feature-related speed change.
+
+Compiler integration and the remaining M2 work stay pending. See
+`dev/M2-REVERTDATA.md` for the API and scope.
+
+## 2026-09-27: M2 function return-data encoding
+
+Starting at `5e00ee7`, this slice adds `Abi.Return.encode` and
+`Abi.Return.decode` for a typed function's output tuple. Empty results
+encode to empty bytes. Dynamic offsets start at the tuple, and return
+data carries no selector. Type, arity and codec failures return explicit
+errors. Function names, inputs, output names and mutability do not alter
+the output bytes.
+
+RETURN-CODEC passes with 57 cast oracle cases, all 45 successful ERC-20
+reference results, 75 production errors, 288 truncated prefixes,
+13 adapter refusals and ten compiling mutants killed by named wrong
+answers. Every positive case checks encoding and decoding with changed
+function metadata. A restored scratch build passes the full case set.
+
+RETURN-COMPATIBILITY preserves all 52 historical gate modes, their
+commands, deadlines, expected markers and failure classes. The new
+default `--m2-returndata` appends RETURN-CODEC for 85 checks. The prior
+ABI and test sources remain byte-identical prefixes, and the reachable
+compiler CLI bundle remains byte-identical.
+
+Native tests, tuple/calldata/event codec regressions, house rules,
+carry, denominator pins, trusted-line bounds and BEND2-RATIO-TEST pass.
+The source pins and new test harness pins are refreshed. Validation is
+scoped to this host-codec slice; the complete 85-leg default battery was
+not run. Commands, captures and hashes are retained under
+`dev/validation/2026-09-27-m2-returndata`.
+
+A fresh five-round paired timing report is frozen in
+`dev/bend2-baseline.json`. The 7.581-second window yields an
+Assay/Bend 2 ratio of 1.667820196, above the unchanged 1.0 limit.
+BEND2-RATIO therefore remains failing. The compiler bundle is unchanged;
+these separate runs do not establish a feature-related speed change.
+
+Compiler integration and the remaining M2 work stay pending. See
+`dev/M2-RETURNDATA.md` for the API and scope.
+
 ## 2026-09-27: M2 function calldata encoding
 
 Starting at `0cf7d20`, `Abi.Call` builds complete function call payloads

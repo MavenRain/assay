@@ -1,0 +1,11 @@
+MUTANT ENCODE-INPUTS killed: ANSWER pair-encode
+MUTANT DECODE-INPUTS killed: ANSWER pair-decode
+MUTANT ENCODE-TYPE killed: ANSWER type-uint8-uint256
+MUTANT VALIDATE-TAIL killed: ANSWER tail-type-uint8-uint256
+MUTANT MISSING-OUTPUT killed: ANSWER arity-missing-tail
+MUTANT EXTRA-OUTPUT killed: ANSWER arity-extra-tail
+MUTANT ENCODE-SELECTOR killed: ANSWER empty-encode
+MUTANT DECODE-SKIP killed: ANSWER pair-decode
+MUTANT CODEC-ERROR killed: ANSWER uint8-overflow
+MUTANT DECODE-TYPE killed: ANSWER decode-bool
+RETURN-CODEC oracle=57 reference=45 negative=75 prefixes=288 refusal=13 mutants=10 scope=returndata OK

@@ -1,0 +1,28 @@
+{
+  "base": "5e00ee74a050092b11b57c666a8743d9a84e4b9b",
+  "baseline_files": 7285,
+  "root_index": "unchanged",
+  "root_worktree": "unchanged",
+  "preserved_gate_modes": 53,
+  "prior_abi_and_tests": "byte-identical prefixes",
+  "changed_existing": [
+    "Makefile",
+    "README.md",
+    "dev/ASSAY-M2-BUILD-LOG.md",
+    "dev/BEND2.sha256",
+    "dev/DENOMINATORS.sha256",
+    "dev/M2-REFERENCE.md",
+    "dev/bend2-baseline.json",
+    "dev/build.py",
+    "dev/gates.sh",
+    "dev/native-carry.json",
+    "dev/stage-a-gates.py",
+    "src/abi.bend",
+    "src/tests.bend"
+  ],
+  "original_sources": {
+    "src/abi.bend": "d1a5218c5366b483f9569a7212e05a84a8fbcf27ed6699ae122a774da613382c",
+    "src/tests.bend": "d13fac7dbe7e29f908a57f1d9260cec6bc69f52d2bbd4f44007e3259455c0ea6",
+    "dev/stage-a-gates.py": "506239f4798bd9ad10fc527b098dc7c55e822a3f5aa9cb11be6129685c0ce95e"
+  }
+}

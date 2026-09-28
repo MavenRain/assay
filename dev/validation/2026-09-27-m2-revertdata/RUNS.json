@@ -1,0 +1,286 @@
+{
+  "version": 1,
+  "base": "5e00ee74a050092b11b57c666a8743d9a84e4b9b",
+  "scope": "native and ABI codec checks; complete default battery not run",
+  "runs": [
+    {
+      "name": "revert-codec",
+      "command": [
+        "env",
+        "BEND=$BEND_ROOT/bin/bend",
+        "python3",
+        "-P",
+        "dev/revert-codec-test.py"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "seconds": 27.607,
+      "status": "passed",
+      "known_pre_existing_failure": false,
+      "capture": "captures/revert-codec",
+      "capture_sha256": "761f60a57e76d3074798067736d86d3b52ac8606f1ad46652d912bf762f5d82c"
+    },
+    {
+      "name": "preservation",
+      "command": [
+        "python3",
+        "-P",
+        "$PRESERVATION_CHECK"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "seconds": 2.422,
+      "status": "passed",
+      "known_pre_existing_failure": false,
+      "capture": "captures/preservation",
+      "capture_sha256": "95f95966f416e4c66d6ad4a2230a34687ef68b7fa88ac56e4c3aeb2b73737247"
+    },
+    {
+      "name": "native-tests",
+      "command": [
+        "python3",
+        "-P",
+        "dev/build.py",
+        "runtest"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "seconds": 47.664,
+      "status": "passed",
+      "known_pre_existing_failure": false,
+      "capture": "captures/native-tests",
+      "capture_sha256": "d16be2d68e180d5009e8b2915e0dd23214a84838e4ce07f825ae43e42ec2b5e6"
+    },
+    {
+      "name": "paired-measurement",
+      "command": [
+        "python3",
+        "-P",
+        "dev/bend2-ratio.py",
+        "--measure",
+        "$MEASURE",
+        "--bend-root",
+        "$BEND_ROOT"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "seconds": 21.723,
+      "status": "passed",
+      "known_pre_existing_failure": false,
+      "capture": "captures/paired-measurement",
+      "capture_sha256": "2b9a47246ad0d864135b6eb151fc47a11e9e8aa78345f6c56feaaafdd2d1f13f"
+    },
+    {
+      "name": "compatibility",
+      "command": [
+        "python3",
+        "-P",
+        "dev/revert-compatibility.py"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "seconds": 1.167,
+      "status": "passed",
+      "known_pre_existing_failure": false,
+      "capture": "captures/compatibility",
+      "capture_sha256": "3155d6a24cbc9b3885c42d4c0055a02010f34b08d5ec068b5a06dc1599d63ca3"
+    },
+    {
+      "name": "return-compatibility",
+      "command": [
+        "python3",
+        "-P",
+        "dev/return-compatibility.py"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "seconds": 1.166,
+      "status": "passed",
+      "known_pre_existing_failure": false,
+      "capture": "captures/return-compatibility",
+      "capture_sha256": "85cb9cf2d2ab734156e55bed14dfa6ee495a40726f4f796ace249e418303b6f5"
+    },
+    {
+      "name": "abi-codec",
+      "command": [
+        "python3",
+        "-P",
+        "dev/abi-codec-test.py"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "seconds": 253.218,
+      "status": "passed",
+      "known_pre_existing_failure": false,
+      "capture": "captures/abi-codec",
+      "capture_sha256": "9f7be7a13f72e906d22da93165e7da5dd111a06c42ea1285535e5f166df40e9c"
+    },
+    {
+      "name": "call-codec",
+      "command": [
+        "python3",
+        "-P",
+        "dev/call-codec-test.py"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "seconds": 28.959,
+      "status": "passed",
+      "known_pre_existing_failure": false,
+      "capture": "captures/call-codec",
+      "capture_sha256": "4e460660b510838b6786b7088b68a2aa85337c7576533bea749df7cf84ebed40"
+    },
+    {
+      "name": "return-codec",
+      "command": [
+        "python3",
+        "-P",
+        "dev/return-codec-test.py"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "seconds": 29.235,
+      "status": "passed",
+      "known_pre_existing_failure": false,
+      "capture": "captures/return-codec",
+      "capture_sha256": "fd8fc98757ee1ab0f53bd1a97d8432320a6d34ec854d15564f1920cc54ed3324"
+    },
+    {
+      "name": "event-codec",
+      "command": [
+        "python3",
+        "-P",
+        "dev/event-codec-test.py"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "seconds": 25.259,
+      "status": "passed",
+      "known_pre_existing_failure": false,
+      "capture": "captures/event-codec",
+      "capture_sha256": "27913eeaf91095d9faafe61f6799f9c2b0a48a304cb66c8e981c516a73123ee3"
+    },
+    {
+      "name": "house",
+      "command": [
+        "zsh",
+        "-f",
+        "dev/house.sh"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "seconds": 1.074,
+      "status": "passed",
+      "known_pre_existing_failure": false,
+      "capture": "captures/house",
+      "capture_sha256": "8826cdf9ec071567aa1c59f42b1e0a291217db36548af41738a679ac53ece499"
+    },
+    {
+      "name": "carry",
+      "command": [
+        "zsh",
+        "-f",
+        "dev/carry-check.sh"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "seconds": 0.087,
+      "status": "passed",
+      "known_pre_existing_failure": false,
+      "capture": "captures/carry",
+      "capture_sha256": "87911ced17bf5459d510f9e2bef7aac9fbb820242405e4a1e43805b031c47801"
+    },
+    {
+      "name": "trusted-lines",
+      "command": [
+        "zsh",
+        "-f",
+        "dev/trusted-lines.sh"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "seconds": 0.141,
+      "status": "passed",
+      "known_pre_existing_failure": false,
+      "capture": "captures/trusted-lines",
+      "capture_sha256": "ece76541aaf753e476636d72e3b265fbf538490dde1a5a663cb70bfbfb64e39c"
+    },
+    {
+      "name": "denominators",
+      "command": [
+        "shasum",
+        "-a",
+        "256",
+        "-c",
+        "dev/DENOMINATORS.sha256"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "seconds": 0.071,
+      "status": "passed",
+      "known_pre_existing_failure": false,
+      "capture": "captures/denominators",
+      "capture_sha256": "6e44fc5cb5d761ec42a4809e205bc68d9447c82673044633306ace0e70ae9b3a"
+    },
+    {
+      "name": "bend2-ratio-test",
+      "command": [
+        "python3",
+        "-P",
+        "dev/bend2-ratio-test.py"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "seconds": 0.738,
+      "status": "passed",
+      "known_pre_existing_failure": false,
+      "capture": "captures/bend2-ratio-test",
+      "capture_sha256": "d9f3ca0ae8ecca260418fa9cbd47b03d034181f171353f8c996a1a248c80d6db"
+    },
+    {
+      "name": "bend2-ratio",
+      "command": [
+        "python3",
+        "-P",
+        "dev/bend2-ratio.py"
+      ],
+      "cwd": ".",
+      "exit_code": 1,
+      "seconds": 0.106,
+      "status": "failed",
+      "known_pre_existing_failure": true,
+      "capture": "captures/bend2-ratio",
+      "capture_sha256": "610a43d32a3560e700d411035e8dfe1ecffdaee516a6604f9ed42b3532698715"
+    },
+    {
+      "name": "gate-default-dry-run",
+      "command": [
+        "make",
+        "-n",
+        "gates"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "seconds": 0.05,
+      "status": "passed",
+      "known_pre_existing_failure": false,
+      "capture": "captures/gate-default-dry-run",
+      "capture_sha256": "6df53a460af944c119938e0f92adea5a6b6119bad6e29056286064e5a805f889"
+    },
+    {
+      "name": "gate-shell-syntax",
+      "command": [
+        "zsh",
+        "-n",
+        "dev/gates.sh"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "seconds": 0.075,
+      "status": "passed",
+      "known_pre_existing_failure": false,
+      "capture": "captures/gate-shell-syntax",
+      "capture_sha256": "4750b966f7f1e98c2b0f9346facedff33e31643154bc5c784f71d562ab636da7"
+    }
+  ]
+}

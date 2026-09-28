@@ -1626,3 +1626,124 @@ def Call_codec.join(+row: String, tail: ListOf(String)) -> StringResult(String):
   match tail:
     case Nil{}: Done{row}
     case Con{head, rest}: StringResult.bind(String, String, Call_codec.main(head <> rest), rows => Done{String.concat([row, "\n", rows])})
+
+@unsafe
+def Return_codec.error(error: Abi.Return.Error) -> String:
+  match error:
+    case Abi.Return.Error.Arity{}: "ARITY"
+    case Abi.Return.Error.Type_mismatch{}: "TYPE"
+    case Abi.Return.Error.Codec{error}: Abi_codec.error(error)
+@unsafe
+def Return_codec.function(+name: String, types: ListOf(Abi.Schema.Value_type), +metadata: Bool) -> Abi.Schema.Function_:
+  +outputs = SeqList.map(&2, &2, Abi.Schema.Value_type, Abi.Schema.Parameter, +typ => MkAbi_Schema_Parameter{Big.when(String, metadata, _ => "renamed", _ => ""), typ}, types)
+  Big.when(Abi.Schema.Function_, metadata,
+    _ => MkAbi_Schema_Function_{"differentName", [MkAbi_Schema_Parameter{"input", Abi.Schema.Value_type.String{}}], outputs, Abi.Mutability.Payable{}},
+    _ => MkAbi_Schema_Function_{name, [], outputs, Abi.Mutability.View{}})
+@unsafe
+def Return_codec.show_encode(result: Abi.Return.Result(String)) -> String:
+  match result:
+    case Done{bytes}: String.concat(["OK ", Abi_codec.hex(bytes)])
+    case Fail{error}: String.concat(["ERR ", Return_codec.error(error)])
+@unsafe
+def Return_codec.show_decode(result: Abi.Return.Result(ListOf(Abi.Codec.Value))) -> String:
+  match result:
+    case Done{values}: String.concat(["OK ", Call_codec.values_text(values)])
+    case Fail{error}: String.concat(["ERR ", Return_codec.error(error)])
+@unsafe
+def Return_codec.query(parts: ListOf(String)) -> StringResult(String):
+  match parts:
+    case Nil{}: Fail{"ADAPTER-USAGE"}
+    case Con{_, Nil{}}: Fail{"ADAPTER-USAGE"}
+    case Con{_, Con{_, Nil{}}}: Fail{"ADAPTER-USAGE"}
+    case Con{_, Con{_, Con{_, Nil{}}}}: Fail{"ADAPTER-USAGE"}
+    case Con{mode, Con{name, Con{types, Con{payload, args}}}}:
+      StringResult.bind(ListOf(Abi.Schema.Value_type), String, Mapping_layout.types(types), ts => Return_codec.dispatch(mode, name, ts, payload, args))
+@unsafe
+def Return_codec.dispatch(+mode: String, +name: String, +ts: ListOf(Abi.Schema.Value_type), +payload: String, +args: ListOf(String)) -> StringResult(String):
+  Big.when(StringResult(String), NativeString.equal(mode, "decode"), _ => Return_codec.decode_query(name, ts, payload, args, False{}), _ =>
+    Big.when(StringResult(String), NativeString.equal(mode, "decode-metadata"), _ => Return_codec.decode_query(name, ts, payload, args, True{}), _ =>
+      Big.when(StringResult(String), NativeString.equal(mode, "encode"), _ => Return_codec.encode_query(name, ts, payload, args, False{}), _ =>
+        Big.when(StringResult(String), NativeString.equal(mode, "metadata"), _ => Return_codec.encode_query(name, ts, payload, args, True{}), _ => Fail{"ADAPTER-MODE"}))))
+@unsafe
+def Return_codec.encode_query(+name: String, +ts: ListOf(Abi.Schema.Value_type), payload: String, args: ListOf(String), +metadata: Bool) -> StringResult(String):
+  StringResult.bind(ListOf(Abi.Schema.Value_type), String, Mapping_layout.types(payload), vs =>
+    StringResult.bind(ListOf(Abi.Codec.Value), String, Abi_codec.values(vs, args), values =>
+      Done{Return_codec.show_encode(Abi.Return.encode(Return_codec.function(name, ts, metadata), values))}))
+@unsafe
+def Return_codec.decode_query(+name: String, +ts: ListOf(Abi.Schema.Value_type), payload: String, args: ListOf(String), +metadata: Bool) -> StringResult(String):
+  match args:
+    case Nil{}: StringResult.bind(String, String, Abi_codec.unhex(payload), bytes => Done{Return_codec.show_decode(Abi.Return.decode(Return_codec.function(name, ts, metadata), bytes))})
+    case Con{_, _}: Fail{"ADAPTER-USAGE"}
+@unsafe
+def Return_codec.main(args: ListOf(String)) -> StringResult(String):
+  match args:
+    case Nil{}: Done{""}
+    case Con{query, tail}:
+      StringResult.bind(String, String, Return_codec.query(NativeString.split(Char.from_u32(124), query)), row => Return_codec.join(row, tail))
+@unsafe
+def Return_codec.join(+row: String, tail: ListOf(String)) -> StringResult(String):
+  match tail:
+    case Nil{}: Done{row}
+    case Con{head, rest}: StringResult.bind(String, String, Return_codec.main(head <> rest), rows => Done{String.concat([row, "\n", rows])})
+
+def Revert_codec.error(error: Abi.Revert.Error) -> String:
+  match error:
+    case Abi.Revert.Error.Not_error{}: "NOT-ERROR"
+    case Abi.Revert.Error.Call{error}: Call_codec.error(error)
+@unsafe
+def Revert_codec.declaration(+kind: String, +name: String, types: ListOf(Abi.Schema.Value_type), +metadata: Bool) -> StringResult(Abi.Schema.Declaration):
+  +parameters = SeqList.map(&2, &2, Abi.Schema.Value_type, Abi.Schema.Parameter, +typ => MkAbi_Schema_Parameter{Big.when(String, metadata, _ => "renamed", _ => ""), typ}, types)
+  Big.when(StringResult(Abi.Schema.Declaration), NativeString.equal(kind, "error"), _ => Done{Abi.Schema.Declaration.Error{name, parameters}}, _ =>
+    Big.when(StringResult(Abi.Schema.Declaration), NativeString.equal(kind, "constructor"), _ => Done{Abi.Schema.Declaration.Constructor{parameters, False{}}}, _ =>
+      Big.when(StringResult(Abi.Schema.Declaration), NativeString.equal(kind, "function"), _ => Done{Abi.Schema.Declaration.Function{MkAbi_Schema_Function_{name, parameters, [], Abi.Mutability.Nonpayable{}}}}, _ =>
+        Big.when(StringResult(Abi.Schema.Declaration), NativeString.equal(kind, "event"), _ => Done{Abi.Schema.Declaration.Event{name, [], False{}}}, _ =>
+          Big.when(StringResult(Abi.Schema.Declaration), NativeString.equal(kind, "fallback"), _ => Done{Abi.Schema.Declaration.Fallback{False{}}}, _ => Fail{"ADAPTER-KIND"})))))
+@unsafe
+def Revert_codec.show_encode(result: Abi.Revert.Result(String)) -> String:
+  match result:
+    case Done{bytes}: String.concat(["OK ", Abi_codec.hex(bytes)])
+    case Fail{error}: String.concat(["ERR ", Revert_codec.error(error)])
+@unsafe
+def Revert_codec.show_decode(result: Abi.Revert.Result(ListOf(Abi.Codec.Value))) -> String:
+  match result:
+    case Done{values}: String.concat(["OK ", Call_codec.values_text(values)])
+    case Fail{error}: String.concat(["ERR ", Revert_codec.error(error)])
+@unsafe
+def Revert_codec.query(parts: ListOf(String)) -> StringResult(String):
+  match parts:
+    case Nil{}: Fail{"ADAPTER-USAGE"}
+    case Con{_, Nil{}}: Fail{"ADAPTER-USAGE"}
+    case Con{_, Con{_, Nil{}}}: Fail{"ADAPTER-USAGE"}
+    case Con{_, Con{_, Con{_, Nil{}}}}: Fail{"ADAPTER-USAGE"}
+    case Con{_, Con{_, Con{_, Con{_, Nil{}}}}}: Fail{"ADAPTER-USAGE"}
+    case Con{mode, Con{kind, Con{name, Con{types, Con{payload, args}}}}}:
+      StringResult.bind(ListOf(Abi.Schema.Value_type), String, Mapping_layout.types(types), ts => Revert_codec.prepare(mode, kind, name, ts, payload, args))
+@unsafe
+def Revert_codec.prepare(+mode: String, kind: String, name: String, types: ListOf(Abi.Schema.Value_type), payload: String, args: ListOf(String)) -> StringResult(String):
+  metadata = Big.when(Bool, NativeString.equal(mode, "metadata"), _ => True{}, _ => NativeString.equal(mode, "decode-metadata"))
+  StringResult.bind(Abi.Schema.Declaration, String, Revert_codec.declaration(kind, name, types, metadata), declaration => Revert_codec.dispatch(mode, declaration, payload, args))
+@unsafe
+def Revert_codec.dispatch(+mode: String, +declaration: Abi.Schema.Declaration, +payload: String, +args: ListOf(String)) -> StringResult(String):
+  Big.when(StringResult(String), NativeString.equal(mode, "decode"), _ => Revert_codec.decode_query(declaration, payload, args), _ =>
+    Big.when(StringResult(String), NativeString.equal(mode, "decode-metadata"), _ => Revert_codec.decode_query(declaration, payload, args), _ =>
+      Big.when(StringResult(String), NativeString.equal(mode, "encode"), _ => Revert_codec.encode_query(declaration, payload, args), _ =>
+        Big.when(StringResult(String), NativeString.equal(mode, "metadata"), _ => Revert_codec.encode_query(declaration, payload, args), _ => Fail{"ADAPTER-MODE"}))))
+@unsafe
+def Revert_codec.encode_query(declaration: Abi.Schema.Declaration, payload: String, args: ListOf(String)) -> StringResult(String):
+  StringResult.bind(ListOf(Abi.Schema.Value_type), String, Mapping_layout.types(payload), vs =>
+    StringResult.bind(ListOf(Abi.Codec.Value), String, Abi_codec.values(vs, args), values => Done{Revert_codec.show_encode(Abi.Revert.encode(declaration, values))}))
+@unsafe
+def Revert_codec.decode_query(declaration: Abi.Schema.Declaration, payload: String, args: ListOf(String)) -> StringResult(String):
+  match args:
+    case Nil{}: StringResult.bind(String, String, Abi_codec.unhex(payload), bytes => Done{Revert_codec.show_decode(Abi.Revert.decode(declaration, bytes))})
+    case Con{_, _}: Fail{"ADAPTER-USAGE"}
+@unsafe
+def Revert_codec.main(args: ListOf(String)) -> StringResult(String):
+  match args:
+    case Nil{}: Done{""}
+    case Con{query, tail}: StringResult.bind(String, String, Revert_codec.query(NativeString.split(Char.from_u32(124), query)), row => Revert_codec.join(row, tail))
+@unsafe
+def Revert_codec.join(+row: String, tail: ListOf(String)) -> StringResult(String):
+  match tail:
+    case Nil{}: Done{row}
+    case Con{head, rest}: StringResult.bind(String, String, Revert_codec.main(head <> rest), rows => Done{String.concat([row, "\n", rows])})

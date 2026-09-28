@@ -345,3 +345,55 @@ def Abi.Call.decode(+fn: Abi.Schema.Function_, +data: String) -> Abi.Call.Result
     _ => Big.when(Abi.Call.Result(ListOf(Abi.Codec.Value)), NativeString.equal(NativeString.take(4n, data), Abi.Call.selector(fn)),
       _ => Abi.Call.codec(ListOf(Abi.Codec.Value), Abi.Codec.decode(SeqList.map(&2, &2, Abi.Schema.Parameter, Abi.Schema.Value_type, +parameter => Get.Abi.Schema.Parameter.typ(parameter), Get.Abi.Schema.Function_.inputs(fn)), NativeString.drop(4n, data))),
       _ => Fail{Abi.Call.Error.Wrong_selector{}}))
+
+type Abi.Return.Error is Data:
+  Abi.Return.Error.Arity{}
+  Abi.Return.Error.Type_mismatch{}
+  Abi.Return.Error.Codec{error: Abi.Codec.Error}
+def Abi.Return.Result(-A: Data) -> Data: Result<&2, &2, Abi.Return.Error, A>
+def Abi.Return.Result.bind(-A: Data, -B: Data, value: Abi.Return.Result(A), next: A -> Abi.Return.Result(B)) -> Abi.Return.Result(B):
+  match value:
+    case Done{x}: next(x)
+    case Fail{error}: Fail{error}
+def Abi.Return.codec(-A: Data, result: Abi.Codec.Result(A)) -> Abi.Return.Result(A):
+  match result:
+    case Done{value}: Done{value}
+    case Fail{error}: Fail{Abi.Return.Error.Codec{error}}
+@unsafe
+def Abi.Return.validate(outputs: ListOf(Abi.Schema.Parameter), values: ListOf(Abi.Codec.Value)) -> Abi.Return.Result(Unit):
+  match outputs values:
+    case Nil{} Nil{}: Done{Unit{}}
+    case Nil{} Con{_, _}: Fail{Abi.Return.Error.Arity{}}
+    case Con{_, _} Nil{}: Fail{Abi.Return.Error.Arity{}}
+    case Con{MkAbi_Schema_Parameter{_, typ}, tail} Con{value, rest}:
+      Big.when(Abi.Return.Result(Unit), NativeString.equal(Abi.Schema.type_name(typ), Abi.Schema.type_name(Abi.Event.value_type(value))),
+        _ => Abi.Return.validate(tail, rest), _ => Fail{Abi.Return.Error.Type_mismatch{}})
+@unsafe
+def Abi.Return.encode(+fn: Abi.Schema.Function_, +values: ListOf(Abi.Codec.Value)) -> Abi.Return.Result(String):
+  Abi.Return.Result.bind(Unit, String, Abi.Return.validate(Get.Abi.Schema.Function_.outputs(fn), values), _ =>
+    Abi.Return.codec(String, Abi.Codec.encode(values)))
+@unsafe
+def Abi.Return.decode(fn: Abi.Schema.Function_, data: String) -> Abi.Return.Result(ListOf(Abi.Codec.Value)):
+  Abi.Return.codec(ListOf(Abi.Codec.Value), Abi.Codec.decode(SeqList.map(&2, &2, Abi.Schema.Parameter, Abi.Schema.Value_type, +parameter => Get.Abi.Schema.Parameter.typ(parameter), Get.Abi.Schema.Function_.outputs(fn)), data))
+
+type Abi.Revert.Error is Data:
+  Abi.Revert.Error.Not_error{}
+  Abi.Revert.Error.Call{error: Abi.Call.Error}
+def Abi.Revert.Result(-A: Data) -> Data: Result<&2, &2, Abi.Revert.Error, A>
+def Abi.Revert.call(-A: Data, result: Abi.Call.Result(A)) -> Abi.Revert.Result(A):
+  match result:
+    case Done{value}: Done{value}
+    case Fail{error}: Fail{Abi.Revert.Error.Call{error}}
+def Abi.Revert.apply(-A: Data, declaration: Abi.Schema.Declaration, action: Abi.Schema.Function_ -> Abi.Call.Result(A)) -> Abi.Revert.Result(A):
+  match declaration:
+    case Abi.Schema.Declaration.Error{name, parameters}: Abi.Revert.call(A, action(MkAbi_Schema_Function_{name, parameters, [], Abi.Mutability.Nonpayable{}}))
+    case Abi.Schema.Declaration.Constructor{_, _}: Fail{Abi.Revert.Error.Not_error{}}
+    case Abi.Schema.Declaration.Function{_}: Fail{Abi.Revert.Error.Not_error{}}
+    case Abi.Schema.Declaration.Event{_, _, _}: Fail{Abi.Revert.Error.Not_error{}}
+    case Abi.Schema.Declaration.Fallback{_}: Fail{Abi.Revert.Error.Not_error{}}
+@unsafe
+def Abi.Revert.encode(declaration: Abi.Schema.Declaration, values: ListOf(Abi.Codec.Value)) -> Abi.Revert.Result(String):
+  Abi.Revert.apply(String, declaration, fn => Abi.Call.encode(fn, values))
+@unsafe
+def Abi.Revert.decode(declaration: Abi.Schema.Declaration, data: String) -> Abi.Revert.Result(ListOf(Abi.Codec.Value)):
+  Abi.Revert.apply(ListOf(Abi.Codec.Value), declaration, fn => Abi.Call.decode(fn, data))

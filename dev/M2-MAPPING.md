@@ -64,8 +64,9 @@ deadlines, markers and failure classifications. The
 [validation record](validation/2026-09-25-m2-mapping/README.md) records the
 actual full-suite outcome and performance results.
 
-The default now selects `--m2-calldata`, adding [EVENT-CODEC](M2-EVENTS.md)
-and [CALL-CODEC](M2-CALLDATA.md).
+The default now selects `--m2-revertdata`, adding [EVENT-CODEC](M2-EVENTS.md),
+[CALL-CODEC](M2-CALLDATA.md), [RETURN-CODEC](M2-RETURNDATA.md) and
+[REVERT-CODEC](M2-REVERTDATA.md).
 
 Source lowering, mapping declarations and metadata, event execution,
 dynamic ABI lowering and the M2 Lean negative mutants remain pending.

@@ -57,7 +57,9 @@ must pass the same witnesses.
 
 The explicit `--m2-packing` gate mode appends `LAYOUT-PACKED` to the
 80-leg codec schedule, for 81 legs. The default additionally runs
-[LAYOUT-MAPPING](M2-MAPPING.md), [EVENT-CODEC](M2-EVENTS.md) and [CALL-CODEC](M2-CALLDATA.md). All 48 prior modes preserve their schedules, deadlines
+[LAYOUT-MAPPING](M2-MAPPING.md), [EVENT-CODEC](M2-EVENTS.md),
+[CALL-CODEC](M2-CALLDATA.md), [RETURN-CODEC](M2-RETURNDATA.md) and
+[REVERT-CODEC](M2-REVERTDATA.md). All 48 prior modes preserve their schedules, deadlines
 and failure classification. The existing trusted-source limits are intact.
 The [validation record](validation/2026-09-25-m2-packing/README.md) records
 the actual commands and outcomes.
