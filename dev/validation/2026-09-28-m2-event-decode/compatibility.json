@@ -1,0 +1,20 @@
+{
+  "base": "aa7517e",
+  "prior_modes": 54,
+  "new_checks": 87,
+  "appended": [
+    "EVENT-DECODE",
+    300,
+    [
+      "python3",
+      "-P",
+      "dev/event-decode-test.py"
+    ],
+    "EVENT-DECODE oracle=71 reference=21 negative=59 refusal=8 mutants=12 scope=event-decode OK",
+    true
+  ],
+  "existing_abi_and_tests": "byte-identical prefixes",
+  "cli_bundle": "byte-identical",
+  "cli_bytes": 1358153,
+  "cli_sha256": "1a17d2428180a0e613abb59f654c112026813b1123bfd913026fadf38987269d"
+}

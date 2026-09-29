@@ -1,0 +1,13 @@
+MUTANT NO-SIGNATURE killed: ANSWER Empty
+MUTANT ANONYMOUS-SIGNATURE killed: ANSWER AnonymousEmpty
+MUTANT TOPIC-ORDER killed: ANSWER TopicOrder
+MUTANT DATA-ORDER killed: ANSWER DataOrder
+MUTANT STRING-PADDING killed: ANSWER IndexedString
+MUTANT TYPE-MISMATCH killed: ANSWER Mismatchuint8uint256
+MUTANT TOPIC-LIMIT killed: ANSWER FourTopics
+MUTANT ARITY killed: ANSWER Missing
+MUTANT UINT8-RANGE killed: ANSWER Rangeuint81256
+MUTANT INDEXED-DATA killed: ANSWER Transfer
+MUTANT TYPE-CHECK-INDEXED-ONLY killed: ANSWER NonindexedMismatchuint8bool
+MUTANT COUNT-CHECK-LATE killed: ANSWER TooManyRange
+EVENT-CODEC oracle=71 reference=21 negative=65 refusal=13 cancun=12 mutants=12 scope=event-codec OK

@@ -1,10 +1,12 @@
 # M1 Bend 2 compilation comparison
 
 The 2026-09-22 compilation-speed requirement is an Assay/Bend 2 ratio at
-most 1.0. The current native Bend comparison is 1.657532429 and does not
-pass. See [M2-REVERTDATA.md](M2-REVERTDATA.md) for the current source and record.
+most 1.0. The current native Bend comparison is 1.137273126 and does not
+pass. See [M2-EVENT-DECODE.md](M2-EVENT-DECODE.md) for the current source and record.
+Its five measured rounds completed in a 48.113-second window.
+The previous comparison, 1.657532429, is in [M2-REVERTDATA.md](M2-REVERTDATA.md).
 Its five measured rounds completed in a 13.432-second window.
-The previous comparison, 1.667820196, is in [M2-RETURNDATA.md](M2-RETURNDATA.md).
+Before that, 1.667820196 is in [M2-RETURNDATA.md](M2-RETURNDATA.md).
 Its five measured rounds completed in a 7.581-second window.
 Before that, 1.720827821 is in [M2-CALLDATA.md](M2-CALLDATA.md).
 Before that, 1.150474099 is in [M2-EVENTS.md](M2-EVENTS.md).
@@ -86,14 +88,15 @@ The measured window must include all timed intervals and remain below
 
 ## Freeze and gate
 
-`dev/validation/2026-09-27-m2-revertdata/paired-measurement.json` retains the
-current native measurement. It is a byte copy of the active report.
+`dev/validation/2026-09-28-m2-event-decode/paired-measurement.json` retains
+the current native measurement. It is a byte copy of the active report.
+`dev/validation/2026-09-27-m2-revertdata/paired-measurement.json`,
 `dev/validation/2026-09-27-m2-returndata/paired-measurement.json` and
 `dev/validation/2026-09-27-m2-calldata/paired-measurement.json` retain the
-two measurements before it.
+three measurements before it.
 `dev/validation/2026-09-25-m2-mapping/corpus-measurement.json` retains the
-current corpus measurement. The calldata, return-data and revert-data slices
-did not remeasure the corpus.
+current corpus measurement. The calldata, return-data, revert-data and
+event-decode slices did not remeasure the corpus.
 `dev/validation/2026-09-26-m2-events/paired-measurement.json` retains the
 events measurement before the calldata one.
 `dev/validation/2026-09-25-m2-mapping/paired-measurement.json` retains
@@ -120,8 +123,9 @@ archived results remain available as diagnostics. The native default adds
 the [M2 reference gate](M2-REFERENCE.md), [ABI-SCHEMA](M2-ABI-SCHEMA.md),
 [ABI-CODEC](M2-ABI-CODEC.md), [packing](M2-PACKING.md),
 [mapping locations](M2-MAPPING.md), [EVENT-CODEC](M2-EVENTS.md),
-[CALL-CODEC](M2-CALLDATA.md), [RETURN-CODEC](M2-RETURNDATA.md) and
-[REVERT-CODEC](M2-REVERTDATA.md), for 86 checks.
+[CALL-CODEC](M2-CALLDATA.md), [RETURN-CODEC](M2-RETURNDATA.md),
+[REVERT-CODEC](M2-REVERTDATA.md) and [EVENT-DECODE](M2-EVENT-DECODE.md),
+for 87 checks.
 
 `dev/bend2-ratio-test.py` passes three controls, rejects 37 invalid cases,
 and kills six mutations. It covers the inclusive boundary, a ratio above

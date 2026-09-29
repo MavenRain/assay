@@ -1,0 +1,25 @@
+{
+  "base": "aa7517e0a14f09d8226a249b015629f363749d36",
+  "sha256": {
+    "Makefile": "1f3a18d2bd815cd4ede0246238b9fa1e900c12aabeacb4eb335fe3b784985560",
+    "README.md": "050de76aec37a7c609b74c9b16f98a7904332b1989ae04cae2958812611737ac",
+    "src/abi.bend": "393d3f535cc3cff42605c702ef66d576cd803b4dc9745c8e69c7489527fac969",
+    "src/tests.bend": "1160ce4e8451a38884c78cb1f80ad8ca6b29126db734acfe778879cec32871ee",
+    "dev/build.py": "66ea21dced23ce0844225e652758a4ff7ad01abfa890861e683addc97d528d46",
+    "dev/bend_source.py": "4b2661b5bc0a9abe0321f019501582280914d9fdd0f409e24d457b1772bf8030",
+    "dev/stage-a-gates.py": "065f96be73d9a108764d3de493ec65716b362cd19bb593447f7d65fe21e25ad3",
+    "dev/gates.sh": "b600b34acad053976423fd08d363474b978e52cbec0c7e75e0fe74fda058c9a0",
+    "dev/event-decode-test.py": "005394b860d51be0b0b0d7c50821bd215143556aeeaaf4c4a145cf937c148d2b",
+    "dev/event-codec-test.py": "ecf7c401119ed8d0d9229558ef45a956ad885d1d109c658bbb38d463c11a47eb",
+    "dev/event-decode-compatibility.py": "e600843037c1a2bdf961621c86b493706ba1282efb16cecbb9fec3bffed64fb6",
+    "dev/mutations/event-decode.json": "fd76cdfbee11ad7d1353029a0a5befea51b5ef29d48d8c44e0a4345c8a2fd040",
+    "dev/bend2-baseline.json": "a97c13e16c7dda8f8e14a94f3cb7823f751f94af18684b33fdf210ed45178916",
+    "dev/trusted-lines.py": "627f8f81acbd8a744a5dd4a07503ecbd2d863a55a35dc4742eaff0c8522ba970",
+    "dev/native-carry.json": "048b13188c3cdf1800480f116d80b1d062fcd3b703a4a6a81bc6acb5c02f337c",
+    "dev/DENOMINATORS.sha256": "02385f8530768930fa93835b315973c0eb6eb69b63fde1fc3d1b4a7c0822ebcd",
+    "dev/BEND2.sha256": "60409426d0788cb5e3e1639ad4bccde8c8563d2ceccf4ad01bb2b10c550517ff",
+    "dev/M2-EVENT-DECODE.md": "f26089757943f644d68fc44369d662ad140064f5056d309d695a049e64a07b37",
+    "reference/erc20/abi.json": "7715636c0342b68c68f6b93c1daf97e35d901770d2a7086055607bff8c31d3df",
+    "reference/erc20/cases.json": "62cf183de7a336f601b966237a9e96e75deabab4d6232c5be887abf2fe6dcb79"
+  }
+}

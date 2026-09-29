@@ -1,0 +1,13 @@
+MUTANT signature-bypass killed: ANSWER wrong-signature
+MUTANT size-bypass killed: ANSWER uint8-topic-size-31
+MUTANT count-bypass killed: ANSWER count-before-size
+MUTANT topic-limit-bypass killed: ANSWER named-limit
+MUTANT uint8-range-bypass killed: ANSWER uint8-range-1
+MUTANT address-range-bypass killed: ANSWER address-range-1
+MUTANT bool-range-bypass killed: ANSWER bool-range-1
+MUTANT hash-as-string killed: ANSWER IndexedString
+MUTANT reverse-order killed: ANSWER TopicOrder
+MUTANT anonymous-as-named killed: ANSWER AnonymousEmpty
+MUTANT limit-count-swap killed: ANSWER limit-before-count
+MUTANT field-error-as-signature killed: ANSWER named-scalar-trailing
+EVENT-DECODE oracle=71 reference=21 negative=59 refusal=8 mutants=12 scope=event-decode OK

@@ -4,4 +4,4 @@ all:
 test:
 	python3 -P dev/build.py runtest
 gates: all
-	python3 -P dev/stage-a-gates.py --m2-revertdata
+	python3 -P dev/stage-a-gates.py --m2-event-decode

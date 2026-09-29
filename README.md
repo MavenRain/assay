@@ -28,6 +28,10 @@ The [eighth M2 slice](dev/M2-RETURNDATA.md) encodes and strictly decodes
 function results using the declared output types, including empty returns.
 The [ninth M2 slice](dev/M2-REVERTDATA.md) encodes and strictly decodes
 typed custom-error revert data, including standard errors and panics.
+The [tenth M2 slice](dev/M2-EVENT-DECODE.md) strictly decodes typed event
+logs, preserving indexed strings as hashes. TRUSTED-LINES passes under
+the source budget the user re-ratified on 2026-09-28: abi 495, assembler
+505 and an unchanged total of 3550.
 Source lowering for packed declarations, mappings and events remains pending.
 `zsh -f dev/gates.sh` runs the complete gate battery.
 
@@ -362,16 +366,18 @@ and five mutations with restored controls.
 The address gate adds 1920 core comparisons, 128 artifact pairs,
 40 surface cases, 55 signed calls, seven public command checks,
 24 refusals and five mutations with restored controls.
-`dev/gates.sh` selects `--m2-revertdata`: the 77 `--m1-close` legs
+`dev/gates.sh` selects `--m2-event-decode`: the 77 `--m1-close` legs
 (proof-bundle, named-predicate, compound-invariant, named-guard,
 inferred-guard and inferred-arithmetic suites), then ERC20-REFERENCE,
 ABI-SCHEMA, ABI-CODEC, LAYOUT-PACKED, LAYOUT-MAPPING, EVENT-CODEC,
-CALL-CODEC, RETURN-CODEC and REVERT-CODEC, for 86 legs. `--m2-reference`
+CALL-CODEC, RETURN-CODEC, REVERT-CODEC and EVENT-DECODE, for 87 legs.
+`--m2-reference`
 retains its 78-leg schedule, `--m2-abi-schema` retains its 79-leg schedule
 and `--m2-abi-codec` retains its 80-leg schedule. `--m2-packing` retains
 its 81-leg schedule, `--m2-mapping` retains its 82-leg schedule and
 `--m2-events` retains its 83-leg schedule and `--m2-calldata` retains
 its 84-leg schedule. `--m2-returndata` retains its 85-leg schedule.
+`--m2-revertdata` retains its 86-leg schedule.
 The inferred-helper gate adds 254 source/EVM comparisons, two creation
 outcomes, 26 refusals, 24 five-file erasure pairs, six accepted boundary
 forms and five mutations with restored controls.

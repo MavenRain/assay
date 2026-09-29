@@ -1,5 +1,43 @@
 # Assay M2 build log
 
+## 2026-09-28: M2 typed event log decoding
+
+Starting from the revert-data slice at `aa7517e`, this slice adds
+`Abi.Event.decode`. It takes the same schema as `Abi.Event.encode` and
+an `Abi.Event.Log`, and returns the decoded parameters in declaration
+order. Indexed strings return as tagged 32-byte hashes. The decoder
+checks the schema topic limit, the exact topic count, the topic sizes,
+the named event signature, the data tuple and then the indexed scalar
+words, in that order. It returns no partial values.
+
+EVENT-DECODE passes with 71 cast event vectors, 21 frozen ERC-20 logs,
+59 malformed logs, 8 adapter refusals and twelve compiling mutants
+killed by named wrong answers. The malformed logs test the check order,
+including a limit check before the count check and codec errors after
+a correct signature. A restored scratch build passes every vector and
+refusal.
+
+The new default `--m2-event-decode` appends EVENT-DECODE for 87 checks.
+Compatibility preserves all 54 earlier modes, their commands, deadlines,
+markers and failure classes. The staged ABI and test sources remain
+byte-identical prefixes, and the compiler CLI bundle is unchanged.
+
+`src/abi.bend` grows to 495 lines, above its earlier 400-line cap. On
+2026-09-28 the user re-ratified the source budget: abi 495, assembler
+505 and an unchanged total of 3550. TRUSTED-LINES passes under this
+budget at 2951/3550. Validation is scoped to this host-codec slice; the
+complete 87-leg default battery was not run. Commands, captures and
+hashes are retained under `dev/validation/2026-09-28-m2-event-decode`.
+
+A fresh five-round paired timing report is frozen in
+`dev/bend2-baseline.json`. The 48.113-second window yields an
+Assay/Bend 2 ratio of 1.137273126, above the unchanged 1.0 limit.
+BEND2-RATIO remains failing. These separate runs do not establish a
+feature-related speed change.
+
+Compiler integration and the remaining M2 work stay pending. See
+`dev/M2-EVENT-DECODE.md` for the API and scope.
+
 ## 2026-09-27: M2 typed custom-error revert data
 
 Starting from the staged return-data slice at `5e00ee7`, this slice adds

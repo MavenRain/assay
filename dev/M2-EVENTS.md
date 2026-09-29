@@ -53,8 +53,9 @@ modes with the slice base, including deadlines, markers and failure
 classes. It also checks that the existing ABI and test source prefixes
 and the compiler CLI's reachable Bend bundle retain their original bytes.
 The `--m2-events` mode appends one gate, for 83 checks total. The current
-default adds [CALL-CODEC](M2-CALLDATA.md), [RETURN-CODEC](M2-RETURNDATA.md)
-and [REVERT-CODEC](M2-REVERTDATA.md), for 86 checks.
+default adds [CALL-CODEC](M2-CALLDATA.md), [RETURN-CODEC](M2-RETURNDATA.md),
+[REVERT-CODEC](M2-REVERTDATA.md) and [EVENT-DECODE](M2-EVENT-DECODE.md), for
+87 checks.
 
 The [validation record](validation/2026-09-26-m2-events/README.md) contains
 the scoped test results and source hashes. M2 compiler integration,

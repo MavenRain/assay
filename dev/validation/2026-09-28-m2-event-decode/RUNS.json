@@ -1,0 +1,371 @@
+{
+  "version": 1,
+  "base": "aa7517e0a14f09d8226a249b015629f363749d36",
+  "scope": "event decoder, ABI codec and scoped base checks; complete default battery not run",
+  "runs": [
+    {
+      "name": "EVENT-DECODE",
+      "command": [
+        "python3",
+        "-P",
+        "dev/event-decode-test.py"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "seconds": 17.288,
+      "status": "passed",
+      "known_pre_existing_failure": false,
+      "capture": "captures/event-decode",
+      "capture_sha256": "628e66738e82302f05e0f1666aa6c8bd8f214cea1057e97d41721a9e70185229"
+    },
+    {
+      "name": "EVENT-CODEC",
+      "command": [
+        "python3",
+        "-P",
+        "dev/event-codec-test.py"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "seconds": 199.177,
+      "status": "passed",
+      "known_pre_existing_failure": false,
+      "capture": "captures/event-codec",
+      "capture_sha256": "6319745e560741635f2db42e9b5daa9e75c3a71cc5db7a35bd1b04d0a3bf1b5a"
+    },
+    {
+      "name": "CALL-CODEC",
+      "command": [
+        "python3",
+        "-P",
+        "dev/call-codec-test.py"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "seconds": 171.39,
+      "status": "passed",
+      "known_pre_existing_failure": false,
+      "capture": "captures/call-codec",
+      "capture_sha256": "73f3dd9002f32a6fe3b944b55df8b95b1ff5b934ff3a0878bb5454b8652c155d"
+    },
+    {
+      "name": "RETURN-CODEC",
+      "command": [
+        "python3",
+        "-P",
+        "dev/return-codec-test.py"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "seconds": 112.658,
+      "status": "passed",
+      "known_pre_existing_failure": false,
+      "capture": "captures/return-codec",
+      "capture_sha256": "4046d551d479af0933f2b68d72f41fd6173575da8b3ae53419d599f3f4623177"
+    },
+    {
+      "name": "REVERT-CODEC",
+      "command": [
+        "python3",
+        "-P",
+        "dev/revert-codec-test.py"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "seconds": 179.905,
+      "status": "passed",
+      "known_pre_existing_failure": false,
+      "capture": "captures/revert-codec",
+      "capture_sha256": "c0edea93e0ad5ab2ee84bdfc97036b648dddeb57224c5b2ec07c37945d2cea30"
+    },
+    {
+      "name": "COMPATIBILITY",
+      "command": [
+        "python3",
+        "-P",
+        "dev/event-decode-compatibility.py"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "seconds": 0.825,
+      "status": "passed",
+      "known_pre_existing_failure": false,
+      "capture": "captures/compatibility",
+      "capture_sha256": "5842eb57f8faf2facdeba33693d78aac5a53b153524845ea48da583520a8eda6"
+    },
+    {
+      "name": "HOUSE",
+      "command": [
+        "zsh",
+        "-f",
+        "dev/house.sh"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "seconds": 3.184,
+      "status": "passed",
+      "known_pre_existing_failure": false,
+      "capture": "captures/house",
+      "capture_sha256": "a9e87a070f44fc0475adcdd6f4886dde5bb5ae93594f938ca77adc1ebcefe076"
+    },
+    {
+      "name": "CARRY",
+      "command": [
+        "zsh",
+        "-f",
+        "dev/carry-check.sh"
+      ],
+      "cwd": ".",
+      "exit_code": 1,
+      "seconds": 1.094,
+      "status": "failed",
+      "known_pre_existing_failure": false,
+      "note": "Run before the changed source pins were refreshed; CARRY-REFRESHED is the passing rerun.",
+      "capture": "captures/carry",
+      "capture_sha256": "f25254cf291b6f6c8d396576c41abeaccb9756847c5cc8955f63a4ea718ee5e8"
+    },
+    {
+      "name": "DENOMINATORS",
+      "command": [
+        "shasum",
+        "-a",
+        "256",
+        "-c",
+        "dev/DENOMINATORS.sha256"
+      ],
+      "cwd": ".",
+      "exit_code": 1,
+      "seconds": 0.457,
+      "status": "failed",
+      "known_pre_existing_failure": false,
+      "note": "Run before the changed source pins were refreshed; DENOMINATORS-REFRESHED and DENOMINATORS-FINAL are the passing reruns.",
+      "capture": "captures/denominators",
+      "capture_sha256": "7e1923d59fe22d5e9ca871225f2ffa67a561359cdc5456d1af7bac5e921dac25"
+    },
+    {
+      "name": "TRUSTED-LINES",
+      "command": [
+        "zsh",
+        "-f",
+        "dev/trusted-lines.sh"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "seconds": 0.191,
+      "status": "passed",
+      "known_pre_existing_failure": false,
+      "capture": "captures/trusted-lines",
+      "capture_sha256": "5cdd4cfa47fe218be55ce5d0f3e25fdf24f2477bca3f965186459e393c3c8dfa"
+    },
+    {
+      "name": "M1-RATIO",
+      "command": [
+        "python3",
+        "-P",
+        "dev/ratio.py",
+        "--m1"
+      ],
+      "cwd": ".",
+      "exit_code": 1,
+      "seconds": 0.593,
+      "status": "failed",
+      "known_pre_existing_failure": false,
+      "note": "Legacy M1 corpus report run before the source pins were refreshed; shasum reported 6 mismatches against dev/DENOMINATORS.sha256. It was not rerun; the active compiler-speed gate is BEND2-RATIO.",
+      "capture": "captures/m1-ratio",
+      "capture_sha256": "b44bca3f4a8943b8d19b21e593990f80b56afcf22d59820f02134413fca0f210"
+    },
+    {
+      "name": "CARRY-REFRESHED",
+      "command": [
+        "python3",
+        "-P",
+        "dev/carry-check.py",
+        "$ARCHIVE_ROOT"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "seconds": 0.302,
+      "status": "passed",
+      "known_pre_existing_failure": false,
+      "note": "The archive copy has no Git history. The read-only ancestry query (git merge-base --is-ancestor) was answered by the base repository; every hash check read the archive files. The capture manifest records no environment, so it does not show how the query was redirected.",
+      "capture": "captures/carry-refreshed",
+      "capture_sha256": "c5a161e210d9e57c58c41de8beb24acfedd6ce65e061892e96fcfa91787afe65"
+    },
+    {
+      "name": "DENOMINATORS-REFRESHED",
+      "command": [
+        "shasum",
+        "-a",
+        "256",
+        "-c",
+        "dev/DENOMINATORS.sha256"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "seconds": 0.187,
+      "status": "passed",
+      "known_pre_existing_failure": false,
+      "capture": "captures/denominators-refreshed",
+      "capture_sha256": "869f839bfa3889803e5ee61e47e188b7f8a8eb914019d2cd4d755645767c8bc3"
+    },
+    {
+      "name": "M0-RATIO",
+      "command": [
+        "python3",
+        "-P",
+        "dev/ratio.py"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "seconds": 3.354,
+      "status": "passed",
+      "known_pre_existing_failure": false,
+      "capture": "captures/m0-ratio",
+      "capture_sha256": "52e9c0ef8477b4cacdf6ad60d13308743d9073f7e685835b980eb731d98c9b27"
+    },
+    {
+      "name": "BEND2-RATIO",
+      "command": [
+        "python3",
+        "-P",
+        "dev/bend2-ratio.py"
+      ],
+      "cwd": ".",
+      "exit_code": 1,
+      "seconds": 1.598,
+      "status": "failed",
+      "known_pre_existing_failure": true,
+      "capture": "captures/bend2-ratio",
+      "capture_sha256": "eba807aed72097a947b559ff6e3126ed1f8a741e5754fbc6f42518190ab16c09"
+    },
+    {
+      "name": "BEND2-RATIO-TEST",
+      "command": [
+        "python3",
+        "-P",
+        "dev/bend2-ratio-test.py"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "seconds": 9.364,
+      "status": "passed",
+      "known_pre_existing_failure": false,
+      "capture": "captures/bend2-ratio-test",
+      "capture_sha256": "53d1eeb997441e203c47a486a5d1c7d7b6c37c423a853ec97ac4529e8297da8b"
+    },
+    {
+      "name": "DENOMINATORS-FINAL",
+      "command": [
+        "shasum",
+        "-a",
+        "256",
+        "-c",
+        "dev/DENOMINATORS.sha256"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "seconds": 0.068,
+      "status": "passed",
+      "known_pre_existing_failure": false,
+      "capture": "captures/denominators-final",
+      "capture_sha256": "1aeb2f1ff057b8036dab4358602a751f37e4c98163372ef9982e69d04b06fad6"
+    },
+    {
+      "name": "BEND2-RATIO-FINAL",
+      "command": [
+        "python3",
+        "-P",
+        "dev/bend2-ratio.py"
+      ],
+      "cwd": ".",
+      "exit_code": 1,
+      "seconds": 1.014,
+      "status": "failed",
+      "known_pre_existing_failure": true,
+      "capture": "captures/bend2-ratio-final",
+      "capture_sha256": "2d3f76dd6eb1b96ad9a2c37ebe6505526ce61e9e3647336e44467c16536c9d29"
+    },
+    {
+      "name": "BEND2-RATIO-INFORMATIONAL",
+      "command": [
+        "python3",
+        "-P",
+        "dev/bend2-ratio.py",
+        "--m0"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "seconds": 0.99,
+      "status": "passed",
+      "known_pre_existing_failure": false,
+      "capture": "captures/bend2-ratio-informational",
+      "capture_sha256": "c0d7be5967a9dd5b928a3f9c9eba5190e6163646ed5396cdae2ca1b2b1cc7514"
+    },
+    {
+      "name": "BEND2-RATIO-TEST-FINAL",
+      "command": [
+        "python3",
+        "-P",
+        "dev/bend2-ratio-test.py"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "seconds": 2.336,
+      "status": "passed",
+      "known_pre_existing_failure": false,
+      "capture": "captures/bend2-ratio-test-final",
+      "capture_sha256": "b3bf5222e73fd3e4533c30c3c626eaec1721e4fe12bc47746212ca500f24c9a4"
+    },
+    {
+      "name": "NATIVE",
+      "command": [
+        "python3",
+        "-P",
+        "dev/build.py",
+        "runtest"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "seconds": 49.068,
+      "status": "passed",
+      "known_pre_existing_failure": false,
+      "capture": "captures/native",
+      "capture_sha256": "ab65eea1a50e3c4adbfc0be72e4a9f9aca893838f553dd2f8128fe53316437c4"
+    },
+    {
+      "name": "ABI-CODEC-INTERRUPTED",
+      "command": [
+        "python3",
+        "-P",
+        "dev/abi-codec-test.py"
+      ],
+      "cwd": ".",
+      "exit_code": null,
+      "seconds": null,
+      "status": "interrupted",
+      "known_pre_existing_failure": false,
+      "note": "The manifest was left in running state with no command record. The command is the ABI-CODEC leg. The last output was written 244.159 s after the run directory was created; the run was canceled before completion, so it has no exit code or wall time and does not count as passing.",
+      "capture": "captures/abi-codec-interrupted",
+      "capture_sha256": "89bd09f781ac1b7444ef701c5eeb081e4a5fbb72969cf549f2fe39f0169209c6"
+    },
+    {
+      "name": "PAIRED-MEASUREMENT",
+      "command": [
+        "python3",
+        "-P",
+        "dev/bend2-ratio.py",
+        "--measure",
+        ".gatework/event-decode/paired-measurement.json",
+        "--bend-root",
+        "$BEND_ROOT"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "seconds": 65.104,
+      "status": "passed",
+      "known_pre_existing_failure": false,
+      "capture": "captures/paired-measurement",
+      "capture_sha256": "8532106b2879582b200376bdce99ba73effa31e7a9d0a15442d5d2a6d3480a4d"
+    }
+  ]
+}

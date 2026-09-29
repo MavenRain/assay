@@ -397,3 +397,99 @@ def Abi.Revert.encode(declaration: Abi.Schema.Declaration, values: ListOf(Abi.Co
 @unsafe
 def Abi.Revert.decode(declaration: Abi.Schema.Declaration, data: String) -> Abi.Revert.Result(ListOf(Abi.Codec.Value)):
   Abi.Revert.apply(ListOf(Abi.Codec.Value), declaration, fn => Abi.Call.decode(fn, data))
+
+type Abi.Event.Decoded is Data:
+  Abi.Event.Decoded.Value{value: Abi.Codec.Value}
+  Abi.Event.Decoded.Hash{bytes: String}
+type Abi.Event.Decode_error is Data:
+  Abi.Event.Decode_error.Too_many_topics{}
+  Abi.Event.Decode_error.Topic_count{}
+  Abi.Event.Decode_error.Topic_size{}
+  Abi.Event.Decode_error.Wrong_signature{}
+  Abi.Event.Decode_error.Codec{error: Abi.Codec.Error}
+def Abi.Event.Decode_result(-A: Data) -> Data: Result<&2, &2, Abi.Event.Decode_error, A>
+def Abi.Event.Decode_result.bind(-A: Data, -B: Data, value: Abi.Event.Decode_result(A), next: A -> Abi.Event.Decode_result(B)) -> Abi.Event.Decode_result(B):
+  match value:
+    case Done{value}: next(value)
+    case Fail{error}: Fail{error}
+def Abi.Event.decode_codec(-A: Data, value: Abi.Codec.Result(A)) -> Abi.Event.Decode_result(A):
+  match value:
+    case Done{value}: Done{value}
+    case Fail{error}: Fail{Abi.Event.Decode_error.Codec{error}}
+@unsafe
+def Abi.Event.data_types(inputs: ListOf(Abi.Schema.Event_parameter)) -> ListOf(Abi.Schema.Value_type):
+  match inputs:
+    case Nil{}: []
+    case Con{MkAbi_Schema_Event_parameter{MkAbi_Schema_Parameter{_, typ}, indexed}, +tail}:
+      Big.when(ListOf(Abi.Schema.Value_type), indexed, _ => Abi.Event.data_types(tail), _ => typ <> Abi.Event.data_types(tail))
+@unsafe
+def Abi.Event.topic_sizes(topics: ListOf(String)) -> Abi.Event.Decode_result(Unit):
+  match topics:
+    case Nil{}: Done{Unit{}}
+    case Con{topic, tail}:
+      Big.when(Abi.Event.Decode_result(Unit), Big.is_eq(Big.of_nat(String.length(topic)), Big.of_nat(32n)),
+        _ => Abi.Event.topic_sizes(tail), _ => Fail{Abi.Event.Decode_error.Topic_size{}})
+@unsafe
+def Abi.Event.decode_topic(typ: Abi.Schema.Value_type, topic: String) -> Abi.Event.Decode_result(Abi.Event.Decoded):
+  match typ:
+    case Abi.Schema.Value_type.String{}: Done{Abi.Event.Decoded.Hash{topic}}
+    case Abi.Schema.Value_type.Uint8{}: Abi.Event.decode_scalar(Abi.Schema.Value_type.Uint8{}, topic)
+    case Abi.Schema.Value_type.Uint256{}: Abi.Event.decode_scalar(Abi.Schema.Value_type.Uint256{}, topic)
+    case Abi.Schema.Value_type.Address{}: Abi.Event.decode_scalar(Abi.Schema.Value_type.Address{}, topic)
+    case Abi.Schema.Value_type.Bool{}: Abi.Event.decode_scalar(Abi.Schema.Value_type.Bool{}, topic)
+@unsafe
+def Abi.Event.decode_scalar(typ: Abi.Schema.Value_type, topic: String) -> Abi.Event.Decode_result(Abi.Event.Decoded):
+  Abi.Event.Decode_result.bind(ListOf(Abi.Codec.Value), Abi.Event.Decoded, Abi.Event.decode_codec(ListOf(Abi.Codec.Value), Abi.Codec.decode([typ], topic)), Abi.Event.single)
+def Abi.Event.single(values: ListOf(Abi.Codec.Value)) -> Abi.Event.Decode_result(Abi.Event.Decoded):
+  match values:
+    case Con{value, Nil{}}: Done{Abi.Event.Decoded.Value{value}}
+    case Nil{}: Fail{Abi.Event.Decode_error.Topic_count{}}
+    case Con{_, Con{_, _}}: Fail{Abi.Event.Decode_error.Topic_count{}}
+@unsafe
+def Abi.Event.merge(inputs: ListOf(Abi.Schema.Event_parameter), +topics: ListOf(String), +values: ListOf(Abi.Codec.Value)) -> Abi.Event.Decode_result(ListOf(Abi.Event.Decoded)):
+  match inputs:
+    case Nil{}:
+      match topics values:
+        case Nil{} Nil{}: Done{[]}
+        case Nil{} Con{_, _}: Fail{Abi.Event.Decode_error.Topic_count{}}
+        case Con{_, _} _: Fail{Abi.Event.Decode_error.Topic_count{}}
+    case Con{MkAbi_Schema_Event_parameter{MkAbi_Schema_Parameter{_, typ}, indexed}, +tail}:
+      Big.when(Abi.Event.Decode_result(ListOf(Abi.Event.Decoded)), indexed,
+        _ => Abi.Event.merge_topic(typ, tail, topics, values), _ => Abi.Event.merge_value(tail, topics, values))
+@unsafe
+def Abi.Event.merge_topic(typ: Abi.Schema.Value_type, +tail: ListOf(Abi.Schema.Event_parameter), topics: ListOf(String), +values: ListOf(Abi.Codec.Value)) -> Abi.Event.Decode_result(ListOf(Abi.Event.Decoded)):
+  match topics:
+    case Nil{}: Fail{Abi.Event.Decode_error.Topic_count{}}
+    case Con{topic, +rest}:
+      Abi.Event.Decode_result.bind(Abi.Event.Decoded, ListOf(Abi.Event.Decoded), Abi.Event.decode_topic(typ, topic), +value =>
+        Abi.Event.Decode_result.bind(ListOf(Abi.Event.Decoded), ListOf(Abi.Event.Decoded), Abi.Event.merge(tail, rest, values), result => Done{value <> result}))
+@unsafe
+def Abi.Event.merge_value(+tail: ListOf(Abi.Schema.Event_parameter), +topics: ListOf(String), values: ListOf(Abi.Codec.Value)) -> Abi.Event.Decode_result(ListOf(Abi.Event.Decoded)):
+  match values:
+    case Nil{}: Fail{Abi.Event.Decode_error.Topic_count{}}
+    case Con{+value, rest}:
+      Abi.Event.Decode_result.bind(ListOf(Abi.Event.Decoded), ListOf(Abi.Event.Decoded), Abi.Event.merge(tail, topics, rest), result => Done{Abi.Event.Decoded.Value{value} <> result})
+@unsafe
+def Abi.Event.decode_fields(+inputs: ListOf(Abi.Schema.Event_parameter), +topics: ListOf(String), data: String) -> Abi.Event.Decode_result(ListOf(Abi.Event.Decoded)):
+  Abi.Event.Decode_result.bind(ListOf(Abi.Codec.Value), ListOf(Abi.Event.Decoded), Abi.Event.decode_codec(ListOf(Abi.Codec.Value), Abi.Codec.decode(Abi.Event.data_types(inputs), data)), values => Abi.Event.merge(inputs, topics, values))
+@unsafe
+def Abi.Event.decode_signature(+name: String, +inputs: ListOf(Abi.Schema.Event_parameter), +anonymous: Bool, +topics: ListOf(String), +data: String) -> Abi.Event.Decode_result(ListOf(Abi.Event.Decoded)):
+  Big.when(Abi.Event.Decode_result(ListOf(Abi.Event.Decoded)), anonymous, _ => Abi.Event.decode_fields(inputs, topics, data), _ => Abi.Event.decode_named(name, inputs, topics, data))
+@unsafe
+def Abi.Event.decode_named(name: String, +inputs: ListOf(Abi.Schema.Event_parameter), topics: ListOf(String), +data: String) -> Abi.Event.Decode_result(ListOf(Abi.Event.Decoded)):
+  match topics:
+    case Nil{}: Fail{Abi.Event.Decode_error.Topic_count{}}
+    case Con{signature, +rest}:
+      Big.when(Abi.Event.Decode_result(ListOf(Abi.Event.Decoded)), NativeString.equal(signature, Abi.Event.hash(Abi.Schema.event_signature(name, inputs))),
+        _ => Abi.Event.decode_fields(inputs, rest, data), _ => Fail{Abi.Event.Decode_error.Wrong_signature{}})
+@unsafe
+def Abi.Event.decode(+name: String, +inputs: ListOf(Abi.Schema.Event_parameter), +anonymous: Bool, log: Abi.Event.Log) -> Abi.Event.Decode_result(ListOf(Abi.Event.Decoded)):
+  match log:
+    case Abi.Event.Log{+topics, +data}:
+      +count = Abi.Event.count(inputs)
+      +limit = Big.when(Nat, anonymous, _ => 4n, _ => 3n)
+      +expected = (count + Big.when(Nat, anonymous, _ => 0n, _ => 1n): Nat)
+      Big.when(Abi.Event.Decode_result(ListOf(Abi.Event.Decoded)), Big.is_le(Big.of_nat(count), Big.of_nat(limit)), _ =>
+        Big.when(Abi.Event.Decode_result(ListOf(Abi.Event.Decoded)), Big.is_eq(Big.of_nat(List.length(&2, String, topics)), Big.of_nat(expected)), _ =>
+          Abi.Event.Decode_result.bind(Unit, ListOf(Abi.Event.Decoded), Abi.Event.topic_sizes(topics), _ => Abi.Event.decode_signature(name, inputs, anonymous, topics, data)),
+          _ => Fail{Abi.Event.Decode_error.Topic_count{}}), _ => Fail{Abi.Event.Decode_error.Too_many_topics{}})

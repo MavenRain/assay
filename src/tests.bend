@@ -1747,3 +1747,55 @@ def Revert_codec.join(+row: String, tail: ListOf(String)) -> StringResult(String
   match tail:
     case Nil{}: Done{row}
     case Con{head, rest}: StringResult.bind(String, String, Revert_codec.main(head <> rest), rows => Done{String.concat([row, "\n", rows])})
+
+@unsafe
+def Event_decode.error(error: Abi.Event.Decode_error) -> String:
+  match error:
+    case Abi.Event.Decode_error.Too_many_topics{}: "Too_many_topics"
+    case Abi.Event.Decode_error.Topic_count{}: "Topic_count"
+    case Abi.Event.Decode_error.Topic_size{}: "Topic_size"
+    case Abi.Event.Decode_error.Wrong_signature{}: "Wrong_signature"
+    case Abi.Event.Decode_error.Codec{error}: Abi_codec.error(error)
+@unsafe
+def Event_decode.value(value: Abi.Event.Decoded) -> String:
+  match value:
+    case Abi.Event.Decoded.Value{value}: Abi_codec.show_value(value)
+    case Abi.Event.Decoded.Hash{bytes}: String.concat(["hash:", Abi_codec.hex(bytes)])
+@unsafe
+def Event_decode.show(result: Abi.Event.Decode_result(ListOf(Abi.Event.Decoded))) -> String:
+  match result:
+    case Done{values}: String.concat(["OK ", String.join(SeqList.map(&2, &2, Abi.Event.Decoded, String, +value => Event_decode.value(value), values), "|")])
+    case Fail{error}: String.concat(["ERR ", Event_decode.error(error)])
+@unsafe
+def Event_decode.topics(parts: ListOf(String)) -> StringResult(ListOf(String)):
+  match parts:
+    case Nil{}: Done{[]}
+    case Con{head, tail}:
+      StringResult.bind(String, ListOf(String), Abi_codec.unhex(head), +bytes =>
+        StringResult.bind(ListOf(String), ListOf(String), Event_decode.topics(tail), rest => Done{bytes <> rest}))
+@unsafe
+def Event_decode.query(parts: ListOf(String)) -> StringResult(String):
+  match parts:
+    case Nil{}: Fail{"ADAPTER-USAGE"}
+    case Con{_, Nil{}}: Fail{"ADAPTER-USAGE"}
+    case Con{_, Con{_, Nil{}}}: Fail{"ADAPTER-USAGE"}
+    case Con{_, Con{_, Con{_, Nil{}}}}: Fail{"ADAPTER-USAGE"}
+    case Con{_, Con{_, Con{_, Con{_, Nil{}}}}}: Fail{"ADAPTER-USAGE"}
+    case Con{_, Con{_, Con{_, Con{_, Con{_, Nil{}}}}}}: Fail{"ADAPTER-USAGE"}
+    case Con{name, Con{anonymous, Con{types, Con{flags, Con{topics, Con{data, Nil{}}}}}}}:
+      StringResult.bind(Bool, String, Event_codec.flag(anonymous), +anon =>
+        StringResult.bind(ListOf(Abi.Schema.Value_type), String, Mapping_layout.types(types), ts =>
+          StringResult.bind(ListOf(Abi.Schema.Event_parameter), String, Event_codec.parameters(ts, Event_codec.flags(flags)), +ps =>
+            StringResult.bind(ListOf(String), String, Event_decode.topics(Event_codec.flags(topics)), +ts =>
+              StringResult.bind(String, String, Abi_codec.unhex(data), bytes => Done{Event_decode.show(Abi.Event.decode(name, ps, anon, Abi.Event.Log{ts, bytes}))})))))
+    case Con{_, Con{_, Con{_, Con{_, Con{_, Con{_, Con{_, _}}}}}}}: Fail{"ADAPTER-USAGE"}
+@unsafe
+def Event_decode.main(args: ListOf(String)) -> StringResult(String):
+  match args:
+    case Nil{}: Done{""}
+    case Con{query, tail}: StringResult.bind(String, String, Event_decode.query(NativeString.split(Char.from_u32(124), query)), row => Event_decode.join(row, tail))
+@unsafe
+def Event_decode.join(+row: String, tail: ListOf(String)) -> StringResult(String):
+  match tail:
+    case Nil{}: Done{row}
+    case Con{head, rest}: StringResult.bind(String, String, Event_decode.main(head <> rest), rows => Done{String.concat([row, "\n", rows])})

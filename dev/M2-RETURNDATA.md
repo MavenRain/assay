@@ -63,7 +63,8 @@ modes, including commands, deadlines, expected markers and failure
 classes. The existing ABI and test sources remain byte-identical
 prefixes, and the compiler CLI's reachable Bend bundle is byte-identical.
 The `--m2-returndata` mode appends RETURN-CODEC, for 85 checks. The current
-default adds [REVERT-CODEC](M2-REVERTDATA.md), for 86 checks.
+default adds [REVERT-CODEC](M2-REVERTDATA.md) and
+[EVENT-DECODE](M2-EVENT-DECODE.md), for 87 checks.
 
 The [validation record](validation/2026-09-27-m2-returndata/README.md)
 retains the scoped results, command captures, case corpus and source
@@ -77,8 +78,8 @@ paired measurement, retained as
 `dev/validation/2026-09-27-m2-returndata/paired-measurement.json`.
 It measured a 7.581-second window and a ratio of 1.667820196, above the
 unchanged 1.0 bound. BEND2-RATIO remained failing, and BEND2-RATIO-TEST
-passed with the new pins. The revert-data refresh superseded this report;
-see [M2-REVERTDATA.md](M2-REVERTDATA.md) for the active baseline.
+passed with the new pins. Later refreshes superseded this report;
+see [M2-EVENT-DECODE.md](M2-EVENT-DECODE.md) for the active baseline.
 The corpus measurement is unchanged. The CLI bundle comparison shows
 no executable compiler change, so the separate timing runs do not
 establish a return-data-related performance change.

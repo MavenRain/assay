@@ -1,0 +1,172 @@
+{
+  "cases": [
+    {
+      "name": "signature-bypass",
+      "path": "src/abi.bend",
+      "witnesses": [
+        "wrong-signature"
+      ],
+      "patches": [
+        {
+          "definition": "Abi.Event.decode_named",
+          "sha256": "02b2bc6aef9070996b3e0f34aec37fa46761b415cbcac372518c97089109c9c3",
+          "replacement": "@unsafe\ndef Abi.Event.decode_named(name: String, +inputs: ListOf(Abi.Schema.Event_parameter), topics: ListOf(String), +data: String) -> Abi.Event.Decode_result(ListOf(Abi.Event.Decoded)):\n  match topics:\n    case Nil{}: Fail{Abi.Event.Decode_error.Topic_count{}}\n    case Con{signature, +rest}:\n      Big.when(Abi.Event.Decode_result(ListOf(Abi.Event.Decoded)), True{},\n        _ => Abi.Event.decode_fields(inputs, rest, data), _ => Fail{Abi.Event.Decode_error.Wrong_signature{}})\n"
+        }
+      ]
+    },
+    {
+      "name": "size-bypass",
+      "path": "src/abi.bend",
+      "witnesses": [
+        "uint8-topic-size-31"
+      ],
+      "patches": [
+        {
+          "definition": "Abi.Event.topic_sizes",
+          "sha256": "58e1225fae241afefeb9a696acd74d1963090bab89c4e4a71798706c498200de",
+          "replacement": "@unsafe\ndef Abi.Event.topic_sizes(topics: ListOf(String)) -> Abi.Event.Decode_result(Unit):\n  match topics:\n    case Nil{}: Done{Unit{}}\n    case Con{topic, tail}:\n      Big.when(Abi.Event.Decode_result(Unit), True{},\n        _ => Abi.Event.topic_sizes(tail), _ => Fail{Abi.Event.Decode_error.Topic_size{}})\n"
+        }
+      ]
+    },
+    {
+      "name": "count-bypass",
+      "path": "src/abi.bend",
+      "witnesses": [
+        "count-before-size"
+      ],
+      "patches": [
+        {
+          "definition": "Abi.Event.decode",
+          "sha256": "0e6bc9470b2c17ad332dd96879c70f728bc7e0af7de17a5cf003f0744789abf2",
+          "replacement": "@unsafe\ndef Abi.Event.decode(+name: String, +inputs: ListOf(Abi.Schema.Event_parameter), +anonymous: Bool, log: Abi.Event.Log) -> Abi.Event.Decode_result(ListOf(Abi.Event.Decoded)):\n  match log:\n    case Abi.Event.Log{+topics, +data}:\n      +count = Abi.Event.count(inputs)\n      +limit = Big.when(Nat, anonymous, _ => 4n, _ => 3n)\n      +expected = (count + Big.when(Nat, anonymous, _ => 0n, _ => 1n): Nat)\n      Big.when(Abi.Event.Decode_result(ListOf(Abi.Event.Decoded)), Big.is_le(Big.of_nat(count), Big.of_nat(limit)), _ =>\n        Big.when(Abi.Event.Decode_result(ListOf(Abi.Event.Decoded)), True{}, _ =>\n          Abi.Event.Decode_result.bind(Unit, ListOf(Abi.Event.Decoded), Abi.Event.topic_sizes(topics), _ => Abi.Event.decode_signature(name, inputs, anonymous, topics, data)),\n          _ => Fail{Abi.Event.Decode_error.Topic_count{}}), _ => Fail{Abi.Event.Decode_error.Too_many_topics{}})\n"
+        }
+      ]
+    },
+    {
+      "name": "topic-limit-bypass",
+      "path": "src/abi.bend",
+      "witnesses": [
+        "named-limit"
+      ],
+      "patches": [
+        {
+          "definition": "Abi.Event.decode",
+          "sha256": "0e6bc9470b2c17ad332dd96879c70f728bc7e0af7de17a5cf003f0744789abf2",
+          "replacement": "@unsafe\ndef Abi.Event.decode(+name: String, +inputs: ListOf(Abi.Schema.Event_parameter), +anonymous: Bool, log: Abi.Event.Log) -> Abi.Event.Decode_result(ListOf(Abi.Event.Decoded)):\n  match log:\n    case Abi.Event.Log{+topics, +data}:\n      +count = Abi.Event.count(inputs)\n      +limit = Big.when(Nat, anonymous, _ => 4n, _ => 3n)\n      +expected = (count + Big.when(Nat, anonymous, _ => 0n, _ => 1n): Nat)\n      Big.when(Abi.Event.Decode_result(ListOf(Abi.Event.Decoded)), True{}, _ =>\n        Big.when(Abi.Event.Decode_result(ListOf(Abi.Event.Decoded)), Big.is_eq(Big.of_nat(List.length(&2, String, topics)), Big.of_nat(expected)), _ =>\n          Abi.Event.Decode_result.bind(Unit, ListOf(Abi.Event.Decoded), Abi.Event.topic_sizes(topics), _ => Abi.Event.decode_signature(name, inputs, anonymous, topics, data)),\n          _ => Fail{Abi.Event.Decode_error.Topic_count{}}), _ => Fail{Abi.Event.Decode_error.Too_many_topics{}})\n"
+        }
+      ]
+    },
+    {
+      "name": "uint8-range-bypass",
+      "path": "src/abi.bend",
+      "witnesses": [
+        "uint8-range-1"
+      ],
+      "patches": [
+        {
+          "definition": "Abi.Event.decode_topic",
+          "sha256": "9cf255cd1ec39b404a4cbab82bdd18d952611b2611e8e1f4b0ee959cceaac9e3",
+          "replacement": "@unsafe\ndef Abi.Event.decode_topic(typ: Abi.Schema.Value_type, topic: String) -> Abi.Event.Decode_result(Abi.Event.Decoded):\n  match typ:\n    case Abi.Schema.Value_type.String{}: Done{Abi.Event.Decoded.Hash{topic}}\n    case Abi.Schema.Value_type.Uint8{}: Abi.Event.decode_scalar(Abi.Schema.Value_type.Uint256{}, topic)\n    case Abi.Schema.Value_type.Uint256{}: Abi.Event.decode_scalar(Abi.Schema.Value_type.Uint256{}, topic)\n    case Abi.Schema.Value_type.Address{}: Abi.Event.decode_scalar(Abi.Schema.Value_type.Address{}, topic)\n    case Abi.Schema.Value_type.Bool{}: Abi.Event.decode_scalar(Abi.Schema.Value_type.Bool{}, topic)\n"
+        }
+      ]
+    },
+    {
+      "name": "address-range-bypass",
+      "path": "src/abi.bend",
+      "witnesses": [
+        "address-range-1"
+      ],
+      "patches": [
+        {
+          "definition": "Abi.Event.decode_topic",
+          "sha256": "9cf255cd1ec39b404a4cbab82bdd18d952611b2611e8e1f4b0ee959cceaac9e3",
+          "replacement": "@unsafe\ndef Abi.Event.decode_topic(typ: Abi.Schema.Value_type, topic: String) -> Abi.Event.Decode_result(Abi.Event.Decoded):\n  match typ:\n    case Abi.Schema.Value_type.String{}: Done{Abi.Event.Decoded.Hash{topic}}\n    case Abi.Schema.Value_type.Uint8{}: Abi.Event.decode_scalar(Abi.Schema.Value_type.Uint8{}, topic)\n    case Abi.Schema.Value_type.Uint256{}: Abi.Event.decode_scalar(Abi.Schema.Value_type.Uint256{}, topic)\n    case Abi.Schema.Value_type.Address{}: Abi.Event.decode_scalar(Abi.Schema.Value_type.Uint256{}, topic)\n    case Abi.Schema.Value_type.Bool{}: Abi.Event.decode_scalar(Abi.Schema.Value_type.Bool{}, topic)\n"
+        }
+      ]
+    },
+    {
+      "name": "bool-range-bypass",
+      "path": "src/abi.bend",
+      "witnesses": [
+        "bool-range-1"
+      ],
+      "patches": [
+        {
+          "definition": "Abi.Event.decode_topic",
+          "sha256": "9cf255cd1ec39b404a4cbab82bdd18d952611b2611e8e1f4b0ee959cceaac9e3",
+          "replacement": "@unsafe\ndef Abi.Event.decode_topic(typ: Abi.Schema.Value_type, topic: String) -> Abi.Event.Decode_result(Abi.Event.Decoded):\n  match typ:\n    case Abi.Schema.Value_type.String{}: Done{Abi.Event.Decoded.Hash{topic}}\n    case Abi.Schema.Value_type.Uint8{}: Abi.Event.decode_scalar(Abi.Schema.Value_type.Uint8{}, topic)\n    case Abi.Schema.Value_type.Uint256{}: Abi.Event.decode_scalar(Abi.Schema.Value_type.Uint256{}, topic)\n    case Abi.Schema.Value_type.Address{}: Abi.Event.decode_scalar(Abi.Schema.Value_type.Address{}, topic)\n    case Abi.Schema.Value_type.Bool{}: Abi.Event.decode_scalar(Abi.Schema.Value_type.Uint256{}, topic)\n"
+        }
+      ]
+    },
+    {
+      "name": "hash-as-string",
+      "path": "src/abi.bend",
+      "witnesses": [
+        "IndexedString"
+      ],
+      "patches": [
+        {
+          "definition": "Abi.Event.decode_topic",
+          "sha256": "9cf255cd1ec39b404a4cbab82bdd18d952611b2611e8e1f4b0ee959cceaac9e3",
+          "replacement": "@unsafe\ndef Abi.Event.decode_topic(typ: Abi.Schema.Value_type, topic: String) -> Abi.Event.Decode_result(Abi.Event.Decoded):\n  match typ:\n    case Abi.Schema.Value_type.String{}: Done{Abi.Event.Decoded.Value{Abi.Codec.Value.String{topic}}}\n    case Abi.Schema.Value_type.Uint8{}: Abi.Event.decode_scalar(Abi.Schema.Value_type.Uint8{}, topic)\n    case Abi.Schema.Value_type.Uint256{}: Abi.Event.decode_scalar(Abi.Schema.Value_type.Uint256{}, topic)\n    case Abi.Schema.Value_type.Address{}: Abi.Event.decode_scalar(Abi.Schema.Value_type.Address{}, topic)\n    case Abi.Schema.Value_type.Bool{}: Abi.Event.decode_scalar(Abi.Schema.Value_type.Bool{}, topic)\n"
+        }
+      ]
+    },
+    {
+      "name": "reverse-order",
+      "path": "src/abi.bend",
+      "witnesses": [
+        "TopicOrder"
+      ],
+      "patches": [
+        {
+          "definition": "Abi.Event.merge_topic",
+          "sha256": "215f99527e3cf443cf2e50c16751494e3087ad73c8947f4eeab8fd0332fdcd0d",
+          "replacement": "@unsafe\ndef Abi.Event.merge_topic(typ: Abi.Schema.Value_type, +tail: ListOf(Abi.Schema.Event_parameter), topics: ListOf(String), +values: ListOf(Abi.Codec.Value)) -> Abi.Event.Decode_result(ListOf(Abi.Event.Decoded)):\n  match topics:\n    case Nil{}: Fail{Abi.Event.Decode_error.Topic_count{}}\n    case Con{topic, +rest}:\n      Abi.Event.Decode_result.bind(Abi.Event.Decoded, ListOf(Abi.Event.Decoded), Abi.Event.decode_topic(typ, topic), +value =>\n        Abi.Event.Decode_result.bind(ListOf(Abi.Event.Decoded), ListOf(Abi.Event.Decoded), Abi.Event.merge(tail, rest, values), result => Done{List.append(&2, Abi.Event.Decoded, result, [value])}))\n"
+        }
+      ]
+    },
+    {
+      "name": "anonymous-as-named",
+      "path": "src/abi.bend",
+      "witnesses": [
+        "AnonymousEmpty"
+      ],
+      "patches": [
+        {
+          "definition": "Abi.Event.decode_signature",
+          "sha256": "3f4247f78ca147950ddb78954b9c5607d426039a2f78b8352010e5205be757b1",
+          "replacement": "@unsafe\ndef Abi.Event.decode_signature(+name: String, +inputs: ListOf(Abi.Schema.Event_parameter), +anonymous: Bool, +topics: ListOf(String), +data: String) -> Abi.Event.Decode_result(ListOf(Abi.Event.Decoded)):\n  Big.when(Abi.Event.Decode_result(ListOf(Abi.Event.Decoded)), False{}, _ => Abi.Event.decode_fields(inputs, topics, data), _ => Abi.Event.decode_named(name, inputs, topics, data))\n"
+        }
+      ]
+    },
+    {
+      "name": "limit-count-swap",
+      "path": "src/abi.bend",
+      "witnesses": [
+        "limit-before-count"
+      ],
+      "patches": [
+        {
+          "definition": "Abi.Event.decode",
+          "sha256": "0e6bc9470b2c17ad332dd96879c70f728bc7e0af7de17a5cf003f0744789abf2",
+          "replacement": "@unsafe\ndef Abi.Event.decode(+name: String, +inputs: ListOf(Abi.Schema.Event_parameter), +anonymous: Bool, log: Abi.Event.Log) -> Abi.Event.Decode_result(ListOf(Abi.Event.Decoded)):\n  match log:\n    case Abi.Event.Log{+topics, +data}:\n      +count = Abi.Event.count(inputs)\n      +limit = Big.when(Nat, anonymous, _ => 4n, _ => 3n)\n      +expected = (count + Big.when(Nat, anonymous, _ => 0n, _ => 1n): Nat)\n      Big.when(Abi.Event.Decode_result(ListOf(Abi.Event.Decoded)), Big.is_eq(Big.of_nat(List.length(&2, String, topics)), Big.of_nat(expected)), _ =>\n        Big.when(Abi.Event.Decode_result(ListOf(Abi.Event.Decoded)), Big.is_le(Big.of_nat(count), Big.of_nat(limit)), _ =>\n          Abi.Event.Decode_result.bind(Unit, ListOf(Abi.Event.Decoded), Abi.Event.topic_sizes(topics), _ => Abi.Event.decode_signature(name, inputs, anonymous, topics, data)),\n          _ => Fail{Abi.Event.Decode_error.Too_many_topics{}}), _ => Fail{Abi.Event.Decode_error.Topic_count{}})\n"
+        }
+      ]
+    },
+    {
+      "name": "field-error-as-signature",
+      "path": "src/abi.bend",
+      "witnesses": [
+        "named-scalar-trailing"
+      ],
+      "patches": [
+        {
+          "definition": "Abi.Event.decode_named",
+          "sha256": "02b2bc6aef9070996b3e0f34aec37fa46761b415cbcac372518c97089109c9c3",
+          "replacement": "@unsafe\ndef Abi.Event.decode_named(name: String, +inputs: ListOf(Abi.Schema.Event_parameter), topics: ListOf(String), +data: String) -> Abi.Event.Decode_result(ListOf(Abi.Event.Decoded)):\n  match topics:\n    case Nil{}: Fail{Abi.Event.Decode_error.Topic_count{}}\n    case Con{signature, +rest}:\n      Big.when(Abi.Event.Decode_result(ListOf(Abi.Event.Decoded)), NativeString.equal(signature, Abi.Event.hash(Abi.Schema.event_signature(name, inputs))),\n        _ => Abi.Event.mutant_signature_error(Abi.Event.decode_fields(inputs, rest, data)), _ => Fail{Abi.Event.Decode_error.Wrong_signature{}})\ndef Abi.Event.mutant_signature_error(value: Abi.Event.Decode_result(ListOf(Abi.Event.Decoded))) -> Abi.Event.Decode_result(ListOf(Abi.Event.Decoded)):\n  match value:\n    case Done{value}: Done{value}\n    case Fail{error}: Fail{Abi.Event.Decode_error.Wrong_signature{}}\n"
+        }
+      ]
+    }
+  ]
+}

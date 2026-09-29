@@ -1,0 +1,95 @@
+# M2 typed event log decoding
+
+This slice starts at `aa7517e` and adds strict decoding to `Abi.Event`
+in native Bend 2. Source event declarations and emission lowering remain
+pending. M2 is not closed.
+
+## API
+
+`Abi.Event.decode(name, inputs, anonymous, log)` takes the same event
+schema as `Abi.Event.encode` and an `Abi.Event.Log`. It returns
+`Abi.Event.Decode_result(ListOf(Abi.Event.Decoded))`, in declaration order.
+
+`Abi.Event.Decoded.Value` contains an `Abi.Codec.Value` for scalar indexed
+parameters and all non-indexed parameters. `Abi.Event.Decoded.Hash`
+contains exactly the 32 bytes recorded for an indexed string. Its original
+value cannot be recovered from the log. Arbitrary hash bytes are accepted;
+the decoder does not claim knowledge of their preimage.
+
+Supported types are `uint8`, `uint256`, `address`, `bool` and `string`.
+Non-indexed strings preserve the tuple codec's byte-string convention.
+Non-anonymous events require the full canonical signature hash in topic
+zero. Anonymous events omit that topic and permit four indexed arguments;
+named events permit three. Parameter names do not enter the signature.
+
+## Strict errors
+
+The decoder rejects malformed input without returning partial values.
+Checks occur in this order:
+
+1. Schema topic limit (`Too_many_topics`).
+2. Exact log topic count (`Topic_count`).
+3. Every topic has exactly 32 bytes (`Topic_size`).
+4. Named event signature matches (`Wrong_signature`).
+5. Non-indexed data passes the strict ABI tuple decoder (`Codec(error)`).
+6. Indexed scalar words pass the same codec, in declaration order.
+
+This rejects noncanonical booleans, scalar overflows, bad dynamic offsets,
+padding, truncation and trailing data. A log without data parameters must
+have empty data. Indexed strings remain explicitly tagged hashes.
+
+Schema matching does not authenticate the log's contract address or prove
+that a transaction succeeded. Callers retain responsibility for choosing
+the schema and identifying the emitting contract.
+
+## Validation and remaining limits
+
+`python3 -P dev/event-decode-test.py` checks 71 independent cast event
+vectors, 21 frozen ERC-20 logs, 59 malformed-log cases and eight adapter
+refusals. Twelve compiling semantic mutants must produce named wrong
+answers; build failures and malformed adapter output do not count as
+kills. The restored scratch build must pass every vector and adapter
+refusal. Its marker is:
+
+```
+EVENT-DECODE oracle=71 reference=21 negative=59 refusal=8 mutants=12 scope=event-decode OK
+```
+
+The malformed cases test the check order. `limit-before-count` and
+`anonymous-limit-before-count` exceed the schema topic limit and also
+carry the wrong topic count, so they must return `Too_many_topics`.
+`named-scalar-trailing` and `named-uint8-range-1` carry the correct
+signature hash, so their data and indexed codec errors must not become
+`Wrong_signature`. The `limit-count-swap` mutant checks the topic count
+before the topic limit, and `limit-before-count` kills it. The
+`field-error-as-signature` mutant keeps the check order but reports each
+field decode failure as `Wrong_signature`, and `named-scalar-trailing`
+kills it.
+
+`python3 -P dev/event-decode-compatibility.py` preserves all 54 previous
+gate modes, including their deadlines, markers and failure classes. It
+also checks byte-identical existing ABI and test source prefixes and an
+unchanged reachable compiler CLI bundle. The default
+`--m2-event-decode` adds EVENT-DECODE, for 87 checks.
+
+The new implementation brings `src/abi.bend` to 495 lines, above the
+earlier 400-line ABI limit. On 2026-09-28 the user re-ratified the source
+budget in `dev/trusted-lines.py`: abi rises to 495 and assembler falls
+from 600 to 505. The ratified total stays 3550. TRUSTED-LINES passes
+under this budget with `abi=495/495`, `assembler=262/505` and
+`total=2951/3550`. No implementation moved outside the priced modules.
+See the [validation record](validation/2026-09-28-m2-event-decode/README.md)
+for the current measurements and exact check results.
+
+## Performance
+
+Changes to `Makefile`, `dev/build.py` and `src/abi.bend` require refreshed
+compiler source pins. A fresh five-round paired measurement is frozen
+in `dev/bend2-baseline.json` and retained as
+`dev/validation/2026-09-28-m2-event-decode/paired-measurement.json`.
+It measured a 48.113-second window. The Assay/Bend 2 ratio is 1.137273126,
+above the unchanged 1.0 bound. BEND2-RATIO remains failing, and
+BEND2-RATIO-TEST passes with the new pins. The corpus measurement is
+unchanged. The CLI bundle comparison shows no executable compiler change,
+so the separate timing runs do not establish a decoder-related
+performance change.

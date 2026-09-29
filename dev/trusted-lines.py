@@ -7,7 +7,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from bend_source import declarations, identifiers
 
 KERNEL_BOUND = 4000
-ARTIFACTS = {'emitter': 1800, 'assembler': 600, 'keccak': 250, 'abi': 400, 'layout': 250, 'listing': 250}
+ARTIFACTS = {'emitter': 1800, 'assembler': 505, 'keccak': 250, 'abi': 495, 'layout': 250, 'listing': 250}
 RATIFIED_TOTAL = 3550
 SOURCES = {'kernel', 'frontend', 'cli', 'tests'} | ARTIFACTS.keys()
 

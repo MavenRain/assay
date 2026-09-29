@@ -55,8 +55,9 @@ and the restored scratch build passes the complete case set.
 `python3 -P dev/revert-compatibility.py` preserves the 52 committed gate
 modes and the staged return-data extension, including commands, deadlines,
 markers and failure classes. It also checks byte-identical prior source
-prefixes and compiler CLI reachability. The new `--m2-revertdata` default
-appends REVERT-CODEC for 86 checks; `--m2-returndata` retains its 85 checks.
+prefixes and compiler CLI reachability. `--m2-revertdata` appends
+REVERT-CODEC for 86 checks; `--m2-returndata` retains its 85 checks. The
+current default [EVENT-DECODE](M2-EVENT-DECODE.md) runs 87.
 
 The [validation record](validation/2026-09-27-m2-revertdata/README.md)
 records commands, complete captures, source hashes and timing results.
@@ -64,12 +65,13 @@ records commands, complete captures, source hashes and timing results.
 ## Performance
 
 Changes to `Makefile`, `dev/build.py` and `src/abi.bend` require refreshed
-compiler source pins. A fresh five-round paired measurement is frozen
-in `dev/bend2-baseline.json` and retained as
+compiler source pins. The revert-data slice froze a fresh five-round
+paired measurement, retained as
 `dev/validation/2026-09-27-m2-revertdata/paired-measurement.json`.
-It measured a 13.432-second window. The Assay/Bend 2 ratio is 1.657532429,
-above the unchanged 1.0 bound. BEND2-RATIO remains failing, and
-BEND2-RATIO-TEST passes with the new pins. The corpus measurement is
-unchanged. The CLI bundle comparison shows no executable compiler change,
+It measured a 13.432-second window and a ratio of 1.657532429, above the
+unchanged 1.0 bound. BEND2-RATIO remained failing, and BEND2-RATIO-TEST
+passed with the new pins. The event-decode refresh superseded this report;
+see [M2-EVENT-DECODE.md](M2-EVENT-DECODE.md) for the active baseline.
+The corpus measurement is unchanged. The CLI bundle comparison shows no executable compiler change,
 so the separate timing runs do not establish a revert-data-related
 performance change.
