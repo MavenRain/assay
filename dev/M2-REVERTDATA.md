@@ -55,9 +55,12 @@ and the restored scratch build passes the complete case set.
 `python3 -P dev/revert-compatibility.py` preserves the 52 committed gate
 modes and the staged return-data extension, including commands, deadlines,
 markers and failure classes. It also checks byte-identical prior source
-prefixes and compiler CLI reachability. `--m2-revertdata` appends
+prefixes and compiler CLI reachability. Since the keyword-dispatch
+follow-up, the check accepts one pinned `Lexer.ident_kind` delta and puts
+back the BASE declaration before the compare; see
+[LEXER-KEYWORDS](LEXER-KEYWORDS.md). `--m2-revertdata` appends
 REVERT-CODEC for 86 checks; `--m2-returndata` retains its 85 checks. The
-current default [EVENT-DECODE](M2-EVENT-DECODE.md) runs 87.
+current default [LEXER-KEYWORDS](LEXER-KEYWORDS.md) runs 88.
 
 The [validation record](validation/2026-09-27-m2-revertdata/README.md)
 records commands, complete captures, source hashes and timing results.
@@ -70,8 +73,8 @@ paired measurement, retained as
 `dev/validation/2026-09-27-m2-revertdata/paired-measurement.json`.
 It measured a 13.432-second window and a ratio of 1.657532429, above the
 unchanged 1.0 bound. BEND2-RATIO remained failing, and BEND2-RATIO-TEST
-passed with the new pins. The event-decode refresh superseded this report;
-see [M2-EVENT-DECODE.md](M2-EVENT-DECODE.md) for the active baseline.
+passed with the new pins. Later refreshes superseded this report;
+see [LEXER-KEYWORDS.md](LEXER-KEYWORDS.md) for the active baseline.
 The corpus measurement is unchanged. The CLI bundle comparison shows no executable compiler change,
 so the separate timing runs do not establish a revert-data-related
 performance change.

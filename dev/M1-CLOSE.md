@@ -2,8 +2,9 @@
 
 Status: the native Bend compiler's speed gate remains open. The requirement,
 set by the user on 2026-09-22, is compilation speed at least as fast as Bend 2.
-The [current paired comparison](M2-EVENT-DECODE.md) measures a ratio of 1.137273126
-against the unchanged 1.0 limit. The four retained OCaml measurements below are
+The [current paired comparison](LEXER-KEYWORDS.md) measures a ratio of 1.720825537
+against the unchanged 1.0 limit, in a 7.441-second window on 2026-09-29.
+The previous comparison, 1.137273126, is in [M2-EVENT-DECODE.md](M2-EVENT-DECODE.md). The four retained OCaml measurements below are
 historical diagnostics.
 
 This historical slice starts at `ec27e6f`. It implements the former OCaml
@@ -115,8 +116,8 @@ NATIVE-IO checks, for 77 legs. The native default adds the
 [ABI-CODEC](M2-ABI-CODEC.md), [packing](M2-PACKING.md),
 [mapping locations](M2-MAPPING.md), [EVENT-CODEC](M2-EVENTS.md),
 [CALL-CODEC](M2-CALLDATA.md), [RETURN-CODEC](M2-RETURNDATA.md),
-[REVERT-CODEC](M2-REVERTDATA.md) and [EVENT-DECODE](M2-EVENT-DECODE.md),
-for 87 checks.
+[REVERT-CODEC](M2-REVERTDATA.md), [EVENT-DECODE](M2-EVENT-DECODE.md) and
+[LEXER-KEYWORDS](LEXER-KEYWORDS.md), for 88 checks.
 
 That ratio test used synthetic reports to exercise the public command; these
 were decision tests and provided no timing evidence. It checked the

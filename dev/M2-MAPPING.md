@@ -64,10 +64,11 @@ deadlines, markers and failure classifications. The
 [validation record](validation/2026-09-25-m2-mapping/README.md) records the
 actual full-suite outcome and performance results.
 
-The default now selects `--m2-event-decode`, adding
+The default now selects `--keyword-dispatch`, adding
 [EVENT-CODEC](M2-EVENTS.md), [CALL-CODEC](M2-CALLDATA.md),
-[RETURN-CODEC](M2-RETURNDATA.md), [REVERT-CODEC](M2-REVERTDATA.md) and
-[EVENT-DECODE](M2-EVENT-DECODE.md), for 87 checks.
+[RETURN-CODEC](M2-RETURNDATA.md), [REVERT-CODEC](M2-REVERTDATA.md),
+[EVENT-DECODE](M2-EVENT-DECODE.md) and [LEXER-KEYWORDS](LEXER-KEYWORDS.md),
+for 88 checks.
 
 Source lowering, mapping declarations and metadata, event execution,
 dynamic ABI lowering and the M2 Lean negative mutants remain pending.

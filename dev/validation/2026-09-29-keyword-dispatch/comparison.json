@@ -1,0 +1,184 @@
+{
+  "rounds": [
+    {
+      "order": [
+        "before",
+        "after"
+      ],
+      "samples_ms": {
+        "before": [
+          951.700542,
+          761.71375,
+          1043.628166,
+          1560.18925,
+          1224.801125,
+          1544.715667
+        ],
+        "after": [
+          677.820834,
+          1604.202,
+          696.357709,
+          936.527417,
+          1016.079,
+          1017.093
+        ]
+      }
+    },
+    {
+      "order": [
+        "after",
+        "before"
+      ],
+      "samples_ms": {
+        "before": [
+          891.204583,
+          924.08625,
+          666.756292,
+          2305.876833,
+          1372.055084,
+          1175.741625
+        ],
+        "after": [
+          658.094,
+          1086.684667,
+          830.923,
+          1316.977542,
+          886.337125,
+          1021.926834
+        ]
+      }
+    },
+    {
+      "order": [
+        "before",
+        "after"
+      ],
+      "samples_ms": {
+        "before": [
+          689.436083,
+          2179.848875,
+          1152.642458,
+          917.28,
+          999.980542,
+          865.338917
+        ],
+        "after": [
+          1151.4285,
+          1474.048333,
+          1740.663958,
+          1193.808584,
+          1269.533375,
+          885.411583
+        ]
+      }
+    },
+    {
+      "order": [
+        "after",
+        "before"
+      ],
+      "samples_ms": {
+        "before": [
+          1192.423541,
+          818.39825,
+          1088.223333,
+          1056.50975,
+          1188.289208,
+          986.223958
+        ],
+        "after": [
+          701.216375,
+          872.447667,
+          740.432583,
+          756.427292,
+          1083.206292,
+          1828.788083
+        ]
+      }
+    },
+    {
+      "order": [
+        "before",
+        "after"
+      ],
+      "samples_ms": {
+        "before": [
+          770.316084,
+          853.368,
+          701.804375,
+          929.480875,
+          822.44,
+          857.174333
+        ],
+        "after": [
+          718.875084,
+          2124.596708,
+          1208.594333,
+          789.610125,
+          880.483042,
+          854.884916
+        ]
+      }
+    }
+  ],
+  "median_batch_ms": {
+    "before": 6804.5268750000005,
+    "after": 5982.518292
+  },
+  "after_over_before": 0.87919680558246,
+  "wall_seconds": 86.3323354999302,
+  "output_sha256": {
+    "Return": {
+      "axioms.txt": "61f8b9f0cb83fe5250e13b39b40e705d106caa92810d60168dfe5f4c3a89a302",
+      "init.hex": "0435d833df891a4f3e5fe29a0004501dc34542f46fbab10ea31172b744a313b8",
+      "runtime.hex": "c9bfcc72747cc89b5f9d0a4dc78fca501a943626dde8c5f5379982225eff032c",
+      "layout.json": "75d72b802b891e07ece6037e82569a72565035ea5affd99a45806901b1a12042",
+      "abi.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+    },
+    "Arithmetic": {
+      "axioms.txt": "61f8b9f0cb83fe5250e13b39b40e705d106caa92810d60168dfe5f4c3a89a302",
+      "init.hex": "08ad8e26bc9c3e230306a0b0fbb6ab1e03656a9c5892c41a88f9acae838cab23",
+      "runtime.hex": "23a23373870b3b4f9cf24757c1bf36f796a5ebd119b8de301591d7156bf76210",
+      "layout.json": "7dc3fedb172b367e7b9a304b44ab0dacb26cc85ec4a5e45483df3061263f4e70",
+      "abi.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+    },
+    "Pair": {
+      "axioms.txt": "61f8b9f0cb83fe5250e13b39b40e705d106caa92810d60168dfe5f4c3a89a302",
+      "init.hex": "d626c14a11c25abf0205cccc3946dcd4dd9ca3c645ed7bf452358be6b941a7c1",
+      "runtime.hex": "d940b6df95e34d92e4bbe023164eaa06ca1afa4cd189bd6b1dd0bab9fc5369eb",
+      "layout.json": "385ef804fd76935cd4671dd4fbe75ee12f088438361d0311c747a22f46df636e",
+      "abi.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+    },
+    "Leaf": {
+      "axioms.txt": "3c8346c0dc21e6eb3d3ef3d8a7c179106bccbed8cad9939b9d3a5648af96067c",
+      "init.hex": "08ad8e26bc9c3e230306a0b0fbb6ab1e03656a9c5892c41a88f9acae838cab23",
+      "runtime.hex": "23a23373870b3b4f9cf24757c1bf36f796a5ebd119b8de301591d7156bf76210",
+      "layout.json": "752a8a3673a8326ea7e4bd7970cfd22564a5e7fa5bc2e5713b990c51911cb13f",
+      "abi.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+    },
+    "Apply": {
+      "axioms.txt": "3c8346c0dc21e6eb3d3ef3d8a7c179106bccbed8cad9939b9d3a5648af96067c",
+      "init.hex": "08ad8e26bc9c3e230306a0b0fbb6ab1e03656a9c5892c41a88f9acae838cab23",
+      "runtime.hex": "23a23373870b3b4f9cf24757c1bf36f796a5ebd119b8de301591d7156bf76210",
+      "layout.json": "0e9f170f02caf5587aabf41c938821a7d8098e8a0df85278762787b0f850791a",
+      "abi.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+    },
+    "Let": {
+      "axioms.txt": "3c8346c0dc21e6eb3d3ef3d8a7c179106bccbed8cad9939b9d3a5648af96067c",
+      "init.hex": "08ad8e26bc9c3e230306a0b0fbb6ab1e03656a9c5892c41a88f9acae838cab23",
+      "runtime.hex": "23a23373870b3b4f9cf24757c1bf36f796a5ebd119b8de301591d7156bf76210",
+      "layout.json": "8ac33058b205964882c7e3d85131fd9f743f485193b4143b8a23fc767965d03a",
+      "abi.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+    }
+  },
+  "source_sha256": {
+    "before": "902925080b710539f33ea9b6b399ae0ac9a6f4ff5c4678024f73080164d3d6b5",
+    "after": "5472c4ae27168d1ac7ef2de93bd5d7ab0e9d955477a9bc0f714ad6e071085afc"
+  },
+  "executable_sha256": {
+    "before": "6c488a6439e20689c42269ee6fe58673f8df7bcc4f0c662698c566b2563c2031",
+    "after": "ab37df9e5b790bb14a707acea2273b65411547b93f307e0d9d257a07af24de2d"
+  },
+  "method_sha256": "f46dcce852a52ab793717137b8fe5707ce941ce8c8d38ac947f9231f74c587ab",
+  "method": "one warmup, five alternating rounds, six files, fresh outputs, no subtraction"
+}

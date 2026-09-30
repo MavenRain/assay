@@ -62,9 +62,13 @@ Run `python3 -P dev/return-codec-test.py`. It checks:
 modes, including commands, deadlines, expected markers and failure
 classes. The existing ABI and test sources remain byte-identical
 prefixes, and the compiler CLI's reachable Bend bundle is byte-identical.
+Since the keyword-dispatch follow-up, the check accepts one pinned
+`Lexer.ident_kind` delta and puts back the BASE declaration before the
+compare; see [LEXER-KEYWORDS](LEXER-KEYWORDS.md).
 The `--m2-returndata` mode appends RETURN-CODEC, for 85 checks. The current
-default adds [REVERT-CODEC](M2-REVERTDATA.md) and
-[EVENT-DECODE](M2-EVENT-DECODE.md), for 87 checks.
+default adds [REVERT-CODEC](M2-REVERTDATA.md),
+[EVENT-DECODE](M2-EVENT-DECODE.md) and [LEXER-KEYWORDS](LEXER-KEYWORDS.md),
+for 88 checks.
 
 The [validation record](validation/2026-09-27-m2-returndata/README.md)
 retains the scoped results, command captures, case corpus and source
@@ -79,7 +83,7 @@ paired measurement, retained as
 It measured a 7.581-second window and a ratio of 1.667820196, above the
 unchanged 1.0 bound. BEND2-RATIO remained failing, and BEND2-RATIO-TEST
 passed with the new pins. Later refreshes superseded this report;
-see [M2-EVENT-DECODE.md](M2-EVENT-DECODE.md) for the active baseline.
+see [LEXER-KEYWORDS.md](LEXER-KEYWORDS.md) for the active baseline.
 The corpus measurement is unchanged. The CLI bundle comparison shows
 no executable compiler change, so the separate timing runs do not
 establish a return-data-related performance change.

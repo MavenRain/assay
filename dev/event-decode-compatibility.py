@@ -12,7 +12,8 @@ import subprocess
 import sys
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from bend_source import bundle, declarations, reachable
+from bend_source import declarations
+from cli_delta import SHA256 as CLI_DELTA_SHA256, cli_sources
 
 ROOT = Path(__file__).resolve().parent.parent
 BASE = 'aa7517e'
@@ -59,12 +60,13 @@ def main():
             name = str(path.relative_to(ROOT))
             records[0].extend(declarations(old(name), name))
             records[1].extend(declarations(path.read_text(), name))
-    sources = [bundle(reachable(rows, 'Entry.Cli'), 'Entry.Cli') for rows in records]
+    sources = cli_sources(records)
     require(sources[0] == sources[1], 'CLI-BUNDLE')
     report = dict(base=BASE, prior_modes=len(modes), new_checks=len(current['legs']),
                   appended=current['legs'][-1], existing_abi_and_tests='byte-identical prefixes',
                   cli_bundle='byte-identical', cli_bytes=len(sources[0].encode()),
-                  cli_sha256=hashlib.sha256(sources[0].encode()).hexdigest())
+                  cli_sha256=hashlib.sha256(sources[0].encode()).hexdigest(),
+                  cli_delta_sha256=CLI_DELTA_SHA256)
     work = ROOT / '.gatework/event-decode'
     work.mkdir(parents=True, exist_ok=True)
     (work / 'compatibility.json').write_text(json.dumps(report, indent=2) + '\n')

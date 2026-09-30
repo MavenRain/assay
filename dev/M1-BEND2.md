@@ -1,10 +1,14 @@
 # M1 Bend 2 compilation comparison
 
 The 2026-09-22 compilation-speed requirement is an Assay/Bend 2 ratio at
-most 1.0. The current native Bend comparison is 1.137273126 and does not
-pass. See [M2-EVENT-DECODE.md](M2-EVENT-DECODE.md) for the current source and record.
+most 1.0. The current native Bend comparison is 1.720825537 and does not
+pass. See [LEXER-KEYWORDS.md](LEXER-KEYWORDS.md) for the current source and record.
+Its five measured rounds of six cases completed in a 7.441-second window
+on 2026-09-29. `dev/bend2-baseline.json` holds the report, and
+`dev/BEND2.sha256` seals it.
+The previous comparison, 1.137273126, is in [M2-EVENT-DECODE.md](M2-EVENT-DECODE.md).
 Its five measured rounds completed in a 48.113-second window.
-The previous comparison, 1.657532429, is in [M2-REVERTDATA.md](M2-REVERTDATA.md).
+Before that, 1.657532429 is in [M2-REVERTDATA.md](M2-REVERTDATA.md).
 Its five measured rounds completed in a 13.432-second window.
 Before that, 1.667820196 is in [M2-RETURNDATA.md](M2-RETURNDATA.md).
 Its five measured rounds completed in a 7.581-second window.
@@ -88,15 +92,16 @@ The measured window must include all timed intervals and remain below
 
 ## Freeze and gate
 
-`dev/validation/2026-09-28-m2-event-decode/paired-measurement.json` retains
+`dev/validation/2026-09-29-keyword-dispatch/paired-measurement.json` retains
 the current native measurement. It is a byte copy of the active report.
+`dev/validation/2026-09-28-m2-event-decode/paired-measurement.json`,
 `dev/validation/2026-09-27-m2-revertdata/paired-measurement.json`,
 `dev/validation/2026-09-27-m2-returndata/paired-measurement.json` and
 `dev/validation/2026-09-27-m2-calldata/paired-measurement.json` retain the
-three measurements before it.
+four measurements before it.
 `dev/validation/2026-09-25-m2-mapping/corpus-measurement.json` retains the
-current corpus measurement. The calldata, return-data, revert-data and
-event-decode slices did not remeasure the corpus.
+current corpus measurement. The calldata, return-data, revert-data,
+event-decode and keyword-dispatch slices did not remeasure the corpus.
 `dev/validation/2026-09-26-m2-events/paired-measurement.json` retains the
 events measurement before the calldata one.
 `dev/validation/2026-09-25-m2-mapping/paired-measurement.json` retains
@@ -106,7 +111,9 @@ measurement before the mapping one; `dev/validation/2026-09-22-m2-abi-codec/bend
 retains the pre-migration codec measurement. `dev/bend2-baseline.json` is
 the active native copy. `dev/BEND2.sha256` seals the
 active report, and `dev/DENOMINATORS.sha256` also pins the new gate, the
-active report and the corpus files; the record's `FILES.sha256` seals the retained copy. A compiler, method, or
+active report and the corpus files. In earlier records, a `FILES.sha256` or
+`SHA256SUMS` file seals the retained copy. The keyword-dispatch record has no
+such file; its copy is byte-identical to the sealed active report. A compiler, method, or
 workload change requires a fresh measurement and an explicit freeze of the
 new report. Measurement never overwrites an existing report or updates the
 active freeze automatically.
@@ -124,8 +131,8 @@ the [M2 reference gate](M2-REFERENCE.md), [ABI-SCHEMA](M2-ABI-SCHEMA.md),
 [ABI-CODEC](M2-ABI-CODEC.md), [packing](M2-PACKING.md),
 [mapping locations](M2-MAPPING.md), [EVENT-CODEC](M2-EVENTS.md),
 [CALL-CODEC](M2-CALLDATA.md), [RETURN-CODEC](M2-RETURNDATA.md),
-[REVERT-CODEC](M2-REVERTDATA.md) and [EVENT-DECODE](M2-EVENT-DECODE.md),
-for 87 checks.
+[REVERT-CODEC](M2-REVERTDATA.md), [EVENT-DECODE](M2-EVENT-DECODE.md) and
+[LEXER-KEYWORDS](LEXER-KEYWORDS.md), for 88 checks.
 
 `dev/bend2-ratio-test.py` passes three controls, rejects 37 invalid cases,
 and kills six mutations. It covers the inclusive boundary, a ratio above

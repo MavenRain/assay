@@ -64,10 +64,14 @@ Run `python3 -P dev/call-codec-test.py`. It checks:
 `python3 -P dev/call-compatibility.py` preserves all 51 historical gate
 modes, including deadlines, expected markers and failure classes. The
 original ABI and test sources remain byte-identical prefixes, and the
-compiler CLI's reachable Bend bundle is byte-identical. The `--m2-calldata`
+compiler CLI's reachable Bend bundle is byte-identical. Since the
+keyword-dispatch follow-up, the check accepts one pinned
+`Lexer.ident_kind` delta and puts back the BASE declaration before the
+compare; see [LEXER-KEYWORDS](LEXER-KEYWORDS.md). The `--m2-calldata`
 mode appends CALL-CODEC, for a total of 84 checks. The current default adds
-[RETURN-CODEC](M2-RETURNDATA.md), [REVERT-CODEC](M2-REVERTDATA.md) and
-[EVENT-DECODE](M2-EVENT-DECODE.md), for 87 checks.
+[RETURN-CODEC](M2-RETURNDATA.md), [REVERT-CODEC](M2-REVERTDATA.md),
+[EVENT-DECODE](M2-EVENT-DECODE.md) and [LEXER-KEYWORDS](LEXER-KEYWORDS.md),
+for 88 checks.
 
 The [validation record](validation/2026-09-27-m2-calldata/README.md) retains
 the scoped results, failed development attempts and source hashes.
@@ -81,7 +85,7 @@ measurement, retained as
 It measured a 7.642-second window and a ratio of 1.720827821, above the
 unchanged 1.0 bound. BEND2-RATIO therefore remained failing.
 BEND2-RATIO-TEST passed with the new pins. Later refreshes superseded
-this report; see [M2-EVENT-DECODE.md](M2-EVENT-DECODE.md) for the active
+this report; see [LEXER-KEYWORDS.md](LEXER-KEYWORDS.md) for the active
 baseline. The corpus measurement is unchanged. The CLI bundle comparison
 shows no executable compiler change, so these separate timing runs do
 not establish a calldata-related performance change.

@@ -1,5 +1,42 @@
 # Assay M2 build log
 
+## 2026-09-29: Direct keyword dispatch
+
+Starting from the event-decode slice at `a29a0c1`, this follow-up
+changes `Lexer.ident_kind` in `src/frontend.bend`. A Bend string match
+with 30 keyword cases and a catch-all replaces the construction and
+linear search of the keyword list. The vocabulary is unchanged. Every
+other input returns `Token.Kind.Ident` with the original bytes.
+
+LEXER-KEYWORDS passes with the 30 keywords and 225 other inputs. The
+new `dev/lexer-keywords-test.py` builds the actual classifier and prints
+(one line, verbatim):
+
+    LEXER-KEYWORDS keywords=30 cases=255 OK
+
+The new default `--keyword-dispatch` adds LEXER-KEYWORDS to the 87
+`--m2-event-decode` legs, for 88 legs. The Makefile and `dev/gates.sh`
+select it.
+
+On 2026-09-29 the user ruled a pinned delta for the five compatibility
+checks (event-decode, event, revert, call and return). The new
+`dev/cli_delta.py` checks that the worktree `Lexer.ident_kind`
+declaration has the pinned SHA-256 and puts back the BASE declaration.
+The reachable CLI bundle must then be byte-identical to each BASE. The
+markers do not change. Each report adds the `cli_delta_sha256` field.
+
+A fresh five-round paired timing report of six cases is frozen in
+`dev/bend2-baseline.json` and sealed by `dev/BEND2.sha256`. The
+7.441-second window yields an Assay/Bend 2 ratio of 1.720825537, above
+the unchanged 1.0 limit. The previous record was 1.137273126. The
+refreshed `dev/DENOMINATORS.sha256` holds 133 rows. DENOMINATORS,
+M0-RATIO and BEND2-RATIO-TEST pass. BEND2-RATIO failed before this
+slice and still fails. The full gate battery was not run. Commands,
+captures and hashes are retained under
+`dev/validation/2026-09-29-keyword-dispatch`.
+
+See `dev/LEXER-KEYWORDS.md` for the change and scope.
+
 ## 2026-09-28: M2 typed event log decoding
 
 Starting from the revert-data slice at `aa7517e`, this slice adds

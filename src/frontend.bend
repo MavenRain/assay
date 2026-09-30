@@ -714,7 +714,38 @@ def Lexer.keywords() -> ListOf(TupleOf2(String, Token.Kind)):
   Con{Tup2{"def", Token.Kind.KDef{}}, Con{Tup2{"axiom", Token.Kind.KAxiom{}}, Con{Tup2{"fun", Token.Kind.KFun{}}, Con{Tup2{"inj", Token.Kind.KInj{}}, Con{Tup2{"of", Token.Kind.KOf{}}, Con{Tup2{"case", Token.Kind.KCase{}}, Con{Tup2{"match", Token.Kind.KMatch{}}, Con{Tup2{"as", Token.Kind.KAs{}}, Con{Tup2{"return", Token.Kind.KReturn{}}, Con{Tup2{"with", Token.Kind.KWith{}}, Con{Tup2{"tuple", Token.Kind.KTuple{}}, Con{Tup2{"sum", Token.Kind.KSum{}}, Con{Tup2{"prod", Token.Kind.KProd{}}, Con{Tup2{"absurd", Token.Kind.KAbsurd{}}, Con{Tup2{"Prop", Token.Kind.KProp{}}, Con{Tup2{"Type", Token.Kind.KType{}}, Con{Tup2{"let", Token.Kind.KLet{}}, Con{Tup2{"in", Token.Kind.KIn{}}, Con{Tup2{"natAdd", Token.Kind.KNatAdd{}}, Con{Tup2{"natSub", Token.Kind.KNatSub{}}, Con{Tup2{"natMul", Token.Kind.KNatMul{}}, Con{Tup2{"natEq", Token.Kind.KNatEq{}}, Con{Tup2{"natLt", Token.Kind.KNatLt{}}, Con{Tup2{"auto", Token.Kind.KAuto{}}, Con{Tup2{"mu", Token.Kind.KMu{}}, Con{Tup2{"mutual", Token.Kind.KMutual{}}, Con{Tup2{"end", Token.Kind.KEnd{}}, Con{Tup2{"nu", Token.Kind.KNu{}}, Con{Tup2{"and", Token.Kind.KAnd{}}, Con{Tup2{"rec", Token.Kind.KRec{}}, Nil{}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}
 @unsafe
 def Lexer.ident_kind(+s_348: String) -> Token.Kind:
-  (+local853 => (Maybe.default(&2, Token.Kind, local853, Token.Kind.Ident{s_348})))(SeqList.assoc(&2, &2, String, Token.Kind, +x => +y => NativeString.equal(x, y), s_348, Lexer.keywords()))
+  match s_348:
+    case "def": Token.Kind.KDef{}
+    case "axiom": Token.Kind.KAxiom{}
+    case "fun": Token.Kind.KFun{}
+    case "inj": Token.Kind.KInj{}
+    case "of": Token.Kind.KOf{}
+    case "case": Token.Kind.KCase{}
+    case "match": Token.Kind.KMatch{}
+    case "as": Token.Kind.KAs{}
+    case "return": Token.Kind.KReturn{}
+    case "with": Token.Kind.KWith{}
+    case "tuple": Token.Kind.KTuple{}
+    case "sum": Token.Kind.KSum{}
+    case "prod": Token.Kind.KProd{}
+    case "absurd": Token.Kind.KAbsurd{}
+    case "Prop": Token.Kind.KProp{}
+    case "Type": Token.Kind.KType{}
+    case "let": Token.Kind.KLet{}
+    case "in": Token.Kind.KIn{}
+    case "natAdd": Token.Kind.KNatAdd{}
+    case "natSub": Token.Kind.KNatSub{}
+    case "natMul": Token.Kind.KNatMul{}
+    case "natEq": Token.Kind.KNatEq{}
+    case "natLt": Token.Kind.KNatLt{}
+    case "auto": Token.Kind.KAuto{}
+    case "mu": Token.Kind.KMu{}
+    case "mutual": Token.Kind.KMutual{}
+    case "end": Token.Kind.KEnd{}
+    case "nu": Token.Kind.KNu{}
+    case "and": Token.Kind.KAnd{}
+    case "rec": Token.Kind.KRec{}
+    case name: Token.Kind.Ident{name}
 @unsafe
 def Lexer.lex_err(-q0: Quant, -A0: Kind(q0), +loc_307: Token.Loc, +msg_308: String) -> Result<&2, q0, Error, A0>:
   Fail{Error.Parse{msg_308, Get.Token.Loc.line(loc_307), Get.Token.Loc.col(loc_307)}}

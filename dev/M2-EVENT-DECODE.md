@@ -69,8 +69,12 @@ kills it.
 `python3 -P dev/event-decode-compatibility.py` preserves all 54 previous
 gate modes, including their deadlines, markers and failure classes. It
 also checks byte-identical existing ABI and test source prefixes and an
-unchanged reachable compiler CLI bundle. The default
-`--m2-event-decode` adds EVENT-DECODE, for 87 checks.
+unchanged reachable compiler CLI bundle. Since the keyword-dispatch
+follow-up, the check accepts one pinned `Lexer.ident_kind` delta and puts
+back the BASE declaration before the compare; see
+[LEXER-KEYWORDS](LEXER-KEYWORDS.md). `--m2-event-decode` adds
+EVENT-DECODE, for 87 checks. The current default
+[LEXER-KEYWORDS](LEXER-KEYWORDS.md) runs 88.
 
 The new implementation brings `src/abi.bend` to 495 lines, above the
 earlier 400-line ABI limit. On 2026-09-28 the user re-ratified the source
@@ -79,17 +83,19 @@ from 600 to 505. The ratified total stays 3550. TRUSTED-LINES passes
 under this budget with `abi=495/495`, `assembler=262/505` and
 `total=2951/3550`. No implementation moved outside the priced modules.
 See the [validation record](validation/2026-09-28-m2-event-decode/README.md)
-for the current measurements and exact check results.
+for the measurements and exact check results of this slice.
 
 ## Performance
 
 Changes to `Makefile`, `dev/build.py` and `src/abi.bend` require refreshed
-compiler source pins. A fresh five-round paired measurement is frozen
-in `dev/bend2-baseline.json` and retained as
+compiler source pins. The event-decode slice froze a fresh five-round
+paired measurement, retained as
 `dev/validation/2026-09-28-m2-event-decode/paired-measurement.json`.
-It measured a 48.113-second window. The Assay/Bend 2 ratio is 1.137273126,
-above the unchanged 1.0 bound. BEND2-RATIO remains failing, and
-BEND2-RATIO-TEST passes with the new pins. The corpus measurement is
-unchanged. The CLI bundle comparison shows no executable compiler change,
+It measured a 48.113-second window and a ratio of 1.137273126, above the
+unchanged 1.0 bound. BEND2-RATIO remained failing, and BEND2-RATIO-TEST
+passed with the new pins. The keyword-dispatch refresh superseded this
+report; see [LEXER-KEYWORDS.md](LEXER-KEYWORDS.md) for the active
+baseline. The corpus measurement is unchanged. The CLI bundle comparison
+shows no executable compiler change,
 so the separate timing runs do not establish a decoder-related
 performance change.
