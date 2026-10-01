@@ -18,6 +18,7 @@ from bend_source import bundle, declarations, reachable
 from cli_delta import PINS, cli_sources, pinned
 
 BASE = '82f14761406f4d0cd383f284250d708595a4988e'
+CONTRACT_BASE = '42ef4be4f81a92acdf8bdb072c4b6c11af237672'
 NAMES = ('Lexer.nat_of_digits', 'Lexer.go', 'Lexer.lex')
 WORK = ROOT / '_build/lexer-direct'
 
@@ -117,6 +118,95 @@ def check_pins(control, records):
     before, after = cli_sources([control, poisoned], 'Lexer.lex')
     if before == after:
         raise ValueError('unrelated reachable change hidden by normalization')
+    before, after = cli_sources([control, records], 'Contract.lex')
+    if before != after or after is None:
+        raise ValueError('contract lexer compatibility bundle mismatch')
+    row = next(row for row in records if row.kind == 'def' and row.name == 'Contract.word_char')
+    poisoned = [replace(item, source=item.source + '// unrelated reachable change\n')
+                if item is row else item for item in records]
+    before, after = cli_sources([control, poisoned], 'Contract.lex')
+    if before == after:
+        raise ValueError('unrelated contract change hidden by normalization')
+
+
+def check_contract(control, records):
+    rows = ['', 'abc', 'abc def', 'a\nb', '-- comment\nabc',
+            'abc:=def <- ghi', "_x'9", '123 0xabc', 'abc;',
+            '\t\r abc', 'é', '\x00', 'abc' * 512,
+            ';' * 8192, ';' * 8193]
+    rng = random.Random(0xC07A)
+    alphabet = "abcXYZ_01239' .,:;(){}\t\r\n<-=@"
+    rows.extend(''.join(rng.choice(alphabet) for _ in range(rng.randrange(1, 81)))
+                for _ in range(256))
+    rows.extend(path.read_text() for path in sorted((ROOT / 'examples').glob('*.asy')))
+    inputs = [literal(row) for row in rows]
+    inputs[13] = 'NativeString.repeat(8192n, Char.from_u32(59))'
+    inputs[14] = 'NativeString.repeat(8193n, Char.from_u32(59))'
+    entry = '''@unsafe
+def LexerDirect.token(token: Contract.Token) -> String:
+  match token:
+    case MkContract_Token{text, line, col}: String.concat([text, "@", Big.show(line), ":", Big.show(col)])
+@unsafe
+def LexerDirect.result(result: CheckResult(ListOf(Contract.Token))) -> String:
+  match result:
+    case Done{tokens}: String.join(SeqList.map(&2, &2, Contract.Token, String, +arg0 => LexerDirect.token(arg0), tokens), "|")
+    case Fail{error}: String.append("ERR ", Error.to_string(error))
+@unsafe
+def LexerDirect.each(sources: List<&2, String>) -> IO(Unit):
+  match sources:
+    case Nil{}: IO.pure(Unit, Unit{})
+    case Con{source, rest}: do IO<Unit>:
+      NativeIO.print(NativeString.quoted(LexerDirect.result(Contract.lex(Series.from_string(source)))))
+      LexerDirect.each(rest)
+def LexerDirect.main() -> IO(Unit):
+  LexerDirect.each([''' + ', '.join(inputs) + '])\n'
+    before = compile_adapter(control, entry, 'contract-before')
+    after = compile_adapter(records, entry, 'contract-after')
+    expected, _ = run(before)
+    actual, _ = run(after)
+    if actual != expected or len(actual.splitlines()) != len(rows):
+        raise ValueError('contract token, location, limit or refusal mismatch')
+    golden = ['"@1:1"', '"abc@1:1|@1:4"',
+              '"abc@1:1|def@1:5|@1:8"', '"a@1:1|b@2:1|@2:2"',
+              '"abc@2:1|@2:4"']
+    lines = actual.decode().splitlines()
+    if lines[:len(golden)] != golden:
+        raise ValueError('independent contract lexer golden mismatch')
+    if not json.loads(lines[13]).endswith(';@1:8192|@1:8193') or not json.loads(lines[14]).startswith('ERR ') or 'LIMIT' not in json.loads(lines[14]):
+        raise ValueError('contract token limit boundary mismatch')
+    row = next(row for row in records if row.kind == 'def' and row.name == 'Contract.span')
+    needle = 'NativeString.of_list(List.reverse(&2, Char, acc_502))'
+    if row.source.count(needle) != 2:
+        raise ValueError('contract span replacement drift')
+    kills = []
+    for index, name in enumerate(('eof', 'separator')):
+        parts = row.source.split(needle)
+        replacement = 'NativeString.of_list(Nil{})'
+        source = parts[0] + (replacement if index == 0 else needle) + parts[1] + (replacement if index == 1 else needle) + parts[2]
+        mutated = [replace(item, source=source) if item is row else item for item in records]
+        output, _ = run(compile_adapter(mutated, entry, 'contract-mutant-' + name))
+        differences = [i for i, pair in enumerate(zip(expected.splitlines(), output.splitlines()))
+                       if pair[0] != pair[1]]
+        if len(output.splitlines()) != len(rows) or not differences:
+            raise ValueError('contract mutant did not produce a named wrong answer: ' + name)
+        kills.append(dict(name=name, first_case=differences[0]))
+    if run(after)[0] != expected:
+        raise ValueError('restored contract control mismatch')
+    timings = []
+    for index in range(5):
+        order = (before, after) if index % 2 == 0 else (after, before)
+        times = {}
+        for launcher in order:
+            output, seconds = run(launcher)
+            if output != expected:
+                raise ValueError('contract timing output mismatch')
+            times[launcher.name] = seconds
+        timings.append(times)
+    report = dict(base=CONTRACT_BASE, cases=len(rows), golden=len(golden), mutants=kills,
+                  output_sha256=hashlib.sha256(actual).hexdigest(), rounds=timings,
+                  median_ratio=statistics.median(row['contract-after'] / row['contract-before'] for row in timings))
+    (WORK / 'CONTRACT-RESULT.json').write_text(json.dumps(report, indent=2) + '\n')
+    print(f'CONTRACT-LEXER cases={len(rows)} golden={len(golden)} mutants={len(kills)} rounds=5 OK')
 
 
 def main():
@@ -131,9 +221,18 @@ def main():
                  if row.kind == 'def' and row.name in NAMES}
     if set(originals) != set(NAMES):
         raise ValueError('missing predecessor declarations')
-    control = [originals.get(row.name, row) if row.kind == 'def' and row.path == 'src/frontend.bend'
+    old_contract = subprocess.check_output(['git', '-C', str(ROOT), 'show', CONTRACT_BASE + ':src/emitter.bend'], text=True)
+    spans = [row for row in declarations(old_contract, 'src/emitter.bend')
+             if row.kind == 'def' and row.name == 'Contract.span']
+    if len(spans) != 1:
+        raise ValueError('missing or duplicate predecessor contract span')
+    originals['Contract.span'] = spans[0]
+    control = [originals.get(row.name, row) if row.kind == 'def' and row.path in ('src/frontend.bend', 'src/emitter.bend')
                else row for row in records]
     check_pins(control, records)
+    if sys.argv[1:] == ['--contract']:
+        check_contract(control, records)
+        return
     before = compile_adapter(control, entry, 'before')
     after = compile_adapter(records, entry, 'after')
     expected, _ = run(before)
@@ -182,6 +281,7 @@ def main():
                   output_sha256=hashlib.sha256(actual).hexdigest(), rounds=timings,
                   median_ratio=statistics.median(row['after'] / row['before'] for row in timings))
     (WORK / 'RESULT.json').write_text(json.dumps(report, indent=2) + '\n')
+    check_contract(control, records)
     print(f'LEXER-DIRECT cases={len(rows)} golden={len(golden)} mutants={len(kills)} rounds=5 OK')
 
 

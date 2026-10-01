@@ -1,10 +1,13 @@
 # M1 closure
 
-Status: the native Bend compiler's speed gate remains open. The requirement,
+Status: BEND2-RATIO passes on the current frozen record. The requirement,
 set by the user on 2026-09-22, is compilation speed at least as fast as Bend 2.
-The [current paired comparison](LEXER-DIRECT.md) measures a ratio of 1.490829052
-against the unchanged 1.0 limit, in a 22.872-second window on 2026-09-30.
-The previous comparison, 1.720825537, is in [LEXER-KEYWORDS.md](LEXER-KEYWORDS.md). The four retained OCaml measurements below are
+The [current paired comparison](LEXER-DIRECT.md) measures a ratio of 0.962311539
+against the unchanged 1.0 limit, in a 40.041-second window that started at
+2026-10-01 01:16 UTC. The pass describes this recorded host window.
+The previous comparisons did not pass: 1.490829052 is described in
+[LEXER-DIRECT.md](LEXER-DIRECT.md), and 1.720825537 is in
+[LEXER-KEYWORDS.md](LEXER-KEYWORDS.md). The four retained OCaml measurements below are
 historical diagnostics.
 
 This historical slice starts at `ec27e6f`. It implements the former OCaml

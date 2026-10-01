@@ -1,5 +1,23 @@
 # Assay M2 build log
 
+## 2026-09-30: Contract token string conversion
+
+Starting at `42ef4be`, both `Contract.span` return branches now construct
+their token string from the reversed character list directly. The lexer
+comparison adds 303 contract cases, five independent goldens and two
+compiled mutants, while preserving the existing 287 core cases and gate
+schedules. The contract declaration joins the exact compatibility pins.
+
+The native build, kernel and adapter tests, both lexer checks, six
+compatibility checks and trusted-line accounting pass. The fresh paired
+compiler measurement records a 40.041-second window and a ratio of
+0.962311539 against the unchanged 1.0 bound. BEND2-RATIO and its refusal
+controls pass. The denominator seal keeps its existing paths and fixtures.
+
+The full gate battery was not run. M2 source lowering and milestone exit
+remain pending. See `dev/LEXER-DIRECT.md` and
+`dev/validation/2026-09-30-contract-span` for the evidence.
+
 ## 2026-09-30: Direct lexer conversions
 
 Starting at `82f1476`, `Lexer.lex` now uses `NativeString.to_list` instead

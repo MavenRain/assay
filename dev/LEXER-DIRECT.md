@@ -27,29 +27,53 @@ the new default's 89 legs. `make test` adds it after the keyword test.
 `make gates` and `dev/gates.sh` now select `--lexer-direct`; the earlier
 `--keyword-dispatch` mode retains its original 88 legs.
 
-`dev/cli_delta.py` now pins four lexer declarations, including the earlier
-keyword dispatch optimization. Every pinned declaration must occur once
+`dev/cli_delta.py` now pins five lexer declarations, including the earlier
+keyword dispatch optimization and the contract span conversion. Every pinned declaration must occur once
 and match its exact digest before its predecessor body is restored for
 historical bundle comparisons. Reports identify the complete pin manifest.
 Tests reject modified, missing and duplicate pins, and ensure that a change
 to another reachable declaration remains visible. The five older
 compatibility checks pass with this normalization.
 
+## Contract token strings, 2026-09-30
+
+Starting at `42ef4be`, `Contract.span` passes its reversed character list
+directly to `NativeString.of_list` in both the end-of-input and separator
+branches. The scanner retains its character stream, token values, positions
+and refusal rules.
+
+The default lexer test now checks both lexers. `--contract` selects the
+contract comparison alone. Its 303 inputs include 15 boundary cases,
+256 seeded strings and all 32 surface examples. Five independent goldens
+cover identifiers, newlines and comments. The 8,192-token boundary is
+checked explicitly. Two compiled mutants empty the token string in each
+return branch; they produce named wrong answers in cases 1 and 2, and
+the restored control matches the predecessor afterward.
+
+The contract span is the fifth exact declaration pin. Modified, missing
+and duplicate declarations are rejected. A change to `Contract.word_char`
+remains visible in historical bundle comparisons. Gate commands, markers,
+deadlines and failure classes retain their existing schedules.
+
 ## Performance and validation
 
-The local lexer comparison alternates execution order over five rounds.
-Its median after/before ratio is 1.014, with considerable variation.
-It does not establish a speed improvement.
+Both local lexer comparisons alternate execution order over five rounds.
+The recorded median after/before ratios are 1.114991 for the
+core lexer and 0.903353 for the contract lexer.
 
-A fresh five-round paired measurement of the six matched compiler cases
-is frozen in `dev/bend2-baseline.json` and sealed by `dev/BEND2.sha256`.
-Its 22.872-second window gives a ratio of 1.490829052 against the unchanged
-1.0 limit. BEND2-RATIO still fails; BEND2-RATIO-TEST passes. The previous
-dated measurement was 1.720825537. These separate measurements do not
-isolate this change's performance effect.
+The initial compiler measurement is archived in
+`dev/validation/2026-09-30-lexer-direct/paired-measurement.json`; it reported
+a ratio of 1.490829052 in a 22.872-second window.
+The fresh six-case, five-round measurement is frozen in
+`dev/bend2-baseline.json` and sealed by `dev/BEND2.sha256`. It reports
+0.962311539 against the unchanged 1.0 limit in a 40.041-second window.
+BEND2-RATIO and its refusal controls pass. These measurements describe
+their recorded host windows.
 
-The native build, standard tests, lexer checks, compatibility checks and
-trusted-source budget pass. The validation record is under
-[2026-09-30-lexer-direct](validation/2026-09-30-lexer-direct/README.md).
-The complete gate battery was not run. M2 source lowering and its milestone
+The native build, kernel suite, 24 commands across 18 adapters, both lexer
+checks, six compatibility checks and TRUSTED-LINES pass. The accounting
+seals retain the same denominator paths and fixtures. Evidence is under
+`dev/validation/2026-09-30-contract-span`.
+
+The complete gate battery was not run. M2 source lowering and milestone
 exit remain pending.

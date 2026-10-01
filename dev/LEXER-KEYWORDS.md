@@ -25,7 +25,8 @@ used this mode until [LEXER-DIRECT](LEXER-DIRECT.md) selected
 The five historical compatibility checks (event-decode, event, revert,
 call and return) accepted exactly one pinned delta: the
 `Lexer.ident_kind` declaration. [LEXER-DIRECT](LEXER-DIRECT.md) widens
-the pin to four lexer declarations. [cli_delta.py](cli_delta.py) pins the
+the pin to four lexer declarations, and the contract span conversion adds
+`Contract.span` as a fifth. [cli_delta.py](cli_delta.py) pins the
 SHA-256 of the new declaration text and puts back the BASE declaration
 before the compare. The rest of the CLI bundle must still be
 byte-identical to each BASE. This follows a user ruling of 2026-09-29.
@@ -52,5 +53,5 @@ It ran five rounds of six cases on 2026-09-29, in a 7.441-second window.
 The Assay/Bend 2 ratio was 1.720825537, above the unchanged 1.0 bound.
 The previous record, 1.137273126 in a 48.113-second window, is in
 [M2-EVENT-DECODE.md](M2-EVENT-DECODE.md). BEND2-RATIO failed before this
-slice and still fails. BEND2-RATIO-TEST passes with the new pins. The
+slice and after it. BEND2-RATIO-TEST passes with the new pins. The
 corpus measurement is unchanged.

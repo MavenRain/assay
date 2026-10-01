@@ -1,0 +1,1 @@
+BEND2-MEASURE file=/private/tmp/assay-20260930-continue/dev/validation/2026-09-30-contract-span/paired-measurement.json rounds=5 cases=6 window_seconds=40.041; freeze before gating

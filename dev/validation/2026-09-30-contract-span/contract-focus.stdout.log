@@ -1,0 +1,2 @@
+LEXER-DIRECT-COMPATIBILITY modes=56 checks=89 cli=identical OK
+CONTRACT-LEXER cases=303 golden=5 mutants=2 rounds=5 OK

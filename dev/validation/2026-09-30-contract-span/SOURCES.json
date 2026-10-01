@@ -1,0 +1,19 @@
+{
+  "base": "42ef4be4f81a92acdf8bdb072c4b6c11af237672",
+  "sources": {
+    "Makefile": "5dea4cdf2ad46c54c5ef557f64dfa83189513a867a06efb0a5d1dd824b486940",
+    "dev/ASSAY-M2-BUILD-LOG.md": "505c6b61c3546ae329f975133ad3f805c33acd4db36cc94de85785977e418068",
+    "dev/BEND2.sha256": "a6bbaca93eb36f0236a4c3abc9b41d829382d9227cefadf260711ba8ac0b6610",
+    "dev/DENOMINATORS.sha256": "edbb3518ddb3f3291520e46e619a45b1373fb17b49f2f0bfbc71718779a8ca75",
+    "dev/LEXER-DIRECT.md": "acadac8c5017ca52c9911bebf16c9dbbc8a0d76fc16244002972f4ddfdcbaf64",
+    "dev/bend2-baseline.json": "6ea0fdc3181e560c5101e6c11125c05bbcc9a60c63c5fe100c10c7652dbcd675",
+    "dev/build.py": "66ea21dced23ce0844225e652758a4ff7ad01abfa890861e683addc97d528d46",
+    "dev/cli_delta.py": "aadaf35e5a4ad76042a61c83a1a4b7734998c8d6d9297cff1cb4b9db08d8f9f0",
+    "dev/denominators.json": "a49345952c59ac973593246bc1d5730efe163c415b06f7a99e7d476ec85ab270",
+    "dev/lexer-direct-test.py": "979e538a3b9b9f98b540a4f267f9018f3b9171bd8fce39c52623a5e53c777a4c",
+    "src/emitter.bend": "1ba3a382fd263f3df025cd858764f933baac11ea7e9e714eb79d804984561beb",
+    "src/frontend.bend": "8409f38ccc746e117df8c94527ccb6cc07f9379ef4e266cb5718d4b481b1a905",
+    "src/kernel.bend": "12657d56799719ee73fd354eae52335847cd20fd5d31aa791434a9e34bac717e",
+    "src/os.js": "d58a97bdf93d5929d49ad395326035a1e30b545731af46b9c9f3c7b72874d753"
+  }
+}

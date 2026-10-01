@@ -71,9 +71,9 @@ slice does not close M2.
 This slice changed three pinned compiler sources: `Makefile`,
 `dev/build.py` and `src/abi.bend`. The paired Bend 2 report records the
 hashes of these sources, so BEND2-RATIO-TEST refused the mapping report.
-A fresh paired measurement is now frozen in `dev/bend2-baseline.json`.
+A fresh paired measurement was then frozen in `dev/bend2-baseline.json`.
 Its five rounds completed in a 10.756-second window. The Assay/Bend 2
-ratio is 1.150474099. It stays above the unchanged 1.0 bound, so
-BEND2-RATIO still fails. The corpus measurement was not rerun. Its gate
+ratio was 1.150474099. It stayed above the unchanged 1.0 bound, so
+BEND2-RATIO still failed. The corpus measurement was not rerun. Its gate
 passes, so the mapping corpus freeze is unchanged. Differences between
 timing runs do not establish an event-specific performance effect.

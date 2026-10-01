@@ -1,0 +1,277 @@
+{
+  "base": "42ef4be4f81a92acdf8bdb072c4b6c11af237672",
+  "checks": [
+    {
+      "label": "build",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "streams": {
+        "stdout": {
+          "path": "dev/validation/2026-09-30-contract-span/build.stdout.log",
+          "sha256": "51471ecdd6d4c5078d07b311013d09a239f08c4a0942d8062650cf91a5f44f32",
+          "bytes": 63
+        },
+        "stderr": {
+          "path": null,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        }
+      }
+    },
+    {
+      "label": "runtime",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "streams": {
+        "stdout": {
+          "path": "dev/validation/2026-09-30-contract-span/runtime.stdout.log",
+          "sha256": "69d221303d138a3456f25db42a1fe849931d7fb318cd00d71e17236dfbe7e70c",
+          "bytes": 11358
+        },
+        "stderr": {
+          "path": null,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        }
+      }
+    },
+    {
+      "label": "trusted-lines",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "streams": {
+        "stdout": {
+          "path": "dev/validation/2026-09-30-contract-span/trusted-lines.stdout.log",
+          "sha256": "2101d90858abf8dcbd23017d5ef4609565ed96b74685851078c7718f086ce9f8",
+          "bytes": 269
+        },
+        "stderr": {
+          "path": null,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        }
+      }
+    },
+    {
+      "label": "contract-focus",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "streams": {
+        "stdout": {
+          "path": "dev/validation/2026-09-30-contract-span/contract-focus.stdout.log",
+          "sha256": "eabdd50d4d7809ba6648f756ee762e17c7e1b606b92496d0d13e5db7db001e4f",
+          "bytes": 119
+        },
+        "stderr": {
+          "path": null,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        }
+      }
+    },
+    {
+      "label": "events-compatibility",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "streams": {
+        "stdout": {
+          "path": "dev/validation/2026-09-30-contract-span/events-compatibility.stdout.log",
+          "sha256": "50eea0bae05130f982047bf3ee00432dcb2e916b4cfe8f6ee24518f97d789788",
+          "bytes": 56
+        },
+        "stderr": {
+          "path": null,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        }
+      }
+    },
+    {
+      "label": "calls-compatibility",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "streams": {
+        "stdout": {
+          "path": "dev/validation/2026-09-30-contract-span/calls-compatibility.stdout.log",
+          "sha256": "f0efccb73f8872633f8f429c4a06c87cb16a7f4aee0bffbffca4298887e28a40",
+          "bytes": 55
+        },
+        "stderr": {
+          "path": null,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        }
+      }
+    },
+    {
+      "label": "returns-compatibility",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "streams": {
+        "stdout": {
+          "path": "dev/validation/2026-09-30-contract-span/returns-compatibility.stdout.log",
+          "sha256": "b80d89e2a526ceb95b109f160d0a6743968655ece40694585d40dee0113e5cd5",
+          "bytes": 57
+        },
+        "stderr": {
+          "path": null,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        }
+      }
+    },
+    {
+      "label": "reverts-compatibility",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "streams": {
+        "stdout": {
+          "path": "dev/validation/2026-09-30-contract-span/reverts-compatibility.stdout.log",
+          "sha256": "aa1fb9605765f636f84675ec0d81a8313fe0df46f373d468ca5b13553a9548f4",
+          "bytes": 57
+        },
+        "stderr": {
+          "path": null,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        }
+      }
+    },
+    {
+      "label": "event-decode-compatibility",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "streams": {
+        "stdout": {
+          "path": "dev/validation/2026-09-30-contract-span/event-decode-compatibility.stdout.log",
+          "sha256": "b873390bee00230f025840b16d5fa614f1d6071812b8461309320d99a4cf431b",
+          "bytes": 63
+        },
+        "stderr": {
+          "path": null,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        }
+      }
+    },
+    {
+      "label": "lexer-default",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "streams": {
+        "stdout": {
+          "path": "dev/validation/2026-09-30-contract-span/lexer-default.stdout.log",
+          "sha256": "1df867b92a16cd8f7da2003d96f2ca4bf1557ec2279d3384b738c21e861c0519",
+          "bytes": 173
+        },
+        "stderr": {
+          "path": null,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        }
+      }
+    },
+    {
+      "label": "performance-measure",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "streams": {
+        "stdout": {
+          "path": "dev/validation/2026-09-30-contract-span/performance-measure.stdout.log",
+          "sha256": "eba0dc3b462a6f368246b2cdb553a2172a9a8393493852743a2a2a76d7549efb",
+          "bytes": 181
+        },
+        "stderr": {
+          "path": null,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        }
+      }
+    },
+    {
+      "label": "binding-ratio",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "streams": {
+        "stdout": {
+          "path": "dev/validation/2026-09-30-contract-span/binding-ratio.stdout.log",
+          "sha256": "32a5fdda011191ef161870ca34a86dbf35046977e6716907f7d74c32594c0aed",
+          "bytes": 166
+        },
+        "stderr": {
+          "path": null,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        }
+      }
+    },
+    {
+      "label": "ratio-controls",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "streams": {
+        "stdout": {
+          "path": "dev/validation/2026-09-30-contract-span/ratio-controls.stdout.log",
+          "sha256": "8671302402e62d5a934cdc31cfc5df8e2b200e1b55982d3b0cbce74deb13acab",
+          "bytes": 52
+        },
+        "stderr": {
+          "path": null,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        }
+      }
+    },
+    {
+      "label": "denominators",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "streams": {
+        "stdout": {
+          "path": "dev/validation/2026-09-30-contract-span/denominators.stdout.log",
+          "sha256": "00ed2291816184d2a7c91c603ee9e6b2447eed89e15045e399414ca2df876248",
+          "bytes": 3939
+        },
+        "stderr": {
+          "path": null,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        }
+      }
+    },
+    {
+      "label": "m0-ratio",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "streams": {
+        "stdout": {
+          "path": "dev/validation/2026-09-30-contract-span/m0-ratio.stdout.log",
+          "sha256": "16e5dff4467d33181921c6f99a40b72b5ab315a894b062fe57167915a01b5fe6",
+          "bytes": 287
+        },
+        "stderr": {
+          "path": null,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        }
+      }
+    },
+    {
+      "label": "keyword-classifier",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "streams": {
+        "stdout": {
+          "path": "dev/validation/2026-09-30-contract-span/keyword-classifier.stdout.log",
+          "sha256": "3449997970d01589a7b7878eb463de46357c03d923223673146e57122d5fd03c",
+          "bytes": 40
+        },
+        "stderr": {
+          "path": null,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        }
+      }
+    }
+  ]
+}

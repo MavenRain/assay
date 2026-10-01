@@ -1,12 +1,17 @@
 # M1 Bend 2 compilation comparison
 
 The 2026-09-22 compilation-speed requirement is an Assay/Bend 2 ratio at
-most 1.0. The current native Bend comparison is 1.490829052 and does not
-pass. See [LEXER-DIRECT.md](LEXER-DIRECT.md) for the current source and record.
-Its five measured rounds of six cases completed in a 22.872-second window
-on 2026-09-30. `dev/bend2-baseline.json` holds the report, and
-`dev/BEND2.sha256` seals it.
-The previous comparison, 1.137273126, is in [M2-EVENT-DECODE.md](M2-EVENT-DECODE.md).
+most 1.0. The current native Bend comparison is 0.962311539 and passes.
+See [LEXER-DIRECT.md](LEXER-DIRECT.md) for the current source and record.
+Its five measured rounds of six cases completed in a 40.041-second window
+that started at 2026-10-01 01:16 UTC. `dev/bend2-baseline.json` holds the
+report, and `dev/BEND2.sha256` seals it. The pass describes this recorded
+host window. The earlier comparisons below did not pass.
+The previous comparison, 1.490829052, is retained in
+`dev/validation/2026-09-30-lexer-direct/paired-measurement.json`.
+Its five measured rounds completed in a 22.872-second window.
+Before that, 1.720825537 is in [LEXER-KEYWORDS.md](LEXER-KEYWORDS.md).
+Before that, 1.137273126 is in [M2-EVENT-DECODE.md](M2-EVENT-DECODE.md).
 Its five measured rounds completed in a 48.113-second window.
 Before that, 1.657532429 is in [M2-REVERTDATA.md](M2-REVERTDATA.md).
 Its five measured rounds completed in a 13.432-second window.

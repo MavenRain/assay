@@ -1065,7 +1065,7 @@ def Contract.word_char(+c_499: Char) -> Bool:
 @unsafe
 def Contract.span(+predicate_501: Reusable(Char, Bool), +acc_502: ListOf(Char), +seq_503: (Unit -> Series<&2, Char>)) -> Tuple2<&2, &1, String, (Unit -> Series<&2, Char>)>:
   (+scrut10281 = {seq_503(Unit{}) : Series<&2, Char>}
-  Match.Series(&2, Char, &1, Tuple2<&2, &1, String, (Unit -> Series<&2, Char>)>, scrut10281, _ => (Tup2{NativeString.of_list(Series.to_list(&2, Char, Series.of_list(&2, Char, List.reverse(&2, Char, acc_502)))), seq_503}), +p10282 => +p10283 => (Native.choose(&1, Tuple2<&2, &1, String, (Unit -> Series<&2, Char>)>, predicate_501(p10282), _ => (Contract.span(predicate_501, Con{p10282, acc_502}, p10283)), _ => (Tup2{NativeString.of_list(Series.to_list(&2, Char, Series.of_list(&2, Char, List.reverse(&2, Char, acc_502)))), seq_503})))))
+  Match.Series(&2, Char, &1, Tuple2<&2, &1, String, (Unit -> Series<&2, Char>)>, scrut10281, _ => (Tup2{NativeString.of_list(List.reverse(&2, Char, acc_502)), seq_503}), +p10282 => +p10283 => (Native.choose(&1, Tuple2<&2, &1, String, (Unit -> Series<&2, Char>)>, predicate_501(p10282), _ => (Contract.span(predicate_501, Con{p10282, acc_502}, p10283)), _ => (Tup2{NativeString.of_list(List.reverse(&2, Char, acc_502)), seq_503})))))
 @unsafe
 def Contract.comment(+col_764: Big, +seq_765: (Unit -> Series<&2, Char>)) -> Tuple2<&2, &1, Big, (Unit -> Series<&2, Char>)>:
   (+scrut10284 = {seq_765(Unit{}) : Series<&2, Char>}
