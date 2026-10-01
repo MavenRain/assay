@@ -1,0 +1,114 @@
+{
+  "base": "c3cf038affecdea317b3e742dc2496f4699df2a6",
+  "slice": "M2 packed source model",
+  "full_milestone_battery": "not run",
+  "kernel_changed": false,
+  "speed_owner": "M4",
+  "ratio_limit": 1.0,
+  "source_sha256": {
+    "Makefile": "5dc522990f0967eb189c33280231c7998cb48292533016369181ef3d8c251292",
+    "README.md": "90adc1ef9f8d8969534211634de2fd15530c9eebbbaa0ed689c7d74733a19840",
+    "dev/M2-PACKED-MODEL.md": "2e4fd58a9741e69e21d529061165d141a7faaf33a8626d7b4ed4410309d1fd1e",
+    "dev/M2-SOURCE-PACKING.md": "9f88e4f2914d4884c708fc4a241f971e114525369132ed5ddefebc9a74aa09ff",
+    "dev/bend_source.py": "4b2661b5bc0a9abe0321f019501582280914d9fdd0f409e24d457b1772bf8030",
+    "dev/build.py": "66ea21dced23ce0844225e652758a4ff7ad01abfa890861e683addc97d528d46",
+    "dev/cli-error-direct-test.py": "bedb087fac026b1ed976b400e47f47330c87c530eb65a1efebcadb23e4edfa21",
+    "dev/cli_delta.py": "c7c4e8494047cc70fd9b001aa872d9a5a575706841da7b7ad894bc6d635c60c6",
+    "dev/context-test.py": "bbf0fcc7ef323722795bfa1d8913a959b38822e34d6ae812e12882745e601b2e",
+    "dev/milestone-speed-test.py": "f3c2c21f7231d40fc7e10453b97c9134a8a0415c7b1fe3bce654d5061150611f",
+    "dev/native_mutations.py": "473c6aa8763d9088e66968f259d153bc40a77d06b9b0440fdc38acfbef518764",
+    "dev/packed-source-test.py": "1148594e66531532c3b30ba9036eaba6d1c50bc83954122a0b7e2e241d9fb4ed",
+    "dev/stage-a-gates.py": "9e335fe067bd9b7573826cd142a9927db787e6d5d5ad5120619b8dffc1ef6738",
+    "dev/toolchain.json": "8147934637be14ae612adfb1096075e837fdb7f5d41e917915ad5099df633157",
+    "dev/trusted-lines.py": "627f8f81acbd8a744a5dd4a07503ecbd2d863a55a35dc4742eaff0c8522ba970",
+    "evm/diff.py": "5f4be0a2438880faa153958e365cda9b1d6718774c58e9ed4fa74a45c292e3dd",
+    "evm/fixtures/cancun.json": "e5abe35480f009fca07f79f15d3dc8c32fba412d93ec81fb5f793775f8e42e5f",
+    "examples/PackedStorage.asy": "45401956ba5e335c9c65bf17ffa6c68da3a8a212a002d5ab2a841ab234f6eea6",
+    "src/abi.bend": "393d3f535cc3cff42605c702ef66d576cd803b4dc9745c8e69c7489527fac969",
+    "src/assembler.bend": "99dd49f4b48478ba8c587342c9d2e0ce4e74e28c904a650440f1f6f783c817b1",
+    "src/cli.bend": "1900943bdbee7b9b78ea9be7b280f5419269c1cddfe624c0899bdb4cc0c96709",
+    "src/emitter.bend": "945a260e7b605251c193b447f0ed2ce73e0213883e05bd2be3b7c986679859b7",
+    "src/frontend.bend": "a1bbd1d32b4e729938df9ba9b07bed6df8adc0dcf4b575a7b473eab0ae9df02b",
+    "src/keccak.bend": "cbfb3275116d3703a803181ceeafe8dc3e74d53f21cb9a539f29c28c5bc8e98a",
+    "src/kernel.bend": "12657d56799719ee73fd354eae52335847cd20fd5d31aa791434a9e34bac717e",
+    "src/layout.bend": "e3081d285ac1a4bfcad28347db772442d4d86a0c430596737ce27f48d0dd2017",
+    "src/listing.bend": "697b9869205fc92f12b6a50fd4e82c6875440e677f01a06eecf83cb2982934ab",
+    "src/os.js": "d58a97bdf93d5929d49ad395326035a1e30b545731af46b9c9f3c7b72874d753",
+    "src/test-os.js": "cea57ed301de92861eb27f641564777d2156c7c371ab5eff1e00fd6cddbccb14",
+    "src/tests.bend": "1160ce4e8451a38884c78cb1f80ad8ca6b29126db734acfe778879cec32871ee"
+  },
+  "fixture_sha256": {
+    "arithmetic.asy": "abc407127f23f749e303483dba28f20ea511b51d1756b6a29fb01083e4a9c5bd",
+    "bad-constructor-30.asy": "102b220de33a02a3107164a3079cf378c190708c673b4a4fc21db1f75650c350",
+    "bad-constructor-31.asy": "1843f3f9f7b0517f4a0347da8164276541276ca32f0f25e300fa3c22b489f56a",
+    "contexts.asy": "dc8a64fc7c885bec4e74ad648908a78ce84b89af11f74f01c7bd38821da7af01",
+    "dispatch.asy": "50819e0f256ee356734014c13ed560b0babe2dac4de05732e879920fc44206d9",
+    "errors.asy": "02af163bd0b691813d61210a18dd30d8b69a56e3641d659f72976fba4fdd9b9c",
+    "invalid-0.asy": "dab6b4e660154d884a391b8dc42a4524caab555a88a7355c8afe3e64c2d8ce9e",
+    "invalid-1.asy": "3aff7a815f6531240f45bdfbc21cd90f404a8234584175bd22d68ccbb12f2fd1",
+    "reordered.asy": "7027e711da90cc3fb11ab17c0752259a47c22c162b34c297867f74a861ad2fc2",
+    "source.asy": "45401956ba5e335c9c65bf17ffa6c68da3a8a212a002d5ab2a841ab234f6eea6",
+    "spill.asy": "7d61c2a07b0aef22c52a54d27346f5f797d245e62e6e4f5af46e0205abd537d5",
+    "uint256-control.asy": "9e441c08f9ef969d53d8e97d6f81eba1c9d039a86d6a41138260b702ec98f2f1",
+    "word-control.asy": "a588a45cdb0dac2cbe1ccac47d0e3a70954473cffd7cdef35808c7cbd5536baf"
+  },
+  "checks": {
+    "native_suite": {
+      "status": "passed",
+      "adapters": 18,
+      "commands": 24,
+      "log": "native.stdout"
+    },
+    "packed_source": {
+      "status": "passed",
+      "cases": 66,
+      "modeled_transactions": 63,
+      "mutants": 6,
+      "elapsed_seconds": 507,
+      "deadline_seconds": 600,
+      "required_marker": "PACKED-SOURCE cases=66 model=packed executors=run+t8n mutants=6 OK",
+      "log": "packed.stdout",
+      "cases_file": "CASES.json",
+      "mutation_file": "MUTANTS.json"
+    },
+    "cli_compatibility": {
+      "status": "passed",
+      "golden_cases": 519,
+      "mutants": 5,
+      "log": "cli.stdout"
+    },
+    "milestone_ownership": {
+      "status": "passed",
+      "schedules": 57,
+      "runner_controls": 9
+    },
+    "budgets": {
+      "status": "passed",
+      "emitter": 1792,
+      "assembler": 414,
+      "layout": 238,
+      "artifacts": 3184,
+      "artifact_limit": 3550
+    },
+    "diff_check": {
+      "status": "passed"
+    }
+  },
+  "pending": [
+    "mapping source integration",
+    "event source integration",
+    "dynamic ABI source integration",
+    "M2 negative Lean proof obligations",
+    "M4 speed and deployment gates"
+  ],
+  "review_changes": [
+    "F0: dev/native-carry.json repins src/cli.bend and src/frontend.bend; dev/DENOMINATORS.sha256 repins only its FAILED rows.",
+    "F1: calldata-context loads offset 5 of argument 5 and expects 5 << 8; new case calldata-selector loads offset 0 and expects the selector shifted left by 224.",
+    "F2: new cases add-after-write-overflow (bumpAfterWrite writes, then overflows, then reverts to the prestate), dirty-neighbor-read-Count, dirty-neighbor-read-Owner and dirty-neighbor-write.",
+    "F3: M2-PACKED-MODEL.md names the real controls: field clearing and unrelated slot retention (a 7-mutant run exceeded the 480 s budget, so no mutant was added).",
+    "F4: M2-SOURCE-PACKING.md keeps its dated 38 live cases and three mutants and links the packed source model record for the current 66 cases and 6 mutants.",
+    "F5: README.md says the packed model tests compare its results with Cancun execution.",
+    "F6: rewrapped the edited lines of M2-SOURCE-PACKING.md and M2-PACKED-MODEL.md.",
+    "post-fix marker: PACKED-SOURCE cases=66 model=packed executors=run+t8n mutants=6 OK (review-packed-source.log, 507 s)"
+  ]
+}

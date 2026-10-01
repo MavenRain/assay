@@ -2261,3 +2261,149 @@ def Case.Packed.switch_48(+packed_switch_48: ListOf(Contract.Token), +acc: ListO
     case Nil{}: Tup3{List.reverse(&2, Contract.Token, acc), List.reverse(&2, Abi.Schema.Parameter, parameters), enabled}
     case Con{token, rest}:
       Case.Packed.switch_47(token, acc, enabled, parameters, previous, rest, token, tokens)
+
+@unsafe
+def Model.Packed.field(+fields: Emit.Packed.Fields(), +index: Big) -> Model.Result(Layout.Packed.Field):
+  match fields:
+    case Nil{}: Fail{Model.Error.Source{Emit.Error.Unknown_slot{}}}
+    case Con{field, rest}:
+      Big.when(Model.Result(Layout.Packed.Field), Big.is_eq(index, Big.zero()), _ => Done{field}, _ => Model.Packed.field(rest, Big.sub(index, Big.one())))
+@unsafe
+def Model.Packed.read(+fields: Emit.Packed.Fields(), +storage: Model.Storage, +index: Big) -> Model.Result(OptionOf(Big)):
+  Model.Result.bind(Layout.Packed.Field, OptionOf(Big), Model.Packed.field(fields, index), +field =>
+    Model.Packed.read_field(field, storage))
+def Model.Packed.read_field(+field: Layout.Packed.Field, storage: Model.Storage) -> Model.Result(OptionOf(Big)):
+  match field:
+    case Layout.Packed.Field{name, typ, slot, offset}:
+      Model.Packed.read_result(Layout.Packed.read(Layout.Packed.Field{name, typ, slot, offset}, Model.get(storage, slot)))
+def Model.Packed.read_result(result: Layout.Packed.Result(Big)) -> Model.Result(OptionOf(Big)):
+  match result:
+    case Done{value}: Done{Some{value}}
+    case Fail{_}: Done{None{}}
+@unsafe
+def Model.Packed.write(+fields: Emit.Packed.Fields(), +storage: Model.Storage, +index: Big, +value: Big) -> Model.Result(OptionOf(Model.Storage)):
+  Model.Result.bind(Layout.Packed.Field, OptionOf(Model.Storage), Model.Packed.field(fields, index), +field =>
+    Model.Packed.write_field(field, storage, value))
+def Model.Packed.write_field(+field: Layout.Packed.Field, +storage: Model.Storage, value: Big) -> Model.Result(OptionOf(Model.Storage)):
+  match field:
+    case Layout.Packed.Field{name, typ, slot, offset}:
+      Model.Packed.write_result(Layout.Packed.write(Layout.Packed.Field{name, typ, slot, offset}, Model.get(storage, slot), value), storage, slot)
+def Model.Packed.write_result(result: Layout.Packed.Result(Big), storage: Model.Storage, slot: Big) -> Model.Result(OptionOf(Model.Storage)):
+  match result:
+    case Done{word}: Done{Some{Model.put(storage, slot, word)}}
+    case Fail{_}: Done{None{}}
+@unsafe
+def Model.Packed.after_write(+fields: Emit.Packed.Fields(), +input: Model.Input, memory: Model.Storage, next: Emit.Transaction, written: OptionOf(Model.Storage)) -> Model.Result(Model.Outcome):
+  match written:
+    case None{}: Done{Model.revert(Get.Model.Input.initial(input))}
+    case Some{updated}: Model.Packed.transaction(fields, input, updated, memory, next)
+@unsafe
+def Model.Packed.after_read(+fields: Emit.Packed.Fields(), +input: Model.Input, storage: Model.Storage, memory: Model.Storage, target: Big, next: Emit.Transaction, loaded: OptionOf(Big)) -> Model.Result(Model.Outcome):
+  match loaded:
+    case None{}: Done{Model.revert(Get.Model.Input.initial(input))}
+    case Some{value}: Model.Packed.transaction(fields, input, storage, Tup2{target, value} <> memory, next)
+@unsafe
+def Model.Packed.context(+input: Model.Input, +memory: Model.Storage, context: Recognize.Context<&2, Emit.Operand>) -> Model.Result(Big):
+  match context:
+    case Recognize.Context.Caller{}: Done{Get.Model.Input.caller(input)}
+    case Recognize.Context.Callvalue{}: Done{Get.Model.Input.value(input)}
+    case Recognize.Context.Calldatasize{}: Done{Big.identity(NativeString.half_length(Get.Model.Input.data(input)))}
+    case Recognize.Context.Calldataload{offset}:
+      Model.Result.bind(Big, Big, Model.operand(memory, offset), +value => Done{Model.calldata_word(Get.Model.Input.data(input), value)})
+    case Recognize.Context.Address{}: Done{Get.Model.Input.address(input)}
+def Model.Packed.arithmetic(operation: Emit.Arithmetic, left: Big, right: Big) -> Big:
+  match operation:
+    case Emit.Arithmetic.Add{}: Big.add(left, right)
+    case Emit.Arithmetic.Sub{}: Big.sub(left, right)
+@unsafe
+def Model.Packed.transaction(+fields: Emit.Packed.Fields(), +input: Model.Input, +storage: Model.Storage, +memory: Model.Storage, +tx: Emit.Transaction) -> Model.Result(Model.Outcome):
+  match tx:
+    case Emit.Transaction.Finish{_}: Model.transaction(input, storage, memory, tx)
+    case Emit.Transaction.Abort{}: Model.transaction(input, storage, memory, tx)
+    case Emit.Transaction.Reject{_, _}: Model.transaction(input, storage, memory, tx)
+    case Emit.Transaction.Store{slot, operand, next}:
+      Model.Result.bind(Big, Model.Outcome, Model.operand(memory, operand), +value =>
+        Model.Result.bind(OptionOf(Model.Storage), Model.Outcome, Model.Packed.write(fields, storage, slot, value), +written =>
+          Model.Packed.after_write(fields, input, memory, next, written)))
+    case Emit.Transaction.Load{slot, target, next}:
+      Model.Result.bind(OptionOf(Big), Model.Outcome, Model.Packed.read(fields, storage, slot), +loaded =>
+        Model.Packed.after_read(fields, input, storage, memory, target, next, loaded))
+    case Emit.Transaction.Context{context, target, next}:
+      Model.Result.bind(Big, Model.Outcome, Model.Packed.context(input, memory, context), +value =>
+        Model.Packed.transaction(fields, input, storage, Tup2{target, value} <> memory, next))
+    case Emit.Transaction.Arithmetic{operation, left, right, target, success, failure}:
+      Model.Result.bind(Big, Model.Outcome, Model.operand(memory, left), +a =>
+        Model.Result.bind(Big, Model.Outcome, Model.operand(memory, right), +b =>
+          +value = Model.Packed.arithmetic(operation, a, b)
+          Big.when(Model.Result(Model.Outcome), Abi.Codec.within(Big.of_nat(256n), value),
+            _ => Model.Packed.transaction(fields, input, storage, Tup2{target, value} <> memory, success),
+            _ => Model.Packed.transaction(fields, input, storage, memory, failure))))
+    case Emit.Transaction.Compute{operation, left, right, target, next}:
+      Model.Result.bind(Big, Model.Outcome, Model.operand(memory, left), +a =>
+        Model.Result.bind(Big, Model.Outcome, Model.operand(memory, right), +b =>
+          +value = Model.Packed.arithmetic(operation, a, b)
+          Big.when(Model.Result(Model.Outcome), Abi.Codec.within(Big.of_nat(256n), value),
+            _ => Model.Packed.transaction(fields, input, storage, Tup2{target, value} <> memory, next),
+            _ => Fail{Model.Error.Source{Emit.Error.M1_shape{"proved arithmetic bound"}}})))
+    case Emit.Transaction.Compare{left, right, yes, no}:
+      Model.Result.bind(Big, Model.Outcome, Model.operand(memory, left), +a =>
+        Model.Result.bind(Big, Model.Outcome, Model.operand(memory, right), +b =>
+          Big.when(Model.Result(Model.Outcome), Big.is_le(a, b),
+            _ => Model.Packed.transaction(fields, input, storage, memory, yes),
+            _ => Model.Packed.transaction(fields, input, storage, memory, no))))
+@unsafe
+def Model.Packed.closed(+fields: Emit.Packed.Fields(), +input: Model.Input, +storage: Model.Storage, effect: Emit.Effect) -> Model.Result(Model.Outcome):
+  match effect:
+    case Emit.Effect.Return{value}: Done{Model.success(storage, value)}
+    case Emit.Effect.Read{slot}:
+      Model.Result.bind(OptionOf(Big), Model.Outcome, Model.Packed.read(fields, storage, slot), +loaded =>
+        Model.Packed.finish_read(input, storage, loaded))
+    case Emit.Effect.Put{slot, value, next}: Model.Packed.put_closed(fields, input, storage, slot, value, next)
+    case Emit.Effect.Deployer{slot, next}: Model.Packed.put_closed(fields, input, storage, slot, Get.Model.Input.caller(input), next)
+@unsafe
+def Model.Packed.put_closed(+fields: Emit.Packed.Fields(), +input: Model.Input, +storage: Model.Storage, slot: Big, value: Big, +next: Emit.Effect) -> Model.Result(Model.Outcome):
+  Model.Result.bind(OptionOf(Model.Storage), Model.Outcome, Model.Packed.write(fields, storage, slot, value), +written =>
+    Model.Packed.after_put(fields, input, next, written))
+def Model.Packed.finish_read(input: Model.Input, storage: Model.Storage, loaded: OptionOf(Big)) -> Model.Result(Model.Outcome):
+  match loaded:
+    case None{}: Done{Model.revert(Get.Model.Input.initial(input))}
+    case Some{value}: Done{Model.success(storage, value)}
+@unsafe
+def Model.Packed.after_put(fields: Emit.Packed.Fields(), +input: Model.Input, next: Emit.Effect, written: OptionOf(Model.Storage)) -> Model.Result(Model.Outcome):
+  match written:
+    case None{}: Done{Model.revert(Get.Model.Input.initial(input))}
+    case Some{updated}: Model.Packed.closed(fields, input, updated, next)
+@unsafe
+def Model.Packed.entry(+fields: Emit.Packed.Fields(), +input: Model.Input, +entry: Emit.Entry) -> Model.Result(Model.Outcome):
+  +arity = Big.of_nat(List.length(&2, String, Get.Abi.Entry.inputs(Get.Emit.Entry.abi_entry(entry))))
+  +short = Big.is_lt(Big.of_nat(String.length(Get.Model.Input.data(input))), Big.add(Big.of_nat(8n), Big.mul(Big.of_nat(64n), arity)))
+  +unpaid = Bool.and(Bool.not(Big.is_eq(Get.Model.Input.value(input), Big.zero())), Bool.not(Abi.accepts_value(Get.Emit.Entry.abi_entry(entry))))
+  Big.when(Model.Result(Model.Outcome), Bool.or(short, unpaid), _ => Done{Model.revert(Get.Model.Input.initial(input))}, _ =>
+    +memory = SeqList.init(&2, TupleOf2(Big, Big), arity, +index => Tup2{Big.add(index, Big.one()), Model.calldata_word(Get.Model.Input.data(input), Big.add(Big.of_nat(4n), Big.mul(Big.of_nat(32n), index)))})
+    Model.Packed.transaction(fields, input, Get.Model.Input.initial(input), memory, Get.Emit.Entry.tx(entry)))
+@unsafe
+def Model.Packed.fallback(+fields: Emit.Packed.Fields(), +input: Model.Input, fallback: Emit.Transaction) -> Model.Result(Model.Outcome):
+  Big.when(Model.Result(Model.Outcome), Big.is_eq(Get.Model.Input.value(input), Big.zero()),
+    _ => Model.Packed.transaction(fields, input, Get.Model.Input.initial(input), [], fallback),
+    _ => Done{Model.revert(Get.Model.Input.initial(input))})
+@unsafe
+def Model.Packed.run(+fields: Emit.Packed.Fields(), +program: Model.Program, +input: Model.Input) -> Model.Result(Model.Outcome):
+  match program:
+    case Model.Program.Closed{effect}: Model.Packed.closed(fields, input, Get.Model.Input.initial(input), effect)
+    case Model.Program.Entries{entries, fallback}:
+      Big.when(Model.Result(Model.Outcome), Big.is_lt(Big.of_nat(String.length(Get.Model.Input.data(input))), Big.of_nat(8n)),
+        _ => Model.Packed.fallback(fields, input, fallback), _ =>
+          +selector = Model.segment(Big.zero(), Big.of_nat(8n), Get.Model.Input.data(input))
+          Model.Packed.dispatch(fields, input, fallback, SeqList.find(&2, Emit.Entry, +entry => NativeString.equal(Get.Emit.Entry.selector(entry), selector), entries)))
+@unsafe
+def Model.Packed.dispatch(fields: Emit.Packed.Fields(), +input: Model.Input, fallback: Emit.Transaction, entry: OptionOf(Emit.Entry)) -> Model.Result(Model.Outcome):
+  match entry:
+    case None{}: Model.Packed.fallback(fields, input, fallback)
+    case Some{row}: Model.Packed.entry(fields, input, row)
+@unsafe
+def Model.Packed.fields(parameters: Packed.Parameters()) -> Model.Result(Emit.Packed.Fields()):
+  Model.Packed.planned(Layout.Packed.plan(parameters))
+def Model.Packed.planned(result: Layout.Packed.Result(Emit.Packed.Fields())) -> Model.Result(Emit.Packed.Fields()):
+  match result:
+    case Done{fields}: Done{fields}
+    case Fail{_}: Fail{Model.Error.Source{Emit.Error.Invalid_ir{"PACKED_LAYOUT: invalid source fields"}}}

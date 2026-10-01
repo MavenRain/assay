@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
-"""Compile typed source and compare its EVM behavior with packed word goldens."""
+"""Compare typed source, its packed model and EVM behavior with word goldens."""
 import argparse
+from concurrent.futures import ThreadPoolExecutor
 import hashlib
 import importlib.util
 import json
 from pathlib import Path
+import re
 import shutil
 import subprocess
 import sys
@@ -34,7 +36,7 @@ def fixture():
     return (C.ROOT / 'examples/PackedStorage.asy').read_text()
 
 
-def live():
+def live(case_filter=None):
     shutil.rmtree(C.WORK, ignore_errors=True)
     C.WORK.mkdir(parents=True, exist_ok=True)
     require(shutil.which('evm') is not None, 'evm is required')
@@ -52,6 +54,7 @@ def live():
     require(layout == expected_layout, 'layout golden: ' + json.dumps(layout))
     cases = []
     signatures = {}
+    sources = {runtime: C.WORK / 'source.asy'}
 
     def selector(name, arity):
         if (name, arity) not in signatures:
@@ -59,18 +62,29 @@ def live():
             signatures[name, arity] = C.checked('sig-' + name, ['cast', 'sig', signature]).strip()[2:]
         return signatures[name, arity]
 
-    def check(name, method, args, before, after, value=None, *, code=runtime):
-        data = selector(method, len(args)) + ''.join(f'{arg:064x}' for arg in args)
+    def check(name, method, args, before, after, value=None, *, code=runtime,
+              calldata=None, sent=0, revert_output='0x'):
+        if case_filter is not None and name != case_filter:
+            return
+        data = calldata if calldata is not None else selector(method, len(args)) + ''.join(f'{arg:064x}' for arg in args)
         slots = {hex(k): hex(v) for k, v in before.items()}
-        actual, raw = C.D.execute(code, data, C.prestate(slots), shutil.which('evm'))
+        actual, raw = C.D.execute(code, data, C.prestate(slots), shutil.which('evm'), value=sent)
         C.save(name + '-executors', raw)
         expected = dict(status='success' if value is not None else 'revert',
-                        output='0x' + (f'{value:064x}' if value is not None else ''),
+                        output='0x' + f'{value:064x}' if value is not None else revert_output,
                         storage=storage(after))
         observed = dict(status=actual['status'], output=actual['output'],
                         storage=actual['storage'].get(C.D.RECEIVER, {}))
         require(observed == expected, name + ': ' + json.dumps(dict(expected=expected, actual=observed)))
-        cases.append(dict(name=name, expected=expected, actual=actual))
+        argv = [C.BINARY, 'run', sources[code], '--calldata', data,
+                '--caller', str(C.SENDER), '--address', str(int(C.D.RECEIVER, 16)), '--value', str(sent)]
+        for slot, word in before.items():
+            argv += ['--storage', f'{slot}={word}']
+        model = C.capture(name + '-model', argv)
+        require(model.returncode == 0, name + ': model failed: ' + model.stderr)
+        modeled = json.loads(model.stdout)
+        require(modeled == expected, name + ': ' + json.dumps(dict(expected=expected, model=modeled)))
+        cases.append(dict(name=name, expected=expected, actual=actual, model=modeled))
 
     # Unused high bytes are part of the independent preservation golden.
     packed = (0xA5 << 248) | (OWNER << 16) | (1 << 8) | 173
@@ -124,6 +138,7 @@ def live():
     ordered = fixture().replace('count : Uint8 ; enabled : Bool ; owner : Address',
                                 'owner : Address ; count : Uint8 ; enabled : Bool')
     _, out, reordered = C.emit('reordered', ordered)
+    sources[reordered] = C.WORK / 'reordered.asy'
     word = (0xA5 << 248) | OWNER | (173 << 160) | (1 << 168)
     for name, value in [('Count', 173), ('Enabled', 1), ('Owner', OWNER)]:
         check('reordered-read-' + name, 'read' + name, [], {0: word}, {0: word}, value, code=reordered)
@@ -134,17 +149,119 @@ def live():
     spill = fixture().replace('count : Uint8 ; enabled : Bool ; owner : Address',
                               'count : Uint8 ; enabled : Bool ; filler : Address ; owner : Address')
     _, out, spilled = C.emit('spill', spill)
+    sources[spilled] = C.WORK / 'spill.asy'
     check('spill-read', 'readOwner', [], {0: packed, 1: OWNER, 2: 17},
           {0: packed, 1: OWNER, 2: 17}, OWNER, code=spilled)
     check('spill-write', 'setOwner', [0], {0: packed, 1: OWNER, 2: 17},
           {0: packed, 1: 0, 2: 17}, 0, code=spilled)
 
+    # Exercise the source interpreter's remaining transaction branches with physical storage.
+    entries = '''
+  error Denied (code : Word)
+  entry addCount (delta : Word) : Eff Sig Word := do
+    old <- sload count ; value <- add old delta ; sstore count value ; pure value
+  entry bumpAfterWrite (delta : Word) : Eff Sig Word := do
+    sstore count (word 9) ; old <- sload count ; value <- add old delta ; sstore total value ; pure value
+  entry subCount (delta : Word) : Eff Sig Word := do
+    old <- sload count ; value <- sub old delta ; sstore count value ; pure value
+  entry proven (delta : Word) : Eff Sig Word := do
+    old <- sload count ; guard (lt256 (add old delta)) ;
+    let value := addLt old delta ; sstore count value ; pure value
+  entry guarded (cap : Word) : Eff Sig Word := do
+    sstore count (word 7) ; guard (leWord (word 7) cap) ; pure (word 7)
+  entry denyPacked () : Eff Sig Word := do sstore count (word 9) ; revert Denied (word 9)
+  entry dirtyAfterWrite () : Eff Sig Word := do
+    sstore count (word 9) ; value <- sload enabled ; pure value
+  entry repairThenRead () : Eff Sig Word := do
+    sstore enabled (word 1) ; value <- sload enabled ; pure value
+  entry skipDirty () : Eff Sig Word := do pure (word 42)
+  payable entry amount () : Eff Sig Word := do
+    value <- callvalue ; sstore count value ; size <- calldatasize ; pure size
+  entry loadArg (offset : Word) : Eff Sig Word := do value <- calldataload offset ; pure value
+  entry self () : Eff Sig Word := do value <- address ; sstore total value ; pure value
+  entry sender () : Eff Sig Word := do value <- caller ; sstore owner value ; pure value
+  fallback : Eff Sig Never := revert Denied (word 23)
+'''
+    chunks = {}
+    for chunk in re.split(r'(?m)(?=^  (?:error|entry|payable entry|fallback) )', entries):
+        words = chunk.split()
+        if words:
+            key = words[2] if words[0] == 'payable' else words[1] if words[0] in ('entry', 'error') else words[0]
+            chunks[key] = chunk
+
+    def behavior(name, methods, *, dispatch=False):
+        prefix = fixture().split('\n  entry readCount', 1)[0]
+        rows = [chunks['Denied']] + [chunks[method] for method in methods]
+        if dispatch:
+            rows += ['  entry readCount () : Eff Sig Word := do value <- sload count ; pure value\n',
+                     chunks['fallback']]
+        source = prefix + '\n' + ''.join(rows) + '\n  constructor := do pure ()\n'
+        path, _, code = C.emit(name, source)
+        sources[code] = path
+        return code
+
+    arithmetic_code = behavior('arithmetic', ['addCount', 'bumpAfterWrite', 'subCount', 'proven', 'guarded'])
+    low = dict(initial)
+    low[0] = (packed & (MAX ^ 255)) | 7
+    for name, method, arg, value in [('add', 'addCount', 1, 174), ('sub', 'subCount', 1, 172),
+                                      ('proved', 'proven', 1, 174)]:
+        after = dict(initial)
+        after[0] = (packed & (MAX ^ 255)) | value
+        check(name, method, [arg], initial, after, value, code=arithmetic_code)
+    for name, method, arg in [('add-word-overflow', 'addCount', MAX),
+                              ('add-field-overflow', 'addCount', 83),
+                              ('sub-underflow', 'subCount', 174),
+                              ('proved-overflow', 'proven', MAX)]:
+        check(name, method, [arg], initial, initial, code=arithmetic_code)
+    # A checked failure after a packed write must still restore the prestate.
+    check('add-after-write-overflow', 'bumpAfterWrite', [MAX], initial, initial, code=arithmetic_code)
+    check('guard-success', 'guarded', [7], initial, low, 7, code=arithmetic_code)
+    check('guard-rollback', 'guarded', [6], initial, initial, code=arithmetic_code)
+    error_code = behavior('errors', ['denyPacked', 'dirtyAfterWrite', 'repairThenRead', 'skipDirty'])
+    denied = '0x' + selector('Denied', 1)
+    check('custom-revert', 'denyPacked', [], initial, initial, code=error_code,
+          revert_output=denied + f'{9:064x}')
+    dirty = dict(initial)
+    dirty[0] = (packed & (MAX ^ (255 << 8))) | (255 << 8)
+    check('late-read-rollback', 'dirtyAfterWrite', [], dirty, dirty, code=error_code)
+    check('repair-then-read', 'repairThenRead', [], dirty, initial, 1, code=error_code)
+    check('unused-dirty-boolean', 'skipDirty', [], dirty, dirty, 42, code=error_code)
+    # A dirty boolean byte does not block access to the other fields of its word.
+    check('dirty-neighbor-read-Count', 'readCount', [], dirty, dirty, 173)
+    check('dirty-neighbor-read-Owner', 'readOwner', [], dirty, dirty, OWNER)
+    after = dict(dirty)
+    after[0] = (dirty[0] & (MAX ^ 255)) | 5
+    check('dirty-neighbor-write', 'setCount', [5], dirty, after, 5)
+    context_code = behavior('contexts', ['amount', 'loadArg', 'self', 'sender'])
+    after = dict(initial)
+    after[0] = (packed & (MAX ^ 255)) | 3
+    check('payable-context', 'amount', [], initial, after, 4, code=context_code, sent=3)
+    # Offset 5 reads bytes 5..36, which differs from the operand and the argument.
+    check('calldata-context', 'loadArg', [5], initial, initial, 5 << 8, code=context_code)
+    check('calldata-selector', 'loadArg', [0], initial, initial,
+          int(selector('loadArg', 1), 16) << 224, code=context_code)
+    after = dict(initial)
+    after[1] = int(C.D.RECEIVER, 16)
+    check('address-context', 'self', [], initial, after, after[1], code=context_code)
+    after = dict(initial)
+    after[0] = (packed & (MAX ^ (((1 << 160) - 1) << 16))) | (C.SENDER << 16)
+    check('caller-context', 'sender', [], initial, after, C.SENDER, code=context_code)
+    dispatch_code = behavior('dispatch', ['addCount'], dispatch=True)
+    for name, data in [('fallback-empty', ''), ('fallback-short', '00'),
+                       ('fallback-unknown', 'ffffffff')]:
+        check(name, '', [], initial, initial, code=dispatch_code, calldata=data,
+              revert_output=denied + f'{23:064x}')
+    check('fallback-value-reject', '', [], initial, initial, code=dispatch_code, calldata='', sent=1)
+    check('entry-value-reject', 'readCount', [], initial, initial, code=dispatch_code, sent=1)
+    check('short-argument-reject', 'addCount', [], initial, initial, code=dispatch_code,
+          calldata=selector('addCount', 1))
+
     path = C.WORK / 'source.asy'
     checked = C.capture('checked', [C.BINARY, 'check', path])
     require(checked.returncode == 0, 'typed source must typecheck')
-    result = C.capture('model-refusal', [C.BINARY, 'run', path])
-    require(result.returncode == 64 and 'packed storage model is pending' in result.stderr,
-            'model must explicitly refuse packed storage')
+    result = C.capture('model-empty-calldata', [C.BINARY, 'run', path])
+    require(result.returncode == 0 and json.loads(result.stdout) ==
+            dict(status='revert', output='0x', storage={}), 'model empty-calldata rollback')
     for index, bad in enumerate([fixture().replace('Uint8', 'Uint9'),
                                  fixture().replace('enabled : Bool', 'count : Bool')]):
         path = C.WORK / f'invalid-{index}.asy'
@@ -175,6 +292,8 @@ def live():
     require(full.returncode == 0 and full.stdout == result.stdout, 'Uint256-only source must use the Word model')
     report = dict(cases=cases, layout=layout, source_sha256=hashlib.sha256(fixture().encode()).hexdigest())
     C.save('REPORT', report)
+    require(case_filter is None or any(case['name'] == case_filter for case in cases),
+            'selected case must run: ' + str(case_filter))
     return len(cases)
 
 
@@ -183,37 +302,51 @@ def mutants():
     clear = next(line for line in layout.splitlines() if '+clear = Big.sub(' in line)
     mask = next(line for line in layout.splitlines() if line.startswith('def Emit.Packed.mask('))
     patches = [
-        ('mask', 'layout', (mask, mask.split(' -> Big:', 1)[0] + ' -> Big: Big.zero()')),
-        ('preserve', 'layout', (clear, '        +clear = Emit.Packed.mask(32n)')),
-        ('boolean', 'assembler', ('serial, Big.of_nat(2n), Nil{})', 'serial, Big.of_nat(3n), Nil{})')),
+        ('mask', 'layout', 'read-Count', (mask, mask.split(' -> Big:', 1)[0] + ' -> Big: Big.zero()')),
+        ('preserve', 'layout', 'write-Count-0', (clear, '        +clear = Emit.Packed.mask(32n)')),
+        ('boolean', 'assembler', 'dirty-read-2', ('serial, Big.of_nat(2n), Nil{})', 'serial, Big.of_nat(3n), Nil{})')),
+        ('model-slot', 'frontend', 'read-Enabled',
+         ('Model.Packed.field(rest, Big.sub(index, Big.one()))',
+          'Model.Packed.field(fields, Big.sub(index, Big.one()))')),
+        ('model-preserve', 'frontend', 'write-Count-0',
+         ('Done{Some{Model.put(storage, slot, word)}}', 'Done{Some{Model.put([], slot, word)}}')),
+        ('model-rollback', 'frontend', 'rollback',
+         ('Model.Packed.after_write(fields, input, memory, next, written)',
+          'Model.Packed.after_write(fields, MkModel_Input{Get.Model.Input.data(input), Get.Model.Input.value(input), Get.Model.Input.caller(input), Get.Model.Input.address(input), storage}, memory, next, written)')),
     ]
-    for name, module, (before, after) in patches:
+    def check_mutant(patch):
+        name, module, case, (before, after) = patch
         source = (C.ROOT / ('src/' + module + '.bend')).read_text()
         require(source.count(before) == 1, 'mutation anchor ' + name)
         with tempfile.TemporaryDirectory(prefix='assay-packed-' + name + '-') as directory:
             root = native_mutations.copy_project(C.ROOT, Path(directory) / 'assay')
             (root / ('src/' + module + '.bend')).write_text(source.replace(before, after))
-            built = C.capture('mutant-build-' + name, [sys.executable, '-P', root / 'dev/build.py', 'build'],
+            built = C.capture('mutant-build-' + name, [sys.executable, '-P', root / 'dev/build.py', 'build', '_build/bin/assay'],
                               cwd=root, timeout=600)
             require(built.returncode == 0, 'mutant must compile: ' + name)
-            result = C.capture('mutant-' + name, [sys.executable, '-P', __file__, '--control', '--root', root],
+            result = C.capture('mutant-' + name, [sys.executable, '-P', __file__, '--control', '--case', case, '--root', root],
                                timeout=600)
             require(result.returncode != 0 and 'PACKED-SOURCE' in result.stderr,
                     'mutant must fail a semantic assertion: ' + name)
+    with ThreadPoolExecutor(max_workers=3) as workers:
+        list(workers.map(check_mutant, patches))
     return len(patches)
 
 
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--control', action='store_true')
+    parser.add_argument('--case', help='run one named live case for a compiled mutation control')
     parser.add_argument('--root', type=Path, default=SCRIPT_ROOT)
     args = parser.parse_args()
+    if args.case is not None and not args.control:
+        parser.error('--case requires --control')
     C.ROOT = args.root.resolve()
     C.BINARY = C.ROOT / '_build/bin/assay'
     C.WORK = C.ROOT / '.gatework/packed-source'
-    cases = live()
+    cases = live(args.case)
     count = 0 if args.control else mutants()
-    print(f'PACKED-SOURCE cases={cases} executors=run+t8n mutants={count} OK')
+    print(f'PACKED-SOURCE cases={cases} model=packed executors=run+t8n mutants={count} OK')
 
 
 if __name__ == '__main__':

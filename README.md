@@ -29,6 +29,9 @@ belongs to [M4](dev/M4-SPEED.md), as requested on 2026-10-01, with the same
 Assay/Bend 2 ratio limit of 1.0. The current
 [M2 source packing slice](dev/M2-SOURCE-PACKING.md) compiles typed storage
 declarations into checked EVM reads, writes and constructor initialization.
+The [packed source model](dev/M2-PACKED-MODEL.md) runs the same typed
+contracts against physical storage words. Its tests compare its results
+with Cancun execution.
 
 The [M1 closure gate](dev/M1-CLOSE.md) combines the bounded counter,
 surface, proof and executor checks. The [first M2 slice](dev/M2-REFERENCE.md) adds a frozen,
@@ -53,7 +56,7 @@ The [tenth M2 slice](dev/M2-EVENT-DECODE.md) strictly decodes typed event
 logs, preserving indexed strings as hashes. TRUSTED-LINES passes under
 the source budget the user re-ratified on 2026-09-28: abi 495, assembler
 505 and an unchanged total of 3550.
-Source lowering for packed declarations, mappings and events remains pending.
+Source lowering for mappings and events remains pending.
 `zsh -f dev/gates.sh` runs the default 95-leg gate battery, and
 `make gates-m4-speed` runs the two M4 speed legs.
 

@@ -428,11 +428,18 @@ def Cli.Packed.compile(+command: String, +export: String, +packet: Cli.Packed.Pr
   Case.Packed.switch_38(packet, command, export)
 def Cli.Packed.run(+export: String, +input: Model.Input, +packet: Cli.Packed.Program()) -> IO(Unit):
   Case.Packed.switch_35(packet, export, input)
+def Cli.Packed.run_program(export: String, input: Model.Input, source: Cli.Program, parameters: Packed.Parameters()) -> IO(Unit):
+  match source:
+    case Cli.Program{_, globals, _, erased}: do IO<Unit>:
+      fields : Emit.Packed.Fields() <- Cli.model_result(Emit.Packed.Fields(), 2, Model.Packed.fields(parameters))
+      program : Model.Program <- Cli.model_result(Model.Program, 2, Model.prepare(export, globals, erased))
+      outcome : Model.Outcome <- Cli.model_result(Model.Outcome, 2, Model.Packed.run(fields, program, input))
+      NativeIO.stdout(Model.print(outcome))
 @unsafe
 def Case.Packed.switch_34(+packed_switch_34: Packed.Parameters(), +export: String, +input: Model.Input, +program: Cli.Program) -> IO(Unit):
   match packed_switch_34:
     case Nil{}: Cli.run_program(export, input, program)
-    case Con{_, _}: NativeIO.die(Unit, 64, "assay: run: the packed storage model is pending; use emit or trace")
+    case Con{_, _}: Cli.Packed.run_program(export, input, program, packed_switch_34)
 @unsafe
 def Case.Packed.switch_35(+packed_switch_35: Cli.Packed.Program(), +export: String, +input: Model.Input) -> IO(Unit):
   match packed_switch_35:

@@ -1,0 +1,3223 @@
+{
+  "cases": [
+    {
+      "name": "read-Count",
+      "expected": {
+        "status": "success",
+        "output": "0x00000000000000000000000000000000000000000000000000000000000000ad",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "actual": {
+        "fork": "Cancun",
+        "status": "success",
+        "output": "0x00000000000000000000000000000000000000000000000000000000000000ad",
+        "storage": {
+          "0000000000000000000000007265636569766572": {
+            "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+            "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+          }
+        },
+        "run_gas": 2306,
+        "t8n_execution_gas": 2306,
+        "t8n_transaction_gas": 23370,
+        "intrinsic_gas": 21064
+      },
+      "model": {
+        "status": "success",
+        "output": "0x00000000000000000000000000000000000000000000000000000000000000ad",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "model_argv": [
+        "run",
+        "fixtures/source.asy",
+        "--calldata",
+        "dbf89bd3",
+        "--caller",
+        "721457446580647751014191829380889690493307935711",
+        "--address",
+        "8243103980183774578",
+        "--value",
+        "0",
+        "--storage",
+        "0=74631620016238954081598493242472169968906384491329590634050755627530713563565",
+        "--storage",
+        "1=115792089237316195423570985008687907853269984665640564039457584007913129639928"
+      ]
+    },
+    {
+      "name": "read-Enabled",
+      "expected": {
+        "status": "success",
+        "output": "0x0000000000000000000000000000000000000000000000000000000000000001",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "actual": {
+        "fork": "Cancun",
+        "status": "success",
+        "output": "0x0000000000000000000000000000000000000000000000000000000000000001",
+        "storage": {
+          "0000000000000000000000007265636569766572": {
+            "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+            "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+          }
+        },
+        "run_gas": 2374,
+        "t8n_execution_gas": 2374,
+        "t8n_transaction_gas": 23438,
+        "intrinsic_gas": 21064
+      },
+      "model": {
+        "status": "success",
+        "output": "0x0000000000000000000000000000000000000000000000000000000000000001",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "model_argv": [
+        "run",
+        "fixtures/source.asy",
+        "--calldata",
+        "9de528c9",
+        "--caller",
+        "721457446580647751014191829380889690493307935711",
+        "--address",
+        "8243103980183774578",
+        "--value",
+        "0",
+        "--storage",
+        "0=74631620016238954081598493242472169968906384491329590634050755627530713563565",
+        "--storage",
+        "1=115792089237316195423570985008687907853269984665640564039457584007913129639928"
+      ]
+    },
+    {
+      "name": "read-Owner",
+      "expected": {
+        "status": "success",
+        "output": "0x0000000000000000000000001234567890abcdef1234567890abcdef12345678",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "actual": {
+        "fork": "Cancun",
+        "status": "success",
+        "output": "0x0000000000000000000000001234567890abcdef1234567890abcdef12345678",
+        "storage": {
+          "0000000000000000000000007265636569766572": {
+            "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+            "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+          }
+        },
+        "run_gas": 2384,
+        "t8n_execution_gas": 2384,
+        "t8n_transaction_gas": 23448,
+        "intrinsic_gas": 21064
+      },
+      "model": {
+        "status": "success",
+        "output": "0x0000000000000000000000001234567890abcdef1234567890abcdef12345678",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "model_argv": [
+        "run",
+        "fixtures/source.asy",
+        "--calldata",
+        "9389acb5",
+        "--caller",
+        "721457446580647751014191829380889690493307935711",
+        "--address",
+        "8243103980183774578",
+        "--value",
+        "0",
+        "--storage",
+        "0=74631620016238954081598493242472169968906384491329590634050755627530713563565",
+        "--storage",
+        "1=115792089237316195423570985008687907853269984665640564039457584007913129639928"
+      ]
+    },
+    {
+      "name": "read-Total",
+      "expected": {
+        "status": "success",
+        "output": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "actual": {
+        "fork": "Cancun",
+        "status": "success",
+        "output": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8",
+        "storage": {
+          "0000000000000000000000007265636569766572": {
+            "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+            "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+          }
+        },
+        "run_gas": 2409,
+        "t8n_execution_gas": 2409,
+        "t8n_transaction_gas": 23473,
+        "intrinsic_gas": 21064
+      },
+      "model": {
+        "status": "success",
+        "output": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "model_argv": [
+        "run",
+        "fixtures/source.asy",
+        "--calldata",
+        "5ff1f6ee",
+        "--caller",
+        "721457446580647751014191829380889690493307935711",
+        "--address",
+        "8243103980183774578",
+        "--value",
+        "0",
+        "--storage",
+        "0=74631620016238954081598493242472169968906384491329590634050755627530713563565",
+        "--storage",
+        "1=115792089237316195423570985008687907853269984665640564039457584007913129639928"
+      ]
+    },
+    {
+      "name": "write-Count-0",
+      "expected": {
+        "status": "success",
+        "output": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef123456780100",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "actual": {
+        "fork": "Cancun",
+        "status": "success",
+        "output": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "storage": {
+          "0000000000000000000000007265636569766572": {
+            "0": "0xa50000000000000000001234567890abcdef1234567890abcdef123456780100",
+            "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+          }
+        },
+        "run_gas": 5396,
+        "t8n_execution_gas": 5396,
+        "t8n_transaction_gas": 26588,
+        "intrinsic_gas": 21192
+      },
+      "model": {
+        "status": "success",
+        "output": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef123456780100",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "model_argv": [
+        "run",
+        "fixtures/source.asy",
+        "--calldata",
+        "d14e62b80000000000000000000000000000000000000000000000000000000000000000",
+        "--caller",
+        "721457446580647751014191829380889690493307935711",
+        "--address",
+        "8243103980183774578",
+        "--value",
+        "0",
+        "--storage",
+        "0=74631620016238954081598493242472169968906384491329590634050755627530713563565",
+        "--storage",
+        "1=115792089237316195423570985008687907853269984665640564039457584007913129639928"
+      ]
+    },
+    {
+      "name": "write-Count-1",
+      "expected": {
+        "status": "success",
+        "output": "0x0000000000000000000000000000000000000000000000000000000000000001",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef123456780101",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "actual": {
+        "fork": "Cancun",
+        "status": "success",
+        "output": "0x0000000000000000000000000000000000000000000000000000000000000001",
+        "storage": {
+          "0000000000000000000000007265636569766572": {
+            "0": "0xa50000000000000000001234567890abcdef1234567890abcdef123456780101",
+            "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+          }
+        },
+        "run_gas": 5396,
+        "t8n_execution_gas": 5396,
+        "t8n_transaction_gas": 26600,
+        "intrinsic_gas": 21204
+      },
+      "model": {
+        "status": "success",
+        "output": "0x0000000000000000000000000000000000000000000000000000000000000001",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef123456780101",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "model_argv": [
+        "run",
+        "fixtures/source.asy",
+        "--calldata",
+        "d14e62b80000000000000000000000000000000000000000000000000000000000000001",
+        "--caller",
+        "721457446580647751014191829380889690493307935711",
+        "--address",
+        "8243103980183774578",
+        "--value",
+        "0",
+        "--storage",
+        "0=74631620016238954081598493242472169968906384491329590634050755627530713563565",
+        "--storage",
+        "1=115792089237316195423570985008687907853269984665640564039457584007913129639928"
+      ]
+    },
+    {
+      "name": "write-Count-255",
+      "expected": {
+        "status": "success",
+        "output": "0x00000000000000000000000000000000000000000000000000000000000000ff",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ff",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "actual": {
+        "fork": "Cancun",
+        "status": "success",
+        "output": "0x00000000000000000000000000000000000000000000000000000000000000ff",
+        "storage": {
+          "0000000000000000000000007265636569766572": {
+            "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ff",
+            "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+          }
+        },
+        "run_gas": 5396,
+        "t8n_execution_gas": 5396,
+        "t8n_transaction_gas": 26600,
+        "intrinsic_gas": 21204
+      },
+      "model": {
+        "status": "success",
+        "output": "0x00000000000000000000000000000000000000000000000000000000000000ff",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ff",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "model_argv": [
+        "run",
+        "fixtures/source.asy",
+        "--calldata",
+        "d14e62b800000000000000000000000000000000000000000000000000000000000000ff",
+        "--caller",
+        "721457446580647751014191829380889690493307935711",
+        "--address",
+        "8243103980183774578",
+        "--value",
+        "0",
+        "--storage",
+        "0=74631620016238954081598493242472169968906384491329590634050755627530713563565",
+        "--storage",
+        "1=115792089237316195423570985008687907853269984665640564039457584007913129639928"
+      ]
+    },
+    {
+      "name": "write-Count-256",
+      "expected": {
+        "status": "revert",
+        "output": "0x",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "actual": {
+        "fork": "Cancun",
+        "status": "revert",
+        "output": "0x",
+        "storage": {
+          "0000000000000000000000007265636569766572": {
+            "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+            "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+          }
+        },
+        "run_gas": 369,
+        "t8n_execution_gas": 369,
+        "t8n_transaction_gas": 21573,
+        "intrinsic_gas": 21204
+      },
+      "model": {
+        "status": "revert",
+        "output": "0x",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "model_argv": [
+        "run",
+        "fixtures/source.asy",
+        "--calldata",
+        "d14e62b80000000000000000000000000000000000000000000000000000000000000100",
+        "--caller",
+        "721457446580647751014191829380889690493307935711",
+        "--address",
+        "8243103980183774578",
+        "--value",
+        "0",
+        "--storage",
+        "0=74631620016238954081598493242472169968906384491329590634050755627530713563565",
+        "--storage",
+        "1=115792089237316195423570985008687907853269984665640564039457584007913129639928"
+      ]
+    },
+    {
+      "name": "write-Count-115792089237316195423570985008687907853269984665640564039457584007913129639935",
+      "expected": {
+        "status": "revert",
+        "output": "0x",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "actual": {
+        "fork": "Cancun",
+        "status": "revert",
+        "output": "0x",
+        "storage": {
+          "0000000000000000000000007265636569766572": {
+            "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+            "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+          }
+        },
+        "run_gas": 369,
+        "t8n_execution_gas": 369,
+        "t8n_transaction_gas": 21945,
+        "intrinsic_gas": 21576
+      },
+      "model": {
+        "status": "revert",
+        "output": "0x",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "model_argv": [
+        "run",
+        "fixtures/source.asy",
+        "--calldata",
+        "d14e62b8ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+        "--caller",
+        "721457446580647751014191829380889690493307935711",
+        "--address",
+        "8243103980183774578",
+        "--value",
+        "0",
+        "--storage",
+        "0=74631620016238954081598493242472169968906384491329590634050755627530713563565",
+        "--storage",
+        "1=115792089237316195423570985008687907853269984665640564039457584007913129639928"
+      ]
+    },
+    {
+      "name": "write-Enabled-0",
+      "expected": {
+        "status": "success",
+        "output": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567800ad",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "actual": {
+        "fork": "Cancun",
+        "status": "success",
+        "output": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "storage": {
+          "0000000000000000000000007265636569766572": {
+            "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567800ad",
+            "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+          }
+        },
+        "run_gas": 5438,
+        "t8n_execution_gas": 5438,
+        "t8n_transaction_gas": 26630,
+        "intrinsic_gas": 21192
+      },
+      "model": {
+        "status": "success",
+        "output": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567800ad",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "model_argv": [
+        "run",
+        "fixtures/source.asy",
+        "--calldata",
+        "15bbb15b0000000000000000000000000000000000000000000000000000000000000000",
+        "--caller",
+        "721457446580647751014191829380889690493307935711",
+        "--address",
+        "8243103980183774578",
+        "--value",
+        "0",
+        "--storage",
+        "0=74631620016238954081598493242472169968906384491329590634050755627530713563565",
+        "--storage",
+        "1=115792089237316195423570985008687907853269984665640564039457584007913129639928"
+      ]
+    },
+    {
+      "name": "write-Enabled-1",
+      "expected": {
+        "status": "success",
+        "output": "0x0000000000000000000000000000000000000000000000000000000000000001",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "actual": {
+        "fork": "Cancun",
+        "status": "success",
+        "output": "0x0000000000000000000000000000000000000000000000000000000000000001",
+        "storage": {
+          "0000000000000000000000007265636569766572": {
+            "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+            "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+          }
+        },
+        "run_gas": 2638,
+        "t8n_execution_gas": 2638,
+        "t8n_transaction_gas": 23842,
+        "intrinsic_gas": 21204
+      },
+      "model": {
+        "status": "success",
+        "output": "0x0000000000000000000000000000000000000000000000000000000000000001",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "model_argv": [
+        "run",
+        "fixtures/source.asy",
+        "--calldata",
+        "15bbb15b0000000000000000000000000000000000000000000000000000000000000001",
+        "--caller",
+        "721457446580647751014191829380889690493307935711",
+        "--address",
+        "8243103980183774578",
+        "--value",
+        "0",
+        "--storage",
+        "0=74631620016238954081598493242472169968906384491329590634050755627530713563565",
+        "--storage",
+        "1=115792089237316195423570985008687907853269984665640564039457584007913129639928"
+      ]
+    },
+    {
+      "name": "write-Enabled-2",
+      "expected": {
+        "status": "revert",
+        "output": "0x",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "actual": {
+        "fork": "Cancun",
+        "status": "revert",
+        "output": "0x",
+        "storage": {
+          "0000000000000000000000007265636569766572": {
+            "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+            "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+          }
+        },
+        "run_gas": 405,
+        "t8n_execution_gas": 405,
+        "t8n_transaction_gas": 21609,
+        "intrinsic_gas": 21204
+      },
+      "model": {
+        "status": "revert",
+        "output": "0x",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "model_argv": [
+        "run",
+        "fixtures/source.asy",
+        "--calldata",
+        "15bbb15b0000000000000000000000000000000000000000000000000000000000000002",
+        "--caller",
+        "721457446580647751014191829380889690493307935711",
+        "--address",
+        "8243103980183774578",
+        "--value",
+        "0",
+        "--storage",
+        "0=74631620016238954081598493242472169968906384491329590634050755627530713563565",
+        "--storage",
+        "1=115792089237316195423570985008687907853269984665640564039457584007913129639928"
+      ]
+    },
+    {
+      "name": "write-Enabled-115792089237316195423570985008687907853269984665640564039457584007913129639935",
+      "expected": {
+        "status": "revert",
+        "output": "0x",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "actual": {
+        "fork": "Cancun",
+        "status": "revert",
+        "output": "0x",
+        "storage": {
+          "0000000000000000000000007265636569766572": {
+            "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+            "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+          }
+        },
+        "run_gas": 405,
+        "t8n_execution_gas": 405,
+        "t8n_transaction_gas": 21981,
+        "intrinsic_gas": 21576
+      },
+      "model": {
+        "status": "revert",
+        "output": "0x",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "model_argv": [
+        "run",
+        "fixtures/source.asy",
+        "--calldata",
+        "15bbb15bffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+        "--caller",
+        "721457446580647751014191829380889690493307935711",
+        "--address",
+        "8243103980183774578",
+        "--value",
+        "0",
+        "--storage",
+        "0=74631620016238954081598493242472169968906384491329590634050755627530713563565",
+        "--storage",
+        "1=115792089237316195423570985008687907853269984665640564039457584007913129639928"
+      ]
+    },
+    {
+      "name": "write-Owner-0",
+      "expected": {
+        "status": "success",
+        "output": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "storage": {
+          "0": "0xa5000000000000000000000000000000000000000000000000000000000001ad",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "actual": {
+        "fork": "Cancun",
+        "status": "success",
+        "output": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "storage": {
+          "0000000000000000000000007265636569766572": {
+            "0": "0xa5000000000000000000000000000000000000000000000000000000000001ad",
+            "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+          }
+        },
+        "run_gas": 5474,
+        "t8n_execution_gas": 5474,
+        "t8n_transaction_gas": 26666,
+        "intrinsic_gas": 21192
+      },
+      "model": {
+        "status": "success",
+        "output": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "storage": {
+          "0": "0xa5000000000000000000000000000000000000000000000000000000000001ad",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "model_argv": [
+        "run",
+        "fixtures/source.asy",
+        "--calldata",
+        "8041494e0000000000000000000000000000000000000000000000000000000000000000",
+        "--caller",
+        "721457446580647751014191829380889690493307935711",
+        "--address",
+        "8243103980183774578",
+        "--value",
+        "0",
+        "--storage",
+        "0=74631620016238954081598493242472169968906384491329590634050755627530713563565",
+        "--storage",
+        "1=115792089237316195423570985008687907853269984665640564039457584007913129639928"
+      ]
+    },
+    {
+      "name": "write-Owner-1",
+      "expected": {
+        "status": "success",
+        "output": "0x0000000000000000000000000000000000000000000000000000000000000001",
+        "storage": {
+          "0": "0xa5000000000000000000000000000000000000000000000000000000000101ad",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "actual": {
+        "fork": "Cancun",
+        "status": "success",
+        "output": "0x0000000000000000000000000000000000000000000000000000000000000001",
+        "storage": {
+          "0000000000000000000000007265636569766572": {
+            "0": "0xa5000000000000000000000000000000000000000000000000000000000101ad",
+            "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+          }
+        },
+        "run_gas": 5474,
+        "t8n_execution_gas": 5474,
+        "t8n_transaction_gas": 26678,
+        "intrinsic_gas": 21204
+      },
+      "model": {
+        "status": "success",
+        "output": "0x0000000000000000000000000000000000000000000000000000000000000001",
+        "storage": {
+          "0": "0xa5000000000000000000000000000000000000000000000000000000000101ad",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "model_argv": [
+        "run",
+        "fixtures/source.asy",
+        "--calldata",
+        "8041494e0000000000000000000000000000000000000000000000000000000000000001",
+        "--caller",
+        "721457446580647751014191829380889690493307935711",
+        "--address",
+        "8243103980183774578",
+        "--value",
+        "0",
+        "--storage",
+        "0=74631620016238954081598493242472169968906384491329590634050755627530713563565",
+        "--storage",
+        "1=115792089237316195423570985008687907853269984665640564039457584007913129639928"
+      ]
+    },
+    {
+      "name": "write-Owner-1461501637330902918203684832716283019655932542975",
+      "expected": {
+        "status": "success",
+        "output": "0x000000000000000000000000ffffffffffffffffffffffffffffffffffffffff",
+        "storage": {
+          "0": "0xa5000000000000000000ffffffffffffffffffffffffffffffffffffffff01ad",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "actual": {
+        "fork": "Cancun",
+        "status": "success",
+        "output": "0x000000000000000000000000ffffffffffffffffffffffffffffffffffffffff",
+        "storage": {
+          "0000000000000000000000007265636569766572": {
+            "0": "0xa5000000000000000000ffffffffffffffffffffffffffffffffffffffff01ad",
+            "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+          }
+        },
+        "run_gas": 5474,
+        "t8n_execution_gas": 5474,
+        "t8n_transaction_gas": 26906,
+        "intrinsic_gas": 21432
+      },
+      "model": {
+        "status": "success",
+        "output": "0x000000000000000000000000ffffffffffffffffffffffffffffffffffffffff",
+        "storage": {
+          "0": "0xa5000000000000000000ffffffffffffffffffffffffffffffffffffffff01ad",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "model_argv": [
+        "run",
+        "fixtures/source.asy",
+        "--calldata",
+        "8041494e000000000000000000000000ffffffffffffffffffffffffffffffffffffffff",
+        "--caller",
+        "721457446580647751014191829380889690493307935711",
+        "--address",
+        "8243103980183774578",
+        "--value",
+        "0",
+        "--storage",
+        "0=74631620016238954081598493242472169968906384491329590634050755627530713563565",
+        "--storage",
+        "1=115792089237316195423570985008687907853269984665640564039457584007913129639928"
+      ]
+    },
+    {
+      "name": "write-Owner-1461501637330902918203684832716283019655932542976",
+      "expected": {
+        "status": "revert",
+        "output": "0x",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "actual": {
+        "fork": "Cancun",
+        "status": "revert",
+        "output": "0x",
+        "storage": {
+          "0000000000000000000000007265636569766572": {
+            "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+            "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+          }
+        },
+        "run_gas": 441,
+        "t8n_execution_gas": 441,
+        "t8n_transaction_gas": 21645,
+        "intrinsic_gas": 21204
+      },
+      "model": {
+        "status": "revert",
+        "output": "0x",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "model_argv": [
+        "run",
+        "fixtures/source.asy",
+        "--calldata",
+        "8041494e0000000000000000000000010000000000000000000000000000000000000000",
+        "--caller",
+        "721457446580647751014191829380889690493307935711",
+        "--address",
+        "8243103980183774578",
+        "--value",
+        "0",
+        "--storage",
+        "0=74631620016238954081598493242472169968906384491329590634050755627530713563565",
+        "--storage",
+        "1=115792089237316195423570985008687907853269984665640564039457584007913129639928"
+      ]
+    },
+    {
+      "name": "write-Owner-115792089237316195423570985008687907853269984665640564039457584007913129639935",
+      "expected": {
+        "status": "revert",
+        "output": "0x",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "actual": {
+        "fork": "Cancun",
+        "status": "revert",
+        "output": "0x",
+        "storage": {
+          "0000000000000000000000007265636569766572": {
+            "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+            "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+          }
+        },
+        "run_gas": 441,
+        "t8n_execution_gas": 441,
+        "t8n_transaction_gas": 22017,
+        "intrinsic_gas": 21576
+      },
+      "model": {
+        "status": "revert",
+        "output": "0x",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "model_argv": [
+        "run",
+        "fixtures/source.asy",
+        "--calldata",
+        "8041494effffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+        "--caller",
+        "721457446580647751014191829380889690493307935711",
+        "--address",
+        "8243103980183774578",
+        "--value",
+        "0",
+        "--storage",
+        "0=74631620016238954081598493242472169968906384491329590634050755627530713563565",
+        "--storage",
+        "1=115792089237316195423570985008687907853269984665640564039457584007913129639928"
+      ]
+    },
+    {
+      "name": "write-Total-0",
+      "expected": {
+        "status": "success",
+        "output": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad"
+        }
+      },
+      "actual": {
+        "fork": "Cancun",
+        "status": "success",
+        "output": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "storage": {
+          "0000000000000000000000007265636569766572": {
+            "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad"
+          }
+        },
+        "run_gas": 5465,
+        "t8n_execution_gas": 5465,
+        "t8n_transaction_gas": 21857,
+        "intrinsic_gas": 21192
+      },
+      "model": {
+        "status": "success",
+        "output": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad"
+        }
+      },
+      "model_argv": [
+        "run",
+        "fixtures/source.asy",
+        "--calldata",
+        "1f8d1d500000000000000000000000000000000000000000000000000000000000000000",
+        "--caller",
+        "721457446580647751014191829380889690493307935711",
+        "--address",
+        "8243103980183774578",
+        "--value",
+        "0",
+        "--storage",
+        "0=74631620016238954081598493242472169968906384491329590634050755627530713563565",
+        "--storage",
+        "1=115792089237316195423570985008687907853269984665640564039457584007913129639928"
+      ]
+    },
+    {
+      "name": "write-Total-1",
+      "expected": {
+        "status": "success",
+        "output": "0x0000000000000000000000000000000000000000000000000000000000000001",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+          "1": "0x1"
+        }
+      },
+      "actual": {
+        "fork": "Cancun",
+        "status": "success",
+        "output": "0x0000000000000000000000000000000000000000000000000000000000000001",
+        "storage": {
+          "0000000000000000000000007265636569766572": {
+            "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+            "1": "0x1"
+          }
+        },
+        "run_gas": 5465,
+        "t8n_execution_gas": 5465,
+        "t8n_transaction_gas": 26669,
+        "intrinsic_gas": 21204
+      },
+      "model": {
+        "status": "success",
+        "output": "0x0000000000000000000000000000000000000000000000000000000000000001",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+          "1": "0x1"
+        }
+      },
+      "model_argv": [
+        "run",
+        "fixtures/source.asy",
+        "--calldata",
+        "1f8d1d500000000000000000000000000000000000000000000000000000000000000001",
+        "--caller",
+        "721457446580647751014191829380889690493307935711",
+        "--address",
+        "8243103980183774578",
+        "--value",
+        "0",
+        "--storage",
+        "0=74631620016238954081598493242472169968906384491329590634050755627530713563565",
+        "--storage",
+        "1=115792089237316195423570985008687907853269984665640564039457584007913129639928"
+      ]
+    },
+    {
+      "name": "write-Total-115792089237316195423570985008687907853269984665640564039457584007913129639935",
+      "expected": {
+        "status": "success",
+        "output": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+          "1": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+        }
+      },
+      "actual": {
+        "fork": "Cancun",
+        "status": "success",
+        "output": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+        "storage": {
+          "0000000000000000000000007265636569766572": {
+            "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+            "1": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+          }
+        },
+        "run_gas": 5465,
+        "t8n_execution_gas": 5465,
+        "t8n_transaction_gas": 27041,
+        "intrinsic_gas": 21576
+      },
+      "model": {
+        "status": "success",
+        "output": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+          "1": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+        }
+      },
+      "model_argv": [
+        "run",
+        "fixtures/source.asy",
+        "--calldata",
+        "1f8d1d50ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+        "--caller",
+        "721457446580647751014191829380889690493307935711",
+        "--address",
+        "8243103980183774578",
+        "--value",
+        "0",
+        "--storage",
+        "0=74631620016238954081598493242472169968906384491329590634050755627530713563565",
+        "--storage",
+        "1=115792089237316195423570985008687907853269984665640564039457584007913129639928"
+      ]
+    },
+    {
+      "name": "dirty-read-2",
+      "expected": {
+        "status": "revert",
+        "output": "0x",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567802ad",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "actual": {
+        "fork": "Cancun",
+        "status": "revert",
+        "output": "0x",
+        "storage": {
+          "0000000000000000000000007265636569766572": {
+            "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567802ad",
+            "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+          }
+        },
+        "run_gas": 2354,
+        "t8n_execution_gas": 2354,
+        "t8n_transaction_gas": 23418,
+        "intrinsic_gas": 21064
+      },
+      "model": {
+        "status": "revert",
+        "output": "0x",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567802ad",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "model_argv": [
+        "run",
+        "fixtures/source.asy",
+        "--calldata",
+        "9de528c9",
+        "--caller",
+        "721457446580647751014191829380889690493307935711",
+        "--address",
+        "8243103980183774578",
+        "--value",
+        "0",
+        "--storage",
+        "0=74631620016238954081598493242472169968906384491329590634050755627530713563821",
+        "--storage",
+        "1=115792089237316195423570985008687907853269984665640564039457584007913129639928"
+      ]
+    },
+    {
+      "name": "dirty-repair-2-0",
+      "expected": {
+        "status": "success",
+        "output": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567800ad",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "actual": {
+        "fork": "Cancun",
+        "status": "success",
+        "output": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "storage": {
+          "0000000000000000000000007265636569766572": {
+            "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567800ad",
+            "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+          }
+        },
+        "run_gas": 5438,
+        "t8n_execution_gas": 5438,
+        "t8n_transaction_gas": 26630,
+        "intrinsic_gas": 21192
+      },
+      "model": {
+        "status": "success",
+        "output": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567800ad",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "model_argv": [
+        "run",
+        "fixtures/source.asy",
+        "--calldata",
+        "15bbb15b0000000000000000000000000000000000000000000000000000000000000000",
+        "--caller",
+        "721457446580647751014191829380889690493307935711",
+        "--address",
+        "8243103980183774578",
+        "--value",
+        "0",
+        "--storage",
+        "0=74631620016238954081598493242472169968906384491329590634050755627530713563821",
+        "--storage",
+        "1=115792089237316195423570985008687907853269984665640564039457584007913129639928"
+      ]
+    },
+    {
+      "name": "dirty-repair-2-1",
+      "expected": {
+        "status": "success",
+        "output": "0x0000000000000000000000000000000000000000000000000000000000000001",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "actual": {
+        "fork": "Cancun",
+        "status": "success",
+        "output": "0x0000000000000000000000000000000000000000000000000000000000000001",
+        "storage": {
+          "0000000000000000000000007265636569766572": {
+            "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+            "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+          }
+        },
+        "run_gas": 5438,
+        "t8n_execution_gas": 5438,
+        "t8n_transaction_gas": 26642,
+        "intrinsic_gas": 21204
+      },
+      "model": {
+        "status": "success",
+        "output": "0x0000000000000000000000000000000000000000000000000000000000000001",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "model_argv": [
+        "run",
+        "fixtures/source.asy",
+        "--calldata",
+        "15bbb15b0000000000000000000000000000000000000000000000000000000000000001",
+        "--caller",
+        "721457446580647751014191829380889690493307935711",
+        "--address",
+        "8243103980183774578",
+        "--value",
+        "0",
+        "--storage",
+        "0=74631620016238954081598493242472169968906384491329590634050755627530713563821",
+        "--storage",
+        "1=115792089237316195423570985008687907853269984665640564039457584007913129639928"
+      ]
+    },
+    {
+      "name": "dirty-read-255",
+      "expected": {
+        "status": "revert",
+        "output": "0x",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef12345678ffad",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "actual": {
+        "fork": "Cancun",
+        "status": "revert",
+        "output": "0x",
+        "storage": {
+          "0000000000000000000000007265636569766572": {
+            "0": "0xa50000000000000000001234567890abcdef1234567890abcdef12345678ffad",
+            "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+          }
+        },
+        "run_gas": 2354,
+        "t8n_execution_gas": 2354,
+        "t8n_transaction_gas": 23418,
+        "intrinsic_gas": 21064
+      },
+      "model": {
+        "status": "revert",
+        "output": "0x",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef12345678ffad",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "model_argv": [
+        "run",
+        "fixtures/source.asy",
+        "--calldata",
+        "9de528c9",
+        "--caller",
+        "721457446580647751014191829380889690493307935711",
+        "--address",
+        "8243103980183774578",
+        "--value",
+        "0",
+        "--storage",
+        "0=74631620016238954081598493242472169968906384491329590634050755627530713628589",
+        "--storage",
+        "1=115792089237316195423570985008687907853269984665640564039457584007913129639928"
+      ]
+    },
+    {
+      "name": "dirty-repair-255-0",
+      "expected": {
+        "status": "success",
+        "output": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567800ad",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "actual": {
+        "fork": "Cancun",
+        "status": "success",
+        "output": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "storage": {
+          "0000000000000000000000007265636569766572": {
+            "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567800ad",
+            "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+          }
+        },
+        "run_gas": 5438,
+        "t8n_execution_gas": 5438,
+        "t8n_transaction_gas": 26630,
+        "intrinsic_gas": 21192
+      },
+      "model": {
+        "status": "success",
+        "output": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567800ad",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "model_argv": [
+        "run",
+        "fixtures/source.asy",
+        "--calldata",
+        "15bbb15b0000000000000000000000000000000000000000000000000000000000000000",
+        "--caller",
+        "721457446580647751014191829380889690493307935711",
+        "--address",
+        "8243103980183774578",
+        "--value",
+        "0",
+        "--storage",
+        "0=74631620016238954081598493242472169968906384491329590634050755627530713628589",
+        "--storage",
+        "1=115792089237316195423570985008687907853269984665640564039457584007913129639928"
+      ]
+    },
+    {
+      "name": "dirty-repair-255-1",
+      "expected": {
+        "status": "success",
+        "output": "0x0000000000000000000000000000000000000000000000000000000000000001",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "actual": {
+        "fork": "Cancun",
+        "status": "success",
+        "output": "0x0000000000000000000000000000000000000000000000000000000000000001",
+        "storage": {
+          "0000000000000000000000007265636569766572": {
+            "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+            "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+          }
+        },
+        "run_gas": 5438,
+        "t8n_execution_gas": 5438,
+        "t8n_transaction_gas": 26642,
+        "intrinsic_gas": 21204
+      },
+      "model": {
+        "status": "success",
+        "output": "0x0000000000000000000000000000000000000000000000000000000000000001",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "model_argv": [
+        "run",
+        "fixtures/source.asy",
+        "--calldata",
+        "15bbb15b0000000000000000000000000000000000000000000000000000000000000001",
+        "--caller",
+        "721457446580647751014191829380889690493307935711",
+        "--address",
+        "8243103980183774578",
+        "--value",
+        "0",
+        "--storage",
+        "0=74631620016238954081598493242472169968906384491329590634050755627530713628589",
+        "--storage",
+        "1=115792089237316195423570985008687907853269984665640564039457584007913129639928"
+      ]
+    },
+    {
+      "name": "rollback",
+      "expected": {
+        "status": "revert",
+        "output": "0x",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "actual": {
+        "fork": "Cancun",
+        "status": "revert",
+        "output": "0x",
+        "storage": {
+          "0000000000000000000000007265636569766572": {
+            "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+            "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+          }
+        },
+        "run_gas": 5588,
+        "t8n_execution_gas": 5588,
+        "t8n_transaction_gas": 26932,
+        "intrinsic_gas": 21344
+      },
+      "model": {
+        "status": "revert",
+        "output": "0x",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "model_argv": [
+        "run",
+        "fixtures/source.asy",
+        "--calldata",
+        "bfbee59f00000000000000000000000000000000000000000000000000000000000000090000000000000000000000000000000000000000000000000000000000000002",
+        "--caller",
+        "721457446580647751014191829380889690493307935711",
+        "--address",
+        "8243103980183774578",
+        "--value",
+        "0",
+        "--storage",
+        "0=74631620016238954081598493242472169968906384491329590634050755627530713563565",
+        "--storage",
+        "1=115792089237316195423570985008687907853269984665640564039457584007913129639928"
+      ]
+    },
+    {
+      "name": "sequential-writes",
+      "expected": {
+        "status": "success",
+        "output": "0x00000000000000000000000000000000000000000000000000000000000000ff",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ff",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "actual": {
+        "fork": "Cancun",
+        "status": "success",
+        "output": "0x00000000000000000000000000000000000000000000000000000000000000ff",
+        "storage": {
+          "0000000000000000000000007265636569766572": {
+            "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ff",
+            "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+          }
+        },
+        "run_gas": 5821,
+        "t8n_execution_gas": 5821,
+        "t8n_transaction_gas": 27165,
+        "intrinsic_gas": 21344
+      },
+      "model": {
+        "status": "success",
+        "output": "0x00000000000000000000000000000000000000000000000000000000000000ff",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ff",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "model_argv": [
+        "run",
+        "fixtures/source.asy",
+        "--calldata",
+        "bfbee59f00000000000000000000000000000000000000000000000000000000000000ff0000000000000000000000000000000000000000000000000000000000000001",
+        "--caller",
+        "721457446580647751014191829380889690493307935711",
+        "--address",
+        "8243103980183774578",
+        "--value",
+        "0",
+        "--storage",
+        "0=74631620016238954081598493242472169968906384491329590634050755627530713563565",
+        "--storage",
+        "1=115792089237316195423570985008687907853269984665640564039457584007913129639928"
+      ]
+    },
+    {
+      "name": "constructor",
+      "actual": {
+        "status": "success",
+        "output": "0x346103b257610009565b600436106103b257610016565b5f3560e01c5f52610022565b5f5163dbf89bd3146100bb57610033565b5f51639de528c9146100e457610044565b5f51639389acb51461012357610055565b5f51635ff1f6ee1461016257610066565b5f5163d14e62b81461018957610077565b5f516315bbb15b146101ef57610088565b5f51638041494e1461025757610099565b5f51631f8d1d50146102d3576100aa565b5f5163bfbee59f14610300576103b2565b600436106103b2576100c8565b6100cd565b5f5460ff166020526100da565b6020515f5260205ff35b600436106103b2576100f1565b6100f6565b5f5460081c60ff1680600290106101115761010c565b505f5ffd5b602052610119565b6020515f5260205ff35b600436106103b257610130565b610135565b5f5460101c73ffffffffffffffffffffffffffffffffffffffff16602052610158565b6020515f5260205ff35b600436106103b25761016f565b610174565b60015460205261017f565b6020515f5260205ff35b602436106103b257610196565b6004356020526101a1565b6020518061010090106101b8576101b3565b505f5ffd5b5f547fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff001690175f556101e5565b6020515f5260205ff35b602436106103b2576101fc565b600435602052610207565b602051806002901061021d57610218565b505f5ffd5b5f547fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff00ff169060081b175f5561024d565b6020515f5260205ff35b602436106103b257610264565b60043560205261026f565b6020518074010000000000000000000000000000000000000000901061029957610294565b505f5ffd5b5f547fffffffffffffffffffff0000000000000000000000000000000000000000ffff169060101b175f556102c9565b6020515f5260205ff35b602436106103b2576102e0565b6004356020526102eb565b6020516001556102f6565b6020515f5260205ff35b604436106103b25761030d565b60043560205260243560405261031e565b60205180610100901061033557610330565b505f5ffd5b5f547fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff001690175f55610362565b604051806002901061037857610373565b505f5ffd5b5f547fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff00ff169060081b175f556103a8565b6020515f5260205ff35b5f5ffd",
+        "storage": {
+          "0": "0x7e5f4552091a69125d5dfcb7b8c2659029395bdf0107"
+        }
+      }
+    },
+    {
+      "name": "constructor-reject",
+      "actual": {
+        "status": "revert",
+        "output": "0x",
+        "storage": {}
+      }
+    },
+    {
+      "name": "constructor-reject",
+      "actual": {
+        "status": "revert",
+        "output": "0x",
+        "storage": {}
+      }
+    },
+    {
+      "name": "reordered-read-Count",
+      "expected": {
+        "status": "success",
+        "output": "0x00000000000000000000000000000000000000000000000000000000000000ad",
+        "storage": {
+          "0": "0xa500000000000000000001ad1234567890abcdef1234567890abcdef12345678"
+        }
+      },
+      "actual": {
+        "fork": "Cancun",
+        "status": "success",
+        "output": "0x00000000000000000000000000000000000000000000000000000000000000ad",
+        "storage": {
+          "0000000000000000000000007265636569766572": {
+            "0": "0xa500000000000000000001ad1234567890abcdef1234567890abcdef12345678"
+          }
+        },
+        "run_gas": 2312,
+        "t8n_execution_gas": 2312,
+        "t8n_transaction_gas": 23376,
+        "intrinsic_gas": 21064
+      },
+      "model": {
+        "status": "success",
+        "output": "0x00000000000000000000000000000000000000000000000000000000000000ad",
+        "storage": {
+          "0": "0xa500000000000000000001ad1234567890abcdef1234567890abcdef12345678"
+        }
+      },
+      "model_argv": [
+        "run",
+        "fixtures/reordered.asy",
+        "--calldata",
+        "dbf89bd3",
+        "--caller",
+        "721457446580647751014191829380889690493307935711",
+        "--address",
+        "8243103980183774578",
+        "--value",
+        "0",
+        "--storage",
+        "0=74631620016238954081598487058469009528818199470131292632144109014608432617080"
+      ]
+    },
+    {
+      "name": "reordered-read-Enabled",
+      "expected": {
+        "status": "success",
+        "output": "0x0000000000000000000000000000000000000000000000000000000000000001",
+        "storage": {
+          "0": "0xa500000000000000000001ad1234567890abcdef1234567890abcdef12345678"
+        }
+      },
+      "actual": {
+        "fork": "Cancun",
+        "status": "success",
+        "output": "0x0000000000000000000000000000000000000000000000000000000000000001",
+        "storage": {
+          "0000000000000000000000007265636569766572": {
+            "0": "0xa500000000000000000001ad1234567890abcdef1234567890abcdef12345678"
+          }
+        },
+        "run_gas": 2374,
+        "t8n_execution_gas": 2374,
+        "t8n_transaction_gas": 23438,
+        "intrinsic_gas": 21064
+      },
+      "model": {
+        "status": "success",
+        "output": "0x0000000000000000000000000000000000000000000000000000000000000001",
+        "storage": {
+          "0": "0xa500000000000000000001ad1234567890abcdef1234567890abcdef12345678"
+        }
+      },
+      "model_argv": [
+        "run",
+        "fixtures/reordered.asy",
+        "--calldata",
+        "9de528c9",
+        "--caller",
+        "721457446580647751014191829380889690493307935711",
+        "--address",
+        "8243103980183774578",
+        "--value",
+        "0",
+        "--storage",
+        "0=74631620016238954081598487058469009528818199470131292632144109014608432617080"
+      ]
+    },
+    {
+      "name": "reordered-read-Owner",
+      "expected": {
+        "status": "success",
+        "output": "0x0000000000000000000000001234567890abcdef1234567890abcdef12345678",
+        "storage": {
+          "0": "0xa500000000000000000001ad1234567890abcdef1234567890abcdef12345678"
+        }
+      },
+      "actual": {
+        "fork": "Cancun",
+        "status": "success",
+        "output": "0x0000000000000000000000001234567890abcdef1234567890abcdef12345678",
+        "storage": {
+          "0000000000000000000000007265636569766572": {
+            "0": "0xa500000000000000000001ad1234567890abcdef1234567890abcdef12345678"
+          }
+        },
+        "run_gas": 2378,
+        "t8n_execution_gas": 2378,
+        "t8n_transaction_gas": 23442,
+        "intrinsic_gas": 21064
+      },
+      "model": {
+        "status": "success",
+        "output": "0x0000000000000000000000001234567890abcdef1234567890abcdef12345678",
+        "storage": {
+          "0": "0xa500000000000000000001ad1234567890abcdef1234567890abcdef12345678"
+        }
+      },
+      "model_argv": [
+        "run",
+        "fixtures/reordered.asy",
+        "--calldata",
+        "9389acb5",
+        "--caller",
+        "721457446580647751014191829380889690493307935711",
+        "--address",
+        "8243103980183774578",
+        "--value",
+        "0",
+        "--storage",
+        "0=74631620016238954081598487058469009528818199470131292632144109014608432617080"
+      ]
+    },
+    {
+      "name": "reordered-write",
+      "expected": {
+        "status": "success",
+        "output": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "storage": {
+          "0": "0xa500000000000000000001001234567890abcdef1234567890abcdef12345678"
+        }
+      },
+      "actual": {
+        "fork": "Cancun",
+        "status": "success",
+        "output": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "storage": {
+          "0000000000000000000000007265636569766572": {
+            "0": "0xa500000000000000000001001234567890abcdef1234567890abcdef12345678"
+          }
+        },
+        "run_gas": 5402,
+        "t8n_execution_gas": 5402,
+        "t8n_transaction_gas": 26594,
+        "intrinsic_gas": 21192
+      },
+      "model": {
+        "status": "success",
+        "output": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "storage": {
+          "0": "0xa500000000000000000001001234567890abcdef1234567890abcdef12345678"
+        }
+      },
+      "model_argv": [
+        "run",
+        "fixtures/reordered.asy",
+        "--calldata",
+        "d14e62b80000000000000000000000000000000000000000000000000000000000000000",
+        "--caller",
+        "721457446580647751014191829380889690493307935711",
+        "--address",
+        "8243103980183774578",
+        "--value",
+        "0",
+        "--storage",
+        "0=74631620016238954081598487058469009528818199470131292632144109014608432617080"
+      ]
+    },
+    {
+      "name": "spill-read",
+      "expected": {
+        "status": "success",
+        "output": "0x0000000000000000000000001234567890abcdef1234567890abcdef12345678",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+          "1": "0x1234567890abcdef1234567890abcdef12345678",
+          "2": "0x11"
+        }
+      },
+      "actual": {
+        "fork": "Cancun",
+        "status": "success",
+        "output": "0x0000000000000000000000001234567890abcdef1234567890abcdef12345678",
+        "storage": {
+          "0000000000000000000000007265636569766572": {
+            "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+            "1": "0x1234567890abcdef1234567890abcdef12345678",
+            "2": "0x11"
+          }
+        },
+        "run_gas": 2379,
+        "t8n_execution_gas": 2379,
+        "t8n_transaction_gas": 23443,
+        "intrinsic_gas": 21064
+      },
+      "model": {
+        "status": "success",
+        "output": "0x0000000000000000000000001234567890abcdef1234567890abcdef12345678",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+          "1": "0x1234567890abcdef1234567890abcdef12345678",
+          "2": "0x11"
+        }
+      },
+      "model_argv": [
+        "run",
+        "fixtures/spill.asy",
+        "--calldata",
+        "9389acb5",
+        "--caller",
+        "721457446580647751014191829380889690493307935711",
+        "--address",
+        "8243103980183774578",
+        "--value",
+        "0",
+        "--storage",
+        "0=74631620016238954081598493242472169968906384491329590634050755627530713563565",
+        "--storage",
+        "1=103929005307927756724354605802047639613112342136",
+        "--storage",
+        "2=17"
+      ]
+    },
+    {
+      "name": "spill-write",
+      "expected": {
+        "status": "success",
+        "output": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+          "2": "0x11"
+        }
+      },
+      "actual": {
+        "fork": "Cancun",
+        "status": "success",
+        "output": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "storage": {
+          "0000000000000000000000007265636569766572": {
+            "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+            "2": "0x11"
+          }
+        },
+        "run_gas": 5470,
+        "t8n_execution_gas": 5470,
+        "t8n_transaction_gas": 21862,
+        "intrinsic_gas": 21192
+      },
+      "model": {
+        "status": "success",
+        "output": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+          "2": "0x11"
+        }
+      },
+      "model_argv": [
+        "run",
+        "fixtures/spill.asy",
+        "--calldata",
+        "8041494e0000000000000000000000000000000000000000000000000000000000000000",
+        "--caller",
+        "721457446580647751014191829380889690493307935711",
+        "--address",
+        "8243103980183774578",
+        "--value",
+        "0",
+        "--storage",
+        "0=74631620016238954081598493242472169968906384491329590634050755627530713563565",
+        "--storage",
+        "1=103929005307927756724354605802047639613112342136",
+        "--storage",
+        "2=17"
+      ]
+    },
+    {
+      "name": "add",
+      "expected": {
+        "status": "success",
+        "output": "0x00000000000000000000000000000000000000000000000000000000000000ae",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ae",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "actual": {
+        "fork": "Cancun",
+        "status": "success",
+        "output": "0x00000000000000000000000000000000000000000000000000000000000000ae",
+        "storage": {
+          "0000000000000000000000007265636569766572": {
+            "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ae",
+            "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+          }
+        },
+        "run_gas": 5445,
+        "t8n_execution_gas": 5445,
+        "t8n_transaction_gas": 26649,
+        "intrinsic_gas": 21204
+      },
+      "model": {
+        "status": "success",
+        "output": "0x00000000000000000000000000000000000000000000000000000000000000ae",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ae",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "model_argv": [
+        "run",
+        "fixtures/arithmetic.asy",
+        "--calldata",
+        "11b94fd50000000000000000000000000000000000000000000000000000000000000001",
+        "--caller",
+        "721457446580647751014191829380889690493307935711",
+        "--address",
+        "8243103980183774578",
+        "--value",
+        "0",
+        "--storage",
+        "0=74631620016238954081598493242472169968906384491329590634050755627530713563565",
+        "--storage",
+        "1=115792089237316195423570985008687907853269984665640564039457584007913129639928"
+      ]
+    },
+    {
+      "name": "sub",
+      "expected": {
+        "status": "success",
+        "output": "0x00000000000000000000000000000000000000000000000000000000000000ac",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ac",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "actual": {
+        "fork": "Cancun",
+        "status": "success",
+        "output": "0x00000000000000000000000000000000000000000000000000000000000000ac",
+        "storage": {
+          "0000000000000000000000007265636569766572": {
+            "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ac",
+            "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+          }
+        },
+        "run_gas": 5517,
+        "t8n_execution_gas": 5517,
+        "t8n_transaction_gas": 26721,
+        "intrinsic_gas": 21204
+      },
+      "model": {
+        "status": "success",
+        "output": "0x00000000000000000000000000000000000000000000000000000000000000ac",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ac",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "model_argv": [
+        "run",
+        "fixtures/arithmetic.asy",
+        "--calldata",
+        "d7ef06c60000000000000000000000000000000000000000000000000000000000000001",
+        "--caller",
+        "721457446580647751014191829380889690493307935711",
+        "--address",
+        "8243103980183774578",
+        "--value",
+        "0",
+        "--storage",
+        "0=74631620016238954081598493242472169968906384491329590634050755627530713563565",
+        "--storage",
+        "1=115792089237316195423570985008687907853269984665640564039457584007913129639928"
+      ]
+    },
+    {
+      "name": "proved",
+      "expected": {
+        "status": "success",
+        "output": "0x00000000000000000000000000000000000000000000000000000000000000ae",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ae",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "actual": {
+        "fork": "Cancun",
+        "status": "success",
+        "output": "0x00000000000000000000000000000000000000000000000000000000000000ae",
+        "storage": {
+          "0000000000000000000000007265636569766572": {
+            "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ae",
+            "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+          }
+        },
+        "run_gas": 5589,
+        "t8n_execution_gas": 5589,
+        "t8n_transaction_gas": 26793,
+        "intrinsic_gas": 21204
+      },
+      "model": {
+        "status": "success",
+        "output": "0x00000000000000000000000000000000000000000000000000000000000000ae",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ae",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "model_argv": [
+        "run",
+        "fixtures/arithmetic.asy",
+        "--calldata",
+        "af9eb8200000000000000000000000000000000000000000000000000000000000000001",
+        "--caller",
+        "721457446580647751014191829380889690493307935711",
+        "--address",
+        "8243103980183774578",
+        "--value",
+        "0",
+        "--storage",
+        "0=74631620016238954081598493242472169968906384491329590634050755627530713563565",
+        "--storage",
+        "1=115792089237316195423570985008687907853269984665640564039457584007913129639928"
+      ]
+    },
+    {
+      "name": "add-word-overflow",
+      "expected": {
+        "status": "revert",
+        "output": "0x",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "actual": {
+        "fork": "Cancun",
+        "status": "revert",
+        "output": "0x",
+        "storage": {
+          "0000000000000000000000007265636569766572": {
+            "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+            "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+          }
+        },
+        "run_gas": 2362,
+        "t8n_execution_gas": 2362,
+        "t8n_transaction_gas": 23938,
+        "intrinsic_gas": 21576
+      },
+      "model": {
+        "status": "revert",
+        "output": "0x",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "model_argv": [
+        "run",
+        "fixtures/arithmetic.asy",
+        "--calldata",
+        "11b94fd5ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+        "--caller",
+        "721457446580647751014191829380889690493307935711",
+        "--address",
+        "8243103980183774578",
+        "--value",
+        "0",
+        "--storage",
+        "0=74631620016238954081598493242472169968906384491329590634050755627530713563565",
+        "--storage",
+        "1=115792089237316195423570985008687907853269984665640564039457584007913129639928"
+      ]
+    },
+    {
+      "name": "add-field-overflow",
+      "expected": {
+        "status": "revert",
+        "output": "0x",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "actual": {
+        "fork": "Cancun",
+        "status": "revert",
+        "output": "0x",
+        "storage": {
+          "0000000000000000000000007265636569766572": {
+            "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+            "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+          }
+        },
+        "run_gas": 2418,
+        "t8n_execution_gas": 2418,
+        "t8n_transaction_gas": 23622,
+        "intrinsic_gas": 21204
+      },
+      "model": {
+        "status": "revert",
+        "output": "0x",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "model_argv": [
+        "run",
+        "fixtures/arithmetic.asy",
+        "--calldata",
+        "11b94fd50000000000000000000000000000000000000000000000000000000000000053",
+        "--caller",
+        "721457446580647751014191829380889690493307935711",
+        "--address",
+        "8243103980183774578",
+        "--value",
+        "0",
+        "--storage",
+        "0=74631620016238954081598493242472169968906384491329590634050755627530713563565",
+        "--storage",
+        "1=115792089237316195423570985008687907853269984665640564039457584007913129639928"
+      ]
+    },
+    {
+      "name": "sub-underflow",
+      "expected": {
+        "status": "revert",
+        "output": "0x",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "actual": {
+        "fork": "Cancun",
+        "status": "revert",
+        "output": "0x",
+        "storage": {
+          "0000000000000000000000007265636569766572": {
+            "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+            "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+          }
+        },
+        "run_gas": 2434,
+        "t8n_execution_gas": 2434,
+        "t8n_transaction_gas": 23638,
+        "intrinsic_gas": 21204
+      },
+      "model": {
+        "status": "revert",
+        "output": "0x",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "model_argv": [
+        "run",
+        "fixtures/arithmetic.asy",
+        "--calldata",
+        "d7ef06c600000000000000000000000000000000000000000000000000000000000000ae",
+        "--caller",
+        "721457446580647751014191829380889690493307935711",
+        "--address",
+        "8243103980183774578",
+        "--value",
+        "0",
+        "--storage",
+        "0=74631620016238954081598493242472169968906384491329590634050755627530713563565",
+        "--storage",
+        "1=115792089237316195423570985008687907853269984665640564039457584007913129639928"
+      ]
+    },
+    {
+      "name": "proved-overflow",
+      "expected": {
+        "status": "revert",
+        "output": "0x",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "actual": {
+        "fork": "Cancun",
+        "status": "revert",
+        "output": "0x",
+        "storage": {
+          "0000000000000000000000007265636569766572": {
+            "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+            "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+          }
+        },
+        "run_gas": 2470,
+        "t8n_execution_gas": 2470,
+        "t8n_transaction_gas": 24046,
+        "intrinsic_gas": 21576
+      },
+      "model": {
+        "status": "revert",
+        "output": "0x",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "model_argv": [
+        "run",
+        "fixtures/arithmetic.asy",
+        "--calldata",
+        "af9eb820ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+        "--caller",
+        "721457446580647751014191829380889690493307935711",
+        "--address",
+        "8243103980183774578",
+        "--value",
+        "0",
+        "--storage",
+        "0=74631620016238954081598493242472169968906384491329590634050755627530713563565",
+        "--storage",
+        "1=115792089237316195423570985008687907853269984665640564039457584007913129639928"
+      ]
+    },
+    {
+      "name": "add-after-write-overflow",
+      "expected": {
+        "status": "revert",
+        "output": "0x",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "actual": {
+        "fork": "Cancun",
+        "status": "revert",
+        "output": "0x",
+        "storage": {
+          "0000000000000000000000007265636569766572": {
+            "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+            "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+          }
+        },
+        "run_gas": 5455,
+        "t8n_execution_gas": 5455,
+        "t8n_transaction_gas": 27031,
+        "intrinsic_gas": 21576
+      },
+      "model": {
+        "status": "revert",
+        "output": "0x",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "model_argv": [
+        "run",
+        "fixtures/arithmetic.asy",
+        "--calldata",
+        "df731adaffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+        "--caller",
+        "721457446580647751014191829380889690493307935711",
+        "--address",
+        "8243103980183774578",
+        "--value",
+        "0",
+        "--storage",
+        "0=74631620016238954081598493242472169968906384491329590634050755627530713563565",
+        "--storage",
+        "1=115792089237316195423570985008687907853269984665640564039457584007913129639928"
+      ]
+    },
+    {
+      "name": "guard-success",
+      "expected": {
+        "status": "success",
+        "output": "0x0000000000000000000000000000000000000000000000000000000000000007",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef123456780107",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "actual": {
+        "fork": "Cancun",
+        "status": "success",
+        "output": "0x0000000000000000000000000000000000000000000000000000000000000007",
+        "storage": {
+          "0000000000000000000000007265636569766572": {
+            "0": "0xa50000000000000000001234567890abcdef1234567890abcdef123456780107",
+            "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+          }
+        },
+        "run_gas": 5427,
+        "t8n_execution_gas": 5427,
+        "t8n_transaction_gas": 26631,
+        "intrinsic_gas": 21204
+      },
+      "model": {
+        "status": "success",
+        "output": "0x0000000000000000000000000000000000000000000000000000000000000007",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef123456780107",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "model_argv": [
+        "run",
+        "fixtures/arithmetic.asy",
+        "--calldata",
+        "5e2849750000000000000000000000000000000000000000000000000000000000000007",
+        "--caller",
+        "721457446580647751014191829380889690493307935711",
+        "--address",
+        "8243103980183774578",
+        "--value",
+        "0",
+        "--storage",
+        "0=74631620016238954081598493242472169968906384491329590634050755627530713563565",
+        "--storage",
+        "1=115792089237316195423570985008687907853269984665640564039457584007913129639928"
+      ]
+    },
+    {
+      "name": "guard-rollback",
+      "expected": {
+        "status": "revert",
+        "output": "0x",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "actual": {
+        "fork": "Cancun",
+        "status": "revert",
+        "output": "0x",
+        "storage": {
+          "0000000000000000000000007265636569766572": {
+            "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+            "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+          }
+        },
+        "run_gas": 5407,
+        "t8n_execution_gas": 5407,
+        "t8n_transaction_gas": 26611,
+        "intrinsic_gas": 21204
+      },
+      "model": {
+        "status": "revert",
+        "output": "0x",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "model_argv": [
+        "run",
+        "fixtures/arithmetic.asy",
+        "--calldata",
+        "5e2849750000000000000000000000000000000000000000000000000000000000000006",
+        "--caller",
+        "721457446580647751014191829380889690493307935711",
+        "--address",
+        "8243103980183774578",
+        "--value",
+        "0",
+        "--storage",
+        "0=74631620016238954081598493242472169968906384491329590634050755627530713563565",
+        "--storage",
+        "1=115792089237316195423570985008687907853269984665640564039457584007913129639928"
+      ]
+    },
+    {
+      "name": "custom-revert",
+      "expected": {
+        "status": "revert",
+        "output": "0x7e46dab60000000000000000000000000000000000000000000000000000000000000009",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "actual": {
+        "fork": "Cancun",
+        "status": "revert",
+        "output": "0x7e46dab60000000000000000000000000000000000000000000000000000000000000009",
+        "storage": {
+          "0000000000000000000000007265636569766572": {
+            "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+            "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+          }
+        },
+        "run_gas": 10379,
+        "t8n_execution_gas": 10379,
+        "t8n_transaction_gas": 31443,
+        "intrinsic_gas": 21064
+      },
+      "model": {
+        "status": "revert",
+        "output": "0x7e46dab60000000000000000000000000000000000000000000000000000000000000009",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "model_argv": [
+        "run",
+        "fixtures/errors.asy",
+        "--calldata",
+        "2d2f5504",
+        "--caller",
+        "721457446580647751014191829380889690493307935711",
+        "--address",
+        "8243103980183774578",
+        "--value",
+        "0",
+        "--storage",
+        "0=74631620016238954081598493242472169968906384491329590634050755627530713563565",
+        "--storage",
+        "1=115792089237316195423570985008687907853269984665640564039457584007913129639928"
+      ]
+    },
+    {
+      "name": "late-read-rollback",
+      "expected": {
+        "status": "revert",
+        "output": "0x",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef12345678ffad",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "actual": {
+        "fork": "Cancun",
+        "status": "revert",
+        "output": "0x",
+        "storage": {
+          "0000000000000000000000007265636569766572": {
+            "0": "0xa50000000000000000001234567890abcdef1234567890abcdef12345678ffad",
+            "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+          }
+        },
+        "run_gas": 5411,
+        "t8n_execution_gas": 5411,
+        "t8n_transaction_gas": 26475,
+        "intrinsic_gas": 21064
+      },
+      "model": {
+        "status": "revert",
+        "output": "0x",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef12345678ffad",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "model_argv": [
+        "run",
+        "fixtures/errors.asy",
+        "--calldata",
+        "9861d5f9",
+        "--caller",
+        "721457446580647751014191829380889690493307935711",
+        "--address",
+        "8243103980183774578",
+        "--value",
+        "0",
+        "--storage",
+        "0=74631620016238954081598493242472169968906384491329590634050755627530713628589",
+        "--storage",
+        "1=115792089237316195423570985008687907853269984665640564039457584007913129639928"
+      ]
+    },
+    {
+      "name": "repair-then-read",
+      "expected": {
+        "status": "success",
+        "output": "0x0000000000000000000000000000000000000000000000000000000000000001",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "actual": {
+        "fork": "Cancun",
+        "status": "success",
+        "output": "0x0000000000000000000000000000000000000000000000000000000000000001",
+        "storage": {
+          "0000000000000000000000007265636569766572": {
+            "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+            "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+          }
+        },
+        "run_gas": 5473,
+        "t8n_execution_gas": 5473,
+        "t8n_transaction_gas": 26537,
+        "intrinsic_gas": 21064
+      },
+      "model": {
+        "status": "success",
+        "output": "0x0000000000000000000000000000000000000000000000000000000000000001",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "model_argv": [
+        "run",
+        "fixtures/errors.asy",
+        "--calldata",
+        "d3e49790",
+        "--caller",
+        "721457446580647751014191829380889690493307935711",
+        "--address",
+        "8243103980183774578",
+        "--value",
+        "0",
+        "--storage",
+        "0=74631620016238954081598493242472169968906384491329590634050755627530713628589",
+        "--storage",
+        "1=115792089237316195423570985008687907853269984665640564039457584007913129639928"
+      ]
+    },
+    {
+      "name": "unused-dirty-boolean",
+      "expected": {
+        "status": "success",
+        "output": "0x000000000000000000000000000000000000000000000000000000000000002a",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef12345678ffad",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "actual": {
+        "fork": "Cancun",
+        "status": "success",
+        "output": "0x000000000000000000000000000000000000000000000000000000000000002a",
+        "storage": {
+          "0000000000000000000000007265636569766572": {
+            "0": "0xa50000000000000000001234567890abcdef1234567890abcdef12345678ffad",
+            "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+          }
+        },
+        "run_gas": 282,
+        "t8n_execution_gas": 282,
+        "t8n_transaction_gas": 21346,
+        "intrinsic_gas": 21064
+      },
+      "model": {
+        "status": "success",
+        "output": "0x000000000000000000000000000000000000000000000000000000000000002a",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef12345678ffad",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "model_argv": [
+        "run",
+        "fixtures/errors.asy",
+        "--calldata",
+        "438c6c28",
+        "--caller",
+        "721457446580647751014191829380889690493307935711",
+        "--address",
+        "8243103980183774578",
+        "--value",
+        "0",
+        "--storage",
+        "0=74631620016238954081598493242472169968906384491329590634050755627530713628589",
+        "--storage",
+        "1=115792089237316195423570985008687907853269984665640564039457584007913129639928"
+      ]
+    },
+    {
+      "name": "dirty-neighbor-read-Count",
+      "expected": {
+        "status": "success",
+        "output": "0x00000000000000000000000000000000000000000000000000000000000000ad",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef12345678ffad",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "actual": {
+        "fork": "Cancun",
+        "status": "success",
+        "output": "0x00000000000000000000000000000000000000000000000000000000000000ad",
+        "storage": {
+          "0000000000000000000000007265636569766572": {
+            "0": "0xa50000000000000000001234567890abcdef1234567890abcdef12345678ffad",
+            "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+          }
+        },
+        "run_gas": 2306,
+        "t8n_execution_gas": 2306,
+        "t8n_transaction_gas": 23370,
+        "intrinsic_gas": 21064
+      },
+      "model": {
+        "status": "success",
+        "output": "0x00000000000000000000000000000000000000000000000000000000000000ad",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef12345678ffad",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "model_argv": [
+        "run",
+        "fixtures/source.asy",
+        "--calldata",
+        "dbf89bd3",
+        "--caller",
+        "721457446580647751014191829380889690493307935711",
+        "--address",
+        "8243103980183774578",
+        "--value",
+        "0",
+        "--storage",
+        "0=74631620016238954081598493242472169968906384491329590634050755627530713628589",
+        "--storage",
+        "1=115792089237316195423570985008687907853269984665640564039457584007913129639928"
+      ]
+    },
+    {
+      "name": "dirty-neighbor-read-Owner",
+      "expected": {
+        "status": "success",
+        "output": "0x0000000000000000000000001234567890abcdef1234567890abcdef12345678",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef12345678ffad",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "actual": {
+        "fork": "Cancun",
+        "status": "success",
+        "output": "0x0000000000000000000000001234567890abcdef1234567890abcdef12345678",
+        "storage": {
+          "0000000000000000000000007265636569766572": {
+            "0": "0xa50000000000000000001234567890abcdef1234567890abcdef12345678ffad",
+            "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+          }
+        },
+        "run_gas": 2384,
+        "t8n_execution_gas": 2384,
+        "t8n_transaction_gas": 23448,
+        "intrinsic_gas": 21064
+      },
+      "model": {
+        "status": "success",
+        "output": "0x0000000000000000000000001234567890abcdef1234567890abcdef12345678",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef12345678ffad",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "model_argv": [
+        "run",
+        "fixtures/source.asy",
+        "--calldata",
+        "9389acb5",
+        "--caller",
+        "721457446580647751014191829380889690493307935711",
+        "--address",
+        "8243103980183774578",
+        "--value",
+        "0",
+        "--storage",
+        "0=74631620016238954081598493242472169968906384491329590634050755627530713628589",
+        "--storage",
+        "1=115792089237316195423570985008687907853269984665640564039457584007913129639928"
+      ]
+    },
+    {
+      "name": "dirty-neighbor-write",
+      "expected": {
+        "status": "success",
+        "output": "0x0000000000000000000000000000000000000000000000000000000000000005",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef12345678ff05",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "actual": {
+        "fork": "Cancun",
+        "status": "success",
+        "output": "0x0000000000000000000000000000000000000000000000000000000000000005",
+        "storage": {
+          "0000000000000000000000007265636569766572": {
+            "0": "0xa50000000000000000001234567890abcdef1234567890abcdef12345678ff05",
+            "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+          }
+        },
+        "run_gas": 5396,
+        "t8n_execution_gas": 5396,
+        "t8n_transaction_gas": 26600,
+        "intrinsic_gas": 21204
+      },
+      "model": {
+        "status": "success",
+        "output": "0x0000000000000000000000000000000000000000000000000000000000000005",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef12345678ff05",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "model_argv": [
+        "run",
+        "fixtures/source.asy",
+        "--calldata",
+        "d14e62b80000000000000000000000000000000000000000000000000000000000000005",
+        "--caller",
+        "721457446580647751014191829380889690493307935711",
+        "--address",
+        "8243103980183774578",
+        "--value",
+        "0",
+        "--storage",
+        "0=74631620016238954081598493242472169968906384491329590634050755627530713628589",
+        "--storage",
+        "1=115792089237316195423570985008687907853269984665640564039457584007913129639928"
+      ]
+    },
+    {
+      "name": "payable-context",
+      "expected": {
+        "status": "success",
+        "output": "0x0000000000000000000000000000000000000000000000000000000000000004",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef123456780103",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "actual": {
+        "fork": "Cancun",
+        "status": "success",
+        "output": "0x0000000000000000000000000000000000000000000000000000000000000004",
+        "storage": {
+          "0000000000000000000000007265636569766572": {
+            "0": "0xa50000000000000000001234567890abcdef1234567890abcdef123456780103",
+            "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+          }
+        },
+        "run_gas": 5256,
+        "t8n_execution_gas": 5256,
+        "t8n_transaction_gas": 26320,
+        "intrinsic_gas": 21064
+      },
+      "model": {
+        "status": "success",
+        "output": "0x0000000000000000000000000000000000000000000000000000000000000004",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef123456780103",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "model_argv": [
+        "run",
+        "fixtures/contexts.asy",
+        "--calldata",
+        "aa8c217c",
+        "--caller",
+        "721457446580647751014191829380889690493307935711",
+        "--address",
+        "8243103980183774578",
+        "--value",
+        "3",
+        "--storage",
+        "0=74631620016238954081598493242472169968906384491329590634050755627530713563565",
+        "--storage",
+        "1=115792089237316195423570985008687907853269984665640564039457584007913129639928"
+      ]
+    },
+    {
+      "name": "calldata-context",
+      "expected": {
+        "status": "success",
+        "output": "0x0000000000000000000000000000000000000000000000000000000000000500",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "actual": {
+        "fork": "Cancun",
+        "status": "success",
+        "output": "0x0000000000000000000000000000000000000000000000000000000000000500",
+        "storage": {
+          "0000000000000000000000007265636569766572": {
+            "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+            "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+          }
+        },
+        "run_gas": 258,
+        "t8n_execution_gas": 258,
+        "t8n_transaction_gas": 21462,
+        "intrinsic_gas": 21204
+      },
+      "model": {
+        "status": "success",
+        "output": "0x0000000000000000000000000000000000000000000000000000000000000500",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "model_argv": [
+        "run",
+        "fixtures/contexts.asy",
+        "--calldata",
+        "634f45b00000000000000000000000000000000000000000000000000000000000000005",
+        "--caller",
+        "721457446580647751014191829380889690493307935711",
+        "--address",
+        "8243103980183774578",
+        "--value",
+        "0",
+        "--storage",
+        "0=74631620016238954081598493242472169968906384491329590634050755627530713563565",
+        "--storage",
+        "1=115792089237316195423570985008687907853269984665640564039457584007913129639928"
+      ]
+    },
+    {
+      "name": "calldata-selector",
+      "expected": {
+        "status": "success",
+        "output": "0x634f45b000000000000000000000000000000000000000000000000000000000",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "actual": {
+        "fork": "Cancun",
+        "status": "success",
+        "output": "0x634f45b000000000000000000000000000000000000000000000000000000000",
+        "storage": {
+          "0000000000000000000000007265636569766572": {
+            "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+            "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+          }
+        },
+        "run_gas": 258,
+        "t8n_execution_gas": 258,
+        "t8n_transaction_gas": 21450,
+        "intrinsic_gas": 21192
+      },
+      "model": {
+        "status": "success",
+        "output": "0x634f45b000000000000000000000000000000000000000000000000000000000",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "model_argv": [
+        "run",
+        "fixtures/contexts.asy",
+        "--calldata",
+        "634f45b00000000000000000000000000000000000000000000000000000000000000000",
+        "--caller",
+        "721457446580647751014191829380889690493307935711",
+        "--address",
+        "8243103980183774578",
+        "--value",
+        "0",
+        "--storage",
+        "0=74631620016238954081598493242472169968906384491329590634050755627530713563565",
+        "--storage",
+        "1=115792089237316195423570985008687907853269984665640564039457584007913129639928"
+      ]
+    },
+    {
+      "name": "address-context",
+      "expected": {
+        "status": "success",
+        "output": "0x0000000000000000000000000000000000000000000000007265636569766572",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+          "1": "0x7265636569766572"
+        }
+      },
+      "actual": {
+        "fork": "Cancun",
+        "status": "success",
+        "output": "0x0000000000000000000000000000000000000000000000007265636569766572",
+        "storage": {
+          "0000000000000000000000007265636569766572": {
+            "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+            "1": "0x7265636569766572"
+          }
+        },
+        "run_gas": 5293,
+        "t8n_execution_gas": 5293,
+        "t8n_transaction_gas": 26357,
+        "intrinsic_gas": 21064
+      },
+      "model": {
+        "status": "success",
+        "output": "0x0000000000000000000000000000000000000000000000007265636569766572",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+          "1": "0x7265636569766572"
+        }
+      },
+      "model_argv": [
+        "run",
+        "fixtures/contexts.asy",
+        "--calldata",
+        "7104ddb2",
+        "--caller",
+        "721457446580647751014191829380889690493307935711",
+        "--address",
+        "8243103980183774578",
+        "--value",
+        "0",
+        "--storage",
+        "0=74631620016238954081598493242472169968906384491329590634050755627530713563565",
+        "--storage",
+        "1=115792089237316195423570985008687907853269984665640564039457584007913129639928"
+      ]
+    },
+    {
+      "name": "caller-context",
+      "expected": {
+        "status": "success",
+        "output": "0x0000000000000000000000007e5f4552091a69125d5dfcb7b8c2659029395bdf",
+        "storage": {
+          "0": "0xa50000000000000000007e5f4552091a69125d5dfcb7b8c2659029395bdf01ad",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "actual": {
+        "fork": "Cancun",
+        "status": "success",
+        "output": "0x0000000000000000000000007e5f4552091a69125d5dfcb7b8c2659029395bdf",
+        "storage": {
+          "0000000000000000000000007265636569766572": {
+            "0": "0xa50000000000000000007e5f4552091a69125d5dfcb7b8c2659029395bdf01ad",
+            "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+          }
+        },
+        "run_gas": 5374,
+        "t8n_execution_gas": 5374,
+        "t8n_transaction_gas": 26438,
+        "intrinsic_gas": 21064
+      },
+      "model": {
+        "status": "success",
+        "output": "0x0000000000000000000000007e5f4552091a69125d5dfcb7b8c2659029395bdf",
+        "storage": {
+          "0": "0xa50000000000000000007e5f4552091a69125d5dfcb7b8c2659029395bdf01ad",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "model_argv": [
+        "run",
+        "fixtures/contexts.asy",
+        "--calldata",
+        "67e404ce",
+        "--caller",
+        "721457446580647751014191829380889690493307935711",
+        "--address",
+        "8243103980183774578",
+        "--value",
+        "0",
+        "--storage",
+        "0=74631620016238954081598493242472169968906384491329590634050755627530713563565",
+        "--storage",
+        "1=115792089237316195423570985008687907853269984665640564039457584007913129639928"
+      ]
+    },
+    {
+      "name": "fallback-empty",
+      "expected": {
+        "status": "revert",
+        "output": "0x7e46dab60000000000000000000000000000000000000000000000000000000000000017",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "actual": {
+        "fork": "Cancun",
+        "status": "revert",
+        "output": "0x7e46dab60000000000000000000000000000000000000000000000000000000000000017",
+        "storage": {
+          "0000000000000000000000007265636569766572": {
+            "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+            "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+          }
+        },
+        "run_gas": 5213,
+        "t8n_execution_gas": 5213,
+        "t8n_transaction_gas": 26213,
+        "intrinsic_gas": 21000
+      },
+      "model": {
+        "status": "revert",
+        "output": "0x7e46dab60000000000000000000000000000000000000000000000000000000000000017",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "model_argv": [
+        "run",
+        "fixtures/dispatch.asy",
+        "--calldata",
+        "",
+        "--caller",
+        "721457446580647751014191829380889690493307935711",
+        "--address",
+        "8243103980183774578",
+        "--value",
+        "0",
+        "--storage",
+        "0=74631620016238954081598493242472169968906384491329590634050755627530713563565",
+        "--storage",
+        "1=115792089237316195423570985008687907853269984665640564039457584007913129639928"
+      ]
+    },
+    {
+      "name": "fallback-short",
+      "expected": {
+        "status": "revert",
+        "output": "0x7e46dab60000000000000000000000000000000000000000000000000000000000000017",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "actual": {
+        "fork": "Cancun",
+        "status": "revert",
+        "output": "0x7e46dab60000000000000000000000000000000000000000000000000000000000000017",
+        "storage": {
+          "0000000000000000000000007265636569766572": {
+            "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+            "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+          }
+        },
+        "run_gas": 5213,
+        "t8n_execution_gas": 5213,
+        "t8n_transaction_gas": 26217,
+        "intrinsic_gas": 21004
+      },
+      "model": {
+        "status": "revert",
+        "output": "0x7e46dab60000000000000000000000000000000000000000000000000000000000000017",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "model_argv": [
+        "run",
+        "fixtures/dispatch.asy",
+        "--calldata",
+        "00",
+        "--caller",
+        "721457446580647751014191829380889690493307935711",
+        "--address",
+        "8243103980183774578",
+        "--value",
+        "0",
+        "--storage",
+        "0=74631620016238954081598493242472169968906384491329590634050755627530713563565",
+        "--storage",
+        "1=115792089237316195423570985008687907853269984665640564039457584007913129639928"
+      ]
+    },
+    {
+      "name": "fallback-unknown",
+      "expected": {
+        "status": "revert",
+        "output": "0x7e46dab60000000000000000000000000000000000000000000000000000000000000017",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "actual": {
+        "fork": "Cancun",
+        "status": "revert",
+        "output": "0x7e46dab60000000000000000000000000000000000000000000000000000000000000017",
+        "storage": {
+          "0000000000000000000000007265636569766572": {
+            "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+            "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+          }
+        },
+        "run_gas": 5324,
+        "t8n_execution_gas": 5324,
+        "t8n_transaction_gas": 26388,
+        "intrinsic_gas": 21064
+      },
+      "model": {
+        "status": "revert",
+        "output": "0x7e46dab60000000000000000000000000000000000000000000000000000000000000017",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "model_argv": [
+        "run",
+        "fixtures/dispatch.asy",
+        "--calldata",
+        "ffffffff",
+        "--caller",
+        "721457446580647751014191829380889690493307935711",
+        "--address",
+        "8243103980183774578",
+        "--value",
+        "0",
+        "--storage",
+        "0=74631620016238954081598493242472169968906384491329590634050755627530713563565",
+        "--storage",
+        "1=115792089237316195423570985008687907853269984665640564039457584007913129639928"
+      ]
+    },
+    {
+      "name": "fallback-value-reject",
+      "expected": {
+        "status": "revert",
+        "output": "0x",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "actual": {
+        "fork": "Cancun",
+        "status": "revert",
+        "output": "0x",
+        "storage": {
+          "0000000000000000000000007265636569766572": {
+            "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+            "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+          }
+        },
+        "run_gas": 20,
+        "t8n_execution_gas": 20,
+        "t8n_transaction_gas": 21020,
+        "intrinsic_gas": 21000
+      },
+      "model": {
+        "status": "revert",
+        "output": "0x",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "model_argv": [
+        "run",
+        "fixtures/dispatch.asy",
+        "--calldata",
+        "",
+        "--caller",
+        "721457446580647751014191829380889690493307935711",
+        "--address",
+        "8243103980183774578",
+        "--value",
+        "1",
+        "--storage",
+        "0=74631620016238954081598493242472169968906384491329590634050755627530713563565",
+        "--storage",
+        "1=115792089237316195423570985008687907853269984665640564039457584007913129639928"
+      ]
+    },
+    {
+      "name": "entry-value-reject",
+      "expected": {
+        "status": "revert",
+        "output": "0x",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "actual": {
+        "fork": "Cancun",
+        "status": "revert",
+        "output": "0x",
+        "storage": {
+          "0000000000000000000000007265636569766572": {
+            "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+            "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+          }
+        },
+        "run_gas": 20,
+        "t8n_execution_gas": 20,
+        "t8n_transaction_gas": 21084,
+        "intrinsic_gas": 21064
+      },
+      "model": {
+        "status": "revert",
+        "output": "0x",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "model_argv": [
+        "run",
+        "fixtures/dispatch.asy",
+        "--calldata",
+        "dbf89bd3",
+        "--caller",
+        "721457446580647751014191829380889690493307935711",
+        "--address",
+        "8243103980183774578",
+        "--value",
+        "1",
+        "--storage",
+        "0=74631620016238954081598493242472169968906384491329590634050755627530713563565",
+        "--storage",
+        "1=115792089237316195423570985008687907853269984665640564039457584007913129639928"
+      ]
+    },
+    {
+      "name": "short-argument-reject",
+      "expected": {
+        "status": "revert",
+        "output": "0x",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "actual": {
+        "fork": "Cancun",
+        "status": "revert",
+        "output": "0x",
+        "storage": {
+          "0000000000000000000000007265636569766572": {
+            "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+            "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+          }
+        },
+        "run_gas": 142,
+        "t8n_execution_gas": 142,
+        "t8n_transaction_gas": 21206,
+        "intrinsic_gas": 21064
+      },
+      "model": {
+        "status": "revert",
+        "output": "0x",
+        "storage": {
+          "0": "0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad",
+          "1": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8"
+        }
+      },
+      "model_argv": [
+        "run",
+        "fixtures/dispatch.asy",
+        "--calldata",
+        "11b94fd5",
+        "--caller",
+        "721457446580647751014191829380889690493307935711",
+        "--address",
+        "8243103980183774578",
+        "--value",
+        "0",
+        "--storage",
+        "0=74631620016238954081598493242472169968906384491329590634050755627530713563565",
+        "--storage",
+        "1=115792089237316195423570985008687907853269984665640564039457584007913129639928"
+      ]
+    }
+  ],
+  "layout": {
+    "storage": [
+      {
+        "astId": 0,
+        "contract": "PackedStorage",
+        "label": "count",
+        "offset": 0,
+        "slot": "0",
+        "type": "t_uint8"
+      },
+      {
+        "astId": 1,
+        "contract": "PackedStorage",
+        "label": "enabled",
+        "offset": 1,
+        "slot": "0",
+        "type": "t_bool"
+      },
+      {
+        "astId": 2,
+        "contract": "PackedStorage",
+        "label": "owner",
+        "offset": 2,
+        "slot": "0",
+        "type": "t_address"
+      },
+      {
+        "astId": 3,
+        "contract": "PackedStorage",
+        "label": "total",
+        "offset": 0,
+        "slot": "1",
+        "type": "t_uint256"
+      }
+    ],
+    "types": {
+      "t_uint8": {
+        "encoding": "inplace",
+        "label": "uint8",
+        "numberOfBytes": "1"
+      },
+      "t_bool": {
+        "encoding": "inplace",
+        "label": "bool",
+        "numberOfBytes": "1"
+      },
+      "t_address": {
+        "encoding": "inplace",
+        "label": "address",
+        "numberOfBytes": "20"
+      },
+      "t_uint256": {
+        "encoding": "inplace",
+        "label": "uint256",
+        "numberOfBytes": "32"
+      }
+    }
+  },
+  "source_sha256": "45401956ba5e335c9c65bf17ffa6c68da3a8a212a002d5ab2a841ab234f6eea6"
+}

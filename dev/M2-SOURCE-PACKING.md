@@ -25,20 +25,24 @@ layout uses 238/250 lines, assembler 414/505, and artifacts total 3184/3550.
 
 Function arguments and returns retain the existing Word ABI. Check and
 emit accept the typed source. The typed layout applies only when at least
-one field is Uint8, Bool or Address. For such source, run returns status 64
-with an explicit pending-model message, because the existing source model
-uses one field per slot. Source whose fields are only Word or Uint256 packs
-nothing. It keeps the existing Word path for check, emit and run, with the
-same artifacts as Word-only source.
+one field is Uint8, Bool or Address. The
+[packed source model](M2-PACKED-MODEL.md) now runs these contracts against
+the same physical layout. Source whose fields are only Word or Uint256
+packs nothing. It keeps the existing Word path for check, emit and run,
+with the same artifacts as Word-only source.
 
 dev/packed-source-test.py checks 38 live cases against independent packed
 word goldens, using Geth run and signed Cancun t8n for runtime transactions.
 It covers range boundaries, neighbor preservation, dirty boolean reads and
 repair, sequential rollback, constructors, reordered fields, slot spills,
 source rejection, and Word model compatibility for Word-only and
-Uint256-only source. Three compiled semantic
-mutants must fail these assertions. Geth's two execution paths share an
-implementation; this is not agreement between independent EVM engines.
+Uint256-only source. Three compiled semantic mutants must fail these
+assertions. Geth's two execution paths share an implementation; this is
+not agreement between independent EVM engines.
+
+The [packed source model](M2-PACKED-MODEL.md) extends this suite to 66 live
+cases and six compiled semantic mutants. Its [validation
+record](validation/2026-10-01-m2-packed-model/REPORT.json) pins that run.
 
 dev/fixtures/packed-source-word contains exact Word-only artifacts generated
 with the pinned Bend compiler from commit 80bc4c67f9ce7489dbcbec2cbe1a7b85dee07593.
@@ -59,7 +63,7 @@ The [validation record](validation/2026-10-01-m2-source-packing/REPORT.json)
 pins source hashes and records the native suite, live cases, mutants,
 compatibility checks and fixed budgets. The full 95-leg battery was not rerun.
 
-M2 remains open. Its remaining work includes the packed source model,
-mapping and event source integration, dynamic ABI source integration, and
-the milestone's negative Lean proof obligations. This slice does not claim
-a complete ERC-20 source compiler or a new full milestone battery pass.
+M2 remains open. Its remaining work includes mapping and event source
+integration, dynamic ABI source integration, and the milestone's negative
+Lean proof obligations. This slice does not claim a complete ERC-20
+source compiler or a new full milestone battery pass.

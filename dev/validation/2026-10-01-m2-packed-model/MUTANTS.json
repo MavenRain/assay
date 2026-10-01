@@ -1,0 +1,182 @@
+[
+  {
+    "name": "mask",
+    "build": {
+      "argv": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "-P",
+        "/tmp/claude-501/assay-packed-mask-u6kck898/assay/dev/build.py",
+        "build",
+        "_build/bin/assay"
+      ],
+      "exit": 0,
+      "stdout": "BEND BUILD assay OK\n",
+      "stderr": ""
+    },
+    "result": {
+      "argv": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "-P",
+        "/Users/oobi/Documents/assay/dev/packed-source-test.py",
+        "--control",
+        "--case",
+        "read-Count",
+        "--root",
+        "/tmp/claude-501/assay-packed-mask-u6kck898/assay"
+      ],
+      "exit": 1,
+      "stdout": "",
+      "stderr": "Traceback (most recent call last):\n  File \"/Users/oobi/Documents/assay/dev/packed-source-test.py\", line 353, in <module>\n    main()\n    ~~~~^^\n  File \"/Users/oobi/Documents/assay/dev/packed-source-test.py\", line 347, in main\n    cases = live(args.case)\n  File \"/Users/oobi/Documents/assay/dev/packed-source-test.py\", line 93, in live\n    check('read-' + name, 'read' + name, [], initial, initial, value)\n    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/oobi/Documents/assay/dev/packed-source-test.py\", line 78, in check\n    require(observed == expected, name + ': ' + json.dumps(dict(expected=expected, actual=observed)))\n    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/oobi/Documents/assay/dev/packed-source-test.py\", line 28, in require\n    raise AssertionError('PACKED-SOURCE ' + message)\nAssertionError: PACKED-SOURCE read-Count: {\"expected\": {\"status\": \"success\", \"output\": \"0x00000000000000000000000000000000000000000000000000000000000000ad\", \"storage\": {\"0\": \"0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad\", \"1\": \"0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8\"}}, \"actual\": {\"status\": \"success\", \"output\": \"0x0000000000000000000000000000000000000000000000000000000000000000\", \"storage\": {\"0\": \"0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad\", \"1\": \"0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8\"}}}\n"
+    }
+  },
+  {
+    "name": "preserve",
+    "build": {
+      "argv": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "-P",
+        "/tmp/claude-501/assay-packed-preserve-dqix0q26/assay/dev/build.py",
+        "build",
+        "_build/bin/assay"
+      ],
+      "exit": 0,
+      "stdout": "BEND BUILD assay OK\n",
+      "stderr": ""
+    },
+    "result": {
+      "argv": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "-P",
+        "/Users/oobi/Documents/assay/dev/packed-source-test.py",
+        "--control",
+        "--case",
+        "write-Count-0",
+        "--root",
+        "/tmp/claude-501/assay-packed-preserve-dqix0q26/assay"
+      ],
+      "exit": 1,
+      "stdout": "",
+      "stderr": "Traceback (most recent call last):\n  File \"/Users/oobi/Documents/assay/dev/packed-source-test.py\", line 353, in <module>\n    main()\n    ~~~~^^\n  File \"/Users/oobi/Documents/assay/dev/packed-source-test.py\", line 347, in main\n    cases = live(args.case)\n  File \"/Users/oobi/Documents/assay/dev/packed-source-test.py\", line 103, in live\n    check(f'write-{name}-{value}', 'set' + name, [value], initial, after,\n    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n          value if value < limit else None)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/oobi/Documents/assay/dev/packed-source-test.py\", line 78, in check\n    require(observed == expected, name + ': ' + json.dumps(dict(expected=expected, actual=observed)))\n    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/oobi/Documents/assay/dev/packed-source-test.py\", line 28, in require\n    raise AssertionError('PACKED-SOURCE ' + message)\nAssertionError: PACKED-SOURCE write-Count-0: {\"expected\": {\"status\": \"success\", \"output\": \"0x0000000000000000000000000000000000000000000000000000000000000000\", \"storage\": {\"0\": \"0xa50000000000000000001234567890abcdef1234567890abcdef123456780100\", \"1\": \"0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8\"}}, \"actual\": {\"status\": \"success\", \"output\": \"0x0000000000000000000000000000000000000000000000000000000000000000\", \"storage\": {\"0\": \"0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad\", \"1\": \"0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8\"}}}\n"
+    }
+  },
+  {
+    "name": "boolean",
+    "build": {
+      "argv": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "-P",
+        "/tmp/claude-501/assay-packed-boolean-490u8gve/assay/dev/build.py",
+        "build",
+        "_build/bin/assay"
+      ],
+      "exit": 0,
+      "stdout": "BEND BUILD assay OK\n",
+      "stderr": ""
+    },
+    "result": {
+      "argv": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "-P",
+        "/Users/oobi/Documents/assay/dev/packed-source-test.py",
+        "--control",
+        "--case",
+        "dirty-read-2",
+        "--root",
+        "/tmp/claude-501/assay-packed-boolean-490u8gve/assay"
+      ],
+      "exit": 1,
+      "stdout": "",
+      "stderr": "Traceback (most recent call last):\n  File \"/Users/oobi/Documents/assay/dev/packed-source-test.py\", line 353, in <module>\n    main()\n    ~~~~^^\n  File \"/Users/oobi/Documents/assay/dev/packed-source-test.py\", line 347, in main\n    cases = live(args.case)\n  File \"/Users/oobi/Documents/assay/dev/packed-source-test.py\", line 108, in live\n    check('dirty-read-' + str(dirty), 'readEnabled', [], before, before)\n    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/oobi/Documents/assay/dev/packed-source-test.py\", line 78, in check\n    require(observed == expected, name + ': ' + json.dumps(dict(expected=expected, actual=observed)))\n    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/oobi/Documents/assay/dev/packed-source-test.py\", line 28, in require\n    raise AssertionError('PACKED-SOURCE ' + message)\nAssertionError: PACKED-SOURCE dirty-read-2: {\"expected\": {\"status\": \"revert\", \"output\": \"0x\", \"storage\": {\"0\": \"0xa50000000000000000001234567890abcdef1234567890abcdef1234567802ad\", \"1\": \"0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8\"}}, \"actual\": {\"status\": \"success\", \"output\": \"0x0000000000000000000000000000000000000000000000000000000000000002\", \"storage\": {\"0\": \"0xa50000000000000000001234567890abcdef1234567890abcdef1234567802ad\", \"1\": \"0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8\"}}}\n"
+    }
+  },
+  {
+    "name": "model-slot",
+    "build": {
+      "argv": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "-P",
+        "/tmp/claude-501/assay-packed-model-slot-9d4csxi6/assay/dev/build.py",
+        "build",
+        "_build/bin/assay"
+      ],
+      "exit": 0,
+      "stdout": "BEND BUILD assay OK\n",
+      "stderr": ""
+    },
+    "result": {
+      "argv": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "-P",
+        "/Users/oobi/Documents/assay/dev/packed-source-test.py",
+        "--control",
+        "--case",
+        "read-Enabled",
+        "--root",
+        "/tmp/claude-501/assay-packed-model-slot-9d4csxi6/assay"
+      ],
+      "exit": 1,
+      "stdout": "",
+      "stderr": "Traceback (most recent call last):\n  File \"/Users/oobi/Documents/assay/dev/packed-source-test.py\", line 353, in <module>\n    main()\n    ~~~~^^\n  File \"/Users/oobi/Documents/assay/dev/packed-source-test.py\", line 347, in main\n    cases = live(args.case)\n  File \"/Users/oobi/Documents/assay/dev/packed-source-test.py\", line 93, in live\n    check('read-' + name, 'read' + name, [], initial, initial, value)\n    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/oobi/Documents/assay/dev/packed-source-test.py\", line 86, in check\n    require(modeled == expected, name + ': ' + json.dumps(dict(expected=expected, model=modeled)))\n    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/oobi/Documents/assay/dev/packed-source-test.py\", line 28, in require\n    raise AssertionError('PACKED-SOURCE ' + message)\nAssertionError: PACKED-SOURCE read-Enabled: {\"expected\": {\"status\": \"success\", \"output\": \"0x0000000000000000000000000000000000000000000000000000000000000001\", \"storage\": {\"0\": \"0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad\", \"1\": \"0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8\"}}, \"model\": {\"status\": \"success\", \"output\": \"0x00000000000000000000000000000000000000000000000000000000000000ad\", \"storage\": {\"0\": \"0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad\", \"1\": \"0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8\"}}}\n"
+    }
+  },
+  {
+    "name": "model-preserve",
+    "build": {
+      "argv": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "-P",
+        "/tmp/claude-501/assay-packed-model-preserve-xoj6ge0f/assay/dev/build.py",
+        "build",
+        "_build/bin/assay"
+      ],
+      "exit": 0,
+      "stdout": "BEND BUILD assay OK\n",
+      "stderr": ""
+    },
+    "result": {
+      "argv": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "-P",
+        "/Users/oobi/Documents/assay/dev/packed-source-test.py",
+        "--control",
+        "--case",
+        "write-Count-0",
+        "--root",
+        "/tmp/claude-501/assay-packed-model-preserve-xoj6ge0f/assay"
+      ],
+      "exit": 1,
+      "stdout": "",
+      "stderr": "Traceback (most recent call last):\n  File \"/Users/oobi/Documents/assay/dev/packed-source-test.py\", line 353, in <module>\n    main()\n    ~~~~^^\n  File \"/Users/oobi/Documents/assay/dev/packed-source-test.py\", line 347, in main\n    cases = live(args.case)\n  File \"/Users/oobi/Documents/assay/dev/packed-source-test.py\", line 103, in live\n    check(f'write-{name}-{value}', 'set' + name, [value], initial, after,\n    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n          value if value < limit else None)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/oobi/Documents/assay/dev/packed-source-test.py\", line 86, in check\n    require(modeled == expected, name + ': ' + json.dumps(dict(expected=expected, model=modeled)))\n    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/oobi/Documents/assay/dev/packed-source-test.py\", line 28, in require\n    raise AssertionError('PACKED-SOURCE ' + message)\nAssertionError: PACKED-SOURCE write-Count-0: {\"expected\": {\"status\": \"success\", \"output\": \"0x0000000000000000000000000000000000000000000000000000000000000000\", \"storage\": {\"0\": \"0xa50000000000000000001234567890abcdef1234567890abcdef123456780100\", \"1\": \"0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8\"}}, \"model\": {\"status\": \"success\", \"output\": \"0x0000000000000000000000000000000000000000000000000000000000000000\", \"storage\": {\"0\": \"0xa50000000000000000001234567890abcdef1234567890abcdef123456780100\"}}}\n"
+    }
+  },
+  {
+    "name": "model-rollback",
+    "build": {
+      "argv": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "-P",
+        "/tmp/claude-501/assay-packed-model-rollback-syhdhkpu/assay/dev/build.py",
+        "build",
+        "_build/bin/assay"
+      ],
+      "exit": 0,
+      "stdout": "BEND BUILD assay OK\n",
+      "stderr": ""
+    },
+    "result": {
+      "argv": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "-P",
+        "/Users/oobi/Documents/assay/dev/packed-source-test.py",
+        "--control",
+        "--case",
+        "rollback",
+        "--root",
+        "/tmp/claude-501/assay-packed-model-rollback-syhdhkpu/assay"
+      ],
+      "exit": 1,
+      "stdout": "",
+      "stderr": "Traceback (most recent call last):\n  File \"/Users/oobi/Documents/assay/dev/packed-source-test.py\", line 353, in <module>\n    main()\n    ~~~~^^\n  File \"/Users/oobi/Documents/assay/dev/packed-source-test.py\", line 347, in main\n    cases = live(args.case)\n  File \"/Users/oobi/Documents/assay/dev/packed-source-test.py\", line 113, in live\n    check('rollback', 'setPair', [9, 2], initial, initial)\n    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/oobi/Documents/assay/dev/packed-source-test.py\", line 86, in check\n    require(modeled == expected, name + ': ' + json.dumps(dict(expected=expected, model=modeled)))\n    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/oobi/Documents/assay/dev/packed-source-test.py\", line 28, in require\n    raise AssertionError('PACKED-SOURCE ' + message)\nAssertionError: PACKED-SOURCE rollback: {\"expected\": {\"status\": \"revert\", \"output\": \"0x\", \"storage\": {\"0\": \"0xa50000000000000000001234567890abcdef1234567890abcdef1234567801ad\", \"1\": \"0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8\"}}, \"model\": {\"status\": \"revert\", \"output\": \"0x\", \"storage\": {\"0\": \"0xa50000000000000000001234567890abcdef1234567890abcdef123456780109\", \"1\": \"0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8\"}}}\n"
+    }
+  }
+]

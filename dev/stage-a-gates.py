@@ -479,7 +479,7 @@ def main():
             ("MILESTONE-SPEED", 60, ("python3", "-P", "dev/milestone-speed-test.py"),
              "MILESTONE-SPEED schedules=57 controls=9 OK"),
             ("PACKED-SOURCE", 600, ("python3", "-P", "dev/packed-source-test.py"),
-             "PACKED-SOURCE cases=38 executors=run+t8n mutants=3 OK"),
+             "PACKED-SOURCE cases=66 model=packed executors=run+t8n mutants=6 OK"),
         ])
     if m4_speed:
         stage = "M4-SPEED"
