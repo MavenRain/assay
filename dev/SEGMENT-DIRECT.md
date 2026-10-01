@@ -23,7 +23,7 @@ Native carry hashes follow the changed emitter source.
 `make test` includes the substring check. `make gates` includes the mandatory
 `SEGMENT-DIRECT` leg through its existing `--lexer-direct` mode. Schedule
 compatibility retains all 56 predecessor modes and requires the current
-92 legs, including all four direct-conversion checks. The benchmark method
+93 legs, including all five direct-conversion checks. The benchmark method
 and 1.0 speed limit retain their requirements.
 
 Validation evidence is recorded under
@@ -44,9 +44,11 @@ or launchers to the timed-out run. The replay receipt and all failed and
 completed captures are archived. Source budgets and native
 carry pass.
 
-The new five-round, six-case measurement is byte-identical to the active
+The new five-round, six-case measurement was byte-identical to the then-active
 `dev/bend2-baseline.json`. It records a ratio of 1.538120777 in an
 18.362-second host window starting at 2026-10-01 07:18 UTC. This exceeds
 the unchanged 1.0 bound and does not isolate the substring change's speed
 effect. The ratio refusal controls pass. BEND2-RATIO, the full milestone
 gate battery and M2 source lowering remain open.
+The later [CLI prefix continuation](CLI-PREFIX-DIRECT.md) supersedes the active
+compiler measurement with its own frozen record.

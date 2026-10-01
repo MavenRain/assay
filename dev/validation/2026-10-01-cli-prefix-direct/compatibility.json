@@ -1,0 +1,67 @@
+{
+  "base": "82f14761406f4d0cd383f284250d708595a4988e",
+  "prior_modes": 56,
+  "new_checks": 93,
+  "appended": [
+    [
+      "LEXER-DIRECT",
+      600,
+      [
+        "python3",
+        "-P",
+        "dev/lexer-direct-test.py"
+      ],
+      "LEXER-DIRECT cases=287 golden=4 mutants=3 rounds=5 OK",
+      true
+    ],
+    [
+      "IDENTIFIER-DIRECT",
+      600,
+      [
+        "python3",
+        "-P",
+        "dev/identifier-direct-test.py"
+      ],
+      "IDENTIFIER-DIRECT cases=1043 golden=1043 mutants=2 OK",
+      true
+    ],
+    [
+      "WORD-DIRECT",
+      600,
+      [
+        "python3",
+        "-P",
+        "dev/word-direct-test.py"
+      ],
+      "WORD-DIRECT cases=1580 golden=1580 mutants=3 OK",
+      true
+    ],
+    [
+      "SEGMENT-DIRECT",
+      600,
+      [
+        "python3",
+        "-P",
+        "dev/segment-direct-test.py"
+      ],
+      "SEGMENT-DIRECT cases=1348 golden=1348 mutants=3 OK",
+      true
+    ],
+    [
+      "CLI-PREFIX-DIRECT",
+      600,
+      [
+        "python3",
+        "-P",
+        "dev/cli-prefix-direct-test.py"
+      ],
+      "CLI-PREFIX-DIRECT cases=2184 golden=2184 mutants=9 OK",
+      true
+    ]
+  ],
+  "existing_abi_and_tests": "byte-identical",
+  "cli_bundle": "byte-identical",
+  "cli_bytes": 1357829,
+  "cli_sha256": "bd9bf6e5097f6fb20dc7f3fc3c5134b26a8b51224f741b1f4a49be71365c81e7",
+  "cli_delta_sha256": "01a686043b23ef9f3ccda7564ae2fa90e00bcee9c904ff67ccf4e9c8362f7ade"
+}

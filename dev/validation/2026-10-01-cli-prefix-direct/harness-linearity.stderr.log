@@ -1,0 +1,9 @@
+Traceback (most recent call last):
+  File "/Users/oobi/Documents/gpt1/assay-cli-direct/dev/cli-prefix-direct-test.py", line 198, in <module>
+    main()
+    ~~~~^^
+  File "/Users/oobi/Documents/gpt1/assay-cli-direct/dev/cli-prefix-direct-test.py", line 161, in main
+    baseline = compile_and_run(control, entry, 'control')
+  File "/Users/oobi/Documents/gpt1/assay-cli-direct/dev/cli-prefix-direct-test.py", line 88, in compile_and_run
+    raise ValueError(f'{name} build failed: {WORK / (name + "-build.log")}')
+ValueError: control build failed: /Users/oobi/Documents/gpt1/assay-cli-direct/_build/cli-prefix-direct/control-build.log

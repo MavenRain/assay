@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "/Users/oobi/Documents/gpt1/assay-cli-direct/dev/cli-prefix-direct-test.py", line 189, in <module>
+    main()
+    ~~~~^^
+  File "/Users/oobi/Documents/gpt1/assay-cli-direct/dev/cli-prefix-direct-test.py", line 152, in main
+    baseline = compile_and_run(control, entry, 'control')
+  File "/Users/oobi/Documents/gpt1/assay-cli-direct/dev/cli-prefix-direct-test.py", line 84, in compile_and_run
+    compiled = subprocess.run([str(build.compiler()), str(path), '-o', str(path.with_suffix('.js'))],
+                                   ~~~~~~~~~~~~~~^^
+  File "/Users/oobi/Documents/gpt1/assay-cli-direct/dev/build.py", line 84, in compiler
+    raise ValueError('Bend 2 is missing. Run python3 -P dev/bootstrap-bend.py, or set BEND to the pinned checkout bin/bend.')
+ValueError: Bend 2 is missing. Run python3 -P dev/bootstrap-bend.py, or set BEND to the pinned checkout bin/bend.

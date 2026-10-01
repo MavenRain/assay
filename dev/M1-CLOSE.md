@@ -2,9 +2,11 @@
 
 Status: BEND2-RATIO fails on the current frozen record. The requirement,
 set by the user on 2026-09-22, is compilation speed at least as fast as Bend 2.
-The [current paired comparison](SEGMENT-DIRECT.md) measures a ratio of 1.538120777
-against the unchanged 1.0 limit, in an 18.362-second window that started at
-2026-10-01 07:18 UTC. This describes the recorded host window.
+The [current paired comparison](CLI-PREFIX-DIRECT.md) measures a ratio of 1.639908573
+against the unchanged 1.0 limit, in a 9.366-second window that started at
+2026-10-01 09:18 UTC. This describes the recorded host window.
+The previous 1.538120777 comparison failed and is retained in
+`dev/validation/2026-09-30-segment-direct/paired-measurement.json`.
 The previous 1.312470762 comparison failed and is retained in
 `dev/validation/2026-09-30-word-direct/paired-measurement-final.json`.
 Before that, 1.775497120 failed and is retained in
@@ -127,8 +129,9 @@ NATIVE-IO checks, for 77 legs. The native default adds the
 [CALL-CODEC](M2-CALLDATA.md), [RETURN-CODEC](M2-RETURNDATA.md),
 [REVERT-CODEC](M2-REVERTDATA.md), [EVENT-DECODE](M2-EVENT-DECODE.md),
 [LEXER-KEYWORDS](LEXER-KEYWORDS.md), [LEXER-DIRECT](LEXER-DIRECT.md),
-[IDENTIFIER-DIRECT](IDENTIFIER-DIRECT.md), [WORD-DIRECT](WORD-DIRECT.md)
-and [SEGMENT-DIRECT](SEGMENT-DIRECT.md), for 92 checks.
+[IDENTIFIER-DIRECT](IDENTIFIER-DIRECT.md), [WORD-DIRECT](WORD-DIRECT.md),
+[SEGMENT-DIRECT](SEGMENT-DIRECT.md) and [CLI-PREFIX-DIRECT](CLI-PREFIX-DIRECT.md),
+for 93 checks.
 
 That ratio test used synthetic reports to exercise the public command; these
 were decision tests and provided no timing evidence. It checked the

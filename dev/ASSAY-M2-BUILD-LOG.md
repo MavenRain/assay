@@ -1,5 +1,40 @@
 # Assay M2 build log
 
+## 2026-10-01: Direct CLI hexadecimal prefix removal
+
+Starting at `356ce95673480c8b6290e9549a3a47153c44933f`, `Trace.calldata`,
+`Trace.caller` and `Differential.caller` remove hexadecimal prefixes with
+`NativeString.drop(2n, ...)`. The earlier paths built Series, dropped
+characters and rebuilt strings. Decimal parsing, validation, address
+padding, uint160 bounds and offline fixture restrictions retain their
+behavior. Three exact declaration pins extend the manifest to eleven.
+
+The new comparison passes 2,184 results across 728 inputs against
+independent acceptance and normalization goldens, with exact predecessor
+error output. All nine compiled prefix-length mutants give their named
+wrong answers, and the restored control passes. Pin deletion, duplication
+and modification are refused, and unrelated lowercase changes remain
+visible. The new mandatory leg gives the default 93 checks; all 56
+predecessor modes and earlier legs retain their schedules.
+
+The native kernel suite and all 24 commands across 18 adapters pass.
+Every remaining test-target command passes in the followup capture.
+Native carry and trusted-source budgets pass. The first comparison
+attempt lacked its compiler path; two harness variants had syntax or
+linearity errors. The corrected full run passes, and all attempts are
+archived. Native cached artifacts retain the normal builder's input and
+output hash checks. New comparison fixtures were freshly compiled.
+
+The six-case, five-round measurement records 1.639908573 in a 9.366-second
+host window starting at 2026-10-01 09:18 UTC. The active frozen JSON is
+byte-identical to the captured record. BEND2-RATIO still fails its 1.0
+bound. Ratio refusal and mutation controls pass. The window does not
+isolate the prefix change's speed effect. The full milestone battery
+and M2 source lowering remain open.
+
+See `dev/CLI-PREFIX-DIRECT.md` and
+`dev/validation/2026-10-01-cli-prefix-direct` for sources and evidence.
+
 ## 2026-10-01: Direct executor substring extraction
 
 Starting at `a374e662a727785b7e962f0db97953d687550843`, `Model.segment`

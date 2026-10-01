@@ -1,0 +1,39 @@
+{
+  "base": "42ef4be4f81a92acdf8bdb072c4b6c11af237672",
+  "cases": 303,
+  "golden": 5,
+  "mutants": [
+    {
+      "name": "eof",
+      "first_case": 1
+    },
+    {
+      "name": "separator",
+      "first_case": 2
+    }
+  ],
+  "output_sha256": "be593a03a5b75d7a34f260d6d924172925139d91be1fa4dbfd4ccecaeed0dd80",
+  "rounds": [
+    {
+      "contract-before": 0.7493101250147447,
+      "contract-after": 0.6218620840227231
+    },
+    {
+      "contract-after": 0.6395328750368208,
+      "contract-before": 0.6499768340727314
+    },
+    {
+      "contract-before": 0.6022944590076804,
+      "contract-after": 0.6033529579872265
+    },
+    {
+      "contract-after": 1.2803978340234607,
+      "contract-before": 0.8044289170065895
+    },
+    {
+      "contract-before": 0.7359204579843208,
+      "contract-after": 0.6344845410203561
+    }
+  ],
+  "median_ratio": 0.9839317980450638
+}

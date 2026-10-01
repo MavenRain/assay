@@ -28,9 +28,10 @@ with only four inputs. All mutants use the full 287-input fixture, the
 original compiler timeout and the named wrong-answer check.
 
 The same command checks compatibility with all 56 predecessor modes and
-the current default's 92 legs, including the later
-[IDENTIFIER-DIRECT](IDENTIFIER-DIRECT.md), [WORD-DIRECT](WORD-DIRECT.md)
-and [SEGMENT-DIRECT](SEGMENT-DIRECT.md) legs. `make test` adds it after the keyword test.
+the current default's 93 legs, including the later
+[IDENTIFIER-DIRECT](IDENTIFIER-DIRECT.md), [WORD-DIRECT](WORD-DIRECT.md),
+[SEGMENT-DIRECT](SEGMENT-DIRECT.md) and [CLI-PREFIX-DIRECT](CLI-PREFIX-DIRECT.md)
+legs. `make test` adds it after the keyword test.
 `make gates` and `dev/gates.sh` now select `--lexer-direct`; the earlier
 `--keyword-dispatch` mode retains its original 88 legs.
 

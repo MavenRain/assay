@@ -52,7 +52,7 @@ def Match.Differential_Error(r, -R: Kind(r), value: Differential.Error, on0: (@+
 @unsafe
 def Trace.calldata(+text_749: String) -> OptionOf(String):
   (+scrut15957 = {NativeString.lower(text_749) : String}
-  ((+scrut15958 = {Native.choose(&2, String, String.starts_with(scrut15957, "0x"), _ => (NativeString.of_list(Series.to_list(&2, Char, Series.drop(&2, Char, Big.to_nat(Big.of_nat(2n)), Series.from_string(scrut15957))))), _ => (scrut15957)) : String}
+  ((+scrut15958 = {Native.choose(&2, String, String.starts_with(scrut15957, "0x"), _ => (NativeString.drop(2n, scrut15957)), _ => (scrut15957)) : String}
 (+scrut15961 = {NativeString.all((+local15960 => (Big.when(Bool, Big.when(Bool, U32.is_le(Char.to_u32(Char.from_u32(48)), Char.to_u32(local15960)), _ => (U32.is_le(Char.to_u32(local15960), Char.to_u32(Char.from_u32(57)))), _ => (False{})), _ => (True{}), _ => (Big.when(Bool, U32.is_le(Char.to_u32(Char.from_u32(97)), Char.to_u32(local15960)), _ => (U32.is_le(Char.to_u32(local15960), Char.to_u32(Char.from_u32(102)))), _ => (False{})))))), scrut15958) : Bool}
 Native.choose(&2, OptionOf(String), Big.when(Bool, scrut15961, _ => (Big.is_eq(NativeString.length_parity(scrut15958), Big.zero())), _ => (False{})), _ => (Some{scrut15958}), _ => (None{}))))))
 @unsafe
@@ -66,7 +66,7 @@ def Trace.caller(+text_600: String) -> Trace.Result(String):
   (+local16003 => (Match.Result(&2, String, &2, Model.Error, &2, Trace.Result(String), local16003, +item16010 => Done{item16010}, +item16011 => (Fail{(+local16005 => (Trace.Error.Invalid_caller{(+scrut16006 = local16005
   Match.Model_Error(&2, String, scrut16006, +p16007 => (Model.error(local16005)), +p16008 => (p16008), +p16009 => (Model.error(local16005))))}))(item16011)}))))((+local15990 => (Match.Result(&2, Model.Input, &2, Model.Error, &2, Model.Result(String), local15990, +item15999 => (Done{(+local15992 => ((+scrut15993 = {NativeString.lower(text_600) : String}
   (+scrut15994 = {String.starts_with(scrut15993, "0x") : Bool}
-  (+scrut15998 = {Native.choose(&2, String, scrut15994, _ => (NativeString.of_list(Series.to_list(&2, Char, (+local15997 => (Series.drop(&2, Char, Big.to_nat(Big.of_nat(2n)), local15997)))(Series.from_string(scrut15993))))), _ => (scrut15993)) : String}
+  (+scrut15998 = {Native.choose(&2, String, scrut15994, _ => (NativeString.drop(2n, scrut15993)), _ => (scrut15993)) : String}
   String.append("0x", NativeString.pad(40n, Char.from_u32(48), Big.hex_natural(Big.read_validated(Native.choose(&2, Big, scrut15994, _ => (Big.of_nat(16n)), _ => (Big.of_nat(10n))), scrut15998)))))))))(item15999)}), +item16000 => Fail{item16000})))(Model.inputs_with_caller("", "0", Nil{}, text_600)))
 @unsafe
 def Local.Trace.scan.f16021(+compact_1205: Reusable(String, String), +param_1223: ListOf(String)) -> Bool:
@@ -100,7 +100,7 @@ def Differential.second_caller() -> String:
 def Differential.caller(+text_640: String) -> Differential.Result(String):
   (+local16095 => (Match.Result(&2, String, &2, Differential.Error, &2, Differential.Result(String), local16095, +item16098 => ((+local16097 => (Native.choose(&2, Differential.Result(String), Big.when(Bool, NativeString.equal(local16097, Differential.default_caller()), _ => (True{}), _ => (NativeString.equal(local16097, Differential.second_caller()))), _ => (Done{local16097}), _ => (Fail{Differential.Error.Invalid_caller{"expected an offline fixture address (public key 1 or 2)"}}))))(item16098)), +item16099 => Fail{item16099})))((+local16083 => (Match.Result(&2, Model.Input, &2, Differential.Error, &2, Differential.Result(String), local16083, +item16092 => (Done{(+local16085 => ((+scrut16086 = {NativeString.lower(text_640) : String}
   (+scrut16087 = {String.starts_with(scrut16086, "0x") : Bool}
-  (+scrut16091 = {Native.choose(&2, String, scrut16087, _ => (NativeString.of_list(Series.to_list(&2, Char, (+local16090 => (Series.drop(&2, Char, Big.to_nat(Big.of_nat(2n)), local16090)))(Series.from_string(scrut16086))))), _ => (scrut16086)) : String}
+  (+scrut16091 = {Native.choose(&2, String, scrut16087, _ => (NativeString.drop(2n, scrut16086)), _ => (scrut16086)) : String}
   String.append("0x", NativeString.pad(40n, Char.from_u32(48), Big.hex_natural(Big.read_validated(Native.choose(&2, Big, scrut16087, _ => (Big.of_nat(16n)), _ => (Big.of_nat(10n))), scrut16091)))))))))(item16092)}), +item16093 => Fail{item16093})))((+local16076 => (Match.Result(&2, Model.Input, &2, Model.Error, &2, Differential.Result(Model.Input), local16076, +item16079 => Done{item16079}, +item16080 => (Fail{(+local16078 => (Differential.Error.Invalid_caller{Differential.detail(local16078)}))(item16080)}))))(Model.inputs_with_caller("", "0", Nil{}, text_640))))
 @unsafe
 def Differential.signal_name(+signal_283: Big) -> String:
