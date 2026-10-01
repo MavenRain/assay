@@ -26,8 +26,9 @@ The five historical compatibility checks (event-decode, event, revert,
 call and return) accepted exactly one pinned delta: the
 `Lexer.ident_kind` declaration. [LEXER-DIRECT](LEXER-DIRECT.md) widens
 the pin to four lexer declarations, and the contract span conversion adds
-`Contract.span` as a fifth. [cli_delta.py](cli_delta.py) pins the
-SHA-256 of the new declaration text and puts back the BASE declaration
+`Contract.span` as a fifth. [Identifier conversion](IDENTIFIER-DIRECT.md)
+adds `Recognize.identifier` as a sixth. [cli_delta.py](cli_delta.py) pins
+the SHA-256 of each new declaration text and puts back the BASE declaration
 before the compare. The rest of the CLI bundle must still be
 byte-identical to each BASE. This follows a user ruling of 2026-09-29.
 

@@ -1,0 +1,13 @@
+All terms check, but 12 defs rely on unsafe or foreign code:
+- Reusable
+- NativeIO.stdout
+- Series.collect
+- Match.List
+- IdentifierDirect.result
+- NativeIO.print
+- Series.to_list
+- SeqList.all
+- Recognize.identifier
+- IdentifierDirect.each
+- IdentifierDirect.main
+- main

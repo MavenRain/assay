@@ -914,7 +914,7 @@ def Recognize.definition(+globals_1105: Global, +name_1106: String) -> ResultOf(
 def Recognize.identifier(+name_1109: String) -> Bool:
   (+scrut9636 = {(+local9635 => (Big.when(Bool, Big.when(Bool, U32.is_le(Char.to_u32(Char.from_u32(97)), Char.to_u32(local9635)), _ => (U32.is_le(Char.to_u32(local9635), Char.to_u32(Char.from_u32(122)))), _ => (False{})), _ => (True{}), _ => (Big.when(Bool, Big.when(Bool, U32.is_le(Char.to_u32(Char.from_u32(65)), Char.to_u32(local9635)), _ => (U32.is_le(Char.to_u32(local9635), Char.to_u32(Char.from_u32(90)))), _ => (False{})), _ => (True{}), _ => (NativeChar.equal(local9635, Char.from_u32(95)))))))) : Reusable(Char, Bool)}
   (+scrut9639 = {(+local9638 => (Big.when(Bool, scrut9636(local9638), _ => (True{}), _ => (Big.when(Bool, U32.is_le(Char.to_u32(Char.from_u32(48)), Char.to_u32(local9638)), _ => (U32.is_le(Char.to_u32(local9638), Char.to_u32(Char.from_u32(57)))), _ => (False{})))))) : Reusable(Char, Bool)}
-  (+scrut9640 = {Series.to_list(&2, Char, Series.from_string(name_1109)) : ListOf(Char)}
+  (+scrut9640 = {NativeString.to_list(name_1109) : ListOf(Char)}
   Match.List(&2, Char, &2, Bool, scrut9640, _ => (False{}), +p9641 => +p9642 => (Big.when(Bool, scrut9636(p9641), _ => (SeqList.all(&2, Char, scrut9639, p9642)), _ => (False{})))))))
 @unsafe
 def Recognize.names_in_diagram(+name_1120: String, +count_1121: Big, +param_1140: Term) -> ResultOf(Recognize.Error, ListOf(String)):

@@ -1,5 +1,26 @@
 # Assay M2 build log
 
+## 2026-09-30: Direct identifier conversion
+
+Starting at `e16c842`, `Recognize.identifier` in `src/emitter.bend` now
+sends its input string directly to `NativeString.to_list`, removing the
+stream round trip. The ASCII grammar `[A-Za-z_][A-Za-z_0-9]*` is unchanged.
+
+IDENTIFIER-DIRECT compares the restored predecessor and the current
+declaration with 1,043 independent grammar goldens and two compiled
+mutants. Each test input reaches both adapters one escape per code point.
+`make test` runs the check, and `--lexer-direct` appends it as the 90th
+leg. The identifier declaration is the sixth exact compatibility pin.
+
+The native build, the identifier, lexer and keyword checks, the
+compatibility check and the axiom retry pass. The full gate battery was
+stopped after 41 passing checks and was not completed. The fresh paired
+measurement records a 33.316-second window and a ratio of 1.775497120
+against the unchanged 1.0 bound, so BEND2-RATIO fails. That record does
+not isolate the timing effect of this change. See
+`dev/IDENTIFIER-DIRECT.md` and `dev/validation/2026-09-30-identifier-direct`
+for the evidence.
+
 ## 2026-09-30: Contract token string conversion
 
 Starting at `42ef4be`, both `Contract.span` return branches now construct

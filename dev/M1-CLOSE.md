@@ -1,11 +1,13 @@
 # M1 closure
 
-Status: BEND2-RATIO passes on the current frozen record. The requirement,
+Status: BEND2-RATIO fails on the current frozen record. The requirement,
 set by the user on 2026-09-22, is compilation speed at least as fast as Bend 2.
-The [current paired comparison](LEXER-DIRECT.md) measures a ratio of 0.962311539
-against the unchanged 1.0 limit, in a 40.041-second window that started at
-2026-10-01 01:16 UTC. The pass describes this recorded host window.
-The previous comparisons did not pass: 1.490829052 is described in
+The [current paired comparison](IDENTIFIER-DIRECT.md) measures a ratio of 1.775497120
+against the unchanged 1.0 limit, in a 33.316-second window that started at
+2026-10-01 02:55 UTC. This describes the recorded host window.
+The previous 0.962311539 comparison passed and is retained in
+`dev/validation/2026-09-30-contract-span/paired-measurement.json`.
+The earlier comparisons did not pass: 1.490829052 is described in
 [LEXER-DIRECT.md](LEXER-DIRECT.md), and 1.720825537 is in
 [LEXER-KEYWORDS.md](LEXER-KEYWORDS.md). The four retained OCaml measurements below are
 historical diagnostics.
@@ -120,8 +122,8 @@ NATIVE-IO checks, for 77 legs. The native default adds the
 [mapping locations](M2-MAPPING.md), [EVENT-CODEC](M2-EVENTS.md),
 [CALL-CODEC](M2-CALLDATA.md), [RETURN-CODEC](M2-RETURNDATA.md),
 [REVERT-CODEC](M2-REVERTDATA.md), [EVENT-DECODE](M2-EVENT-DECODE.md),
-[LEXER-KEYWORDS](LEXER-KEYWORDS.md) and [LEXER-DIRECT](LEXER-DIRECT.md), for
-89 checks.
+[LEXER-KEYWORDS](LEXER-KEYWORDS.md), [LEXER-DIRECT](LEXER-DIRECT.md) and
+[IDENTIFIER-DIRECT](IDENTIFIER-DIRECT.md), for 90 checks.
 
 That ratio test used synthetic reports to exercise the public command; these
 were decision tests and provided no timing evidence. It checked the

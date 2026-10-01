@@ -1,13 +1,15 @@
 # M1 Bend 2 compilation comparison
 
 The 2026-09-22 compilation-speed requirement is an Assay/Bend 2 ratio at
-most 1.0. The current native Bend comparison is 0.962311539 and passes.
-See [LEXER-DIRECT.md](LEXER-DIRECT.md) for the current source and record.
-Its five measured rounds of six cases completed in a 40.041-second window
-that started at 2026-10-01 01:16 UTC. `dev/bend2-baseline.json` holds the
-report, and `dev/BEND2.sha256` seals it. The pass describes this recorded
-host window. The earlier comparisons below did not pass.
-The previous comparison, 1.490829052, is retained in
+most 1.0. The current native Bend comparison is 1.775497120 and does not pass.
+See [IDENTIFIER-DIRECT.md](IDENTIFIER-DIRECT.md) for the current source and record.
+Its five measured rounds of six cases completed in a 33.316-second window
+that started at 2026-10-01 02:55 UTC. `dev/bend2-baseline.json` holds the
+report, and `dev/BEND2.sha256` seals it. This describes the recorded host
+window and does not establish a speed regression from the identifier change.
+The previous comparison, 0.962311539, passed in its 40.041-second window and is
+retained in `dev/validation/2026-09-30-contract-span/paired-measurement.json`.
+Before that, 1.490829052 is retained in
 `dev/validation/2026-09-30-lexer-direct/paired-measurement.json`.
 Its five measured rounds completed in a 22.872-second window.
 Before that, 1.720825537 is in [LEXER-KEYWORDS.md](LEXER-KEYWORDS.md).
@@ -137,8 +139,8 @@ the [M2 reference gate](M2-REFERENCE.md), [ABI-SCHEMA](M2-ABI-SCHEMA.md),
 [mapping locations](M2-MAPPING.md), [EVENT-CODEC](M2-EVENTS.md),
 [CALL-CODEC](M2-CALLDATA.md), [RETURN-CODEC](M2-RETURNDATA.md),
 [REVERT-CODEC](M2-REVERTDATA.md), [EVENT-DECODE](M2-EVENT-DECODE.md),
-[LEXER-KEYWORDS](LEXER-KEYWORDS.md) and [LEXER-DIRECT](LEXER-DIRECT.md), for
-89 checks.
+[LEXER-KEYWORDS](LEXER-KEYWORDS.md), [LEXER-DIRECT](LEXER-DIRECT.md) and
+[IDENTIFIER-DIRECT](IDENTIFIER-DIRECT.md), for 90 checks.
 
 `dev/bend2-ratio-test.py` passes three controls, rejects 37 invalid cases,
 and kills six mutations. It covers the inclusive boundary, a ratio above
