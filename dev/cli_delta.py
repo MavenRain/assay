@@ -1,33 +1,37 @@
-"""Pin the one permitted Entry.Cli change after the M2 compatibility bases.
+"""Pin lexer optimizations before comparing the rest of each historical CLI bundle.
 
-The KEYWORD-DISPATCH slice replaces the Lexer.ident_kind body with a 30-case
-string match and a catch-all. Before the CLI-BUNDLE compare, the worktree
-Lexer.ident_kind record is replaced with the BASE record. Lexer.keywords is
-then reachable again in the same way as at BASE. The worktree record must
-equal the staged text exactly, so each other CLI change still fails the
-compare.
+Every listed declaration must match its digest and occur once in each input.
+Restoring BASE bodies then leaves all other reachable CLI changes detectable.
 """
 import hashlib
+import json
 
 from bend_source import bundle, reachable
 
-NAME = 'Lexer.ident_kind'
-# SHA-256 of the staged src/frontend.bend Lexer.ident_kind declaration text,
-# as bend_source.declarations extracts it (1191 bytes, 34 lines).
-SHA256 = '885331fd55467b8d6691413941c9ef60b74d616ed023c9ce330db4f4a9be8c7d'
+PINS = {
+    'Lexer.ident_kind': '885331fd55467b8d6691413941c9ef60b74d616ed023c9ce330db4f4a9be8c7d',
+    'Lexer.nat_of_digits': 'a9b94145490a45c9f0f48a7ee185b6d5fb2f7f258b81aa8aebcc6285ed07fbb9',
+    'Lexer.go': '62a383370952042300dba1d35d5a60ed1df8f1aa7c04f158bb9435b1aeae097c',
+    'Lexer.lex': '2806175b462bcf9062a7c0468519bb0a2bf1ea84e9628b5827c30b769fd569b9',
+}
+# Reports identify the complete pin manifest, with a stable serialization.
+SHA256 = hashlib.sha256(json.dumps(PINS, sort_keys=True, separators=(',', ':')).encode()).hexdigest()
 
 
-def only(rows):
-    matches = [row for row in rows if row.kind == 'def' and row.name == NAME]
+def only(rows, name):
+    matches = [row for row in rows if row.kind == 'def' and row.name == name]
     return matches[0] if len(matches) == 1 else None
 
 
 def pinned(base_rows, work_rows):
-    """Return the worktree rows with the BASE ident_kind, or None if the pin fails."""
-    base, work = only(base_rows), only(work_rows)
-    good = (base is not None and work is not None
-            and hashlib.sha256(work.source.encode()).hexdigest() == SHA256)
-    return [base if row is work else row for row in work_rows] if good else None
+    """Restore the pinned lexer bodies, or refuse missing, duplicate or modified bodies."""
+    replacements = {}
+    for name, digest in PINS.items():
+        base, work = only(base_rows, name), only(work_rows, name)
+        if base is None or work is None or hashlib.sha256(work.source.encode()).hexdigest() != digest:
+            return None
+        replacements[work.key] = base
+    return [replacements.get(row.key, row) for row in work_rows]
 
 
 def cli_sources(records, entry='Entry.Cli'):

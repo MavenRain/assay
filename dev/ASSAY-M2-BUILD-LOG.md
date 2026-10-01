@@ -1,5 +1,33 @@
 # Assay M2 build log
 
+## 2026-09-30: Direct lexer conversions
+
+Starting at `82f1476`, `Lexer.lex` now uses `NativeString.to_list` instead
+of constructing and collecting a character stream. `Lexer.go` and
+`Lexer.nat_of_digits` send existing character lists directly to
+`NativeString.of_list`, removing the same redundant stream round trip.
+
+LEXER-DIRECT passes all 287 inputs, four independent token streams and
+three compiling wrong-answer mutants. The comparison includes byte
+payloads, positions, diagnostics and the 11 contract corpus files.
+Compatibility preserves all 56 predecessor modes and adds one leg to
+the new 89-check default. Existing gate modes retain their schedules.
+The historical CLI normalization now pins the exact bodies of the three
+conversion declarations and the earlier keyword classifier. Negative
+checks reject altered, missing or duplicate pins and detect unrelated
+reachable source changes.
+
+The native build, kernel and adapter tests, keyword check, six compatibility
+checks, TRUSTED-LINES, DENOMINATORS, M0-RATIO and BEND2-RATIO-TEST pass.
+The full gate battery was not run. A fresh five-round paired measurement
+of six compiler cases is frozen and sealed: window 22.872 seconds,
+ratio 1.490829052, above the unchanged 1.0 limit. BEND2-RATIO still fails.
+The local lexer's median after/before ratio is 1.014 and does not establish
+a speed improvement. M2 source lowering and milestone exit remain pending.
+
+See `dev/LEXER-DIRECT.md` and
+`dev/validation/2026-09-30-lexer-direct` for sources and captures.
+
 ## 2026-09-29: Direct keyword dispatch
 
 Starting from the event-decode slice at `a29a0c1`, this follow-up

@@ -2281,7 +2281,7 @@
     "path": "src/frontend.bend",
     "line": 783,
     "arm": "{_ => (Native.choose(&2, CheckResult(ListOf(Token)), Lexer.is_digit(p815), _ => ((+scrut825 = {Lexer.span(Lexer.is_digit, Token.next_col(loc_881), p816) : Tuple ...",
-    "arm_sha256": "da06c5b8a50fb857e85b348d7b7a5ad9cd68a27426459dcf9bf316916a8b2c9b",
+    "arm_sha256": "18a6e906524a9b314717b99c6dba1f31115c3b9e0cb5517e0774755f057d3877",
     "arity": 1,
     "reason": "lowered default binder: every shape the eliminator chain of this declaration does not name takes this one fallback, Native.choose(&2, CheckResult(ListOf(Token)), Lexer.is_digit ..., which carries the OCaml answer for that match."
   },

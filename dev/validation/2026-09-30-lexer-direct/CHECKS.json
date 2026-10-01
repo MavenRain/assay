@@ -1,0 +1,212 @@
+{
+  "base": "82f14761406f4d0cd383f284250d708595a4988e",
+  "checks": [
+    {
+      "name": "bend2-ratio",
+      "status": "complete",
+      "exit_code": 1,
+      "argv": [
+        "python3",
+        "-P",
+        "dev/bend2-ratio.py"
+      ],
+      "capture": "bend2-ratio",
+      "stdout_sha256": "5d618fd16aea67666db649a2bd0e7131f5b3e6c4ab507fd5b3125de2ba5e9f44",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "bend2-ratio-test",
+      "status": "complete",
+      "exit_code": 0,
+      "argv": [
+        "python3",
+        "-P",
+        "dev/bend2-ratio-test.py"
+      ],
+      "capture": "bend2-ratio-test",
+      "stdout_sha256": "8671302402e62d5a934cdc31cfc5df8e2b200e1b55982d3b0cbce74deb13acab",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "build",
+      "status": "complete",
+      "exit_code": 0,
+      "argv": [
+        "env",
+        "BEND=/Users/oobi/Documents/assay/.tools/bend/bin/bend",
+        "python3",
+        "-P",
+        "dev/build.py",
+        "build"
+      ],
+      "capture": "build",
+      "stdout_sha256": "51471ecdd6d4c5078d07b311013d09a239f08c4a0942d8062650cf91a5f44f32",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "call-compatibility",
+      "status": "complete",
+      "exit_code": 0,
+      "argv": [
+        "python3",
+        "-P",
+        "dev/call-compatibility.py"
+      ],
+      "capture": "call-compatibility",
+      "stdout_sha256": "f0efccb73f8872633f8f429c4a06c87cb16a7f4aee0bffbffca4298887e28a40",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "denominators",
+      "status": "complete",
+      "exit_code": 0,
+      "argv": [
+        "shasum",
+        "-a",
+        "256",
+        "-c",
+        "dev/DENOMINATORS.sha256"
+      ],
+      "capture": "denominators",
+      "stdout_sha256": "00ed2291816184d2a7c91c603ee9e6b2447eed89e15045e399414ca2df876248",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "event-compatibility",
+      "status": "complete",
+      "exit_code": 0,
+      "argv": [
+        "python3",
+        "-P",
+        "dev/event-compatibility.py"
+      ],
+      "capture": "event-compatibility",
+      "stdout_sha256": "50eea0bae05130f982047bf3ee00432dcb2e916b4cfe8f6ee24518f97d789788",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "event-decode-compatibility",
+      "status": "complete",
+      "exit_code": 0,
+      "argv": [
+        "python3",
+        "-P",
+        "dev/event-decode-compatibility.py"
+      ],
+      "capture": "event-decode-compatibility",
+      "stdout_sha256": "b873390bee00230f025840b16d5fa614f1d6071812b8461309320d99a4cf431b",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "keyword",
+      "status": "complete",
+      "exit_code": 0,
+      "argv": [
+        "env",
+        "BEND=/Users/oobi/Documents/assay/.tools/bend/bin/bend",
+        "python3",
+        "-P",
+        "dev/lexer-keywords-test.py"
+      ],
+      "capture": "keyword",
+      "stdout_sha256": "3449997970d01589a7b7878eb463de46357c03d923223673146e57122d5fd03c",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "lexer",
+      "status": "complete",
+      "exit_code": 0,
+      "argv": [
+        "env",
+        "BEND=/Users/oobi/Documents/assay/.tools/bend/bin/bend",
+        "python3",
+        "-P",
+        "dev/lexer-direct-test.py"
+      ],
+      "capture": "lexer",
+      "stdout_sha256": "2ecb27c73c99814f97d4b178c9c19eb7f337348c1856b71a4aea91f394f5b596",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "lexer-compatibility",
+      "status": "complete",
+      "exit_code": 0,
+      "argv": [
+        "python3",
+        "-P",
+        "dev/lexer-direct-compatibility.py"
+      ],
+      "capture": "lexer-compatibility",
+      "stdout_sha256": "3d008422772c2e17393d9885f52de7bb777be9fb5a0d2fe833329678c216563f",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "m0-ratio",
+      "status": "complete",
+      "exit_code": 0,
+      "argv": [
+        "zsh",
+        "-f",
+        "dev/ratio.sh"
+      ],
+      "capture": "m0-ratio",
+      "stdout_sha256": "16e5dff4467d33181921c6f99a40b72b5ab315a894b062fe57167915a01b5fe6",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "return-compatibility",
+      "status": "complete",
+      "exit_code": 0,
+      "argv": [
+        "python3",
+        "-P",
+        "dev/return-compatibility.py"
+      ],
+      "capture": "return-compatibility",
+      "stdout_sha256": "b80d89e2a526ceb95b109f160d0a6743968655ece40694585d40dee0113e5cd5",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "revert-compatibility",
+      "status": "complete",
+      "exit_code": 0,
+      "argv": [
+        "python3",
+        "-P",
+        "dev/revert-compatibility.py"
+      ],
+      "capture": "revert-compatibility",
+      "stdout_sha256": "aa1fb9605765f636f84675ec0d81a8313fe0df46f373d468ca5b13553a9548f4",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "runtest",
+      "status": "complete",
+      "exit_code": 0,
+      "argv": [
+        "env",
+        "BEND=/Users/oobi/Documents/assay/.tools/bend/bin/bend",
+        "python3",
+        "-P",
+        "dev/build.py",
+        "runtest"
+      ],
+      "capture": "runtest",
+      "stdout_sha256": "69d221303d138a3456f25db42a1fe849931d7fb318cd00d71e17236dfbe7e70c",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "trusted-lines",
+      "status": "complete",
+      "exit_code": 0,
+      "argv": [
+        "zsh",
+        "-f",
+        "dev/trusted-lines.sh"
+      ],
+      "capture": "trusted-lines",
+      "stdout_sha256": "2101d90858abf8dcbd23017d5ef4609565ed96b74685851078c7718f086ce9f8",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ]
+}

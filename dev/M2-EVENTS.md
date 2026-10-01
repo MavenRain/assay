@@ -57,8 +57,9 @@ Since the keyword-dispatch follow-up, the check accepts one pinned
 compare; see [LEXER-KEYWORDS](LEXER-KEYWORDS.md).
 The `--m2-events` mode appends one gate, for 83 checks total. The current
 default adds [CALL-CODEC](M2-CALLDATA.md), [RETURN-CODEC](M2-RETURNDATA.md),
-[REVERT-CODEC](M2-REVERTDATA.md), [EVENT-DECODE](M2-EVENT-DECODE.md) and
-[LEXER-KEYWORDS](LEXER-KEYWORDS.md), for 88 checks.
+[REVERT-CODEC](M2-REVERTDATA.md), [EVENT-DECODE](M2-EVENT-DECODE.md),
+[LEXER-KEYWORDS](LEXER-KEYWORDS.md) and [LEXER-DIRECT](LEXER-DIRECT.md), for
+89 checks.
 
 The [validation record](validation/2026-09-26-m2-events/README.md) contains
 the scoped test results and source hashes. M2 compiler integration,

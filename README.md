@@ -9,6 +9,8 @@ removes temporary byte lists from file transfers and repairs compiler discovery
 in mutation-test copies.
 The [keyword-dispatch follow-up](dev/LEXER-KEYWORDS.md) removes per-identifier
 keyword-list construction and lookup while preserving the core vocabulary.
+The [direct-conversion follow-up](dev/LEXER-DIRECT.md) removes redundant
+character streams from lexer input, identifier and numeric conversions.
 
 The [M1 closure gate](dev/M1-CLOSE.md) combines the bounded counter,
 surface, proof and executor checks with the binding compiler performance
@@ -368,12 +370,12 @@ and five mutations with restored controls.
 The address gate adds 1920 core comparisons, 128 artifact pairs,
 40 surface cases, 55 signed calls, seven public command checks,
 24 refusals and five mutations with restored controls.
-`dev/gates.sh` selects `--keyword-dispatch`: the 77 `--m1-close` legs
+`dev/gates.sh` selects `--lexer-direct`: the 77 `--m1-close` legs
 (proof-bundle, named-predicate, compound-invariant, named-guard,
 inferred-guard and inferred-arithmetic suites), then ERC20-REFERENCE,
 ABI-SCHEMA, ABI-CODEC, LAYOUT-PACKED, LAYOUT-MAPPING, EVENT-CODEC,
-CALL-CODEC, RETURN-CODEC, REVERT-CODEC, EVENT-DECODE and LEXER-KEYWORDS,
-for 88 legs. `--m2-event-decode` retains its 87-leg schedule.
+CALL-CODEC, RETURN-CODEC, REVERT-CODEC, EVENT-DECODE, LEXER-KEYWORDS and
+LEXER-DIRECT, for 89 legs. `--keyword-dispatch` retains its 88-leg schedule.
 `--m2-reference`
 retains its 78-leg schedule, `--m2-abi-schema` retains its 79-leg schedule
 and `--m2-abi-codec` retains its 80-leg schedule. `--m2-packing` retains

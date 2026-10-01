@@ -67,8 +67,8 @@ Since the keyword-dispatch follow-up, the check accepts one pinned
 compare; see [LEXER-KEYWORDS](LEXER-KEYWORDS.md).
 The `--m2-returndata` mode appends RETURN-CODEC, for 85 checks. The current
 default adds [REVERT-CODEC](M2-REVERTDATA.md),
-[EVENT-DECODE](M2-EVENT-DECODE.md) and [LEXER-KEYWORDS](LEXER-KEYWORDS.md),
-for 88 checks.
+[EVENT-DECODE](M2-EVENT-DECODE.md), [LEXER-KEYWORDS](LEXER-KEYWORDS.md)
+and [LEXER-DIRECT](LEXER-DIRECT.md), for 89 checks.
 
 The [validation record](validation/2026-09-27-m2-returndata/README.md)
 retains the scoped results, command captures, case corpus and source

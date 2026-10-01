@@ -19,11 +19,13 @@ with the production launcher and stack configuration. `make test` runs
 this check after the standard kernel and adapter tests. The gate mode
 `--keyword-dispatch` adds it as the LEXER-KEYWORDS leg to the 87
 `--m2-event-decode` legs, for 88 legs. `make gates` and `dev/gates.sh`
-use this mode.
+used this mode until [LEXER-DIRECT](LEXER-DIRECT.md) selected
+`--lexer-direct`.
 
 The five historical compatibility checks (event-decode, event, revert,
-call and return) now accept exactly one pinned delta: the
-`Lexer.ident_kind` declaration. [cli_delta.py](cli_delta.py) pins the
+call and return) accepted exactly one pinned delta: the
+`Lexer.ident_kind` declaration. [LEXER-DIRECT](LEXER-DIRECT.md) widens
+the pin to four lexer declarations. [cli_delta.py](cli_delta.py) pins the
 SHA-256 of the new declaration text and puts back the BASE declaration
 before the compare. The rest of the CLI bundle must still be
 byte-identical to each BASE. This follows a user ruling of 2026-09-29.
@@ -42,11 +44,12 @@ comparison is separate from the Bend 2 measurement below.
 
 ## Performance
 
-A fresh paired Bend 2 measurement of this source is frozen in
-`dev/bend2-baseline.json` and sealed by `dev/BEND2.sha256`. It is retained
+A fresh paired Bend 2 measurement of this source was frozen in
+`dev/bend2-baseline.json` and sealed by `dev/BEND2.sha256`. The
+[LEXER-DIRECT](LEXER-DIRECT.md) measurement replaced it. It is retained
 as `dev/validation/2026-09-29-keyword-dispatch/paired-measurement.json`.
 It ran five rounds of six cases on 2026-09-29, in a 7.441-second window.
-The Assay/Bend 2 ratio is 1.720825537, above the unchanged 1.0 bound.
+The Assay/Bend 2 ratio was 1.720825537, above the unchanged 1.0 bound.
 The previous record, 1.137273126 in a 48.113-second window, is in
 [M2-EVENT-DECODE.md](M2-EVENT-DECODE.md). BEND2-RATIO failed before this
 slice and still fails. BEND2-RATIO-TEST passes with the new pins. The
