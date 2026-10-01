@@ -25,7 +25,8 @@ comparisons. Native carry hashes follow the changed emitter source.
 `make test` includes the word-parser check. `make gates` includes the
 mandatory `WORD-DIRECT` leg through its existing `--lexer-direct` mode.
 The compatibility check retains all 56 predecessor modes and requires the
-default's 91 legs, including the three appended direct-conversion checks.
+default's 92 legs, including the later [SEGMENT-DIRECT](SEGMENT-DIRECT.md)
+check and the three earlier direct-conversion checks.
 The benchmark method and 1.0 speed limit remain in force.
 
 The native build, `make test`, schedule comparison and TRUSTED-LINES pass.
@@ -41,3 +42,5 @@ speed effect of prefix removal.
 Validation evidence is recorded under
 `dev/validation/2026-09-30-word-direct`. BEND2-RATIO remains failing.
 The full milestone gate battery and M2 source lowering remain pending.
+The later [substring continuation](SEGMENT-DIRECT.md) supersedes the active
+compiler measurement with its own frozen record.

@@ -59,7 +59,8 @@ The `--m2-events` mode appends one gate, for 83 checks total. The current
 default adds [CALL-CODEC](M2-CALLDATA.md), [RETURN-CODEC](M2-RETURNDATA.md),
 [REVERT-CODEC](M2-REVERTDATA.md), [EVENT-DECODE](M2-EVENT-DECODE.md),
 [LEXER-KEYWORDS](LEXER-KEYWORDS.md), [LEXER-DIRECT](LEXER-DIRECT.md),
-[IDENTIFIER-DIRECT](IDENTIFIER-DIRECT.md) and [WORD-DIRECT](WORD-DIRECT.md), for 91 checks.
+[IDENTIFIER-DIRECT](IDENTIFIER-DIRECT.md), [WORD-DIRECT](WORD-DIRECT.md)
+and [SEGMENT-DIRECT](SEGMENT-DIRECT.md), for 92 checks.
 
 The [validation record](validation/2026-09-26-m2-events/README.md) contains
 the scoped test results and source hashes. M2 compiler integration,

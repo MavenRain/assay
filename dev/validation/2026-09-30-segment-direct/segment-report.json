@@ -1,0 +1,42 @@
+{
+  "base": "a374e662a727785b7e962f0db97953d687550843",
+  "cases": 1348,
+  "golden": 1348,
+  "mutants": {
+    "offset-ignored": {
+      "killed": true,
+      "case": [
+        1,
+        2,
+        "abcd"
+      ],
+      "expected": "98,99,",
+      "actual": "97,98,",
+      "output_sha256": "f49e8e4ccfa5f9e2b65766ba3816ceb8aa8af90d35b11a4d10e39b6a929c5842"
+    },
+    "length-ignored": {
+      "killed": true,
+      "case": [
+        1,
+        2,
+        "abcd"
+      ],
+      "expected": "98,99,",
+      "actual": "98,99,100,",
+      "output_sha256": "bfecab264ed5ace5c9064be45ab7b25ba0057d8f7742d838328a5b8e3fbc9dbd"
+    },
+    "offset-swapped": {
+      "killed": true,
+      "case": [
+        1,
+        2,
+        "abcd"
+      ],
+      "expected": "98,99,",
+      "actual": "99,100,",
+      "output_sha256": "8d64e7071109bebba7127515db86276825c08e0909f152598cd4d5d30f009efb"
+    }
+  },
+  "declaration_sha256": "2eba65ca9929ad97b158e4c5e0deb75cdc10d9a4eedbe5ed1c6cd97c3e509c09",
+  "output_sha256": "4b287cebd406aabfa3ee0a099cd8853b6fff98cfa4a5ce569809613e5001d5e9"
+}

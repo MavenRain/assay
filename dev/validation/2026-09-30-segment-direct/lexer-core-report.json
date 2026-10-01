@@ -1,0 +1,46 @@
+{
+  "base": "82f14761406f4d0cd383f284250d708595a4988e",
+  "cases": 287,
+  "golden": 4,
+  "mutants": [
+    {
+      "name": "digits",
+      "first_case": 1,
+      "cases": 287
+    },
+    {
+      "name": "identifier",
+      "first_case": 1,
+      "cases": 287
+    },
+    {
+      "name": "input",
+      "first_case": 1,
+      "cases": 287
+    }
+  ],
+  "output_sha256": "41c21cb1cd2ca23a09860eb6852ff28070acf6dd56fe0980134be72ceda59d32",
+  "rounds": [
+    {
+      "before": 26.53416120901238,
+      "after": 12.714380000019446
+    },
+    {
+      "after": 17.859366665943526,
+      "before": 11.376703749992885
+    },
+    {
+      "before": 11.746475292020477,
+      "after": 17.891244624974206
+    },
+    {
+      "after": 19.200110374949872,
+      "before": 21.536848000017926
+    },
+    {
+      "before": 19.625829542055726,
+      "after": 25.911960499943234
+    }
+  ],
+  "median_ratio": 1.3202988665736195
+}

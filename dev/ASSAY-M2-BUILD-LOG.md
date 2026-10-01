@@ -1,5 +1,34 @@
 # Assay M2 build log
 
+## 2026-10-01: Direct executor substring extraction
+
+Starting at `a374e662a727785b7e962f0db97953d687550843`, `Model.segment`
+uses the existing native string drop and take helpers. This removes a
+Series and list conversion while preserving character order and the
+existing magnitude conversion of negative offsets and lengths.
+
+The new check compares both compiled implementations with 1,348 independent
+Python code-point goldens, kills three compiled mutants and reruns its
+restored control. The eighth exact declaration pin covers `Model.segment`.
+The test target and gate schedule include the check. Compatibility retains
+all 56 predecessor modes and requires 92 current legs.
+
+The native suites, 24 adapter commands, keyword check, both lexers and all
+three subsequent string checks pass across the captured run and scoped
+follow-ups. The full test-target attempt timed out on the existing lexer
+input mutant. A smaller fixture did not fix it. The final equivalent
+mutation takes zero characters before list conversion and passes with all
+287 cases and the original timeout. Four earlier lexer builds
+were reused. The replay matched their regenerated sources and recorded
+their hashes at replay time, not at build time. Source budgets and carry pass.
+
+The frozen five-round, six-case measurement is 1.538120777 in an
+18.362-second host window. The original 1.0 limit still fails; its refusal
+controls pass. This record does not establish the substring change's
+speed effect. Full milestone gates and M2 source lowering remain pending.
+Evidence, including the failed attempts and replay receipt, is under
+`dev/validation/2026-09-30-segment-direct`.
+
 ## 2026-09-30: Direct word prefix removal
 
 Starting at `91a27b7`, `Recognize.parse_word` in `src/emitter.bend` now

@@ -68,8 +68,8 @@ compare; see [LEXER-KEYWORDS](LEXER-KEYWORDS.md).
 The `--m2-returndata` mode appends RETURN-CODEC, for 85 checks. The current
 default adds [REVERT-CODEC](M2-REVERTDATA.md),
 [EVENT-DECODE](M2-EVENT-DECODE.md), [LEXER-KEYWORDS](LEXER-KEYWORDS.md),
-[LEXER-DIRECT](LEXER-DIRECT.md), [IDENTIFIER-DIRECT](IDENTIFIER-DIRECT.md)
-and [WORD-DIRECT](WORD-DIRECT.md), for 91 checks.
+[LEXER-DIRECT](LEXER-DIRECT.md), [IDENTIFIER-DIRECT](IDENTIFIER-DIRECT.md),
+[WORD-DIRECT](WORD-DIRECT.md) and [SEGMENT-DIRECT](SEGMENT-DIRECT.md), for 92 checks.
 
 The [validation record](validation/2026-09-27-m2-returndata/README.md)
 retains the scoped results, command captures, case corpus and source

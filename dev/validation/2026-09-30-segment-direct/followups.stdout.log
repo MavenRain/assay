@@ -1,0 +1,9 @@
+FOLLOWUP identifier-direct
+IDENTIFIER-DIRECT cases=1043 golden=1043 mutants=2 OK
+FOLLOWUP identifier-direct exit=0
+FOLLOWUP word-direct
+WORD-DIRECT cases=1580 golden=1580 mutants=3 OK
+FOLLOWUP word-direct exit=0
+FOLLOWUP segment-direct
+SEGMENT-DIRECT cases=1348 golden=1348 mutants=3 OK
+FOLLOWUP segment-direct exit=0

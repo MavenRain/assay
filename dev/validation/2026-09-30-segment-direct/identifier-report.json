@@ -1,0 +1,18 @@
+{
+  "base": "e16c842b69448b229633a592787f2a7450938c16",
+  "cases": 1043,
+  "golden": 1043,
+  "mutants": {
+    "empty": {
+      "killed": true,
+      "output_sha256": "88772aa7fd27f256f58be0223b0ab277ce0e97c1ca4a77e8c8f1ac653d81eb63"
+    },
+    "drop-first": {
+      "killed": true,
+      "output_sha256": "e46b8da2e3b2e41e3981c38e394dfd895469c52e5c91cb62a3853a9578ddc401"
+    }
+  },
+  "declaration_sha256": "038f085f7238eada7da0d0ed000814cf76f5578a682a9158f918e38052ee5968",
+  "pin_manifest_sha256": "746a4d70330f4736627ac56f2fc6a0ab0a8c9ed1953c82ad35743a580a759bdb",
+  "output_sha256": "549dffdd776921ec60469bd31f9c8aaf92439dcceeb6837d210e144b6968b1ae"
+}

@@ -250,7 +250,7 @@ def main():
     mutants = [
         ('digits', 'Lexer.nat_of_digits', 'NativeString.of_list(digits_445)', 'NativeString.of_list(Nil{})'),
         ('identifier', 'Lexer.go', 'NativeString.of_list(Con{p815, p847})', 'NativeString.of_list(p847)'),
-        ('input', 'Lexer.lex', 'NativeString.to_list(src_932)', 'Nil{}'),
+        ('input', 'Lexer.lex', 'NativeString.to_list(src_932)', 'NativeString.to_list(NativeString.take(0n, src_932))'),
     ]
     kills = []
     for name, symbol, needle, replacement in mutants:
@@ -264,7 +264,7 @@ def main():
                        if pair[0] != pair[1]]
         if len(output.splitlines()) != len(rows) or not differences:
             raise ValueError('mutant did not produce a named wrong answer: ' + name)
-        kills.append(dict(name=name, first_case=differences[0]))
+        kills.append(dict(name=name, first_case=differences[0], cases=len(rows)))
     if run(after)[0] != expected:
         raise ValueError('restored control mismatch')
     timings = []

@@ -1,0 +1,30 @@
+{
+  "base": "91a27b76f4f5ad182aacbc47d6ddd29301a44ef6",
+  "cases": 1580,
+  "golden": 1580,
+  "mutants": {
+    "prefix-kept": {
+      "killed": true,
+      "case": "0x1",
+      "expected": "1",
+      "actual": "invalid",
+      "output_sha256": "2fdb2cf7fd247f3116e66b642d3a9340cbd2e02849a29fd13f12216e620c57b9"
+    },
+    "prefix-short": {
+      "killed": true,
+      "case": "0x1",
+      "expected": "1",
+      "actual": "invalid",
+      "output_sha256": "2fdb2cf7fd247f3116e66b642d3a9340cbd2e02849a29fd13f12216e620c57b9"
+    },
+    "prefix-long": {
+      "killed": true,
+      "case": "0x10",
+      "expected": "16",
+      "actual": "0",
+      "output_sha256": "f07fe08525b80c195978ce750bebd754c9a1986d5afc245d874ec0239ab06479"
+    }
+  },
+  "declaration_sha256": "59e2fb372c8021f6d364d2941f87696640ba3ebf26a09571461ed9bb6ca823c1",
+  "output_sha256": "00a8661a61665399b713b4ea8c7f01219b58468dfdf534c2993496b7142875e8"
+}

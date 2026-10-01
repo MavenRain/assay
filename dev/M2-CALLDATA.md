@@ -71,8 +71,8 @@ compare; see [LEXER-KEYWORDS](LEXER-KEYWORDS.md). The `--m2-calldata`
 mode appends CALL-CODEC, for a total of 84 checks. The current default adds
 [RETURN-CODEC](M2-RETURNDATA.md), [REVERT-CODEC](M2-REVERTDATA.md),
 [EVENT-DECODE](M2-EVENT-DECODE.md), [LEXER-KEYWORDS](LEXER-KEYWORDS.md),
-[LEXER-DIRECT](LEXER-DIRECT.md), [IDENTIFIER-DIRECT](IDENTIFIER-DIRECT.md)
-and [WORD-DIRECT](WORD-DIRECT.md), for 91 checks.
+[LEXER-DIRECT](LEXER-DIRECT.md), [IDENTIFIER-DIRECT](IDENTIFIER-DIRECT.md),
+[WORD-DIRECT](WORD-DIRECT.md) and [SEGMENT-DIRECT](SEGMENT-DIRECT.md), for 92 checks.
 
 The [validation record](validation/2026-09-27-m2-calldata/README.md) retains
 the scoped results, failed development attempts and source hashes.

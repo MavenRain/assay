@@ -1,0 +1,8 @@
+LEXER-DIRECT-COMPATIBILITY modes=56 checks=92 cli=identical OK
+LEXER-RESUME reused=before
+LEXER-RESUME reused=after
+LEXER-RESUME reused=mutant-digits
+LEXER-RESUME reused=mutant-identifier
+CONTRACT-LEXER cases=303 golden=5 mutants=2 rounds=5 OK
+LEXER-DIRECT cases=287 golden=4 mutants=3 rounds=5 OK
+LEXER-RESUME complete reused=4

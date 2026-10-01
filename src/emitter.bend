@@ -1697,7 +1697,7 @@ def Model.error(+param_583: Model.Error) -> String:
   Match.Model_Error(&2, String, scrut14072, +p14073 => (Emit.error(p14073)), +p14074 => (String.append("RUN_INPUT: ", p14074)), +p14075 => (String.append("RUN_MEMORY: missing snapshot ", Big.show(p14075)))))
 @unsafe
 def Model.segment(+offset_586: Big, +length_587: Big, +text_588: String) -> String:
-  NativeString.of_list(Series.to_list(&2, Char, (+local14081 => (Series.take(&2, Char, Big.to_nat(length_587), local14081)))((+local14078 => (Series.drop(&2, Char, Big.to_nat(offset_586), local14078)))(Series.from_string(text_588)))))
+  NativeString.take(Big.to_nat(length_587), NativeString.drop(Big.to_nat(offset_586), text_588))
 @unsafe
 def Model.unprefix(+text_782: String) -> String:
   Native.choose(&2, String, String.starts_with(text_782, "0x"), _ => (Model.segment(Big.of_nat(2n), NativeInt.sub(Big.of_nat(String.length(text_782)), Big.of_nat(2n)), text_782)), _ => (text_782))

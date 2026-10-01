@@ -1,0 +1,29 @@
+Traceback (most recent call last):
+  File "/Users/oobi/Documents/gpt1/assay-segment-resume-lexer.py", line 63, in <module>
+    main()
+    ~~~~^^
+  File "/Users/oobi/Documents/gpt1/assay-segment-resume-lexer.py", line 58, in main
+    suite.main()
+    ~~~~~~~~~~^^
+  File "/Users/oobi/Documents/gpt1/assay-segment-direct/dev/lexer-direct-test.py", line 266, in main
+    output, _ = run(compile_adapter(mutated, mutant_entry, 'mutant-' + name))
+                    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oobi/Documents/gpt1/assay-segment-resume-lexer.py", line 40, in compile_adapter
+    return original(records, entry, name)
+  File "/Users/oobi/Documents/gpt1/assay-segment-direct/dev/lexer-direct-test.py", line 83, in compile_adapter
+    result = subprocess.run([str(build.compiler()), str(path), '-o', str(WORK / (name + '.js'))],
+                            capture_output=True, env=os.environ | {'BEND_NO_TELEMETRY': '1'}, timeout=180)
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py", line 557, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py", line 1221, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py", line 2154, in _communicate
+    self._check_timeout(endtime, orig_timeout, stdout, stderr)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py", line 1268, in _check_timeout
+    raise TimeoutExpired(
+    ...<2 lines>...
+            stderr=b''.join(stderr_seq) if stderr_seq else None)
+subprocess.TimeoutExpired: Command '['/Users/oobi/Documents/assay/.tools/bend/bin/bend', '/Users/oobi/Documents/gpt1/assay-segment-direct/_build/lexer-direct/mutant-input.bend', '-o', '/Users/oobi/Documents/gpt1/assay-segment-direct/_build/lexer-direct/mutant-input.js']' timed out after 180 seconds
