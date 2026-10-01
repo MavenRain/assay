@@ -28,9 +28,9 @@ speed improvement.
 
 The fresh five-round, six-case comparison is retained at
 `dev/validation/2026-09-30-identifier-direct/paired-measurement.json` and
-frozen in `dev/bend2-baseline.json`. Its ratio is 1.775497120 in a
-33.316-second window starting at 2026-10-01 02:55 UTC. BEND2-RATIO therefore
-fails against the unchanged 1.0 bound. The preceding contract-span record
+was frozen in `dev/bend2-baseline.json` until [WORD-DIRECT](WORD-DIRECT.md)
+replaced it. Its ratio is 1.775497120 in a 33.316-second window starting at
+2026-10-01 02:55 UTC. BEND2-RATIO therefore failed against the unchanged 1.0 bound. The preceding contract-span record
 reported 0.962311539 in a different host window. These records do not
 isolate the timing effect of this identifier change.
 

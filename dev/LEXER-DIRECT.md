@@ -23,8 +23,8 @@ heads or the entire input. Each must finish successfully and produce a
 different answer for a named case; the unmodified control runs afterward.
 
 The same command checks compatibility with all 56 predecessor modes and
-the current default's 90 legs, including the later
-[IDENTIFIER-DIRECT](IDENTIFIER-DIRECT.md) leg. `make test` adds it after the keyword test.
+the current default's 91 legs, including the later
+[IDENTIFIER-DIRECT](IDENTIFIER-DIRECT.md) and [WORD-DIRECT](WORD-DIRECT.md) legs. `make test` adds it after the keyword test.
 `make gates` and `dev/gates.sh` now select `--lexer-direct`; the earlier
 `--keyword-dispatch` mode retains its original 88 legs.
 
@@ -70,6 +70,7 @@ The contract-span six-case, five-round measurement is retained in
 0.962311539 against the unchanged 1.0 limit in a 40.041-second window.
 BEND2-RATIO and its refusal controls passed on that record. These
 measurements describe their recorded host windows. [IDENTIFIER-DIRECT.md](IDENTIFIER-DIRECT.md)
+records the identifier measurement. [WORD-DIRECT.md](WORD-DIRECT.md)
 describes the current frozen measurement and its failing performance gate.
 
 The native build, kernel suite, 24 commands across 18 adapters, both lexer

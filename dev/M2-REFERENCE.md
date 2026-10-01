@@ -21,8 +21,8 @@ The current default extends this schedule with [ABI-SCHEMA](M2-ABI-SCHEMA.md),
 [LAYOUT-MAPPING](M2-MAPPING.md), [EVENT-CODEC](M2-EVENTS.md),
 [CALL-CODEC](M2-CALLDATA.md), [RETURN-CODEC](M2-RETURNDATA.md),
 [REVERT-CODEC](M2-REVERTDATA.md), [EVENT-DECODE](M2-EVENT-DECODE.md),
-[LEXER-KEYWORDS](LEXER-KEYWORDS.md), [LEXER-DIRECT](LEXER-DIRECT.md) and
-[IDENTIFIER-DIRECT](IDENTIFIER-DIRECT.md), for 90 checks.
+[LEXER-KEYWORDS](LEXER-KEYWORDS.md), [LEXER-DIRECT](LEXER-DIRECT.md),
+[IDENTIFIER-DIRECT](IDENTIFIER-DIRECT.md) and [WORD-DIRECT](WORD-DIRECT.md), for 91 checks.
 
 The reference has 798 runtime bytes and a 107-byte constructor prefix.
 All 431 runtime instructions and all constructor instructions are covered.

@@ -13,6 +13,8 @@ The [direct-conversion follow-up](dev/LEXER-DIRECT.md) removes redundant
 character streams from lexer input, identifier and numeric conversions.
 The [identifier follow-up](dev/IDENTIFIER-DIRECT.md) removes the same
 stream from emitter identifier recognition.
+The [word-parser follow-up](dev/WORD-DIRECT.md) removes stream construction
+when stripping a hexadecimal word prefix.
 
 The [M1 closure gate](dev/M1-CLOSE.md) combines the bounded counter,
 surface, proof and executor checks with the binding compiler performance
@@ -377,7 +379,7 @@ The address gate adds 1920 core comparisons, 128 artifact pairs,
 inferred-guard and inferred-arithmetic suites), then ERC20-REFERENCE,
 ABI-SCHEMA, ABI-CODEC, LAYOUT-PACKED, LAYOUT-MAPPING, EVENT-CODEC,
 CALL-CODEC, RETURN-CODEC, REVERT-CODEC, EVENT-DECODE, LEXER-KEYWORDS,
-LEXER-DIRECT and IDENTIFIER-DIRECT, for 90 legs. `--keyword-dispatch` retains its 88-leg schedule.
+LEXER-DIRECT, IDENTIFIER-DIRECT and WORD-DIRECT, for 91 legs. `--keyword-dispatch` retains its 88-leg schedule.
 `--m2-reference`
 retains its 78-leg schedule, `--m2-abi-schema` retains its 79-leg schedule
 and `--m2-abi-codec` retains its 80-leg schedule. `--m2-packing` retains

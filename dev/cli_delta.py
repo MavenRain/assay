@@ -1,4 +1,4 @@
-"""Pin lexer optimizations before comparing the rest of each historical CLI bundle.
+"""Pin string optimizations before comparing the rest of each historical CLI bundle.
 
 Every listed declaration must match its digest and occur once in each input.
 Restoring BASE bodies then leaves all other reachable CLI changes detectable.
@@ -15,6 +15,7 @@ PINS = {
     'Lexer.lex': '2806175b462bcf9062a7c0468519bb0a2bf1ea84e9628b5827c30b769fd569b9',
     'Contract.span': '2d90e0cb51fc9f93ea19367c3abb4920626bf24d23a8405052539b003e9b6fb2',
     'Recognize.identifier': '038f085f7238eada7da0d0ed000814cf76f5578a682a9158f918e38052ee5968',
+    'Recognize.parse_word': '59e2fb372c8021f6d364d2941f87696640ba3ebf26a09571461ed9bb6ca823c1',
 }
 # Reports identify the complete pin manifest, with a stable serialization.
 SHA256 = hashlib.sha256(json.dumps(PINS, sort_keys=True, separators=(',', ':')).encode()).hexdigest()
@@ -26,7 +27,7 @@ def only(rows, name):
 
 
 def pinned(base_rows, work_rows):
-    """Restore the pinned lexer bodies, or refuse missing, duplicate or modified bodies."""
+    """Restore the pinned bodies, or refuse missing, duplicate or modified bodies."""
     replacements = {}
     for name, digest in PINS.items():
         base, work = only(base_rows, name), only(work_rows, name)

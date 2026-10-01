@@ -1,5 +1,25 @@
 # Assay M2 build log
 
+## 2026-09-30: Direct word prefix removal
+
+Starting at `91a27b7`, `Recognize.parse_word` in `src/emitter.bend` now
+removes the hexadecimal prefix with `NativeString.drop`, removing the
+stream round trip. The digit rules, length limits and `uint256` overflow
+check are unchanged.
+
+WORD-DIRECT compares the restored predecessor and the current
+declaration with 1,580 independent Python goldens and three compiled
+mutants. `make test` runs the check, and `--lexer-direct` appends it as
+the 91st leg. The word parser declaration is the seventh exact
+compatibility pin.
+
+The native build, `make test`, the compatibility check and TRUSTED-LINES
+pass. The full gate battery was not run. The final paired measurement
+records a 13.638-second window and a ratio of 1.312470762 against the
+unchanged 1.0 bound, so BEND2-RATIO fails. That record does not isolate
+the timing effect of this change. See `dev/WORD-DIRECT.md` and
+`dev/validation/2026-09-30-word-direct` for the evidence.
+
 ## 2026-09-30: Direct identifier conversion
 
 Starting at `e16c842`, `Recognize.identifier` in `src/emitter.bend` now

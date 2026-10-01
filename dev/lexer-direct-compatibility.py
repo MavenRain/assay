@@ -48,12 +48,15 @@ def main():
     finally:
         sys.argv = argv
     require(current['stage'] == 'LEXER-DIRECT', 'STAGE')
-    require(current['legs'][:-2] == previous['legs'], 'PRIOR-LEGS')
-    require(current['legs'][-2] == ('LEXER-DIRECT', 600, ('python3', '-P', 'dev/lexer-direct-test.py'),
+    require(current['legs'][:-3] == previous['legs'], 'PRIOR-LEGS')
+    require(current['legs'][-3] == ('LEXER-DIRECT', 600, ('python3', '-P', 'dev/lexer-direct-test.py'),
             'LEXER-DIRECT cases=287 golden=4 mutants=3 rounds=5 OK', True), 'NEW-LEG')
-    require(current['legs'][-1] == ('IDENTIFIER-DIRECT', 600,
+    require(current['legs'][-2] == ('IDENTIFIER-DIRECT', 600,
             ('python3', '-P', 'dev/identifier-direct-test.py'),
             'IDENTIFIER-DIRECT cases=1043 golden=1043 mutants=2 OK', True), 'IDENTIFIER-LEG')
+    require(current['legs'][-1] == ('WORD-DIRECT', 600,
+            ('python3', '-P', 'dev/word-direct-test.py'),
+            'WORD-DIRECT cases=1580 golden=1580 mutants=3 OK', True), 'WORD-LEG')
     for path in ('src/abi.bend', 'src/tests.bend'):
         require((ROOT / path).read_text() == old(path), 'UNCHANGED ' + path)
     require((ROOT / 'dev/bend_source.py').read_text() == old('dev/bend_source.py'), 'BUNDLER')
@@ -66,7 +69,7 @@ def main():
     sources = cli_sources(records)
     require(sources[0] == sources[1], 'CLI-BUNDLE')
     report = dict(base=BASE, prior_modes=len(modes), new_checks=len(current['legs']),
-                  appended=current['legs'][-2:], existing_abi_and_tests='byte-identical',
+                  appended=current['legs'][-3:], existing_abi_and_tests='byte-identical',
                   cli_bundle='byte-identical', cli_bytes=len(sources[0].encode()),
                   cli_sha256=hashlib.sha256(sources[0].encode()).hexdigest(),
                   cli_delta_sha256=CLI_DELTA_SHA256)

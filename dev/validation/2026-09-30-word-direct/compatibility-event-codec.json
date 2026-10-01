@@ -1,0 +1,21 @@
+{
+  "base": "a1e7440",
+  "prior_modes": 50,
+  "new_checks": 83,
+  "appended": [
+    "EVENT-CODEC",
+    300,
+    [
+      "python3",
+      "-P",
+      "dev/event-codec-test.py"
+    ],
+    "EVENT-CODEC oracle=71 reference=21 negative=65 refusal=13 cancun=12 mutants=12 scope=event-codec OK",
+    true
+  ],
+  "existing_abi_and_tests": "byte-identical prefixes",
+  "cli_bundle": "byte-identical",
+  "cli_bytes": 1358153,
+  "cli_sha256": "1a17d2428180a0e613abb59f654c112026813b1123bfd913026fadf38987269d",
+  "cli_delta_sha256": "e57161c08ac79467e2b1d9f74936f71f8153864078d46f00291b308f65bfe922"
+}

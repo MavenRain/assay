@@ -1,0 +1,21 @@
+{
+  "base": "5e00ee7",
+  "prior_modes": 52,
+  "new_checks": 85,
+  "appended": [
+    "RETURN-CODEC",
+    300,
+    [
+      "python3",
+      "-P",
+      "dev/return-codec-test.py"
+    ],
+    "RETURN-CODEC oracle=57 reference=45 negative=75 prefixes=288 refusal=13 mutants=10 scope=returndata OK",
+    true
+  ],
+  "existing_abi_and_tests": "byte-identical prefixes",
+  "cli_bundle": "byte-identical",
+  "cli_bytes": 1358153,
+  "cli_sha256": "1a17d2428180a0e613abb59f654c112026813b1123bfd913026fadf38987269d",
+  "cli_delta_sha256": "e57161c08ac79467e2b1d9f74936f71f8153864078d46f00291b308f65bfe922"
+}
