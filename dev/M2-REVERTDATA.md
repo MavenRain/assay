@@ -59,8 +59,10 @@ prefixes and compiler CLI reachability. Since the keyword-dispatch
 follow-up, the check accepts one pinned `Lexer.ident_kind` delta and puts
 back the BASE declaration before the compare; see
 [LEXER-KEYWORDS](LEXER-KEYWORDS.md). `--m2-revertdata` appends
-REVERT-CODEC for 86 checks; `--m2-returndata` retains its 85 checks. The
-current default [LEXER-KEYWORDS](LEXER-KEYWORDS.md) runs 88.
+REVERT-CODEC for 84 checks; `--m2-returndata` keeps its 83 checks. The
+current default, `--m2-source-packing`, runs 95; see
+[M2-SOURCE-PACKING](M2-SOURCE-PACKING.md). Counts exclude BEND2-RATIO and BEND2-RATIO-TEST, which moved to
+[`--m4-speed`](M4-SPEED.md) on 2026-10-01.
 
 The [validation record](validation/2026-09-27-m2-revertdata/README.md)
 records commands, complete captures, source hashes and timing results.

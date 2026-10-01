@@ -24,9 +24,14 @@ round trips from decimal value normalization.
 The [trace error follow-up](dev/CLI-ERROR-DIRECT.md) removes Series
 round trips from whitespace compaction during response error detection.
 
+Milestone work proceeds through M2, M3 and M4. The compiler speed gate now
+belongs to [M4](dev/M4-SPEED.md), as requested on 2026-10-01, with the same
+Assay/Bend 2 ratio limit of 1.0. The current
+[M2 source packing slice](dev/M2-SOURCE-PACKING.md) compiles typed storage
+declarations into checked EVM reads, writes and constructor initialization.
+
 The [M1 closure gate](dev/M1-CLOSE.md) combines the bounded counter,
-surface, proof and executor checks with the binding compiler performance
-limit. The [first M2 slice](dev/M2-REFERENCE.md) adds a frozen,
+surface, proof and executor checks. The [first M2 slice](dev/M2-REFERENCE.md) adds a frozen,
 hand-assembled [ERC-20 reference](reference/erc20/README.md), with mappings,
 events and dynamic string returns. The [second M2 slice](dev/M2-ABI-SCHEMA.md)
 adds typed ABI metadata and checks the printer against that reference.
@@ -49,7 +54,8 @@ logs, preserving indexed strings as hashes. TRUSTED-LINES passes under
 the source budget the user re-ratified on 2026-09-28: abi 495, assembler
 505 and an unchanged total of 3550.
 Source lowering for packed declarations, mappings and events remains pending.
-`zsh -f dev/gates.sh` runs the complete gate battery.
+`zsh -f dev/gates.sh` runs the default 95-leg gate battery, and
+`make gates-m4-speed` runs the two M4 speed legs.
 
 Assay is a Kanon language fork for EVM contracts.  It inherits the kernel and
 surface at `2c2e6e6`.  M0 Stage A supplies the checker, erasure, axiom disclosure
@@ -382,21 +388,20 @@ and five mutations with restored controls.
 The address gate adds 1920 core comparisons, 128 artifact pairs,
 40 surface cases, 55 signed calls, seven public command checks,
 24 refusals and five mutations with restored controls.
-`dev/gates.sh` selects `--lexer-direct`: the 77 `--m1-close` legs
-(proof-bundle, named-predicate, compound-invariant, named-guard,
-inferred-guard and inferred-arithmetic suites), then ERC20-REFERENCE,
-ABI-SCHEMA, ABI-CODEC, LAYOUT-PACKED, LAYOUT-MAPPING, EVENT-CODEC,
-CALL-CODEC, RETURN-CODEC, REVERT-CODEC, EVENT-DECODE, LEXER-KEYWORDS,
-LEXER-DIRECT, IDENTIFIER-DIRECT, WORD-DIRECT, SEGMENT-DIRECT, CLI-PREFIX-DIRECT,
-CLI-VALUE-DIRECT and CLI-ERROR-DIRECT, for 95 legs.
-`--keyword-dispatch` retains its 88-leg schedule.
-`--m2-reference`
-retains its 78-leg schedule, `--m2-abi-schema` retains its 79-leg schedule
-and `--m2-abi-codec` retains its 80-leg schedule. `--m2-packing` retains
-its 81-leg schedule, `--m2-mapping` retains its 82-leg schedule and
-`--m2-events` retains its 83-leg schedule and `--m2-calldata` retains
-its 84-leg schedule. `--m2-returndata` retains its 85-leg schedule.
-`--m2-revertdata` retains its 86-leg schedule.
+`dev/gates.sh` and `make gates` select `--m2-source-packing`: the 75
+`--m1-close` legs (proof-bundle, named-predicate, compound-invariant,
+named-guard, inferred-guard and inferred-arithmetic suites), then
+ERC20-REFERENCE, ABI-SCHEMA, ABI-CODEC, LAYOUT-PACKED, LAYOUT-MAPPING,
+EVENT-CODEC, CALL-CODEC, RETURN-CODEC, REVERT-CODEC, EVENT-DECODE,
+LEXER-KEYWORDS, LEXER-DIRECT, IDENTIFIER-DIRECT, WORD-DIRECT,
+SEGMENT-DIRECT, CLI-PREFIX-DIRECT, CLI-VALUE-DIRECT, CLI-ERROR-DIRECT,
+MILESTONE-SPEED and PACKED-SOURCE, for 95 legs. BEND2-RATIO and
+BEND2-RATIO-TEST moved to `--m4-speed` (`make gates-m4-speed`) on
+2026-10-01. Each earlier mode keeps its other legs: `--lexer-direct`
+has 93, `--keyword-dispatch` 86, `--m2-event-decode` 85,
+`--m2-revertdata` 84, `--m2-returndata` 83, `--m2-calldata` 82,
+`--m2-events` 81, `--m2-mapping` 80, `--m2-packing` 79,
+`--m2-abi-codec` 78, `--m2-abi-schema` 77 and `--m2-reference` 76.
 The inferred-helper gate adds 254 source/EVM comparisons, two creation
 outcomes, 26 refusals, 24 five-file erasure pairs, six accepted boundary
 forms and five mutations with restored controls.

@@ -1,0 +1,173 @@
+{
+  "base": "80bc4c67f9ce7489dbcbec2cbe1a7b85dee07593",
+  "speed_owner": "M4",
+  "ratio_limit": 1.0,
+  "full_milestone_battery": "not-run",
+  "kernel_changed": false,
+  "source_sha256": {
+    "src/kernel.bend": "12657d56799719ee73fd354eae52335847cd20fd5d31aa791434a9e34bac717e",
+    "src/frontend.bend": "9d014163cec687aa5557df4d568360050628dfa0ab208d67f760d6d396c5073a",
+    "src/cli.bend": "e2a0efa0bbc6b6b58090369f2c65c66df9634eebc5017f40e65fb821ae9d3851",
+    "src/assembler.bend": "99dd49f4b48478ba8c587342c9d2e0ce4e74e28c904a650440f1f6f783c817b1",
+    "src/layout.bend": "e3081d285ac1a4bfcad28347db772442d4d86a0c430596737ce27f48d0dd2017",
+    "src/emitter.bend": "945a260e7b605251c193b447f0ed2ce73e0213883e05bd2be3b7c986679859b7",
+    "dev/stage-a-gates.py": "9796b4bcd6f762c391273bd2555c9c511bb18fed103c7962bda4ef28cdcf2069",
+    "dev/cli_delta.py": "c7c4e8494047cc70fd9b001aa872d9a5a575706841da7b7ad894bc6d635c60c6",
+    "dev/native-carry.json": "ea9191bee9ab8a0d7f2375aae995a468d4f396d5a7ce1ff342b01cf5f3a567e9",
+    "dev/milestone-speed-test.py": "f3c2c21f7231d40fc7e10453b97c9134a8a0415c7b1fe3bce654d5061150611f",
+    "dev/packed-source-test.py": "10098cc94b0f8d4420909d465dcc002e7240ed294821f42eeca26cc6b275125d",
+    "examples/PackedStorage.asy": "45401956ba5e335c9c65bf17ffa6c68da3a8a212a002d5ab2a841ab234f6eea6"
+  },
+  "checks": {
+    "native_suite": {
+      "exit": 0,
+      "adapters": 18,
+      "commands": 24
+    },
+    "packed_source": {
+      "exit": 0,
+      "live_cases": 38,
+      "compiled_mutants": 3,
+      "execution_paths": [
+        "geth run",
+        "geth Cancun t8n"
+      ]
+    },
+    "milestone_ownership": {
+      "exit": 0,
+      "historical_schedules": 57,
+      "runner_controls": 9
+    },
+    "compatibility": {
+      "exit": 0,
+      "scripts": 6
+    },
+    "house": {
+      "exit": 0
+    },
+    "carry": {
+      "exit": 0,
+      "inventory": 12
+    },
+    "budgets": {
+      "exit": 0,
+      "kernel": [
+        3767,
+        4000
+      ],
+      "emitter": [
+        1792,
+        1800
+      ],
+      "assembler": [
+        414,
+        505
+      ],
+      "layout": [
+        238,
+        250
+      ],
+      "artifacts": [
+        3184,
+        3550
+      ]
+    },
+    "m4_speed": {
+      "exit": 1,
+      "reason": "BEND2-IDENTITIES: historical paired record predates this source"
+    }
+  },
+  "pending": [
+    "packed source model",
+    "mapping source integration",
+    "event source integration",
+    "dynamic ABI source integration",
+    "negative Lean proof obligations",
+    "M4 performance measurement and gate"
+  ],
+  "review_changes": [
+    {
+      "finding": "F1",
+      "file": "src/frontend.bend",
+      "change": "typed layout trigger: only Uint8, Bool or Address fields enable packing; Word and Uint256 fields keep the Word path for check, emit and run",
+      "old_sha256": "c59786990169649578df828f66599cce2bc18e7a3108714ef6fc066d9729e1a0",
+      "new_sha256": "9d014163cec687aa5557df4d568360050628dfa0ab208d67f760d6d396c5073a"
+    },
+    {
+      "finding": "F1",
+      "file": "dev/packed-source-test.py",
+      "change": "Uint256-only control: Word artifacts byte-identical and run output equal to the Word model; live cases stay 38",
+      "old_sha256": "bbb31d375b3dd44782d1671b6902e8780ffe4437a0822a29382f2a187d14407b",
+      "new_sha256": "10098cc94b0f8d4420909d465dcc002e7240ed294821f42eeca26cc6b275125d"
+    },
+    {
+      "finding": "F6",
+      "file": "dev/stage-a-gates.py",
+      "change": "usage bracket adds --m2-source-packing and --m4-speed; M2 modes line adds --m2-source-packing",
+      "old_sha256": "fd394a7552aebe6125ab53616e23f5be3bd43e47035ab214a083088a1e34adf8",
+      "new_sha256": "9796b4bcd6f762c391273bd2555c9c511bb18fed103c7962bda4ef28cdcf2069"
+    },
+    {
+      "finding": "F1",
+      "file": "dev/native-carry.json",
+      "change": "carry pin for src/frontend.bend follows the F1 edit",
+      "old_sha256": "5c79aa81fceeacb63a252b978909aa962eb7f24dcce120571d0d3a7993cd4b85",
+      "new_sha256": "ea9191bee9ab8a0d7f2375aae995a468d4f396d5a7ce1ff342b01cf5f3a567e9"
+    },
+    {
+      "finding": "F4",
+      "file": "dev/gates.sh",
+      "change": "selects --m2-source-packing, matching make gates"
+    },
+    {
+      "finding": "F1",
+      "file": "dev/M2-SOURCE-PACKING.md",
+      "change": "run status 64 applies only to source with a Uint8, Bool or Address field"
+    },
+    {
+      "finding": "F2 F3 F5",
+      "files": [
+        "README.md",
+        "dev/M1-CLOSE.md",
+        "dev/M1-BEND2.md",
+        "dev/LEXER-DIRECT.md",
+        "dev/M2-REFERENCE.md",
+        "dev/M2-ABI-SCHEMA.md",
+        "dev/M2-ABI-CODEC.md",
+        "dev/M2-PACKING.md",
+        "dev/M2-MAPPING.md",
+        "dev/M2-EVENTS.md",
+        "dev/M2-CALLDATA.md",
+        "dev/M2-RETURNDATA.md",
+        "dev/M2-REVERTDATA.md",
+        "dev/M2-EVENT-DECODE.md"
+      ],
+      "change": "leg counts after the 2026-10-01 speed transfer: m1-close 75, mode counts -2, default --m2-source-packing 95, m4-speed 2"
+    },
+    {
+      "finding": "F0",
+      "file": "dev/DENOMINATORS.sha256",
+      "change": "stale rows resealed after all other fixes"
+    },
+    {
+      "rerun": "post-fix",
+      "logs": {
+        "packed-source": "review-packed-source.log",
+        "milestone-speed": "review-milestone-speed.log",
+        "native-runtest": "review-native-runtest.log",
+        "compatibility": "review-compatibility.log"
+      },
+      "markers": {
+        "packed-source": "PACKED-SOURCE cases=38 executors=run+t8n mutants=3 OK",
+        "milestone-speed": "MILESTONE-SPEED schedules=57 controls=9 OK",
+        "native-runtest": "RUNTEST adapters=18 commands=24 OK",
+        "call-compatibility": "CALL-COMPATIBILITY modes=51 checks=82 cli=identical OK",
+        "event-compatibility": "EVENT-COMPATIBILITY modes=50 checks=81 cli=identical OK",
+        "event-decode-compatibility": "EVENT-DECODE-COMPATIBILITY modes=54 checks=85 cli=identical OK",
+        "lexer-direct-compatibility": "LEXER-DIRECT-COMPATIBILITY modes=56 checks=93 cli=identical OK",
+        "return-compatibility": "RETURN-COMPATIBILITY modes=52 checks=83 cli=identical OK",
+        "revert-compatibility": "REVERT-COMPATIBILITY modes=53 checks=84 cli=identical OK"
+      }
+    }
+  ]
+}

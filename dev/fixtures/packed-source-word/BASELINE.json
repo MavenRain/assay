@@ -1,0 +1,11 @@
+{
+  "base": "80bc4c67f9ce7489dbcbec2cbe1a7b85dee07593",
+  "source_sha256": "a588a45cdb0dac2cbe1ccac47d0e3a70954473cffd7cdef35808c7cbd5536baf",
+  "files": {
+    "axioms.txt": "61f8b9f0cb83fe5250e13b39b40e705d106caa92810d60168dfe5f4c3a89a302",
+    "init.hex": "bab92ec2f78ce536988e34e3865719bc72940a8a423105b924f4c749ae5ce6c0",
+    "runtime.hex": "576c04af185cb86bdc040b54af1b3a5af66f9ecd3a4c80333d3d022a018ab9db",
+    "layout.json": "e40391c6ad363ef5ffaaae0294276ee3a398d0aff2147fb3e37db462f30f9650",
+    "abi.json": "531bd2a0c7af57eea3f09f92fefa1e47da6b8f29c8bdc48d6528f0eabdc68365"
+  }
+}

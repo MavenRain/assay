@@ -1,5 +1,11 @@
 # M1 Bend 2 compilation comparison
 
+The user moved this speed requirement to [M4](M4-SPEED.md) on 2026-10-01.
+The ratio limit, source pins, timing rules and negative controls remain binding
+there. M1 and M2 schedules no longer include the two speed legs. Recorded
+comparisons below are historical evidence, not measurements of the source
+packing implementation.
+
 The 2026-09-22 compilation-speed requirement is an Assay/Bend 2 ratio at
 most 1.0. The current native Bend comparison is 1.591541253 and does not pass.
 See [CLI-ERROR-DIRECT.md](CLI-ERROR-DIRECT.md) for the current source and record.
@@ -140,22 +146,14 @@ active freeze automatically.
 The BEND2-RATIO leg in `dev/stage-a-gates.py` also requires
 `informational=false` on the row before the OK marker, so an informational
 run cannot pass the leg.
-The 77-leg `--m1-close` battery replaces the two historical OCaml M1 ratio
-legs with `BEND2-RATIO` and `BEND2-RATIO-TEST`. It also includes the
-NATIVE-MAPS and NATIVE-IO checks. OCaml measurement tools and their
-archived results remain available as diagnostics. The native default adds
-the [M2 reference gate](M2-REFERENCE.md), [ABI-SCHEMA](M2-ABI-SCHEMA.md),
-[ABI-CODEC](M2-ABI-CODEC.md), [packing](M2-PACKING.md),
-[mapping locations](M2-MAPPING.md), [EVENT-CODEC](M2-EVENTS.md),
-[CALL-CODEC](M2-CALLDATA.md), [RETURN-CODEC](M2-RETURNDATA.md),
-[REVERT-CODEC](M2-REVERTDATA.md), [EVENT-DECODE](M2-EVENT-DECODE.md),
-[LEXER-KEYWORDS](LEXER-KEYWORDS.md), [LEXER-DIRECT](LEXER-DIRECT.md),
-[IDENTIFIER-DIRECT](IDENTIFIER-DIRECT.md), [WORD-DIRECT](WORD-DIRECT.md),
-[SEGMENT-DIRECT](SEGMENT-DIRECT.md),
-[CLI-PREFIX-DIRECT](CLI-PREFIX-DIRECT.md),
-[CLI-VALUE-DIRECT](CLI-VALUE-DIRECT.md), and
-[CLI-ERROR-DIRECT](CLI-ERROR-DIRECT.md),
-for 95 checks.
+The 75-leg M1 closure battery preserves the existing non-speed checks.
+The two speed legs run through make gates-m4-speed, or
+python3 -P dev/stage-a-gates.py --m4-speed.
+The prior --lexer-direct schedule now has 93 checks. The default
+make gates and dev/gates.sh select --m2-source-packing, which appends the milestone
+ownership check and [source packing check](M2-SOURCE-PACKING.md), for 95
+checks. Historical OCaml tools, native timing records and source seals
+remain available as diagnostics.
 
 `dev/bend2-ratio-test.py` passes three controls, rejects 37 invalid cases,
 and kills six mutations. It covers the inclusive boundary, a ratio above

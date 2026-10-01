@@ -47,10 +47,14 @@ mutation kill. Mutants build in a scratch copy; a control run on the
 unmodified root build follows.
 
 The explicit `--m2-abi-codec` gate mode appends one leg to the unchanged
-79-leg schema schedule, for 80 legs. The default additionally runs
-[LAYOUT-PACKED](M2-PACKING.md), [LAYOUT-MAPPING](M2-MAPPING.md), [EVENT-CODEC](M2-EVENTS.md),
-[CALL-CODEC](M2-CALLDATA.md), [RETURN-CODEC](M2-RETURNDATA.md) and
-[REVERT-CODEC](M2-REVERTDATA.md). The ABI-CODEC leg has a 300-second deadline:
+77-leg schema schedule, for 78 legs. The current default,
+`--m2-source-packing`, additionally runs [LAYOUT-PACKED](M2-PACKING.md),
+[LAYOUT-MAPPING](M2-MAPPING.md), [EVENT-CODEC](M2-EVENTS.md),
+[CALL-CODEC](M2-CALLDATA.md), [RETURN-CODEC](M2-RETURNDATA.md),
+[REVERT-CODEC](M2-REVERTDATA.md) and the later checks, for 95 legs; see
+[M2-SOURCE-PACKING](M2-SOURCE-PACKING.md). Counts exclude BEND2-RATIO and BEND2-RATIO-TEST, which moved to
+[`--m4-speed`](M4-SPEED.md) on 2026-10-01.
+The ABI-CODEC leg has a 300-second deadline:
 
 ```text
 ABI-CODEC cast=48 vectors=49 reference=5 negative=26 prefixes=288 fuzz=128 mutants=10 scope=codec OK

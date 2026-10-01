@@ -2155,3 +2155,109 @@ def Spec_count.no_eta() -> ListOf(String):
 def Spec_count.print(+param_808: Unit) -> String:
   (+scrut15912 = param_808
   String.join(Con{Spec_count.row("formers", Term.formers()), Con{Spec_count.row("schema constructors", Term.schema()), Con{Spec_count.row("shapes declared", Shape.declared()), Con{Spec_count.row("shapes admitted", Rules.admitted()), Con{Spec_count.row("named rules declared", Rules.named_declared()), Con{Spec_count.row("named rules present", Rules.named_present()), Con{Spec_count.row("eta rows", Spec_count.eta_rows()), Con{Spec_count.row("no eta", Spec_count.no_eta()), Nil{}}}}}}}}}, ""))
+def Packed.Parameters() -> Data: ListOf(Abi.Schema.Parameter)
+def Packed.Source.Info() -> Data: TupleOf3(OptionOf(String), String, Packed.Parameters())
+def Packed.Source.word_token(+line: Big, +col: Big) -> Contract.Token: MkContract_Token{"Word", line, col}
+@unsafe
+def Packed.Source.typ(+text: String) -> OptionOf(Abi.Schema.Value_type):
+  Native.choose(&2, OptionOf(Abi.Schema.Value_type), NativeString.equal(text, "Word"), _ => Some{Abi.Schema.Value_type.Uint256{}}, _ =>
+    Native.choose(&2, OptionOf(Abi.Schema.Value_type), NativeString.equal(text, "Uint256"), _ => Some{Abi.Schema.Value_type.Uint256{}}, _ =>
+      Native.choose(&2, OptionOf(Abi.Schema.Value_type), NativeString.equal(text, "Uint8"), _ => Some{Abi.Schema.Value_type.Uint8{}}, _ =>
+        Native.choose(&2, OptionOf(Abi.Schema.Value_type), NativeString.equal(text, "Address"), _ => Some{Abi.Schema.Value_type.Address{}}, _ =>
+          Native.choose(&2, OptionOf(Abi.Schema.Value_type), NativeString.equal(text, "Bool"), _ => Some{Abi.Schema.Value_type.Bool{}}, _ => None{})))))
+@unsafe
+def Packed.Source.copy(+token: Contract.Token, +rest: ListOf(Contract.Token), +parameters: Packed.Parameters(), +acc: ListOf(Contract.Token), +enabled: Bool) -> TupleOf3(ListOf(Contract.Token), Packed.Parameters(), Bool):
+  Packed.Source.fields(rest, Some{token}, parameters, Con{token, acc}, enabled)
+@unsafe
+def Packed.Source.fields(+tokens: ListOf(Contract.Token), +previous: OptionOf(Contract.Token), +parameters: Packed.Parameters(), +acc: ListOf(Contract.Token), +enabled: Bool) -> TupleOf3(ListOf(Contract.Token), Packed.Parameters(), Bool):
+  Case.Packed.switch_48(tokens, acc, enabled, parameters, previous, tokens)
+@unsafe
+def Packed.Source.header(+tokens: ListOf(Contract.Token), +acc: ListOf(Contract.Token)) -> TupleOf3(ListOf(Contract.Token), Packed.Parameters(), Bool):
+  Case.Packed.switch_44(tokens, acc)
+@unsafe
+def Packed.Source.contract(+source: String) -> Bool:
+  Case.Packed.switch_2(Contract.space(Big.one(), Big.one(), Series.from_string(source)))
+@unsafe
+def Packed.Source.lower(+source: String) -> CheckResult(Packed.Source.Info()):
+  Native.choose(&2, CheckResult(Packed.Source.Info()), Packed.Source.contract(source), _ =>
+    Native.choose(&2, CheckResult(Packed.Source.Info()), Big.is_lt(Big.of_nat(65536n), Big.of_nat(String.length(source))), _ =>
+      Contract.fail(&2, Packed.Source.Info(), Contract.here(Nil{}), "LIMIT", "contract source exceeds 65536 bytes"), _ =>
+      Case.Packed.switch_3(Contract.lex(Series.from_string(source)))
+    ), _ =>
+      Case.Packed.switch_6(Contract.lower(source)))
+@unsafe
+def Case.Packed.switch_0(+packed_switch_0: OptionOf(Abi.Schema.Value_type), +acc: ListOf(Contract.Token), +enabled: Bool, +name: String, +parameters: Packed.Parameters(), +rest: ListOf(Contract.Token), +tail: ListOf(Contract.Token), +token: Contract.Token, +type_col: Big, +type_line: Big, +type_name: String) -> TupleOf3(ListOf(Contract.Token), Packed.Parameters(), Bool):
+  match packed_switch_0:
+    case None{}: Packed.Source.copy(token, rest, parameters, acc, enabled)
+    case Some{typ}:
+      +word = Packed.Source.word_token(type_line, type_col)
+      Packed.Source.fields(tail, Some{word}, Con{MkAbi_Schema_Parameter{name, typ}, parameters}, Con{word, Con{token, acc}}, Bool.or(enabled, Bool.not(Bool.or(NativeString.equal(type_name, "Word"), NativeString.equal(type_name, "Uint256")))))
+@unsafe
+def Case.Packed.switch_1(+packed_switch_1: TupleOf3(ListOf(Contract.Token), Packed.Parameters(), Bool), +acc: ListOf(Contract.Token), +token: Contract.Token) -> TupleOf3(ListOf(Contract.Token), Packed.Parameters(), Bool):
+  match packed_switch_1:
+    case Tup3{fields, parameters, enabled}: Tup3{List.append(&2, Contract.Token, List.reverse(&2, Contract.Token, Con{token, acc}), fields), parameters, enabled}
+@unsafe
+def Case.Packed.switch_2(packed_switch_2: Tuple3<&2, &2, &1, Big, Big, (Unit -> Series<&2, Char>)>) -> Bool:
+  match packed_switch_2:
+    case Tup3{_, _, chars}: Contract.keyword(NativeString.to_list("contract"), chars)
+@unsafe
+def Case.Packed.switch_3(+packed_switch_3: CheckResult(ListOf(Contract.Token))) -> CheckResult(Packed.Source.Info()):
+  match packed_switch_3:
+    case Fail{error}: Fail{error}
+    case Done{tokens}:
+      Case.Packed.switch_4(Packed.Source.header(tokens, Nil{}))
+@unsafe
+def Case.Packed.switch_4(+packed_switch_4: TupleOf3(ListOf(Contract.Token), Packed.Parameters(), Bool)) -> CheckResult(Packed.Source.Info()):
+  match packed_switch_4:
+    case Tup3{normalized, parameters, enabled}:
+      Case.Packed.switch_5(Contract.parse(normalized), enabled, parameters)
+@unsafe
+def Case.Packed.switch_5(+packed_switch_5: CheckResult(TupleOf2(OptionOf(String), String)), +enabled: Bool, +parameters: Packed.Parameters()) -> CheckResult(Packed.Source.Info()):
+  match packed_switch_5:
+    case Fail{error}: Fail{error}
+    case Done{Tup2{name, core}}: Done{Tup3{name, core, Native.choose(&2, Packed.Parameters(), enabled, _ => parameters, _ => Nil{})}}
+@unsafe
+def Case.Packed.switch_6(+packed_switch_6: CheckResult(TupleOf2(OptionOf(String), String))) -> CheckResult(Packed.Source.Info()):
+  match packed_switch_6:
+    case Fail{error}: Fail{error}
+    case Done{Tup2{name, core}}: Done{Tup3{name, core, Nil{}}}
+@unsafe
+def Case.Packed.switch_43(+packed_switch_43: Contract.Token, +acc: ListOf(Contract.Token), +rest: ListOf(Contract.Token), +token: Contract.Token) -> TupleOf3(ListOf(Contract.Token), Packed.Parameters(), Bool):
+  match packed_switch_43:
+    case MkContract_Token{text, _, _}:
+      Native.choose(&2, TupleOf3(ListOf(Contract.Token), Packed.Parameters(), Bool), NativeString.equal(text, "{"), _ =>
+        Case.Packed.switch_1(Packed.Source.fields(rest, None{}, Nil{}, Nil{}, False{}), acc, token)
+      , _ => Packed.Source.header(rest, Con{token, acc}))
+@unsafe
+def Case.Packed.switch_44(+packed_switch_44: ListOf(Contract.Token), +acc: ListOf(Contract.Token)) -> TupleOf3(ListOf(Contract.Token), Packed.Parameters(), Bool):
+  match packed_switch_44:
+    case Nil{}: Tup3{List.reverse(&2, Contract.Token, acc), Nil{}, False{}}
+    case Con{token, rest}:
+      Case.Packed.switch_43(token, acc, rest, token)
+@unsafe
+def Case.Packed.switch_45(+packed_switch_45: ListOf(Contract.Token), +acc: ListOf(Contract.Token), +enabled: Bool, +name: String, +parameters: Packed.Parameters(), +rest: ListOf(Contract.Token), +token: Contract.Token) -> TupleOf3(ListOf(Contract.Token), Packed.Parameters(), Bool):
+  match packed_switch_45:
+    case Nil{}: Packed.Source.copy(token, rest, parameters, acc, enabled)
+    case Con{MkContract_Token{type_name, type_line, type_col}, tail}:
+      Case.Packed.switch_0(Packed.Source.typ(type_name), acc, enabled, name, parameters, rest, tail, token, type_col, type_line, type_name)
+@unsafe
+def Case.Packed.switch_46(+packed_switch_46: OptionOf(Contract.Token), +acc: ListOf(Contract.Token), +enabled: Bool, +parameters: Packed.Parameters(), +rest: ListOf(Contract.Token), +token: Contract.Token) -> TupleOf3(ListOf(Contract.Token), Packed.Parameters(), Bool):
+  match packed_switch_46:
+    case None{}: Packed.Source.copy(token, rest, parameters, acc, enabled)
+    case Some{MkContract_Token{name, _, _}}:
+      Case.Packed.switch_45(rest, acc, enabled, name, parameters, rest, token)
+@unsafe
+def Case.Packed.switch_47(+packed_switch_47: Contract.Token, +acc: ListOf(Contract.Token), +enabled: Bool, +parameters: Packed.Parameters(), +previous: OptionOf(Contract.Token), +rest: ListOf(Contract.Token), +token: Contract.Token, +tokens: ListOf(Contract.Token)) -> TupleOf3(ListOf(Contract.Token), Packed.Parameters(), Bool):
+  match packed_switch_47:
+    case MkContract_Token{text, line, col}:
+      Native.choose(&2, TupleOf3(ListOf(Contract.Token), Packed.Parameters(), Bool), NativeString.equal(text, "}"), _ =>
+        Tup3{List.append(&2, Contract.Token, List.reverse(&2, Contract.Token, acc), tokens), List.reverse(&2, Abi.Schema.Parameter, parameters), enabled}, _ =>
+        Native.choose(&2, TupleOf3(ListOf(Contract.Token), Packed.Parameters(), Bool), NativeString.equal(text, ":"), _ =>
+          Case.Packed.switch_46(previous, acc, enabled, parameters, rest, token)
+        , _ => Packed.Source.copy(token, rest, parameters, acc, enabled)))
+@unsafe
+def Case.Packed.switch_48(+packed_switch_48: ListOf(Contract.Token), +acc: ListOf(Contract.Token), +enabled: Bool, +parameters: Packed.Parameters(), +previous: OptionOf(Contract.Token), +tokens: ListOf(Contract.Token)) -> TupleOf3(ListOf(Contract.Token), Packed.Parameters(), Bool):
+  match packed_switch_48:
+    case Nil{}: Tup3{List.reverse(&2, Contract.Token, acc), List.reverse(&2, Abi.Schema.Parameter, parameters), enabled}
+    case Con{token, rest}:
+      Case.Packed.switch_47(token, acc, enabled, parameters, previous, rest, token, tokens)

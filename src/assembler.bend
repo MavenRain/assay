@@ -260,3 +260,155 @@ def Asm.labels(+program_970: Asm) -> ListOf(TupleOf2(String, Big)):
 @unsafe
 def Asm.heights(+program_973: Asm) -> ListOf(Asm.Height):
   Get.Asm.stacks(program_973)
+@unsafe
+def Emit.Packed.next(+label: String, +destination: Bool, +stack: Big, +instruction: Asm.Instruction, +rest: ListOf(Asm.Instruction), +acc: ListOf(Asm.Instruction), +ending: Asm.Ending, +fields: Emit.Packed.Fields(), +serial: Nat) -> Emit.Result(ListOf(Asm.Block)):
+  Emit.Packed.scan(label, destination, stack, rest, Con{instruction, acc}, ending, fields, serial)
+@unsafe
+def Emit.Packed.guard(+label: String, +destination: Bool, +stack: Big, +rest: ListOf(Asm.Instruction), +acc: ListOf(Asm.Instruction), +ending: Asm.Ending, +fields: Emit.Packed.Fields(), +serial: Nat, +bound: Big, +accepted: ListOf(Asm.Instruction)) -> Emit.Result(ListOf(Asm.Block)):
+  +continue = String.concat([label, ":packed:", Big.show(Big.of_nat(serial)), ":continue"])
+  +reject = String.concat([label, ":packed:", Big.show(Big.of_nat(serial)), ":reject"])
+  +guard = List.append(&2, Asm.Instruction, List.reverse(&2, Asm.Instruction, acc), [Asm.Instruction.Dup{Big.one()}, Emit.number(bound), Asm.Instruction.Swap{Big.one()}, Asm.Instruction.Op{"LT"}])
+  Case.Packed.switch_8(Emit.Packed.scan(continue, True{}, Big.one(), rest, List.reverse(&2, Asm.Instruction, accepted), ending, fields, (serial + 1n: Nat)), continue, destination, guard, label, reject, stack)
+@unsafe
+def Emit.Packed.storage(+label: String, +destination: Bool, +stack: Big, +hex: String, +operation: String, +rest: ListOf(Asm.Instruction), +acc: ListOf(Asm.Instruction), +ending: Asm.Ending, +fields: Emit.Packed.Fields(), +serial: Nat) -> Emit.Result(ListOf(Asm.Block)):
+  Case.Packed.switch_10(Emit.Packed.find(hex, fields, Big.zero()), acc, destination, ending, fields, label, operation, rest, serial, stack)
+@unsafe
+def Emit.Packed.scan(+label: String, +destination: Bool, +stack: Big, +instructions: ListOf(Asm.Instruction), +acc: ListOf(Asm.Instruction), +ending: Asm.Ending, +fields: Emit.Packed.Fields(), +serial: Nat) -> Emit.Result(ListOf(Asm.Block)):
+  Case.Packed.switch_26(instructions, acc, destination, ending, fields, label, serial, stack)
+@unsafe
+def Emit.Packed.blocks(+blocks: ListOf(Asm.Block), +fields: Emit.Packed.Fields()) -> Emit.Result(ListOf(Asm.Block)):
+  Case.Packed.switch_22(blocks, fields)
+@unsafe
+def Emit.Packed.assemble(+blocks: ListOf(Asm.Block), +fields: Emit.Packed.Fields()) -> Emit.Result(Asm):
+  Case.Packed.switch_13(Emit.Packed.blocks(blocks, fields))
+@unsafe
+def Emit.Packed.init(+runtime: String, +constructor: Emit.Effect, +fields: Emit.Packed.Fields()) -> Emit.Result(String):
+  Case.Packed.switch_14(Emit.constructor_body(constructor), fields, runtime)
+def Emit.Packed.error(+row: TupleOf2(Abi.Custom_error, String)) -> Abi.Custom_error:
+  Case.Packed.switch_20(row)
+@unsafe
+def Emit.Packed.output(+contract: String, +constructor: Emit.Effect, +fields: Emit.Packed.Fields(), +parameters: Packed.Parameters(), +abi: String, +names: ListOf(String), +rows: List<&2, Tuple2<&2, &2, String, Global.Entry>>, +program: Asm) -> Emit.Result(Emit.Output):
+  Case.Packed.switch_15(Layout.Packed.print(contract, parameters), abi, constructor, contract, fields, names, program, rows)
+@unsafe
+def Emit.Packed.program(+contract: String, +export: String, +globals: Global, +rows: List<&2, Tuple2<&2, &2, String, Global.Entry>>, +erased: List<&2, Tuple2<&2, &2, String, Erase.Entry>>, +parameters: Packed.Parameters()) -> Emit.Result(Emit.Output):
+  Case.Packed.switch_17(Layout.Packed.plan(parameters), contract, erased, export, globals, parameters, rows)
+@unsafe
+def Case.Packed.switch_8(+packed_switch_8: Emit.Result(ListOf(Asm.Block)), +continue: String, +destination: Bool, +guard: ListOf(Asm.Instruction), +label: String, +reject: String, +stack: Big) -> Emit.Result(ListOf(Asm.Block)):
+  match packed_switch_8:
+    case Fail{error}: Fail{error}
+    case Done{blocks}: Done{Con{MkAsm_Block{label, destination, stack, guard, Asm.Ending.Branch{Big.of_nat(2n), continue, reject}}, Con{MkAsm_Block{reject, True{}, Big.one(), [Asm.Instruction.Op{"POP"}, Emit.number(Big.zero()), Emit.number(Big.zero())], Asm.Ending.Halt{Asm.Halt.Revert{}}}, blocks}}}
+@unsafe
+def Case.Packed.switch_9(+packed_switch_9: Layout.Packed.Field, +acc: ListOf(Asm.Instruction), +destination: Bool, +ending: Asm.Ending, +field: Layout.Packed.Field, +fields: Emit.Packed.Fields(), +label: String, +operation: String, +rest: ListOf(Asm.Instruction), +serial: Nat, +stack: Big) -> Emit.Result(ListOf(Asm.Block)):
+  match packed_switch_9:
+    case Layout.Packed.Field{_, typ, _, _}:
+      Native.choose(&2, Emit.Result(ListOf(Asm.Block)), NativeString.equal(operation, "SLOAD"), _ =>
+        +loaded = List.append(&2, Asm.Instruction, List.reverse(&2, Asm.Instruction, Emit.Packed.load(field)), acc)
+        Native.choose(&2, Emit.Result(ListOf(Asm.Block)), Emit.Packed.boolean(typ), _ => Emit.Packed.guard(label, destination, stack, rest, loaded, ending, fields, serial, Big.of_nat(2n), Nil{}), _ => Emit.Packed.scan(label, destination, stack, rest, loaded, ending, fields, serial))
+      , _ =>
+        Native.choose(&2, Emit.Result(ListOf(Asm.Block)), Big.is_eq(Big.of_nat(Layout.Packed.width(typ)), Big.of_nat(32n)), _ =>
+          Emit.Packed.scan(label, destination, stack, rest, List.append(&2, Asm.Instruction, List.reverse(&2, Asm.Instruction, Emit.Packed.store(field)), acc), ending, fields, serial), _ =>
+          Emit.Packed.guard(label, destination, stack, rest, acc, ending, fields, serial, Big.shift_left(Big.one(), Layout.Packed.bits(typ)), Emit.Packed.store(field))))
+@unsafe
+def Case.Packed.switch_10(+packed_switch_10: Emit.Result(Layout.Packed.Field), +acc: ListOf(Asm.Instruction), +destination: Bool, +ending: Asm.Ending, +fields: Emit.Packed.Fields(), +label: String, +operation: String, +rest: ListOf(Asm.Instruction), +serial: Nat, +stack: Big) -> Emit.Result(ListOf(Asm.Block)):
+  match packed_switch_10:
+    case Fail{error}: Fail{error}
+    case Done{field}:
+      Case.Packed.switch_9(field, acc, destination, ending, field, fields, label, operation, rest, serial, stack)
+@unsafe
+def Case.Packed.switch_11(+packed_switch_11: Emit.Result(ListOf(Asm.Block)), +fields: Emit.Packed.Fields(), +rest: ListOf(Asm.Block)) -> Emit.Result(ListOf(Asm.Block)):
+  match packed_switch_11:
+    case Fail{error}: Fail{error}
+    case Done{head}:
+      Case.Packed.switch_12(Emit.Packed.blocks(rest, fields), head)
+@unsafe
+def Case.Packed.switch_12(+packed_switch_12: Emit.Result(ListOf(Asm.Block)), +head: ListOf(Asm.Block)) -> Emit.Result(ListOf(Asm.Block)):
+  match packed_switch_12:
+    case Fail{error}: Fail{error}
+    case Done{tail}: Done{List.append(&2, Asm.Block, head, tail)}
+@unsafe
+def Case.Packed.switch_13(+packed_switch_13: Emit.Result(ListOf(Asm.Block))) -> Emit.Result(Asm):
+  match packed_switch_13:
+    case Fail{error}: Fail{error}
+    case Done{lowered}: Emit.assemble(lowered)
+@unsafe
+def Case.Packed.switch_14(+packed_switch_14: Emit.Result(ListOf(Asm.Instruction)), +fields: Emit.Packed.Fields(), +runtime: String) -> Emit.Result(String):
+  match packed_switch_14:
+    case Fail{error}: Fail{error}
+    case Done{body}:
+      +size = Big.shift_right(Big.of_nat(String.length(runtime)), 1n)
+      Emit.settle_init(runtime, +offset => Emit.Packed.assemble([
+        Emit.block(None{}, "constructor", [Asm.Instruction.Op{"CALLVALUE"}], Emit.branch_to("reject", "initialize")),
+        Emit.marked("initialize", List.append(&2, Asm.Instruction, body, [Emit.number(size), Emit.number(offset), Emit.number(Big.zero()), Asm.Instruction.Op{"CODECOPY"}, Emit.number(size), Emit.number(Big.zero())]), Asm.Ending.Halt{Asm.Halt.Return{}}),
+        Emit.marked("reject", [Emit.number(Big.zero()), Emit.number(Big.zero())], Asm.Ending.Halt{Asm.Halt.Revert{}})
+      ], fields))
+@unsafe
+def Case.Packed.switch_15(+packed_switch_15: Layout.Packed.Result(String), +abi: String, +constructor: Emit.Effect, +contract: String, +fields: Emit.Packed.Fields(), +names: ListOf(String), +program: Asm, +rows: List<&2, Tuple2<&2, &2, String, Global.Entry>>) -> Emit.Result(Emit.Output):
+  match packed_switch_15:
+    case Fail{_}: Fail{Emit.Error.Invalid_ir{"PACKED_LAYOUT: cannot print the checked storage layout"}}
+    case Done{layout}:
+      Case.Packed.switch_16(Emit.output(contract, "generated packed storage listing", +runtime => Emit.Packed.init(runtime, constructor, fields), abi, names, rows, program), fields, layout)
+@unsafe
+def Case.Packed.switch_16(+packed_switch_16: Emit.Result(Emit.Output), +fields: Emit.Packed.Fields(), +layout: String) -> Emit.Result(Emit.Output):
+  match packed_switch_16:
+    case Fail{error}: Fail{error}
+    case Done{MkEmit_Output{runtime, init, printed_abi, _, axioms, listing, _}}: Done{MkEmit_Output{runtime, init, printed_abi, layout, axioms, listing, Emit.Packed.slots(fields, Big.zero())}}
+@unsafe
+def Case.Packed.switch_17(+packed_switch_17: Layout.Packed.Result(Emit.Packed.Fields()), +contract: String, +erased: List<&2, Tuple2<&2, &2, String, Erase.Entry>>, +export: String, +globals: Global, +parameters: Packed.Parameters(), +rows: List<&2, Tuple2<&2, &2, String, Global.Entry>>) -> Emit.Result(Emit.Output):
+  match packed_switch_17:
+    case Fail{_}: Fail{Emit.Error.Invalid_ir{"PACKED_LAYOUT: invalid scalar storage declaration"}}
+    case Done{fields}:
+      Case.Packed.switch_18(Emit.prepare_m1(export, globals, erased), contract, fields, parameters, rows)
+@unsafe
+def Case.Packed.switch_18(+packed_switch_18: Emit.Result(TupleOf5(ListOf(Emit.Entry), Emit.Effect, ListOf(String), ListOf(TupleOf2(Abi.Custom_error, String)), OptionOf(Emit.Transaction))), +contract: String, +fields: Emit.Packed.Fields(), +parameters: Packed.Parameters(), +rows: List<&2, Tuple2<&2, &2, String, Global.Entry>>) -> Emit.Result(Emit.Output):
+  match packed_switch_18:
+    case Fail{error}: Fail{error}
+    case Done{Tup5{entries, constructor, names, errors, fallback}}:
+      Native.choose(&2, Emit.Result(Emit.Output), Emit.Packed.names(fields, names), _ =>
+        Case.Packed.switch_19(Emit.Packed.assemble(Emit.dispatch_blocks(fallback, entries), fields), constructor, contract, entries, errors, fallback, fields, names, parameters, rows)
+      , _ => Fail{Emit.Error.Invalid_ir{"PACKED_LAYOUT: checked core fields and source layout differ"}})
+@unsafe
+def Case.Packed.switch_19(+packed_switch_19: Emit.Result(Asm), +constructor: Emit.Effect, +contract: String, +entries: ListOf(Emit.Entry), +errors: ListOf(TupleOf2(Abi.Custom_error, String)), +fallback: OptionOf(Emit.Transaction), +fields: Emit.Packed.Fields(), +names: ListOf(String), +parameters: Packed.Parameters(), +rows: List<&2, Tuple2<&2, &2, String, Global.Entry>>) -> Emit.Result(Emit.Output):
+  match packed_switch_19:
+    case Fail{error}: Fail{error}
+    case Done{program}:
+      +abi = Abi.print(Some{SeqList.map(&2, &2, TupleOf2(Abi.Custom_error, String), Abi.Custom_error, +row => Emit.Packed.error(row), errors)}, Some{Maybe.is_some(&2, Emit.Transaction, fallback)}, SeqList.map(&2, &2, Emit.Entry, Abi.Entry, +entry => Get.Emit.Entry.abi_entry(entry), entries))
+      Emit.Packed.output(contract, constructor, fields, parameters, abi, names, rows, program)
+@unsafe
+def Case.Packed.switch_20(+packed_switch_20: TupleOf2(Abi.Custom_error, String)) -> Abi.Custom_error:
+  match packed_switch_20:
+    case Tup2{error, _}: error
+@unsafe
+def Case.Packed.switch_22(+packed_switch_22: ListOf(Asm.Block), +fields: Emit.Packed.Fields()) -> Emit.Result(ListOf(Asm.Block)):
+  match packed_switch_22:
+    case Nil{}: Done{Nil{}}
+    case Con{MkAsm_Block{label, destination, stack, body, ending}, rest}:
+      Case.Packed.switch_11(Emit.Packed.scan(label, destination, stack, body, Nil{}, ending, fields, 0n), fields, rest)
+@unsafe
+def Case.Packed.switch_23(+packed_switch_23: Asm.Instruction, +acc: ListOf(Asm.Instruction), +destination: Bool, +ending: Asm.Ending, +fields: Emit.Packed.Fields(), +hex: String, +instruction: Asm.Instruction, +label: String, +rest: ListOf(Asm.Instruction), +serial: Nat, +stack: Big, +tail: ListOf(Asm.Instruction)) -> Emit.Result(ListOf(Asm.Block)):
+  match packed_switch_23:
+    case Asm.Instruction.Op{operation}:
+      Native.choose(&2, Emit.Result(ListOf(Asm.Block)), Bool.or(NativeString.equal(operation, "SLOAD"), NativeString.equal(operation, "SSTORE")), _ =>
+        Emit.Packed.storage(label, destination, stack, hex, operation, rest, acc, ending, fields, serial), _ => Emit.Packed.next(label, destination, stack, instruction, tail, acc, ending, fields, serial))
+    case Asm.Instruction.Push{_}: Emit.Packed.next(label, destination, stack, instruction, tail, acc, ending, fields, serial)
+    case Asm.Instruction.Dup{_}: Emit.Packed.next(label, destination, stack, instruction, tail, acc, ending, fields, serial)
+    case Asm.Instruction.Swap{_}: Emit.Packed.next(label, destination, stack, instruction, tail, acc, ending, fields, serial)
+@unsafe
+def Case.Packed.switch_24(+packed_switch_24: ListOf(Asm.Instruction), +acc: ListOf(Asm.Instruction), +destination: Bool, +ending: Asm.Ending, +fields: Emit.Packed.Fields(), +hex: String, +instruction: Asm.Instruction, +label: String, +serial: Nat, +stack: Big, +tail: ListOf(Asm.Instruction)) -> Emit.Result(ListOf(Asm.Block)):
+  match packed_switch_24:
+    case Nil{}: Emit.Packed.next(label, destination, stack, instruction, tail, acc, ending, fields, serial)
+    case Con{next, rest}:
+      Case.Packed.switch_23(next, acc, destination, ending, fields, hex, instruction, label, rest, serial, stack, tail)
+@unsafe
+def Case.Packed.switch_25(+packed_switch_25: Asm.Instruction, +acc: ListOf(Asm.Instruction), +destination: Bool, +ending: Asm.Ending, +fields: Emit.Packed.Fields(), +instruction: Asm.Instruction, +label: String, +serial: Nat, +stack: Big, +tail: ListOf(Asm.Instruction)) -> Emit.Result(ListOf(Asm.Block)):
+  match packed_switch_25:
+    case Asm.Instruction.Push{hex}:
+      Case.Packed.switch_24(tail, acc, destination, ending, fields, hex, instruction, label, serial, stack, tail)
+    case Asm.Instruction.Op{_}: Emit.Packed.next(label, destination, stack, instruction, tail, acc, ending, fields, serial)
+    case Asm.Instruction.Dup{_}: Emit.Packed.next(label, destination, stack, instruction, tail, acc, ending, fields, serial)
+    case Asm.Instruction.Swap{_}: Emit.Packed.next(label, destination, stack, instruction, tail, acc, ending, fields, serial)
+@unsafe
+def Case.Packed.switch_26(+packed_switch_26: ListOf(Asm.Instruction), +acc: ListOf(Asm.Instruction), +destination: Bool, +ending: Asm.Ending, +fields: Emit.Packed.Fields(), +label: String, +serial: Nat, +stack: Big) -> Emit.Result(ListOf(Asm.Block)):
+  match packed_switch_26:
+    case Nil{}: Done{[MkAsm_Block{label, destination, stack, List.reverse(&2, Asm.Instruction, acc), ending}]}
+    case Con{instruction, tail}:
+      Case.Packed.switch_25(instruction, acc, destination, ending, fields, instruction, label, serial, stack, tail)

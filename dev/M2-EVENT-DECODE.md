@@ -73,8 +73,10 @@ unchanged reachable compiler CLI bundle. Since the keyword-dispatch
 follow-up, the check accepts one pinned `Lexer.ident_kind` delta and puts
 back the BASE declaration before the compare; see
 [LEXER-KEYWORDS](LEXER-KEYWORDS.md). `--m2-event-decode` adds
-EVENT-DECODE, for 87 checks. The current default
-[LEXER-KEYWORDS](LEXER-KEYWORDS.md) runs 88.
+EVENT-DECODE, for 85 checks. The current default,
+`--m2-source-packing`, runs 95; see
+[M2-SOURCE-PACKING](M2-SOURCE-PACKING.md). Counts exclude BEND2-RATIO and BEND2-RATIO-TEST, which moved to
+[`--m4-speed`](M4-SPEED.md) on 2026-10-01.
 
 The new implementation brings `src/abi.bend` to 495 lines, above the
 earlier 400-line ABI limit. On 2026-09-28 the user re-ratified the source

@@ -1,0 +1,17 @@
+== call-compatibility
+CALL-COMPATIBILITY modes=51 checks=82 cli=identical OK
+
+== event-compatibility
+EVENT-COMPATIBILITY modes=50 checks=81 cli=identical OK
+
+== event-decode-compatibility
+EVENT-DECODE-COMPATIBILITY modes=54 checks=85 cli=identical OK
+
+== lexer-direct-compatibility
+LEXER-DIRECT-COMPATIBILITY modes=56 checks=93 cli=identical OK
+
+== return-compatibility
+RETURN-COMPATIBILITY modes=52 checks=83 cli=identical OK
+
+== revert-compatibility
+REVERT-COMPATIBILITY modes=53 checks=84 cli=identical OK

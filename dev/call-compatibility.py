@@ -11,7 +11,7 @@ import sys
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from bend_source import declarations
-from cli_delta import SHA256 as CLI_DELTA_SHA256, cli_sources
+from cli_delta import SHA256 as CLI_DELTA_SHA256, cli_sources, source_records
 
 ROOT = Path(__file__).resolve().parent.parent
 BASE = '0cf7d20'
@@ -36,6 +36,14 @@ def schedule(namespace, mode):
                                   name in classes) for name, timeout, command, marker in legs])
 
 
+
+def historical_schedule(namespace, mode):
+    """Move the historical speed legs to M4 under the 2026-10-01 policy."""
+    result = schedule(namespace, mode)
+    return dict(result, legs=[leg for leg in result["legs"]
+                              if leg[0] not in ("BEND2-RATIO", "BEND2-RATIO-TEST")])
+
+
 def main():
     old_source = old('dev/stage-a-gates.py')
     before, after = load(old_source), load((ROOT / 'dev/stage-a-gates.py').read_text())
@@ -44,8 +52,8 @@ def main():
     try:
         with contextlib.redirect_stdout(io.StringIO()):
             for mode in modes:
-                assert schedule(before, mode) == schedule(after, mode), mode
-            previous = schedule(before, '--m2-events')
+                assert historical_schedule(before, mode) == schedule(after, mode), mode
+            previous = historical_schedule(before, '--m2-events')
             current = schedule(after, '--m2-calldata')
     finally:
         sys.argv = argv
@@ -55,12 +63,7 @@ def main():
     for name in ('abi', 'tests'):
         assert (ROOT / 'src' / (name + '.bend')).read_text().startswith(old('src/' + name + '.bend'))
     assert (ROOT / 'dev/bend_source.py').read_text() == old('dev/bend_source.py')
-    records = [[], []]
-    for path in sorted((ROOT / 'src').glob('*.bend')):
-        if path.name != 'tests.bend':
-            name = str(path.relative_to(ROOT))
-            records[0].extend(declarations(old(name), name))
-            records[1].extend(declarations(path.read_text(), name))
+    records = source_records(ROOT, BASE)
     sources = cli_sources(records)
     assert sources[0] == sources[1]
     report = dict(base=BASE, prior_modes=len(modes), new_checks=len(current['legs']),

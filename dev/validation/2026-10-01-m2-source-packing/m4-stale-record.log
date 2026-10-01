@@ -1,0 +1,8 @@
+FAIL BEND2-RATIO exit=1 elapsed_ms=358.6 deadline_s=60
+BEND2-RATIO FAIL BEND2-IDENTITIES
+
+FAIL BEND2-RATIO-TEST exit=1 elapsed_ms=185.8 deadline_s=60
+BEND2-RATIO-TEST FAIL BEND2-IDENTITIES
+
+M0-VALIDATION FAIL; M0-EXIT requires the user commit and ratification
+STAGE-M4-SPEED FAIL

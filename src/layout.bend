@@ -155,3 +155,84 @@ def Layout.Packed.print(+contract: String, fields: ListOf(Abi.Schema.Parameter))
 def Layout.print(+contract_274: String, +fields_275: ListOf(String)) -> String:
   (+scrut8643 = {SeqList.mapi(&2, &2, String, String, (+local8636 => +local8638 => (String.concat(["{\u{22}astId\u{22}:", Big.show(local8636), ",\u{22}contract\u{22}:", Abi.quote(contract_274), ",\u{22}label\u{22}:", Abi.quote(local8638), ",\u{22}offset\u{22}:0,\u{22}slot\u{22}:", Abi.quote(Big.show(local8636)), ",\u{22}type\u{22}:\u{22}t_uint256\u{22}}"]))), fields_275) : ListOf(String)}
   String.append("{\u{22}storage\u{22}:[", String.append(String.join(scrut8643, ","), "],\u{22}types\u{22}:{\u{22}t_uint256\u{22}:{\u{22}encoding\u{22}:\u{22}inplace\u{22},\u{22}label\u{22}:\u{22}uint256\u{22},\u{22}numberOfBytes\u{22}:\u{22}32\u{22}}}}\u{a}")))
+def Emit.Packed.Fields() -> Data: ListOf(Layout.Packed.Field)
+@unsafe
+def Emit.Packed.names(+fields: Emit.Packed.Fields(), +names: ListOf(String)) -> Bool:
+  Case.Packed.switch_33(fields, names)
+@unsafe
+def Emit.Packed.find(+hex: String, +fields: Emit.Packed.Fields(), +index: Big) -> Emit.Result(Layout.Packed.Field):
+  Case.Packed.switch_30(fields, hex, index)
+@unsafe
+def Emit.Packed.mask(+width: Nat) -> Big: Big.sub(Big.shift_left(Big.one(), (width * 8n: Nat)), Big.one())
+@unsafe
+def Emit.Packed.load(+field: Layout.Packed.Field) -> ListOf(Asm.Instruction):
+  Case.Packed.switch_29(field)
+@unsafe
+def Emit.Packed.store(+field: Layout.Packed.Field) -> ListOf(Asm.Instruction):
+  Case.Packed.switch_28(field)
+@unsafe
+def Emit.Packed.boolean(+typ: Abi.Schema.Value_type) -> Bool:
+  Case.Packed.switch_27(typ)
+@unsafe
+def Emit.Packed.slots(+fields: Emit.Packed.Fields(), +count: Big) -> Big:
+  Case.Packed.switch_21(fields, count)
+@unsafe
+def Case.Packed.switch_7(+packed_switch_7: Asm.Instruction, +field: Layout.Packed.Field, +hex: String, +index: Big, +rest: Emit.Packed.Fields()) -> Emit.Result(Layout.Packed.Field):
+  match packed_switch_7:
+    case Asm.Instruction.Push{expected}:
+      Native.choose(&2, Emit.Result(Layout.Packed.Field), NativeString.equal(hex, expected), _ => Done{field}, _ => Emit.Packed.find(hex, rest, Big.add(index, Big.one())))
+    case Asm.Instruction.Op{_}: Fail{Emit.Error.Invalid_ir{"PACKED_SLOT: expected a slot literal"}}
+    case Asm.Instruction.Dup{_}: Fail{Emit.Error.Invalid_ir{"PACKED_SLOT: expected a slot literal"}}
+    case Asm.Instruction.Swap{_}: Fail{Emit.Error.Invalid_ir{"PACKED_SLOT: expected a slot literal"}}
+@unsafe
+def Case.Packed.switch_21(+packed_switch_21: Emit.Packed.Fields(), +count: Big) -> Big:
+  match packed_switch_21:
+    case Nil{}: count
+    case Con{Layout.Packed.Field{_, _, slot, _}, rest}: Emit.Packed.slots(rest, Big.add(slot, Big.one()))
+@unsafe
+def Case.Packed.switch_27(+packed_switch_27: Abi.Schema.Value_type) -> Bool:
+  match packed_switch_27:
+    case Abi.Schema.Value_type.Bool{}: True{}
+    case Abi.Schema.Value_type.Uint8{}: False{}
+    case Abi.Schema.Value_type.Uint256{}: False{}
+    case Abi.Schema.Value_type.Address{}: False{}
+    case Abi.Schema.Value_type.String{}: False{}
+@unsafe
+def Case.Packed.switch_28(+packed_switch_28: Layout.Packed.Field) -> ListOf(Asm.Instruction):
+  match packed_switch_28:
+    case Layout.Packed.Field{_, typ, slot, offset}:
+      Native.choose(&2, ListOf(Asm.Instruction), Big.is_eq(Big.of_nat(Layout.Packed.width(typ)), Big.of_nat(32n)), _ => [Emit.number(slot), Asm.Instruction.Op{"SSTORE"}], _ =>
+        +clear = Big.sub(Emit.Packed.mask(32n), Big.shift_left(Emit.Packed.mask(Layout.Packed.width(typ)), (offset * 8n: Nat)))
+        +shift = Native.choose(&2, ListOf(Asm.Instruction), Big.is_zero(Big.of_nat(offset)), _ => Nil{}, _ => [Emit.number(Big.of_nat((offset * 8n: Nat))), Asm.Instruction.Op{"SHL"}])
+        List.append(&2, Asm.Instruction, [Emit.number(slot), Asm.Instruction.Op{"SLOAD"}, Emit.number(clear), Asm.Instruction.Op{"AND"}, Asm.Instruction.Swap{Big.one()}],
+          List.append(&2, Asm.Instruction, shift, [Asm.Instruction.Op{"OR"}, Emit.number(slot), Asm.Instruction.Op{"SSTORE"}])) )
+@unsafe
+def Case.Packed.switch_29(+packed_switch_29: Layout.Packed.Field) -> ListOf(Asm.Instruction):
+  match packed_switch_29:
+    case Layout.Packed.Field{_, typ, slot, offset}:
+      +shift = Native.choose(&2, ListOf(Asm.Instruction), Big.is_zero(Big.of_nat(offset)), _ => Nil{}, _ => [Emit.number(Big.of_nat((offset * 8n: Nat))), Asm.Instruction.Op{"SHR"}])
+      +mask = Native.choose(&2, ListOf(Asm.Instruction), Big.is_eq(Big.of_nat(Layout.Packed.width(typ)), Big.of_nat(32n)), _ => Nil{}, _ => [Emit.number(Emit.Packed.mask(Layout.Packed.width(typ))), Asm.Instruction.Op{"AND"}])
+      List.append(&2, Asm.Instruction, [Emit.number(slot), Asm.Instruction.Op{"SLOAD"}], List.append(&2, Asm.Instruction, shift, mask))
+@unsafe
+def Case.Packed.switch_30(+packed_switch_30: Emit.Packed.Fields(), +hex: String, +index: Big) -> Emit.Result(Layout.Packed.Field):
+  match packed_switch_30:
+    case Nil{}: Fail{Emit.Error.Invalid_ir{"PACKED_SLOT: unknown logical storage field"}}
+    case Con{field, rest}:
+      Case.Packed.switch_7(Emit.number(index), field, hex, index, rest)
+@unsafe
+def Case.Packed.switch_31(+packed_switch_31: ListOf(String), +name: String, +rest: Emit.Packed.Fields()) -> Bool:
+  match packed_switch_31:
+    case Nil{}: False{}
+    case Con{expected, tail}: Bool.and(NativeString.equal(name, expected), Emit.Packed.names(rest, tail))
+@unsafe
+def Case.Packed.switch_32(+packed_switch_32: ListOf(String)) -> Bool:
+  match packed_switch_32:
+    case Nil{}: True{}
+    case Con{_, _}: False{}
+@unsafe
+def Case.Packed.switch_33(+packed_switch_33: Emit.Packed.Fields(), +names: ListOf(String)) -> Bool:
+  match packed_switch_33:
+    case Nil{}:
+      Case.Packed.switch_32(names)
+    case Con{Layout.Packed.Field{name, _, _, _}, rest}:
+      Case.Packed.switch_31(names, name, rest)

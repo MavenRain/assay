@@ -13,7 +13,7 @@ import sys
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from bend_source import declarations
-from cli_delta import SHA256 as CLI_DELTA_SHA256, cli_sources
+from cli_delta import SHA256 as CLI_DELTA_SHA256, cli_sources, source_records
 
 ROOT = Path(__file__).resolve().parent.parent
 BASE = '82f14761406f4d0cd383f284250d708595a4988e'
@@ -42,8 +42,8 @@ def main():
     try:
         with contextlib.redirect_stdout(io.StringIO()):
             for mode in modes:
-                require(helpers.schedule(before, mode) == helpers.schedule(after, mode), 'MODE ' + mode)
-            previous = helpers.schedule(before, '--keyword-dispatch')
+                require(helpers.historical_schedule(before, mode) == helpers.schedule(after, mode), 'MODE ' + mode)
+            previous = helpers.historical_schedule(before, '--keyword-dispatch')
             current = helpers.schedule(after, '--lexer-direct')
     finally:
         sys.argv = argv
@@ -72,12 +72,7 @@ def main():
     for path in ('src/abi.bend', 'src/tests.bend'):
         require((ROOT / path).read_text() == old(path), 'UNCHANGED ' + path)
     require((ROOT / 'dev/bend_source.py').read_text() == old('dev/bend_source.py'), 'BUNDLER')
-    records = [[], []]
-    for path in sorted((ROOT / 'src').glob('*.bend')):
-        if path.name != 'tests.bend':
-            name = str(path.relative_to(ROOT))
-            records[0].extend(declarations(old(name), name))
-            records[1].extend(declarations(path.read_text(), name))
+    records = source_records(ROOT, BASE)
     sources = cli_sources(records)
     require(sources[0] == sources[1], 'CLI-BUNDLE')
     report = dict(base=BASE, prior_modes=len(modes), new_checks=len(current['legs']),

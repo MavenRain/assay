@@ -212,7 +212,7 @@ def Cli.read_source(+path: String, exists: Bool) -> IO(Cli.Checked):
         basename : String <- OS.basename(path)
         Cli.lowered(basename, Contract.lower(source))), _ => NativeIO.die(Cli.Checked, 64, String.concat(["assay: ", path, ": expected a .asy or .kan source"])))
 @unsafe
-def Cli.checked(+path: String) -> IO(Cli.Checked): IO.bind(Bool, Cli.Checked, OS.regular(path), exists => Cli.read_source(path, exists))
+def Cli.checked(+path: String) -> IO(Cli.Checked): IO.bind(Cli.Packed.Checked(), Cli.Checked, Cli.Packed.checked(path), packet => Cli.Packed.checked_value(packet))
 @unsafe
 def Cli.erase(checked: Cli.Checked) -> IO(Cli.Program):
   match checked:
@@ -227,7 +227,7 @@ def Cli.compiled(command: String, result: Result<&2, &2, Emit.Error, Emit.Output
 def Cli.compile_program(command: String, export: String, program: Cli.Program) -> IO(Emit.Output):
   match program:
     case Cli.Program{contract, globals, rows, erased}: Cli.compiled(command, Emit.program(contract, export, globals, rows, erased))
-def Cli.compile(command: String, path: String, export: String) -> IO(Emit.Output): IO.bind(Cli.Program, Emit.Output, Cli.program(path), program => Cli.compile_program(command, export, program))
+def Cli.compile(command: String, path: String, export: String) -> IO(Emit.Output): IO.bind(Cli.Packed.Program(), Emit.Output, Cli.Packed.program(path), packet => Cli.Packed.compile(command, export, packet))
 @unsafe
 def Cli.show_rows(mode: U32, globals: Global, rows: Cli.Rows()) -> IO(Unit):
   match mode:
@@ -303,8 +303,8 @@ def Cli.run_program(export: String, input: Model.Input, source: Cli.Program) -> 
 def Cli.run(path: String, +options: Cli.Options) -> IO(Unit): do IO<Unit>:
   input : Model.Input <- Cli.model_result(Model.Input, 64, Model.inputs_with_caller(Cli.option("--calldata", "", options), Cli.option("--value", "0", options), Cli.storage(options), Cli.option("--caller", "0", options)))
   addressed : Model.Input <- Cli.model_result(Model.Input, 64, Model.with_address(input, Cli.option("--address", "0", options)))
-  source : Cli.Program <- Cli.program(path)
-  Cli.run_program(Cli.option("--export", "main", options), addressed, source)
+  source : Cli.Packed.Program() <- Cli.Packed.program(path)
+  Cli.Packed.run(Cli.option("--export", "main", options), addressed, source)
 def Cli.trace_value(result: Result<&2, &2, Trace.Error, String>) -> IO(String):
   match result:
     case Fail{error}: NativeIO.die(String, 64, String.concat(["assay: trace: ", Trace.error(error)]))
@@ -408,3 +408,72 @@ def Cli.arguments(args: List<&1, String>) -> List<&2, String>:
     case Nil{}: Nil{}
     case Con{head, tail}: head <> Cli.arguments(tail)
 def Entry.Cli() -> IO(Unit): IO.bind(List<&1, String>, Unit, NativeIO.args(), args => Cli.main(Cli.arguments(args)))
+def Cli.Packed.Checked() -> Data: TupleOf2(Cli.Checked, Packed.Parameters())
+def Cli.Packed.Program() -> Data: TupleOf2(Cli.Program, Packed.Parameters())
+@unsafe
+def Cli.Packed.lowered(+basename: String, +result: CheckResult(Packed.Source.Info())) -> IO(Cli.Packed.Checked()):
+  Case.Packed.switch_42(result, basename)
+@unsafe
+def Cli.Packed.read(+path: String, +exists: Bool) -> IO(Cli.Packed.Checked()):
+  Native.choose(&1, IO(Cli.Packed.Checked()), exists, _ => Cli.Packed.read_file(path), _ => NativeIO.die(Cli.Packed.Checked(), 64, String.append("assay: cannot read ", path)))
+def Cli.Packed.checked(+path: String) -> IO(Cli.Packed.Checked()): IO.bind(Bool, Cli.Packed.Checked(), OS.regular(path), exists => Cli.Packed.read(path, exists))
+def Cli.Packed.checked_value(+packet: Cli.Packed.Checked()) -> IO(Cli.Checked):
+  Case.Packed.switch_40(packet)
+@unsafe
+def Cli.Packed.erase(+packet: Cli.Packed.Checked()) -> IO(Cli.Packed.Program()):
+  Case.Packed.switch_39(packet)
+def Cli.Packed.program(+path: String) -> IO(Cli.Packed.Program()): IO.bind(Cli.Packed.Checked(), Cli.Packed.Program(), Cli.Packed.checked(path), packet => Cli.Packed.erase(packet))
+@unsafe
+def Cli.Packed.compile(+command: String, +export: String, +packet: Cli.Packed.Program()) -> IO(Emit.Output):
+  Case.Packed.switch_38(packet, command, export)
+def Cli.Packed.run(+export: String, +input: Model.Input, +packet: Cli.Packed.Program()) -> IO(Unit):
+  Case.Packed.switch_35(packet, export, input)
+@unsafe
+def Case.Packed.switch_34(+packed_switch_34: Packed.Parameters(), +export: String, +input: Model.Input, +program: Cli.Program) -> IO(Unit):
+  match packed_switch_34:
+    case Nil{}: Cli.run_program(export, input, program)
+    case Con{_, _}: NativeIO.die(Unit, 64, "assay: run: the packed storage model is pending; use emit or trace")
+@unsafe
+def Case.Packed.switch_35(+packed_switch_35: Cli.Packed.Program(), +export: String, +input: Model.Input) -> IO(Unit):
+  match packed_switch_35:
+    case Tup2{program, parameters}:
+      Case.Packed.switch_34(parameters, export, input, program)
+@unsafe
+def Case.Packed.switch_36(+packed_switch_36: Cli.Program, +command: String, +export: String, +parameters: Packed.Parameters()) -> IO(Emit.Output):
+  match packed_switch_36:
+    case Cli.Program{contract, globals, rows, erased}: Cli.compiled(command, Emit.Packed.program(contract, export, globals, rows, erased, parameters))
+@unsafe
+def Case.Packed.switch_37(+packed_switch_37: Packed.Parameters(), +command: String, +export: String, +parameters: Packed.Parameters(), +program: Cli.Program) -> IO(Emit.Output):
+  match packed_switch_37:
+    case Nil{}: Cli.compile_program(command, export, program)
+    case Con{_, _}:
+      Case.Packed.switch_36(program, command, export, parameters)
+@unsafe
+def Case.Packed.switch_38(+packed_switch_38: Cli.Packed.Program(), +command: String, +export: String) -> IO(Emit.Output):
+  match packed_switch_38:
+    case Tup2{program, parameters}:
+      Case.Packed.switch_37(parameters, command, export, parameters, program)
+@unsafe
+def Case.Packed.switch_39(+packed_switch_39: Cli.Packed.Checked()) -> IO(Cli.Packed.Program()):
+  match packed_switch_39:
+    case Tup2{checked, parameters}: do IO<Cli.Packed.Program()>:
+      program : Cli.Program <- Cli.erase(checked)
+      return Tup2{program, parameters}
+@unsafe
+def Case.Packed.switch_40(+packed_switch_40: Cli.Packed.Checked()) -> IO(Cli.Checked):
+  match packed_switch_40:
+    case Tup2{checked, _}: IO.pure(Cli.Checked, checked)
+@unsafe
+def Cli.Packed.read_file(+path: String) -> IO(Cli.Packed.Checked()):
+  Native.choose(&1, IO(Cli.Packed.Checked()), Bool.or(String.ends_with(path, ".asy"), String.ends_with(path, ".kan")), _ => (do IO<Cli.Packed.Checked()>:
+    read : Result<&2, &2, String, String> <- NativeIO.read(path)
+    source : String <- Cli.require(String, 64, read)
+    basename : String <- OS.basename(path)
+    Cli.Packed.lowered(basename, Packed.Source.lower(source))), _ => NativeIO.die(Cli.Packed.Checked(), 64, String.concat(["assay: ", path, ": expected a .asy or .kan source"])))
+@unsafe
+def Case.Packed.switch_42(+packed_switch_42: CheckResult(Packed.Source.Info()), +basename: String) -> IO(Cli.Packed.Checked()):
+  match packed_switch_42:
+    case Fail{error}: NativeIO.die(Cli.Packed.Checked(), 1, Error.to_string(error))
+    case Done{Tup3{name, core, parameters}}: do IO<Cli.Packed.Checked()>:
+      checked : Cli.Checked <- Cli.lowered(basename, Done{Tup2{name, core}})
+      return Tup2{checked, parameters}

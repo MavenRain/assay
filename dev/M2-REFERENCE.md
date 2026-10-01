@@ -7,16 +7,17 @@ nine methods, two events, mapping and nested-mapping storage, dynamic string
 returns and deployment initialization.
 
 The explicit `python3 -P dev/stage-a-gates.py --m2-reference` runs the
-77 M1 closure checks followed by ERC20-REFERENCE, for 78 legs. Existing
+75 M1 closure checks followed by ERC20-REFERENCE, for 76 legs. Existing
 explicit modes retain their commands, deadlines, success markers and
-failure classification. `--m1-close` remains the 77-leg M1 battery. The
+failure classification. `--m1-close` is the 75-leg M1 battery, since its
+two speed legs moved to [`--m4-speed`](M4-SPEED.md) on 2026-10-01. The
 reference leg has a 300-second deadline and requires the exact marker:
 
 ```text
 ERC20-REFERENCE cases=85 creates=4 mutants=11 covered=431 scope=reference OK
 ```
 
-The current default extends this schedule with [ABI-SCHEMA](M2-ABI-SCHEMA.md),
+The current default, `--m2-source-packing`, extends this schedule with [ABI-SCHEMA](M2-ABI-SCHEMA.md),
 [ABI-CODEC](M2-ABI-CODEC.md), [LAYOUT-PACKED](M2-PACKING.md),
 [LAYOUT-MAPPING](M2-MAPPING.md), [EVENT-CODEC](M2-EVENTS.md),
 [CALL-CODEC](M2-CALLDATA.md), [RETURN-CODEC](M2-RETURNDATA.md),
@@ -25,9 +26,9 @@ The current default extends this schedule with [ABI-SCHEMA](M2-ABI-SCHEMA.md),
 [IDENTIFIER-DIRECT](IDENTIFIER-DIRECT.md), [WORD-DIRECT](WORD-DIRECT.md),
 [SEGMENT-DIRECT](SEGMENT-DIRECT.md),
 [CLI-PREFIX-DIRECT](CLI-PREFIX-DIRECT.md),
-[CLI-VALUE-DIRECT](CLI-VALUE-DIRECT.md), and
-[CLI-ERROR-DIRECT](CLI-ERROR-DIRECT.md),
-for 95 checks.
+[CLI-VALUE-DIRECT](CLI-VALUE-DIRECT.md),
+[CLI-ERROR-DIRECT](CLI-ERROR-DIRECT.md), MILESTONE-SPEED and
+[PACKED-SOURCE](M2-SOURCE-PACKING.md), for 95 checks.
 
 The reference has 798 runtime bytes and a 107-byte constructor prefix.
 All 431 runtime instructions and all constructor instructions are covered.

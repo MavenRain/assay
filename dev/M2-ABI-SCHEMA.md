@@ -42,11 +42,15 @@ or anonymous flags; dropped outputs; and return types added to selectors.
 Compiler errors never count as mutation kills.
 
 The explicit `--m2-abi-schema` gate mode appends
-ABI-SCHEMA to the existing 78-leg M2 reference schedule, for 79 legs.
-The default additionally runs [ABI-CODEC](M2-ABI-CODEC.md),
-[LAYOUT-PACKED](M2-PACKING.md), [LAYOUT-MAPPING](M2-MAPPING.md), [EVENT-CODEC](M2-EVENTS.md),
-[CALL-CODEC](M2-CALLDATA.md), [RETURN-CODEC](M2-RETURNDATA.md) and
-[REVERT-CODEC](M2-REVERTDATA.md). Earlier explicit
+ABI-SCHEMA to the existing 76-leg M2 reference schedule, for 77 legs.
+The current default, `--m2-source-packing`, additionally runs
+[ABI-CODEC](M2-ABI-CODEC.md), [LAYOUT-PACKED](M2-PACKING.md),
+[LAYOUT-MAPPING](M2-MAPPING.md), [EVENT-CODEC](M2-EVENTS.md),
+[CALL-CODEC](M2-CALLDATA.md), [RETURN-CODEC](M2-RETURNDATA.md),
+[REVERT-CODEC](M2-REVERTDATA.md) and the later checks, for 95 legs; see
+[M2-SOURCE-PACKING](M2-SOURCE-PACKING.md). Counts exclude BEND2-RATIO and BEND2-RATIO-TEST, which moved to
+[`--m4-speed`](M4-SPEED.md) on 2026-10-01.
+Earlier explicit
 modes keep their commands, deadlines, markers and failure
 classification. The new leg has a 300-second deadline and requires:
 

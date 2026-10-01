@@ -1,6 +1,11 @@
 # M1 closure
 
-Status: BEND2-RATIO fails on the current frozen record. The requirement,
+Status: compiler speed belongs to [M4](M4-SPEED.md), following the user's
+2026-10-01 instruction. The 75-leg M1 closure schedule retains its functional,
+proof, executor and native checks. This transfer does not claim a new full
+battery pass or close the milestone.
+
+Historical speed status before the transfer: BEND2-RATIO failed on the frozen record. The requirement,
 set by the user on 2026-09-22, is compilation speed at least as fast as Bend 2.
 The [current paired comparison](CLI-ERROR-DIRECT.md) measures a ratio of 1.591541253
 against the unchanged 1.0 limit, in a 7.874-second window on
@@ -37,13 +42,12 @@ the hand-assembled counter. The existing gates cover those requirements:
 | Contract, storage, entry and do syntax | CONTRACT-SURFACE |
 | Storage, return and revert agreement through geth run and Cancun t8n | DIFF-EXECUTOR, M1-EMISSION, CONTRACT-SURFACE |
 | Source execution and overflow-freedom theorem | SOURCE-MODEL, SOURCE-PROOFS |
-| R3 compilation speed at least as fast as Bend 2 | BEND2-RATIO, BEND2-RATIO-TEST |
 
 The counter gates exercise 30 calldata/prestate rows, exceeding the
 eight-row milestone requirement. The two executors are geth entry points.
 The source-model proof does not prove the OCaml compiler correct.
 
-## Performance contract
+## Historical performance contract
 
 Assay must compile at least as fast as Bend 2. This replaces all previous
 milestone compilation speed requirements. Compare parse through emit,
@@ -55,8 +59,9 @@ to close the speed requirement; no existing OCaml report can do so.
 
 The [Bend 2 comparison](M1-BEND2.md) supplies the paired corpus, pinned
 toolchains, complete compilation intervals, output validation, frozen
-measurement and refusal tests. The 77-leg `--m1-close` battery uses its
-two gates in place of the former OCaml M1 ratio legs. The comparison's
+measurement and refusal tests. From 2026-09-22 to 2026-09-30 the 77-leg
+`--m1-close` battery used its two gates in place of the former OCaml M1
+ratio legs; on 2026-10-01 they moved to [`--m4-speed`](M4-SPEED.md). The comparison's
 scope is six closed pure programs; stateful M1 behavior retains its
 separate functional gates.
 
@@ -123,10 +128,12 @@ commands, deadlines and markers for the 44 historical modes and probed the
 failure class of the three `--m1-close` legs only. The historical M0/M1
 classes were unchanged because the scheduler change only added rows under
 `--m1-close`. The two ratio legs were classified as M1 failures. The M0
-ratification message remained. Since 2026-09-22 `--m1-close` runs the
-same battery with BEND2-RATIO and BEND2-RATIO-TEST in their place (see
-[M1-BEND2.md](M1-BEND2.md)). It also includes the NATIVE-MAPS and
-NATIVE-IO checks, for 77 legs. The native default adds the
+ratification message remained. From 2026-09-22 to 2026-09-30
+`--m1-close` ran the same battery with BEND2-RATIO and BEND2-RATIO-TEST
+in their place (see [M1-BEND2.md](M1-BEND2.md)), with the NATIVE-MAPS and
+NATIVE-IO checks, for 77 legs. On 2026-10-01 the two speed legs moved to
+[`--m4-speed`](M4-SPEED.md), so `--m1-close` now runs 75 legs. The default
+`--m2-source-packing` mode adds the
 [M2 reference gate](M2-REFERENCE.md), [ABI-SCHEMA](M2-ABI-SCHEMA.md),
 [ABI-CODEC](M2-ABI-CODEC.md), [packing](M2-PACKING.md),
 [mapping locations](M2-MAPPING.md), [EVENT-CODEC](M2-EVENTS.md),
@@ -136,9 +143,9 @@ NATIVE-IO checks, for 77 legs. The native default adds the
 [IDENTIFIER-DIRECT](IDENTIFIER-DIRECT.md), [WORD-DIRECT](WORD-DIRECT.md),
 [SEGMENT-DIRECT](SEGMENT-DIRECT.md),
 [CLI-PREFIX-DIRECT](CLI-PREFIX-DIRECT.md),
-[CLI-VALUE-DIRECT](CLI-VALUE-DIRECT.md), and
-[CLI-ERROR-DIRECT](CLI-ERROR-DIRECT.md),
-for 95 checks.
+[CLI-VALUE-DIRECT](CLI-VALUE-DIRECT.md),
+[CLI-ERROR-DIRECT](CLI-ERROR-DIRECT.md), MILESTONE-SPEED and
+[PACKED-SOURCE](M2-SOURCE-PACKING.md), for 95 checks.
 
 That ratio test used synthetic reports to exercise the public command; these
 were decision tests and provided no timing evidence. It checked the

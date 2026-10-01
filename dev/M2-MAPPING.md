@@ -59,20 +59,23 @@ mutant kill. Compiler failures, adapter failures and a wrong adapter output
 shape fail the gate.
 
 The explicit mode `--m2-mapping` appends `LAYOUT-MAPPING` to the
-previous 81 checks. All 49 previous modes preserve their schedules,
+previous 79 checks, for 80. All 49 previous modes preserve their schedules,
 deadlines, markers and failure classifications. The
 [validation record](validation/2026-09-25-m2-mapping/README.md) records the
 actual full-suite outcome and performance results.
 
-The default now selects `--lexer-direct`, adding
+The default now selects `--m2-source-packing`, adding
 [EVENT-CODEC](M2-EVENTS.md), [CALL-CODEC](M2-CALLDATA.md),
 [RETURN-CODEC](M2-RETURNDATA.md), [REVERT-CODEC](M2-REVERTDATA.md),
 [EVENT-DECODE](M2-EVENT-DECODE.md), [LEXER-KEYWORDS](LEXER-KEYWORDS.md),
 [LEXER-DIRECT](LEXER-DIRECT.md), [IDENTIFIER-DIRECT](IDENTIFIER-DIRECT.md),
 [WORD-DIRECT](WORD-DIRECT.md), [SEGMENT-DIRECT](SEGMENT-DIRECT.md),
 [CLI-PREFIX-DIRECT](CLI-PREFIX-DIRECT.md),
-[CLI-VALUE-DIRECT](CLI-VALUE-DIRECT.md), and
-[CLI-ERROR-DIRECT](CLI-ERROR-DIRECT.md), for 95 checks.
+[CLI-VALUE-DIRECT](CLI-VALUE-DIRECT.md),
+[CLI-ERROR-DIRECT](CLI-ERROR-DIRECT.md), MILESTONE-SPEED and
+[PACKED-SOURCE](M2-SOURCE-PACKING.md), for 95 checks.
+Counts exclude BEND2-RATIO and BEND2-RATIO-TEST, which moved to
+[`--m4-speed`](M4-SPEED.md) on 2026-10-01.
 
 Source lowering, mapping declarations and metadata, event execution,
 dynamic ABI lowering and the M2 Lean negative mutants remain pending.

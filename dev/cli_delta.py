@@ -1,12 +1,14 @@
-"""Pin string optimizations before comparing the rest of each historical CLI bundle.
+"""Pin accepted CLI changes before comparing each historical CLI bundle.
 
 Every listed declaration must match its digest and occur once in each input.
 Restoring BASE bodies then leaves all other reachable CLI changes detectable.
 """
 import hashlib
 import json
+from pathlib import Path
+import subprocess
 
-from bend_source import bundle, reachable
+from bend_source import bundle, declarations, reachable
 
 PINS = {
     'Lexer.ident_kind': '885331fd55467b8d6691413941c9ef60b74d616ed023c9ce330db4f4a9be8c7d',
@@ -22,6 +24,12 @@ PINS = {
     'Differential.caller': 'ddb671ef492592ec4ce0cd30b42742917eaf75b177069baacf3cb12125b04eec',
     'Trace.value': 'c64a9ea07854fe9e86c7e79f4b6d24a99c1e36d89b44ea3caf3c3db773cb37a1',
     'Trace.has_error': '555dfe081178faa255102ce03488d8aed8745fc373c7c9555524e772a2d4d802',
+    # M2 source packing uses one typed source snapshot in these three adapters.
+    # Semantic behavior is checked by packed-source-test.py. Exact pins preserve
+    # detection of every other reachable change in the historical CLI bundles.
+    'Cli.checked': 'adfee7b75ec603dacc4c0bc96310f1c99629bcb0c2b3979ba7176702cc2a41e5',
+    'Cli.compile': '1f40dbef64eeb21857c8ba0e7664093a56a0332f07947219961fdf98cac65342',
+    'Cli.run': '3f1ee1a1614debae113d863ef2e9e1077b3e2c33107d5983a0fd753fb982b4c2',
 }
 # Reports identify the complete pin manifest, with a stable serialization.
 SHA256 = hashlib.sha256(json.dumps(PINS, sort_keys=True, separators=(',', ':')).encode()).hexdigest()
@@ -48,3 +56,20 @@ def cli_sources(records, entry='Entry.Cli'):
     rows = pinned(records[0], records[1])
     return [bundle(reachable(records[0], entry), entry),
             None if rows is None else bundle(reachable(rows, entry), entry)]
+
+
+def source_records(root, base):
+    """Read both source trees independently, retaining additions and deletions."""
+    names = subprocess.check_output(['git', 'ls-tree', '-r', '--name-only', base, '--', 'src'],
+                                    cwd=root, text=True).splitlines()
+    baseline = {name for name in names if name.endswith('.bend') and name != 'src/tests.bend'}
+    current = {str(path.relative_to(root)) for path in (Path(root) / 'src').glob('*.bend')
+               if path.name != 'tests.bend'}
+    records = [[], []]
+    for name in sorted(baseline | current):
+        if name in baseline:
+            text = subprocess.check_output(['git', 'show', base + ':' + name], cwd=root, text=True)
+            records[0].extend(declarations(text, name))
+        if name in current:
+            records[1].extend(declarations((Path(root) / name).read_text(), name))
+    return records

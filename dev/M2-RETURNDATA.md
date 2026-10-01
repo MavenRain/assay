@@ -65,14 +65,17 @@ prefixes, and the compiler CLI's reachable Bend bundle is byte-identical.
 Since the keyword-dispatch follow-up, the check accepts one pinned
 `Lexer.ident_kind` delta and puts back the BASE declaration before the
 compare; see [LEXER-KEYWORDS](LEXER-KEYWORDS.md).
-The `--m2-returndata` mode appends RETURN-CODEC, for 85 checks. The current
+The `--m2-returndata` mode appends RETURN-CODEC, for 83 checks. The current
 default adds [REVERT-CODEC](M2-REVERTDATA.md),
 [EVENT-DECODE](M2-EVENT-DECODE.md), [LEXER-KEYWORDS](LEXER-KEYWORDS.md),
 [LEXER-DIRECT](LEXER-DIRECT.md), [IDENTIFIER-DIRECT](IDENTIFIER-DIRECT.md),
 [WORD-DIRECT](WORD-DIRECT.md), [SEGMENT-DIRECT](SEGMENT-DIRECT.md),
 [CLI-PREFIX-DIRECT](CLI-PREFIX-DIRECT.md),
-[CLI-VALUE-DIRECT](CLI-VALUE-DIRECT.md), and
-[CLI-ERROR-DIRECT](CLI-ERROR-DIRECT.md), for 95 checks.
+[CLI-VALUE-DIRECT](CLI-VALUE-DIRECT.md),
+[CLI-ERROR-DIRECT](CLI-ERROR-DIRECT.md), MILESTONE-SPEED and
+[PACKED-SOURCE](M2-SOURCE-PACKING.md), for 95 checks.
+Counts exclude BEND2-RATIO and BEND2-RATIO-TEST, which moved to
+[`--m4-speed`](M4-SPEED.md) on 2026-10-01.
 
 The [validation record](validation/2026-09-27-m2-returndata/README.md)
 retains the scoped results, command captures, case corpus and source

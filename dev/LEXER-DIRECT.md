@@ -28,15 +28,16 @@ with only four inputs. All mutants use the full 287-input fixture, the
 original compiler timeout and the named wrong-answer check.
 
 The same command checks compatibility with all 56 predecessor modes and
-the current default's 95 legs, including the later
+the current `--lexer-direct` schedule's 93 legs, including the later
 [IDENTIFIER-DIRECT](IDENTIFIER-DIRECT.md), [WORD-DIRECT](WORD-DIRECT.md),
 [SEGMENT-DIRECT](SEGMENT-DIRECT.md),
 [CLI-PREFIX-DIRECT](CLI-PREFIX-DIRECT.md),
 [CLI-VALUE-DIRECT](CLI-VALUE-DIRECT.md), and
 [CLI-ERROR-DIRECT](CLI-ERROR-DIRECT.md)
 legs. `make test` adds it after the keyword test.
-`make gates` and `dev/gates.sh` now select `--lexer-direct`; the earlier
-`--keyword-dispatch` mode retains its original 88 legs.
+`make gates` and `dev/gates.sh` selected `--lexer-direct` until
+2026-10-01; they now select `--m2-source-packing`. The earlier
+`--keyword-dispatch` mode keeps its non-speed legs, now 86.
 
 `dev/cli_delta.py` now pins five lexer declarations, including the earlier
 keyword dispatch optimization and the contract span conversion. Every pinned declaration must occur once
