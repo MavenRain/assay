@@ -69,8 +69,9 @@ The default now selects `--lexer-direct`, adding
 [RETURN-CODEC](M2-RETURNDATA.md), [REVERT-CODEC](M2-REVERTDATA.md),
 [EVENT-DECODE](M2-EVENT-DECODE.md), [LEXER-KEYWORDS](LEXER-KEYWORDS.md),
 [LEXER-DIRECT](LEXER-DIRECT.md), [IDENTIFIER-DIRECT](IDENTIFIER-DIRECT.md),
-[WORD-DIRECT](WORD-DIRECT.md), [SEGMENT-DIRECT](SEGMENT-DIRECT.md) and
-[CLI-PREFIX-DIRECT](CLI-PREFIX-DIRECT.md), for 93 checks.
+[WORD-DIRECT](WORD-DIRECT.md), [SEGMENT-DIRECT](SEGMENT-DIRECT.md),
+[CLI-PREFIX-DIRECT](CLI-PREFIX-DIRECT.md), and
+[CLI-VALUE-DIRECT](CLI-VALUE-DIRECT.md), for 94 checks.
 
 Source lowering, mapping declarations and metadata, event execution,
 dynamic ABI lowering and the M2 Lean negative mutants remain pending.

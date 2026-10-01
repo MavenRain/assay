@@ -1,12 +1,14 @@
 # M1 Bend 2 compilation comparison
 
 The 2026-09-22 compilation-speed requirement is an Assay/Bend 2 ratio at
-most 1.0. The current native Bend comparison is 1.639908573 and does not pass.
-See [CLI-PREFIX-DIRECT.md](CLI-PREFIX-DIRECT.md) for the current source and record.
-Its five measured rounds of six cases completed in a 9.366-second window
-that started at 2026-10-01 09:18 UTC. `dev/bend2-baseline.json` holds the
+most 1.0. The current native Bend comparison is 1.087435467 and does not pass.
+See [CLI-VALUE-DIRECT.md](CLI-VALUE-DIRECT.md) for the current source and record.
+Its five measured rounds of six cases completed in a 19.595-second window
+that started at 2026-10-01 10:50 UTC. `dev/bend2-baseline.json` holds the
 report, and `dev/BEND2.sha256` seals it. This describes the recorded host
-window and does not isolate a speed effect of the prefix change.
+window and does not isolate a speed effect of decimal normalization.
+The previous 1.639908573 comparison failed in its 9.366-second window and is
+retained in `dev/validation/2026-10-01-cli-prefix-direct/paired-measurement.json`.
 The previous 1.538120777 comparison failed in its 18.362-second window and is
 retained in `dev/validation/2026-09-30-segment-direct/paired-measurement.json`.
 Before that, 1.312470762 failed in its 13.638-second window and is
@@ -147,8 +149,10 @@ the [M2 reference gate](M2-REFERENCE.md), [ABI-SCHEMA](M2-ABI-SCHEMA.md),
 [REVERT-CODEC](M2-REVERTDATA.md), [EVENT-DECODE](M2-EVENT-DECODE.md),
 [LEXER-KEYWORDS](LEXER-KEYWORDS.md), [LEXER-DIRECT](LEXER-DIRECT.md),
 [IDENTIFIER-DIRECT](IDENTIFIER-DIRECT.md), [WORD-DIRECT](WORD-DIRECT.md),
-[SEGMENT-DIRECT](SEGMENT-DIRECT.md) and [CLI-PREFIX-DIRECT](CLI-PREFIX-DIRECT.md),
-for 93 checks.
+[SEGMENT-DIRECT](SEGMENT-DIRECT.md),
+[CLI-PREFIX-DIRECT](CLI-PREFIX-DIRECT.md), and
+[CLI-VALUE-DIRECT](CLI-VALUE-DIRECT.md),
+for 94 checks.
 
 `dev/bend2-ratio-test.py` passes three controls, rejects 37 invalid cases,
 and kills six mutations. It covers the inclusive boundary, a ratio above

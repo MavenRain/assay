@@ -25,8 +25,9 @@ comparisons. Native carry hashes follow the changed emitter source.
 `make test` includes the word-parser check. `make gates` includes the
 mandatory `WORD-DIRECT` leg through its existing `--lexer-direct` mode.
 The compatibility check retains all 56 predecessor modes and requires the
-default's 93 legs, including the later [SEGMENT-DIRECT](SEGMENT-DIRECT.md)
-and [CLI-PREFIX-DIRECT](CLI-PREFIX-DIRECT.md)
+default's 94 legs, including the later [SEGMENT-DIRECT](SEGMENT-DIRECT.md),
+[CLI-PREFIX-DIRECT](CLI-PREFIX-DIRECT.md), and
+[CLI-VALUE-DIRECT](CLI-VALUE-DIRECT.md)
 check and the three earlier direct-conversion checks.
 The benchmark method and 1.0 speed limit remain in force.
 

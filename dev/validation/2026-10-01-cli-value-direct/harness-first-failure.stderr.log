@@ -1,0 +1,9 @@
+Traceback (most recent call last):
+  File "/Users/oobi/Documents/gpt1/assay-cli-value-direct/dev/cli-value-direct-test.py", line 172, in <module>
+    main()
+    ~~~~^^
+  File "/Users/oobi/Documents/gpt1/assay-cli-value-direct/dev/cli-value-direct-test.py", line 138, in main
+    expected = compile_and_run(control, inputs, 'predecessor')
+  File "/Users/oobi/Documents/gpt1/assay-cli-value-direct/dev/cli-value-direct-test.py", line 101, in compile_and_run
+    raise ValueError(name + ' build failed; see ' + str(WORK / (name + '-build.log')))
+ValueError: predecessor build failed; see /Users/oobi/Documents/gpt1/assay-cli-value-direct/_build/cli-value-direct/predecessor-build.log

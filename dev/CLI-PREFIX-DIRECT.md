@@ -27,7 +27,8 @@ to the lowercase helper remains detectable in the historical CLI bundle.
 Native carry hashes follow the changed CLI source.
 
 `make test` includes this comparison. The existing `--lexer-direct`
-gate mode appends a mandatory `CLI-PREFIX-DIRECT` leg, for 93 legs.
+gate mode includes mandatory `CLI-PREFIX-DIRECT` and
+`CLI-VALUE-DIRECT` legs, for 94 legs.
 Compatibility retains all 56 predecessor modes and all earlier default
 legs. Benchmark methodology and the 1.0 compilation speed bound retain
 their requirements.
@@ -43,10 +44,13 @@ The first three comparison attempts stopped at a missing compiler path
 or harness syntax and linearity errors. The corrected harness completes
 the full comparison and all nine mutants; these attempts are archived.
 
-The new five-round, six-case measurement is byte-identical to the active
-`dev/bend2-baseline.json`. It records a ratio of 1.639908573 in a
+The five-round, six-case measurement was frozen as
+`dev/bend2-baseline.json` for this slice. It records a ratio of 1.639908573 in a
 9.366-second host window starting at 2026-10-01 09:18 UTC. The 1.0 speed
 bound still fails. The ratio refusal and mutation controls pass. This
 measurement describes the host window and does not isolate the prefix
 change's effect. BEND2-RATIO, the full milestone gate battery and M2
 source lowering remain open.
+
+The recorded comparison above is superseded by
+[CLI-VALUE-DIRECT.md](CLI-VALUE-DIRECT.md); its archived record remains intact.

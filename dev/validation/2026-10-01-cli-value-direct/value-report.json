@@ -1,0 +1,24 @@
+{
+  "base": "7af4b0478d6e1dd23ab98c0b3aa7f9e0d8d25fcd",
+  "cases": 872,
+  "golden": 872,
+  "mutants": [
+    {
+      "name": "keep-zeros",
+      "input": "00102",
+      "observed": "OK|48,48,49,48,50,"
+    },
+    {
+      "name": "drop-ones",
+      "input": "00102",
+      "observed": "OK|48,48,49,48,50,"
+    },
+    {
+      "name": "empty-zero",
+      "input": "000",
+      "observed": "OK|"
+    }
+  ],
+  "declaration_sha256": "c64a9ea07854fe9e86c7e79f4b6d24a99c1e36d89b44ea3caf3c3db773cb37a1",
+  "output_sha256": "32cc6adf2ebc50540cd40ce372a57a8b3745f67f94fdaf1067c9f384daaffe46"
+}

@@ -9,5 +9,6 @@ test:
 	python3 -P dev/word-direct-test.py
 	python3 -P dev/segment-direct-test.py
 	python3 -P dev/cli-prefix-direct-test.py
+	python3 -P dev/cli-value-direct-test.py
 gates: all
 	python3 -P dev/stage-a-gates.py --lexer-direct

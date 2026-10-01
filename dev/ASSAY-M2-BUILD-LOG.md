@@ -1,5 +1,38 @@
 # Assay M2 build log
 
+## 2026-10-01: Direct trace decimal normalization
+
+Starting at `7af4b0478d6e1dd23ab98c0b3aa7f9e0d8d25fcd`, `Trace.value`
+removes leading decimal zeros from a character list taken directly from
+the lowercased string. The earlier path built Series, converted them to
+lists and rebuilt strings. Validation, lowercasing, hexadecimal spelling
+and decimal-zero normalization retain their behavior. One exact
+declaration pin extends the manifest to twelve.
+
+The new comparison passes 872 results against the predecessor, with exact
+error output, and against independent acceptance and normalization
+goldens. All three compiled mutants give their named wrong answers, and
+the restored control passes. Pin deletion, duplication and modification
+are refused, and an unrelated lowercase change remains visible. The new
+mandatory leg gives the default 94 checks; all 56 predecessor modes and
+earlier legs retain their schedules.
+
+The native kernel suite, all 24 commands across 18 adapters and the
+seven follow-up checks pass. Native carry and trusted-source budgets pass.
+Two earlier comparison attempts stopped while compiling predecessor
+fixtures because the literal serializer used unsupported Bend escapes.
+Both attempts are archived.
+
+The six-case, five-round measurement records 1.087435467 in a 19.595-second
+host window starting at 2026-10-01 10:50 UTC. The active frozen JSON is
+byte-identical to the captured record. BEND2-RATIO still fails its 1.0
+bound. Ratio refusal and mutation controls pass. The window does not
+isolate the decimal-normalization change's speed effect. The full milestone
+battery and M2 source lowering remain open.
+
+See `dev/CLI-VALUE-DIRECT.md` and
+`dev/validation/2026-10-01-cli-value-direct` for sources and evidence.
+
 ## 2026-10-01: Direct CLI hexadecimal prefix removal
 
 Starting at `356ce95673480c8b6290e9549a3a47153c44933f`, `Trace.calldata`,

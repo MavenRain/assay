@@ -59,7 +59,7 @@ Native.choose(&2, OptionOf(String), Big.when(Bool, scrut15961, _ => (Big.is_eq(N
 def Trace.value(+text_291: String) -> Trace.Result(String):
   (+local15979 => (Match.Result(&2, String, &2, Model.Error, &2, Trace.Result(String), local15979, +item15986 => Done{item15986}, +item15987 => (Fail{(+local15981 => (Trace.Error.Invalid_value{(+scrut15982 = local15981
   Match.Model_Error(&2, String, scrut15982, +p15983 => (Model.error(local15981)), +p15984 => (p15984), +p15985 => (Model.error(local15981))))}))(item15987)}))))((+local15965 => (Match.Result(&2, Model.Input, &2, Model.Error, &2, Model.Result(String), local15965, +item15975 => (Done{(+local15967 => ((+scrut15968 = {NativeString.lower(text_291) : String}
-  Native.choose(&2, String, String.starts_with(scrut15968, "0x"), _ => (scrut15968), _ => ((+scrut15974 = {NativeString.of_list(Series.to_list(&2, Char, (+local15971 => (Series.of_list(&2, Char, SeqList.drop_while(&2, Char, (+local15973 => (NativeChar.equal(local15973, Char.from_u32(48)))), Series.to_list(&2, Char, local15971)))))(Series.from_string(scrut15968)))) : String}
+  Native.choose(&2, String, String.starts_with(scrut15968, "0x"), _ => (scrut15968), _ => ((+scrut15974 = {NativeString.of_list(SeqList.drop_while(&2, Char, (+local15973 => (NativeChar.equal(local15973, Char.from_u32(48)))), NativeString.to_list(scrut15968))) : String}
   Native.choose(&2, String, NativeString.equal(scrut15974, ""), _ => ("0"), _ => (scrut15974))))))))(item15975)}), +item15976 => Fail{item15976})))(Model.inputs("", text_291, Nil{})))
 @unsafe
 def Trace.caller(+text_600: String) -> Trace.Result(String):
