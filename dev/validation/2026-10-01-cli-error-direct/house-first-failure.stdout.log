@@ -1,0 +1,15 @@
+HOUSE catch-all line drift: Cli.axioms (src/cli.bend) records line 385, scan finds line 389
+HOUSE catch-all line drift: Cli.count (src/cli.bend) records line 389, scan finds line 393
+HOUSE catch-all line drift: Cli.dispatch_check (src/cli.bend) records line 375, scan finds line 379
+HOUSE catch-all line drift: Cli.dispatch_emit (src/cli.bend) records line 381, scan finds line 385
+HOUSE catch-all line drift: Cli.show_rows (src/cli.bend) records line 235, scan finds line 239
+HOUSE no-exception OK
+HOUSE named-catchalls FAIL
+HOUSE no-mutable-state OK
+HOUSE one-catch-site OK
+HOUSE foreign-boundary OK
+HOUSE bool-dispatch OK
+HOUSE no-loop-keyword OK
+HOUSE no-bare-division OK
+HOUSE no-em-dash OK
+HOUSE FAIL

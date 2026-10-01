@@ -21,13 +21,14 @@ or return an empty string for decimal zero. Each must exit successfully
 and produce its named wrong answer. The restored implementation then
 repeats all 872 cases.
 
-The `Trace.value` declaration pin extends the manifest to twelve entries.
+At this slice, the `Trace.value` declaration pin extended the manifest to twelve entries.
 The gate refuses missing, duplicate and modified bodies, and verifies that
 an unrelated lowercase-helper change remains visible in the historical
 CLI bundle. Native carry hashes follow the changed CLI source.
 
 `make test` includes the new check. The default `--lexer-direct` gate mode
-adds a mandatory `CLI-VALUE-DIRECT` leg, for 94 legs. Its predecessors
+adds a mandatory `CLI-VALUE-DIRECT` leg. The later `CLI-ERROR-DIRECT` leg
+follows it, for 95 legs. Its predecessors
 retain their schedules and requirements. The compilation-speed limit
 remains an Assay/Bend 2 ratio at most 1.0.
 
@@ -36,13 +37,17 @@ Validation records are retained in
 
 `make test` passes the native kernel suite, all 24 commands across 18
 adapters, and the seven follow-up checks. Compatibility checks retain
-all 56 predecessor schedules and require the current 94-leg schedule.
+all 56 predecessor schedules and required that slice's 94-leg schedule.
 
-The fresh five-round, six-case measurement is byte-identical to
-`dev/bend2-baseline.json`, sealed by `dev/BEND2.sha256`. Its median matched
+This slice's five-round, six-case measurement is retained as
+`dev/validation/2026-10-01-cli-value-direct/paired-measurement.json`.
+It was the active baseline when this slice landed. Its median matched
 batch times are 1631.756500 ms for Assay and 1500.554791 ms for Bend 2,
 giving a ratio of 1.087435467. The 1.0 speed bound still fails. The measured
 19.595-second host window started at 2026-10-01 10:50 UTC; this comparison
 does not isolate the decimal-normalization change's speed effect.
 The benchmark controls pass with 37 refusals and six compiled mutations.
 The full milestone gate battery and M2 source lowering remain open.
+
+The subsequent [trace error follow-up](CLI-ERROR-DIRECT.md) records the
+current 95-leg schedule, thirteen declaration pins and active measurement.

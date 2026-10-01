@@ -460,7 +460,7 @@ def main():
                      "LEXER-KEYWORDS keywords=30 cases=255 OK"))
     if lexer_direct:
         stage = "LEXER-DIRECT"
-        m1_names.update(("LEXER-DIRECT", "IDENTIFIER-DIRECT", "WORD-DIRECT", "SEGMENT-DIRECT", "CLI-PREFIX-DIRECT", "CLI-VALUE-DIRECT"))
+        m1_names.update(("LEXER-DIRECT", "IDENTIFIER-DIRECT", "WORD-DIRECT", "SEGMENT-DIRECT", "CLI-PREFIX-DIRECT", "CLI-VALUE-DIRECT", "CLI-ERROR-DIRECT"))
         legs.append(("LEXER-DIRECT", 600, ("python3", "-P", "dev/lexer-direct-test.py"),
                      "LEXER-DIRECT cases=287 golden=4 mutants=3 rounds=5 OK"))
         legs.append(("IDENTIFIER-DIRECT", 600, ("python3", "-P", "dev/identifier-direct-test.py"),
@@ -473,6 +473,8 @@ def main():
                      "CLI-PREFIX-DIRECT cases=2184 golden=2184 mutants=9 OK"))
         legs.append(("CLI-VALUE-DIRECT", 600, ("python3", "-P", "dev/cli-value-direct-test.py"),
                      "CLI-VALUE-DIRECT cases=872 golden=872 mutants=3 OK"))
+        legs.append(("CLI-ERROR-DIRECT", 600, ("python3", "-P", "dev/cli-error-direct-test.py"),
+                     "CLI-ERROR-DIRECT cases=519 golden=519 mutants=5 OK"))
     work = root / (".gatework/stage-" + stage.lower())
     work.mkdir(parents=True, exist_ok=True)
     failed = False

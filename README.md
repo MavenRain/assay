@@ -21,6 +21,8 @@ The [CLI prefix follow-up](dev/CLI-PREFIX-DIRECT.md) removes stream and list
 construction from calldata and caller normalization.
 The [trace value follow-up](dev/CLI-VALUE-DIRECT.md) removes Series
 round trips from decimal value normalization.
+The [trace error follow-up](dev/CLI-ERROR-DIRECT.md) removes Series
+round trips from whitespace compaction during response error detection.
 
 The [M1 closure gate](dev/M1-CLOSE.md) combines the bounded counter,
 surface, proof and executor checks with the binding compiler performance
@@ -385,8 +387,9 @@ The address gate adds 1920 core comparisons, 128 artifact pairs,
 inferred-guard and inferred-arithmetic suites), then ERC20-REFERENCE,
 ABI-SCHEMA, ABI-CODEC, LAYOUT-PACKED, LAYOUT-MAPPING, EVENT-CODEC,
 CALL-CODEC, RETURN-CODEC, REVERT-CODEC, EVENT-DECODE, LEXER-KEYWORDS,
-LEXER-DIRECT, IDENTIFIER-DIRECT, WORD-DIRECT, SEGMENT-DIRECT, CLI-PREFIX-DIRECT and CLI-VALUE-DIRECT,
-for 94 legs. `--keyword-dispatch` retains its 88-leg schedule.
+LEXER-DIRECT, IDENTIFIER-DIRECT, WORD-DIRECT, SEGMENT-DIRECT, CLI-PREFIX-DIRECT,
+CLI-VALUE-DIRECT and CLI-ERROR-DIRECT, for 95 legs.
+`--keyword-dispatch` retains its 88-leg schedule.
 `--m2-reference`
 retains its 78-leg schedule, `--m2-abi-schema` retains its 79-leg schedule
 and `--m2-abi-codec` retains its 80-leg schedule. `--m2-packing` retains

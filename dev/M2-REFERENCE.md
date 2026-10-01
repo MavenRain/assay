@@ -24,9 +24,10 @@ The current default extends this schedule with [ABI-SCHEMA](M2-ABI-SCHEMA.md),
 [LEXER-KEYWORDS](LEXER-KEYWORDS.md), [LEXER-DIRECT](LEXER-DIRECT.md),
 [IDENTIFIER-DIRECT](IDENTIFIER-DIRECT.md), [WORD-DIRECT](WORD-DIRECT.md),
 [SEGMENT-DIRECT](SEGMENT-DIRECT.md),
-[CLI-PREFIX-DIRECT](CLI-PREFIX-DIRECT.md), and
-[CLI-VALUE-DIRECT](CLI-VALUE-DIRECT.md),
-for 94 checks.
+[CLI-PREFIX-DIRECT](CLI-PREFIX-DIRECT.md),
+[CLI-VALUE-DIRECT](CLI-VALUE-DIRECT.md), and
+[CLI-ERROR-DIRECT](CLI-ERROR-DIRECT.md),
+for 95 checks.
 
 The reference has 798 runtime bytes and a 107-byte constructor prefix.
 All 431 runtime instructions and all constructor instructions are covered.

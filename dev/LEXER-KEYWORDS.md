@@ -31,7 +31,8 @@ adds `Recognize.identifier` as a sixth. [Word parsing](WORD-DIRECT.md) adds
 `Recognize.parse_word` as a seventh. [Substring extraction](SEGMENT-DIRECT.md)
 adds `Model.segment` as an eighth. [CLI prefix removal](CLI-PREFIX-DIRECT.md)
 adds `Trace.calldata`, `Trace.caller` and `Differential.caller`, for eleven. The [trace value follow-up](CLI-VALUE-DIRECT.md)
-adds `Trace.value`, for twelve.
+adds `Trace.value`, for twelve. The [trace error follow-up](CLI-ERROR-DIRECT.md)
+adds `Trace.has_error`, for thirteen.
 [cli_delta.py](cli_delta.py) pins
 the SHA-256 of each new declaration text and puts back the BASE declaration
 before the compare. The rest of the CLI bundle must still be

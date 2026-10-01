@@ -1,0 +1,39 @@
+{
+  "base": "bacd4ba",
+  "cases": 519,
+  "golden": 519,
+  "mutants": [
+    {
+      "name": "keep-space",
+      "input": "\"error\" :1",
+      "observed": "false",
+      "expected": "true"
+    },
+    {
+      "name": "keep-lf",
+      "input": "\"error\"\n:1",
+      "observed": "false",
+      "expected": "true"
+    },
+    {
+      "name": "keep-cr",
+      "input": "\"error\"\r:1",
+      "observed": "false",
+      "expected": "true"
+    },
+    {
+      "name": "keep-tab",
+      "input": "\"error\"\t:1",
+      "observed": "false",
+      "expected": "true"
+    },
+    {
+      "name": "drop-colon",
+      "input": "\"error\":1",
+      "observed": "false",
+      "expected": "true"
+    }
+  ],
+  "restored": true,
+  "sha256": "4dc7cd3f90ea551690578e79be68d30d6db897771972e7e76684fc04c801875f"
+}
