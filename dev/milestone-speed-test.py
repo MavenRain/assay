@@ -47,19 +47,21 @@ def main():
         current = H.schedule(after, '--m2-source-packing')
         previous = H.schedule(after, '--lexer-direct')
         require(current['stage'] == 'M2-SOURCE-PACKING' and
-                current['legs'][:-5] == previous['legs'] and
-                current['legs'][-5:] == [
+                current['legs'][:-6] == previous['legs'] and
+                current['legs'][-6:] == [
                     ('MAPPING-CLI', 600, ('python3', '-P', 'dev/mapping-cli-test.py'),
                      'MAPPING-CLI cases=244 oracle=102 reference=10 refusals=46 OK', True),
                     ('EVENT-CLI', 600, ('python3', '-P', 'dev/event-cli-test.py'),
                      'EVENT-CLI cases=56 oracle=cast refusals=36 OK', True),
                     ('EVENT-DECODE-CLI', 600, ('python3', '-P', 'dev/event-decode-cli-test.py'),
                      'EVENT-DECODE-CLI cases=59 oracle=cast refusals=54 OK', True),
+                    ('CALLDATA-CLI', 600, ('python3', '-P', 'dev/calldata-cli-test.py'),
+                     'CALLDATA-CLI encode=53 decode=55 oracle=cast refusals=196 pin_mutants=2 OK', True),
                     ('MILESTONE-SPEED', 60, ('python3', '-P', 'dev/milestone-speed-test.py'),
                      'MILESTONE-SPEED schedules=57 controls=9 OK', True),
                     ('PACKED-SOURCE', 600, ('python3', '-P', 'dev/packed-source-test.py'),
                      'PACKED-SOURCE cases=66 model=packed executors=run+t8n mutants=6 OK', True)],
-                'source packing must append all three mandatory checks')
+                'source packing must append all six mandatory checks')
     finally:
         sys.argv = original_argv
 

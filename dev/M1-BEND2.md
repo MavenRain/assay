@@ -153,8 +153,9 @@ The prior --lexer-direct schedule now has 93 checks. The default
 make gates and dev/gates.sh select --m2-source-packing, which appends the
 [mapping CLI check](M2-MAPPING.md#command-line), the
 [event CLI check](M2-EVENTS.md#command-line), the
-[event decoding CLI check](M2-EVENT-DECODE.md#command-line), the milestone
-ownership check and [source packing check](M2-SOURCE-PACKING.md), for 98
+[event decoding CLI check](M2-EVENT-DECODE.md#command-line), the
+[calldata CLI check](M2-CALLDATA-CLI.md), the milestone
+ownership check and [source packing check](M2-SOURCE-PACKING.md), for 99
 checks.
 Historical OCaml tools, native timing records and source seals remain
 available as diagnostics.

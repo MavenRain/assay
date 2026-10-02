@@ -1,0 +1,14 @@
+MAPPING-CLI cases=244 oracle=102 reference=10 refusals=46 OK
+EVENT-CLI cases=56 oracle=cast refusals=36 OK
+EVENT-DECODE-CLI cases=59 oracle=cast refusals=54 OK
+LEXER-KEYWORDS keywords=30 cases=255 OK
+LEXER-DIRECT-COMPATIBILITY modes=56 checks=93 cli=identical OK
+CONTRACT-LEXER cases=304 golden=5 mutants=2 rounds=5 OK
+LEXER-DIRECT cases=287 golden=4 mutants=3 rounds=5 OK
+IDENTIFIER-DIRECT cases=1043 golden=1043 mutants=2 OK
+WORD-DIRECT cases=1580 golden=1580 mutants=3 OK
+SEGMENT-DIRECT cases=1348 golden=1348 mutants=3 OK
+CLI-PREFIX-DIRECT cases=2184 golden=2184 mutants=9 OK
+CLI-VALUE-DIRECT cases=872 golden=872 mutants=3 OK
+CLI-ERROR-DIRECT cases=519 golden=519 mutants=5 OK
+CLI-REGRESSIONS checks=11 OK

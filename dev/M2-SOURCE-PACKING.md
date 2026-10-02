@@ -59,9 +59,10 @@ Run python3 -P dev/packed-source-test.py after make all. The default
 make gates selects --m2-source-packing, appending the
 [mapping CLI check](M2-MAPPING.md#command-line), the
 [event CLI check](M2-EVENTS.md#command-line), the
-[event decoding CLI check](M2-EVENT-DECODE.md#command-line), this check and
+[event decoding CLI check](M2-EVENT-DECODE.md#command-line), the
+[calldata CLI check](M2-CALLDATA-CLI.md), this check and
 the [M4 speed ownership check](M4-SPEED.md) to the 93 carried non-speed
-checks, for 98 checks.
+checks, for 99 checks.
 
 The [validation record](validation/2026-10-01-m2-source-packing/REPORT.json)
 pins source hashes and records the native suite, live cases, mutants,

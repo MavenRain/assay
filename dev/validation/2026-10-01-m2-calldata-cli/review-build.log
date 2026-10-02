@@ -1,0 +1,18 @@
+# make all, fresh compile of the reviewed src/cli.bend, 01:30:00 to 01:33:12.
+# /usr/bin/time -l could not read kern.clockrate in the sandbox, so its
+# wrapper returned 1 after the build had finished.
+01:30:00
+python3 -P dev/build.py build
+BEND BUILD assay OK
+BEND BUILD tests cached
+BEND BUILD backends cached
+      192.35 real        39.30 user        36.72 sys
+time: sysctl kern.clockrate: Operation not permitted
+MAKE-EXIT=1
+01:33:12
+# make all, rerun on the same tree
+python3 -P dev/build.py build
+BEND BUILD assay cached
+BEND BUILD tests cached
+BEND BUILD backends cached
+EXIT=0

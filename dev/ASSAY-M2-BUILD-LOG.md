@@ -1,5 +1,37 @@
 # Assay M2 build log
 
+## 2026-10-02: Public typed function calldata
+
+Base: `4cf4ebc`. `calldata-encode NAME [TYPE VALUE]...` and
+`calldata-decode NAME HEX [TYPE]...` expose the existing `Abi.Call` codec
+through compact JSON. Supported types are uint8, uint256, address, bool
+and string. Decoding validates the selector and canonical argument tuple;
+string results preserve arbitrary bytes. Malformed input exits 64 with a
+command-specific diagnostic and empty stdout. Hexadecimal calldata and
+encoded calldata are each limited to 131072 bytes, including the selector.
+
+The final CLI checks pass 53 encodings, 55 decodings, 196 refusals and two
+altered help/dispatch pin controls. A review added the encoded calldata
+limit, because long string arguments stopped the process with a Bend
+memory fault. The review also added checks on both sides of each cap and
+exact diagnostics for truncated tuples. Static carry, R0, house, trusted-line,
+denominator and schedule checks pass. The trusted total remains 3184/3550.
+The default schedule now has 99 legs and includes CALLDATA-CLI.
+
+The source remains within the existing CLI module, with the declaration
+order of the verified compiler bundle. Failed compiler builds now report
+their exit code and final diagnostic lines. Two full test attempts retain
+their failures: packed-storage mutant compilation, then a 180-second
+timeout in the cached kernel batch. The standalone kernel retry passes.
+Follow-up checks pass all eleven CLI regressions and the packed-source
+check's 66 cases and six mutants. The kernel suite, packed-source check,
+CLI regressions and calldata checks pass when run alone. The runtest
+roundtrip and adapter commands passed only in the first full invocation.
+Both failed full invocations remain in the record.
+No test deadlines or success criteria changed. Full milestone validation
+remains pending. The record is
+`dev/validation/2026-10-01-m2-calldata-cli/`.
+
 ## 2026-10-01: Public typed event encoding
 
 Base: `10f1f96`. The `event-encode` command exposes the existing typed event

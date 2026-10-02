@@ -168,8 +168,11 @@ def build(target, bend, node):
     with log.open('w') as stream:
         result = subprocess.run([str(bend), str(source_path), '-o', str(temporary)], stdout=stream, stderr=subprocess.STDOUT, env=os.environ | {'BEND_NO_TELEMETRY': '1'}, cwd=ROOT)
     if result.returncode:
-        print('\n'.join(log.read_text().splitlines()[:35]), file=sys.stderr)
-        raise ValueError(f'Bend compilation failed, full log: {log}')
+        lines = log.read_text().splitlines()
+        if len(lines) > 70:
+            lines = lines[:20] + [f'... {len(lines) - 55} compiler log lines omitted ...'] + lines[-35:]
+        print('\n'.join(lines), file=sys.stderr)
+        raise ValueError(f'Bend compilation failed (exit {result.returncode}), full log: {log}')
     temporary.replace(output_path)
     receipt.write_text(json.dumps({'inputs_sha256': identity, 'output_sha256': digest(output_path.read_bytes()), 'compiler_commit': PIN['bend']['commit'], 'node': node}, indent=2) + '\n')
     cache.parent.mkdir(exist_ok=True)

@@ -474,7 +474,7 @@ def main():
                      "CLI-ERROR-DIRECT cases=519 golden=519 mutants=5 OK"))
     if source_packing:
         stage = "M2-SOURCE-PACKING"
-        m1_names.update(("MAPPING-CLI", "EVENT-CLI", "EVENT-DECODE-CLI", "MILESTONE-SPEED",
+        m1_names.update(("MAPPING-CLI", "EVENT-CLI", "EVENT-DECODE-CLI", "CALLDATA-CLI", "MILESTONE-SPEED",
                          "PACKED-SOURCE"))
         legs.extend([
             ("MAPPING-CLI", 600, ("python3", "-P", "dev/mapping-cli-test.py"),
@@ -483,6 +483,8 @@ def main():
              "EVENT-CLI cases=56 oracle=cast refusals=36 OK"),
             ("EVENT-DECODE-CLI", 600, ("python3", "-P", "dev/event-decode-cli-test.py"),
              "EVENT-DECODE-CLI cases=59 oracle=cast refusals=54 OK"),
+            ("CALLDATA-CLI", 600, ("python3", "-P", "dev/calldata-cli-test.py"),
+             "CALLDATA-CLI encode=53 decode=55 oracle=cast refusals=196 pin_mutants=2 OK"),
             ("MILESTONE-SPEED", 60, ("python3", "-P", "dev/milestone-speed-test.py"),
              "MILESTONE-SPEED schedules=57 controls=9 OK"),
             ("PACKED-SOURCE", 600, ("python3", "-P", "dev/packed-source-test.py"),

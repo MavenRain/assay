@@ -1,0 +1,2 @@
+BEND BUILD FAIL: Command '['/opt/homebrew/opt/python@3.14/bin/python3.14', '-P', '/Users/oobi/Documents/gpt1/assay-m2-calldata-cli/dev/kernel-suite.py']' returned non-zero exit status 1.
+make: *** [test] Error 1

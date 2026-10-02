@@ -75,8 +75,9 @@ default adds [REVERT-CODEC](M2-REVERTDATA.md),
 [CLI-ERROR-DIRECT](CLI-ERROR-DIRECT.md),
 [MAPPING-CLI](M2-MAPPING.md#command-line),
 [EVENT-CLI](M2-EVENTS.md#command-line),
-[EVENT-DECODE-CLI](M2-EVENT-DECODE.md#command-line), MILESTONE-SPEED and
-[PACKED-SOURCE](M2-SOURCE-PACKING.md), for 98 checks.
+[EVENT-DECODE-CLI](M2-EVENT-DECODE.md#command-line),
+[CALLDATA-CLI](M2-CALLDATA-CLI.md), MILESTONE-SPEED and
+[PACKED-SOURCE](M2-SOURCE-PACKING.md), for 99 checks.
 Counts exclude BEND2-RATIO and BEND2-RATIO-TEST, which moved to
 [`--m4-speed`](M4-SPEED.md) on 2026-10-01.
 

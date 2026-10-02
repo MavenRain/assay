@@ -4,6 +4,7 @@ _build/
 .gatework/
 .kanon-exec/
 .kanon-wait/
+.kanon-replies/
 .kanonx/
 proofs/.lake/
 __pycache__/

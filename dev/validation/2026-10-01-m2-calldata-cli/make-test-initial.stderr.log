@@ -1,0 +1,32 @@
+Traceback (most recent call last):
+  File "/Users/oobi/Documents/gpt1/assay-m2-calldata-cli/dev/packed-source-test.py", line 353, in <module>
+    main()
+    ~~~~^^
+  File "/Users/oobi/Documents/gpt1/assay-m2-calldata-cli/dev/packed-source-test.py", line 348, in main
+    count = 0 if args.control else mutants()
+                                   ~~~~~~~^^
+  File "/Users/oobi/Documents/gpt1/assay-m2-calldata-cli/dev/packed-source-test.py", line 332, in mutants
+    list(workers.map(check_mutant, patches))
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/concurrent/futures/_base.py", line 645, in result_iterator
+    yield _result_or_cancel(fs.pop())
+          ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/concurrent/futures/_base.py", line 312, in _result_or_cancel
+    return fut.result(timeout)
+           ~~~~~~~~~~^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/concurrent/futures/_base.py", line 454, in result
+    return self.__get_result()
+           ~~~~~~~~~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/concurrent/futures/_base.py", line 396, in __get_result
+    raise self._exception
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/concurrent/futures/thread.py", line 86, in run
+    result = ctx.run(self.task)
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/concurrent/futures/thread.py", line 73, in run
+    return fn(*args, **kwargs)
+  File "/Users/oobi/Documents/gpt1/assay-m2-calldata-cli/dev/packed-source-test.py", line 326, in check_mutant
+    require(built.returncode == 0, 'mutant must compile: ' + name)
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oobi/Documents/gpt1/assay-m2-calldata-cli/dev/packed-source-test.py", line 28, in require
+    raise AssertionError('PACKED-SOURCE ' + message)
+AssertionError: PACKED-SOURCE mutant must compile: mask
+make: *** [test] Error 1

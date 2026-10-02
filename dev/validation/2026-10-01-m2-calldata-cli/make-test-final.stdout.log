@@ -1,0 +1,6 @@
+python3 -P dev/build.py runtest
+SUITE Command '['/opt/homebrew/Cellar/node/23.10.0_1/bin/node', '--stack-size=65500', '/Users/oobi/Documents/gpt1/assay-m2-calldata-cli/_build/bend/tests.js', 'batch', '/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-kernel-fixtures-8si9l1kv/cases']' timed out after 180 seconds
+SUITE-KERNEL FAIL
+BEND BUILD assay cached
+BEND BUILD tests cached
+BEND BUILD backends cached

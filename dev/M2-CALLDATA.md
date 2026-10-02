@@ -78,13 +78,22 @@ mode appends CALL-CODEC, for a total of 82 checks. The current default adds
 [CLI-ERROR-DIRECT](CLI-ERROR-DIRECT.md),
 [MAPPING-CLI](M2-MAPPING.md#command-line),
 [EVENT-CLI](M2-EVENTS.md#command-line),
-[EVENT-DECODE-CLI](M2-EVENT-DECODE.md#command-line), MILESTONE-SPEED and
-[PACKED-SOURCE](M2-SOURCE-PACKING.md), for 98 checks.
+[EVENT-DECODE-CLI](M2-EVENT-DECODE.md#command-line),
+[CALLDATA-CLI](M2-CALLDATA-CLI.md), MILESTONE-SPEED and
+[PACKED-SOURCE](M2-SOURCE-PACKING.md), for 99 checks.
 Counts exclude BEND2-RATIO and BEND2-RATIO-TEST, which moved to
 [`--m4-speed`](M4-SPEED.md) on 2026-10-01.
 
 The [validation record](validation/2026-09-27-m2-calldata/README.md) retains
 the scoped results, failed development attempts and source hashes.
+
+## Command line
+
+`calldata-encode NAME [TYPE VALUE]...` and
+`calldata-decode NAME HEX [TYPE]...` expose the codec as compact JSON.
+[The CLI contract](M2-CALLDATA-CLI.md) describes types, value
+representations, size limits and refusals. The `CALLDATA-CLI` check runs
+with `make test` and the default gate schedule.
 
 ## Performance
 

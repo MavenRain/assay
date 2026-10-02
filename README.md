@@ -60,6 +60,8 @@ The [sixth M2 slice](dev/M2-EVENTS.md) encodes typed event topics and data,
 including anonymous events and indexed strings.
 The [seventh M2 slice](dev/M2-CALLDATA.md) encodes complete typed function
 calls and strictly decodes their selectors and argument tuples.
+The [public calldata commands](dev/M2-CALLDATA-CLI.md) expose
+both operations through the command line.
 The [eighth M2 slice](dev/M2-RETURNDATA.md) encodes and strictly decodes
 function results using the declared output types, including empty returns.
 The [ninth M2 slice](dev/M2-REVERTDATA.md) encodes and strictly decodes
@@ -69,7 +71,7 @@ logs, preserving indexed strings as hashes. TRUSTED-LINES passes under
 the source budget the user re-ratified on 2026-09-28: abi 495, assembler
 505 and an unchanged total of 3550.
 Source lowering for mappings and events remains pending.
-`zsh -f dev/gates.sh` runs the default 98-leg gate battery, and
+`zsh -f dev/gates.sh` runs the default 99-leg gate battery, and
 `make gates-m4-speed` runs the two M4 speed legs.
 
 Assay is a Kanon language fork for EVM contracts.  It inherits the kernel and
@@ -217,6 +219,12 @@ Use a new directory under an existing parent.  A named compiler refusal
 exits 2 and writes nothing.  `--export NAME` selects a closed export in place
 of `main`. [The M0 emission contract](dev/EMISSION.md) defines its source
 protocol, supported constructors, bounds and I/O behavior.
+
+`calldata-encode NAME [TYPE VALUE]...` prints JSON with a `calldata` field.
+`calldata-decode NAME HEX [TYPE]...` prints JSON with a `values` array.
+Both support uint8, uint256, address, bool and string, including functions
+with no arguments. [The command contract](dev/M2-CALLDATA-CLI.md) describes
+value representations, byte limits and strict decoding refusals.
 
 `trace FILE --calldata HEX [--prestate FILE] [--value WORD] [--caller ADDRESS]`
 compiles the source and prints geth's JSON
@@ -410,8 +418,8 @@ ERC20-REFERENCE, ABI-SCHEMA, ABI-CODEC, LAYOUT-PACKED, LAYOUT-MAPPING,
 EVENT-CODEC, CALL-CODEC, RETURN-CODEC, REVERT-CODEC, EVENT-DECODE,
 LEXER-KEYWORDS, LEXER-DIRECT, IDENTIFIER-DIRECT, WORD-DIRECT,
 SEGMENT-DIRECT, CLI-PREFIX-DIRECT, CLI-VALUE-DIRECT, CLI-ERROR-DIRECT,
-MAPPING-CLI, EVENT-CLI, EVENT-DECODE-CLI, MILESTONE-SPEED and
-PACKED-SOURCE, for 98 legs.
+MAPPING-CLI, EVENT-CLI, EVENT-DECODE-CLI, CALLDATA-CLI, MILESTONE-SPEED and
+PACKED-SOURCE, for 99 legs.
 BEND2-RATIO and BEND2-RATIO-TEST moved to `--m4-speed` (`make gates-m4-speed`)
 on 2026-10-01. Each earlier mode keeps its other legs: `--lexer-direct` has
 93, `--keyword-dispatch` 86, `--m2-event-decode` 85, `--m2-revertdata` 84,

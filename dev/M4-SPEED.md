@@ -15,8 +15,8 @@ dev/milestone-speed-test.py compares all 57 historical schedules with
 commit 80bc4c6, removing only these two speed legs from the historical
 side. It verifies the complete M4 schedule and exercises nine runner controls.
 The default M2 schedule retains 93 carried non-speed checks and appends
-MAPPING-CLI, EVENT-CLI, EVENT-DECODE-CLI, MILESTONE-SPEED and
-PACKED-SOURCE, for 98 checks.
+MAPPING-CLI, EVENT-CLI, EVENT-DECODE-CLI, CALLDATA-CLI, MILESTONE-SPEED and
+PACKED-SOURCE, for 99 checks.
 
 The last pre-transfer comparison was 1.591541253, above the unchanged 1.0
 limit. It is historical evidence and its source pins predate source packing.
