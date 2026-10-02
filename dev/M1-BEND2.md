@@ -150,10 +150,11 @@ The 75-leg M1 closure battery preserves the existing non-speed checks.
 The two speed legs run through make gates-m4-speed, or
 python3 -P dev/stage-a-gates.py --m4-speed.
 The prior --lexer-direct schedule now has 93 checks. The default
-make gates and dev/gates.sh select --m2-source-packing, which appends the milestone
-ownership check and [source packing check](M2-SOURCE-PACKING.md), for 95
-checks. Historical OCaml tools, native timing records and source seals
-remain available as diagnostics.
+make gates and dev/gates.sh select --m2-source-packing, which appends the
+[mapping CLI check](M2-MAPPING.md#command-line), the milestone ownership
+check and [source packing check](M2-SOURCE-PACKING.md), for 96 checks.
+Historical OCaml tools, native timing records and source seals remain
+available as diagnostics.
 
 `dev/bend2-ratio-test.py` passes three controls, rejects 37 invalid cases,
 and kills six mutations. It covers the inclusive boundary, a ratio above

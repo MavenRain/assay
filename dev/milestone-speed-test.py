@@ -47,9 +47,15 @@ def main():
         current = H.schedule(after, '--m2-source-packing')
         previous = H.schedule(after, '--lexer-direct')
         require(current['stage'] == 'M2-SOURCE-PACKING' and
-                current['legs'][:-2] == previous['legs'] and
-                [leg[0] for leg in current['legs'][-2:]] == ['MILESTONE-SPEED', 'PACKED-SOURCE'],
-                'source packing must append both mandatory checks')
+                current['legs'][:-3] == previous['legs'] and
+                current['legs'][-3:] == [
+                    ('MAPPING-CLI', 600, ('python3', '-P', 'dev/mapping-cli-test.py'),
+                     'MAPPING-CLI cases=244 oracle=102 reference=10 refusals=46 OK', True),
+                    ('MILESTONE-SPEED', 60, ('python3', '-P', 'dev/milestone-speed-test.py'),
+                     'MILESTONE-SPEED schedules=57 controls=9 OK', True),
+                    ('PACKED-SOURCE', 600, ('python3', '-P', 'dev/packed-source-test.py'),
+                     'PACKED-SOURCE cases=66 model=packed executors=run+t8n mutants=6 OK', True)],
+                'source packing must append all three mandatory checks')
     finally:
         sys.argv = original_argv
 

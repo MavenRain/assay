@@ -1,0 +1,129 @@
+{
+  "version": 1,
+  "slice": "M2 mapping slot CLI",
+  "date": "2026-10-01",
+  "base_head": "6afcedc04ac9aa8524eb8dc7b8174c911afa2023",
+  "summary": {
+    "version": 1,
+    "positive": 244,
+    "oracle": 102,
+    "reference": 10,
+    "refusal": 46,
+    "compatibility": "OK",
+    "pin_controls": 2
+  },
+  "checks": [
+    {
+      "name": "BUILD",
+      "command": "make all",
+      "status": "PASS",
+      "log": "BUILD.log",
+      "log_sha256": "8d769da1462a2bdfbaf8708cc7849871bc309dcc45c2f346d01d4717797d4146",
+      "capture_manifest_sha256": "f7cbe439f2cb6878a93df2e3b54e17a1944bea9512533399e3578355d89d71f8"
+    },
+    {
+      "name": "MAPPING-CLI",
+      "command": "python3 -P dev/mapping-cli-test.py",
+      "status": "PASS",
+      "log": "MAPPING-CLI.log",
+      "log_sha256": "2a7b3f5b2e9327e19049e2339f050097a54e021b6ecf6b9f56ed8296c9562fb7",
+      "seconds": 38,
+      "deadline_s": 600,
+      "note": "Review rerun after the fixes; the log holds the review marker. The pre-review capture manifest no longer applies."
+    },
+    {
+      "name": "MILESTONE-SPEED",
+      "command": "python3 -P dev/milestone-speed-test.py",
+      "status": "PASS",
+      "log": "MILESTONE-SPEED.log",
+      "log_sha256": "06a73757a71c8f2dafa6ec1be406d254493e483223981a2b38ca33272b82d565",
+      "capture_manifest_sha256": "c23c808f073b8448843aeaf6a0b4bbce40484a440b578e1476647f49d7d1f851"
+    },
+    {
+      "name": "NATIVE",
+      "command": "python3 -P dev/build.py runtest",
+      "status": "PASS",
+      "log": "NATIVE.log",
+      "log_sha256": "69d221303d138a3456f25db42a1fe849931d7fb318cd00d71e17236dfbe7e70c",
+      "capture_manifest_sha256": "6a46c50b55ee65a4cf738709c610ab635e8544fd8f99e69c629d89db1eae5a6e"
+    },
+    {
+      "name": "PACKED-SOURCE",
+      "command": "python3 -P dev/packed-source-test.py",
+      "status": "PASS",
+      "log": "PACKED-SOURCE.log",
+      "log_sha256": "b2148a3cba0b5e598a5d5fb70f2a513d807f0e38802236c3338cd4b5bc507eb1",
+      "capture_manifest_sha256": "db4e7de06e7bfe35a085daa6738178d3f381ea5270c8c68d6f702772d6c5d040"
+    },
+    {
+      "name": "TRUSTED-LINES",
+      "command": "python3 -P dev/trusted-lines.py .",
+      "status": "PASS",
+      "log": "TRUSTED-LINES.log",
+      "log_sha256": "090f04b473176386ec4bbc4156285cd87d437d0a75d7bbd5da60d490e8f86298"
+    },
+    {
+      "name": "REVIEW-MAPPING-CLI",
+      "command": "python3 -P dev/mapping-cli-test.py",
+      "status": "PASS",
+      "log": "review-mapping-cli.log",
+      "log_sha256": "2a7b3f5b2e9327e19049e2339f050097a54e021b6ecf6b9f56ed8296c9562fb7",
+      "seconds": 38
+    },
+    {
+      "name": "REVIEW-MILESTONE-SPEED",
+      "command": "python3 -P dev/milestone-speed-test.py",
+      "status": "PASS",
+      "log": "review-milestone-speed.log",
+      "log_sha256": "06a73757a71c8f2dafa6ec1be406d254493e483223981a2b38ca33272b82d565",
+      "seconds": 0
+    }
+  ],
+  "cases": {
+    "path": "CASES.json",
+    "sha256": "cde4a95d56b0e3059a42b781a80556744da8df3b88f76f56cbcd8e8061ebbcca"
+  },
+  "sources": {
+    "Makefile": "9448e9d4b4ad7b13ddef0b28f8b71efa246d5ea0434f4718b0c3bfa3d870e7c0",
+    "README.md": "a9d3129614436b5df980b30a0070df14cd13e1fdbda8e3133712aecf44cababc",
+    "dev/M2-MAPPING.md": "30c858b3d10654b3fa4bc240e96811c0e46a0a2ee905913f08fd575681d4f713",
+    "dev/M2-SOURCE-PACKING.md": "3e9ad709b3eb59c01958e3ba5264f4f6099c38fb23256685a6e797fa2427e26e",
+    "dev/M4-SPEED.md": "ec329fd017a6541bd51f38309d19d56660c46a6db3bb1e8aad3da6c454e40a8a",
+    "dev/bend-catchalls.json": "81919eb3e2b98f951ed0d941363ac175818d8cdd046bc293ffd6aa7ba0bc258b",
+    "dev/bend_source.py": "4b2661b5bc0a9abe0321f019501582280914d9fdd0f409e24d457b1772bf8030",
+    "dev/build.py": "66ea21dced23ce0844225e652758a4ff7ad01abfa890861e683addc97d528d46",
+    "dev/cli_delta.py": "1f2918e80c21538c11ebb8dcbe30ec13e9de547350e944809e7348552810722f",
+    "dev/layout-mapping-test.py": "00361aaa0e41201e1f6dd997645edfd4694f3cafd8a3652d7bd01ed6baa03ee3",
+    "dev/mapping-cli-test.py": "10e9562e22b64bbe8ea729351adab93140a244e79d5e49b33ad73b97eb5edb99",
+    "dev/milestone-speed-test.py": "84fb98ee535bedc11d604e08ad9c1d0a8d777c45407684a2040d96cda2790214",
+    "dev/native-carry.json": "903dd39bd2db3d6e98b69e3244ee2f207dd33b44bb2e90aaa3e376f98b5d9899",
+    "dev/stage-a-gates.py": "2bf64b2b1f46b3b159f3a48ba6e3d353e444383ca18e5a1df50ab853c28dcdd7",
+    "dev/toolchain.json": "8147934637be14ae612adfb1096075e837fdb7f5d41e917915ad5099df633157",
+    "dev/trusted-lines.py": "627f8f81acbd8a744a5dd4a07503ecbd2d863a55a35dc4742eaff0c8522ba970",
+    "reference/erc20/slots.json": "d01b4f3f8223d95b199ee7e04674e059b114c1b29c29e6e4bc580322e4d70e76",
+    "src/abi.bend": "393d3f535cc3cff42605c702ef66d576cd803b4dc9745c8e69c7489527fac969",
+    "src/assembler.bend": "99dd49f4b48478ba8c587342c9d2e0ce4e74e28c904a650440f1f6f783c817b1",
+    "src/cli.bend": "d2b2dd932f0a1d70d617301387afee2d6dbd2ea9a7cc3e17dbf7140a7938e985",
+    "src/emitter.bend": "945a260e7b605251c193b447f0ed2ce73e0213883e05bd2be3b7c986679859b7",
+    "src/frontend.bend": "a1bbd1d32b4e729938df9ba9b07bed6df8adc0dcf4b575a7b473eab0ae9df02b",
+    "src/keccak.bend": "cbfb3275116d3703a803181ceeafe8dc3e74d53f21cb9a539f29c28c5bc8e98a",
+    "src/kernel.bend": "12657d56799719ee73fd354eae52335847cd20fd5d31aa791434a9e34bac717e",
+    "src/layout.bend": "e3081d285ac1a4bfcad28347db772442d4d86a0c430596737ce27f48d0dd2017",
+    "src/listing.bend": "697b9869205fc92f12b6a50fd4e82c6875440e677f01a06eecf83cb2982934ab",
+    "src/os.js": "d58a97bdf93d5929d49ad395326035a1e30b545731af46b9c9f3c7b72874d753",
+    "src/test-os.js": "cea57ed301de92861eb27f641564777d2156c7c371ab5eff1e00fd6cddbccb14",
+    "src/tests.bend": "1160ce4e8451a38884c78cb1f80ad8ca6b29126db734acfe778879cec32871ee"
+  },
+  "full_gate_battery": "The current 96-leg M2 battery was not rerun.",
+  "scope": "Public scalar and nested mapping locations. Source mapping declarations remain pending.",
+  "review_changes": [
+    "F0: Cli.Mapping.value names every Abi.Schema.Value_type constructor. Cli.Mapping.keys and Cli.Mapping.run name every list shape. dev/bend-catchalls.json approves the string catch-alls of Cli.Mapping.typ and Cli.Mapping.boolean and records the five moved lines. dev/native-carry.json and dev/DENOMINATORS.sha256 follow the changed files.",
+    "F1: Each case is a distinct argument list and the test fails on a duplicate. The boolean spelling runs only for queries with a bool key. The frozen locations run once with 40-digit hexadecimal addresses. 336 cases became 244.",
+    "F2: The default schedule text names MAPPING-CLI and says 96 checks in M2-MAPPING.md, M2-REFERENCE.md, M1-CLOSE.md, M2-CALLDATA.md, M2-EVENTS.md, M2-RETURNDATA.md, M2-EVENT-DECODE.md, M2-REVERTDATA.md, M2-ABI-SCHEMA.md, M2-ABI-CODEC.md, M2-PACKING.md and M1-BEND2.md.",
+    "F3: Each refusal checks its own diagnostic text. The duplicate 2^256 key row is gone, and the test fails on a duplicate refusal.",
+    "F4: mapping-slot diagnostics drop the RUN_INPUT code. A bad bool key reports that true, false, a decimal or 0x-prefixed integer is expected.",
+    "F5: M2-MAPPING.md states the 78 decimal and 64 hexadecimal digit cap. Two cases run the widest accepted spellings, and six refusals cover 79 decimal and 65 hexadecimal digits, including hexadecimal 2^256. Refusals went from 41 to 46.",
+    "F6: The MAPPING-CLI deadline is 600 s in dev/stage-a-gates.py and dev/milestone-speed-test.py. The review run took 38 s.",
+    "Post-fix marker: MAPPING-CLI cases=244 oracle=102 reference=10 refusals=46 OK. Logs: review-mapping-cli.log, review-milestone-speed.log, review-gates.log."
+  ]
+}

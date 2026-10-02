@@ -1,0 +1,4 @@
+python3 -P dev/build.py build
+BEND BUILD assay OK
+BEND BUILD tests OK
+BEND BUILD backends OK

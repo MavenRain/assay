@@ -144,8 +144,9 @@ NATIVE-IO checks, for 77 legs. On 2026-10-01 the two speed legs moved to
 [SEGMENT-DIRECT](SEGMENT-DIRECT.md),
 [CLI-PREFIX-DIRECT](CLI-PREFIX-DIRECT.md),
 [CLI-VALUE-DIRECT](CLI-VALUE-DIRECT.md),
-[CLI-ERROR-DIRECT](CLI-ERROR-DIRECT.md), MILESTONE-SPEED and
-[PACKED-SOURCE](M2-SOURCE-PACKING.md), for 95 checks.
+[CLI-ERROR-DIRECT](CLI-ERROR-DIRECT.md),
+[MAPPING-CLI](M2-MAPPING.md#command-line), MILESTONE-SPEED and
+[PACKED-SOURCE](M2-SOURCE-PACKING.md), for 96 checks.
 
 That ratio test used synthetic reports to exercise the public command; these
 were decision tests and provided no timing evidence. It checked the

@@ -23,6 +23,11 @@ The [trace value follow-up](dev/CLI-VALUE-DIRECT.md) removes Series
 round trips from decimal value normalization.
 The [trace error follow-up](dev/CLI-ERROR-DIRECT.md) removes Series
 round trips from whitespace compaction during response error detection.
+`assay mapping-slot BASE TYPE KEY [TYPE KEY]...` exposes typed scalar and
+nested [mapping storage locations](dev/M2-MAPPING.md#command-line).
+It prints an unsigned decimal slot for inspection or `run --storage` inputs;
+mapping declarations in source contracts remain pending.
+
 
 Milestone work proceeds through M2, M3 and M4. The compiler speed gate now
 belongs to [M4](dev/M4-SPEED.md), as requested on 2026-10-01, with the same
@@ -57,7 +62,7 @@ logs, preserving indexed strings as hashes. TRUSTED-LINES passes under
 the source budget the user re-ratified on 2026-09-28: abi 495, assembler
 505 and an unchanged total of 3550.
 Source lowering for mappings and events remains pending.
-`zsh -f dev/gates.sh` runs the default 95-leg gate battery, and
+`zsh -f dev/gates.sh` runs the default 96-leg gate battery, and
 `make gates-m4-speed` runs the two M4 speed legs.
 
 Assay is a Kanon language fork for EVM contracts.  It inherits the kernel and
@@ -398,7 +403,7 @@ ERC20-REFERENCE, ABI-SCHEMA, ABI-CODEC, LAYOUT-PACKED, LAYOUT-MAPPING,
 EVENT-CODEC, CALL-CODEC, RETURN-CODEC, REVERT-CODEC, EVENT-DECODE,
 LEXER-KEYWORDS, LEXER-DIRECT, IDENTIFIER-DIRECT, WORD-DIRECT,
 SEGMENT-DIRECT, CLI-PREFIX-DIRECT, CLI-VALUE-DIRECT, CLI-ERROR-DIRECT,
-MILESTONE-SPEED and PACKED-SOURCE, for 95 legs. BEND2-RATIO and
+MAPPING-CLI, MILESTONE-SPEED and PACKED-SOURCE, for 96 legs. BEND2-RATIO and
 BEND2-RATIO-TEST moved to `--m4-speed` (`make gates-m4-speed`) on
 2026-10-01. Each earlier mode keeps its other legs: `--lexer-direct`
 has 93, `--keyword-dispatch` 86, `--m2-event-decode` 85,

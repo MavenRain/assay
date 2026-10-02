@@ -33,6 +33,38 @@ empty paths. Invalid values are rejected before encoding. Nested paths
 propagate the first failed step without returning a partial location.
 The implementation reuses the production ABI word encoder and Keccak-256.
 
+
+## Command line
+
+The public CLI exposes the production location API:
+
+```text
+assay mapping-slot BASE TYPE KEY [TYPE KEY]...
+assay mapping-slot 1 address 0x7e5f4552091a69125d5dfcb7b8c2659029395bdf
+assay mapping-slot 2 address 0x7e5f4552091a69125d5dfcb7b8c2659029395bdf address 0x2b5ad5c4795c026514f8317c7a215e218dccd6cf
+```
+
+Keys are supplied from outermost to innermost. Supported type names are
+`uint8`, `uint256`, `address` and `bool`. The base and keys accept unsigned
+decimal or `0x` hexadecimal integers; booleans also accept `true` and `false`.
+A spelling contains at most 78 decimal digits or 64 hexadecimal digits,
+including leading zeroes.
+Each key must fit its declared type. The command prints the final slot as
+one unsigned decimal integer, suitable for `assay run --storage SLOT=WORD`.
+Malformed arguments and out-of-range values exit 64, write a diagnostic to
+stderr and leave stdout empty. Source mapping declarations remain pending.
+
+Run `python3 -P dev/mapping-cli-test.py` after `make all`. It covers 244 CLI
+cases using 102 cast oracles and all 10 frozen ERC-20 locations, 46 input
+refusals, and two controls for the exact command compatibility pins. Each
+case is a distinct argument list, and the test fails on a duplicate. The
+oracle cases run in decimal and hexadecimal, and cases with a bool key also
+run with `true` and `false`. The frozen locations use 40-digit hexadecimal
+addresses. Two cases use the widest accepted spellings, and refusals cover
+one more digit. Each refusal must give its own diagnostic text.
+The default M2 gate schedule now includes this check and retains every
+previous check, for 96 legs. Compiler speed stays in M4.
+
 ## Validation
 
 Run `python3 -P dev/layout-mapping-test.py`. The adapter batches calls to
@@ -72,8 +104,9 @@ The default now selects `--m2-source-packing`, adding
 [WORD-DIRECT](WORD-DIRECT.md), [SEGMENT-DIRECT](SEGMENT-DIRECT.md),
 [CLI-PREFIX-DIRECT](CLI-PREFIX-DIRECT.md),
 [CLI-VALUE-DIRECT](CLI-VALUE-DIRECT.md),
-[CLI-ERROR-DIRECT](CLI-ERROR-DIRECT.md), MILESTONE-SPEED and
-[PACKED-SOURCE](M2-SOURCE-PACKING.md), for 95 checks.
+[CLI-ERROR-DIRECT](CLI-ERROR-DIRECT.md),
+[MAPPING-CLI](#command-line), MILESTONE-SPEED and
+[PACKED-SOURCE](M2-SOURCE-PACKING.md), for 96 checks.
 Counts exclude BEND2-RATIO and BEND2-RATIO-TEST, which moved to
 [`--m4-speed`](M4-SPEED.md) on 2026-10-01.
 

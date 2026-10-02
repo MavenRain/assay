@@ -27,8 +27,9 @@ The current default, `--m2-source-packing`, extends this schedule with [ABI-SCHE
 [SEGMENT-DIRECT](SEGMENT-DIRECT.md),
 [CLI-PREFIX-DIRECT](CLI-PREFIX-DIRECT.md),
 [CLI-VALUE-DIRECT](CLI-VALUE-DIRECT.md),
-[CLI-ERROR-DIRECT](CLI-ERROR-DIRECT.md), MILESTONE-SPEED and
-[PACKED-SOURCE](M2-SOURCE-PACKING.md), for 95 checks.
+[CLI-ERROR-DIRECT](CLI-ERROR-DIRECT.md),
+[MAPPING-CLI](M2-MAPPING.md#command-line), MILESTONE-SPEED and
+[PACKED-SOURCE](M2-SOURCE-PACKING.md), for 96 checks.
 
 The reference has 798 runtime bytes and a 107-byte constructor prefix.
 All 431 runtime instructions and all constructor instructions are covered.

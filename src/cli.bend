@@ -183,7 +183,85 @@ def Cli.when(test: Bool, yes: Unit -> IO(Unit), no: Unit -> IO(Unit)) -> IO(Unit
     case True{}: yes(Unit{})
     case False{}: no(Unit{})
 def Cli.fail(code: U32, message: String) -> IO(Unit): NativeIO.die(Unit, code, message)
-def Cli.usage() -> IO(Unit): Cli.fail(64, "usage: assay check [--print|--erased] FILE | axioms FILE | spec-count | emit FILE -o DIR | trace FILE --calldata HEX [--prestate FILE] [--value WORD] [--caller ADDRESS] | diff FILE --calldata HEX [--prestate FILE] [--value WORD] [--caller ADDRESS] | run FILE [--calldata HEX] [--storage SLOT=WORD]... [--value WORD] [--caller ADDRESS] [--address ADDRESS] [--export NAME] | deploy FILE | test FILE")
+def Cli.usage() -> IO(Unit): Cli.fail(64, "usage: assay check [--print|--erased] FILE | axioms FILE | spec-count | emit FILE -o DIR | trace FILE --calldata HEX [--prestate FILE] [--value WORD] [--caller ADDRESS] | diff FILE --calldata HEX [--prestate FILE] [--value WORD] [--caller ADDRESS] | run FILE [--calldata HEX] [--storage SLOT=WORD]... [--value WORD] [--caller ADDRESS] [--address ADDRESS] [--export NAME] | mapping-slot BASE TYPE KEY [TYPE KEY]... | deploy FILE | test FILE")
+
+def Cli.Mapping.usage() -> IO(Unit): Cli.fail(64, "assay: mapping-slot: usage: assay mapping-slot BASE TYPE KEY [TYPE KEY]...")
+
+def Cli.Mapping.error(+error: Layout.Mapping.Error) -> String:
+  match error:
+    case Layout.Mapping.Error.Invalid_slot{}: "base slot exceeds uint256"
+    case Layout.Mapping.Error.Unsupported_key{}: "unsupported mapping key type"
+    case Layout.Mapping.Error.Out_of_range{typ}: String.append("key exceeds ", Abi.Schema.type_name(typ))
+    case Layout.Mapping.Error.Empty_path{}: "expected at least one mapping key"
+
+def Cli.Mapping.word_result(+result: Result<&2, &2, String, Big>) -> IO(Big):
+  match result:
+    case Done{value}: IO.pure(Big, value)
+    case Fail{error}: NativeIO.die(Big, 64, String.append("assay: mapping-slot: ", error))
+
+def Cli.Mapping.parse(+invalid: String, +text: String) -> IO(Big):
+  Cli.Mapping.word_result(Recognize.parse_word(&2, String, invalid, "word exceeds uint256", text))
+
+def Cli.Mapping.word(+text: String) -> IO(Big): Cli.Mapping.parse("expected a decimal or 0x-prefixed uint256", text)
+
+def Cli.Mapping.typ(+text: String) -> IO(Abi.Schema.Value_type):
+  match text:
+    case "uint8": IO.pure(Abi.Schema.Value_type, Abi.Schema.Value_type.Uint8{})
+    case "uint256": IO.pure(Abi.Schema.Value_type, Abi.Schema.Value_type.Uint256{})
+    case "address": IO.pure(Abi.Schema.Value_type, Abi.Schema.Value_type.Address{})
+    case "bool": IO.pure(Abi.Schema.Value_type, Abi.Schema.Value_type.Bool{})
+    case _: NativeIO.die(Abi.Schema.Value_type, 64, String.append("assay: mapping-slot: unsupported key type: ", text))
+
+def Cli.Mapping.boolean(+text: String) -> IO(Big):
+  match text:
+    case "true": IO.pure(Big, Big.one())
+    case "false": IO.pure(Big, Big.zero())
+    case _: Cli.Mapping.parse("expected true, false, a decimal or 0x-prefixed integer", text)
+
+def Cli.Mapping.value(+typ: Abi.Schema.Value_type, +text: String) -> IO(Big):
+  match typ:
+    case Abi.Schema.Value_type.Uint8{}: Cli.Mapping.word(text)
+    case Abi.Schema.Value_type.Uint256{}: Cli.Mapping.word(text)
+    case Abi.Schema.Value_type.Address{}: Cli.Mapping.word(text)
+    case Abi.Schema.Value_type.Bool{}: Cli.Mapping.boolean(text)
+    case Abi.Schema.Value_type.String{}: Cli.Mapping.word(text)
+
+def Cli.Mapping.key_result(+key: Layout.Mapping.Key, +result: Layout.Mapping.Result(String)) -> IO(Layout.Mapping.Key):
+  match result:
+    case Done{_}: IO.pure(Layout.Mapping.Key, key)
+    case Fail{error}: NativeIO.die(Layout.Mapping.Key, 64, String.append("assay: mapping-slot: ", Cli.Mapping.error(error)))
+
+def Cli.Mapping.key(+typ: Abi.Schema.Value_type, +value: Big) -> IO(Layout.Mapping.Key):
+  +key = {Layout.Mapping.Key{typ, value} : Layout.Mapping.Key}
+  Cli.Mapping.key_result(key, Layout.Mapping.key_word(key))
+
+@unsafe
+def Cli.Mapping.keys(+args: ListOf(String)) -> IO(ListOf(Layout.Mapping.Key)):
+  match args:
+    case Nil{}: IO.pure(ListOf(Layout.Mapping.Key), Nil{})
+    case Con{type_name, Con{value_text, rest}}:
+      IO.bind(Abi.Schema.Value_type, ListOf(Layout.Mapping.Key), Cli.Mapping.typ(type_name), +typ =>
+        IO.bind(Big, ListOf(Layout.Mapping.Key), Cli.Mapping.value(typ, value_text), value =>
+          IO.bind(Layout.Mapping.Key, ListOf(Layout.Mapping.Key), Cli.Mapping.key(typ, value), key =>
+            IO.bind(ListOf(Layout.Mapping.Key), ListOf(Layout.Mapping.Key), Cli.Mapping.keys(rest), tail =>
+              IO.pure(ListOf(Layout.Mapping.Key), Con{key, tail})))))
+    case Con{_, Nil{}}: NativeIO.die(ListOf(Layout.Mapping.Key), 64, "assay: mapping-slot: expected TYPE KEY pairs")
+
+def Cli.Mapping.output(+result: Layout.Mapping.Result(Big)) -> IO(Unit):
+  match result:
+    case Done{slot}: NativeIO.print(Big.show(slot))
+    case Fail{error}: Cli.fail(64, String.append("assay: mapping-slot: ", Cli.Mapping.error(error)))
+
+@unsafe
+def Cli.Mapping.run(+args: ListOf(String)) -> IO(Unit):
+  match args:
+    case Con{base_text, Con{type_name, Con{value_text, rest}}}:
+      IO.bind(Big, Unit, Cli.Mapping.word(base_text), base =>
+        IO.bind(ListOf(Layout.Mapping.Key), Unit, Cli.Mapping.keys(Con{type_name, Con{value_text, rest}}), keys =>
+          Cli.Mapping.output(Layout.Mapping.path(base, keys))))
+    case Con{_, Con{_, Nil{}}}: Cli.Mapping.usage()
+    case Con{_, Nil{}}: Cli.Mapping.usage()
+    case Nil{}: Cli.Mapping.usage()
 def Cli.require(-A: Data, code: U32, result: Result<&2, &2, String, A>) -> IO(A):
   match result:
     case Fail{message}: NativeIO.die(A, code, message)
@@ -398,7 +476,8 @@ def Cli.dispatch(+command: String, +args: List<&2, String>) -> IO(Unit):
   Cli.when(NativeString.equal(command, "spec-count"), _ => Cli.count(args), _ =>
   Cli.when(NativeString.equal(command, "emit"), _ => Cli.dispatch_emit(args), _ =>
   Cli.when(Cli.member(command, ["trace", "diff", "run"]), _ => Cli.dispatch_options(command, args), _ =>
-  Cli.when(Cli.member(command, ["deploy", "test"]), _ => Cli.fail(3, String.concat(["assay: ", command, ": PENDING (M1)"])), _ => Cli.usage()))))))
+  Cli.when(NativeString.equal(command, "mapping-slot"), _ => Cli.Mapping.run(args), _ =>
+  Cli.when(Cli.member(command, ["deploy", "test"]), _ => Cli.fail(3, String.concat(["assay: ", command, ": PENDING (M1)"])), _ => Cli.usage())))))))
 def Cli.main(args: List<&2, String>) -> IO(Unit):
   match args:
     case Nil{}: Cli.usage()
