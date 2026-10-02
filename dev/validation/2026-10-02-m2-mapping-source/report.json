@@ -1,0 +1,682 @@
+{
+  "version": 1,
+  "positive": 13,
+  "refused": 26,
+  "mutants": [
+    {
+      "name": "mapping-width",
+      "assertion": "MAPPING-SOURCE golden erc20"
+    },
+    {
+      "name": "mapping-key",
+      "assertion": "MAPPING-SOURCE golden erc20"
+    }
+  ],
+  "cases": [
+    {
+      "name": "empty",
+      "expected": {
+        "contract": "Schema",
+        "storage": []
+      }
+    },
+    {
+      "name": "scalar",
+      "expected": {
+        "contract": "Schema",
+        "storage": [
+          {
+            "name": "a",
+            "slot": "0",
+            "offset": 0,
+            "bytes": 1,
+            "type": "uint8"
+          },
+          {
+            "name": "b",
+            "slot": "0",
+            "offset": 1,
+            "bytes": 1,
+            "type": "bool"
+          },
+          {
+            "name": "c",
+            "slot": "0",
+            "offset": 2,
+            "bytes": 20,
+            "type": "address"
+          },
+          {
+            "name": "d",
+            "slot": "1",
+            "offset": 0,
+            "bytes": 32,
+            "type": "uint256"
+          },
+          {
+            "name": "e",
+            "slot": "2",
+            "offset": 0,
+            "bytes": 32,
+            "type": "uint256"
+          }
+        ]
+      }
+    },
+    {
+      "name": "erc20",
+      "expected": {
+        "contract": "Schema",
+        "storage": [
+          {
+            "name": "balances",
+            "slot": "0",
+            "offset": 0,
+            "bytes": 32,
+            "type": {
+              "mapping": {
+                "key": "address",
+                "value": "uint256"
+              }
+            }
+          },
+          {
+            "name": "allowances",
+            "slot": "1",
+            "offset": 0,
+            "bytes": 32,
+            "type": {
+              "mapping": {
+                "key": "address",
+                "value": {
+                  "mapping": {
+                    "key": "address",
+                    "value": "uint256"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "name": "total",
+            "slot": "2",
+            "offset": 0,
+            "bytes": 32,
+            "type": "uint256"
+          }
+        ]
+      }
+    },
+    {
+      "name": "partial-before-mapping",
+      "expected": {
+        "contract": "Schema",
+        "storage": [
+          {
+            "name": "a",
+            "slot": "0",
+            "offset": 0,
+            "bytes": 1,
+            "type": "uint8"
+          },
+          {
+            "name": "m",
+            "slot": "1",
+            "offset": 0,
+            "bytes": 32,
+            "type": {
+              "mapping": {
+                "key": "bool",
+                "value": "uint8"
+              }
+            }
+          },
+          {
+            "name": "b",
+            "slot": "2",
+            "offset": 0,
+            "bytes": 1,
+            "type": "uint8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "spill-before-mapping",
+      "expected": {
+        "contract": "Schema",
+        "storage": [
+          {
+            "name": "a",
+            "slot": "0",
+            "offset": 0,
+            "bytes": 20,
+            "type": "address"
+          },
+          {
+            "name": "b",
+            "slot": "1",
+            "offset": 0,
+            "bytes": 20,
+            "type": "address"
+          },
+          {
+            "name": "m",
+            "slot": "2",
+            "offset": 0,
+            "bytes": 32,
+            "type": {
+              "mapping": {
+                "key": "uint8",
+                "value": "bool"
+              }
+            }
+          },
+          {
+            "name": "c",
+            "slot": "3",
+            "offset": 0,
+            "bytes": 1,
+            "type": "bool"
+          }
+        ]
+      }
+    },
+    {
+      "name": "consecutive-mappings",
+      "expected": {
+        "contract": "Schema",
+        "storage": [
+          {
+            "name": "a",
+            "slot": "0",
+            "offset": 0,
+            "bytes": 32,
+            "type": {
+              "mapping": {
+                "key": "uint256",
+                "value": "address"
+              }
+            }
+          },
+          {
+            "name": "b",
+            "slot": "1",
+            "offset": 0,
+            "bytes": 32,
+            "type": {
+              "mapping": {
+                "key": "uint256",
+                "value": "uint256"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "nested-prefix",
+      "expected": {
+        "contract": "Schema",
+        "storage": [
+          {
+            "name": "m",
+            "slot": "0",
+            "offset": 0,
+            "bytes": 32,
+            "type": {
+              "mapping": {
+                "key": "bool",
+                "value": {
+                  "mapping": {
+                    "key": "uint8",
+                    "value": {
+                      "mapping": {
+                        "key": "address",
+                        "value": "bool"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "grouped-scalar",
+      "expected": {
+        "contract": "Schema",
+        "storage": [
+          {
+            "name": "m",
+            "slot": "0",
+            "offset": 0,
+            "bytes": 32,
+            "type": {
+              "mapping": {
+                "key": "address",
+                "value": "uint8"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "max-depth",
+      "expected": {
+        "contract": "Schema",
+        "storage": [
+          {
+            "name": "x",
+            "slot": "0",
+            "offset": 0,
+            "bytes": 1,
+            "type": "bool"
+          }
+        ]
+      }
+    },
+    {
+      "name": "body-is-separate",
+      "expected": {
+        "contract": "Schema",
+        "storage": [
+          {
+            "name": "m",
+            "slot": "0",
+            "offset": 0,
+            "bytes": 32,
+            "type": {
+              "mapping": {
+                "key": "address",
+                "value": "uint256"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "payable-entry",
+      "expected": {
+        "contract": "Schema",
+        "storage": [
+          {
+            "name": "x",
+            "slot": "0",
+            "offset": 0,
+            "bytes": 1,
+            "type": "bool"
+          }
+        ]
+      }
+    },
+    {
+      "name": "max-mapping-depth",
+      "expected": {
+        "contract": "Schema",
+        "storage": [
+          {
+            "name": "m",
+            "slot": "0",
+            "offset": 0,
+            "bytes": 32,
+            "type": {
+              "mapping": {
+                "key": "bool",
+                "value": {
+                  "mapping": {
+                    "key": "bool",
+                    "value": {
+                      "mapping": {
+                        "key": "bool",
+                        "value": {
+                          "mapping": {
+                            "key": "bool",
+                            "value": {
+                              "mapping": {
+                                "key": "bool",
+                                "value": {
+                                  "mapping": {
+                                    "key": "bool",
+                                    "value": {
+                                      "mapping": {
+                                        "key": "bool",
+                                        "value": {
+                                          "mapping": {
+                                            "key": "bool",
+                                            "value": {
+                                              "mapping": {
+                                                "key": "bool",
+                                                "value": {
+                                                  "mapping": {
+                                                    "key": "bool",
+                                                    "value": {
+                                                      "mapping": {
+                                                        "key": "bool",
+                                                        "value": {
+                                                          "mapping": {
+                                                            "key": "bool",
+                                                            "value": {
+                                                              "mapping": {
+                                                                "key": "bool",
+                                                                "value": {
+                                                                  "mapping": {
+                                                                    "key": "bool",
+                                                                    "value": {
+                                                                      "mapping": {
+                                                                        "key": "bool",
+                                                                        "value": {
+                                                                          "mapping": {
+                                                                            "key": "bool",
+                                                                            "value": {
+                                                                              "mapping": {
+                                                                                "key": "bool",
+                                                                                "value": {
+                                                                                  "mapping": {
+                                                                                    "key": "bool",
+                                                                                    "value": {
+                                                                                      "mapping": {
+                                                                                        "key": "bool",
+                                                                                        "value": {
+                                                                                          "mapping": {
+                                                                                            "key": "bool",
+                                                                                            "value": {
+                                                                                              "mapping": {
+                                                                                                "key": "bool",
+                                                                                                "value": {
+                                                                                                  "mapping": {
+                                                                                                    "key": "bool",
+                                                                                                    "value": {
+                                                                                                      "mapping": {
+                                                                                                        "key": "bool",
+                                                                                                        "value": {
+                                                                                                          "mapping": {
+                                                                                                            "key": "bool",
+                                                                                                            "value": {
+                                                                                                              "mapping": {
+                                                                                                                "key": "bool",
+                                                                                                                "value": {
+                                                                                                                  "mapping": {
+                                                                                                                    "key": "bool",
+                                                                                                                    "value": {
+                                                                                                                      "mapping": {
+                                                                                                                        "key": "bool",
+                                                                                                                        "value": {
+                                                                                                                          "mapping": {
+                                                                                                                            "key": "bool",
+                                                                                                                            "value": {
+                                                                                                                              "mapping": {
+                                                                                                                                "key": "bool",
+                                                                                                                                "value": {
+                                                                                                                                  "mapping": {
+                                                                                                                                    "key": "bool",
+                                                                                                                                    "value": {
+                                                                                                                                      "mapping": {
+                                                                                                                                        "key": "bool",
+                                                                                                                                        "value": {
+                                                                                                                                          "mapping": {
+                                                                                                                                            "key": "bool",
+                                                                                                                                            "value": {
+                                                                                                                                              "mapping": {
+                                                                                                                                                "key": "bool",
+                                                                                                                                                "value": {
+                                                                                                                                                  "mapping": {
+                                                                                                                                                    "key": "bool",
+                                                                                                                                                    "value": {
+                                                                                                                                                      "mapping": {
+                                                                                                                                                        "key": "bool",
+                                                                                                                                                        "value": {
+                                                                                                                                                          "mapping": {
+                                                                                                                                                            "key": "bool",
+                                                                                                                                                            "value": {
+                                                                                                                                                              "mapping": {
+                                                                                                                                                                "key": "bool",
+                                                                                                                                                                "value": {
+                                                                                                                                                                  "mapping": {
+                                                                                                                                                                    "key": "bool",
+                                                                                                                                                                    "value": {
+                                                                                                                                                                      "mapping": {
+                                                                                                                                                                        "key": "bool",
+                                                                                                                                                                        "value": {
+                                                                                                                                                                          "mapping": {
+                                                                                                                                                                            "key": "bool",
+                                                                                                                                                                            "value": {
+                                                                                                                                                                              "mapping": {
+                                                                                                                                                                                "key": "bool",
+                                                                                                                                                                                "value": {
+                                                                                                                                                                                  "mapping": {
+                                                                                                                                                                                    "key": "bool",
+                                                                                                                                                                                    "value": {
+                                                                                                                                                                                      "mapping": {
+                                                                                                                                                                                        "key": "bool",
+                                                                                                                                                                                        "value": {
+                                                                                                                                                                                          "mapping": {
+                                                                                                                                                                                            "key": "bool",
+                                                                                                                                                                                            "value": {
+                                                                                                                                                                                              "mapping": {
+                                                                                                                                                                                                "key": "bool",
+                                                                                                                                                                                                "value": {
+                                                                                                                                                                                                  "mapping": {
+                                                                                                                                                                                                    "key": "bool",
+                                                                                                                                                                                                    "value": {
+                                                                                                                                                                                                      "mapping": {
+                                                                                                                                                                                                        "key": "bool",
+                                                                                                                                                                                                        "value": {
+                                                                                                                                                                                                          "mapping": {
+                                                                                                                                                                                                            "key": "bool",
+                                                                                                                                                                                                            "value": {
+                                                                                                                                                                                                              "mapping": {
+                                                                                                                                                                                                                "key": "bool",
+                                                                                                                                                                                                                "value": {
+                                                                                                                                                                                                                  "mapping": {
+                                                                                                                                                                                                                    "key": "bool",
+                                                                                                                                                                                                                    "value": {
+                                                                                                                                                                                                                      "mapping": {
+                                                                                                                                                                                                                        "key": "bool",
+                                                                                                                                                                                                                        "value": {
+                                                                                                                                                                                                                          "mapping": {
+                                                                                                                                                                                                                            "key": "bool",
+                                                                                                                                                                                                                            "value": {
+                                                                                                                                                                                                                              "mapping": {
+                                                                                                                                                                                                                                "key": "bool",
+                                                                                                                                                                                                                                "value": {
+                                                                                                                                                                                                                                  "mapping": {
+                                                                                                                                                                                                                                    "key": "bool",
+                                                                                                                                                                                                                                    "value": {
+                                                                                                                                                                                                                                      "mapping": {
+                                                                                                                                                                                                                                        "key": "bool",
+                                                                                                                                                                                                                                        "value": {
+                                                                                                                                                                                                                                          "mapping": {
+                                                                                                                                                                                                                                            "key": "bool",
+                                                                                                                                                                                                                                            "value": {
+                                                                                                                                                                                                                                              "mapping": {
+                                                                                                                                                                                                                                                "key": "bool",
+                                                                                                                                                                                                                                                "value": {
+                                                                                                                                                                                                                                                  "mapping": {
+                                                                                                                                                                                                                                                    "key": "bool",
+                                                                                                                                                                                                                                                    "value": {
+                                                                                                                                                                                                                                                      "mapping": {
+                                                                                                                                                                                                                                                        "key": "bool",
+                                                                                                                                                                                                                                                        "value": {
+                                                                                                                                                                                                                                                          "mapping": {
+                                                                                                                                                                                                                                                            "key": "bool",
+                                                                                                                                                                                                                                                            "value": {
+                                                                                                                                                                                                                                                              "mapping": {
+                                                                                                                                                                                                                                                                "key": "bool",
+                                                                                                                                                                                                                                                                "value": {
+                                                                                                                                                                                                                                                                  "mapping": {
+                                                                                                                                                                                                                                                                    "key": "bool",
+                                                                                                                                                                                                                                                                    "value": {
+                                                                                                                                                                                                                                                                      "mapping": {
+                                                                                                                                                                                                                                                                        "key": "bool",
+                                                                                                                                                                                                                                                                        "value": "bool"
+                                                                                                                                                                                                                                                                      }
+                                                                                                                                                                                                                                                                    }
+                                                                                                                                                                                                                                                                  }
+                                                                                                                                                                                                                                                                }
+                                                                                                                                                                                                                                                              }
+                                                                                                                                                                                                                                                            }
+                                                                                                                                                                                                                                                          }
+                                                                                                                                                                                                                                                        }
+                                                                                                                                                                                                                                                      }
+                                                                                                                                                                                                                                                    }
+                                                                                                                                                                                                                                                  }
+                                                                                                                                                                                                                                                }
+                                                                                                                                                                                                                                              }
+                                                                                                                                                                                                                                            }
+                                                                                                                                                                                                                                          }
+                                                                                                                                                                                                                                        }
+                                                                                                                                                                                                                                      }
+                                                                                                                                                                                                                                    }
+                                                                                                                                                                                                                                  }
+                                                                                                                                                                                                                                }
+                                                                                                                                                                                                                              }
+                                                                                                                                                                                                                            }
+                                                                                                                                                                                                                          }
+                                                                                                                                                                                                                        }
+                                                                                                                                                                                                                      }
+                                                                                                                                                                                                                    }
+                                                                                                                                                                                                                  }
+                                                                                                                                                                                                                }
+                                                                                                                                                                                                              }
+                                                                                                                                                                                                            }
+                                                                                                                                                                                                          }
+                                                                                                                                                                                                        }
+                                                                                                                                                                                                      }
+                                                                                                                                                                                                    }
+                                                                                                                                                                                                  }
+                                                                                                                                                                                                }
+                                                                                                                                                                                              }
+                                                                                                                                                                                            }
+                                                                                                                                                                                          }
+                                                                                                                                                                                        }
+                                                                                                                                                                                      }
+                                                                                                                                                                                    }
+                                                                                                                                                                                  }
+                                                                                                                                                                                }
+                                                                                                                                                                              }
+                                                                                                                                                                            }
+                                                                                                                                                                          }
+                                                                                                                                                                        }
+                                                                                                                                                                      }
+                                                                                                                                                                    }
+                                                                                                                                                                  }
+                                                                                                                                                                }
+                                                                                                                                                              }
+                                                                                                                                                            }
+                                                                                                                                                          }
+                                                                                                                                                        }
+                                                                                                                                                      }
+                                                                                                                                                    }
+                                                                                                                                                  }
+                                                                                                                                                }
+                                                                                                                                              }
+                                                                                                                                            }
+                                                                                                                                          }
+                                                                                                                                        }
+                                                                                                                                      }
+                                                                                                                                    }
+                                                                                                                                  }
+                                                                                                                                }
+                                                                                                                              }
+                                                                                                                            }
+                                                                                                                          }
+                                                                                                                        }
+                                                                                                                      }
+                                                                                                                    }
+                                                                                                                  }
+                                                                                                                }
+                                                                                                              }
+                                                                                                            }
+                                                                                                          }
+                                                                                                        }
+                                                                                                      }
+                                                                                                    }
+                                                                                                  }
+                                                                                                }
+                                                                                              }
+                                                                                            }
+                                                                                          }
+                                                                                        }
+                                                                                      }
+                                                                                    }
+                                                                                  }
+                                                                                }
+                                                                              }
+                                                                            }
+                                                                          }
+                                                                        }
+                                                                      }
+                                                                    }
+                                                                  }
+                                                                }
+                                                              }
+                                                            }
+                                                          }
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "max-source",
+      "expected": {
+        "contract": "Schema",
+        "storage": [
+          {
+            "name": "x",
+            "slot": "0",
+            "offset": 0,
+            "bytes": 1,
+            "type": "bool"
+          }
+        ]
+      }
+    }
+  ],
+  "compatibility": "OK",
+  "sources": {
+    "src/frontend.bend": "002936f46ba196b2680ae9a5d555673139e13d30d955efc32d782aa74835f547",
+    "src/cli.bend": "c424ffc6b2f8b73a1c1106d72b1a4c3c94ce9d50d11897beb936c71a52208cf7",
+    "src/layout.bend": "e3081d285ac1a4bfcad28347db772442d4d86a0c430596737ce27f48d0dd2017",
+    "dev/mapping-source-test.py": "fc23396496d5c3d96e14210836db824c960a2351b08104343d55d19539341732"
+  },
+  "review_changes": [
+    "F1 mapping-layout accepts only end of input or a declaration keyword after the storage block; a second storage block or other text fails with MAPPING_SOURCE_STORAGE; goldens body-is-separate (well-formed entry) and payable-entry, refusals second-storage and trailing-junk",
+    "F2 sources above 65536 bytes fail with SURFACE_LIMIT before lexing; golden max-source, refusal source-limit",
+    "F3 doc states that each Mapping, each opening parenthesis and the final value type use one of 64 levels; golden max-mapping-depth, refusals too-deep-mapping and too-deep-group",
+    "F4 each mutant must fail exactly the erc20 golden; doc wording matches the check",
+    "F5 current default text in README.md and 18 dev pages names --m2-mapping-source with 100 legs",
+    "F6 SOURCE-HASHES.sha256 adds README.md, dev/ASSAY-M2-BUILD-LOG.md, dev/DENOMINATORS.sha256 and dev/M2-MAPPING-SOURCE.md",
+    "F7 stage-a-gates usage lists --m2-mapping-source; build log heading split and entry rewrapped",
+    "marker MAPPING-SOURCE cases=39 goldens=13 refusals=26 mutants=2 OK",
+    "compiled-code-equivalence.json replaced for the review rebuild 9da5fdeae0dd31f3136ddba6bcd1a5073f597c151736d0ca4b550b8078483a2f result OK",
+    "logs review-calldata-cli.log review-compiled-code.log review-event-cli.log review-event-decode-cli.log review-mapping-cli.log review-mapping-source.log review-milestone-speed.log review-gates.log"
+  ]
+}

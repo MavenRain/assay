@@ -133,7 +133,7 @@ ratification message remained. From 2026-09-22 to 2026-09-30
 in their place (see [M1-BEND2.md](M1-BEND2.md)), with the NATIVE-MAPS and
 NATIVE-IO checks, for 77 legs. On 2026-10-01 the two speed legs moved to
 [`--m4-speed`](M4-SPEED.md), so `--m1-close` now runs 75 legs. The default
-`--m2-source-packing` mode adds the
+`--m2-mapping-source` mode adds the
 [M2 reference gate](M2-REFERENCE.md), [ABI-SCHEMA](M2-ABI-SCHEMA.md),
 [ABI-CODEC](M2-ABI-CODEC.md), [packing](M2-PACKING.md),
 [mapping locations](M2-MAPPING.md), [EVENT-CODEC](M2-EVENTS.md),
@@ -148,8 +148,9 @@ NATIVE-IO checks, for 77 legs. On 2026-10-01 the two speed legs moved to
 [MAPPING-CLI](M2-MAPPING.md#command-line),
 [EVENT-CLI](M2-EVENTS.md#command-line),
 [EVENT-DECODE-CLI](M2-EVENT-DECODE.md#command-line),
-[CALLDATA-CLI](M2-CALLDATA-CLI.md), MILESTONE-SPEED and
-[PACKED-SOURCE](M2-SOURCE-PACKING.md), for 99 checks.
+[CALLDATA-CLI](M2-CALLDATA-CLI.md), MILESTONE-SPEED,
+[PACKED-SOURCE](M2-SOURCE-PACKING.md) and
+[MAPPING-SOURCE](M2-MAPPING-SOURCE.md), for 100 checks.
 
 That ratio test used synthetic reports to exercise the public command; these
 were decision tests and provided no timing evidence. It checked the

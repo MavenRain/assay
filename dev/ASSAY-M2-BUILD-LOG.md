@@ -1,5 +1,32 @@
 # Assay M2 build log
 
+## 2026-10-02: Mapping declarations and layout inspection
+
+Base: af364d5. mapping-layout FILE parses typed scalar and nested mapping
+declarations into a native source schema and prints physical layout metadata.
+Mapping roots reserve complete slots; scalar neighbors use the existing
+packed planner. Mapping source reads and writes remain pending.
+
+The new check passes 13 independent layout goldens, 26 source refusals,
+four command or file refusals, and two compiled semantic mutants. It also
+checks exact historical CLI preservation and the new 100-leg schedule,
+which appends one leg to the 99 carried checks. Existing mapping, event
+encoding, event decoding and calldata CLI checks pass. House, carry and
+trusted-line audits pass with the same fixed budgets. A review made the
+command refuse text after the storage block and sources above 65536 bytes.
+It also added depth boundary cases, and each mutant must now fail the
+erc20 golden.
+
+The first event decoder run exceeds its unchanged local 30-second deadline
+on maximum-size data. The unchanged test passes on rerun, and a paired
+committed/current boundary probe gives the expected refusal within that
+deadline on both compilers. The probe and the interrupted broader test run
+are retained in the validation record.
+The full milestone battery and the remaining M2 closure work stay open.
+
+See dev/M2-MAPPING-SOURCE.md and
+dev/validation/2026-10-02-m2-mapping-source/README.md for scope and evidence.
+
 ## 2026-10-02: Public typed function calldata
 
 Base: `4cf4ebc`. `calldata-encode NAME [TYPE VALUE]...` and

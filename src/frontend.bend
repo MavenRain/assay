@@ -2407,3 +2407,147 @@ def Model.Packed.planned(result: Layout.Packed.Result(Emit.Packed.Fields())) -> 
   match result:
     case Done{fields}: Done{fields}
     case Fail{_}: Fail{Model.Error.Source{Emit.Error.Invalid_ir{"PACKED_LAYOUT: invalid source fields"}}}
+type Mapping.Source.Type is Data:
+  Mapping.Source.Type.Scalar{typ: Abi.Schema.Value_type}
+  Mapping.Source.Type.Mapping{key: Abi.Schema.Value_type, value: Mapping.Source.Type}
+type Mapping.Source.Field is Data:
+  Mapping.Source.Field{name: String, typ: Mapping.Source.Type}
+type Mapping.Source.Schema is Data:
+  Mapping.Source.Schema{contract: String, fields: ListOf(Mapping.Source.Field)}
+def Mapping.Source.TypeResult() -> Data: CheckResult(TupleOf2(Mapping.Source.Type, ListOf(Contract.Token)))
+@unsafe
+def Mapping.Source.scalar(+token: Contract.Token) -> CheckResult(Abi.Schema.Value_type):
+  match token:
+    case MkContract_Token{text, _, _}:
+      Mapping.Source.scalar_result(Packed.Source.typ(text), token)
+def Mapping.Source.scalar_result(result: OptionOf(Abi.Schema.Value_type), token: Contract.Token) -> CheckResult(Abi.Schema.Value_type):
+  match result:
+    case Some{typ}: Done{typ}
+    case None{}: Contract.fail(&2, Abi.Schema.Value_type, token, "MAPPING_SOURCE_TYPE", "expected Word, Uint8, Uint256, Address or Bool")
+@unsafe
+def Mapping.Source.group(+parsed: Mapping.Source.TypeResult()) -> Mapping.Source.TypeResult():
+  CheckResult.bind(TupleOf2(Mapping.Source.Type, ListOf(Contract.Token)), TupleOf2(Mapping.Source.Type, ListOf(Contract.Token)), parsed, +pair => Mapping.Source.group_pair(pair))
+def Mapping.Source.group_pair(pair: TupleOf2(Mapping.Source.Type, ListOf(Contract.Token))) -> Mapping.Source.TypeResult():
+  match pair:
+    case Tup2{typ, rest}: CheckResult.bind(ListOf(Contract.Token), TupleOf2(Mapping.Source.Type, ListOf(Contract.Token)), Contract.expect(")", rest), tail => Done{Tup2{typ, tail}})
+@unsafe
+def Mapping.Source.mapping(+tokens: ListOf(Contract.Token), +fuel: Big) -> Mapping.Source.TypeResult():
+  match tokens:
+    case Nil{}: Contract.fail(&2, TupleOf2(Mapping.Source.Type, ListOf(Contract.Token)), Contract.here(tokens), "MAPPING_SOURCE_KEY", "expected a scalar mapping key type")
+    case Con{key_token, rest}:
+      CheckResult.bind(Abi.Schema.Value_type, TupleOf2(Mapping.Source.Type, ListOf(Contract.Token)), Mapping.Source.scalar(key_token), key =>
+        CheckResult.bind(TupleOf2(Mapping.Source.Type, ListOf(Contract.Token)), TupleOf2(Mapping.Source.Type, ListOf(Contract.Token)), Mapping.Source.typ(rest, fuel), +pair => Mapping.Source.mapping_pair(key, pair)))
+def Mapping.Source.mapping_pair(key: Abi.Schema.Value_type, pair: TupleOf2(Mapping.Source.Type, ListOf(Contract.Token))) -> Mapping.Source.TypeResult():
+  match pair:
+    case Tup2{value, tail}: Done{Tup2{Mapping.Source.Type.Mapping{key, value}, tail}}
+@unsafe
+def Mapping.Source.token_type(+token: Contract.Token, +rest: ListOf(Contract.Token), +fuel: Big) -> Mapping.Source.TypeResult():
+  match token:
+    case MkContract_Token{text, _, _}:
+      Native.choose(&2, Mapping.Source.TypeResult(), NativeString.equal(text, "("), _ => Mapping.Source.group(Mapping.Source.typ(rest, fuel)), _ =>
+        Native.choose(&2, Mapping.Source.TypeResult(), NativeString.equal(text, "Mapping"), _ => Mapping.Source.mapping(rest, fuel), _ =>
+          CheckResult.bind(Abi.Schema.Value_type, TupleOf2(Mapping.Source.Type, ListOf(Contract.Token)), Mapping.Source.scalar(token), typ => Done{Tup2{Mapping.Source.Type.Scalar{typ}, rest}})))
+@unsafe
+def Mapping.Source.typ(+tokens: ListOf(Contract.Token), +fuel: Big) -> Mapping.Source.TypeResult():
+  Native.choose(&2, Mapping.Source.TypeResult(), Big.is_zero(fuel), _ =>
+    Contract.fail(&2, TupleOf2(Mapping.Source.Type, ListOf(Contract.Token)), Contract.here(tokens), "MAPPING_SOURCE_DEPTH", "storage type nesting exceeds 64"), _ =>
+    Mapping.Source.type_tokens(tokens, fuel))
+@unsafe
+def Mapping.Source.type_tokens(+tokens: ListOf(Contract.Token), +fuel: Big) -> Mapping.Source.TypeResult():
+  match tokens:
+    case Nil{}: Contract.fail(&2, TupleOf2(Mapping.Source.Type, ListOf(Contract.Token)), Contract.here(tokens), "MAPPING_SOURCE_TYPE", "expected a storage type")
+    case Con{token, rest}: Mapping.Source.token_type(token, rest, Big.sub(fuel, Big.one()))
+@unsafe
+def Mapping.Source.declaration(+text: String) -> Bool:
+  Bool.or(NativeString.equal(text, "entry"), Bool.or(NativeString.equal(text, "payable"), Bool.or(NativeString.equal(text, "error"), Bool.or(NativeString.equal(text, "invariant"), Bool.or(NativeString.equal(text, "predicate"), Bool.or(NativeString.equal(text, "proof"), Bool.or(NativeString.equal(text, "constructor"), NativeString.equal(text, "fallback"))))))))
+@unsafe
+def Mapping.Source.close(+tokens: ListOf(Contract.Token), +fields: ListOf(Mapping.Source.Field)) -> CheckResult(ListOf(Mapping.Source.Field)):
+  match tokens:
+    case Nil{}: Done{fields}
+    case Con{MkContract_Token{text, _, _}, _}:
+      Native.choose(&2, CheckResult(ListOf(Mapping.Source.Field)), Bool.or(NativeString.equal(text, ""), Mapping.Source.declaration(text)), _ => Done{fields}, _ =>
+        Contract.fail(&2, ListOf(Mapping.Source.Field), Contract.here(tokens), "MAPPING_SOURCE_STORAGE", "expected a declaration or end of input after storage"))
+@unsafe
+def Mapping.Source.after_field(+tokens: ListOf(Contract.Token), +field: Mapping.Source.Field, +acc: ListOf(Mapping.Source.Field)) -> CheckResult(ListOf(Mapping.Source.Field)):
+  match tokens:
+    case Nil{}: Contract.fail(&2, ListOf(Mapping.Source.Field), Contract.here(tokens), "MAPPING_SOURCE_STORAGE", "expected ; or } after storage field")
+    case Con{MkContract_Token{text, _, _}, tail}:
+      Native.choose(&2, CheckResult(ListOf(Mapping.Source.Field)), NativeString.equal(text, ";"), _ => Mapping.Source.fields(tail, field <> acc), _ =>
+        Native.choose(&2, CheckResult(ListOf(Mapping.Source.Field)), NativeString.equal(text, "}"), _ => Mapping.Source.close(tail, List.reverse(&2, Mapping.Source.Field, field <> acc)), _ =>
+          Contract.fail(&2, ListOf(Mapping.Source.Field), Contract.here(tokens), "MAPPING_SOURCE_STORAGE", "expected ; or } after storage field")))
+@unsafe
+def Mapping.Source.field(+tokens: ListOf(Contract.Token), +acc: ListOf(Mapping.Source.Field)) -> CheckResult(ListOf(Mapping.Source.Field)):
+  CheckResult.bind(TupleOf2(Contract.Token, ListOf(Contract.Token)), ListOf(Mapping.Source.Field), Contract.identifier(tokens), +pair => Mapping.Source.field_pair(acc, pair))
+def Mapping.Source.field_pair(acc: ListOf(Mapping.Source.Field), pair: TupleOf2(Contract.Token, ListOf(Contract.Token))) -> CheckResult(ListOf(Mapping.Source.Field)):
+  match pair:
+    case Tup2{MkContract_Token{name, _, _}, rest}:
+      CheckResult.bind(ListOf(Contract.Token), ListOf(Mapping.Source.Field), Contract.expect(":", rest), tail =>
+        CheckResult.bind(TupleOf2(Mapping.Source.Type, ListOf(Contract.Token)), ListOf(Mapping.Source.Field), Mapping.Source.typ(tail, Big.of_nat(64n)), +typed => Mapping.Source.field_typed(name, acc, typed)))
+def Mapping.Source.field_typed(name: String, acc: ListOf(Mapping.Source.Field), typed: TupleOf2(Mapping.Source.Type, ListOf(Contract.Token))) -> CheckResult(ListOf(Mapping.Source.Field)):
+  match typed:
+    case Tup2{typ, after}: Mapping.Source.after_field(after, Mapping.Source.Field{name, typ}, acc)
+@unsafe
+def Mapping.Source.fields(+tokens: ListOf(Contract.Token), +acc: ListOf(Mapping.Source.Field)) -> CheckResult(ListOf(Mapping.Source.Field)):
+  match tokens:
+    case Nil{}: Contract.fail(&2, ListOf(Mapping.Source.Field), Contract.here(tokens), "MAPPING_SOURCE_STORAGE", "expected a storage field or }")
+    case Con{MkContract_Token{text, _, _}, tail}:
+      Native.choose(&2, CheckResult(ListOf(Mapping.Source.Field)), NativeString.equal(text, "}"), _ => Mapping.Source.close(tail, List.reverse(&2, Mapping.Source.Field, acc)), _ => Mapping.Source.field(tokens, acc))
+@unsafe
+def Mapping.Source.storage(+contract: String, +tokens: ListOf(Contract.Token)) -> CheckResult(Mapping.Source.Schema):
+  CheckResult.bind(ListOf(Contract.Token), Mapping.Source.Schema, Contract.expect("storage", tokens), tail =>
+    CheckResult.bind(TupleOf2(Contract.Token, ListOf(Contract.Token)), Mapping.Source.Schema, Contract.identifier(tail), +pair => Mapping.Source.storage_pair(contract, pair)))
+def Mapping.Source.storage_pair(contract: String, pair: TupleOf2(Contract.Token, ListOf(Contract.Token))) -> CheckResult(Mapping.Source.Schema):
+  match pair:
+    case Tup2{_, rest}: CheckResult.bind(ListOf(Contract.Token), Mapping.Source.Schema, Contract.expect(":=", rest), after =>
+      CheckResult.bind(ListOf(Contract.Token), Mapping.Source.Schema, Contract.expect("{", after), fields =>
+        CheckResult.bind(ListOf(Mapping.Source.Field), Mapping.Source.Schema, Mapping.Source.fields(fields, []), parsed => Done{Mapping.Source.Schema{contract, parsed}})))
+@unsafe
+def Mapping.Source.header(+tokens: ListOf(Contract.Token)) -> CheckResult(Mapping.Source.Schema):
+  CheckResult.bind(ListOf(Contract.Token), Mapping.Source.Schema, Contract.expect("contract", tokens), tail =>
+    CheckResult.bind(TupleOf2(Contract.Token, ListOf(Contract.Token)), Mapping.Source.Schema, Contract.identifier(tail), +pair => Mapping.Source.header_pair(pair)))
+def Mapping.Source.header_pair(pair: TupleOf2(Contract.Token, ListOf(Contract.Token))) -> CheckResult(Mapping.Source.Schema):
+  match pair:
+    case Tup2{MkContract_Token{name, _, _}, rest}: CheckResult.bind(ListOf(Contract.Token), Mapping.Source.Schema, Contract.expect("where", rest), after => Mapping.Source.storage(name, after))
+@unsafe
+def Mapping.Source.parse(+source: String) -> CheckResult(Mapping.Source.Schema):
+  Native.choose(&2, CheckResult(Mapping.Source.Schema), Big.is_lt(Big.of_nat(65536n), Big.of_nat(String.length(source))), _ =>
+    Contract.fail(&2, Mapping.Source.Schema, Contract.here(Nil{}), "LIMIT", "contract source exceeds 65536 bytes"), _ =>
+    CheckResult.bind(ListOf(Contract.Token), Mapping.Source.Schema, Contract.lex(Series.from_string(source)), tokens => Mapping.Source.header(tokens)))
+def Mapping.Source.physical_type(typ: Mapping.Source.Type) -> Abi.Schema.Value_type:
+  match typ:
+    case Mapping.Source.Type.Scalar{typ}: typ
+    case Mapping.Source.Type.Mapping{_, _}: Abi.Schema.Value_type.Uint256{}
+def Mapping.Source.parameters(fields: ListOf(Mapping.Source.Field)) -> Packed.Parameters():
+  match fields:
+    case Nil{}: []
+    case Con{Mapping.Source.Field{name, typ}, rest}: MkAbi_Schema_Parameter{name, Mapping.Source.physical_type(typ)} <> Mapping.Source.parameters(rest)
+@unsafe
+def Mapping.Source.type_json(typ: Mapping.Source.Type) -> String:
+  match typ:
+    case Mapping.Source.Type.Scalar{typ}: Abi.quote(Abi.Schema.type_name(typ))
+    case Mapping.Source.Type.Mapping{key, value}: String.concat(["{\u{22}mapping\u{22}:{\u{22}key\u{22}:", Abi.quote(Abi.Schema.type_name(key)), ",\u{22}value\u{22}:", Mapping.Source.type_json(value), "}}"])
+@unsafe
+def Mapping.Source.field_json(field: Mapping.Source.Field, physical: Layout.Packed.Field) -> String:
+  match field:
+    case Mapping.Source.Field{name, +typ}:
+      match physical:
+        case Layout.Packed.Field{_, _, slot, offset}:
+          String.concat(["{\u{22}name\u{22}:", Abi.quote(name), ",\u{22}slot\u{22}:", Abi.quote(Big.show(slot)), ",\u{22}offset\u{22}:", Nat.show(offset), ",\u{22}bytes\u{22}:", Nat.show(Layout.Packed.width(Mapping.Source.physical_type(typ))), ",\u{22}type\u{22}:", Mapping.Source.type_json(typ), "}"])
+@unsafe
+def Mapping.Source.field_rows(fields: ListOf(Mapping.Source.Field), physical: ListOf(Layout.Packed.Field)) -> Layout.Packed.Result(ListOf(String)):
+  match fields:
+    case Nil{}:
+      match physical:
+        case Nil{}: Done{[]}
+        case Con{_, _}: Fail{Layout.Packed.Error.Invalid_location{}}
+    case Con{field, tail}:
+      match physical:
+        case Nil{}: Fail{Layout.Packed.Error.Invalid_location{}}
+        case Con{placed, rest}: Layout.Packed.Result.bind(ListOf(String), ListOf(String), Mapping.Source.field_rows(tail, rest), rows => Done{Mapping.Source.field_json(field, placed) <> rows})
+@unsafe
+def Mapping.Source.print(schema: Mapping.Source.Schema) -> Layout.Packed.Result(String):
+  match schema:
+    case Mapping.Source.Schema{contract, +fields}:
+      Layout.Packed.Result.bind(ListOf(Layout.Packed.Field), String, Layout.Packed.plan(Mapping.Source.parameters(fields)), physical =>
+        Layout.Packed.Result.bind(ListOf(String), String, Mapping.Source.field_rows(fields, physical), rows =>
+          Done{String.concat(["{\u{22}contract\u{22}:", Abi.quote(contract), ",\u{22}storage\u{22}:[", String.join(rows, ","), "]}"])}))

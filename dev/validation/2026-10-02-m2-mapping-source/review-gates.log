@@ -1,0 +1,36 @@
+05:27:03
+$ zsh -f dev/carry-check.sh
+PIN 2c2e6e6831a0b2cf3107fa4aad392606109a2bcf
+CARRY files=12/12 diff=0 unlisted=0
+rc=0
+$ zsh -f dev/house.sh
+HOUSE no-exception OK
+HOUSE named-catchalls OK
+HOUSE no-mutable-state OK
+HOUSE one-catch-site OK
+HOUSE foreign-boundary OK
+HOUSE bool-dispatch OK
+HOUSE no-loop-keyword OK
+HOUSE no-bare-division OK
+HOUSE no-em-dash OK
+HOUSE OK
+rc=0
+$ zsh -f dev/trusted-lines.sh
+TRUSTED-LINES kernel=3767/4000
+TRUSTED-LINES emitter=1792/1800
+TRUSTED-LINES assembler=414/505
+TRUSTED-LINES keccak=181/250
+TRUSTED-LINES abi=495/495
+TRUSTED-LINES layout=238/250
+TRUSTED-LINES listing=64/250
+TRUSTED-LINES total=3184/3550 ratified=3550
+TRUSTED-LINES OK
+rc=0
+$ shasum -a 256 -c dev/DENOMINATORS.sha256 (non-OK lines)
+rows=     294
+$ shasum -a 256 -c dev/BEND2.sha256 (non-OK lines)
+rows=       1
+$ shasum -a 256 -c dev/validation/2026-10-02-m2-mapping-source/SOURCE-HASHES.sha256 (non-OK lines)
+rows=      15
+non-OK total=0
+EXIT=0

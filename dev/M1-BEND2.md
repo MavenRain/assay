@@ -149,14 +149,16 @@ run cannot pass the leg.
 The 75-leg M1 closure battery preserves the existing non-speed checks.
 The two speed legs run through make gates-m4-speed, or
 python3 -P dev/stage-a-gates.py --m4-speed.
-The prior --lexer-direct schedule now has 93 checks. The default
-make gates and dev/gates.sh select --m2-source-packing, which appends the
+The prior --lexer-direct schedule now has 93 checks. The
+--m2-source-packing mode appends the
 [mapping CLI check](M2-MAPPING.md#command-line), the
 [event CLI check](M2-EVENTS.md#command-line), the
 [event decoding CLI check](M2-EVENT-DECODE.md#command-line), the
 [calldata CLI check](M2-CALLDATA-CLI.md), the milestone
 ownership check and [source packing check](M2-SOURCE-PACKING.md), for 99
-checks.
+checks. The default make gates and dev/gates.sh now select
+--m2-mapping-source, which appends the
+[mapping source check](M2-MAPPING-SOURCE.md), for 100 checks.
 Historical OCaml tools, native timing records and source seals remain
 available as diagnostics.
 

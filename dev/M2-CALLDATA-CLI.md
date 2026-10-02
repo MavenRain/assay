@@ -51,7 +51,7 @@ calldata within the cap. It checks 196 refusals. These include inputs
 just above each 131072-byte cap and a decoding input of exactly 131072
 bytes, which passes the cap and fails on trailing data. It also checks
 historical CLI compatibility and two altered dispatch/help pin controls.
-`make test` and the default 99-leg M2 source-packing gate schedule include
+`make test` and the default 100-leg M2 mapping-source gate schedule include
 `CALLDATA-CLI`.
 The validation record is
 `dev/validation/2026-10-01-m2-calldata-cli/`.

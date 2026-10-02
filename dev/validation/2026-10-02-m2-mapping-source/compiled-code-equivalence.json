@@ -1,0 +1,9 @@
+{
+  "version": 1,
+  "result": "OK",
+  "change": "none: rebuilt by make all from the final review source",
+  "compiled_source_sha256": "e64b8d690a58b1ee3d340bb674ea8777b18f970343b27a4e5acb786711558054",
+  "current_source_sha256": "e64b8d690a58b1ee3d340bb674ea8777b18f970343b27a4e5acb786711558054",
+  "output_sha256": "9da5fdeae0dd31f3136ddba6bcd1a5073f597c151736d0ca4b550b8078483a2f",
+  "compiler_commit": "c65bcb788dbfb298bb434c1d858b47c193841dc0"
+}

@@ -315,7 +315,7 @@ def Cli.when(test: Bool, yes: Unit -> IO(Unit), no: Unit -> IO(Unit)) -> IO(Unit
     case True{}: yes(Unit{})
     case False{}: no(Unit{})
 def Cli.fail(code: U32, message: String) -> IO(Unit): NativeIO.die(Unit, code, message)
-def Cli.usage() -> IO(Unit): Cli.fail(64, "usage: assay check [--print|--erased] FILE | axioms FILE | spec-count | emit FILE -o DIR | trace FILE --calldata HEX [--prestate FILE] [--value WORD] [--caller ADDRESS] | diff FILE --calldata HEX [--prestate FILE] [--value WORD] [--caller ADDRESS] | run FILE [--calldata HEX] [--storage SLOT=WORD]... [--value WORD] [--caller ADDRESS] [--address ADDRESS] [--export NAME] | mapping-slot BASE TYPE KEY [TYPE KEY]... | event-encode NAME [--anonymous] [TYPE indexed|data VALUE]... | event-decode NAME [--anonymous] --topics HEX[,HEX]... --data HEX [TYPE indexed|data]... | calldata-encode NAME [TYPE VALUE]... | calldata-decode NAME HEX [TYPE]... | deploy FILE | test FILE")
+def Cli.usage() -> IO(Unit): Cli.fail(64, "usage: assay check [--print|--erased] FILE | axioms FILE | spec-count | emit FILE -o DIR | trace FILE --calldata HEX [--prestate FILE] [--value WORD] [--caller ADDRESS] | diff FILE --calldata HEX [--prestate FILE] [--value WORD] [--caller ADDRESS] | run FILE [--calldata HEX] [--storage SLOT=WORD]... [--value WORD] [--caller ADDRESS] [--address ADDRESS] [--export NAME] | mapping-slot BASE TYPE KEY [TYPE KEY]... | event-encode NAME [--anonymous] [TYPE indexed|data VALUE]... | event-decode NAME [--anonymous] --topics HEX[,HEX]... --data HEX [TYPE indexed|data]... | calldata-encode NAME [TYPE VALUE]... | calldata-decode NAME HEX [TYPE]... | mapping-layout FILE | deploy FILE | test FILE")
 
 type Cli.Event.Fields is Data:
   Cli.Event.Fields{inputs: ListOf(Abi.Schema.Event_parameter), values: ListOf(Abi.Codec.Value)}
@@ -846,11 +846,12 @@ def Cli.dispatch(+command: String, +args: List<&2, String>) -> IO(Unit):
   Cli.when(NativeString.equal(command, "emit"), _ => Cli.dispatch_emit(args), _ =>
   Cli.when(Cli.member(command, ["trace", "diff", "run"]), _ => Cli.dispatch_options(command, args), _ =>
   Cli.when(NativeString.equal(command, "mapping-slot"), _ => Cli.Mapping.run(args), _ =>
+  Cli.when(NativeString.equal(command, "mapping-layout"), _ => Cli.MappingSource.run(args), _ =>
   Cli.when(NativeString.equal(command, "event-encode"), _ => Cli.Event.run(args), _ =>
   Cli.when(NativeString.equal(command, "event-decode"), _ => Cli.EventDecode.run(args), _ =>
   Cli.when(NativeString.equal(command, "calldata-encode"), _ => Cli.Call.encode(args), _ =>
   Cli.when(NativeString.equal(command, "calldata-decode"), _ => Cli.Call.decode(args), _ =>
-  Cli.when(Cli.member(command, ["deploy", "test"]), _ => Cli.fail(3, String.concat(["assay: ", command, ": PENDING (M1)"])), _ => Cli.usage())))))))))))
+  Cli.when(Cli.member(command, ["deploy", "test"]), _ => Cli.fail(3, String.concat(["assay: ", command, ": PENDING (M1)"])), _ => Cli.usage()))))))))))))
 def Cli.main(args: List<&2, String>) -> IO(Unit):
   match args:
     case Nil{}: Cli.usage()
@@ -936,3 +937,21 @@ def Case.Packed.switch_42(+packed_switch_42: CheckResult(Packed.Source.Info()), 
     case Done{Tup3{name, core, parameters}}: do IO<Cli.Packed.Checked()>:
       checked : Cli.Checked <- Cli.lowered(basename, Done{Tup2{name, core}})
       return Tup2{checked, parameters}
+
+@unsafe
+def Cli.MappingSource.output(+result: Layout.Packed.Result(String)) -> IO(Unit):
+  match result:
+    case Done{json}: NativeIO.stdout(String.append(json, "\n"))
+    case Fail{_}: Cli.fail(1, "assay: mapping-layout: invalid storage layout (duplicate field or unsupported type)")
+@unsafe
+def Cli.MappingSource.read(+path: String, +exists: Bool) -> IO(Unit):
+  Native.choose(&1, IO(Unit), exists, _ => (do IO<Unit>:
+    read : Result<&2, &2, String, String> <- NativeIO.read(path)
+    source : String <- Cli.require(String, 64, read)
+    schema : Mapping.Source.Schema <- Cli.kernel(Mapping.Source.Schema, Mapping.Source.parse(source))
+    Cli.MappingSource.output(Mapping.Source.print(schema))), _ => Cli.fail(64, String.append("assay: cannot read ", path)))
+@unsafe
+def Cli.MappingSource.run(+args: ListOf(String)) -> IO(Unit):
+  match args:
+    case Con{+path, Nil{}}: IO.bind(Bool, Unit, OS.regular(path), exists => Cli.MappingSource.read(path, exists))
+    case _: Cli.fail(64, "usage: assay mapping-layout FILE")

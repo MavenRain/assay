@@ -18,9 +18,9 @@
   "carried": {
     "src/abi.bend": "393d3f535cc3cff42605c702ef66d576cd803b4dc9745c8e69c7489527fac969",
     "src/assembler.bend": "99dd49f4b48478ba8c587342c9d2e0ce4e74e28c904a650440f1f6f783c817b1",
-    "src/cli.bend": "e82c7d69b6f434c8ae714c7601f715c435c6f2607242df5eb61afb05ef8a3242",
+    "src/cli.bend": "c424ffc6b2f8b73a1c1106d72b1a4c3c94ce9d50d11897beb936c71a52208cf7",
     "src/emitter.bend": "945a260e7b605251c193b447f0ed2ce73e0213883e05bd2be3b7c986679859b7",
-    "src/frontend.bend": "a1bbd1d32b4e729938df9ba9b07bed6df8adc0dcf4b575a7b473eab0ae9df02b",
+    "src/frontend.bend": "002936f46ba196b2680ae9a5d555673139e13d30d955efc32d782aa74835f547",
     "src/keccak.bend": "cbfb3275116d3703a803181ceeafe8dc3e74d53f21cb9a539f29c28c5bc8e98a",
     "src/kernel.bend": "12657d56799719ee73fd354eae52335847cd20fd5d31aa791434a9e34bac717e",
     "src/layout.bend": "e3081d285ac1a4bfcad28347db772442d4d86a0c430596737ce27f48d0dd2017",

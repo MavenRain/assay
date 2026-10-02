@@ -62,11 +62,11 @@ must pass the same witnesses.
 
 The explicit `--m2-packing` gate mode appends `LAYOUT-PACKED` to the
 78-leg codec schedule, for 79 legs. The current default,
-`--m2-source-packing`, additionally runs [LAYOUT-MAPPING](M2-MAPPING.md),
+`--m2-mapping-source`, additionally runs [LAYOUT-MAPPING](M2-MAPPING.md),
 [EVENT-CODEC](M2-EVENTS.md), [CALL-CODEC](M2-CALLDATA.md),
 [RETURN-CODEC](M2-RETURNDATA.md), [REVERT-CODEC](M2-REVERTDATA.md)
-and the later checks, for 99 legs; see
-[M2-SOURCE-PACKING](M2-SOURCE-PACKING.md). Counts exclude BEND2-RATIO and BEND2-RATIO-TEST, which moved to
+and the later checks, for 100 legs; see
+[M2-MAPPING-SOURCE](M2-MAPPING-SOURCE.md). Counts exclude BEND2-RATIO and BEND2-RATIO-TEST, which moved to
 [`--m4-speed`](M4-SPEED.md) on 2026-10-01. All 48 prior modes preserve their schedules, deadlines
 and failure classification. The existing trusted-source limits are intact.
 The [validation record](validation/2026-09-25-m2-packing/README.md) records

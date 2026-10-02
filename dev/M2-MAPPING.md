@@ -63,7 +63,7 @@ run with `true` and `false`. The frozen locations use 40-digit hexadecimal
 addresses. Two cases use the widest accepted spellings, and refusals cover
 one more digit. Each refusal must give its own diagnostic text.
 The default M2 gate schedule now includes this check and retains every
-previous check. It had 96 legs at this slice; the default now runs 99.
+previous check. It had 96 legs at this slice; the default now runs 100.
 Compiler speed stays in M4.
 
 ## Validation
@@ -97,7 +97,7 @@ deadlines, markers and failure classifications. The
 [validation record](validation/2026-09-25-m2-mapping/README.md) records the
 actual full-suite outcome and performance results.
 
-The default now selects `--m2-source-packing`, adding
+The default now selects `--m2-mapping-source`, adding
 [EVENT-CODEC](M2-EVENTS.md), [CALL-CODEC](M2-CALLDATA.md),
 [RETURN-CODEC](M2-RETURNDATA.md), [REVERT-CODEC](M2-REVERTDATA.md),
 [EVENT-DECODE](M2-EVENT-DECODE.md), [LEXER-KEYWORDS](LEXER-KEYWORDS.md),
@@ -109,8 +109,9 @@ The default now selects `--m2-source-packing`, adding
 [MAPPING-CLI](#command-line),
 [EVENT-CLI](M2-EVENTS.md#command-line),
 [EVENT-DECODE-CLI](M2-EVENT-DECODE.md#command-line),
-[CALLDATA-CLI](M2-CALLDATA-CLI.md), MILESTONE-SPEED and
-[PACKED-SOURCE](M2-SOURCE-PACKING.md), for 99 checks.
+[CALLDATA-CLI](M2-CALLDATA-CLI.md), MILESTONE-SPEED,
+[PACKED-SOURCE](M2-SOURCE-PACKING.md) and
+[MAPPING-SOURCE](M2-MAPPING-SOURCE.md), for 100 checks.
 Counts exclude BEND2-RATIO and BEND2-RATIO-TEST, which moved to
 [`--m4-speed`](M4-SPEED.md) on 2026-10-01.
 

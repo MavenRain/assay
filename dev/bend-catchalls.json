@@ -4354,5 +4354,14 @@
     "arm_sha256": "a233209899f54025859d2c75c705ed718d8aae903d786459935bdfcd3841157e",
     "arity": 1,
     "reason": "test driver usage: arguments the driver does not name exit 64 with the usage line the OCaml helper printed."
+  },
+  {
+    "definition": "Cli.MappingSource.run",
+    "path": "src/cli.bend",
+    "line": 957,
+    "arm": "case _: Cli.fail(64, \"usage: assay mapping-layout FILE\")",
+    "arm_sha256": "518185167ca7ef228e021c8042ad42b2584dabfae4ec62027124f01d54b7770e",
+    "arity": 1,
+    "reason": "Reject every argument list other than exactly one source path with status 64 and the command usage."
   }
 ]
