@@ -1,0 +1,1325 @@
+{
+  "version": 1,
+  "cases": [
+    {
+      "name": "Empty",
+      "args": [
+        "Empty",
+        "--topics",
+        "0x3db2a12a1fcfb6e2e0de8666c64b3244166edb7b25b200204a8d0cca9b65cf37",
+        "--data",
+        "0x"
+      ],
+      "expected": {
+        "values": []
+      }
+    },
+    {
+      "name": "AnonymousEmpty",
+      "args": [
+        "AnonymousEmpty",
+        "--anonymous",
+        "--topics",
+        "",
+        "--data",
+        "0x"
+      ],
+      "expected": {
+        "values": []
+      }
+    },
+    {
+      "name": "_",
+      "args": [
+        "_",
+        "--topics",
+        "0xb7ba458397bc97e44c1be34f6a0ab0aac0ebeff88c24ee2cdddef2ac68b19ea9",
+        "--data",
+        "0x"
+      ],
+      "expected": {
+        "values": []
+      }
+    },
+    {
+      "name": "A0_",
+      "args": [
+        "A0_",
+        "--topics",
+        "0x358db8431243cc24d0eb36a7d85abbe8071ee7af2ccaf22a43db83f18652eb3c",
+        "--data",
+        "0x"
+      ],
+      "expected": {
+        "values": []
+      }
+    },
+    {
+      "name": "Transfer",
+      "args": [
+        "Transfer",
+        "--topics",
+        "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef,0x0000000000000000000000000000000000000000000000000000000000000001,0x0000000000000000000000000000000000000000000000000000000000000002",
+        "--data",
+        "0x0000000000000000000000000000000000000000000000000000000000000003",
+        "address",
+        "indexed",
+        "address",
+        "indexed",
+        "uint256",
+        "data"
+      ],
+      "expected": {
+        "values": [
+          {
+            "type": "address",
+            "value": "0x0000000000000000000000000000000000000001"
+          },
+          {
+            "type": "address",
+            "value": "0x0000000000000000000000000000000000000002"
+          },
+          {
+            "type": "uint256",
+            "value": "3"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Approval",
+      "args": [
+        "Approval",
+        "--topics",
+        "0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925,0x000000000000000000000000ffffffffffffffffffffffffffffffffffffffff,0x0000000000000000000000000000000000000000000000000000000000000000",
+        "--data",
+        "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+        "address",
+        "indexed",
+        "address",
+        "indexed",
+        "uint256",
+        "data"
+      ],
+      "expected": {
+        "values": [
+          {
+            "type": "address",
+            "value": "0xffffffffffffffffffffffffffffffffffffffff"
+          },
+          {
+            "type": "address",
+            "value": "0x0000000000000000000000000000000000000000"
+          },
+          {
+            "type": "uint256",
+            "value": "115792089237316195423570985008687907853269984665640564039457584007913129639935"
+          }
+        ]
+      }
+    },
+    {
+      "name": "TopicOrder",
+      "args": [
+        "TopicOrder",
+        "--topics",
+        "0x6f8d83cdba59819e08d5a0efa302a291b16d36396564495c064a2dc898561f33,0x0000000000000000000000000000000000000000000000000000000000000001,0x0000000000000000000000000000000000000000000000000000000000000002,0x0000000000000000000000000000000000000000000000000000000000000003",
+        "--data",
+        "0x",
+        "uint8",
+        "indexed",
+        "uint8",
+        "indexed",
+        "uint8",
+        "indexed"
+      ],
+      "expected": {
+        "values": [
+          {
+            "type": "uint8",
+            "value": "1"
+          },
+          {
+            "type": "uint8",
+            "value": "2"
+          },
+          {
+            "type": "uint8",
+            "value": "3"
+          }
+        ]
+      }
+    },
+    {
+      "name": "DataOrder",
+      "args": [
+        "DataOrder",
+        "--topics",
+        "0x6353df883b1564362312efb31c47f32febb5aa3942f32e8693e6c431ca18d2e9",
+        "--data",
+        "0x00000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000300000000000000000000000000000000000000000000000000000000000000040000000000000000000000000000000000000000000000000000000000000005",
+        "uint8",
+        "data",
+        "uint8",
+        "data",
+        "uint8",
+        "data",
+        "uint8",
+        "data",
+        "uint8",
+        "data"
+      ],
+      "expected": {
+        "values": [
+          {
+            "type": "uint8",
+            "value": "1"
+          },
+          {
+            "type": "uint8",
+            "value": "2"
+          },
+          {
+            "type": "uint8",
+            "value": "3"
+          },
+          {
+            "type": "uint8",
+            "value": "4"
+          },
+          {
+            "type": "uint8",
+            "value": "5"
+          }
+        ]
+      }
+    },
+    {
+      "name": "FourTopics",
+      "args": [
+        "FourTopics",
+        "--anonymous",
+        "--topics",
+        "0x0000000000000000000000000000000000000000000000000000000000000001,0x0000000000000000000000000000000000000000000000000000000000000002,0x0000000000000000000000000000000000000000000000000000000000000003,0x0000000000000000000000000000000000000000000000000000000000000004",
+        "--data",
+        "0x",
+        "uint8",
+        "indexed",
+        "uint8",
+        "indexed",
+        "uint8",
+        "indexed",
+        "uint8",
+        "indexed"
+      ],
+      "expected": {
+        "values": [
+          {
+            "type": "uint8",
+            "value": "1"
+          },
+          {
+            "type": "uint8",
+            "value": "2"
+          },
+          {
+            "type": "uint8",
+            "value": "3"
+          },
+          {
+            "type": "uint8",
+            "value": "4"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Mixed",
+      "args": [
+        "Mixed",
+        "--topics",
+        "0xc2358caee25dd6bd38985910f4b0d0d89ed7057990d1597bcce6a23f567cf483,0x0000000000000000000000000000000000000000000000000000000000000007,0x2657ebb9a77e63da8a8b80e66e4f11d36252125fecbd236bff2c1c0227113b51",
+        "--data",
+        "0x000000000000000000000000000000000000000000000000000000000000004000000000000000000000000000000000000000000000000000000000000000800000000000000000000000000000000000000000000000000000000000000001610000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000016400000000000000000000000000000000000000000000000000000000000000",
+        "string",
+        "data",
+        "uint8",
+        "indexed",
+        "string",
+        "indexed",
+        "string",
+        "data"
+      ],
+      "expected": {
+        "values": [
+          {
+            "type": "string",
+            "bytes": "0x61"
+          },
+          {
+            "type": "uint8",
+            "value": "7"
+          },
+          {
+            "type": "string",
+            "hash": "0x2657ebb9a77e63da8a8b80e66e4f11d36252125fecbd236bff2c1c0227113b51"
+          },
+          {
+            "type": "string",
+            "bytes": "0x64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Boundary_uint8_0_0",
+      "args": [
+        "Boundary_uint8_0_0",
+        "--topics",
+        "0xaa0eba971a410fc56ef7bf21220792d9f4c9fbbdc969154216dddcd7d397a5e5",
+        "--data",
+        "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "uint8",
+        "data"
+      ],
+      "expected": {
+        "values": [
+          {
+            "type": "uint8",
+            "value": "0"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Boundary_uint8_0_1",
+      "args": [
+        "Boundary_uint8_0_1",
+        "--topics",
+        "0xca059ccd04bf0b3ba7a1f166c5cb2e320126b0dc9819989eef71e5e9dab4d2c2,0x0000000000000000000000000000000000000000000000000000000000000000",
+        "--data",
+        "0x",
+        "uint8",
+        "indexed"
+      ],
+      "expected": {
+        "values": [
+          {
+            "type": "uint8",
+            "value": "0"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Boundary_uint8_1_0",
+      "args": [
+        "Boundary_uint8_1_0",
+        "--topics",
+        "0xd00c18b240931ced52da51917a8bc42b40f6c404e0e54308931f74d6908691b6",
+        "--data",
+        "0x00000000000000000000000000000000000000000000000000000000000000ff",
+        "uint8",
+        "data"
+      ],
+      "expected": {
+        "values": [
+          {
+            "type": "uint8",
+            "value": "255"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Boundary_uint8_1_1",
+      "args": [
+        "Boundary_uint8_1_1",
+        "--topics",
+        "0x6605cb73ab83726700922402ba5eae310a9624a1c99c04b32130c60d66476e7d,0x00000000000000000000000000000000000000000000000000000000000000ff",
+        "--data",
+        "0x",
+        "uint8",
+        "indexed"
+      ],
+      "expected": {
+        "values": [
+          {
+            "type": "uint8",
+            "value": "255"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Boundary_uint8_2_0",
+      "args": [
+        "Boundary_uint8_2_0",
+        "--topics",
+        "0xb6229a28eb60f1de81bae938d1b2d43352af701502554e47fe948f5ba1452204",
+        "--data",
+        "0x00000000000000000000000000000000000000000000000000000000000000ff",
+        "uint8",
+        "data"
+      ],
+      "expected": {
+        "values": [
+          {
+            "type": "uint8",
+            "value": "255"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Boundary_uint8_2_1",
+      "args": [
+        "Boundary_uint8_2_1",
+        "--topics",
+        "0x14f18e7a593b4a4913a0908ded8fc286cdf054d4553f3028391ac0697a3433fc,0x00000000000000000000000000000000000000000000000000000000000000ff",
+        "--data",
+        "0x",
+        "uint8",
+        "indexed"
+      ],
+      "expected": {
+        "values": [
+          {
+            "type": "uint8",
+            "value": "255"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Boundary_uint256_0_0",
+      "args": [
+        "Boundary_uint256_0_0",
+        "--topics",
+        "0x5ff6b4701681e72e255871c463475abb23cafd46969d2abc779dc825d6488767",
+        "--data",
+        "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "uint256",
+        "data"
+      ],
+      "expected": {
+        "values": [
+          {
+            "type": "uint256",
+            "value": "0"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Boundary_uint256_0_1",
+      "args": [
+        "Boundary_uint256_0_1",
+        "--topics",
+        "0xb578e6fee75f5f5b15cec8dc0f7fc8aab370bb804aaa32b28f4530d88308ed9b,0x0000000000000000000000000000000000000000000000000000000000000000",
+        "--data",
+        "0x",
+        "uint256",
+        "indexed"
+      ],
+      "expected": {
+        "values": [
+          {
+            "type": "uint256",
+            "value": "0"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Boundary_uint256_1_0",
+      "args": [
+        "Boundary_uint256_1_0",
+        "--topics",
+        "0x21ce99cc780c3bc4856aa9eb40c592969cf9eb273593a4f40751e8bc14e38233",
+        "--data",
+        "0x8000000000000000000000000000000000000000000000000000000000000000",
+        "uint256",
+        "data"
+      ],
+      "expected": {
+        "values": [
+          {
+            "type": "uint256",
+            "value": "57896044618658097711785492504343953926634992332820282019728792003956564819968"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Boundary_uint256_1_1",
+      "args": [
+        "Boundary_uint256_1_1",
+        "--topics",
+        "0xb7bc6ef6a4f29bdda6e770effd970e26f79cb11d47d1314905aeec51ff710b56,0x8000000000000000000000000000000000000000000000000000000000000000",
+        "--data",
+        "0x",
+        "uint256",
+        "indexed"
+      ],
+      "expected": {
+        "values": [
+          {
+            "type": "uint256",
+            "value": "57896044618658097711785492504343953926634992332820282019728792003956564819968"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Boundary_uint256_2_0",
+      "args": [
+        "Boundary_uint256_2_0",
+        "--topics",
+        "0x23507066d702669eaa65193fc87760d42c88d4ca479b2f5ee554cb5590d86e25",
+        "--data",
+        "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+        "uint256",
+        "data"
+      ],
+      "expected": {
+        "values": [
+          {
+            "type": "uint256",
+            "value": "115792089237316195423570985008687907853269984665640564039457584007913129639935"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Boundary_uint256_2_1",
+      "args": [
+        "Boundary_uint256_2_1",
+        "--topics",
+        "0xe4bb7f9a7c536da9db0fab7c705578e40038d596d5d321730279cdd65e72d5b3,0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+        "--data",
+        "0x",
+        "uint256",
+        "indexed"
+      ],
+      "expected": {
+        "values": [
+          {
+            "type": "uint256",
+            "value": "115792089237316195423570985008687907853269984665640564039457584007913129639935"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Boundary_uint256_3_0",
+      "args": [
+        "Boundary_uint256_3_0",
+        "--topics",
+        "0xf52795b43cd9abe82d24b69d5f300f36b84a3a6e10322ca772a11e5e1e64092f",
+        "--data",
+        "0x0000000000000000000000000000000000000000000000000000000000000abc",
+        "uint256",
+        "data"
+      ],
+      "expected": {
+        "values": [
+          {
+            "type": "uint256",
+            "value": "2748"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Boundary_uint256_3_1",
+      "args": [
+        "Boundary_uint256_3_1",
+        "--topics",
+        "0x0be9afe17f48700bab843e67c9c041acdb1567184506cbbc9466c6bb8d21397a,0x0000000000000000000000000000000000000000000000000000000000000abc",
+        "--data",
+        "0x",
+        "uint256",
+        "indexed"
+      ],
+      "expected": {
+        "values": [
+          {
+            "type": "uint256",
+            "value": "2748"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Boundary_address_0_0",
+      "args": [
+        "Boundary_address_0_0",
+        "--topics",
+        "0xba1fb0c856b9ffb7152236d5b2516eaa2164174fb68984d07f07e9c2c9feae94",
+        "--data",
+        "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "address",
+        "data"
+      ],
+      "expected": {
+        "values": [
+          {
+            "type": "address",
+            "value": "0x0000000000000000000000000000000000000000"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Boundary_address_0_1",
+      "args": [
+        "Boundary_address_0_1",
+        "--topics",
+        "0x04d40ff4caad916fe8c4a451342d0316eb6951cb00ca358570a50245e2d54ddd,0x0000000000000000000000000000000000000000000000000000000000000000",
+        "--data",
+        "0x",
+        "address",
+        "indexed"
+      ],
+      "expected": {
+        "values": [
+          {
+            "type": "address",
+            "value": "0x0000000000000000000000000000000000000000"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Boundary_address_1_0",
+      "args": [
+        "Boundary_address_1_0",
+        "--topics",
+        "0x341f222db236305be941c463bd2df7c7c8b51f30a869722aa5d3f3bb7416f379",
+        "--data",
+        "0x000000000000000000000000ffffffffffffffffffffffffffffffffffffffff",
+        "address",
+        "data"
+      ],
+      "expected": {
+        "values": [
+          {
+            "type": "address",
+            "value": "0xffffffffffffffffffffffffffffffffffffffff"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Boundary_address_1_1",
+      "args": [
+        "Boundary_address_1_1",
+        "--topics",
+        "0xa5771a48ddaafde9a451caef5fb2c8d42eb70bd5d92facfae023de0dce3746e6,0x000000000000000000000000ffffffffffffffffffffffffffffffffffffffff",
+        "--data",
+        "0x",
+        "address",
+        "indexed"
+      ],
+      "expected": {
+        "values": [
+          {
+            "type": "address",
+            "value": "0xffffffffffffffffffffffffffffffffffffffff"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Boundary_address_2_0",
+      "args": [
+        "Boundary_address_2_0",
+        "--topics",
+        "0x4b446c5afb2174524e5abb3664b9cdb2dac304d0782865fdc906780a7a65fb92",
+        "--data",
+        "0x0000000000000000000000000000000000000000000000000000000000001234",
+        "address",
+        "data"
+      ],
+      "expected": {
+        "values": [
+          {
+            "type": "address",
+            "value": "0x0000000000000000000000000000000000001234"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Boundary_address_2_1",
+      "args": [
+        "Boundary_address_2_1",
+        "--topics",
+        "0xd5e1d240edc5a9bce7d197f4add4380db0b8f35eda4fcee70080f793973e17e0,0x0000000000000000000000000000000000000000000000000000000000001234",
+        "--data",
+        "0x",
+        "address",
+        "indexed"
+      ],
+      "expected": {
+        "values": [
+          {
+            "type": "address",
+            "value": "0x0000000000000000000000000000000000001234"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Boundary_bool_0_0",
+      "args": [
+        "Boundary_bool_0_0",
+        "--topics",
+        "0x6d484304e701d3ed98715d5bd5aed86bc83511464ea9d4068111eae304ad9d67",
+        "--data",
+        "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "bool",
+        "data"
+      ],
+      "expected": {
+        "values": [
+          {
+            "type": "bool",
+            "value": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "Boundary_bool_0_1",
+      "args": [
+        "Boundary_bool_0_1",
+        "--topics",
+        "0x3fb4c293920397d8caf00aa19b47ba3a71961cec4570d596d039a20e0dec1594,0x0000000000000000000000000000000000000000000000000000000000000000",
+        "--data",
+        "0x",
+        "bool",
+        "indexed"
+      ],
+      "expected": {
+        "values": [
+          {
+            "type": "bool",
+            "value": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "Boundary_bool_1_0",
+      "args": [
+        "Boundary_bool_1_0",
+        "--topics",
+        "0x92ebede826031044ad4f5f10fc60edf2fa524e48d47460ec9cec6778de619821",
+        "--data",
+        "0x0000000000000000000000000000000000000000000000000000000000000001",
+        "bool",
+        "data"
+      ],
+      "expected": {
+        "values": [
+          {
+            "type": "bool",
+            "value": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "Boundary_bool_1_1",
+      "args": [
+        "Boundary_bool_1_1",
+        "--topics",
+        "0x1db293f6aadda038bb6c31534df1dd50b690fb1c83a0fc420aa6bb08f51b7f78,0x0000000000000000000000000000000000000000000000000000000000000001",
+        "--data",
+        "0x",
+        "bool",
+        "indexed"
+      ],
+      "expected": {
+        "values": [
+          {
+            "type": "bool",
+            "value": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "String_0_0",
+      "args": [
+        "String_0_0",
+        "--topics",
+        "0x1aa68541feaeaaf59d38692f3df18a7d9b70d9a805f4414affc0f169e3fded16",
+        "--data",
+        "0x00000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000000",
+        "string",
+        "data"
+      ],
+      "expected": {
+        "values": [
+          {
+            "type": "string",
+            "bytes": "0x"
+          }
+        ]
+      }
+    },
+    {
+      "name": "String_0_1",
+      "args": [
+        "String_0_1",
+        "--topics",
+        "0xc7560c837eb853666b86b5e60e85310443635ecf4ed1dd1a77c29bb1f6a24de6,0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470",
+        "--data",
+        "0x",
+        "string",
+        "indexed"
+      ],
+      "expected": {
+        "values": [
+          {
+            "type": "string",
+            "hash": "0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470"
+          }
+        ]
+      }
+    },
+    {
+      "name": "String_1_0",
+      "args": [
+        "String_1_0",
+        "--topics",
+        "0x9e194504e004584a504493008900b0352aad1448f58d9ffc6c8d964daed0b810",
+        "--data",
+        "0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000036162630000000000000000000000000000000000000000000000000000000000",
+        "string",
+        "data"
+      ],
+      "expected": {
+        "values": [
+          {
+            "type": "string",
+            "bytes": "0x616263"
+          }
+        ]
+      }
+    },
+    {
+      "name": "String_1_1",
+      "args": [
+        "String_1_1",
+        "--topics",
+        "0x04209ecc13e05b722cb0e4b9655adb3659d734da6a6e379ca92342433060f2c3,0x4e03657aea45a94fc7d47ba826c8d667c0d1e6e33a64a036ec44f58fa12d6c45",
+        "--data",
+        "0x",
+        "string",
+        "indexed"
+      ],
+      "expected": {
+        "values": [
+          {
+            "type": "string",
+            "hash": "0x4e03657aea45a94fc7d47ba826c8d667c0d1e6e33a64a036ec44f58fa12d6c45"
+          }
+        ]
+      }
+    },
+    {
+      "name": "String_2_0",
+      "args": [
+        "String_2_0",
+        "--topics",
+        "0x7eea3a2fc306473bdaf36a79cc421aa289eda55668c8468dce0c047a82830908",
+        "--data",
+        "0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000017c00000000000000000000000000000000000000000000000000000000000000",
+        "string",
+        "data"
+      ],
+      "expected": {
+        "values": [
+          {
+            "type": "string",
+            "bytes": "0x7c"
+          }
+        ]
+      }
+    },
+    {
+      "name": "String_2_1",
+      "args": [
+        "String_2_1",
+        "--topics",
+        "0xe794a2fe711d3542885b177d1a6670b5848f06c71c3cabbf0968461721108d25,0xf2736824a8d8680efd16063b669359e760b24936629c9681635556c2b7fa269f",
+        "--data",
+        "0x",
+        "string",
+        "indexed"
+      ],
+      "expected": {
+        "values": [
+          {
+            "type": "string",
+            "hash": "0xf2736824a8d8680efd16063b669359e760b24936629c9681635556c2b7fa269f"
+          }
+        ]
+      }
+    },
+    {
+      "name": "String_3_0",
+      "args": [
+        "String_3_0",
+        "--topics",
+        "0x391544bb0761313a3a0e06abd58b3ec31cd247ba894f904fceb833ae52d543d9",
+        "--data",
+        "0x0000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000b2d2d616e6f6e796d6f7573000000000000000000000000000000000000000000",
+        "string",
+        "data"
+      ],
+      "expected": {
+        "values": [
+          {
+            "type": "string",
+            "bytes": "0x2d2d616e6f6e796d6f7573"
+          }
+        ]
+      }
+    },
+    {
+      "name": "String_3_1",
+      "args": [
+        "String_3_1",
+        "--topics",
+        "0xcd9a65c3c903ff1d305c3b28abf545a0329cb641157344503e08067a77719b3a,0xee90513d92a860bde2cbaad6fbe8d254377de9ba8414866473ef2bdcfc4c41e9",
+        "--data",
+        "0x",
+        "string",
+        "indexed"
+      ],
+      "expected": {
+        "values": [
+          {
+            "type": "string",
+            "hash": "0xee90513d92a860bde2cbaad6fbe8d254377de9ba8414866473ef2bdcfc4c41e9"
+          }
+        ]
+      }
+    },
+    {
+      "name": "String_4_0",
+      "args": [
+        "String_4_0",
+        "--topics",
+        "0x9373c871fa0b88180062f764bcc4ae0c0630c99801f08538e18e991d5e96541b",
+        "--data",
+        "0x00000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000004225c0a0900000000000000000000000000000000000000000000000000000000",
+        "string",
+        "data"
+      ],
+      "expected": {
+        "values": [
+          {
+            "type": "string",
+            "bytes": "0x225c0a09"
+          }
+        ]
+      }
+    },
+    {
+      "name": "String_4_1",
+      "args": [
+        "String_4_1",
+        "--topics",
+        "0x9c199c9bdf078ab240d38ada5839017a01b4a613f2d83aaa0e85c66e7ecdeb12,0x9aa45f8ca282afa1452737bb998921de6f7d505a305e42917695ebc1dbd24473",
+        "--data",
+        "0x",
+        "string",
+        "indexed"
+      ],
+      "expected": {
+        "values": [
+          {
+            "type": "string",
+            "hash": "0x9aa45f8ca282afa1452737bb998921de6f7d505a305e42917695ebc1dbd24473"
+          }
+        ]
+      }
+    },
+    {
+      "name": "String_5_0",
+      "args": [
+        "String_5_0",
+        "--topics",
+        "0x0f55f271d1dde2d3b7b10d99b1a073e78fc3707692620b9343a1c40c50cc4f4b",
+        "--data",
+        "0x00000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000002c3a9000000000000000000000000000000000000000000000000000000000000",
+        "string",
+        "data"
+      ],
+      "expected": {
+        "values": [
+          {
+            "type": "string",
+            "bytes": "0xc3a9"
+          }
+        ]
+      }
+    },
+    {
+      "name": "String_5_1",
+      "args": [
+        "String_5_1",
+        "--topics",
+        "0xe2fd1c3cdbdc6dfb1bec3ff2c95e983898c8d7c31d2dd4f646535a7cada44b88,0xe9076b2429006c3cfc23780a3ab7db373ff2200f3ee9a6c58ef84bd1c9118372",
+        "--data",
+        "0x",
+        "string",
+        "indexed"
+      ],
+      "expected": {
+        "values": [
+          {
+            "type": "string",
+            "hash": "0xe9076b2429006c3cfc23780a3ab7db373ff2200f3ee9a6c58ef84bd1c9118372"
+          }
+        ]
+      }
+    },
+    {
+      "name": "String_6_0",
+      "args": [
+        "String_6_0",
+        "--topics",
+        "0xf819cb93491b053d2fac2a577e8db7c6b95100ee25c929d1abfbff0e5c7c5ced",
+        "--data",
+        "0x00000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000004f09fa7aa00000000000000000000000000000000000000000000000000000000",
+        "string",
+        "data"
+      ],
+      "expected": {
+        "values": [
+          {
+            "type": "string",
+            "bytes": "0xf09fa7aa"
+          }
+        ]
+      }
+    },
+    {
+      "name": "String_6_1",
+      "args": [
+        "String_6_1",
+        "--topics",
+        "0xbbe070a109bfa55a39baacee83070846553a26351a599578cd69b004d74099fe,0x66df1a8773b47151fbbf68c2395bb2d01d3bb0f8080e91be75df2573a727c7db",
+        "--data",
+        "0x",
+        "string",
+        "indexed"
+      ],
+      "expected": {
+        "values": [
+          {
+            "type": "string",
+            "hash": "0x66df1a8773b47151fbbf68c2395bb2d01d3bb0f8080e91be75df2573a727c7db"
+          }
+        ]
+      }
+    },
+    {
+      "name": "StringSize31",
+      "args": [
+        "StringSize31",
+        "--topics",
+        "0x3080c5eeff189dd72eaf6f6568ba73ee3ec1a2a372a506329c245d65332b0e68,0x0000000000000000000000000000000000000000000000000000000000000001",
+        "--data",
+        "0x0000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000001f6161616161616161616161616161616161616161616161616161616161616100",
+        "string",
+        "data",
+        "bool",
+        "indexed"
+      ],
+      "expected": {
+        "values": [
+          {
+            "type": "string",
+            "bytes": "0x61616161616161616161616161616161616161616161616161616161616161"
+          },
+          {
+            "type": "bool",
+            "value": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "StringSize32",
+      "args": [
+        "StringSize32",
+        "--topics",
+        "0x6745dd3af6c310266d76760dc254ca6fc34f6c6c8f47281261262b2c677f3157,0x0000000000000000000000000000000000000000000000000000000000000001",
+        "--data",
+        "0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000206161616161616161616161616161616161616161616161616161616161616161",
+        "string",
+        "data",
+        "bool",
+        "indexed"
+      ],
+      "expected": {
+        "values": [
+          {
+            "type": "string",
+            "bytes": "0x6161616161616161616161616161616161616161616161616161616161616161"
+          },
+          {
+            "type": "bool",
+            "value": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "StringSize33",
+      "args": [
+        "StringSize33",
+        "--topics",
+        "0x5c9ad598e89b348a71852673d6d60e646a49c8a0f0aaabb9de258a5b946aec5a,0x0000000000000000000000000000000000000000000000000000000000000001",
+        "--data",
+        "0x0000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000002161616161616161616161616161616161616161616161616161616161616161616100000000000000000000000000000000000000000000000000000000000000",
+        "string",
+        "data",
+        "bool",
+        "indexed"
+      ],
+      "expected": {
+        "values": [
+          {
+            "type": "string",
+            "bytes": "0x616161616161616161616161616161616161616161616161616161616161616161"
+          },
+          {
+            "type": "bool",
+            "value": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "StringSize63",
+      "args": [
+        "StringSize63",
+        "--topics",
+        "0x257d0f9aa83d45ec447725206db32ec7c26446643b3a29ecf2b72d6262c175d3,0x0000000000000000000000000000000000000000000000000000000000000001",
+        "--data",
+        "0x0000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000003f61616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616100",
+        "string",
+        "data",
+        "bool",
+        "indexed"
+      ],
+      "expected": {
+        "values": [
+          {
+            "type": "string",
+            "bytes": "0x616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161"
+          },
+          {
+            "type": "bool",
+            "value": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "StringSize64",
+      "args": [
+        "StringSize64",
+        "--topics",
+        "0xa0a0463249f3da592363380cd8ff3059f2d877245e0ee85ffd9651a51ae1847d,0x0000000000000000000000000000000000000000000000000000000000000001",
+        "--data",
+        "0x0000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000004061616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161",
+        "string",
+        "data",
+        "bool",
+        "indexed"
+      ],
+      "expected": {
+        "values": [
+          {
+            "type": "string",
+            "bytes": "0x61616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161"
+          },
+          {
+            "type": "bool",
+            "value": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "StringSize65",
+      "args": [
+        "StringSize65",
+        "--topics",
+        "0x1ffc39daaab0036663a58a97248b6bd04352a20a92ac6551ee7dfd24237739ca,0x0000000000000000000000000000000000000000000000000000000000000001",
+        "--data",
+        "0x00000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000041616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616100000000000000000000000000000000000000000000000000000000000000",
+        "string",
+        "data",
+        "bool",
+        "indexed"
+      ],
+      "expected": {
+        "values": [
+          {
+            "type": "string",
+            "bytes": "0x6161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161"
+          },
+          {
+            "type": "bool",
+            "value": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "DecimalCap",
+      "args": [
+        "DecimalCap",
+        "--topics",
+        "0x74ba05a9aeec7053a3254477e579d6c1f9af389ca8b138d52c8d6cd97654b5db",
+        "--data",
+        "0x0000000000000000000000000000000000000000000000000000000000000001",
+        "uint256",
+        "data"
+      ],
+      "expected": {
+        "values": [
+          {
+            "type": "uint256",
+            "value": "1"
+          }
+        ]
+      }
+    },
+    {
+      "name": "HexCap",
+      "args": [
+        "HexCap",
+        "--topics",
+        "0x27572e68e9e184c3e4467801ce08788f1f73fc6d08d9d9b0137a64f72aab9aeb,0x0000000000000000000000000000000000000000000000000000000000000001",
+        "--data",
+        "0x",
+        "uint256",
+        "indexed"
+      ],
+      "expected": {
+        "values": [
+          {
+            "type": "uint256",
+            "value": "1"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Raw",
+      "args": [
+        "Raw",
+        "--topics",
+        "0x307fb397729742302ea169ca621b06167220b3f3010089464474d4747fc6bb4b,0x2245ae6aeda498c90b6b885c61022e26d699885a0b0d2ac1585bae0516d60bd9",
+        "--data",
+        "0x0000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000800ff80c328000102000000000000000000000000000000000000000000000000",
+        "string",
+        "indexed",
+        "string",
+        "data"
+      ],
+      "expected": {
+        "values": [
+          {
+            "type": "string",
+            "hash": "0x2245ae6aeda498c90b6b885c61022e26d699885a0b0d2ac1585bae0516d60bd9"
+          },
+          {
+            "type": "string",
+            "bytes": "0x00ff80c328000102"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Opaque",
+      "args": [
+        "Opaque",
+        "--anonymous",
+        "--topics",
+        "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+        "--data",
+        "0x",
+        "string",
+        "indexed"
+      ],
+      "expected": {
+        "values": [
+          {
+            "type": "string",
+            "hash": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+          }
+        ]
+      }
+    },
+    {
+      "name": "HexCase",
+      "args": [
+        "Raw",
+        "--topics",
+        "0X307FB397729742302EA169CA621B06167220B3F3010089464474D4747FC6BB4B,0X2245AE6AEDA498C90B6B885C61022E26D699885A0B0D2AC1585BAE0516D60BD9",
+        "--data",
+        "0000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000800FF80C328000102000000000000000000000000000000000000000000000000",
+        "string",
+        "indexed",
+        "string",
+        "data"
+      ],
+      "expected": {
+        "values": [
+          {
+            "type": "string",
+            "hash": "0x2245ae6aeda498c90b6b885c61022e26d699885a0b0d2ac1585bae0516d60bd9"
+          },
+          {
+            "type": "string",
+            "bytes": "0x00ff80c328000102"
+          }
+        ]
+      }
+    }
+  ],
+  "refusals": 54,
+  "compatibility": "OK",
+  "sources": {
+    "src/cli.bend": "e1080e2d6e0bf3e56db9ad52bee9f5f3f7d094c457faf254592f331d5bbf710b",
+    "src/abi.bend": "393d3f535cc3cff42605c702ef66d576cd803b4dc9745c8e69c7489527fac969",
+    "src/keccak.bend": "cbfb3275116d3703a803181ceeafe8dc3e74d53f21cb9a539f29c28c5bc8e98a",
+    "dev/event-decode-cli-test.py": "3f5cf2779801c7fb02e231304bee2f58d735a840b7c4d1376fab7872aa626e07",
+    "dev/event-cli-test.py": "2e4f42e66f6340e496e64e5ca4062692000690e9ba2bead7d7750f5b79c48c97",
+    "dev/event-codec-test.py": "ecf7c401119ed8d0d9229558ef45a956ad885d1d109c658bbb38d463c11a47eb",
+    "dev/cli_delta.py": "0713c3a5c5c9c689f18e032dcb0fefc9811d2fe31aea1a26f938e98408cb6a80"
+  },
+  "review_changes": [
+    "F1: dev/stage-a-gates.py adds the EVENT-DECODE-CLI leg to --m2-source-packing (98 legs); dev/milestone-speed-test.py pins it; docs state 98.",
+    "F2: Cli.EventDecode.sized refuses a topic or data value above 131072 bytes with exit 64 before the byte parser; three boundary refusal rows; doc states the limit.",
+    "F3: two refusal rows reach the --data flag check in Cli.EventDecode.log.",
+    "F4: record README says 58 of 59 cases use cast logs and the opaque case uses a hand-built hash.",
+    "F6: doubled blank lines removed from README.md and dev/M2-EVENT-DECODE.md.",
+    "F7: repeated pending sentence removed from dev/M2-EVENT-DECODE.md; participle clauses rewritten.",
+    "marker: EVENT-DECODE-CLI cases=59 oracle=cast refusals=54 OK",
+    "logs: review-build.log (work dir), review-probe.log, review-event-decode-cli.log, review-event-cli.log, review-mapping-cli.log, review-milestone-speed.log, review-gates.log"
+  ]
+}

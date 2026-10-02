@@ -63,7 +63,7 @@ run with `true` and `false`. The frozen locations use 40-digit hexadecimal
 addresses. Two cases use the widest accepted spellings, and refusals cover
 one more digit. Each refusal must give its own diagnostic text.
 The default M2 gate schedule now includes this check and retains every
-previous check. It had 96 legs at this slice; the default now runs 97.
+previous check. It had 96 legs at this slice; the default now runs 98.
 Compiler speed stays in M4.
 
 ## Validation
@@ -107,8 +107,9 @@ The default now selects `--m2-source-packing`, adding
 [CLI-VALUE-DIRECT](CLI-VALUE-DIRECT.md),
 [CLI-ERROR-DIRECT](CLI-ERROR-DIRECT.md),
 [MAPPING-CLI](#command-line),
-[EVENT-CLI](M2-EVENTS.md#command-line), MILESTONE-SPEED and
-[PACKED-SOURCE](M2-SOURCE-PACKING.md), for 97 checks.
+[EVENT-CLI](M2-EVENTS.md#command-line),
+[EVENT-DECODE-CLI](M2-EVENT-DECODE.md#command-line), MILESTONE-SPEED and
+[PACKED-SOURCE](M2-SOURCE-PACKING.md), for 98 checks.
 Counts exclude BEND2-RATIO and BEND2-RATIO-TEST, which moved to
 [`--m4-speed`](M4-SPEED.md) on 2026-10-01.
 

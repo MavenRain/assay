@@ -1,0 +1,10 @@
+valid string data, 131072-byte data: (0, '', 262060)
+data 131072 bytes: (64, 'assay: event-decode: trailing data', 0)
+data 131073 bytes: (64, 'assay: event-decode: hexadecimal input exceeds 131072 bytes', 0)
+data 270000 bytes: (64, 'assay: event-decode: hexadecimal input exceeds 131072 bytes', 0)
+data 300000 bytes: (64, 'assay: event-decode: hexadecimal input exceeds 131072 bytes', 0)
+data 450000 bytes: (64, 'assay: event-decode: hexadecimal input exceeds 131072 bytes', 0)
+topic 131073 bytes: (64, 'assay: event-decode: hexadecimal input exceeds 131072 bytes', 0)
+topic 270000 bytes: (64, 'assay: event-decode: hexadecimal input exceeds 131072 bytes', 0)
+bare 262146 digits: (64, 'assay: event-decode: hexadecimal input exceeds 131072 bytes', 0)
+PROBE EXIT=0

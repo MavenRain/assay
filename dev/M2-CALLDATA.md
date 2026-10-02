@@ -77,8 +77,9 @@ mode appends CALL-CODEC, for a total of 82 checks. The current default adds
 [CLI-VALUE-DIRECT](CLI-VALUE-DIRECT.md),
 [CLI-ERROR-DIRECT](CLI-ERROR-DIRECT.md),
 [MAPPING-CLI](M2-MAPPING.md#command-line),
-[EVENT-CLI](M2-EVENTS.md#command-line), MILESTONE-SPEED and
-[PACKED-SOURCE](M2-SOURCE-PACKING.md), for 97 checks.
+[EVENT-CLI](M2-EVENTS.md#command-line),
+[EVENT-DECODE-CLI](M2-EVENT-DECODE.md#command-line), MILESTONE-SPEED and
+[PACKED-SOURCE](M2-SOURCE-PACKING.md), for 98 checks.
 Counts exclude BEND2-RATIO and BEND2-RATIO-TEST, which moved to
 [`--m4-speed`](M4-SPEED.md) on 2026-10-01.
 

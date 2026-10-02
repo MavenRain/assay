@@ -1,0 +1,6 @@
+{
+  "inputs_sha256": "3c6eb966d35f84d7af1c3b7a51b84e9c1a5c7d395821d90158efe0f6f8d88fb4",
+  "output_sha256": "14a3ba0c77e4883ac8e91b2018866465e037657a141710217cf4b6a74f556e6c",
+  "compiler_commit": "c65bcb788dbfb298bb434c1d858b47c193841dc0",
+  "node": "/opt/homebrew/Cellar/node/23.10.0_1/bin/node"
+}

@@ -4,6 +4,46 @@ This slice starts at `aa7517e` and adds strict decoding to `Abi.Event`
 in native Bend 2. Source event declarations and emission lowering remain
 pending. M2 is not closed.
 
+## Command line
+
+`assay event-decode NAME [--anonymous] --topics HEX[,HEX]... --data HEX [TYPE indexed|data]...`
+decodes one event log as compact JSON. Supply the name, optional anonymous
+flag, comma-separated topics, data and schema fields in that order. Use
+an empty topics argument (`--topics ''`) for an anonymous event with no
+indexed fields. Supported field types are `uint8`, `uint256`, `address`,
+`bool` and `string`. The name follows the encoder's ASCII identifier rule.
+Hexadecimal input accepts an optional `0x` or `0X` prefix, either digit
+case, and empty byte strings. Whitespace, non-hexadecimal characters and
+odd digit counts are rejected. Each topic and the data accept at most
+131072 bytes. Larger input exits 64.
+
+```sh
+assay event-decode Empty --anonymous --topics '' --data 0x
+assay event-decode Flag --anonymous --topics '' --data 0x0000000000000000000000000000000000000000000000000000000000000001 bool data
+```
+
+The result has a `values` array in schema order. Each entry has a `type`:
+unsigned integers use a decimal string in `value`, addresses use a
+lowercase 20-byte `0x` string in `value`, and booleans use a JSON boolean
+in `value`. Non-indexed strings use a `bytes` field with lowercase `0x`
+hexadecimal bytes. The field keeps arbitrary ABI byte strings. Indexed
+strings use a `hash` field with the recorded 32-byte topic. The decoder
+accepts hashes with an unknown preimage.
+
+For example, the commands above print `{"values":[]}` and
+`{"values":[{"type":"bool","value":true}]}`. Malformed arguments or
+logs exit 64, emit an `assay: event-decode:` diagnostic on stderr, and
+leave stdout empty. After argument parsing, the decoder applies the API's
+strict topic, signature and tuple checks below.
+
+`dev/event-decode-cli-test.py` checks cast-generated logs, scalar
+boundaries, anonymous events, opaque string hashes, arbitrary string
+bytes, hexadecimal spellings, the input size limit and malformed logs.
+`make test` and the M2 source-packing gate schedule include this check.
+It compares the carried CLI bundle against `7bca8dc` after restoring the
+explicitly pinned usage and dispatch bodies. Existing encoder and mapping
+CLI tests retain their own historical comparisons and pin controls.
+
 ## API
 
 `Abi.Event.decode(name, inputs, anonymous, log)` takes the same event
@@ -74,7 +114,7 @@ follow-up, the check accepts one pinned `Lexer.ident_kind` delta and puts
 back the BASE declaration before the compare; see
 [LEXER-KEYWORDS](LEXER-KEYWORDS.md). `--m2-event-decode` adds
 EVENT-DECODE, for 85 checks. The current default,
-`--m2-source-packing`, runs 97; see
+`--m2-source-packing`, runs 98; see
 [M2-SOURCE-PACKING](M2-SOURCE-PACKING.md). Counts exclude BEND2-RATIO and BEND2-RATIO-TEST, which moved to
 [`--m4-speed`](M4-SPEED.md) on 2026-10-01.
 

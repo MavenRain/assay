@@ -51,7 +51,7 @@ The explicit `--m2-abi-codec` gate mode appends one leg to the unchanged
 `--m2-source-packing`, additionally runs [LAYOUT-PACKED](M2-PACKING.md),
 [LAYOUT-MAPPING](M2-MAPPING.md), [EVENT-CODEC](M2-EVENTS.md),
 [CALL-CODEC](M2-CALLDATA.md), [RETURN-CODEC](M2-RETURNDATA.md),
-[REVERT-CODEC](M2-REVERTDATA.md) and the later checks, for 97 legs; see
+[REVERT-CODEC](M2-REVERTDATA.md) and the later checks, for 98 legs; see
 [M2-SOURCE-PACKING](M2-SOURCE-PACKING.md). Counts exclude BEND2-RATIO and BEND2-RATIO-TEST, which moved to
 [`--m4-speed`](M4-SPEED.md) on 2026-10-01.
 The ABI-CODEC leg has a 300-second deadline:

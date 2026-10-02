@@ -31,8 +31,8 @@ PINS = {
     'Cli.compile': '1f40dbef64eeb21857c8ba0e7664093a56a0332f07947219961fdf98cac65342',
     'Cli.run': '3f1ee1a1614debae113d863ef2e9e1077b3e2c33107d5983a0fd753fb982b4c2',
     # Mapping and event CLI tests check both commands and historical compatibility.
-    'Cli.usage': '36bdd4a2d0e01627fde24e39264ce217c8655ebca74a7f21e44bfeac1f5fb62b',
-    'Cli.dispatch': '7acd3fa018319edd39d80be125630c5cf237e4eefe7e8a56b9a94caad9e642cc',
+    'Cli.usage': 'bfceac6121282d68b419473736ee08acb01b3726b32d729997b030547956a24d',
+    'Cli.dispatch': '6a24bfe90abb6817f2a4ddac8294182b68d304f46229af4fed1806302767d4ef',
 }
 # Reports identify the complete pin manifest, with a stable serialization.
 SHA256 = hashlib.sha256(json.dumps(PINS, sort_keys=True, separators=(',', ':')).encode()).hexdigest()

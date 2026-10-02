@@ -1,0 +1,17 @@
+$ zsh -f dev/carry-check.sh
+PIN 2c2e6e6831a0b2cf3107fa4aad392606109a2bcf
+CARRY files=12/12 diff=0 unlisted=0
+exit=0
+$ zsh -f dev/house.sh
+HOUSE OK
+exit=0
+$ zsh -f dev/trusted-lines.sh
+TRUSTED-LINES total=3184/3550 ratified=3550
+TRUSTED-LINES OK
+exit=0
+$ shasum -a 256 -c dev/DENOMINATORS.sha256
+exit=0 rows=290 nonOK=0
+$ shasum -a 256 -c dev/BEND2.sha256
+exit=0 rows=1 nonOK=0
+$ shasum -a 256 -c dev/validation/2026-10-01-m2-event-decode-cli/SOURCE-HASHES.sha256
+exit=0 rows=33 nonOK=0

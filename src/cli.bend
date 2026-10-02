@@ -183,7 +183,7 @@ def Cli.when(test: Bool, yes: Unit -> IO(Unit), no: Unit -> IO(Unit)) -> IO(Unit
     case True{}: yes(Unit{})
     case False{}: no(Unit{})
 def Cli.fail(code: U32, message: String) -> IO(Unit): NativeIO.die(Unit, code, message)
-def Cli.usage() -> IO(Unit): Cli.fail(64, "usage: assay check [--print|--erased] FILE | axioms FILE | spec-count | emit FILE -o DIR | trace FILE --calldata HEX [--prestate FILE] [--value WORD] [--caller ADDRESS] | diff FILE --calldata HEX [--prestate FILE] [--value WORD] [--caller ADDRESS] | run FILE [--calldata HEX] [--storage SLOT=WORD]... [--value WORD] [--caller ADDRESS] [--address ADDRESS] [--export NAME] | mapping-slot BASE TYPE KEY [TYPE KEY]... | event-encode NAME [--anonymous] [TYPE indexed|data VALUE]... | deploy FILE | test FILE")
+def Cli.usage() -> IO(Unit): Cli.fail(64, "usage: assay check [--print|--erased] FILE | axioms FILE | spec-count | emit FILE -o DIR | trace FILE --calldata HEX [--prestate FILE] [--value WORD] [--caller ADDRESS] | diff FILE --calldata HEX [--prestate FILE] [--value WORD] [--caller ADDRESS] | run FILE [--calldata HEX] [--storage SLOT=WORD]... [--value WORD] [--caller ADDRESS] [--address ADDRESS] [--export NAME] | mapping-slot BASE TYPE KEY [TYPE KEY]... | event-encode NAME [--anonymous] [TYPE indexed|data VALUE]... | event-decode NAME [--anonymous] --topics HEX[,HEX]... --data HEX [TYPE indexed|data]... | deploy FILE | test FILE")
 
 type Cli.Event.Fields is Data:
   Cli.Event.Fields{inputs: ListOf(Abi.Schema.Event_parameter), values: ListOf(Abi.Codec.Value)}
@@ -292,6 +292,135 @@ def Cli.Event.run(+args: ListOf(String)) -> IO(Unit):
   match args:
     case Nil{}: Cli.Event.usage()
     case Con{name, rest}: Cli.when(Recognize.identifier(name), _ => Cli.Event.options(name, rest), _ => Cli.fail(64, "assay: event-encode: expected an ASCII event identifier"))
+
+def Cli.EventDecode.usage() -> IO(Unit): Cli.fail(64, "assay: event-decode: usage: assay event-decode NAME [--anonymous] --topics HEX[,HEX]... --data HEX [TYPE indexed|data]...")
+
+def Cli.EventDecode.typ(+text: String) -> IO(Abi.Schema.Value_type):
+  match text:
+    case "uint8": IO.pure(Abi.Schema.Value_type, Abi.Schema.Value_type.Uint8{})
+    case "uint256": IO.pure(Abi.Schema.Value_type, Abi.Schema.Value_type.Uint256{})
+    case "address": IO.pure(Abi.Schema.Value_type, Abi.Schema.Value_type.Address{})
+    case "bool": IO.pure(Abi.Schema.Value_type, Abi.Schema.Value_type.Bool{})
+    case "string": IO.pure(Abi.Schema.Value_type, Abi.Schema.Value_type.String{})
+    case _: NativeIO.die(Abi.Schema.Value_type, 64, String.append("assay: event-decode: unsupported field type: ", text))
+
+def Cli.EventDecode.indexed(+text: String) -> IO(Bool):
+  match text:
+    case "indexed": IO.pure(Bool, True{})
+    case "data": IO.pure(Bool, False{})
+    case _: NativeIO.die(Bool, 64, "assay: event-decode: expected indexed or data")
+
+@unsafe
+def Cli.EventDecode.fields(+args: ListOf(String)) -> IO(ListOf(Abi.Schema.Event_parameter)):
+  match args:
+    case Nil{}: IO.pure(ListOf(Abi.Schema.Event_parameter), [])
+    case Con{type_name, Con{index_text, rest}}:
+      IO.bind(Abi.Schema.Value_type, ListOf(Abi.Schema.Event_parameter), Cli.EventDecode.typ(type_name), +typ =>
+        IO.bind(Bool, ListOf(Abi.Schema.Event_parameter), Cli.EventDecode.indexed(index_text), +indexed =>
+          IO.bind(ListOf(Abi.Schema.Event_parameter), ListOf(Abi.Schema.Event_parameter), Cli.EventDecode.fields(rest), tail =>
+            IO.pure(ListOf(Abi.Schema.Event_parameter), MkAbi_Schema_Event_parameter{MkAbi_Schema_Parameter{"", typ}, indexed} <> tail))))
+    case Con{_, Nil{}}: NativeIO.die(ListOf(Abi.Schema.Event_parameter), 64, "assay: event-decode: expected TYPE indexed|data pairs")
+
+@unsafe
+def Cli.EventDecode.digit(+char: Char) -> Big:
+  Native.choose(&2, Big, U32.is_le(Char.to_u32(char), 57), _ => NativeInt.sub(Big.of_nat(U32.to_nat(Char.to_u32(char))), Big.of_nat(48n)), _ => NativeInt.sub(Big.of_nat(U32.to_nat(Char.to_u32(char))), Big.of_nat(87n)))
+
+def Cli.EventDecode.prepend(+char: Char, +result: OptionOf(ListOf(Char))) -> OptionOf(ListOf(Char)):
+  match result:
+    case Some{chars}: Some{char <> chars}
+    case None{}: None{}
+
+def Cli.EventDecode.pairs(+chars: ListOf(Char)) -> OptionOf(ListOf(Char)):
+  match chars:
+    case Nil{}: Some{[]}
+    case Con{_, Nil{}}: None{}
+    case Con{hi, Con{lo, rest}}: Cli.EventDecode.prepend(Char.from_u32(U32.from_nat(Big.to_nat(NativeInt.add(NativeInt.mul(Cli.EventDecode.digit(hi), Big.of_nat(16n)), Cli.EventDecode.digit(lo))))), Cli.EventDecode.pairs(rest))
+
+def Cli.EventDecode.unhex_result(+result: OptionOf(ListOf(Char))) -> IO(String):
+  match result:
+    case Some{chars}: IO.pure(String, NativeString.of_list(chars))
+    case None{}: NativeIO.die(String, 64, "assay: event-decode: expected even-length hexadecimal bytes")
+
+def Cli.EventDecode.bytes_result(+result: OptionOf(String)) -> IO(String):
+  match result:
+    case Some{hex}: Cli.EventDecode.sized(hex)
+    case None{}: NativeIO.die(String, 64, "assay: event-decode: expected even-length hexadecimal bytes")
+
+@unsafe
+def Cli.EventDecode.sized(+hex: String) -> IO(String):
+  Native.choose(&1, IO(String), Big.is_lt(Big.of_nat(262144n), Big.of_nat(String.length(hex))), _ => NativeIO.die(String, 64, "assay: event-decode: hexadecimal input exceeds 131072 bytes"), _ => Cli.EventDecode.unhex_result(Cli.EventDecode.pairs(NativeString.to_list(hex))))
+
+def Cli.EventDecode.bytes(+text: String) -> IO(String): Cli.EventDecode.bytes_result(Trace.calldata(text))
+
+@unsafe
+def Cli.EventDecode.topic_list(+texts: ListOf(String)) -> IO(ListOf(String)):
+  match texts:
+    case Nil{}: IO.pure(ListOf(String), [])
+    case Con{text, rest}: IO.bind(String, ListOf(String), Cli.EventDecode.bytes(text), +topic => IO.bind(ListOf(String), ListOf(String), Cli.EventDecode.topic_list(rest), tail => IO.pure(ListOf(String), topic <> tail)))
+
+@unsafe
+def Cli.EventDecode.topics(+text: String) -> IO(ListOf(String)):
+  Native.choose(&1, IO(ListOf(String)), NativeString.equal(text, ""), _ => IO.pure(ListOf(String), []), _ => Cli.EventDecode.topic_list(NativeString.split(Char.from_u32(44), text)))
+
+def Cli.EventDecode.error(+error: Abi.Event.Decode_error) -> String:
+  match error:
+    case Abi.Event.Decode_error.Too_many_topics{}: "too many indexed fields"
+    case Abi.Event.Decode_error.Topic_count{}: "topic count does not match schema"
+    case Abi.Event.Decode_error.Topic_size{}: "topics must contain exactly 32 bytes"
+    case Abi.Event.Decode_error.Wrong_signature{}: "event signature does not match"
+    case Abi.Event.Decode_error.Codec{error}: Cli.Event.codec_error(error)
+
+def Cli.EventDecode.field(+typ: String, +key: String, +value: String) -> String:
+  String.concat(["{\u{22}type\u{22}:", Abi.quote(typ), ",", Abi.quote(key), ":", value, "}"])
+
+def Cli.EventDecode.value(+value: Abi.Codec.Value) -> String:
+  match value:
+    case Abi.Codec.Value.Uint8{word}: Cli.EventDecode.field("uint8", "value", Abi.quote(Big.show(word)))
+    case Abi.Codec.Value.Uint256{word}: Cli.EventDecode.field("uint256", "value", Abi.quote(Big.show(word)))
+    case Abi.Codec.Value.Address{word}: Cli.EventDecode.field("address", "value", Abi.quote(String.append("0x", NativeString.pad(40n, Char.from_u32(48), Big.hex_natural(word)))))
+    case Abi.Codec.Value.Bool{value}: Cli.EventDecode.field("bool", "value", Cli.EventDecode.boolean(value))
+    case Abi.Codec.Value.String{bytes}: Cli.EventDecode.field("string", "bytes", Abi.quote(String.append("0x", Cli.Event.hex(bytes))))
+
+@unsafe
+def Cli.EventDecode.boolean(+value: Bool) -> String:
+  Native.choose(&2, String, value, _ => "true", _ => "false")
+
+def Cli.EventDecode.values(+values: ListOf(Abi.Event.Decoded)) -> ListOf(String):
+  match values:
+    case Nil{}: []
+    case Con{Abi.Event.Decoded.Value{value}, rest}: Cli.EventDecode.value(value) <> Cli.EventDecode.values(rest)
+    case Con{Abi.Event.Decoded.Hash{bytes}, rest}: Cli.EventDecode.field("string", "hash", Abi.quote(String.append("0x", Cli.Event.hex(bytes)))) <> Cli.EventDecode.values(rest)
+
+def Cli.EventDecode.output(+result: Abi.Event.Decode_result(ListOf(Abi.Event.Decoded))) -> IO(Unit):
+  match result:
+    case Done{values}: NativeIO.print(String.concat(["{\u{22}values\u{22}:[", String.join(Cli.EventDecode.values(values), ","), "]}"]))
+    case Fail{error}: Cli.fail(64, String.append("assay: event-decode: ", Cli.EventDecode.error(error)))
+
+@unsafe
+def Cli.EventDecode.decode(+name: String, +anonymous: Bool, +topic_text: String, +data_text: String, +args: ListOf(String)) -> IO(Unit):
+  IO.bind(ListOf(Abi.Schema.Event_parameter), Unit, Cli.EventDecode.fields(args), +inputs =>
+    IO.bind(ListOf(String), Unit, Cli.EventDecode.topics(topic_text), +topics =>
+      IO.bind(String, Unit, Cli.EventDecode.bytes(data_text), data =>
+        Cli.EventDecode.output(Abi.Event.decode(name, inputs, anonymous, Abi.Event.Log{topics, data})))))
+
+@unsafe
+def Cli.EventDecode.log(+name: String, +anonymous: Bool, +args: ListOf(String)) -> IO(Unit):
+  match args:
+    case Con{topic_flag, Con{topics, Con{data_flag, Con{data, fields}}}}:
+      Cli.when(NativeString.equal(topic_flag, "--topics"), _ => Cli.when(NativeString.equal(data_flag, "--data"), _ => Cli.EventDecode.decode(name, anonymous, topics, data, fields), _ => Cli.EventDecode.usage()), _ => Cli.EventDecode.usage())
+    case _: Cli.EventDecode.usage()
+
+@unsafe
+def Cli.EventDecode.options(+name: String, +args: ListOf(String)) -> IO(Unit):
+  match args:
+    case Nil{}: Cli.EventDecode.usage()
+    case Con{option, rest}: Cli.when(NativeString.equal(option, "--anonymous"), _ => Cli.EventDecode.log(name, True{}, rest), _ => Cli.EventDecode.log(name, False{}, args))
+
+@unsafe
+def Cli.EventDecode.run(+args: ListOf(String)) -> IO(Unit):
+  match args:
+    case Nil{}: Cli.EventDecode.usage()
+    case Con{name, rest}: Cli.when(Recognize.identifier(name), _ => Cli.EventDecode.options(name, rest), _ => Cli.fail(64, "assay: event-decode: expected an ASCII event identifier"))
 
 def Cli.Mapping.usage() -> IO(Unit): Cli.fail(64, "assay: mapping-slot: usage: assay mapping-slot BASE TYPE KEY [TYPE KEY]...")
 
@@ -586,7 +715,8 @@ def Cli.dispatch(+command: String, +args: List<&2, String>) -> IO(Unit):
   Cli.when(Cli.member(command, ["trace", "diff", "run"]), _ => Cli.dispatch_options(command, args), _ =>
   Cli.when(NativeString.equal(command, "mapping-slot"), _ => Cli.Mapping.run(args), _ =>
   Cli.when(NativeString.equal(command, "event-encode"), _ => Cli.Event.run(args), _ =>
-  Cli.when(Cli.member(command, ["deploy", "test"]), _ => Cli.fail(3, String.concat(["assay: ", command, ": PENDING (M1)"])), _ => Cli.usage()))))))))
+  Cli.when(NativeString.equal(command, "event-decode"), _ => Cli.EventDecode.run(args), _ =>
+  Cli.when(Cli.member(command, ["deploy", "test"]), _ => Cli.fail(3, String.concat(["assay: ", command, ": PENDING (M1)"])), _ => Cli.usage())))))))))
 def Cli.main(args: List<&2, String>) -> IO(Unit):
   match args:
     case Nil{}: Cli.usage()

@@ -31,6 +31,10 @@ mapping declarations in source contracts remain pending.
 the [typed event codec](dev/M2-EVENTS.md#command-line). It prints JSON topics
 and data for log inspection, including indexed string hashes and dynamic
 data fields. Event declarations and log emission from source remain pending.
+`assay event-decode NAME [--anonymous] --topics HEX[,HEX]... --data HEX [TYPE indexed|data]...`
+exposes the [strict event decoder](dev/M2-EVENT-DECODE.md#command-line).
+It prints typed JSON values, preserves string bytes as hexadecimal, and
+identifies indexed string hashes separately.
 
 Milestone work proceeds through M2, M3 and M4. The compiler speed gate now
 belongs to [M4](dev/M4-SPEED.md), as requested on 2026-10-01, with the same
@@ -65,7 +69,7 @@ logs, preserving indexed strings as hashes. TRUSTED-LINES passes under
 the source budget the user re-ratified on 2026-09-28: abi 495, assembler
 505 and an unchanged total of 3550.
 Source lowering for mappings and events remains pending.
-`zsh -f dev/gates.sh` runs the default 97-leg gate battery, and
+`zsh -f dev/gates.sh` runs the default 98-leg gate battery, and
 `make gates-m4-speed` runs the two M4 speed legs.
 
 Assay is a Kanon language fork for EVM contracts.  It inherits the kernel and
@@ -406,7 +410,8 @@ ERC20-REFERENCE, ABI-SCHEMA, ABI-CODEC, LAYOUT-PACKED, LAYOUT-MAPPING,
 EVENT-CODEC, CALL-CODEC, RETURN-CODEC, REVERT-CODEC, EVENT-DECODE,
 LEXER-KEYWORDS, LEXER-DIRECT, IDENTIFIER-DIRECT, WORD-DIRECT,
 SEGMENT-DIRECT, CLI-PREFIX-DIRECT, CLI-VALUE-DIRECT, CLI-ERROR-DIRECT,
-MAPPING-CLI, EVENT-CLI, MILESTONE-SPEED and PACKED-SOURCE, for 97 legs.
+MAPPING-CLI, EVENT-CLI, EVENT-DECODE-CLI, MILESTONE-SPEED and
+PACKED-SOURCE, for 98 legs.
 BEND2-RATIO and BEND2-RATIO-TEST moved to `--m4-speed` (`make gates-m4-speed`)
 on 2026-10-01. Each earlier mode keeps its other legs: `--lexer-direct` has
 93, `--keyword-dispatch` 86, `--m2-event-decode` 85, `--m2-revertdata` 84,
