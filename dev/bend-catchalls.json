@@ -36,9 +36,36 @@
     "reason": "selective eliminator forward: the call names Con and sends every other shape to otherwise16028, the lowered default of this declaration, which carries the OCaml answer for that match."
   },
   {
+    "definition": "Cli.Event.typ",
+    "path": "src/cli.bend",
+    "line": 217,
+    "arm": "case _: NativeIO.die(Abi.Schema.Value_type, 64, String.append(\"assay: event-encode: unsupported field type: \", text))",
+    "arm_sha256": "ec5d907582d7bfd2deeaa2932abd6f4c86ed83105f0dccc214d925acb4290c5f",
+    "arity": 1,
+    "reason": "Rejects unsupported field type spellings after naming every supported ABI type."
+  },
+  {
+    "definition": "Cli.Event.indexed",
+    "path": "src/cli.bend",
+    "line": 223,
+    "arm": "case _: NativeIO.die(Bool, 64, \"assay: event-encode: expected indexed or data\")",
+    "arm_sha256": "8cc38fc953fcdbe28ba98e2b34ceb93295bb61784fc2d17a17a9203dd2effa0a",
+    "arity": 1,
+    "reason": "Rejects placement spellings other than indexed and data."
+  },
+  {
+    "definition": "Cli.Event.boolean",
+    "path": "src/cli.bend",
+    "line": 237,
+    "arm": "case _: NativeIO.die(Abi.Codec.Value, 64, \"assay: event-encode: expected true or false\")",
+    "arm_sha256": "4e31fd2a9e84911c00d619732bbac38ef200cb934fc959f3153804d2480e483b",
+    "arity": 1,
+    "reason": "Rejects value spellings other than the canonical true and false arguments."
+  },
+  {
     "definition": "Cli.Mapping.typ",
     "path": "src/cli.bend",
-    "line": 213,
+    "line": 321,
     "arm": "case _: NativeIO.die(Abi.Schema.Value_type, 64, String.append(\"assay: mapping-slot: unsupported key type: \", text))",
     "arm_sha256": "13897eade625cd571e163cca0cc60f7d08dd5e8a2a196a23fffff7e93dc52062",
     "arity": 1,
@@ -47,7 +74,7 @@
   {
     "definition": "Cli.Mapping.boolean",
     "path": "src/cli.bend",
-    "line": 219,
+    "line": 327,
     "arm": "case _: Cli.Mapping.parse(\"expected true, false, a decimal or 0x-prefixed integer\", text)",
     "arm_sha256": "916d678d822b6d59e6edd3f95af47a5807ab3a2f45089d40ad06cae8e1bf0f64",
     "arity": 1,
@@ -56,7 +83,7 @@
   {
     "definition": "Cli.show_rows",
     "path": "src/cli.bend",
-    "line": 317,
+    "line": 425,
     "arm": "case _: NativeIO.stdout(String.concat(SeqList.map(&2, &2, String, String, +s => String.append(s, \"\\n\"), Elab.axiom_names(rows))))",
     "arm_sha256": "898645b36c0a6d67b647fe6eb51aeb41b9993dc55d0f886e46218ed7ef2e5c41",
     "arity": 1,
@@ -65,7 +92,7 @@
   {
     "definition": "Cli.dispatch_check",
     "path": "src/cli.bend",
-    "line": 457,
+    "line": 565,
     "arm": "case _: Cli.usage()",
     "arm_sha256": "28a6ea6fd054b199faf665f07f886bf3bb619e7556d310966265f089662a198e",
     "arity": 1,
@@ -74,7 +101,7 @@
   {
     "definition": "Cli.dispatch_emit",
     "path": "src/cli.bend",
-    "line": 463,
+    "line": 571,
     "arm": "case _: Cli.usage()",
     "arm_sha256": "28a6ea6fd054b199faf665f07f886bf3bb619e7556d310966265f089662a198e",
     "arity": 1,
@@ -83,7 +110,7 @@
   {
     "definition": "Cli.axioms",
     "path": "src/cli.bend",
-    "line": 467,
+    "line": 575,
     "arm": "case _: Cli.usage()",
     "arm_sha256": "28a6ea6fd054b199faf665f07f886bf3bb619e7556d310966265f089662a198e",
     "arity": 1,
@@ -92,7 +119,7 @@
   {
     "definition": "Cli.count",
     "path": "src/cli.bend",
-    "line": 471,
+    "line": 579,
     "arm": "case _: Cli.usage()",
     "arm_sha256": "28a6ea6fd054b199faf665f07f886bf3bb619e7556d310966265f089662a198e",
     "arity": 1,
@@ -2223,6 +2250,15 @@
     "reason": "structural equality: a pair of constructors that differ is unequal, which is the answer the OCaml comparison gave."
   },
   {
+    "definition": "Lexer.ident_kind",
+    "path": "src/frontend.bend",
+    "line": 748,
+    "arm": "case name: Token.Kind.Ident{name}",
+    "arm_sha256": "a86b810d1ab1f9cd5de5d540dbde0f10f42a57f55a861afe3563ae694e2e7b62",
+    "arity": 1,
+    "reason": "Every string other than the 30 exact keyword spellings is an identifier; preserve its complete original byte string, including case variants, prefixes and suffixes."
+  },
+  {
     "definition": "Lexer.byte_literal",
     "path": "src/frontend.bend",
     "line": 762,
@@ -4273,14 +4309,5 @@
     "arm_sha256": "a233209899f54025859d2c75c705ed718d8aae903d786459935bdfcd3841157e",
     "arity": 1,
     "reason": "test driver usage: arguments the driver does not name exit 64 with the usage line the OCaml helper printed."
-  },
-  {
-    "definition": "Lexer.ident_kind",
-    "path": "src/frontend.bend",
-    "line": 748,
-    "arm": "case name: Token.Kind.Ident{name}",
-    "arm_sha256": "a86b810d1ab1f9cd5de5d540dbde0f10f42a57f55a861afe3563ae694e2e7b62",
-    "arity": 1,
-    "reason": "Every string other than the 30 exact keyword spellings is an identifier; preserve its complete original byte string, including case variants, prefixes and suffixes."
   }
 ]

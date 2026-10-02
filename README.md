@@ -27,7 +27,10 @@ round trips from whitespace compaction during response error detection.
 nested [mapping storage locations](dev/M2-MAPPING.md#command-line).
 It prints an unsigned decimal slot for inspection or `run --storage` inputs;
 mapping declarations in source contracts remain pending.
-
+`assay event-encode NAME [--anonymous] [TYPE indexed|data VALUE]...` exposes
+the [typed event codec](dev/M2-EVENTS.md#command-line). It prints JSON topics
+and data for log inspection, including indexed string hashes and dynamic
+data fields. Event declarations and log emission from source remain pending.
 
 Milestone work proceeds through M2, M3 and M4. The compiler speed gate now
 belongs to [M4](dev/M4-SPEED.md), as requested on 2026-10-01, with the same
@@ -62,7 +65,7 @@ logs, preserving indexed strings as hashes. TRUSTED-LINES passes under
 the source budget the user re-ratified on 2026-09-28: abi 495, assembler
 505 and an unchanged total of 3550.
 Source lowering for mappings and events remains pending.
-`zsh -f dev/gates.sh` runs the default 96-leg gate battery, and
+`zsh -f dev/gates.sh` runs the default 97-leg gate battery, and
 `make gates-m4-speed` runs the two M4 speed legs.
 
 Assay is a Kanon language fork for EVM contracts.  It inherits the kernel and
@@ -403,13 +406,13 @@ ERC20-REFERENCE, ABI-SCHEMA, ABI-CODEC, LAYOUT-PACKED, LAYOUT-MAPPING,
 EVENT-CODEC, CALL-CODEC, RETURN-CODEC, REVERT-CODEC, EVENT-DECODE,
 LEXER-KEYWORDS, LEXER-DIRECT, IDENTIFIER-DIRECT, WORD-DIRECT,
 SEGMENT-DIRECT, CLI-PREFIX-DIRECT, CLI-VALUE-DIRECT, CLI-ERROR-DIRECT,
-MAPPING-CLI, MILESTONE-SPEED and PACKED-SOURCE, for 96 legs. BEND2-RATIO and
-BEND2-RATIO-TEST moved to `--m4-speed` (`make gates-m4-speed`) on
-2026-10-01. Each earlier mode keeps its other legs: `--lexer-direct`
-has 93, `--keyword-dispatch` 86, `--m2-event-decode` 85,
-`--m2-revertdata` 84, `--m2-returndata` 83, `--m2-calldata` 82,
-`--m2-events` 81, `--m2-mapping` 80, `--m2-packing` 79,
-`--m2-abi-codec` 78, `--m2-abi-schema` 77 and `--m2-reference` 76.
+MAPPING-CLI, EVENT-CLI, MILESTONE-SPEED and PACKED-SOURCE, for 97 legs.
+BEND2-RATIO and BEND2-RATIO-TEST moved to `--m4-speed` (`make gates-m4-speed`)
+on 2026-10-01. Each earlier mode keeps its other legs: `--lexer-direct` has
+93, `--keyword-dispatch` 86, `--m2-event-decode` 85, `--m2-revertdata` 84,
+`--m2-returndata` 83, `--m2-calldata` 82, `--m2-events` 81, `--m2-mapping` 80,
+`--m2-packing` 79, `--m2-abi-codec` 78, `--m2-abi-schema` 77 and
+`--m2-reference` 76.
 The inferred-helper gate adds 254 source/EVM comparisons, two creation
 outcomes, 26 refusals, 24 five-file erasure pairs, six accepted boundary
 forms and five mutations with restored controls.

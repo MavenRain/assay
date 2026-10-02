@@ -1,0 +1,21 @@
+HOUSE no-exception OK
+HOUSE named-catchalls OK
+HOUSE no-mutable-state OK
+HOUSE one-catch-site OK
+HOUSE foreign-boundary OK
+HOUSE bool-dispatch OK
+HOUSE no-loop-keyword OK
+HOUSE no-bare-division OK
+HOUSE no-em-dash OK
+HOUSE OK
+PIN 2c2e6e6831a0b2cf3107fa4aad392606109a2bcf
+CARRY files=12/12 diff=0 unlisted=0
+TRUSTED-LINES kernel=3767/4000
+TRUSTED-LINES emitter=1792/1800
+TRUSTED-LINES assembler=414/505
+TRUSTED-LINES keccak=181/250
+TRUSTED-LINES abi=495/495
+TRUSTED-LINES layout=238/250
+TRUSTED-LINES listing=64/250
+TRUSTED-LINES total=3184/3550 ratified=3550
+TRUSTED-LINES OK

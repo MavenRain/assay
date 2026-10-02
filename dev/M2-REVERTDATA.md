@@ -60,7 +60,7 @@ follow-up, the check accepts one pinned `Lexer.ident_kind` delta and puts
 back the BASE declaration before the compare; see
 [LEXER-KEYWORDS](LEXER-KEYWORDS.md). `--m2-revertdata` appends
 REVERT-CODEC for 84 checks; `--m2-returndata` keeps its 83 checks. The
-current default, `--m2-source-packing`, runs 96; see
+current default, `--m2-source-packing`, runs 97; see
 [M2-SOURCE-PACKING](M2-SOURCE-PACKING.md). Counts exclude BEND2-RATIO and BEND2-RATIO-TEST, which moved to
 [`--m4-speed`](M4-SPEED.md) on 2026-10-01.
 

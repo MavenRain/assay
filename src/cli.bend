@@ -183,7 +183,115 @@ def Cli.when(test: Bool, yes: Unit -> IO(Unit), no: Unit -> IO(Unit)) -> IO(Unit
     case True{}: yes(Unit{})
     case False{}: no(Unit{})
 def Cli.fail(code: U32, message: String) -> IO(Unit): NativeIO.die(Unit, code, message)
-def Cli.usage() -> IO(Unit): Cli.fail(64, "usage: assay check [--print|--erased] FILE | axioms FILE | spec-count | emit FILE -o DIR | trace FILE --calldata HEX [--prestate FILE] [--value WORD] [--caller ADDRESS] | diff FILE --calldata HEX [--prestate FILE] [--value WORD] [--caller ADDRESS] | run FILE [--calldata HEX] [--storage SLOT=WORD]... [--value WORD] [--caller ADDRESS] [--address ADDRESS] [--export NAME] | mapping-slot BASE TYPE KEY [TYPE KEY]... | deploy FILE | test FILE")
+def Cli.usage() -> IO(Unit): Cli.fail(64, "usage: assay check [--print|--erased] FILE | axioms FILE | spec-count | emit FILE -o DIR | trace FILE --calldata HEX [--prestate FILE] [--value WORD] [--caller ADDRESS] | diff FILE --calldata HEX [--prestate FILE] [--value WORD] [--caller ADDRESS] | run FILE [--calldata HEX] [--storage SLOT=WORD]... [--value WORD] [--caller ADDRESS] [--address ADDRESS] [--export NAME] | mapping-slot BASE TYPE KEY [TYPE KEY]... | event-encode NAME [--anonymous] [TYPE indexed|data VALUE]... | deploy FILE | test FILE")
+
+type Cli.Event.Fields is Data:
+  Cli.Event.Fields{inputs: ListOf(Abi.Schema.Event_parameter), values: ListOf(Abi.Codec.Value)}
+
+def Cli.Event.usage() -> IO(Unit): Cli.fail(64, "assay: event-encode: usage: assay event-encode NAME [--anonymous] [TYPE indexed|data VALUE]...")
+
+def Cli.Event.codec_error(+error: Abi.Codec.Error) -> String:
+  match error:
+    case Abi.Codec.Error.Out_of_range{typ}: String.append("value exceeds ", Abi.Schema.type_name(typ))
+    case Abi.Codec.Error.Too_large{}: "encoded value is too large"
+    case Abi.Codec.Error.Truncated{}: "truncated value"
+    case Abi.Codec.Error.Invalid_bool{}: "invalid boolean value"
+    case Abi.Codec.Error.Invalid_offset{}: "invalid offset"
+    case Abi.Codec.Error.Nonzero_padding{}: "nonzero padding"
+    case Abi.Codec.Error.Trailing_data{}: "trailing data"
+
+def Cli.Event.error(+error: Abi.Event.Error) -> String:
+  match error:
+    case Abi.Event.Error.Arity{}: "field and value counts differ"
+    case Abi.Event.Error.Type_mismatch{}: "field and value types differ"
+    case Abi.Event.Error.Too_many_topics{}: "too many indexed fields"
+    case Abi.Event.Error.Codec{error}: Cli.Event.codec_error(error)
+
+def Cli.Event.typ(+text: String) -> IO(Abi.Schema.Value_type):
+  match text:
+    case "uint8": IO.pure(Abi.Schema.Value_type, Abi.Schema.Value_type.Uint8{})
+    case "uint256": IO.pure(Abi.Schema.Value_type, Abi.Schema.Value_type.Uint256{})
+    case "address": IO.pure(Abi.Schema.Value_type, Abi.Schema.Value_type.Address{})
+    case "bool": IO.pure(Abi.Schema.Value_type, Abi.Schema.Value_type.Bool{})
+    case "string": IO.pure(Abi.Schema.Value_type, Abi.Schema.Value_type.String{})
+    case _: NativeIO.die(Abi.Schema.Value_type, 64, String.append("assay: event-encode: unsupported field type: ", text))
+
+def Cli.Event.indexed(+text: String) -> IO(Bool):
+  match text:
+    case "indexed": IO.pure(Bool, True{})
+    case "data": IO.pure(Bool, False{})
+    case _: NativeIO.die(Bool, 64, "assay: event-encode: expected indexed or data")
+
+def Cli.Event.word_result(+result: Result<&2, &2, String, Big>) -> IO(Big):
+  match result:
+    case Done{value}: IO.pure(Big, value)
+    case Fail{error}: NativeIO.die(Big, 64, String.append("assay: event-encode: ", error))
+
+def Cli.Event.word(+text: String) -> IO(Big):
+  Cli.Event.word_result(Recognize.parse_word(&2, String, "expected a decimal or 0x-prefixed uint256", "word exceeds uint256", text))
+
+def Cli.Event.boolean(+text: String) -> IO(Abi.Codec.Value):
+  match text:
+    case "true": IO.pure(Abi.Codec.Value, Abi.Codec.Value.Bool{True{}})
+    case "false": IO.pure(Abi.Codec.Value, Abi.Codec.Value.Bool{False{}})
+    case _: NativeIO.die(Abi.Codec.Value, 64, "assay: event-encode: expected true or false")
+
+def Cli.Event.value(+typ: Abi.Schema.Value_type, +text: String) -> IO(Abi.Codec.Value):
+  match typ:
+    case Abi.Schema.Value_type.Uint8{}: IO.bind(Big, Abi.Codec.Value, Cli.Event.word(text), value => IO.pure(Abi.Codec.Value, Abi.Codec.Value.Uint8{value}))
+    case Abi.Schema.Value_type.Uint256{}: IO.bind(Big, Abi.Codec.Value, Cli.Event.word(text), value => IO.pure(Abi.Codec.Value, Abi.Codec.Value.Uint256{value}))
+    case Abi.Schema.Value_type.Address{}: IO.bind(Big, Abi.Codec.Value, Cli.Event.word(text), value => IO.pure(Abi.Codec.Value, Abi.Codec.Value.Address{value}))
+    case Abi.Schema.Value_type.Bool{}: Cli.Event.boolean(text)
+    case Abi.Schema.Value_type.String{}: IO.pure(Abi.Codec.Value, Abi.Codec.Value.String{text})
+
+def Cli.Event.prepend(+typ: Abi.Schema.Value_type, +indexed: Bool, +value: Abi.Codec.Value, +fields: Cli.Event.Fields) -> IO(Cli.Event.Fields):
+  match fields:
+    case Cli.Event.Fields{inputs, values}: IO.pure(Cli.Event.Fields, Cli.Event.Fields{Con{MkAbi_Schema_Event_parameter{MkAbi_Schema_Parameter{"", typ}, indexed}, inputs}, Con{value, values}})
+
+@unsafe
+def Cli.Event.fields(+args: ListOf(String)) -> IO(Cli.Event.Fields):
+  match args:
+    case Nil{}: IO.pure(Cli.Event.Fields, Cli.Event.Fields{[], []})
+    case Con{type_name, Con{index_text, Con{value_text, rest}}}:
+      IO.bind(Abi.Schema.Value_type, Cli.Event.Fields, Cli.Event.typ(type_name), +typ =>
+        IO.bind(Bool, Cli.Event.Fields, Cli.Event.indexed(index_text), +indexed =>
+          IO.bind(Abi.Codec.Value, Cli.Event.Fields, Cli.Event.value(typ, value_text), value =>
+            IO.bind(Cli.Event.Fields, Cli.Event.Fields, Cli.Event.fields(rest), tail =>
+              Cli.Event.prepend(typ, indexed, value, tail)))))
+    case Con{_, Con{_, Nil{}}}: NativeIO.die(Cli.Event.Fields, 64, "assay: event-encode: expected TYPE indexed|data VALUE triples")
+    case Con{_, Nil{}}: NativeIO.die(Cli.Event.Fields, 64, "assay: event-encode: expected TYPE indexed|data VALUE triples")
+
+def Cli.Event.hex(+text: String) -> String:
+  String.join(SeqList.map(&2, &2, Char, String, +char => NativeString.pad(2n, Char.from_u32(48), Big.hex(Big.of_nat(U32.to_nat(Char.to_u32(char))), False{})), NativeString.to_list(text)), "")
+
+def Cli.Event.topics(+topics: ListOf(String)) -> ListOf(String):
+  match topics:
+    case Nil{}: []
+    case Con{topic, tail}: Con{Abi.quote(String.append("0x", Cli.Event.hex(topic))), Cli.Event.topics(tail)}
+
+def Cli.Event.output(+result: Abi.Event.Result(Abi.Event.Log)) -> IO(Unit):
+  match result:
+    case Done{Abi.Event.Log{topics, data}}: NativeIO.print(String.concat(["{\u{22}topics\u{22}:[", String.join(Cli.Event.topics(topics), ","), "],\u{22}data\u{22}:", Abi.quote(String.append("0x", Cli.Event.hex(data))), "}"]))
+    case Fail{error}: Cli.fail(64, String.append("assay: event-encode: ", Cli.Event.error(error)))
+
+def Cli.Event.finish(+name: String, +anonymous: Bool, +fields: Cli.Event.Fields) -> IO(Unit):
+  match fields:
+    case Cli.Event.Fields{inputs, values}: Cli.Event.output(Abi.Event.encode(name, inputs, anonymous, values))
+
+def Cli.Event.encode(+name: String, +anonymous: Bool, +args: ListOf(String)) -> IO(Unit):
+  IO.bind(Cli.Event.Fields, Unit, Cli.Event.fields(args), fields => Cli.Event.finish(name, anonymous, fields))
+
+@unsafe
+def Cli.Event.options(+name: String, +args: ListOf(String)) -> IO(Unit):
+  match args:
+    case Nil{}: Cli.Event.encode(name, False{}, [])
+    case Con{option, rest}: Cli.when(NativeString.equal(option, "--anonymous"), _ => Cli.Event.encode(name, True{}, rest), _ => Cli.Event.encode(name, False{}, args))
+
+@unsafe
+def Cli.Event.run(+args: ListOf(String)) -> IO(Unit):
+  match args:
+    case Nil{}: Cli.Event.usage()
+    case Con{name, rest}: Cli.when(Recognize.identifier(name), _ => Cli.Event.options(name, rest), _ => Cli.fail(64, "assay: event-encode: expected an ASCII event identifier"))
 
 def Cli.Mapping.usage() -> IO(Unit): Cli.fail(64, "assay: mapping-slot: usage: assay mapping-slot BASE TYPE KEY [TYPE KEY]...")
 
@@ -477,7 +585,8 @@ def Cli.dispatch(+command: String, +args: List<&2, String>) -> IO(Unit):
   Cli.when(NativeString.equal(command, "emit"), _ => Cli.dispatch_emit(args), _ =>
   Cli.when(Cli.member(command, ["trace", "diff", "run"]), _ => Cli.dispatch_options(command, args), _ =>
   Cli.when(NativeString.equal(command, "mapping-slot"), _ => Cli.Mapping.run(args), _ =>
-  Cli.when(Cli.member(command, ["deploy", "test"]), _ => Cli.fail(3, String.concat(["assay: ", command, ": PENDING (M1)"])), _ => Cli.usage())))))))
+  Cli.when(NativeString.equal(command, "event-encode"), _ => Cli.Event.run(args), _ =>
+  Cli.when(Cli.member(command, ["deploy", "test"]), _ => Cli.fail(3, String.concat(["assay: ", command, ": PENDING (M1)"])), _ => Cli.usage()))))))))
 def Cli.main(args: List<&2, String>) -> IO(Unit):
   match args:
     case Nil{}: Cli.usage()

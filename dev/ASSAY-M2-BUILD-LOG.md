@@ -1,5 +1,39 @@
 # Assay M2 build log
 
+## 2026-10-01: Public typed event encoding
+
+Base: `10f1f96`. The `event-encode` command exposes the existing typed event
+codec through the production CLI. It prints compact JSON with hexadecimal
+topics and data. The command supports uint8, uint256, address, bool and
+UTF-8 string fields, indexed and non-indexed placement, and anonymous events.
+Names, field triples, numeric ranges and topic limits have explicit refusals.
+
+The new process suite passes 56 cast-backed encoding cases and 36 refusal
+cases. It covers the ERC-20 Transfer and Approval events, field order,
+numeric boundaries, empty and Unicode strings, string byte hashes, ABI padding
+boundaries and the three/four indexed-field limits. Dynamic bytes encodings
+provide identical string ABI layouts for cast inputs containing quotes and
+control characters. Two declaration-pin controls refuse modified CLI entry
+bodies, and restoring the pins leaves the predecessor CLI bundle identical.
+
+The full `make test` run exits zero: native kernel tests, 24 commands across
+18 adapters, the 66-case packed source suite with six compiled mutants,
+244 mapping CLI cases, the new event CLI suite, and all eight existing lexer
+and conversion checks. Schedule controls preserve the 57 historical modes.
+The M2 source-packing schedule adds the mandatory `EVENT-CLI` leg; all carried
+commands, markers and deadlines are preserved. The M4 speed schedule is
+unchanged.
+
+House and carry checks pass. Three rejecting string-parser catch-alls have
+specific rationales, and the seven shifted existing CLI records retain
+their approved arms. Denominator hashes are refreshed for the changed
+inputs and new suite. Trusted source counts remain kernel=3767/4000 and
+artifacts=3184/3550. The ABI module remains 495/495 lines.
+
+Source event declarations and EVM log emission remain pending. This slice
+does not close M2. Sources, expected logs and complete validation output
+are pinned in `dev/validation/2026-10-01-m2-event-cli/`.
+
 ## 2026-10-01: Direct trace response error detection
 
 Starting at `bacd4ba`, `Trace.has_error` converts string segments directly
@@ -31,8 +65,6 @@ and M2 source lowering remain open.
 
 See `dev/CLI-ERROR-DIRECT.md` and
 `dev/validation/2026-10-01-cli-error-direct/` for sources and evidence.
-
-
 
 ## 2026-10-01: Direct trace decimal normalization
 

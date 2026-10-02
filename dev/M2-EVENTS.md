@@ -28,6 +28,46 @@ Scalar bounds apply to both indexed and non-indexed values. A failure
 returns no partial log. Topic count is checked first; other failures
 follow argument traversal and final tuple encoding.
 
+## Command line
+
+`assay event-encode NAME [--anonymous] [TYPE indexed|data VALUE]...`
+encodes one log as compact JSON with `topics` and `data`. Every byte string
+uses a lowercase `0x` prefix. Fields appear in declaration order.
+
+```sh
+assay event-encode Transfer address indexed 0x01 address indexed 0x02 uint256 data 3
+assay event-encode Message string data 'hello' string indexed 'lookup'
+assay event-encode Empty --anonymous
+```
+
+The name must be an ASCII identifier: letters, digits and underscores,
+not starting with a digit. Supported field types are `uint8`, `uint256`,
+`address`, `bool` and `string`. Numeric values accept unsigned decimal or
+`0x`-prefixed hexadecimal (`0X` is also accepted) and must fit their
+declared type. A spelling contains at most 78 decimal digits or 64
+hexadecimal digits, including leading zeroes. Booleans require `true` or
+`false`. Strings contain the UTF-8 bytes of the argument, including empty
+strings and arguments containing whitespace. Arguments must be valid
+UTF-8. The Node.js host replaces each invalid sequence with U+FFFD
+(bytes EF BF BD) before encoding, and the command does not detect this.
+
+Non-anonymous events include the signature topic and accept at most three
+indexed fields. `--anonymous`, placed immediately after the name, omits
+the signature topic and allows four indexed fields. Indexed strings use
+the hash of their UTF-8 bytes. Non-indexed strings use the ABI tuple codec.
+Malformed arguments, invalid ranges and excessive topics exit 64 with a
+command-specific error on stderr and no stdout.
+
+`dev/event-cli-test.py` exercises 56 public process cases against cast
+goldens, including Transfer, Approval, topic and data order, numeric
+boundaries, empty and Unicode strings, and ABI padding boundaries. Cast's
+dynamic bytes encoding supplies the identical string head and tail layout
+without limiting strings to its command-line string parser. Another 36
+process checks verify refusals. Two pin controls and restored CLI bundles
+preserve the predecessor commands. `make test` and the M2 source-packing
+gate schedule include this check. Event declarations and log emission from
+source contracts remain pending.
+
 ## Validation
 
 Run `python3 -P dev/event-codec-test.py`. The gate checks:
@@ -64,8 +104,9 @@ default adds [CALL-CODEC](M2-CALLDATA.md), [RETURN-CODEC](M2-RETURNDATA.md),
 [CLI-PREFIX-DIRECT](CLI-PREFIX-DIRECT.md),
 [CLI-VALUE-DIRECT](CLI-VALUE-DIRECT.md),
 [CLI-ERROR-DIRECT](CLI-ERROR-DIRECT.md),
-[MAPPING-CLI](M2-MAPPING.md#command-line), MILESTONE-SPEED and
-[PACKED-SOURCE](M2-SOURCE-PACKING.md), for 96 checks.
+[MAPPING-CLI](M2-MAPPING.md#command-line),
+[EVENT-CLI](#command-line), MILESTONE-SPEED and
+[PACKED-SOURCE](M2-SOURCE-PACKING.md), for 97 checks.
 Counts exclude BEND2-RATIO and BEND2-RATIO-TEST, which moved to
 [`--m4-speed`](M4-SPEED.md) on 2026-10-01.
 

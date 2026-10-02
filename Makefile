@@ -6,6 +6,7 @@ test:
 	python3 -P dev/milestone-speed-test.py
 	python3 -P dev/packed-source-test.py
 	python3 -P dev/mapping-cli-test.py
+	python3 -P dev/event-cli-test.py
 	python3 -P dev/lexer-keywords-test.py
 	python3 -P dev/lexer-direct-test.py
 	python3 -P dev/identifier-direct-test.py
