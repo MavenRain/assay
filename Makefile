@@ -10,6 +10,7 @@ test:
 	python3 -P dev/event-cli-test.py
 	python3 -P dev/event-decode-cli-test.py
 	python3 -P dev/calldata-cli-test.py
+	python3 -P dev/returndata-cli-test.py
 	python3 -P dev/lexer-keywords-test.py
 	python3 -P dev/lexer-direct-test.py
 	python3 -P dev/identifier-direct-test.py
@@ -19,6 +20,6 @@ test:
 	python3 -P dev/cli-value-direct-test.py
 	python3 -P dev/cli-error-direct-test.py
 gates: all
-	python3 -P dev/stage-a-gates.py --m2-mapping-source
+	python3 -P dev/stage-a-gates.py --m2-returndata-cli
 gates-m4-speed: all
 	python3 -P dev/stage-a-gates.py --m4-speed

@@ -96,3 +96,18 @@ function os_run(program, args) {
       signal: result.signal || '', output: (result.stdout || Buffer.alloc(0)).toString('latin1') };
   }, () => ({ $: 'OS.Process', kind: 2, code: 127, signal: '', output: '' }));
 }
+
+// Literal keys also register effects pruned from a particular program bundle.
+io_eff("NativeIO.read_bytes", nativeio_read_bytes);
+io_eff("NativeIO.write_bytes", nativeio_write_bytes);
+io_eff("NativeIO.exit", nativeio_exit);
+io_eff("NativeIO.args", nativeio_args);
+io_eff("NativeIO.stdout", nativeio_stdout);
+io_eff("NativeIO.die", nativeio_die);
+io_eff("NativeIO.open", nativeio_open);
+io_eff("OS.regular", os_regular);
+io_eff("OS.mkdir_new", os_mkdir_new);
+io_eff("OS.basename", os_basename);
+io_eff("OS.root", os_root);
+io_eff("OS.executable", os_executable);
+io_eff("OS.run", os_run);

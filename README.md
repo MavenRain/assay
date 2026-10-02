@@ -38,6 +38,11 @@ data fields. Event declarations and log emission from source remain pending.
 exposes the [strict event decoder](dev/M2-EVENT-DECODE.md#command-line).
 It prints typed JSON values, preserves string bytes as hexadecimal, and
 identifies indexed string hashes separately.
+`assay returndata-encode [TYPE VALUE]...` and
+`assay returndata-decode HEX [TYPE]...` expose the
+[typed function result codec](dev/M2-RETURNDATA-CLI.md), including empty
+returns and dynamic strings. The [Bend 2.0.28 upgrade](dev/BEND2-UPGRADE.md)
+updates the pinned compiler and its JavaScript effect registration boundary.
 
 Milestone work proceeds through M2, M3 and M4. The compiler speed gate now
 belongs to [M4](dev/M4-SPEED.md), as requested on 2026-10-01, with the same
@@ -74,7 +79,7 @@ logs, preserving indexed strings as hashes. TRUSTED-LINES passes under
 the source budget the user re-ratified on 2026-09-28: abi 495, assembler
 505 and an unchanged total of 3550.
 Source lowering for mappings and events remains pending.
-`zsh -f dev/gates.sh` runs the default 100-leg gate battery, and
+`zsh -f dev/gates.sh` runs the default 101-leg gate battery, and
 `make gates-m4-speed` runs the two M4 speed legs.
 
 Assay is a Kanon language fork for EVM contracts.  It inherits the kernel and
@@ -414,7 +419,7 @@ and five mutations with restored controls.
 The address gate adds 1920 core comparisons, 128 artifact pairs,
 40 surface cases, 55 signed calls, seven public command checks,
 24 refusals and five mutations with restored controls.
-`dev/gates.sh` and `make gates` select `--m2-mapping-source`: the 75
+`dev/gates.sh` and `make gates` select `--m2-returndata-cli`: the 75
 `--m1-close` legs (proof-bundle, named-predicate, compound-invariant,
 named-guard, inferred-guard and inferred-arithmetic suites), then
 ERC20-REFERENCE, ABI-SCHEMA, ABI-CODEC, LAYOUT-PACKED, LAYOUT-MAPPING,
@@ -422,12 +427,13 @@ EVENT-CODEC, CALL-CODEC, RETURN-CODEC, REVERT-CODEC, EVENT-DECODE,
 LEXER-KEYWORDS, LEXER-DIRECT, IDENTIFIER-DIRECT, WORD-DIRECT,
 SEGMENT-DIRECT, CLI-PREFIX-DIRECT, CLI-VALUE-DIRECT, CLI-ERROR-DIRECT,
 MAPPING-CLI, EVENT-CLI, EVENT-DECODE-CLI, CALLDATA-CLI, MILESTONE-SPEED,
-PACKED-SOURCE and MAPPING-SOURCE, for 100 legs.
+PACKED-SOURCE, MAPPING-SOURCE and RETURNDATA-CLI, for 101 legs.
 BEND2-RATIO and BEND2-RATIO-TEST moved to `--m4-speed` (`make gates-m4-speed`)
-on 2026-10-01. Each earlier mode keeps its other legs: `--m2-source-packing`
-has 99, `--lexer-direct` 93, `--keyword-dispatch` 86, `--m2-event-decode` 85,
-`--m2-revertdata` 84, `--m2-returndata` 83, `--m2-calldata` 82,
-`--m2-events` 81, `--m2-mapping` 80, `--m2-packing` 79, `--m2-abi-codec` 78,
+on 2026-10-01. Each earlier mode keeps its other legs: `--m2-mapping-source`
+has 100, `--m2-source-packing` 99, `--lexer-direct` 93,
+`--keyword-dispatch` 86, `--m2-event-decode` 85, `--m2-revertdata` 84,
+`--m2-returndata` 83, `--m2-calldata` 82, `--m2-events` 81,
+`--m2-mapping` 80, `--m2-packing` 79, `--m2-abi-codec` 78,
 `--m2-abi-schema` 77 and `--m2-reference` 76.
 The inferred-helper gate adds 254 source/EVM comparisons, two creation
 outcomes, 26 refusals, 24 five-file erasure pairs, six accepted boundary
@@ -484,7 +490,7 @@ records the current battery and measurement evidence.
 The gates require Python 3.11 or newer (`-P`), Foundry `cast` and geth `evm`
 on PATH.  The oracles are `cast` 0.3.0 and geth 1.14.12.
 The proof seed uses Lean 4.33.1 and the dependencies in its pinned manifest.
-The build uses Bend 2.0.25 at the commit in `dev/toolchain.json`, Node.js 22
+The build uses Bend 2.0.28 at the commit in `dev/toolchain.json`, Node.js 22
 or newer, and Python 3.11 or newer. Bootstrap needs Git and Bun to build the
 pinned Bend CLI. An existing checkout can be selected with `BEND=/path/to/bin/bend`.
 `dev/build.sh` derives the repository root from its own path. Build receipts

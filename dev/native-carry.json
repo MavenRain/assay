@@ -18,15 +18,15 @@
   "carried": {
     "src/abi.bend": "393d3f535cc3cff42605c702ef66d576cd803b4dc9745c8e69c7489527fac969",
     "src/assembler.bend": "99dd49f4b48478ba8c587342c9d2e0ce4e74e28c904a650440f1f6f783c817b1",
-    "src/cli.bend": "c424ffc6b2f8b73a1c1106d72b1a4c3c94ce9d50d11897beb936c71a52208cf7",
+    "src/cli.bend": "006119c4eabe63b4578e0ddde63e9e82d15caf4dc186b590cd02ae3f8e54309d",
     "src/emitter.bend": "945a260e7b605251c193b447f0ed2ce73e0213883e05bd2be3b7c986679859b7",
     "src/frontend.bend": "002936f46ba196b2680ae9a5d555673139e13d30d955efc32d782aa74835f547",
     "src/keccak.bend": "cbfb3275116d3703a803181ceeafe8dc3e74d53f21cb9a539f29c28c5bc8e98a",
     "src/kernel.bend": "12657d56799719ee73fd354eae52335847cd20fd5d31aa791434a9e34bac717e",
     "src/layout.bend": "e3081d285ac1a4bfcad28347db772442d4d86a0c430596737ce27f48d0dd2017",
     "src/listing.bend": "697b9869205fc92f12b6a50fd4e82c6875440e677f01a06eecf83cb2982934ab",
-    "src/os.js": "d58a97bdf93d5929d49ad395326035a1e30b545731af46b9c9f3c7b72874d753",
-    "src/test-os.js": "cea57ed301de92861eb27f641564777d2156c7c371ab5eff1e00fd6cddbccb14",
+    "src/os.js": "77d8c495a6ddf6d9cfc3060ef4ca95869b70b8e4dfd867fbc9efcfd57fb8c4ae",
+    "src/test-os.js": "7a3604ea52e847ae3ed2054859a9746ac975b5db7f5665a355d041dd0f143ce0",
     "src/tests.bend": "1160ce4e8451a38884c78cb1f80ad8ca6b29126db734acfe778879cec32871ee"
   }
 }

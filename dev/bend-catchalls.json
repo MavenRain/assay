@@ -18,9 +18,18 @@
     "reason": "lowered default binder: every shape the eliminator chain of this declaration does not name takes this one fallback, Get.Asm.Block.ending(local8679)) : Unit -> Asm.Ending}, which carries the OCaml answer for that match."
   },
   {
+    "definition": "Cli.Return.boolean",
+    "path": "src/cli.bend",
+    "line": 11,
+    "arm": "case _: Cli.Call.fail(Abi.Codec.Value, \"returndata-encode\", \"expected true or false\")",
+    "arm_sha256": "81bdac53b3852d2f4eeeba35f4b37dc112ae68b06d6fbeec3218af0742b0eaed",
+    "arity": 1,
+    "reason": "Only lowercase true and false are accepted. Every other spelling fails with status 64 and no standard output."
+  },
+  {
     "definition": "Cli.Call.typ",
     "path": "src/cli.bend",
-    "line": 15,
+    "line": 105,
     "arm": "case _: Cli.Call.fail(Abi.Schema.Value_type, command, String.append(\"unsupported input type: \", text))",
     "arm_sha256": "ef2867b1d3991134581a8b4f559e1076e7098e8b25a5748c33a5335fee953059",
     "arity": 1,
@@ -29,7 +38,7 @@
   {
     "definition": "Cli.Call.boolean",
     "path": "src/cli.bend",
-    "line": 26,
+    "line": 116,
     "arm": "case _: Cli.Call.fail(Abi.Codec.Value, \"calldata-encode\", \"expected true or false\")",
     "arm_sha256": "fdfc53c14291bffdcc465424e4d14d555c851704560bf8a7e4c566f18b163450",
     "arity": 1,
@@ -38,7 +47,7 @@
   {
     "definition": "Local.Trace.scan.f16021",
     "path": "src/cli.bend",
-    "line": 206,
+    "line": 296,
     "arm": "{_ => ((+local16031 => (Local.Trace.scan.f16021(compact_1205, local16031)))(p16027)) : Unit -> Bool}",
     "arm_sha256": "79433822f13ea46fbb9eb26f5d4b31a7a27d7cd430ec572d043aee5f1eb58476",
     "arity": 1,
@@ -47,7 +56,7 @@
   {
     "definition": "Local.Trace.scan.f16021",
     "path": "src/cli.bend",
-    "line": 209,
+    "line": 299,
     "arm": "Match.List.only_Con( _ => (otherwise16028(Unit{}))",
     "arm_sha256": "66b5cf71e793292ae81f7b64e092213181c7012eaf404d044d55e5de585d4e09",
     "arity": 1,
@@ -56,7 +65,7 @@
   {
     "definition": "Cli.Event.typ",
     "path": "src/cli.bend",
-    "line": 349,
+    "line": 439,
     "arm": "case _: NativeIO.die(Abi.Schema.Value_type, 64, String.append(\"assay: event-encode: unsupported field type: \", text))",
     "arm_sha256": "ec5d907582d7bfd2deeaa2932abd6f4c86ed83105f0dccc214d925acb4290c5f",
     "arity": 1,
@@ -65,7 +74,7 @@
   {
     "definition": "Cli.Event.indexed",
     "path": "src/cli.bend",
-    "line": 355,
+    "line": 445,
     "arm": "case _: NativeIO.die(Bool, 64, \"assay: event-encode: expected indexed or data\")",
     "arm_sha256": "8cc38fc953fcdbe28ba98e2b34ceb93295bb61784fc2d17a17a9203dd2effa0a",
     "arity": 1,
@@ -74,7 +83,7 @@
   {
     "definition": "Cli.Event.boolean",
     "path": "src/cli.bend",
-    "line": 369,
+    "line": 459,
     "arm": "case _: NativeIO.die(Abi.Codec.Value, 64, \"assay: event-encode: expected true or false\")",
     "arm_sha256": "4e31fd2a9e84911c00d619732bbac38ef200cb934fc959f3153804d2480e483b",
     "arity": 1,
@@ -83,7 +92,7 @@
   {
     "definition": "Cli.EventDecode.typ",
     "path": "src/cli.bend",
-    "line": 437,
+    "line": 527,
     "arm": "case _: NativeIO.die(Abi.Schema.Value_type, 64, String.append(\"assay: event-decode: unsupported field type: \", text))",
     "arm_sha256": "4fadd0a67a646b16403dd995a411032ecf4c114a1465902a194c485b373bc7d8",
     "arity": 1,
@@ -92,7 +101,7 @@
   {
     "definition": "Cli.EventDecode.indexed",
     "path": "src/cli.bend",
-    "line": 443,
+    "line": 533,
     "arm": "case _: NativeIO.die(Bool, 64, \"assay: event-decode: expected indexed or data\")",
     "arm_sha256": "5d181aa9af31189c4a32235342f5243998291f42bb90b736801e4ed547620b5d",
     "arity": 1,
@@ -101,7 +110,7 @@
   {
     "definition": "Cli.EventDecode.log",
     "path": "src/cli.bend",
-    "line": 543,
+    "line": 633,
     "arm": "case _: Cli.EventDecode.usage()",
     "arm_sha256": "00bdd20143ca9ba8899c7c782d84dca7cffaaa75e838f11b438fd6ef3a355f75",
     "arity": 1,
@@ -110,7 +119,7 @@
   {
     "definition": "Cli.Mapping.typ",
     "path": "src/cli.bend",
-    "line": 582,
+    "line": 672,
     "arm": "case _: NativeIO.die(Abi.Schema.Value_type, 64, String.append(\"assay: mapping-slot: unsupported key type: \", text))",
     "arm_sha256": "13897eade625cd571e163cca0cc60f7d08dd5e8a2a196a23fffff7e93dc52062",
     "arity": 1,
@@ -119,7 +128,7 @@
   {
     "definition": "Cli.Mapping.boolean",
     "path": "src/cli.bend",
-    "line": 588,
+    "line": 678,
     "arm": "case _: Cli.Mapping.parse(\"expected true, false, a decimal or 0x-prefixed integer\", text)",
     "arm_sha256": "916d678d822b6d59e6edd3f95af47a5807ab3a2f45089d40ad06cae8e1bf0f64",
     "arity": 1,
@@ -128,7 +137,7 @@
   {
     "definition": "Cli.show_rows",
     "path": "src/cli.bend",
-    "line": 686,
+    "line": 776,
     "arm": "case _: NativeIO.stdout(String.concat(SeqList.map(&2, &2, String, String, +s => String.append(s, \"\\n\"), Elab.axiom_names(rows))))",
     "arm_sha256": "898645b36c0a6d67b647fe6eb51aeb41b9993dc55d0f886e46218ed7ef2e5c41",
     "arity": 1,
@@ -137,7 +146,7 @@
   {
     "definition": "Cli.dispatch_check",
     "path": "src/cli.bend",
-    "line": 826,
+    "line": 916,
     "arm": "case _: Cli.usage()",
     "arm_sha256": "28a6ea6fd054b199faf665f07f886bf3bb619e7556d310966265f089662a198e",
     "arity": 1,
@@ -146,7 +155,7 @@
   {
     "definition": "Cli.dispatch_emit",
     "path": "src/cli.bend",
-    "line": 832,
+    "line": 922,
     "arm": "case _: Cli.usage()",
     "arm_sha256": "28a6ea6fd054b199faf665f07f886bf3bb619e7556d310966265f089662a198e",
     "arity": 1,
@@ -155,7 +164,7 @@
   {
     "definition": "Cli.axioms",
     "path": "src/cli.bend",
-    "line": 836,
+    "line": 926,
     "arm": "case _: Cli.usage()",
     "arm_sha256": "28a6ea6fd054b199faf665f07f886bf3bb619e7556d310966265f089662a198e",
     "arity": 1,
@@ -164,11 +173,20 @@
   {
     "definition": "Cli.count",
     "path": "src/cli.bend",
-    "line": 840,
+    "line": 930,
     "arm": "case _: Cli.usage()",
     "arm_sha256": "28a6ea6fd054b199faf665f07f886bf3bb619e7556d310966265f089662a198e",
     "arity": 1,
     "reason": "command word: every word the driver does not name prints the usage text and exits, as the OCaml driver did."
+  },
+  {
+    "definition": "Cli.MappingSource.run",
+    "path": "src/cli.bend",
+    "line": 1049,
+    "arm": "case _: Cli.fail(64, \"usage: assay mapping-layout FILE\")",
+    "arm_sha256": "518185167ca7ef228e021c8042ad42b2584dabfae4ec62027124f01d54b7770e",
+    "arity": 1,
+    "reason": "Reject every argument list other than exactly one source path with status 64 and the command usage."
   },
   {
     "definition": "Match.Recognize_Value.only_Recognize_Value_Nat",
@@ -4354,14 +4372,5 @@
     "arm_sha256": "a233209899f54025859d2c75c705ed718d8aae903d786459935bdfcd3841157e",
     "arity": 1,
     "reason": "test driver usage: arguments the driver does not name exit 64 with the usage line the OCaml helper printed."
-  },
-  {
-    "definition": "Cli.MappingSource.run",
-    "path": "src/cli.bend",
-    "line": 957,
-    "arm": "case _: Cli.fail(64, \"usage: assay mapping-layout FILE\")",
-    "arm_sha256": "518185167ca7ef228e021c8042ad42b2584dabfae4ec62027124f01d54b7770e",
-    "arity": 1,
-    "reason": "Reject every argument list other than exactly one source path with status 64 and the command usage."
   }
 ]

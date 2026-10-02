@@ -1,4 +1,5 @@
 // Test instrumentation only. The routing function is supplied by native Bend.
+io_eff("TestPerf.measure", testperf_measure);
 function assay_route_sample(route, value) { return run_loop(route(value)); }
 function testperf_measure(inputs, route) {
   const samples = [];

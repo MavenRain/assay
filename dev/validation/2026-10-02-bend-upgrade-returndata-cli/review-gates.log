@@ -1,0 +1,26 @@
+== carry
+CARRY files=12/12 diff=0 unlisted=0
+exit=0
+== house
+HOUSE no-bare-division OK
+HOUSE no-em-dash OK
+HOUSE OK
+exit=0
+== trusted-lines
+TRUSTED-LINES OK
+exit=0
+== shasum -a 256 -c dev/DENOMINATORS.sha256
+rows=297 non_ok=0
+exit=0
+== shasum -a 256 -c dev/BEND2.sha256
+rows=1 non_ok=0
+exit=0
+== checks.json source_sha256 (.)
+rows=41 non_ok=0
+exit=0
+== checks.json compiled_sha256 (_build/bend)
+rows=3 non_ok=0
+exit=0
+== git diff --cached --check
+exit=0
+EXIT=0

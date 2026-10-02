@@ -1,4 +1,94 @@
 # Native Bend source, compiled by dev/build.py.
+def Cli.Return.word(+result: Result<&2, &2, String, Big>) -> IO(Big):
+  match result:
+    case Done{value}: IO.pure(Big, value)
+    case Fail{error}: Cli.Call.fail(Big, "returndata-encode", error)
+
+def Cli.Return.boolean(+text: String) -> IO(Abi.Codec.Value):
+  match text:
+    case "true": IO.pure(Abi.Codec.Value, Abi.Codec.Value.Bool{True{}})
+    case "false": IO.pure(Abi.Codec.Value, Abi.Codec.Value.Bool{False{}})
+    case _: Cli.Call.fail(Abi.Codec.Value, "returndata-encode", "expected true or false")
+
+def Cli.Return.numeric(+text: String) -> IO(Big):
+  Cli.Return.word(Recognize.parse_word(&2, String, "expected a decimal or 0x-prefixed uint256", "word exceeds uint256", text))
+
+def Cli.Return.value(+typ: Abi.Schema.Value_type, +text: String) -> IO(Abi.Codec.Value):
+  match typ:
+    case Abi.Schema.Value_type.Uint8{}: IO.bind(Big, Abi.Codec.Value, Cli.Return.numeric(text), word => IO.pure(Abi.Codec.Value, Abi.Codec.Value.Uint8{word}))
+    case Abi.Schema.Value_type.Uint256{}: IO.bind(Big, Abi.Codec.Value, Cli.Return.numeric(text), word => IO.pure(Abi.Codec.Value, Abi.Codec.Value.Uint256{word}))
+    case Abi.Schema.Value_type.Address{}: IO.bind(Big, Abi.Codec.Value, Cli.Return.numeric(text), word => IO.pure(Abi.Codec.Value, Abi.Codec.Value.Address{word}))
+    case Abi.Schema.Value_type.Bool{}: Cli.Return.boolean(text)
+    case Abi.Schema.Value_type.String{}: IO.pure(Abi.Codec.Value, Abi.Codec.Value.String{text})
+
+@unsafe
+def Cli.Return.fields(+args: ListOf(String)) -> IO(Cli.Call.Fields):
+  match args:
+    case Nil{}: IO.pure(Cli.Call.Fields, Cli.Call.Fields{[], []})
+    case Con{type_name, Con{text, rest}}:
+      IO.bind(Abi.Schema.Value_type, Cli.Call.Fields, Cli.Call.typ("returndata-encode", type_name), +typ =>
+        IO.bind(Abi.Codec.Value, Cli.Call.Fields, Cli.Return.value(typ, text), value =>
+          IO.bind(Cli.Call.Fields, Cli.Call.Fields, Cli.Return.fields(rest), tail => Cli.Call.prepend(typ, value, tail))))
+    case Con{_, Nil{}}: Cli.Call.fail(Cli.Call.Fields, "returndata-encode", "expected TYPE VALUE pairs")
+
+@unsafe
+def Cli.Return.types(+args: ListOf(String)) -> IO(ListOf(Abi.Schema.Parameter)):
+  match args:
+    case Nil{}: IO.pure(ListOf(Abi.Schema.Parameter), [])
+    case Con{text, rest}:
+      IO.bind(Abi.Schema.Value_type, ListOf(Abi.Schema.Parameter), Cli.Call.typ("returndata-decode", text), +typ =>
+        IO.bind(ListOf(Abi.Schema.Parameter), ListOf(Abi.Schema.Parameter), Cli.Return.types(rest), tail => IO.pure(ListOf(Abi.Schema.Parameter), MkAbi_Schema_Parameter{"", typ} <> tail)))
+
+def Cli.Return.schema(+outputs: ListOf(Abi.Schema.Parameter)) -> Abi.Schema.Function_:
+  MkAbi_Schema_Function_{"", [], outputs, Abi.Mutability.Nonpayable{}}
+
+def Cli.Return.error(+error: Abi.Return.Error) -> String:
+  match error:
+    case Abi.Return.Error.Arity{}: "output and value counts differ"
+    case Abi.Return.Error.Type_mismatch{}: "output and value types differ"
+    case Abi.Return.Error.Codec{error}: Cli.Event.codec_error(error)
+
+def Cli.Return.encoded(+result: Abi.Return.Result(String)) -> IO(Unit):
+  match result:
+    case Done{bytes}: NativeIO.print(String.concat(["{\u{22}returndata\u{22}:", Abi.quote(String.append("0x", Cli.Event.hex(bytes))), "}"]))
+    case Fail{error}: Cli.Call.fail(Unit, "returndata-encode", Cli.Return.error(error))
+
+@unsafe
+def Cli.Return.encode_fields(+fields: Cli.Call.Fields) -> IO(Unit):
+  match fields:
+    case Cli.Call.Fields{outputs, values}: Native.choose(&1, IO(Unit), Big.is_lt(Big.of_nat(131072n), NativeInt.sub(Cli.Call.size(values), Big.of_nat(4n))), _ => Cli.Call.fail(Unit, "returndata-encode", "returndata exceeds 131072 bytes"), _ => Cli.Return.encoded(Abi.Return.encode(Cli.Return.schema(outputs), values)))
+
+@unsafe
+def Cli.Return.encode(+args: ListOf(String)) -> IO(Unit):
+  IO.bind(Cli.Call.Fields, Unit, Cli.Return.fields(args), fields => Cli.Return.encode_fields(fields))
+
+def Cli.Return.unhex(+result: OptionOf(ListOf(Char))) -> IO(String):
+  match result:
+    case Some{chars}: IO.pure(String, NativeString.of_list(chars))
+    case None{}: Cli.Call.fail(String, "returndata-decode", "expected even-length hexadecimal bytes")
+
+@unsafe
+def Cli.Return.bytes(+result: OptionOf(String)) -> IO(String):
+  match result:
+    case None{}: Cli.Call.fail(String, "returndata-decode", "expected even-length hexadecimal bytes")
+    case Some{hex}: Native.choose(&1, IO(String), Big.is_lt(Big.of_nat(262144n), Big.of_nat(String.length(hex))), _ => Cli.Call.fail(String, "returndata-decode", "hexadecimal input exceeds 131072 bytes"), _ => Cli.Return.unhex(Cli.EventDecode.pairs(NativeString.to_list(hex))))
+
+def Cli.Return.decoded(+result: Abi.Return.Result(ListOf(Abi.Codec.Value))) -> IO(Unit):
+  match result:
+    case Done{values}: NativeIO.print(String.concat(["{\u{22}values\u{22}:[", String.join(Cli.Call.values(values), ","), "]}"]))
+    case Fail{error}: Cli.Call.fail(Unit, "returndata-decode", Cli.Return.error(error))
+
+@unsafe
+def Cli.Return.decode_args(+hex: String, +types: ListOf(String)) -> IO(Unit):
+  IO.bind(ListOf(Abi.Schema.Parameter), Unit, Cli.Return.types(types), +outputs =>
+    IO.bind(String, Unit, Cli.Return.bytes(Trace.calldata(hex)), bytes => Cli.Return.decoded(Abi.Return.decode(Cli.Return.schema(outputs), bytes))))
+
+@unsafe
+def Cli.Return.decode(+args: ListOf(String)) -> IO(Unit):
+  match args:
+    case Con{hex, types}: Cli.Return.decode_args(hex, types)
+    case Nil{}: Cli.Call.fail(Unit, "returndata-decode", "usage: assay returndata-decode HEX [TYPE]...")
+
 type Cli.Call.Fields is Data:
   Cli.Call.Fields{inputs: ListOf(Abi.Schema.Parameter), values: ListOf(Abi.Codec.Value)}
 
@@ -315,7 +405,7 @@ def Cli.when(test: Bool, yes: Unit -> IO(Unit), no: Unit -> IO(Unit)) -> IO(Unit
     case True{}: yes(Unit{})
     case False{}: no(Unit{})
 def Cli.fail(code: U32, message: String) -> IO(Unit): NativeIO.die(Unit, code, message)
-def Cli.usage() -> IO(Unit): Cli.fail(64, "usage: assay check [--print|--erased] FILE | axioms FILE | spec-count | emit FILE -o DIR | trace FILE --calldata HEX [--prestate FILE] [--value WORD] [--caller ADDRESS] | diff FILE --calldata HEX [--prestate FILE] [--value WORD] [--caller ADDRESS] | run FILE [--calldata HEX] [--storage SLOT=WORD]... [--value WORD] [--caller ADDRESS] [--address ADDRESS] [--export NAME] | mapping-slot BASE TYPE KEY [TYPE KEY]... | event-encode NAME [--anonymous] [TYPE indexed|data VALUE]... | event-decode NAME [--anonymous] --topics HEX[,HEX]... --data HEX [TYPE indexed|data]... | calldata-encode NAME [TYPE VALUE]... | calldata-decode NAME HEX [TYPE]... | mapping-layout FILE | deploy FILE | test FILE")
+def Cli.usage() -> IO(Unit): Cli.fail(64, "usage: assay check [--print|--erased] FILE | axioms FILE | spec-count | emit FILE -o DIR | trace FILE --calldata HEX [--prestate FILE] [--value WORD] [--caller ADDRESS] | diff FILE --calldata HEX [--prestate FILE] [--value WORD] [--caller ADDRESS] | run FILE [--calldata HEX] [--storage SLOT=WORD]... [--value WORD] [--caller ADDRESS] [--address ADDRESS] [--export NAME] | mapping-slot BASE TYPE KEY [TYPE KEY]... | event-encode NAME [--anonymous] [TYPE indexed|data VALUE]... | event-decode NAME [--anonymous] --topics HEX[,HEX]... --data HEX [TYPE indexed|data]... | calldata-encode NAME [TYPE VALUE]... | calldata-decode NAME HEX [TYPE]... | returndata-encode [TYPE VALUE]... | returndata-decode HEX [TYPE]... | mapping-layout FILE | deploy FILE | test FILE")
 
 type Cli.Event.Fields is Data:
   Cli.Event.Fields{inputs: ListOf(Abi.Schema.Event_parameter), values: ListOf(Abi.Codec.Value)}
@@ -851,7 +941,9 @@ def Cli.dispatch(+command: String, +args: List<&2, String>) -> IO(Unit):
   Cli.when(NativeString.equal(command, "event-decode"), _ => Cli.EventDecode.run(args), _ =>
   Cli.when(NativeString.equal(command, "calldata-encode"), _ => Cli.Call.encode(args), _ =>
   Cli.when(NativeString.equal(command, "calldata-decode"), _ => Cli.Call.decode(args), _ =>
-  Cli.when(Cli.member(command, ["deploy", "test"]), _ => Cli.fail(3, String.concat(["assay: ", command, ": PENDING (M1)"])), _ => Cli.usage()))))))))))))
+  Cli.when(NativeString.equal(command, "returndata-encode"), _ => Cli.Return.encode(args), _ =>
+  Cli.when(NativeString.equal(command, "returndata-decode"), _ => Cli.Return.decode(args), _ =>
+  Cli.when(Cli.member(command, ["deploy", "test"]), _ => Cli.fail(3, String.concat(["assay: ", command, ": PENDING (M1)"])), _ => Cli.usage()))))))))))))))
 def Cli.main(args: List<&2, String>) -> IO(Unit):
   match args:
     case Nil{}: Cli.usage()

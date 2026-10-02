@@ -51,7 +51,9 @@ each mutant build. The installed binary is checked again after the
 mutations. Historical CLI compatibility compares the complete reachable
 bundle after restoring the pinned CLI adapters.
 
-`make test` includes this check. `make gates` selects
-`--m2-mapping-source`, appending `MAPPING-SOURCE` to the 99 carried checks.
+`make test` includes this check. `--m2-mapping-source` appends
+`MAPPING-SOURCE` to the 99 carried checks, for 100. `make gates` now selects
+`--m2-returndata-cli`, which appends the
+[return-data CLI check](M2-RETURNDATA-CLI.md), for 101 checks.
 The old `--m2-source-packing` schedule remains available unchanged. All
 trusted source budgets and the M4 speed gate remain fixed.

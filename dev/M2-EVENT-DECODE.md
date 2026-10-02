@@ -114,8 +114,8 @@ follow-up, the check accepts one pinned `Lexer.ident_kind` delta and puts
 back the BASE declaration before the compare; see
 [LEXER-KEYWORDS](LEXER-KEYWORDS.md). `--m2-event-decode` adds
 EVENT-DECODE, for 85 checks. The current default,
-`--m2-mapping-source`, runs 100; see
-[M2-MAPPING-SOURCE](M2-MAPPING-SOURCE.md). Counts exclude BEND2-RATIO and BEND2-RATIO-TEST, which moved to
+`--m2-returndata-cli`, runs 101; see
+[M2-RETURNDATA-CLI](M2-RETURNDATA-CLI.md). Counts exclude BEND2-RATIO and BEND2-RATIO-TEST, which moved to
 [`--m4-speed`](M4-SPEED.md) on 2026-10-01.
 
 The new implementation brings `src/abi.bend` to 495 lines, above the

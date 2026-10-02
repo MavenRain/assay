@@ -17,8 +17,8 @@ import tempfile
 import time
 
 
-COMMIT = 'c65bcb788dbfb298bb434c1d858b47c193841dc0'
-VERSIONS = {'bend': 'bend 2.0.25', 'node': 'v23.10.0'}
+COMMIT = 'bc178404f4778704fa5584a73fcdf72bcdf9f32c'
+VERSIONS = {'bend': 'bend 2.0.28', 'node': 'v23.10.0'}
 CASES = ('Return', 'Arithmetic', 'Pair', 'Leaf', 'Apply', 'Let')
 MANIFEST = 'corpus/bend2/MANIFEST.json'
 REPORT = 'dev/bend2-baseline.json'

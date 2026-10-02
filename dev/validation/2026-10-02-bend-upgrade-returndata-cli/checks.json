@@ -1,0 +1,241 @@
+{
+  "base": "f8a8b1ba6bfe065269814de93e2d75c7b7fb8003",
+  "bend": {
+    "repository": "https://github.com/bendlang/bend.git",
+    "version": "2.0.28",
+    "commit": "bc178404f4778704fa5584a73fcdf72bcdf9f32c"
+  },
+  "default_stage": "M2-RETURNDATA-CLI",
+  "default_legs": 101,
+  "full_gate_battery_run": false,
+  "checks": {
+    "runtest": {
+      "argv": [
+        "python3",
+        "-P",
+        "dev/build.py",
+        "runtest"
+      ],
+      "exit_code": 0,
+      "stdout": "runtest.stdout.log",
+      "stderr": "runtest.stderr.log"
+    },
+    "returndata-cli": {
+      "argv": [
+        "python3",
+        "-P",
+        "dev/returndata-cli-test.py"
+      ],
+      "exit_code": 0,
+      "stdout": "returndata-cli.stdout.log",
+      "stderr": "returndata-cli.stderr.log"
+    },
+    "calldata-cli": {
+      "argv": [
+        "python3",
+        "-P",
+        "dev/calldata-cli-test.py"
+      ],
+      "exit_code": 0,
+      "stdout": "calldata-cli.stdout.log",
+      "stderr": "calldata-cli.stderr.log"
+    },
+    "mapping-cli": {
+      "argv": [
+        "python3",
+        "-P",
+        "dev/mapping-cli-test.py"
+      ],
+      "exit_code": 0,
+      "stdout": "mapping-cli.stdout.log",
+      "stderr": "mapping-cli.stderr.log"
+    },
+    "event-decode-cli": {
+      "argv": [
+        "python3",
+        "-P",
+        "dev/event-decode-cli-test.py"
+      ],
+      "exit_code": 0,
+      "stdout": "event-decode-cli.stdout.log",
+      "stderr": "event-decode-cli.stderr.log"
+    },
+    "packed-source": {
+      "argv": [
+        "python3",
+        "-P",
+        "dev/packed-source-test.py"
+      ],
+      "exit_code": 0,
+      "stdout": "packed-source.stdout.log",
+      "stderr": "packed-source.stderr.log"
+    },
+    "paired-measurement": {
+      "argv": [
+        "python3",
+        "-P",
+        "dev/bend2-ratio.py",
+        "--measure",
+        "/Users/oobi/Documents/gpt1/assay-bend-28-measurement.json",
+        "--bend-root",
+        ".tools/bend"
+      ],
+      "exit_code": 0,
+      "stdout": "paired-measurement.stdout.log",
+      "stderr": "paired-measurement.stderr.log"
+    },
+    "milestone-speed": {
+      "argv": [
+        "python3",
+        "-P",
+        "dev/milestone-speed-test.py"
+      ],
+      "exit_code": 0,
+      "stdout": "milestone-speed.stdout.log",
+      "stderr": "milestone-speed.stderr.log"
+    },
+    "carry": {
+      "argv": [
+        "zsh",
+        "-f",
+        "dev/carry-check.sh"
+      ],
+      "exit_code": 0,
+      "stdout": "carry.stdout.log",
+      "stderr": "carry.stderr.log"
+    },
+    "house": {
+      "argv": [
+        "zsh",
+        "-f",
+        "dev/house.sh"
+      ],
+      "exit_code": 0,
+      "stdout": "house.stdout.log",
+      "stderr": "house.stderr.log"
+    },
+    "trusted-lines": {
+      "argv": [
+        "zsh",
+        "-f",
+        "dev/trusted-lines.sh"
+      ],
+      "exit_code": 0,
+      "stdout": "trusted-lines.stdout.log",
+      "stderr": "trusted-lines.stderr.log"
+    },
+    "bootstrap-control": {
+      "argv": [
+        "python3",
+        "-P",
+        "dev/bootstrap-control-test.py"
+      ],
+      "exit_code": 0,
+      "stdout": "bootstrap-control.stdout.log",
+      "stderr": "bootstrap-control.stderr.log"
+    },
+    "bend2-ratio-test": {
+      "argv": [
+        "python3",
+        "-P",
+        "dev/bend2-ratio-test.py"
+      ],
+      "exit_code": 0,
+      "stdout": "bend2-ratio-test.stdout.log",
+      "stderr": "bend2-ratio-test.stderr.log"
+    }
+  },
+  "other_checks": [
+    "CARRY files=12/12 diff=0 unlisted=0 (carry.stdout.log)",
+    "HOUSE OK (house.stdout.log)",
+    "TRUSTED-LINES OK (trusted-lines.stdout.log)",
+    "BOOTSTRAP controls=3 explicit-required dirty-refused clean-upgrade OK (bootstrap-control.stdout.log)",
+    "BEND2-RATIO-TEST controls=3 refused=37 mutants=6 OK (bend2-ratio-test.stdout.log)",
+    "BEND2-RATIO FAIL BEND2-BOUND limit=1.0 ratio=1.1791209726785337 (bend2-ratio.stdout.log)"
+  ],
+  "m4_speed": {
+    "exit_code": 1,
+    "ratio": 1.1791209726785337,
+    "limit": 1.0,
+    "failure": "BEND2-BOUND",
+    "argv": [
+      "python3",
+      "-P",
+      "dev/bend2-ratio.py"
+    ],
+    "stdout": "bend2-ratio.stdout.log",
+    "stderr": "bend2-ratio.stderr.log"
+  },
+  "source_sha256": {
+    "Makefile": "2a89c6d242552367476badad09b273004dd496e5feb02662454b15e084e826e1",
+    "README.md": "366686a73f721e843cd362df22e3a703ac943cbcf27a3a066e96d8c7adcf4f22",
+    "corpus/bend2/MANIFEST.json": "3de67208cd89c4a184a809ae988dfaee36f43ccac3935332bdd4d140a442ef07",
+    "dev/BEND2-MIGRATION.md": "9af9f3f2d6e4d425597f80bfcfb3e4358baed475b74c3f952c3002d2e20dcacb",
+    "dev/BEND2-UPGRADE.md": "5f0f7bbcdd092a6b3b28053a5d336eda0ed9408e600b0bc825fec3cdf5410efd",
+    "dev/BEND2.sha256": "9a8fe321023332620095a5145e77275bbbd423b8357fa2c8c78cf8a740b83648",
+    "dev/DENOMINATORS.sha256": "0fe7da12e371bcf2dc713e3c2f721ea302c8a35d55f0e99f190db4d5c9294d5f",
+    "dev/LEXER-DIRECT.md": "bab2f7c3f5101e936b6e524e2c81780816f134b8062f2ab113df9619f3ff8aee",
+    "dev/M1-BEND2.md": "561c2c4b5ac8f27981d841f3498442457fea5a6714dd9ccaf24781f91fe8d4b5",
+    "dev/M1-CLOSE.md": "e54e4730a15d0620ca71df1e9237a412929f718aa7130f92e833e40a2eb77d47",
+    "dev/M2-ABI-CODEC.md": "e2bdedd2956272fb6e4eaf9943948cec9626d933cb160ec5d69cc0a7a4172f61",
+    "dev/M2-ABI-SCHEMA.md": "91623fe4bd7ee6cf65c70167cb47d671dea025d501a79d14a0eacfd5dc56d6a4",
+    "dev/M2-CALLDATA-CLI.md": "81771735eaa94fa253f935d40d9ebbe1969d5a856bd0632d263dcc6c5b97cc07",
+    "dev/M2-CALLDATA.md": "002eeed3ed5b5de1689b8a6c1ad2a47d5cb112fc5006e3af3f942c36692ad0f1",
+    "dev/M2-EVENT-DECODE.md": "994aa7780ef894555c26888e2ebb79af21ca40d65d962f0a6cb637c06e3be697",
+    "dev/M2-EVENTS.md": "b5c0f284911639b65addbba51957c29b3a7ecc2ab3f83bb6b6d1bab3a99d1e56",
+    "dev/M2-MAPPING-SOURCE.md": "ae21eff5acf3a7b85d508c31a9c1937aa0dbb96853914f78850f15c11a2e3b73",
+    "dev/M2-MAPPING.md": "ee2ae9202e935ab367f20ef956cda57e8e98f683bc92d43b50dcdc311ec3e070",
+    "dev/M2-PACKING.md": "16b1cb6a79402851ecf5fffde2f052b35d552e8145a9a751482d5ba16f504792",
+    "dev/M2-REFERENCE.md": "5ee82637247ce6e5e75723b66a3915ad7fe3837e14f55c908b75520cd4b504da",
+    "dev/M2-RETURNDATA-CLI.md": "75d210579ec7408a3941d87af50e857d4b3b779eda0b95a735364cda77ca6b31",
+    "dev/M2-RETURNDATA.md": "748340e7ebe4a908c3886415cbd5b0b24114fb74dd7335dab779e8253f66c19c",
+    "dev/M2-REVERTDATA.md": "0158387d382bea0387131a8656f66b0e6bc140ac83d5b3e6ca07d910b14c45cc",
+    "dev/M2-SOURCE-PACKING.md": "4496c2b6c9be71c7669dc9349f96f5a341d0d557b01e16045bdeadfaeabcaf6c",
+    "dev/M4-SPEED.md": "0df2f5fcae32e32fa680bc913c26461606989b707a126898217fcd28424d5683",
+    "dev/TOOLCHAIN.md": "54e3ff6cbb6f748e100d3fbb329f2d96449d75631402e3b729d412b4a514b3a7",
+    "dev/bend-catchalls.json": "2f3f7767824ae43377782713ac90a4d8ba65b09590869846d331949721e4e283",
+    "dev/bend2-baseline.json": "dab4389af6d14bac7b5540f2490ea68b3d82335b8df432f57bc737b8d3671680",
+    "dev/bend2-ratio.py": "0df701907b2b326007761be887fc56cedfca8e752394bb4e3896c49b64f318d7",
+    "dev/bootstrap-bend.py": "cd6fa32e4fab2fe1eabd91ce088fe89ef83651bf4b039d496e69824f1659d609",
+    "dev/bootstrap-control-test.py": "1b94a504263b8d38a1215e09091f7d105efd6b20332c1ccabff87d37fea48c09",
+    "dev/cli_delta.py": "3b892edc1ed74377aeef375267baea6bdeeb6fdbd5b7a8a7f06601bc0f45c97f",
+    "dev/denominators.json": "73acf65209282336f41fa1677db46eea9a4c4f7c18ab7be32bdc886b9aee1087",
+    "dev/gates.sh": "fece112932e3505b2d9dfeab10182cb36dc006e2e62ec81c2830a764f16de723",
+    "dev/native-carry.json": "b248fc4844fd5a3e21cedeab12603ca3bafadc5542f77988c222361cd5cdf06d",
+    "dev/returndata-cli-test.py": "87ebc0d72214a6559431aeaf174e8cdc5f4e18df7849cbd8e3b1566a089b4779",
+    "dev/stage-a-gates.py": "9028c61a411373a7ccb39ac1b237134c4632ce43bca67386440793e5fc5a0ae3",
+    "dev/toolchain.json": "17feae12f73a965bf1f97ed6a98adfed8ed5518c536cda105006af8ebe01f036",
+    "src/cli.bend": "006119c4eabe63b4578e0ddde63e9e82d15caf4dc186b590cd02ae3f8e54309d",
+    "src/os.js": "77d8c495a6ddf6d9cfc3060ef4ca95869b70b8e4dfd867fbc9efcfd57fb8c4ae",
+    "src/test-os.js": "7a3604ea52e847ae3ed2054859a9746ac975b5db7f5665a355d041dd0f143ce0"
+  },
+  "compiled_sha256": {
+    "assay.js": "7508667c7b38896b1a4ebe1609c3ecbb9bfe33e179d2c7a7c10759e05a4d004d",
+    "backends.js": "5ccfd2105e3bb16156241efcd7eeb9e4db7af9ad2d487ec5e48d1c7ec4a7a327",
+    "tests.js": "21d4aa14f8f20ae4380b942e717fdc41a456cce5633aa5fb09fc11a5affab8e9"
+  },
+  "earlier_failed_attempts": [
+    {
+      "artifact": "run-7boufV",
+      "cause": "2.0.28 requires explicit JavaScript effect registration"
+    },
+    {
+      "artifact": "run-V7rU70",
+      "cause": "CID reference to a pruned effect declaration"
+    },
+    {
+      "artifact": "run-xebCyJ",
+      "cause": "test used calldata size overhead for return data"
+    }
+  ],
+  "review_changes": [
+    "F1 dev/native-carry.json repins src/cli.bend, src/os.js and src/test-os.js; carry-check diff=0",
+    "F2 M2-RETURNDATA-CLI.md states the UTF-8 argument limit (U+FFFD) and decoded string bytes",
+    "F3 BEND2-UPGRADE.md states that ignored files are not protected and that the fetch is shallow",
+    "F4 TOOLCHAIN.md, M1-BEND2.md and M1-CLOSE.md name Bend 2.0.28 and ratio 1.179120973; reproduction uses v2.0.28",
+    "F5 README.md, 16 dev pages and the stage-a-gates.py usage line name --m2-returndata-cli and 101 legs",
+    "F6 dev/bootstrap-control-test.py checks the bootstrap controls by hand (the frozen speed record pins the Makefile, so make test does not run it); every check has argv and logs; DENOMINATORS seals the new test, contract page and bootstrap test",
+    "F7 numeric spelling caps and address notation documented; two over-long refusals, 174 -> 176",
+    "logs: review-carry.log EXIT=0, review-house.log EXIT=0, review-trusted-lines.log EXIT=0, review-bootstrap-control.log EXIT=0, review-bend2-ratio-test.log EXIT=0, review-bend2-ratio.log EXIT=1, review-returndata-cli.log EXIT=0, review-milestone-speed.log EXIT=0, review-gates.log"
+  ]
+}

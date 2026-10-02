@@ -7,12 +7,17 @@ comparisons below are historical evidence, not measurements of the source
 packing implementation.
 
 The 2026-09-22 compilation-speed requirement is an Assay/Bend 2 ratio at
-most 1.0. The current native Bend comparison is 1.591541253 and does not pass.
-See [CLI-ERROR-DIRECT.md](CLI-ERROR-DIRECT.md) for the current source and record.
-Its five measured rounds of six cases completed in a 7.874-second window
-on 2026-10-01. `dev/bend2-baseline.json` holds the
-report, and `dev/BEND2.sha256` seals it. This describes the recorded host
-window and does not isolate a speed effect of response error compaction.
+most 1.0. The current native Bend comparison is 1.179120973 and does not pass.
+Its five measured rounds of six cases ran with Bend 2.0.28 (`bc178404`) in a
+27.649-second window on 2026-10-02. See
+[the upgrade record](validation/2026-10-02-bend-upgrade-returndata-cli/README.md).
+`dev/bend2-baseline.json` holds the report, and `dev/BEND2.sha256` seals it.
+This describes the recorded host window and does not isolate a speed effect
+of the compiler upgrade.
+The previous 1.591541253 comparison failed in its 7.874-second window under
+Bend 2.0.25 and is retained in
+`dev/validation/2026-10-01-cli-error-direct/paired-measurement.json`.
+[CLI-ERROR-DIRECT.md](CLI-ERROR-DIRECT.md) gives that source and record.
 The previous 1.087435467 comparison failed and is retained in
 `dev/validation/2026-10-01-cli-value-direct/paired-measurement.json`.
 The previous 1.639908573 comparison failed in its 9.366-second window and is
@@ -78,15 +83,17 @@ counter, storage, guards, ABI, source proofs, and Cancun execution.
 
 ## Reproduction
 
-The upstream is [bendlang/bend](https://github.com/bendlang/bend/tree/c65bcb788dbfb298bb434c1d858b47c193841dc0),
-tag `v2.0.25`, commit `c65bcb788dbfb298bb434c1d858b47c193841dc0`.
+The upstream is [bendlang/bend](https://github.com/bendlang/bend/tree/bc178404f4778704fa5584a73fcdf72bcdf9f32c),
+tag `v2.0.28`, commit `bc178404f4778704fa5584a73fcdf72bcdf9f32c`.
+Records before 2026-10-02 used tag `v2.0.25`, commit `c65bcb78`. See
+[BEND2-UPGRADE.md](BEND2-UPGRADE.md).
 Use Bun 1.3.11, Node.js v23.10.0 exactly (the ratio harness pins it),
 Python 3.11 or newer, and a C compiler (`cc`) on PATH.
 No global Bend installation is required.
 
 ```sh
-git clone --depth 1 --branch v2.0.25 https://github.com/bendlang/bend.git ../bend2-v2.0.25
-python3 -P dev/bend2-ratio.py --measure NEW.json --bend-root ../bend2-v2.0.25
+git clone --depth 1 --branch v2.0.28 https://github.com/bendlang/bend.git ../bend2-v2.0.28
+python3 -P dev/bend2-ratio.py --measure NEW.json --bend-root ../bend2-v2.0.28
 ```
 
 The harness checks the pinned source hashes and versions, builds
@@ -156,9 +163,10 @@ The prior --lexer-direct schedule now has 93 checks. The
 [event decoding CLI check](M2-EVENT-DECODE.md#command-line), the
 [calldata CLI check](M2-CALLDATA-CLI.md), the milestone
 ownership check and [source packing check](M2-SOURCE-PACKING.md), for 99
-checks. The default make gates and dev/gates.sh now select
---m2-mapping-source, which appends the
-[mapping source check](M2-MAPPING-SOURCE.md), for 100 checks.
+checks. The --m2-mapping-source mode appends the
+[mapping source check](M2-MAPPING-SOURCE.md), for 100 checks. The default
+make gates and dev/gates.sh now select --m2-returndata-cli, which appends the
+[return-data CLI check](M2-RETURNDATA-CLI.md), for 101 checks.
 Historical OCaml tools, native timing records and source seals remain
 available as diagnostics.
 

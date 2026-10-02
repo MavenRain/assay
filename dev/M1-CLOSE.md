@@ -7,9 +7,12 @@ battery pass or close the milestone.
 
 Historical speed status before the transfer: BEND2-RATIO failed on the frozen record. The requirement,
 set by the user on 2026-09-22, is compilation speed at least as fast as Bend 2.
-The [current paired comparison](CLI-ERROR-DIRECT.md) measures a ratio of 1.591541253
-against the unchanged 1.0 limit, in a 7.874-second window on
-2026-10-01. This describes the recorded host window.
+The [current paired comparison](validation/2026-10-02-bend-upgrade-returndata-cli/README.md)
+measures a ratio of 1.179120973 against the unchanged 1.0 limit, with Bend
+2.0.28 in a 27.649-second window on 2026-10-02. This describes the recorded
+host window.
+The previous 1.591541253 comparison failed and is retained in
+`dev/validation/2026-10-01-cli-error-direct/paired-measurement.json`.
 The previous 1.087435467 comparison failed and is retained in
 `dev/validation/2026-10-01-cli-value-direct/paired-measurement.json`.
 The previous 1.639908573 comparison failed and is retained in
@@ -133,7 +136,7 @@ ratification message remained. From 2026-09-22 to 2026-09-30
 in their place (see [M1-BEND2.md](M1-BEND2.md)), with the NATIVE-MAPS and
 NATIVE-IO checks, for 77 legs. On 2026-10-01 the two speed legs moved to
 [`--m4-speed`](M4-SPEED.md), so `--m1-close` now runs 75 legs. The default
-`--m2-mapping-source` mode adds the
+`--m2-returndata-cli` mode adds the
 [M2 reference gate](M2-REFERENCE.md), [ABI-SCHEMA](M2-ABI-SCHEMA.md),
 [ABI-CODEC](M2-ABI-CODEC.md), [packing](M2-PACKING.md),
 [mapping locations](M2-MAPPING.md), [EVENT-CODEC](M2-EVENTS.md),
@@ -149,8 +152,9 @@ NATIVE-IO checks, for 77 legs. On 2026-10-01 the two speed legs moved to
 [EVENT-CLI](M2-EVENTS.md#command-line),
 [EVENT-DECODE-CLI](M2-EVENT-DECODE.md#command-line),
 [CALLDATA-CLI](M2-CALLDATA-CLI.md), MILESTONE-SPEED,
-[PACKED-SOURCE](M2-SOURCE-PACKING.md) and
-[MAPPING-SOURCE](M2-MAPPING-SOURCE.md), for 100 checks.
+[PACKED-SOURCE](M2-SOURCE-PACKING.md),
+[MAPPING-SOURCE](M2-MAPPING-SOURCE.md) and
+[RETURNDATA-CLI](M2-RETURNDATA-CLI.md), for 101 checks.
 
 That ratio test used synthetic reports to exercise the public command; these
 were decision tests and provided no timing evidence. It checked the

@@ -1,0 +1,2 @@
+RETURNDATA-CLI encode=54 decode=55 oracle=cast refusals=176 pin_mutants=2 OK
+EXIT=0

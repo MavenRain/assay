@@ -80,8 +80,9 @@ mode appends CALL-CODEC, for a total of 82 checks. The current default adds
 [EVENT-CLI](M2-EVENTS.md#command-line),
 [EVENT-DECODE-CLI](M2-EVENT-DECODE.md#command-line),
 [CALLDATA-CLI](M2-CALLDATA-CLI.md), MILESTONE-SPEED,
-[PACKED-SOURCE](M2-SOURCE-PACKING.md) and
-[MAPPING-SOURCE](M2-MAPPING-SOURCE.md), for 100 checks.
+[PACKED-SOURCE](M2-SOURCE-PACKING.md),
+[MAPPING-SOURCE](M2-MAPPING-SOURCE.md) and
+[RETURNDATA-CLI](M2-RETURNDATA-CLI.md), for 101 checks.
 Counts exclude BEND2-RATIO and BEND2-RATIO-TEST, which moved to
 [`--m4-speed`](M4-SPEED.md) on 2026-10-01.
 

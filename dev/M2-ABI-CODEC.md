@@ -48,11 +48,11 @@ unmodified root build follows.
 
 The explicit `--m2-abi-codec` gate mode appends one leg to the unchanged
 77-leg schema schedule, for 78 legs. The current default,
-`--m2-mapping-source`, additionally runs [LAYOUT-PACKED](M2-PACKING.md),
+`--m2-returndata-cli`, additionally runs [LAYOUT-PACKED](M2-PACKING.md),
 [LAYOUT-MAPPING](M2-MAPPING.md), [EVENT-CODEC](M2-EVENTS.md),
 [CALL-CODEC](M2-CALLDATA.md), [RETURN-CODEC](M2-RETURNDATA.md),
-[REVERT-CODEC](M2-REVERTDATA.md) and the later checks, for 100 legs; see
-[M2-MAPPING-SOURCE](M2-MAPPING-SOURCE.md). Counts exclude BEND2-RATIO and BEND2-RATIO-TEST, which moved to
+[REVERT-CODEC](M2-REVERTDATA.md) and the later checks, for 101 legs; see
+[M2-RETURNDATA-CLI](M2-RETURNDATA-CLI.md). Counts exclude BEND2-RATIO and BEND2-RATIO-TEST, which moved to
 [`--m4-speed`](M4-SPEED.md) on 2026-10-01.
 The ABI-CODEC leg has a 300-second deadline:
 

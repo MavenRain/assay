@@ -1,9 +1,11 @@
 # Assay toolchain
 
-The current compiler uses Bend 2.0.25, pinned by commit in `toolchain.json`,
+The current compiler uses Bend 2.0.28, pinned by commit in `toolchain.json`,
 with Node.js 22 or newer and Python 3.11 or newer. Run
 `python3 -P dev/bootstrap-bend.py` from the repository root to build the pin
 with Git and Bun, then `make`. Set `BEND` to use an existing pinned checkout.
+[BEND2-UPGRADE.md](BEND2-UPGRADE.md) describes the `--upgrade` path for an
+older checkout.
 The EVM and Lean verification tools remain as specified below.
 
 ## Historical toolchain observations
