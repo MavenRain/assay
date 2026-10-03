@@ -1,0 +1,16 @@
+Traceback (most recent call last):
+  File "/Users/oobi/Documents/gpt1/assay-20261003-returns/dev/return-abi-test.py", line 183, in <module>
+    main()
+    ~~~~^^
+  File "/Users/oobi/Documents/gpt1/assay-20261003-returns/dev/return-abi-test.py", line 118, in main
+    compare(*row)
+    ~~~~~~~^^^^^^
+  File "/Users/oobi/Documents/gpt1/assay-20261003-returns/dev/return-abi-test.py", line 112, in compare
+    actual, evidence = C.D.execute(code, data, C.prestate({'0x0': hex(initial)}), shutil.which('evm'))
+                       ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oobi/Documents/gpt1/assay-20261003-returns/evm/diff.py", line 210, in execute
+    require(len(runtime) <= 49152 and len(calldata) <= 65536, 'DIFF_LIMIT: code or calldata is too large')
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oobi/Documents/gpt1/assay-20261003-returns/evm/diff.py", line 27, in require
+    raise ValueError(message)
+ValueError: DIFF_LIMIT: code or calldata is too large

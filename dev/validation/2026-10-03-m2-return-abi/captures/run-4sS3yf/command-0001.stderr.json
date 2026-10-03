@@ -1,0 +1,5 @@
+{
+  "encoding": "utf-8",
+  "raw_sha256": "1f078e4608497dea7de08c2b3b564311b9b7026f7aab56ee7001d51486a44d28",
+  "text": "Traceback (most recent call last):\n  File \"/Users/oobi/Documents/gpt1/assay-20261003-returns/dev/return-abi-test.py\", line 226, in <module>\n    main()\n    ~~~~^^\n  File \"/Users/oobi/Documents/gpt1/assay-20261003-returns/dev/return-abi-test.py\", line 219, in main\n    require(result.returncode == 1 and reason in result.stderr and not result.stdout,\n    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n            f'refusal {index}: {command} did not refuse for {reason}: {result.stderr}')\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/oobi/Documents/gpt1/assay-20261003-returns/dev/return-abi-test.py\", line 19, in require\n    raise AssertionError(message)\nAssertionError: refusal 4: check did not refuse for ABI:: line 1, column 72: SURFACE_SYNTAX: expected Word\n\n"
+}

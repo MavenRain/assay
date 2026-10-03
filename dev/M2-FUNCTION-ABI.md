@@ -3,7 +3,8 @@
 Source entries accept `Uint8`, `Uint256`, `Address`, `Bool` and `String`
 parameters. `Word` keeps the existing uint256 ABI and decoding behavior.
 Explicit ABI types use their canonical selector and strict tuple decoding.
-Results still use the existing Word return ABI.
+Results and custom errors support the types described in
+[source results and errors](M2-RETURN-ABI.md).
 
 ```text
 entry lengthOf (message : String) : Eff Sig Word := do

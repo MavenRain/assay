@@ -1,0 +1,5 @@
+{
+  "encoding": "utf-8",
+  "raw_sha256": "2b8385e245222b661342b4d77107c248cae8b1cc418f2ab8d4d917cefc6e2c7e",
+  "text": "Traceback (most recent call last):\n  File \"/Users/oobi/Documents/gpt1/assay-20261003-returns/dev/return-abi-test.py\", line 183, in <module>\n    main()\n    ~~~~^^\n  File \"/Users/oobi/Documents/gpt1/assay-20261003-returns/dev/return-abi-test.py\", line 33, in main\n    C.checked('check', [C.BINARY, 'check', source])\n    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/oobi/Documents/gpt1/assay-20261003-returns/dev/context-test.py\", line 40, in checked\n    require(result.returncode == 0, 'CONTEXT-TOOL ' + name + ': ' + result.stderr)\n    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/oobi/Documents/gpt1/assay-20261003-returns/evm/diff.py\", line 27, in require\n    raise ValueError(message)\nValueError: CONTEXT-TOOL check: line 12, column 9: SURFACE_DUPLICATE: conflicting global second\n\n"
+}

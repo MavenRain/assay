@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- message  : a match on a parameter or field (this name is a def or a consumed binder: give the value its own def)
+Location:
+17924 |   Native.choose(&2, CheckResult(ReturnAbi.Rejection), FunctionAbi.dynamic(Get.Abi.Schema.Parameter.typ(parameter)), _ =>
+17925>|     match value:
+      |           ^^^^^
+17926 |       case Con{_, Con{name, Con{_, Nil{}}}}:
+BEND BUILD FAIL: Bend compilation failed (exit 1), full log: /Users/oobi/Documents/gpt1/assay-20261003-returns/_build/bend/assay.log

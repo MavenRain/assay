@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- message  : a match on a parameter or field (this name is a def or a consumed binder: give the value its own def)
+Location:
+16271 |   +label = ReturnAbi.label(root, index, "check")
+16272>|   match parameters:
+      |         ^^^^^^^^^^
+16273 |     case Nil{}:
+BEND BUILD FAIL: Bend compilation failed (exit 1), full log: /Users/oobi/Documents/gpt1/assay-20261003-returns/_build/bend/assay.log

@@ -68,8 +68,9 @@ The explicit `--m2-packing` gate mode appends `LAYOUT-PACKED` to the
 and the later checks, for 101 legs; see
 [M2-RETURNDATA-CLI](M2-RETURNDATA-CLI.md).
 `--m2-mapping-runtime` adds [MAPPING-RUNTIME](M2-MAPPING-RUNTIME.md), for 102
-legs. The current default, `--m2-function-abi`, adds
-[FUNCTION-ABI](M2-FUNCTION-ABI.md), for 103 legs. Counts exclude BEND2-RATIO and BEND2-RATIO-TEST, which moved to
+legs. `--m2-function-abi` adds [FUNCTION-ABI](M2-FUNCTION-ABI.md), for 103
+legs. The current default, `--m2-return-abi`, adds
+[RETURN-ABI](M2-RETURN-ABI.md), for 104 legs. Counts exclude BEND2-RATIO and BEND2-RATIO-TEST, which moved to
 [`--m4-speed`](M4-SPEED.md) on 2026-10-01. All 48 prior modes preserve their schedules, deadlines
 and failure classification. The existing trusted-source limits are intact.
 The [validation record](validation/2026-09-25-m2-packing/README.md) records

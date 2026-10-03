@@ -1,0 +1,5 @@
+{
+  "encoding": "utf-8",
+  "raw_sha256": "e4529018b6f294b542afeb08bcff11e8e0ee17211751b61d1b9e2ea1cf2f4af2",
+  "text": "Traceback (most recent call last):\n  File \"/Users/oobi/Documents/gpt1/assay-20261003-returns/dev/return-abi-test.py\", line 226, in <module>\n    main()\n    ~~~~^^\n  File \"/Users/oobi/Documents/gpt1/assay-20261003-returns/dev/return-abi-test.py\", line 219, in main\n    require(result.returncode == 2 and reason in result.stderr and not result.stdout,\n    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n            f'refusal {index}: {command} did not refuse for {reason}: {result.stderr}')\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/oobi/Documents/gpt1/assay-20261003-returns/dev/return-abi-test.py\", line 19, in require\n    raise AssertionError(message)\nAssertionError: refusal 0: check did not refuse for ABI:: line 1, column 80: SURFACE_ABI: unsupported function result type\n\n"
+}

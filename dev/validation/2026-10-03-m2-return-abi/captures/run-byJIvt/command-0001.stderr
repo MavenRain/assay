@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : a nat literal up to 4294967295n (got 115792089237316195423570985008687907853269984665640564039457584007913129639935n)
+- observed : ')'
+Location:
+9975 |     case Abi.Schema.Value_type.Uint8{}: Big.of_nat(255n)
+9976>|     case Abi.Schema.Value_type.Uint256{}: Big.of_nat(115792089237316195423570985008687907853269984665640564039457584007913129639935n)
+     |                                                                                                                                     ^
+9977 |     case Abi.Schema.Value_type.Address{}: Big.of_nat(1461501637330902918203684832716283019655932542975n)
+BEND BUILD FAIL: Bend compilation failed (exit 1), full log: /Users/oobi/Documents/gpt1/assay-20261003-returns/_build/bend/assay.log

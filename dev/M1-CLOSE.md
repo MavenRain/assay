@@ -156,8 +156,9 @@ NATIVE-IO checks, for 77 legs. On 2026-10-01 the two speed legs moved to
 [MAPPING-SOURCE](M2-MAPPING-SOURCE.md) and
 [RETURNDATA-CLI](M2-RETURNDATA-CLI.md), for 101 checks.
 `--m2-mapping-runtime` appends [MAPPING-RUNTIME](M2-MAPPING-RUNTIME.md), for
-102 checks. The current default, `--m2-function-abi`, appends
-[FUNCTION-ABI](M2-FUNCTION-ABI.md), for 103 checks.
+102 checks. `--m2-function-abi` appends [FUNCTION-ABI](M2-FUNCTION-ABI.md),
+for 103 checks. The current default, `--m2-return-abi`, appends
+[RETURN-ABI](M2-RETURN-ABI.md), for 104 checks.
 
 That ratio test used synthetic reports to exercise the public command; these
 were decision tests and provided no timing evidence. It checked the

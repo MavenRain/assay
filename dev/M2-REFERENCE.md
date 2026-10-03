@@ -36,8 +36,9 @@ The `--m2-returndata-cli` mode extends this schedule with [ABI-SCHEMA](M2-ABI-SC
 [MAPPING-SOURCE](M2-MAPPING-SOURCE.md) and
 [RETURNDATA-CLI](M2-RETURNDATA-CLI.md), for 101 checks.
 `--m2-mapping-runtime` appends [MAPPING-RUNTIME](M2-MAPPING-RUNTIME.md), for
-102 checks. The current default, `--m2-function-abi`, appends
-[FUNCTION-ABI](M2-FUNCTION-ABI.md), for 103 checks.
+102 checks. `--m2-function-abi` appends [FUNCTION-ABI](M2-FUNCTION-ABI.md),
+for 103 checks. The current default, `--m2-return-abi`, appends
+[RETURN-ABI](M2-RETURN-ABI.md), for 104 checks.
 
 The reference has 798 runtime bytes and a 107-byte constructor prefix.
 All 431 runtime instructions and all constructor instructions are covered.

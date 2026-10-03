@@ -1,0 +1,1063 @@
+{
+  "simulation": true,
+  "carried": [
+    {
+      "name": "BUILD",
+      "command": [
+        "zsh",
+        "-f",
+        "dev/build.sh",
+        "build"
+      ],
+      "deadline": 120,
+      "marker": ""
+    },
+    {
+      "name": "PIN-CARRY",
+      "command": [
+        "zsh",
+        "-f",
+        "dev/carry-check.sh"
+      ],
+      "deadline": 30,
+      "marker": "diff=0 unlisted=0"
+    },
+    {
+      "name": "R0-COUNT",
+      "command": [
+        "zsh",
+        "-f",
+        "dev/r0-count.sh"
+      ],
+      "deadline": 10,
+      "marker": "R0-COUNT OK"
+    },
+    {
+      "name": "R0-AUDIT",
+      "command": [
+        "zsh",
+        "-f",
+        "dev/r0-audit.sh"
+      ],
+      "deadline": 10,
+      "marker": "R0-AUDIT OK"
+    },
+    {
+      "name": "HOUSE",
+      "command": [
+        "zsh",
+        "-f",
+        "dev/house.sh"
+      ],
+      "deadline": 30,
+      "marker": "HOUSE OK"
+    },
+    {
+      "name": "NATIVE-MAPS",
+      "command": [
+        "python3",
+        "-P",
+        "dev/native-maps-test.py"
+      ],
+      "deadline": 180,
+      "marker": "NATIVE-MAPS cases=35 OK"
+    },
+    {
+      "name": "NATIVE-IO",
+      "command": [
+        "python3",
+        "-P",
+        "dev/native-io-test.py"
+      ],
+      "deadline": 180,
+      "marker": "NATIVE-IO cases=12 bytes=65797 OK"
+    },
+    {
+      "name": "TRUSTED-LINES",
+      "command": [
+        "zsh",
+        "-f",
+        "dev/trusted-lines.sh"
+      ],
+      "deadline": 10,
+      "marker": "TRUSTED-LINES OK"
+    },
+    {
+      "name": "SUITE-KERNEL",
+      "command": [
+        "_build/test/main",
+        "test"
+      ],
+      "deadline": 300,
+      "marker": "SUITE-KERNEL OK"
+    },
+    {
+      "name": "SUITE-SURFACE",
+      "command": [
+        "_build/test/sl_surface"
+      ],
+      "deadline": 60,
+      "marker": "SL-SURFACE OK"
+    },
+    {
+      "name": "DRIVER",
+      "command": [
+        "python3",
+        "-P",
+        "dev/stage-a-test.py",
+        "driver"
+      ],
+      "deadline": 30,
+      "marker": "DRIVER cases=28 OK"
+    },
+    {
+      "name": "MUTANTS",
+      "command": [
+        "python3",
+        "-P",
+        "dev/stage-a-test.py",
+        "mutants"
+      ],
+      "deadline": 300,
+      "marker": "MUTANTS killed=13/13 OK"
+    },
+    {
+      "name": "DENOMINATORS",
+      "command": [
+        "shasum",
+        "-a",
+        "256",
+        "-c",
+        "dev/DENOMINATORS.sha256"
+      ],
+      "deadline": 10,
+      "marker": "dev/denominators.json: OK"
+    },
+    {
+      "name": "KECCAK-VEC",
+      "command": [
+        "python3",
+        "-P",
+        "dev/keccak-test.py",
+        "vectors"
+      ],
+      "deadline": 120,
+      "marker": "KECCAK-VEC vectors=35 ok=35 adapter=5 OK"
+    },
+    {
+      "name": "KECCAK-MUTANTS",
+      "command": [
+        "python3",
+        "-P",
+        "dev/keccak-test.py",
+        "mutants"
+      ],
+      "deadline": 660,
+      "marker": "KECCAK-MUTANTS killed=4/4 control=OK"
+    },
+    {
+      "name": "STACK-HEIGHT",
+      "command": [
+        "python3",
+        "-P",
+        "dev/asm-test.py",
+        "stack"
+      ],
+      "deadline": 780,
+      "marker": "STACK-HEIGHT blocks=30 cases=64 opcodes=149 effect_cases=370 OK"
+    },
+    {
+      "name": "DISASM-3WAY",
+      "command": [
+        "python3",
+        "-P",
+        "dev/asm-test.py",
+        "disasm"
+      ],
+      "deadline": 120,
+      "marker": "DISASM-3WAY ours=272 cast=272 evm=272 fixtures=7 negative=38 OK"
+    },
+    {
+      "name": "ASM-MUTANTS",
+      "command": [
+        "python3",
+        "-P",
+        "dev/asm-test.py",
+        "mutants"
+      ],
+      "deadline": 1860,
+      "marker": "ASM-MUTANTS killed=9/9 control=OK"
+    },
+    {
+      "name": "FORK-DRIFT",
+      "command": [
+        "zsh",
+        "-f",
+        "dev/fork-check.sh"
+      ],
+      "deadline": 120,
+      "marker": "FORK-DRIFT push0=OK tload=OK tstore=OK mcopy=OK clz=INVALID OK"
+    },
+    {
+      "name": "M0-TRACE",
+      "command": [
+        "python3",
+        "-P",
+        "dev/reference-test.py",
+        "trace"
+      ],
+      "deadline": 120,
+      "marker": "M0-TRACE scope=reference bytes=20 listing=17 cast=17 evm=13 skipped=4 storage=42 return=42 OK"
+    },
+    {
+      "name": "CREATE-EQ",
+      "command": [
+        "python3",
+        "-P",
+        "dev/reference-test.py",
+        "create"
+      ],
+      "deadline": 120,
+      "marker": "CREATE-EQ bytes=20 returned=20 installed=1 OK"
+    },
+    {
+      "name": "REFERENCE-CHECKS",
+      "command": [
+        "python3",
+        "-P",
+        "dev/reference-test.py",
+        "checks"
+      ],
+      "deadline": 180,
+      "marker": "REFERENCE-CHECKS cases=32 controls=2 OK"
+    },
+    {
+      "name": "REFERENCE-MUTANTS",
+      "command": [
+        "python3",
+        "-P",
+        "dev/reference-test.py",
+        "mutants"
+      ],
+      "deadline": 1200,
+      "marker": "REFERENCE-MUTANTS killed=8/8 controls=3 OK"
+    },
+    {
+      "name": "EMIT-CONSTRUCTORS",
+      "command": [
+        "_build/test/emit_cases",
+        "constructors"
+      ],
+      "deadline": 30,
+      "marker": "EMIT-CONSTRUCTORS cases=22 OK"
+    },
+    {
+      "name": "WORD-UNBOX",
+      "command": [
+        "_build/test/emit_cases",
+        "words"
+      ],
+      "deadline": 30,
+      "marker": "WORD-UNBOX ktag=0 kstruct=0 words=3 cases=9 OK"
+    },
+    {
+      "name": "STORAGE-NOCLOS",
+      "command": [
+        "_build/test/emit_cases",
+        "storage"
+      ],
+      "deadline": 30,
+      "marker": "STORAGE-NOCLOS kclos=0 ktail=0 fields=2 cases=9 OK"
+    },
+    {
+      "name": "ABI-GOLD",
+      "command": [
+        "zsh",
+        "-f",
+        "dev/abi-gold.sh"
+      ],
+      "deadline": 60,
+      "marker": "ABI-GOLD jq_sorted=equal provenance=dev/ABI-PROVENANCE.md controls=4 OK"
+    },
+    {
+      "name": "EMITTED-TRACE",
+      "command": [
+        "python3",
+        "-P",
+        "dev/emit-test.py",
+        "trace"
+      ],
+      "deadline": 120,
+      "marker": "M0-TRACE offsets=13 listing=17 cast=17 evm=13 five_files=5 OK"
+    },
+    {
+      "name": "EMIT-SOURCES",
+      "command": [
+        "python3",
+        "-P",
+        "dev/emit-test.py",
+        "sources"
+      ],
+      "deadline": 600,
+      "marker": "EMIT-SOURCES success=15 refusal=9 driver=3 OK"
+    },
+    {
+      "name": "EMIT-MUTANTS",
+      "command": [
+        "python3",
+        "-P",
+        "dev/emit-test.py",
+        "mutants"
+      ],
+      "deadline": 1200,
+      "marker": "EMIT-MUTANTS killed=7/7 controls=4 OK"
+    },
+    {
+      "name": "AXIOMS",
+      "command": [
+        "python3",
+        "-P",
+        "dev/proofs-test.py"
+      ],
+      "deadline": 480,
+      "marker": "AXIOMS sorryAx=0 theorems=42 carried_files=28 controls=3 OK"
+    },
+    {
+      "name": "TRACE-DRIVER",
+      "command": [
+        "python3",
+        "-P",
+        "dev/trace-test.py"
+      ],
+      "deadline": 120,
+      "marker": "TRACE-DRIVER cases=20 explicit_prestate=true literal_argv=true OK"
+    },
+    {
+      "name": "CORPUS",
+      "command": [
+        "python3",
+        "-P",
+        "dev/corpus-test.py",
+        "corpus"
+      ],
+      "deadline": 600,
+      "marker": "CORPUS cases=11 five_files=5 OK"
+    },
+    {
+      "name": "ERASED-BYTES",
+      "command": [
+        "python3",
+        "-P",
+        "dev/corpus-test.py",
+        "erased"
+      ],
+      "deadline": 120,
+      "marker": "ERASED-BYTES mutants=2 caught=1 equal=2 scope=M0-seed OK"
+    },
+    {
+      "name": "M0-RATIO",
+      "command": [
+        "zsh",
+        "-f",
+        "dev/ratio.sh"
+      ],
+      "deadline": 60,
+      "marker": "M0-RATIO provenance=dev/denominators.json fixed=spec-count-proxy subtraction=none OK"
+    },
+    {
+      "name": "F-MUTANTS",
+      "command": [
+        "python3",
+        "-P",
+        "dev/corpus-test.py",
+        "mutants"
+      ],
+      "deadline": 180,
+      "marker": "F-MUTANTS killed=7/7 controls=5 OK"
+    },
+    {
+      "name": "DIFF-EXECUTOR",
+      "command": [
+        "python3",
+        "-P",
+        "dev/diff-test.py"
+      ],
+      "deadline": 180,
+      "marker": "DIFF-EXECUTOR live=20 driver=28 rejected=24 OK"
+    },
+    {
+      "name": "COUNTER-REFERENCE",
+      "command": [
+        "python3",
+        "-P",
+        "dev/counter-test.py"
+      ],
+      "deadline": 300,
+      "marker": "COUNTER-REFERENCE cases=30 creates=2 mutants=8 value_rejected=5 covered=120 scope=reference OK"
+    },
+    {
+      "name": "M1-EMISSION",
+      "command": [
+        "python3",
+        "-P",
+        "dev/m1-emit-test.py"
+      ],
+      "deadline": 600,
+      "marker": "M1-EMISSION counter=30 sources=8 refusals=11 mutants=8 OK"
+    },
+    {
+      "name": "SOURCE-MODEL",
+      "command": [
+        "python3",
+        "-P",
+        "dev/model-test.py"
+      ],
+      "deadline": 600,
+      "marker": "SOURCE-MODEL counter=30 variants=10 corpus=11 invalid=28 refusals=6 mutants=8 OK"
+    },
+    {
+      "name": "CONTRACT-SURFACE",
+      "command": [
+        "python3",
+        "-P",
+        "dev/contract-test.py"
+      ],
+      "deadline": 600,
+      "marker": "CONTRACT-SURFACE counter=30 variants=14 refusals=36 mutants=8 OK"
+    },
+    {
+      "name": "CONTRACT-ROUTE",
+      "command": [
+        "python3",
+        "-P",
+        "dev/contract-route-test.py"
+      ],
+      "deadline": 90,
+      "marker": "CONTRACT-ROUTE-CONTROLS killed=2/2 OK"
+    },
+    {
+      "name": "SOURCE-PROOFS",
+      "command": [
+        "python3",
+        "-P",
+        "dev/source-proof-test.py"
+      ],
+      "deadline": 600,
+      "marker": "SOURCE-PROOFS theorems=11 arithmetic=226 evm=16 recovery=6 effects=7 invalid=13 mutants=6 controls=4 OK"
+    },
+    {
+      "name": "NULLARY-ENTRIES",
+      "command": [
+        "python3",
+        "-P",
+        "dev/nullary-test.py"
+      ],
+      "deadline": 600,
+      "marker": "NULLARY-ENTRIES cases=53 creates=2 refusals=4 mutants=3 OK"
+    },
+    {
+      "name": "CUSTOM-ERRORS",
+      "command": [
+        "python3",
+        "-P",
+        "dev/errors-test.py"
+      ],
+      "deadline": 600,
+      "marker": "CUSTOM-ERRORS cases=66 creates=2 refusals=26 mutants=5 OK"
+    },
+    {
+      "name": "PROOF-GUARDS",
+      "command": [
+        "python3",
+        "-P",
+        "dev/guard-test.py"
+      ],
+      "deadline": 600,
+      "marker": "PROOF-GUARDS cases=83 creates=2 refusals=26 erasure=3 mutants=6 OK"
+    },
+    {
+      "name": "PROOF-TERMS",
+      "command": [
+        "python3",
+        "-P",
+        "dev/proof-term-test.py"
+      ],
+      "deadline": 600,
+      "marker": "PROOF-TERMS cases=98 creates=2 refusals=25 erasure=5 mutants=4 OK"
+    },
+    {
+      "name": "INVARIANTS",
+      "command": [
+        "python3",
+        "-P",
+        "dev/invariant-test.py"
+      ],
+      "deadline": 600,
+      "marker": "INVARIANTS cases=52 creates=2 refusals=30 erasure=4 mutants=4 OK"
+    },
+    {
+      "name": "PROOF-HELPERS",
+      "command": [
+        "python3",
+        "-P",
+        "dev/proof-helper-test.py"
+      ],
+      "deadline": 600,
+      "marker": "PROOF-HELPERS cases=104 creates=2 refusals=50 erasure=7 mutants=4 OK"
+    },
+    {
+      "name": "PROOF-BUNDLES",
+      "command": [
+        "python3",
+        "-P",
+        "dev/proof-bundle-test.py"
+      ],
+      "deadline": 600,
+      "marker": "PROOF-BUNDLES cases=102 creates=2 refusals=41 erasure=8 boundaries=11 mutants=4 OK"
+    },
+    {
+      "name": "PREDICATES",
+      "command": [
+        "python3",
+        "-P",
+        "dev/predicate-test.py"
+      ],
+      "deadline": 600,
+      "marker": "PREDICATES cases=72 creates=2 refusals=44 erasure=7 boundaries=12 mutants=4 OK"
+    },
+    {
+      "name": "COMPOUND-INVARIANTS",
+      "command": [
+        "python3",
+        "-P",
+        "dev/compound-invariant-test.py"
+      ],
+      "deadline": 600,
+      "marker": "COMPOUND-INVARIANTS cases=64 creates=2 refusals=24 erasure=8 boundaries=10 mutants=4 OK"
+    },
+    {
+      "name": "COMPOUND-GUARDS",
+      "command": [
+        "python3",
+        "-P",
+        "dev/compound-guard-test.py"
+      ],
+      "deadline": 600,
+      "marker": "COMPOUND-GUARDS cases=88 creates=2 refusals=26 erasure=7 boundaries=7 mutants=4 OK"
+    },
+    {
+      "name": "NAMED-GUARDS",
+      "command": [
+        "python3",
+        "-P",
+        "dev/named-guard-test.py"
+      ],
+      "deadline": 600,
+      "marker": "NAMED-GUARDS cases=96 creates=2 refusals=27 erasure=10 boundaries=6 mutants=4 OK"
+    },
+    {
+      "name": "INFERRED-GUARDS",
+      "command": [
+        "python3",
+        "-P",
+        "dev/inferred-guard-test.py"
+      ],
+      "deadline": 600,
+      "marker": "INFERRED-GUARDS cases=112 creates=2 refusals=24 erasure_pairs=14 boundaries=6 mutants=4 OK"
+    },
+    {
+      "name": "INFERRED-ARITHMETIC",
+      "command": [
+        "python3",
+        "-P",
+        "dev/inferred-arithmetic-test.py"
+      ],
+      "deadline": 600,
+      "marker": "INFERRED-ARITHMETIC cases=158 creates=2 refusals=24 erasure_pairs=16 mutants=4 OK"
+    },
+    {
+      "name": "INFERRED-HELPERS",
+      "command": [
+        "python3",
+        "-P",
+        "dev/inferred-helper-test.py"
+      ],
+      "deadline": 600,
+      "marker": "INFERRED-HELPERS cases=254 creates=2 refusals=26 erasure_pairs=24 boundaries=6 mutants=5 OK"
+    },
+    {
+      "name": "PROOF-HOLES",
+      "command": [
+        "python3",
+        "-P",
+        "dev/proof-hole-test.py"
+      ],
+      "deadline": 600,
+      "marker": "PROOF-HOLES cases=242 creates=2 refusals=25 erasure_pairs=23 boundaries=6 mutants=4 OK"
+    },
+    {
+      "name": "INFERRED-BINDINGS",
+      "command": [
+        "python3",
+        "-P",
+        "dev/inferred-binding-test.py"
+      ],
+      "deadline": 600,
+      "marker": "INFERRED-BINDINGS cases=229 creates=2 refusals=25 erasure_pairs=21 boundaries=6 mutants=6 OK"
+    },
+    {
+      "name": "INFERRED-GUARD-BINDINGS",
+      "command": [
+        "python3",
+        "-P",
+        "dev/inferred-guard-binding-test.py"
+      ],
+      "deadline": 600,
+      "marker": "INFERRED-GUARD-BINDINGS cases=160 creates=2 refusals=27 erasure_pairs=20 boundaries=4 mutants=4 OK"
+    },
+    {
+      "name": "EVM-CONTEXT",
+      "command": [
+        "python3",
+        "-P",
+        "dev/context-test.py"
+      ],
+      "deadline": 600,
+      "marker": "EVM-CONTEXT cases=224 signed=56 creates=64 refusals=7 inputs=7 nested=2 independent=6 mutants=6 OK"
+    },
+    {
+      "name": "SURFACE-CONTEXT",
+      "command": [
+        "python3",
+        "-P",
+        "dev/context-surface-test.py"
+      ],
+      "deadline": 600,
+      "marker": "SURFACE-CONTEXT cases=224 signed=56 creates=64 pairs=8 composition=6 order=4 refusals=17 mutants=4 OK"
+    },
+    {
+      "name": "WORD-EQUALITY",
+      "command": [
+        "python3",
+        "-P",
+        "dev/equality-test.py"
+      ],
+      "deadline": 600,
+      "marker": "EQUALITY pairs=8 cases=53 signed=33 creates=8 boundaries=6 refusals=17 mutants=4 OK"
+    },
+    {
+      "name": "HEX-LITERALS",
+      "command": [
+        "python3",
+        "-P",
+        "dev/hex-literals-test.py"
+      ],
+      "deadline": 600,
+      "marker": "HEX-LITERALS pairs=30 cases=46 signed=25 creates=23 refusals=23 mutants=4 OK"
+    },
+    {
+      "name": "INFERRED-WORDS",
+      "command": [
+        "python3",
+        "-P",
+        "dev/inferred-word-test.py"
+      ],
+      "deadline": 600,
+      "marker": "INFERRED-WORDS pairs=21 cases=40 signed=40 refusals=19 boundaries=2 mutants=4 OK"
+    },
+    {
+      "name": "FALLBACK",
+      "command": [
+        "python3",
+        "-P",
+        "dev/fallback-test.py"
+      ],
+      "deadline": 600,
+      "marker": "FALLBACK cases=99 signed=99 creates=10 refusals=23 boundaries=2 mutants=6 OK"
+    },
+    {
+      "name": "DIFF-VALUE",
+      "command": [
+        "python3",
+        "-P",
+        "dev/diff-value-test.py"
+      ],
+      "deadline": 180,
+      "marker": "DIFF-VALUE live=32 signed=32 refused=31 OK"
+    },
+    {
+      "name": "TRACE-VALUE",
+      "command": [
+        "python3",
+        "-P",
+        "dev/trace-value-test.py"
+      ],
+      "deadline": 180,
+      "marker": "TRACE-VALUE live=36 funding=2 refused=34 OK"
+    },
+    {
+      "name": "TRACE-CALLER",
+      "command": [
+        "python3",
+        "-P",
+        "dev/trace-caller-test.py"
+      ],
+      "deadline": 480,
+      "marker": "TRACE-CALLER live=45 funding=2 refused=31 OK"
+    },
+    {
+      "name": "DIFF-CALLER",
+      "command": [
+        "python3",
+        "-P",
+        "dev/diff-caller-test.py"
+      ],
+      "deadline": 600,
+      "marker": "DIFF-CALLER live=45 signed=45 rejected=4 refused=33 helper=5 OK"
+    },
+    {
+      "name": "PAYABLE",
+      "command": [
+        "python3",
+        "-P",
+        "dev/payable-test.py"
+      ],
+      "deadline": 600,
+      "marker": "PAYABLE cases=216 signed=24 pairs=8 probes=6 public=6 refusals=18 mutants=4 OK"
+    },
+    {
+      "name": "CALLVALUE",
+      "command": [
+        "python3",
+        "-P",
+        "dev/callvalue-test.py"
+      ],
+      "deadline": 780,
+      "marker": "CALLVALUE cases=480 signed=18 pairs=16 probes=12 public=2 refusals=13 mutants=4 OK"
+    },
+    {
+      "name": "CALLDATASIZE",
+      "command": [
+        "python3",
+        "-P",
+        "dev/calldatasize-test.py"
+      ],
+      "deadline": 1860,
+      "marker": "CALLDATASIZE cases=1024 signed=28 pairs=32 probes=16 public=2 refusals=13 mutants=5 OK"
+    },
+    {
+      "name": "CALLDATALOAD",
+      "command": [
+        "python3",
+        "-P",
+        "dev/calldataload-test.py"
+      ],
+      "deadline": 1860,
+      "marker": "CALLDATALOAD cases=2240 signed=35 pairs=64 probes=31 public=2 refusals=18 mutants=5 OK"
+    },
+    {
+      "name": "ADDRESS",
+      "command": [
+        "python3",
+        "-P",
+        "dev/address-test.py"
+      ],
+      "deadline": 1860,
+      "marker": "ADDRESS cases=1920 signed=15 pairs=128 probes=40 public=7 refusals=24 mutants=5 OK"
+    },
+    {
+      "name": "ERC20-REFERENCE",
+      "command": [
+        "python3",
+        "-P",
+        "dev/erc20-test.py"
+      ],
+      "deadline": 300,
+      "marker": "ERC20-REFERENCE cases=85 creates=4 mutants=11 covered=431 scope=reference OK"
+    },
+    {
+      "name": "ABI-SCHEMA",
+      "command": [
+        "python3",
+        "-P",
+        "dev/abi-schema-test.py"
+      ],
+      "deadline": 300,
+      "marker": "ABI-SCHEMA functions=9 events=2 edges=7 legacy=6 mutants=8 scope=metadata OK"
+    },
+    {
+      "name": "ABI-CODEC",
+      "command": [
+        "python3",
+        "-P",
+        "dev/abi-codec-test.py"
+      ],
+      "deadline": 300,
+      "marker": "ABI-CODEC cast=48 vectors=49 reference=5 negative=26 prefixes=288 fuzz=128 mutants=10 scope=codec OK"
+    },
+    {
+      "name": "LAYOUT-PACKED",
+      "command": [
+        "python3",
+        "-P",
+        "dev/layout-packed-test.py"
+      ],
+      "deadline": 300,
+      "marker": "LAYOUT-PACKED layouts=11 accesses=1685 negative=40 mutants=11 scope=packing OK"
+    },
+    {
+      "name": "LAYOUT-MAPPING",
+      "command": [
+        "python3",
+        "-P",
+        "dev/layout-mapping-test.py"
+      ],
+      "deadline": 300,
+      "marker": "LAYOUT-MAPPING oracle=102 reference=10 negative=23 refusal=15 mutants=12 scope=mapping OK"
+    },
+    {
+      "name": "EVENT-CODEC",
+      "command": [
+        "python3",
+        "-P",
+        "dev/event-codec-test.py"
+      ],
+      "deadline": 300,
+      "marker": "EVENT-CODEC oracle=71 reference=21 negative=65 refusal=13 cancun=12 mutants=12 scope=event-codec OK"
+    },
+    {
+      "name": "CALL-CODEC",
+      "command": [
+        "python3",
+        "-P",
+        "dev/call-codec-test.py"
+      ],
+      "deadline": 300,
+      "marker": "CALL-CODEC oracle=57 reference=44 negative=60 prefixes=292 refusal=13 mutants=10 scope=calldata OK"
+    },
+    {
+      "name": "RETURN-CODEC",
+      "command": [
+        "python3",
+        "-P",
+        "dev/return-codec-test.py"
+      ],
+      "deadline": 300,
+      "marker": "RETURN-CODEC oracle=57 reference=45 negative=75 prefixes=288 refusal=13 mutants=10 scope=returndata OK"
+    },
+    {
+      "name": "REVERT-CODEC",
+      "command": [
+        "python3",
+        "-P",
+        "dev/revert-codec-test.py"
+      ],
+      "deadline": 300,
+      "marker": "REVERT-CODEC oracle=60 reference=40 negative=90 prefixes=292 refusal=16 mutants=12 scope=revertdata OK"
+    },
+    {
+      "name": "EVENT-DECODE",
+      "command": [
+        "python3",
+        "-P",
+        "dev/event-decode-test.py"
+      ],
+      "deadline": 300,
+      "marker": "EVENT-DECODE oracle=71 reference=21 negative=59 refusal=8 mutants=12 scope=event-decode OK"
+    },
+    {
+      "name": "LEXER-KEYWORDS",
+      "command": [
+        "python3",
+        "-P",
+        "dev/lexer-keywords-test.py"
+      ],
+      "deadline": 600,
+      "marker": "LEXER-KEYWORDS keywords=30 cases=255 OK"
+    },
+    {
+      "name": "LEXER-DIRECT",
+      "command": [
+        "python3",
+        "-P",
+        "dev/lexer-direct-test.py"
+      ],
+      "deadline": 600,
+      "marker": "LEXER-DIRECT cases=287 golden=4 mutants=3 rounds=5 OK"
+    },
+    {
+      "name": "IDENTIFIER-DIRECT",
+      "command": [
+        "python3",
+        "-P",
+        "dev/identifier-direct-test.py"
+      ],
+      "deadline": 600,
+      "marker": "IDENTIFIER-DIRECT cases=1043 golden=1043 mutants=2 OK"
+    },
+    {
+      "name": "WORD-DIRECT",
+      "command": [
+        "python3",
+        "-P",
+        "dev/word-direct-test.py"
+      ],
+      "deadline": 600,
+      "marker": "WORD-DIRECT cases=1580 golden=1580 mutants=3 OK"
+    },
+    {
+      "name": "SEGMENT-DIRECT",
+      "command": [
+        "python3",
+        "-P",
+        "dev/segment-direct-test.py"
+      ],
+      "deadline": 600,
+      "marker": "SEGMENT-DIRECT cases=1348 golden=1348 mutants=3 OK"
+    },
+    {
+      "name": "CLI-PREFIX-DIRECT",
+      "command": [
+        "python3",
+        "-P",
+        "dev/cli-prefix-direct-test.py"
+      ],
+      "deadline": 600,
+      "marker": "CLI-PREFIX-DIRECT cases=2184 golden=2184 mutants=9 OK"
+    },
+    {
+      "name": "CLI-VALUE-DIRECT",
+      "command": [
+        "python3",
+        "-P",
+        "dev/cli-value-direct-test.py"
+      ],
+      "deadline": 600,
+      "marker": "CLI-VALUE-DIRECT cases=872 golden=872 mutants=3 OK"
+    },
+    {
+      "name": "CLI-ERROR-DIRECT",
+      "command": [
+        "python3",
+        "-P",
+        "dev/cli-error-direct-test.py"
+      ],
+      "deadline": 600,
+      "marker": "CLI-ERROR-DIRECT cases=519 golden=519 mutants=5 OK"
+    },
+    {
+      "name": "MAPPING-CLI",
+      "command": [
+        "python3",
+        "-P",
+        "dev/mapping-cli-test.py"
+      ],
+      "deadline": 600,
+      "marker": "MAPPING-CLI cases=244 oracle=102 reference=10 refusals=46 OK"
+    },
+    {
+      "name": "EVENT-CLI",
+      "command": [
+        "python3",
+        "-P",
+        "dev/event-cli-test.py"
+      ],
+      "deadline": 600,
+      "marker": "EVENT-CLI cases=56 oracle=cast refusals=36 OK"
+    },
+    {
+      "name": "EVENT-DECODE-CLI",
+      "command": [
+        "python3",
+        "-P",
+        "dev/event-decode-cli-test.py"
+      ],
+      "deadline": 600,
+      "marker": "EVENT-DECODE-CLI cases=59 oracle=cast refusals=54 OK"
+    },
+    {
+      "name": "CALLDATA-CLI",
+      "command": [
+        "python3",
+        "-P",
+        "dev/calldata-cli-test.py"
+      ],
+      "deadline": 600,
+      "marker": "CALLDATA-CLI encode=53 decode=55 oracle=cast refusals=196 pin_mutants=2 OK"
+    },
+    {
+      "name": "MILESTONE-SPEED",
+      "command": [
+        "python3",
+        "-P",
+        "dev/milestone-speed-test.py"
+      ],
+      "deadline": 60,
+      "marker": "MILESTONE-SPEED schedules=57 controls=9 OK"
+    },
+    {
+      "name": "PACKED-SOURCE",
+      "command": [
+        "python3",
+        "-P",
+        "dev/packed-source-test.py"
+      ],
+      "deadline": 600,
+      "marker": "PACKED-SOURCE cases=66 model=packed executors=run+t8n mutants=6 OK"
+    },
+    {
+      "name": "MAPPING-SOURCE",
+      "command": [
+        "python3",
+        "-P",
+        "dev/mapping-source-test.py"
+      ],
+      "deadline": 600,
+      "marker": "MAPPING-SOURCE cases=39 goldens=13 refusals=26 mutants=2 OK"
+    },
+    {
+      "name": "RETURNDATA-CLI",
+      "command": [
+        "python3",
+        "-P",
+        "dev/returndata-cli-test.py"
+      ],
+      "deadline": 600,
+      "marker": "RETURNDATA-CLI encode=54 decode=55 oracle=cast refusals=176 pin_mutants=2 OK"
+    },
+    {
+      "name": "MAPPING-RUNTIME",
+      "command": [
+        "python3",
+        "-P",
+        "dev/mapping-runtime-test.py"
+      ],
+      "deadline": 600,
+      "marker": "MAPPING-RUNTIME live=40 refusals=27 constructor=1 layout=1 OK"
+    },
+    {
+      "name": "FUNCTION-ABI",
+      "command": [
+        "python3",
+        "-P",
+        "dev/function-abi-test.py"
+      ],
+      "deadline": 600,
+      "marker": "FUNCTION-ABI cases=47 mapping=1 caps=3 collision=2 refusals=12 cast=OK model=OK run=OK t8n=OK"
+    }
+  ],
+  "added": {
+    "name": "RETURN-ABI",
+    "command": [
+      "python3",
+      "-P",
+      "dev/return-abi-test.py"
+    ],
+    "deadline": 900,
+    "marker": "RETURN-ABI cases=49 layouts=8 refusals=30 cast=model=geth=t8n rollback=OK cap=OK OK"
+  },
+  "missing_marker_exit": 1,
+  "old_log": "PASS BUILD exit=0 elapsed_ms=0.6 deadline_s=120\nPASS PIN-CARRY exit=0 elapsed_ms=0.4 deadline_s=30\nPASS R0-COUNT exit=0 elapsed_ms=0.5 deadline_s=10\nPASS R0-AUDIT exit=0 elapsed_ms=0.2 deadline_s=10\nPASS HOUSE exit=0 elapsed_ms=0.2 deadline_s=30\nPASS NATIVE-MAPS exit=0 elapsed_ms=0.3 deadline_s=180\nPASS NATIVE-IO exit=0 elapsed_ms=0.3 deadline_s=180\nPASS TRUSTED-LINES exit=0 elapsed_ms=0.4 deadline_s=10\nPASS SUITE-KERNEL exit=0 elapsed_ms=0.2 deadline_s=300\nPASS SUITE-SURFACE exit=0 elapsed_ms=0.2 deadline_s=60\nPASS DRIVER exit=0 elapsed_ms=0.3 deadline_s=30\nPASS MUTANTS exit=0 elapsed_ms=0.2 deadline_s=300\nPASS DENOMINATORS exit=0 elapsed_ms=0.1 deadline_s=10\nPASS KECCAK-VEC exit=0 elapsed_ms=0.2 deadline_s=120\nPASS KECCAK-MUTANTS exit=0 elapsed_ms=0.6 deadline_s=660\nPASS STACK-HEIGHT exit=0 elapsed_ms=0.3 deadline_s=780\nPASS DISASM-3WAY exit=0 elapsed_ms=0.2 deadline_s=120\nPASS ASM-MUTANTS exit=0 elapsed_ms=0.5 deadline_s=1860\nPASS FORK-DRIFT exit=0 elapsed_ms=0.2 deadline_s=120\nPASS M0-TRACE exit=0 elapsed_ms=0.2 deadline_s=120\nPASS CREATE-EQ exit=0 elapsed_ms=0.1 deadline_s=120\nPASS REFERENCE-CHECKS exit=0 elapsed_ms=0.1 deadline_s=180\nPASS REFERENCE-MUTANTS exit=0 elapsed_ms=0.4 deadline_s=1200\nPASS EMIT-CONSTRUCTORS exit=0 elapsed_ms=0.3 deadline_s=30\nPASS WORD-UNBOX exit=0 elapsed_ms=0.2 deadline_s=30\nPASS STORAGE-NOCLOS exit=0 elapsed_ms=0.1 deadline_s=30\nPASS ABI-GOLD exit=0 elapsed_ms=0.1 deadline_s=60\nPASS EMITTED-TRACE exit=0 elapsed_ms=0.2 deadline_s=120\nPASS EMIT-SOURCES exit=0 elapsed_ms=0.3 deadline_s=600\nPASS EMIT-MUTANTS exit=0 elapsed_ms=0.2 deadline_s=1200\nPASS AXIOMS exit=0 elapsed_ms=1.2 deadline_s=480\nPASS TRACE-DRIVER exit=0 elapsed_ms=0.2 deadline_s=120\nPASS CORPUS exit=0 elapsed_ms=0.1 deadline_s=600\nPASS ERASED-BYTES exit=0 elapsed_ms=0.1 deadline_s=120\nPASS M0-RATIO exit=0 elapsed_ms=0.1 deadline_s=60\nPASS F-MUTANTS exit=0 elapsed_ms=0.3 deadline_s=180\nPASS DIFF-EXECUTOR exit=0 elapsed_ms=0.3 deadline_s=180\nPASS COUNTER-REFERENCE exit=0 elapsed_ms=0.2 deadline_s=300\nPASS M1-EMISSION exit=0 elapsed_ms=0.1 deadline_s=600\nPASS SOURCE-MODEL exit=0 elapsed_ms=0.2 deadline_s=600\nPASS CONTRACT-SURFACE exit=0 elapsed_ms=0.1 deadline_s=600\nPASS CONTRACT-ROUTE exit=0 elapsed_ms=0.2 deadline_s=90\nPASS SOURCE-PROOFS exit=0 elapsed_ms=0.1 deadline_s=600\nPASS NULLARY-ENTRIES exit=0 elapsed_ms=0.2 deadline_s=600\nPASS CUSTOM-ERRORS exit=0 elapsed_ms=0.2 deadline_s=600\nPASS PROOF-GUARDS exit=0 elapsed_ms=0.1 deadline_s=600\nPASS PROOF-TERMS exit=0 elapsed_ms=0.1 deadline_s=600\nPASS INVARIANTS exit=0 elapsed_ms=0.1 deadline_s=600\nPASS PROOF-HELPERS exit=0 elapsed_ms=0.1 deadline_s=600\nPASS PROOF-BUNDLES exit=0 elapsed_ms=0.1 deadline_s=600\nPASS PREDICATES exit=0 elapsed_ms=0.1 deadline_s=600\nPASS COMPOUND-INVARIANTS exit=0 elapsed_ms=0.1 deadline_s=600\nPASS COMPOUND-GUARDS exit=0 elapsed_ms=0.1 deadline_s=600\nPASS NAMED-GUARDS exit=0 elapsed_ms=0.1 deadline_s=600\nPASS INFERRED-GUARDS exit=0 elapsed_ms=0.1 deadline_s=600\nPASS INFERRED-ARITHMETIC exit=0 elapsed_ms=0.1 deadline_s=600\nPASS INFERRED-HELPERS exit=0 elapsed_ms=0.3 deadline_s=600\nPASS PROOF-HOLES exit=0 elapsed_ms=0.2 deadline_s=600\nPASS INFERRED-BINDINGS exit=0 elapsed_ms=0.1 deadline_s=600\nPASS INFERRED-GUARD-BINDINGS exit=0 elapsed_ms=0.1 deadline_s=600\nPASS EVM-CONTEXT exit=0 elapsed_ms=0.1 deadline_s=600\nPASS SURFACE-CONTEXT exit=0 elapsed_ms=0.1 deadline_s=600\nPASS WORD-EQUALITY exit=0 elapsed_ms=0.2 deadline_s=600\nPASS HEX-LITERALS exit=0 elapsed_ms=0.3 deadline_s=600\nPASS INFERRED-WORDS exit=0 elapsed_ms=0.2 deadline_s=600\nPASS FALLBACK exit=0 elapsed_ms=0.1 deadline_s=600\nPASS DIFF-VALUE exit=0 elapsed_ms=0.1 deadline_s=180\nPASS TRACE-VALUE exit=0 elapsed_ms=0.1 deadline_s=180\nPASS TRACE-CALLER exit=0 elapsed_ms=0.1 deadline_s=480\nPASS DIFF-CALLER exit=0 elapsed_ms=0.4 deadline_s=600\nPASS PAYABLE exit=0 elapsed_ms=0.1 deadline_s=600\nPASS CALLVALUE exit=0 elapsed_ms=0.1 deadline_s=780\nPASS CALLDATASIZE exit=0 elapsed_ms=0.1 deadline_s=1860\nPASS CALLDATALOAD exit=0 elapsed_ms=0.2 deadline_s=1860\nPASS ADDRESS exit=0 elapsed_ms=0.3 deadline_s=1860\nPASS ERC20-REFERENCE exit=0 elapsed_ms=0.3 deadline_s=300\nPASS ABI-SCHEMA exit=0 elapsed_ms=0.6 deadline_s=300\nPASS ABI-CODEC exit=0 elapsed_ms=0.1 deadline_s=300\nPASS LAYOUT-PACKED exit=0 elapsed_ms=0.5 deadline_s=300\nPASS LAYOUT-MAPPING exit=0 elapsed_ms=0.5 deadline_s=300\nPASS EVENT-CODEC exit=0 elapsed_ms=0.5 deadline_s=300\nPASS CALL-CODEC exit=0 elapsed_ms=0.2 deadline_s=300\nPASS RETURN-CODEC exit=0 elapsed_ms=0.3 deadline_s=300\nPASS REVERT-CODEC exit=0 elapsed_ms=0.2 deadline_s=300\nPASS EVENT-DECODE exit=0 elapsed_ms=0.1 deadline_s=300\nPASS LEXER-KEYWORDS exit=0 elapsed_ms=0.1 deadline_s=600\nPASS LEXER-DIRECT exit=0 elapsed_ms=0.1 deadline_s=600\nPASS IDENTIFIER-DIRECT exit=0 elapsed_ms=0.1 deadline_s=600\nPASS WORD-DIRECT exit=0 elapsed_ms=0.1 deadline_s=600\nPASS SEGMENT-DIRECT exit=0 elapsed_ms=0.1 deadline_s=600\nPASS CLI-PREFIX-DIRECT exit=0 elapsed_ms=0.1 deadline_s=600\nPASS CLI-VALUE-DIRECT exit=0 elapsed_ms=0.1 deadline_s=600\nPASS CLI-ERROR-DIRECT exit=0 elapsed_ms=0.2 deadline_s=600\nPASS MAPPING-CLI exit=0 elapsed_ms=0.3 deadline_s=600\nPASS EVENT-CLI exit=0 elapsed_ms=0.2 deadline_s=600\nPASS EVENT-DECODE-CLI exit=0 elapsed_ms=0.1 deadline_s=600\nPASS CALLDATA-CLI exit=0 elapsed_ms=0.1 deadline_s=600\nPASS MILESTONE-SPEED exit=0 elapsed_ms=0.1 deadline_s=60\nPASS PACKED-SOURCE exit=0 elapsed_ms=0.1 deadline_s=600\nPASS MAPPING-SOURCE exit=0 elapsed_ms=0.1 deadline_s=600\nPASS RETURNDATA-CLI exit=0 elapsed_ms=0.1 deadline_s=600\nPASS MAPPING-RUNTIME exit=0 elapsed_ms=0.1 deadline_s=600\nPASS FUNCTION-ABI exit=0 elapsed_ms=0.1 deadline_s=600\nM0-VALIDATION OK; M0-EXIT requires the user commit and ratification\nSTAGE-M2-FUNCTION-ABI OK\n",
+  "new_log": "PASS BUILD exit=0 elapsed_ms=0.3 deadline_s=120\nPASS PIN-CARRY exit=0 elapsed_ms=0.3 deadline_s=30\nPASS R0-COUNT exit=0 elapsed_ms=0.1 deadline_s=10\nPASS R0-AUDIT exit=0 elapsed_ms=0.1 deadline_s=10\nPASS HOUSE exit=0 elapsed_ms=0.1 deadline_s=30\nPASS NATIVE-MAPS exit=0 elapsed_ms=0.1 deadline_s=180\nPASS NATIVE-IO exit=0 elapsed_ms=0.1 deadline_s=180\nPASS TRUSTED-LINES exit=0 elapsed_ms=0.1 deadline_s=10\nPASS SUITE-KERNEL exit=0 elapsed_ms=0.1 deadline_s=300\nPASS SUITE-SURFACE exit=0 elapsed_ms=0.1 deadline_s=60\nPASS DRIVER exit=0 elapsed_ms=0.1 deadline_s=30\nPASS MUTANTS exit=0 elapsed_ms=0.1 deadline_s=300\nPASS DENOMINATORS exit=0 elapsed_ms=0.1 deadline_s=10\nPASS KECCAK-VEC exit=0 elapsed_ms=0.2 deadline_s=120\nPASS KECCAK-MUTANTS exit=0 elapsed_ms=0.2 deadline_s=660\nPASS STACK-HEIGHT exit=0 elapsed_ms=0.3 deadline_s=780\nPASS DISASM-3WAY exit=0 elapsed_ms=0.2 deadline_s=120\nPASS ASM-MUTANTS exit=0 elapsed_ms=0.3 deadline_s=1860\nPASS FORK-DRIFT exit=0 elapsed_ms=0.3 deadline_s=120\nPASS M0-TRACE exit=0 elapsed_ms=0.2 deadline_s=120\nPASS CREATE-EQ exit=0 elapsed_ms=0.3 deadline_s=120\nPASS REFERENCE-CHECKS exit=0 elapsed_ms=0.2 deadline_s=180\nPASS REFERENCE-MUTANTS exit=0 elapsed_ms=0.1 deadline_s=1200\nPASS EMIT-CONSTRUCTORS exit=0 elapsed_ms=0.1 deadline_s=30\nPASS WORD-UNBOX exit=0 elapsed_ms=0.1 deadline_s=30\nPASS STORAGE-NOCLOS exit=0 elapsed_ms=0.1 deadline_s=30\nPASS ABI-GOLD exit=0 elapsed_ms=0.1 deadline_s=60\nPASS EMITTED-TRACE exit=0 elapsed_ms=0.3 deadline_s=120\nPASS EMIT-SOURCES exit=0 elapsed_ms=0.2 deadline_s=600\nPASS EMIT-MUTANTS exit=0 elapsed_ms=0.1 deadline_s=1200\nPASS AXIOMS exit=0 elapsed_ms=0.1 deadline_s=480\nPASS TRACE-DRIVER exit=0 elapsed_ms=0.1 deadline_s=120\nPASS CORPUS exit=0 elapsed_ms=0.2 deadline_s=600\nPASS ERASED-BYTES exit=0 elapsed_ms=0.1 deadline_s=120\nPASS M0-RATIO exit=0 elapsed_ms=0.1 deadline_s=60\nPASS F-MUTANTS exit=0 elapsed_ms=0.1 deadline_s=180\nPASS DIFF-EXECUTOR exit=0 elapsed_ms=0.1 deadline_s=180\nPASS COUNTER-REFERENCE exit=0 elapsed_ms=0.1 deadline_s=300\nPASS M1-EMISSION exit=0 elapsed_ms=0.2 deadline_s=600\nPASS SOURCE-MODEL exit=0 elapsed_ms=0.1 deadline_s=600\nPASS CONTRACT-SURFACE exit=0 elapsed_ms=0.2 deadline_s=600\nPASS CONTRACT-ROUTE exit=0 elapsed_ms=0.1 deadline_s=90\nPASS SOURCE-PROOFS exit=0 elapsed_ms=0.1 deadline_s=600\nPASS NULLARY-ENTRIES exit=0 elapsed_ms=0.1 deadline_s=600\nPASS CUSTOM-ERRORS exit=0 elapsed_ms=0.1 deadline_s=600\nPASS PROOF-GUARDS exit=0 elapsed_ms=0.1 deadline_s=600\nPASS PROOF-TERMS exit=0 elapsed_ms=0.1 deadline_s=600\nPASS INVARIANTS exit=0 elapsed_ms=0.1 deadline_s=600\nPASS PROOF-HELPERS exit=0 elapsed_ms=0.1 deadline_s=600\nPASS PROOF-BUNDLES exit=0 elapsed_ms=0.1 deadline_s=600\nPASS PREDICATES exit=0 elapsed_ms=0.1 deadline_s=600\nPASS COMPOUND-INVARIANTS exit=0 elapsed_ms=0.1 deadline_s=600\nPASS COMPOUND-GUARDS exit=0 elapsed_ms=0.2 deadline_s=600\nPASS NAMED-GUARDS exit=0 elapsed_ms=0.2 deadline_s=600\nPASS INFERRED-GUARDS exit=0 elapsed_ms=0.1 deadline_s=600\nPASS INFERRED-ARITHMETIC exit=0 elapsed_ms=0.1 deadline_s=600\nPASS INFERRED-HELPERS exit=0 elapsed_ms=0.1 deadline_s=600\nPASS PROOF-HOLES exit=0 elapsed_ms=0.2 deadline_s=600\nPASS INFERRED-BINDINGS exit=0 elapsed_ms=0.1 deadline_s=600\nPASS INFERRED-GUARD-BINDINGS exit=0 elapsed_ms=0.1 deadline_s=600\nPASS EVM-CONTEXT exit=0 elapsed_ms=0.1 deadline_s=600\nPASS SURFACE-CONTEXT exit=0 elapsed_ms=0.1 deadline_s=600\nPASS WORD-EQUALITY exit=0 elapsed_ms=0.1 deadline_s=600\nPASS HEX-LITERALS exit=0 elapsed_ms=0.1 deadline_s=600\nPASS INFERRED-WORDS exit=0 elapsed_ms=0.1 deadline_s=600\nPASS FALLBACK exit=0 elapsed_ms=0.1 deadline_s=600\nPASS DIFF-VALUE exit=0 elapsed_ms=0.2 deadline_s=180\nPASS TRACE-VALUE exit=0 elapsed_ms=0.1 deadline_s=180\nPASS TRACE-CALLER exit=0 elapsed_ms=0.1 deadline_s=480\nPASS DIFF-CALLER exit=0 elapsed_ms=0.1 deadline_s=600\nPASS PAYABLE exit=0 elapsed_ms=0.1 deadline_s=600\nPASS CALLVALUE exit=0 elapsed_ms=0.2 deadline_s=780\nPASS CALLDATASIZE exit=0 elapsed_ms=0.3 deadline_s=1860\nPASS CALLDATALOAD exit=0 elapsed_ms=0.2 deadline_s=1860\nPASS ADDRESS exit=0 elapsed_ms=0.1 deadline_s=1860\nPASS ERC20-REFERENCE exit=0 elapsed_ms=0.3 deadline_s=300\nPASS ABI-SCHEMA exit=0 elapsed_ms=0.1 deadline_s=300\nPASS ABI-CODEC exit=0 elapsed_ms=0.1 deadline_s=300\nPASS LAYOUT-PACKED exit=0 elapsed_ms=0.1 deadline_s=300\nPASS LAYOUT-MAPPING exit=0 elapsed_ms=0.4 deadline_s=300\nPASS EVENT-CODEC exit=0 elapsed_ms=0.1 deadline_s=300\nPASS CALL-CODEC exit=0 elapsed_ms=0.1 deadline_s=300\nPASS RETURN-CODEC exit=0 elapsed_ms=0.1 deadline_s=300\nPASS REVERT-CODEC exit=0 elapsed_ms=0.1 deadline_s=300\nPASS EVENT-DECODE exit=0 elapsed_ms=0.1 deadline_s=300\nPASS LEXER-KEYWORDS exit=0 elapsed_ms=0.3 deadline_s=600\nPASS LEXER-DIRECT exit=0 elapsed_ms=0.3 deadline_s=600\nPASS IDENTIFIER-DIRECT exit=0 elapsed_ms=0.2 deadline_s=600\nPASS WORD-DIRECT exit=0 elapsed_ms=0.5 deadline_s=600\nPASS SEGMENT-DIRECT exit=0 elapsed_ms=0.1 deadline_s=600\nPASS CLI-PREFIX-DIRECT exit=0 elapsed_ms=0.1 deadline_s=600\nPASS CLI-VALUE-DIRECT exit=0 elapsed_ms=0.1 deadline_s=600\nPASS CLI-ERROR-DIRECT exit=0 elapsed_ms=0.1 deadline_s=600\nPASS MAPPING-CLI exit=0 elapsed_ms=0.1 deadline_s=600\nPASS EVENT-CLI exit=0 elapsed_ms=0.1 deadline_s=600\nPASS EVENT-DECODE-CLI exit=0 elapsed_ms=0.1 deadline_s=600\nPASS CALLDATA-CLI exit=0 elapsed_ms=0.2 deadline_s=600\nPASS MILESTONE-SPEED exit=0 elapsed_ms=0.1 deadline_s=60\nPASS PACKED-SOURCE exit=0 elapsed_ms=0.3 deadline_s=600\nPASS MAPPING-SOURCE exit=0 elapsed_ms=0.3 deadline_s=600\nPASS RETURNDATA-CLI exit=0 elapsed_ms=0.3 deadline_s=600\nPASS MAPPING-RUNTIME exit=0 elapsed_ms=0.2 deadline_s=600\nPASS FUNCTION-ABI exit=0 elapsed_ms=0.2 deadline_s=600\nPASS RETURN-ABI exit=0 elapsed_ms=0.2 deadline_s=900\nM0-VALIDATION OK; M0-EXIT requires the user commit and ratification\nSTAGE-M2-RETURN-ABI OK\n",
+  "missing_log": "PASS BUILD exit=0 elapsed_ms=0.2 deadline_s=120\nPASS PIN-CARRY exit=0 elapsed_ms=0.2 deadline_s=30\nPASS R0-COUNT exit=0 elapsed_ms=0.2 deadline_s=10\nPASS R0-AUDIT exit=0 elapsed_ms=0.2 deadline_s=10\nPASS HOUSE exit=0 elapsed_ms=0.2 deadline_s=30\nPASS NATIVE-MAPS exit=0 elapsed_ms=0.4 deadline_s=180\nPASS NATIVE-IO exit=0 elapsed_ms=0.2 deadline_s=180\nPASS TRUSTED-LINES exit=0 elapsed_ms=0.6 deadline_s=10\nPASS SUITE-KERNEL exit=0 elapsed_ms=0.3 deadline_s=300\nPASS SUITE-SURFACE exit=0 elapsed_ms=0.4 deadline_s=60\nPASS DRIVER exit=0 elapsed_ms=0.3 deadline_s=30\nPASS MUTANTS exit=0 elapsed_ms=0.5 deadline_s=300\nPASS DENOMINATORS exit=0 elapsed_ms=0.4 deadline_s=10\nPASS KECCAK-VEC exit=0 elapsed_ms=0.2 deadline_s=120\nPASS KECCAK-MUTANTS exit=0 elapsed_ms=0.1 deadline_s=660\nPASS STACK-HEIGHT exit=0 elapsed_ms=0.3 deadline_s=780\nPASS DISASM-3WAY exit=0 elapsed_ms=0.3 deadline_s=120\nPASS ASM-MUTANTS exit=0 elapsed_ms=0.2 deadline_s=1860\nPASS FORK-DRIFT exit=0 elapsed_ms=0.2 deadline_s=120\nPASS M0-TRACE exit=0 elapsed_ms=0.2 deadline_s=120\nPASS CREATE-EQ exit=0 elapsed_ms=0.2 deadline_s=120\nPASS REFERENCE-CHECKS exit=0 elapsed_ms=0.7 deadline_s=180\nPASS REFERENCE-MUTANTS exit=0 elapsed_ms=0.2 deadline_s=1200\nPASS EMIT-CONSTRUCTORS exit=0 elapsed_ms=0.2 deadline_s=30\nPASS WORD-UNBOX exit=0 elapsed_ms=0.1 deadline_s=30\nPASS STORAGE-NOCLOS exit=0 elapsed_ms=0.1 deadline_s=30\nPASS ABI-GOLD exit=0 elapsed_ms=0.1 deadline_s=60\nPASS EMITTED-TRACE exit=0 elapsed_ms=0.1 deadline_s=120\nPASS EMIT-SOURCES exit=0 elapsed_ms=0.1 deadline_s=600\nPASS EMIT-MUTANTS exit=0 elapsed_ms=0.1 deadline_s=1200\nPASS AXIOMS exit=0 elapsed_ms=0.1 deadline_s=480\nPASS TRACE-DRIVER exit=0 elapsed_ms=0.1 deadline_s=120\nPASS CORPUS exit=0 elapsed_ms=0.1 deadline_s=600\nPASS ERASED-BYTES exit=0 elapsed_ms=0.1 deadline_s=120\nPASS M0-RATIO exit=0 elapsed_ms=0.2 deadline_s=60\nPASS F-MUTANTS exit=0 elapsed_ms=0.1 deadline_s=180\nPASS DIFF-EXECUTOR exit=0 elapsed_ms=0.1 deadline_s=180\nPASS COUNTER-REFERENCE exit=0 elapsed_ms=0.2 deadline_s=300\nPASS M1-EMISSION exit=0 elapsed_ms=0.1 deadline_s=600\nPASS SOURCE-MODEL exit=0 elapsed_ms=0.1 deadline_s=600\nPASS CONTRACT-SURFACE exit=0 elapsed_ms=0.1 deadline_s=600\nPASS CONTRACT-ROUTE exit=0 elapsed_ms=0.1 deadline_s=90\nPASS SOURCE-PROOFS exit=0 elapsed_ms=0.1 deadline_s=600\nPASS NULLARY-ENTRIES exit=0 elapsed_ms=0.1 deadline_s=600\nPASS CUSTOM-ERRORS exit=0 elapsed_ms=0.1 deadline_s=600\nPASS PROOF-GUARDS exit=0 elapsed_ms=0.1 deadline_s=600\nPASS PROOF-TERMS exit=0 elapsed_ms=0.2 deadline_s=600\nPASS INVARIANTS exit=0 elapsed_ms=0.2 deadline_s=600\nPASS PROOF-HELPERS exit=0 elapsed_ms=0.2 deadline_s=600\nPASS PROOF-BUNDLES exit=0 elapsed_ms=0.3 deadline_s=600\nPASS PREDICATES exit=0 elapsed_ms=0.2 deadline_s=600\nPASS COMPOUND-INVARIANTS exit=0 elapsed_ms=0.1 deadline_s=600\nPASS COMPOUND-GUARDS exit=0 elapsed_ms=0.3 deadline_s=600\nPASS NAMED-GUARDS exit=0 elapsed_ms=0.3 deadline_s=600\nPASS INFERRED-GUARDS exit=0 elapsed_ms=0.2 deadline_s=600\nPASS INFERRED-ARITHMETIC exit=0 elapsed_ms=0.1 deadline_s=600\nPASS INFERRED-HELPERS exit=0 elapsed_ms=0.2 deadline_s=600\nPASS PROOF-HOLES exit=0 elapsed_ms=0.2 deadline_s=600\nPASS INFERRED-BINDINGS exit=0 elapsed_ms=0.2 deadline_s=600\nPASS INFERRED-GUARD-BINDINGS exit=0 elapsed_ms=0.1 deadline_s=600\nPASS EVM-CONTEXT exit=0 elapsed_ms=0.2 deadline_s=600\nPASS SURFACE-CONTEXT exit=0 elapsed_ms=0.1 deadline_s=600\nPASS WORD-EQUALITY exit=0 elapsed_ms=0.1 deadline_s=600\nPASS HEX-LITERALS exit=0 elapsed_ms=0.1 deadline_s=600\nPASS INFERRED-WORDS exit=0 elapsed_ms=0.1 deadline_s=600\nPASS FALLBACK exit=0 elapsed_ms=0.1 deadline_s=600\nPASS DIFF-VALUE exit=0 elapsed_ms=0.1 deadline_s=180\nPASS TRACE-VALUE exit=0 elapsed_ms=0.1 deadline_s=180\nPASS TRACE-CALLER exit=0 elapsed_ms=0.1 deadline_s=480\nPASS DIFF-CALLER exit=0 elapsed_ms=0.1 deadline_s=600\nPASS PAYABLE exit=0 elapsed_ms=0.1 deadline_s=600\nPASS CALLVALUE exit=0 elapsed_ms=0.1 deadline_s=780\nPASS CALLDATASIZE exit=0 elapsed_ms=0.1 deadline_s=1860\nPASS CALLDATALOAD exit=0 elapsed_ms=0.2 deadline_s=1860\nPASS ADDRESS exit=0 elapsed_ms=0.1 deadline_s=1860\nPASS ERC20-REFERENCE exit=0 elapsed_ms=0.1 deadline_s=300\nPASS ABI-SCHEMA exit=0 elapsed_ms=0.2 deadline_s=300\nPASS ABI-CODEC exit=0 elapsed_ms=0.1 deadline_s=300\nPASS LAYOUT-PACKED exit=0 elapsed_ms=0.1 deadline_s=300\nPASS LAYOUT-MAPPING exit=0 elapsed_ms=0.2 deadline_s=300\nPASS EVENT-CODEC exit=0 elapsed_ms=0.1 deadline_s=300\nPASS CALL-CODEC exit=0 elapsed_ms=0.1 deadline_s=300\nPASS RETURN-CODEC exit=0 elapsed_ms=0.1 deadline_s=300\nPASS REVERT-CODEC exit=0 elapsed_ms=0.1 deadline_s=300\nPASS EVENT-DECODE exit=0 elapsed_ms=0.1 deadline_s=300\nPASS LEXER-KEYWORDS exit=0 elapsed_ms=0.1 deadline_s=600\nPASS LEXER-DIRECT exit=0 elapsed_ms=0.3 deadline_s=600\nPASS IDENTIFIER-DIRECT exit=0 elapsed_ms=0.1 deadline_s=600\nPASS WORD-DIRECT exit=0 elapsed_ms=0.1 deadline_s=600\nPASS SEGMENT-DIRECT exit=0 elapsed_ms=0.1 deadline_s=600\nPASS CLI-PREFIX-DIRECT exit=0 elapsed_ms=0.1 deadline_s=600\nPASS CLI-VALUE-DIRECT exit=0 elapsed_ms=0.1 deadline_s=600\nPASS CLI-ERROR-DIRECT exit=0 elapsed_ms=0.1 deadline_s=600\nPASS MAPPING-CLI exit=0 elapsed_ms=0.1 deadline_s=600\nPASS EVENT-CLI exit=0 elapsed_ms=0.1 deadline_s=600\nPASS EVENT-DECODE-CLI exit=0 elapsed_ms=0.1 deadline_s=600\nPASS CALLDATA-CLI exit=0 elapsed_ms=0.2 deadline_s=600\nPASS MILESTONE-SPEED exit=0 elapsed_ms=0.2 deadline_s=60\nPASS PACKED-SOURCE exit=0 elapsed_ms=0.1 deadline_s=600\nPASS MAPPING-SOURCE exit=0 elapsed_ms=0.2 deadline_s=600\nPASS RETURNDATA-CLI exit=0 elapsed_ms=0.1 deadline_s=600\nPASS MAPPING-RUNTIME exit=0 elapsed_ms=0.1 deadline_s=600\nPASS FUNCTION-ABI exit=0 elapsed_ms=0.1 deadline_s=600\nFAIL RETURN-ABI exit=0 elapsed_ms=0.1 deadline_s=900\nSIMULATION\n\n\nM0-VALIDATION OK; M0-EXIT requires the user commit and ratification\nSTAGE-M2-RETURN-ABI FAIL\n"
+}

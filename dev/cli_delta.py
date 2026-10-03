@@ -44,14 +44,14 @@ PINS = {
     # M2 function ABI: the source snapshot now carries
     # Mapping.Runtime.Plan.Functions, and Cli.Packed.read_file applies
     # FunctionAbi.lower. This changes switch_35, switch_38 and read_file.
-    'Case.Packed.switch_35': 'd8637a9894bbe6831c404a3f7866d746688339ccb3d690e3ad1b2756d157fc8d',
-    'Case.Packed.switch_38': 'a8cf0834c2e9a0ba45b95b58236a5a3e7b226ce56dec397fae1847132935b3b9',
+    'Case.Packed.switch_35': '62a2a5565196f9e83b5fc8502cc666be07eef55e7a0ce1c32f7392d693d127ab',
+    'Case.Packed.switch_38': 'f7f7c820748290405b4cc2da1012590f749f351ef5e803ca4df623d89b0ba67b',
     'Case.Packed.switch_39': '81718f5956e21d6ceca6a9c4b1da46c5f6daeb59e6170ad3f37f8a6e4ef263b5',
     'Case.Packed.switch_40': '1f672130a9f1f27d6c76e22dec3cc749f310d0a94f6ca6a83223cff461915de7',
     'Case.Packed.switch_42': '35b679752a7683b0d64ddaa61f7bf9ae922c1409f919c61b536d1172faa97443',
     'Cli.Packed.Checked': '5c5e031fc16bd754c530ddfcb3c503b5d7e1f637f51311c413269c39ce429376',
     'Cli.Packed.Program': '4427c16a4382ce33da4a57ce90385aaf8054a8b6302cceaa3fcd4d7f2bad150b',
-    'Cli.Packed.read_file': '3c6ccc3cad600aaa27063a32734d44236c2665f8ef0c2f4da24a7510dce847ad',
+    'Cli.Packed.read_file': '379e8310ecca19cf533319945c19abbb36c8b64588bcba1b9231b2c940725e16',
     'Contract.add_name': 'b0f9bc50ed5b13e863d6d663173672aa5c204e69bb5ecf0b66046c5a475cdd98',
 }
 # These helpers were introduced by source packing. Older baselines can lack

@@ -1,5 +1,48 @@
 # Assay M2 build log
 
+## 2026-10-03: Return and error ABI source integration
+
+Completed M2 group 3. Source entries return Uint8, Uint256, Address, Bool,
+String or Word, and custom errors retain their declared parameter types.
+String operands refer to the active entry's String inputs. The model and EVM
+emitter encode canonical tuples, enforce scalar bounds and a 131072-byte
+payload cap, and preserve rollback on rejection. Packed storage and mappings
+remain available. See [source return and error ABI](M2-RETURN-ABI.md) and
+[ReturnData.asy](../examples/ReturnData.asy).
+
+The feature suite passed 49 ordinary and cap cases, eight layout and isolated
+error cases, and 30 source refusals. Expected bytes come from cast; the model,
+geth run and Cancun t8n agree. The cap fixture has a bounded local oracle
+adapter so the shared differential domain is unchanged. Native, function ABI,
+mapping, packed-source and public calldata/returndata CLI regressions passed.
+The pinned build and source audits passed. The default cumulative schedule
+adds mandatory RETURN-ABI to all 103 carried legs, for 104. Its simulation
+preserves commands, deadlines and markers and refuses a missing new marker.
+The complete cumulative battery was not run.
+
+Review fixed the scanner's activation for typed errors in contracts with
+only Word results. Isolated Uint8 and String error programs cover that path.
+Explicit local type annotations also prevent excessive Bend inference cost.
+Three source declaration pins changed in `dev/cli_delta.py`; source inventory
+hashes and existing catch-all line records were refreshed without changing
+their reasons. `src/return_abi.bend` follows the unpriced compiler source
+boundary of `src/function_abi.bend`; M2 group 8 still owes boundary review.
+Artifact budgets and denominator prices are unchanged.
+
+Review of the staged slice fixed seven findings. The output cap fixture now
+sits at the 131072-byte boundary and a near-cap case accepts a full payload,
+so the suite has 49 cases. Each refusal leg pins the full message of its
+rule. The model run of the cap fixture has a 90 s timeout.
+`dev/milestone-speed-test.py` expects the `--m2-return-abi` default.
+README.md and ten dev pages name the 104-leg default gate mode. The feature
+guide discloses the scratch cursor at base+131104 and its gas cost. The
+record README discloses the build clone paths and the nonzero attempts.
+The feature suite and the schedule simulation reran green after the fixes.
+
+The [validation record](validation/2026-10-03-m2-return-abi/README.md)
+retains successful checks and earlier failures. M2 remains open; source
+event emission is the next group.
+
 ## 2026-10-03: Function ABI source integration
 
 Completed M2 group 2. Source entries accept Uint8, Uint256, Address, Bool and

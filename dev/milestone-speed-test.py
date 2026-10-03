@@ -73,9 +73,14 @@ def main():
             ('FUNCTION-ABI', 600, ('python3', '-P', 'dev/function-abi-test.py'),
              'FUNCTION-ABI cases=47 mapping=1 caps=3 collision=2 refusals=12 cast=OK model=OK run=OK t8n=OK', True)]),
                 'function ABI must preserve all carried legs and add its required check')
-        require('--m2-function-abi' in (ROOT / 'dev/gates.sh').read_text() and
-                'dev/stage-a-gates.py --m2-function-abi' in (ROOT / 'Makefile').read_text(),
-                'default gate entry points must select function ABI')
+        returns = H.schedule(after, '--m2-return-abi')
+        require(returns == dict(stage='M2-RETURN-ABI', legs=functions['legs'] + [
+            ('RETURN-ABI', 900, ('python3', '-P', 'dev/return-abi-test.py'),
+             'RETURN-ABI cases=49 layouts=8 refusals=30 cast=model=geth=t8n rollback=OK cap=OK OK', True)]),
+                'return ABI must preserve all carried legs and add its required check')
+        require('--m2-return-abi' in (ROOT / 'dev/gates.sh').read_text() and
+                'dev/stage-a-gates.py --m2-return-abi' in (ROOT / 'Makefile').read_text(),
+                'default gate entry points must select return ABI')
     finally:
         sys.argv = original_argv
 

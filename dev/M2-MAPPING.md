@@ -114,8 +114,9 @@ The `--m2-returndata-cli` mode adds
 [MAPPING-SOURCE](M2-MAPPING-SOURCE.md) and
 [RETURNDATA-CLI](M2-RETURNDATA-CLI.md), for 101 checks.
 `--m2-mapping-runtime` appends [MAPPING-RUNTIME](M2-MAPPING-RUNTIME.md), for
-102 checks. The current default, `--m2-function-abi`, appends
-[FUNCTION-ABI](M2-FUNCTION-ABI.md), for 103 checks.
+102 checks. `--m2-function-abi` appends [FUNCTION-ABI](M2-FUNCTION-ABI.md),
+for 103 checks. The current default, `--m2-return-abi`, appends
+[RETURN-ABI](M2-RETURN-ABI.md), for 104 checks.
 Counts exclude BEND2-RATIO and BEND2-RATIO-TEST, which moved to
 [`--m4-speed`](M4-SPEED.md) on 2026-10-01.
 

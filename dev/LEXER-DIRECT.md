@@ -38,7 +38,8 @@ legs. `make test` adds it after the keyword test.
 `make gates` and `dev/gates.sh` selected `--lexer-direct` until
 2026-10-01. They selected `--m2-source-packing` until 2026-10-02, then
 `--m2-mapping-source`, then `--m2-returndata-cli`, then
-`--m2-mapping-runtime`, and now select `--m2-function-abi`. The earlier
+`--m2-mapping-runtime`, then `--m2-function-abi`, and now select
+`--m2-return-abi`. The earlier
 `--keyword-dispatch` mode keeps its non-speed legs, now 86.
 
 `dev/cli_delta.py` now pins five lexer declarations, including the earlier

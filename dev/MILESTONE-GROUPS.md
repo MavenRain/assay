@@ -12,7 +12,7 @@ Nine planned turns, with turn ten reserved for repairs and reruns.
 | --- | --- | --- |
 | 1 | Mapping runtime access | Checked scalar and nested keys, reads and writes, packed neighbors, constructor initialization, rollback, layout metadata, and model agreement with geth run and t8n. Implemented in [mapping runtime](M2-MAPPING-RUNTIME.md). |
 | 2 | Function ABI source integration | Typed parameters and dynamic string calldata reach the dispatcher, model and emitter. Canonical decoding and refusal boundaries agree with independent encodings. Implemented in [source function calldata](M2-FUNCTION-ABI.md). |
-| 3 | Return and error ABI source integration | Typed results, dynamic return data and custom error payloads reach source programs and both execution handlers. Golden encodings and malformed input checks pass. |
+| 3 | Return and error ABI source integration | Typed results, dynamic return data and custom error payloads reach source programs and both execution handlers. Golden encodings and malformed input checks pass. Implemented in [source results and errors](M2-RETURN-ABI.md). |
 | 4 | Source events | Event declarations, indexed fields and LOG emission share a schema with ABI printing. Model logs and EVM topics and data agree with independent event goldens. |
 | 5 | Storage and refinement obligations | Packed field bounds, Word refinement obligations and the storage representation have explicit checked evidence. Mapping fields never lower to closures. |
 | 6 | Complete ERC20 contract | Supply, balances, allowances, approval and transfer behavior compose with metadata and events. Success, failure, self-transfer and allowance boundaries have independent expected outcomes. |

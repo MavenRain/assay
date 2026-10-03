@@ -50,8 +50,9 @@ The `--m2-returndata-cli` mode additionally runs
 [REVERT-CODEC](M2-REVERTDATA.md) and the later checks, for 101 legs; see
 [M2-RETURNDATA-CLI](M2-RETURNDATA-CLI.md).
 `--m2-mapping-runtime` adds [MAPPING-RUNTIME](M2-MAPPING-RUNTIME.md), for 102
-legs. The current default, `--m2-function-abi`, adds
-[FUNCTION-ABI](M2-FUNCTION-ABI.md), for 103 legs. Counts exclude BEND2-RATIO and BEND2-RATIO-TEST, which moved to
+legs. `--m2-function-abi` adds [FUNCTION-ABI](M2-FUNCTION-ABI.md), for 103
+legs. The current default, `--m2-return-abi`, adds
+[RETURN-ABI](M2-RETURN-ABI.md), for 104 legs. Counts exclude BEND2-RATIO and BEND2-RATIO-TEST, which moved to
 [`--m4-speed`](M4-SPEED.md) on 2026-10-01.
 Earlier explicit
 modes keep their commands, deadlines, markers and failure

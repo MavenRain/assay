@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 2,
+  "artifact": "captures/review-schedule_simulation",
+  "status": "complete",
+  "exitCode": 0,
+  "counts": {
+    "stdout_bytes": 91,
+    "stderr_bytes": 0,
+    "stdout_lines": 1,
+    "stderr_lines": 0,
+    "error_lines": 0,
+    "warning_lines": 0
+  },
+  "commands": [
+    {
+      "index": 1,
+      "argv": [
+        "python3",
+        "-P",
+        "/Users/oobi/Documents/assay-m2-return-abi-review/schedule-audit-review.py"
+      ],
+      "cwd": "/Users/oobi/Documents/assay",
+      "exitCode": 0,
+      "signal": 0,
+      "timedOut": false,
+      "spawnError": "",
+      "stdout": {
+        "path": "captures/review-schedule_simulation/command-0001.stdout",
+        "bytes": 91,
+        "lines": 1
+      },
+      "stderr": {
+        "path": "captures/review-schedule_simulation/command-0001.stderr",
+        "bytes": 0,
+        "lines": 0
+      }
+    }
+  ]
+}

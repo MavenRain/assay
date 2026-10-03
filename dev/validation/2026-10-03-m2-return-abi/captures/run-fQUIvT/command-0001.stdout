@@ -1,0 +1,22 @@
+HOUSE catch-all line drift: Cli.MappingSource.run (src/cli.bend) records line 1084, scan finds line 1086
+HOUSE catch-all line drift: Recognize.Mapping.collection (src/frontend.bend) records line 3252, scan finds line 3253
+HOUSE catch-all line drift: Recognize.Mapping.collection (src/frontend.bend) records line 3252, scan finds line 3253
+HOUSE catch-all line drift: Recognize.Mapping.collection (src/frontend.bend) records line 3252, scan finds line 3253
+HOUSE catch-all line drift: Recognize.Mapping.collection (src/frontend.bend) records line 3252, scan finds line 3253
+HOUSE catch-all line drift: Recognize.Mapping.collection (src/frontend.bend) records line 3251, scan finds line 3252
+HOUSE catch-all line drift: Recognize.Mapping.collection (src/frontend.bend) records line 3250, scan finds line 3251
+HOUSE catch-all line drift: Recognize.Mapping.collection (src/frontend.bend) records line 3252, scan finds line 3253
+HOUSE catch-all line drift: Recognize.Mapping.collection (src/frontend.bend) records line 3252, scan finds line 3253
+HOUSE catch-all line drift: Recognize.Mapping.collection (src/frontend.bend) records line 3249, scan finds line 3250
+HOUSE catch-all line drift: Recognize.Mapping.collection (src/frontend.bend) records line 3250, scan finds line 3251
+HOUSE catch-all line drift: Recognize.Mapping.collection (src/frontend.bend) records line 3251, scan finds line 3252
+HOUSE no-exception OK
+HOUSE named-catchalls FAIL
+HOUSE no-mutable-state OK
+HOUSE one-catch-site OK
+HOUSE foreign-boundary OK
+HOUSE bool-dispatch OK
+HOUSE no-loop-keyword OK
+HOUSE no-bare-division OK
+HOUSE no-em-dash OK
+HOUSE FAIL

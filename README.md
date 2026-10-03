@@ -33,6 +33,8 @@ including nested mappings and packed scalar neighbors. See the
 constructor initialization and packed scalar neighbors.
 Source entries accept [typed function calldata](dev/M2-FUNCTION-ABI.md),
 including canonical dynamic strings, byte-length queries and calldata data addresses.
+They also support [typed results and custom errors](dev/M2-RETURN-ABI.md),
+including canonical string payloads and scalar bounds with storage rollback.
 `assay event-encode NAME [--anonymous] [TYPE indexed|data VALUE]...` exposes
 the [typed event codec](dev/M2-EVENTS.md#command-line). It prints JSON topics
 and data for log inspection, including indexed string hashes and dynamic
@@ -83,7 +85,7 @@ logs, preserving indexed strings as hashes. TRUSTED-LINES passes under
 the source budget the user re-ratified on 2026-09-28: abi 495, assembler
 505 and an unchanged total of 3550.
 Source lowering for events remains pending.
-`zsh -f dev/gates.sh` runs the default 103-leg gate battery, and
+`zsh -f dev/gates.sh` runs the default 104-leg gate battery, and
 `make gates-m4-speed` runs the two M4 speed legs.
 
 Assay is a Kanon language fork for EVM contracts.  It inherits the kernel and
@@ -423,7 +425,7 @@ and five mutations with restored controls.
 The address gate adds 1920 core comparisons, 128 artifact pairs,
 40 surface cases, 55 signed calls, seven public command checks,
 24 refusals and five mutations with restored controls.
-`dev/gates.sh` and `make gates` select `--m2-function-abi`: the 75
+`dev/gates.sh` and `make gates` select `--m2-return-abi`: the 75
 `--m1-close` legs (proof-bundle, named-predicate, compound-invariant,
 named-guard, inferred-guard and inferred-arithmetic suites), then
 ERC20-REFERENCE, ABI-SCHEMA, ABI-CODEC, LAYOUT-PACKED, LAYOUT-MAPPING,
@@ -431,8 +433,9 @@ EVENT-CODEC, CALL-CODEC, RETURN-CODEC, REVERT-CODEC, EVENT-DECODE,
 LEXER-KEYWORDS, LEXER-DIRECT, IDENTIFIER-DIRECT, WORD-DIRECT,
 SEGMENT-DIRECT, CLI-PREFIX-DIRECT, CLI-VALUE-DIRECT, CLI-ERROR-DIRECT,
 MAPPING-CLI, EVENT-CLI, EVENT-DECODE-CLI, CALLDATA-CLI, MILESTONE-SPEED,
-PACKED-SOURCE, MAPPING-SOURCE, RETURNDATA-CLI, MAPPING-RUNTIME and FUNCTION-ABI,
-for 103 legs. `--m2-mapping-runtime` retains its 102 legs.
+PACKED-SOURCE, MAPPING-SOURCE, RETURNDATA-CLI, MAPPING-RUNTIME, FUNCTION-ABI
+and RETURN-ABI, for 104 legs. `--m2-function-abi` retains its 103 legs.
+`--m2-mapping-runtime` retains its 102 legs.
 BEND2-RATIO and BEND2-RATIO-TEST moved to `--m4-speed` (`make gates-m4-speed`)
 on 2026-10-01. Each earlier mode keeps its other legs: `--m2-returndata-cli`
 has 101, `--m2-mapping-source`

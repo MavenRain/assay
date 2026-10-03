@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- message  : a match on a parameter or field (this name is a def or a consumed binder: give the value its own def)
+Location:
+15182 |         CheckResult.bind(FunctionAbi.Args, ReturnAbi.Errors(), FunctionAbi.args(tail, [], [], False{}), args =>
+15183>|           match args:
+      |                 ^^^^
+15184 |             case FunctionAbi.Args{inputs, _, rest, _}: ReturnAbi.errors(rest, Tup2{FunctionAbi.text(name), inputs} <> acc))
+BEND BUILD FAIL: Bend compilation failed (exit 1), full log: /Users/oobi/Documents/gpt1/assay-20261003-returns/_build/bend/assay.log
