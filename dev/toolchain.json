@@ -1,8 +1,8 @@
 {
   "bend": {
     "repository": "https://github.com/bendlang/bend.git",
-    "version": "2.0.28",
-    "commit": "bc178404f4778704fa5584a73fcdf72bcdf9f32c"
+    "version": "2.0.32",
+    "commit": "573002f01ec6c52416d44489543f69a9625facf8"
   },
   "backend": "javascript",
   "runtime": "node",

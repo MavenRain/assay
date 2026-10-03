@@ -1,8 +1,8 @@
 # Native Bend 2 implementation
 
 The migration base is Assay commit
-`2cd3259f10d085dfedb405395d9adb341ef816ed`. The implementation uses Bend 2.0.28
-at `bc178404f4778704fa5584a73fcdf72bcdf9f32c`. Production algorithms are
+`2cd3259f10d085dfedb405395d9adb341ef816ed`. The implementation uses Bend 2.0.32
+at `573002f01ec6c52416d44489543f69a9625facf8`. Production algorithms are
 implemented in Bend. The compiler emits JavaScript executed by Node.js.
 
 | Source | Responsibility |

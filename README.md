@@ -493,7 +493,7 @@ records the current battery and measurement evidence.
 The gates require Python 3.11 or newer (`-P`), Foundry `cast` and geth `evm`
 on PATH.  The oracles are `cast` 0.3.0 and geth 1.14.12.
 The proof seed uses Lean 4.33.1 and the dependencies in its pinned manifest.
-The build uses Bend 2.0.28 at the commit in `dev/toolchain.json`, Node.js 22
+The build uses Bend 2.0.32 at the commit in `dev/toolchain.json`, Node.js 22
 or newer, and Python 3.11 or newer. Bootstrap needs Git and Bun to build the
 pinned Bend CLI. An existing checkout can be selected with `BEND=/path/to/bin/bend`.
 `dev/build.sh` derives the repository root from its own path. Build receipts

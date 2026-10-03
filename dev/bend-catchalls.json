@@ -27,7 +27,7 @@
     "reason": "Only lowercase true and false are accepted. Every other spelling fails with status 64 and no standard output."
   },
   {
-    "definition": "Cli.Call.typ",
+    "definition": "Cli.Call.typ_copy",
     "path": "src/cli.bend",
     "line": 105,
     "arm": "case _: Cli.Call.fail(Abi.Schema.Value_type, command, String.append(\"unsupported input type: \", text))",
@@ -38,7 +38,7 @@
   {
     "definition": "Cli.Call.boolean",
     "path": "src/cli.bend",
-    "line": 116,
+    "line": 118,
     "arm": "case _: Cli.Call.fail(Abi.Codec.Value, \"calldata-encode\", \"expected true or false\")",
     "arm_sha256": "fdfc53c14291bffdcc465424e4d14d555c851704560bf8a7e4c566f18b163450",
     "arity": 1,
@@ -47,7 +47,7 @@
   {
     "definition": "Local.Trace.scan.f16021",
     "path": "src/cli.bend",
-    "line": 296,
+    "line": 298,
     "arm": "{_ => ((+local16031 => (Local.Trace.scan.f16021(compact_1205, local16031)))(p16027)) : Unit -> Bool}",
     "arm_sha256": "79433822f13ea46fbb9eb26f5d4b31a7a27d7cd430ec572d043aee5f1eb58476",
     "arity": 1,
@@ -56,16 +56,16 @@
   {
     "definition": "Local.Trace.scan.f16021",
     "path": "src/cli.bend",
-    "line": 299,
+    "line": 301,
     "arm": "Match.List.only_Con( _ => (otherwise16028(Unit{}))",
     "arm_sha256": "66b5cf71e793292ae81f7b64e092213181c7012eaf404d044d55e5de585d4e09",
     "arity": 1,
     "reason": "selective eliminator forward: the call names Con and sends every other shape to otherwise16028, the lowered default of this declaration, which carries the OCaml answer for that match."
   },
   {
-    "definition": "Cli.Event.typ",
+    "definition": "Cli.Event.typ_copy",
     "path": "src/cli.bend",
-    "line": 439,
+    "line": 441,
     "arm": "case _: NativeIO.die(Abi.Schema.Value_type, 64, String.append(\"assay: event-encode: unsupported field type: \", text))",
     "arm_sha256": "ec5d907582d7bfd2deeaa2932abd6f4c86ed83105f0dccc214d925acb4290c5f",
     "arity": 1,
@@ -74,7 +74,7 @@
   {
     "definition": "Cli.Event.indexed",
     "path": "src/cli.bend",
-    "line": 445,
+    "line": 449,
     "arm": "case _: NativeIO.die(Bool, 64, \"assay: event-encode: expected indexed or data\")",
     "arm_sha256": "8cc38fc953fcdbe28ba98e2b34ceb93295bb61784fc2d17a17a9203dd2effa0a",
     "arity": 1,
@@ -83,16 +83,16 @@
   {
     "definition": "Cli.Event.boolean",
     "path": "src/cli.bend",
-    "line": 459,
+    "line": 463,
     "arm": "case _: NativeIO.die(Abi.Codec.Value, 64, \"assay: event-encode: expected true or false\")",
     "arm_sha256": "4e31fd2a9e84911c00d619732bbac38ef200cb934fc959f3153804d2480e483b",
     "arity": 1,
     "reason": "Rejects value spellings other than the canonical true and false arguments."
   },
   {
-    "definition": "Cli.EventDecode.typ",
+    "definition": "Cli.EventDecode.typ_copy",
     "path": "src/cli.bend",
-    "line": 527,
+    "line": 531,
     "arm": "case _: NativeIO.die(Abi.Schema.Value_type, 64, String.append(\"assay: event-decode: unsupported field type: \", text))",
     "arm_sha256": "4fadd0a67a646b16403dd995a411032ecf4c114a1465902a194c485b373bc7d8",
     "arity": 1,
@@ -101,7 +101,7 @@
   {
     "definition": "Cli.EventDecode.indexed",
     "path": "src/cli.bend",
-    "line": 533,
+    "line": 539,
     "arm": "case _: NativeIO.die(Bool, 64, \"assay: event-decode: expected indexed or data\")",
     "arm_sha256": "5d181aa9af31189c4a32235342f5243998291f42bb90b736801e4ed547620b5d",
     "arity": 1,
@@ -110,25 +110,25 @@
   {
     "definition": "Cli.EventDecode.log",
     "path": "src/cli.bend",
-    "line": 633,
+    "line": 639,
     "arm": "case _: Cli.EventDecode.usage()",
     "arm_sha256": "00bdd20143ca9ba8899c7c782d84dca7cffaaa75e838f11b438fd6ef3a355f75",
     "arity": 1,
     "reason": "Rejects command arguments that lack topics and data option-value pairs."
   },
   {
-    "definition": "Cli.Mapping.typ",
+    "definition": "Cli.Mapping.typ_copy",
     "path": "src/cli.bend",
-    "line": 672,
+    "line": 678,
     "arm": "case _: NativeIO.die(Abi.Schema.Value_type, 64, String.append(\"assay: mapping-slot: unsupported key type: \", text))",
     "arm_sha256": "13897eade625cd571e163cca0cc60f7d08dd5e8a2a196a23fffff7e93dc52062",
     "arity": 1,
     "reason": "key type word: uint8, uint256, address and bool have their own arm; every other word names a type the mapping-slot command does not support, so it exits 64 with that word."
   },
   {
-    "definition": "Cli.Mapping.boolean",
+    "definition": "Cli.Mapping.boolean_copy",
     "path": "src/cli.bend",
-    "line": 678,
+    "line": 686,
     "arm": "case _: Cli.Mapping.parse(\"expected true, false, a decimal or 0x-prefixed integer\", text)",
     "arm_sha256": "916d678d822b6d59e6edd3f95af47a5807ab3a2f45089d40ad06cae8e1bf0f64",
     "arity": 1,
@@ -137,7 +137,7 @@
   {
     "definition": "Cli.show_rows",
     "path": "src/cli.bend",
-    "line": 776,
+    "line": 786,
     "arm": "case _: NativeIO.stdout(String.concat(SeqList.map(&2, &2, String, String, +s => String.append(s, \"\\n\"), Elab.axiom_names(rows))))",
     "arm_sha256": "898645b36c0a6d67b647fe6eb51aeb41b9993dc55d0f886e46218ed7ef2e5c41",
     "arity": 1,
@@ -146,7 +146,7 @@
   {
     "definition": "Cli.dispatch_check",
     "path": "src/cli.bend",
-    "line": 916,
+    "line": 926,
     "arm": "case _: Cli.usage()",
     "arm_sha256": "28a6ea6fd054b199faf665f07f886bf3bb619e7556d310966265f089662a198e",
     "arity": 1,
@@ -155,7 +155,7 @@
   {
     "definition": "Cli.dispatch_emit",
     "path": "src/cli.bend",
-    "line": 922,
+    "line": 932,
     "arm": "case _: Cli.usage()",
     "arm_sha256": "28a6ea6fd054b199faf665f07f886bf3bb619e7556d310966265f089662a198e",
     "arity": 1,
@@ -164,7 +164,7 @@
   {
     "definition": "Cli.axioms",
     "path": "src/cli.bend",
-    "line": 926,
+    "line": 936,
     "arm": "case _: Cli.usage()",
     "arm_sha256": "28a6ea6fd054b199faf665f07f886bf3bb619e7556d310966265f089662a198e",
     "arity": 1,
@@ -173,7 +173,7 @@
   {
     "definition": "Cli.count",
     "path": "src/cli.bend",
-    "line": 930,
+    "line": 940,
     "arm": "case _: Cli.usage()",
     "arm_sha256": "28a6ea6fd054b199faf665f07f886bf3bb619e7556d310966265f089662a198e",
     "arity": 1,
@@ -182,7 +182,7 @@
   {
     "definition": "Cli.MappingSource.run",
     "path": "src/cli.bend",
-    "line": 1072,
+    "line": 1082,
     "arm": "case _: Cli.fail(64, \"usage: assay mapping-layout FILE\")",
     "arm_sha256": "518185167ca7ef228e021c8042ad42b2584dabfae4ec62027124f01d54b7770e",
     "arity": 1,
@@ -2313,18 +2313,18 @@
     "reason": "structural equality: a pair of constructors that differ is unequal, which is the answer the OCaml comparison gave."
   },
   {
-    "definition": "Lexer.ident_kind",
+    "definition": "Lexer.ident_kind_copy",
     "path": "src/frontend.bend",
     "line": 748,
-    "arm": "case name: Token.Kind.Ident{name}",
-    "arm_sha256": "a86b810d1ab1f9cd5de5d540dbde0f10f42a57f55a861afe3563ae694e2e7b62",
+    "arm": "case _: Token.Kind.Ident{name}",
+    "arm_sha256": "94351bd8d50837953c0f414fb1ba61081d63f8d1f1861124ba72838ea2b5b669",
     "arity": 1,
     "reason": "Every string other than the 30 exact keyword spellings is an identifier; preserve its complete original byte string, including case variants, prefixes and suffixes."
   },
   {
     "definition": "Lexer.byte_literal",
     "path": "src/frontend.bend",
-    "line": 762,
+    "line": 765,
     "arm": "{_ => (Lexer.byte_literal(Token.next_col(loc_824), p858, Con{Big.of_nat(U32.to_nat(Char.to_u32(p857))), acc_826})) : Unit -> CheckResult(TupleOf3(ListOf(Big), T ...",
     "arm_sha256": "8f2148a9fefdaeed555b2d358e15b4e2af62a6881ad109c655b057a4a709475d",
     "arity": 1,
@@ -2333,7 +2333,7 @@
   {
     "definition": "Lexer.byte_literal",
     "path": "src/frontend.bend",
-    "line": 763,
+    "line": 766,
     "arm": "{_ => ((+scrut863 = {SeqList.assoc(&2, &2, Char, Big, +x => +y => NativeChar.equal(x, y), p860, Con{Tup2{Char.from_u32(110), Big.of_nat(10n)}, Con{Tup2{Char.fro ...",
     "arm_sha256": "18c6c5d3faf8766650bc636f42062cf5e22f77eb08f44ab48265a2e4c9a5e2c2",
     "arity": 1,
@@ -2342,7 +2342,7 @@
   {
     "definition": "Lexer.byte_literal",
     "path": "src/frontend.bend",
-    "line": 766,
+    "line": 769,
     "arm": "Match.List.only_Con( _ => (otherwise862(Unit{}))",
     "arm_sha256": "caa83d2331d465445dd70fcb65ef6366df548b120c0af988d54eada800104a39",
     "arity": 1,
@@ -2351,7 +2351,7 @@
   {
     "definition": "Lexer.byte_literal",
     "path": "src/frontend.bend",
-    "line": 766,
+    "line": 769,
     "arm": "Match.List.only_Con( _ => (otherwise862(Unit{}))",
     "arm_sha256": "caa83d2331d465445dd70fcb65ef6366df548b120c0af988d54eada800104a39",
     "arity": 1,
@@ -2360,7 +2360,7 @@
   {
     "definition": "Lexer.skip_comment",
     "path": "src/frontend.bend",
-    "line": 773,
+    "line": 776,
     "arm": "{_ => (Lexer.skip_comment(Token.next_col(loc_924), p894, acc_926)) : Unit -> CheckResult(ListOf(Token))}",
     "arm_sha256": "d5580f3aaa6d03bc3204aeb99d1be151b2280e6711975e6ae0060a74fcd05b7a",
     "arity": 1,
@@ -2369,7 +2369,7 @@
   {
     "definition": "Lexer.dot_tokens",
     "path": "src/frontend.bend",
-    "line": 778,
+    "line": 781,
     "arm": "{_ => ((+local914 => (Match.Result(&2, Bignum, &2, Error, &2, CheckResult(ListOf(Token)), local914, +item917 => (Done{(+local916 => (Con{MkToken{Token.Kind.Dot{ ...",
     "arm_sha256": "9cb464d5e6ff07d0094c3fd4a4731bc98aa0d48dd32b1d0a2a370e4c3256fbfe",
     "arity": 1,
@@ -2378,7 +2378,7 @@
   {
     "definition": "Lexer.dot_tokens",
     "path": "src/frontend.bend",
-    "line": 779,
+    "line": 782,
     "arm": "Match.List.only_Nil( _ => (otherwise911(Unit{}))",
     "arm_sha256": "e1e158178a9ead658d6b0735342240fda239ecf32e769d510060aae892677312",
     "arity": 1,
@@ -2387,7 +2387,7 @@
   {
     "definition": "Lexer.dot_tokens",
     "path": "src/frontend.bend",
-    "line": 779,
+    "line": 782,
     "arm": "Match.List.only_Nil( _ => (otherwise911(Unit{}))",
     "arm_sha256": "e1e158178a9ead658d6b0735342240fda239ecf32e769d510060aae892677312",
     "arity": 1,
@@ -2396,7 +2396,7 @@
   {
     "definition": "Lexer.go",
     "path": "src/frontend.bend",
-    "line": 783,
+    "line": 786,
     "arm": "{_ => (Native.choose(&2, CheckResult(ListOf(Token)), Lexer.is_digit(p815), _ => ((+scrut825 = {Lexer.span(Lexer.is_digit, Token.next_col(loc_881), p816) : Tuple ...",
     "arm_sha256": "18a6e906524a9b314717b99c6dba1f31115c3b9e0cb5517e0774755f057d3877",
     "arity": 1,
@@ -2405,7 +2405,7 @@
   {
     "definition": "Lexer.go",
     "path": "src/frontend.bend",
-    "line": 789,
+    "line": 792,
     "arm": "{_ => (Lexer.go(Token.next_col(loc_881), p816, Con{MkToken{Token.Kind.Colon{}, loc_881}, acc_883})) : Unit -> CheckResult(ListOf(Token))}",
     "arm_sha256": "6537260f67b0fa1fe51dea2cf0d52f8cd93cfa59f429ccc4aa83bf57fc2a35ae",
     "arity": 1,
@@ -2414,7 +2414,7 @@
   {
     "definition": "Lexer.go",
     "path": "src/frontend.bend",
-    "line": 790,
+    "line": 793,
     "arm": "{_ => (Lexer.go(Token.next_col(loc_881), p816, Con{MkToken{Token.Kind.LParen{}, loc_881}, acc_883})) : Unit -> CheckResult(ListOf(Token))}",
     "arm_sha256": "89c0b744e1fb53f5a46169084728000ffbb05920e07d32fd463180f975aadb75",
     "arity": 1,
@@ -2423,7 +2423,7 @@
   {
     "definition": "Lexer.go",
     "path": "src/frontend.bend",
-    "line": 789,
+    "line": 792,
     "arm": "Match.List.only_Con( _ => (otherwise817(Unit{}))",
     "arm_sha256": "6cafb47425948c6d407e345eeb9b2ad1a22596f4c17d2f66764a93eff3715276",
     "arity": 1,
@@ -2432,7 +2432,7 @@
   {
     "definition": "Lexer.go",
     "path": "src/frontend.bend",
-    "line": 789,
+    "line": 792,
     "arm": "Match.List.only_Con( _ => (otherwise817(Unit{}))",
     "arm_sha256": "6cafb47425948c6d407e345eeb9b2ad1a22596f4c17d2f66764a93eff3715276",
     "arity": 1,
@@ -2441,7 +2441,7 @@
   {
     "definition": "Lexer.go",
     "path": "src/frontend.bend",
-    "line": 789,
+    "line": 792,
     "arm": "Match.List.only_Con( _ => (otherwise817(Unit{}))",
     "arm_sha256": "6cafb47425948c6d407e345eeb9b2ad1a22596f4c17d2f66764a93eff3715276",
     "arity": 1,
@@ -2450,7 +2450,7 @@
   {
     "definition": "Lexer.go",
     "path": "src/frontend.bend",
-    "line": 790,
+    "line": 793,
     "arm": "Match.List.only_Con( _ => (otherwise898(Unit{}))",
     "arm_sha256": "e96e98766fd30684c41ebb810d540bf9edceab913fefa2ff9891301f97109edb",
     "arity": 1,
@@ -2459,7 +2459,7 @@
   {
     "definition": "Lexer.go",
     "path": "src/frontend.bend",
-    "line": 791,
+    "line": 794,
     "arm": "Match.List.only_Con( _ => (otherwise901(Unit{}))",
     "arm_sha256": "8a7ba72a58b8f802d18e0012264751fb7f4ec7bbe474fdb951c5c56519eb15f2",
     "arity": 1,
@@ -2468,7 +2468,7 @@
   {
     "definition": "Parser.mark_prefix",
     "path": "src/frontend.bend",
-    "line": 813,
+    "line": 816,
     "arm": "{_ => (Tup2{Quantity.Many{}, scrut976}) : Unit -> TupleOf2(Quantity, ListOf(Token))}",
     "arm_sha256": "fd8464dd370bc9c91e1bd7c9296d01d783cf305d4d8cba9c69cd49b58b4435c1",
     "arity": 1,
@@ -2477,7 +2477,7 @@
   {
     "definition": "Parser.mark_prefix",
     "path": "src/frontend.bend",
-    "line": 814,
+    "line": 817,
     "arm": "Match.Token_Kind.only_Token_Kind_Nat( _ => (otherwise981(Unit{}))",
     "arm_sha256": "f5d75374b397b821dfec1ffb980bae1db84455f95cc3a5548b5b2efa29b2b4d6",
     "arity": 1,
@@ -2486,7 +2486,7 @@
   {
     "definition": "Parser.parse_binder",
     "path": "src/frontend.bend",
-    "line": 818,
+    "line": 821,
     "arm": "{_ => (Parser.expected(&2, TupleOf2(Syntax.Binder, ListOf(Token)), \"'('\", ts_879)) : Unit -> CheckResult(TupleOf2(Syntax.Binder, ListOf(Token)))}",
     "arm_sha256": "a3079a8e3b962a383309f9eccc66cb342a88e7ecf711139e3653e6cfac64e86a",
     "arity": 1,
@@ -2495,7 +2495,7 @@
   {
     "definition": "Parser.parse_binder",
     "path": "src/frontend.bend",
-    "line": 821,
+    "line": 824,
     "arm": "{_ => (Parser.expected(&2, TupleOf2(Syntax.Binder, ListOf(Token)), \"a binder name and ':'\", p985)) : Unit -> CheckResult(TupleOf2(Syntax.Binder, ListOf(Token))) ...",
     "arm_sha256": "345e7ef7839547e508636763cc48a1f6702e673f51197cc264cce1133a63d512",
     "arity": 1,
@@ -2504,7 +2504,7 @@
   {
     "definition": "Parser.parse_binder",
     "path": "src/frontend.bend",
-    "line": 824,
+    "line": 827,
     "arm": "{_ => (Parser.expected(&2, TupleOf2(Syntax.Binder, ListOf(Token)), \"')'\", p1002)) : Unit -> CheckResult(TupleOf2(Syntax.Binder, ListOf(Token)))}",
     "arm_sha256": "2771a13bb99d181aa92eccb6fda1e4c5cc53c53c9b1236399f66e9b4b54147a9",
     "arity": 1,
@@ -2513,7 +2513,7 @@
   {
     "definition": "Parser.parse_binder",
     "path": "src/frontend.bend",
-    "line": 825,
+    "line": 828,
     "arm": "Match.Token_Kind.only_Token_Kind_LParen( _ => (otherwise975(Unit{}))",
     "arm_sha256": "97bf091c23e8ae8f7b5903ac6714e38c5eaef8156a9617ba9af87a438116b898",
     "arity": 1,
@@ -2522,7 +2522,7 @@
   {
     "definition": "Parser.parse_binder",
     "path": "src/frontend.bend",
-    "line": 825,
+    "line": 828,
     "arm": "Match.Token_Kind.only_Token_Kind_Ident( _ => (otherwise991(Unit{}))",
     "arm_sha256": "ba67e8381497802f9f3e89a8bdc331f935848e6abed62dde83f151551cf0b4e6",
     "arity": 1,
@@ -2531,7 +2531,7 @@
   {
     "definition": "Parser.parse_binder",
     "path": "src/frontend.bend",
-    "line": 825,
+    "line": 828,
     "arm": "Match.List.only_Con( _ => (otherwise991(Unit{}))",
     "arm_sha256": "d19ebfbf42c8ab844bf1fbce7438f925ec5302b16715b7e01ac961125180ece8",
     "arity": 1,
@@ -2540,7 +2540,7 @@
   {
     "definition": "Parser.parse_binder",
     "path": "src/frontend.bend",
-    "line": 825,
+    "line": 828,
     "arm": "Match.Token_Kind.only_Token_Kind_Colon( _ => (otherwise991(Unit{}))",
     "arm_sha256": "d8717c37a86900cc440431d2cdd23f76b72b82999fff87f9c5c9068f8ae0b065",
     "arity": 1,
@@ -2549,20 +2549,11 @@
   {
     "definition": "Parser.parse_binder",
     "path": "src/frontend.bend",
-    "line": 825,
+    "line": 828,
     "arm": "Match.Token_Kind.only_Token_Kind_RParen( _ => (otherwise1008(Unit{}))",
     "arm_sha256": "c09324fa6b56b91d92d6d80b48b48495d99add80107cc9f1971df60d32df6919",
     "arity": 1,
     "reason": "selective eliminator forward: the call names Token_Kind_RParen and sends every other shape to otherwise1008, the lowered default of this declaration, which carries the OCaml answer for that match."
-  },
-  {
-    "definition": "Parser.binder_group_attempt",
-    "path": "src/frontend.bend",
-    "line": 829,
-    "arm": "{_ => (None{}) : Unit -> OptionOf(TupleOf2(Syntax.Binder, ListOf(Token)))}",
-    "arm_sha256": "4f8ca784c0e92f56c42c87b18d4e19ce51b667e8c01a699d025caff080fdf640",
-    "arity": 1,
-    "reason": "lowered default binder: every shape the eliminator chain of this declaration does not name takes this one fallback, None{}) : Unit -> OptionOf(TupleOf2(Syntax.Binder, ListOf(To ..., which carries the OCaml answer for that match."
   },
   {
     "definition": "Parser.binder_group_attempt",
@@ -2576,7 +2567,16 @@
   {
     "definition": "Parser.binder_group_attempt",
     "path": "src/frontend.bend",
-    "line": 833,
+    "line": 835,
+    "arm": "{_ => (None{}) : Unit -> OptionOf(TupleOf2(Syntax.Binder, ListOf(Token)))}",
+    "arm_sha256": "4f8ca784c0e92f56c42c87b18d4e19ce51b667e8c01a699d025caff080fdf640",
+    "arity": 1,
+    "reason": "lowered default binder: every shape the eliminator chain of this declaration does not name takes this one fallback, None{}) : Unit -> OptionOf(TupleOf2(Syntax.Binder, ListOf(To ..., which carries the OCaml answer for that match."
+  },
+  {
+    "definition": "Parser.binder_group_attempt",
+    "path": "src/frontend.bend",
+    "line": 836,
     "arm": "Match.Token_Kind.only_Token_Kind_LParen( _ => (otherwise969(Unit{}))",
     "arm_sha256": "7deb758b84a85f04af9120257db0c05edd5e8f98be5c68ca984db1cf170992ce",
     "arity": 1,
@@ -2585,7 +2585,7 @@
   {
     "definition": "Parser.binder_group_attempt",
     "path": "src/frontend.bend",
-    "line": 833,
+    "line": 836,
     "arm": "Match.Token_Kind.only_Token_Kind_Arrow_Token_Kind_Star( _ => (otherwise1026(Unit{}))",
     "arm_sha256": "662bd3a43c0e7747286bbba8ba7636a7a8bb07cfcf6fb97ce1b0e3706343a588",
     "arity": 1,
@@ -2594,7 +2594,7 @@
   {
     "definition": "Parser.parse_paren",
     "path": "src/frontend.bend",
-    "line": 838,
+    "line": 841,
     "arm": "{_ => (Parser.expected(&2, TupleOf2(Syntax, ListOf(Token)), \"')', ',' or ':'\", p1051)) : Unit -> CheckResult(TupleOf2(Syntax, ListOf(Token)))}",
     "arm_sha256": "0ad692cd79a1eb4c824315e2e84f9c4dc4d356bb92ce037dfed89a37cd60b248",
     "arity": 1,
@@ -2603,7 +2603,7 @@
   {
     "definition": "Parser.parse_paren",
     "path": "src/frontend.bend",
-    "line": 841,
+    "line": 844,
     "arm": "{_ => (Parser.expected(&2, TupleOf2(Syntax, ListOf(Token)), \"')'\", p1063)) : Unit -> CheckResult(TupleOf2(Syntax, ListOf(Token)))}",
     "arm_sha256": "5d4d2b3a5816aca9ba93b1a89efe9908e562d9fd07ac6fc3ba696ecdae9cbcfb",
     "arity": 1,
@@ -2612,7 +2612,7 @@
   {
     "definition": "Parser.parse_paren",
     "path": "src/frontend.bend",
-    "line": 844,
+    "line": 847,
     "arm": "{_ => (Parser.expected(&2, TupleOf2(Syntax, ListOf(Token)), \"')'\", p1078)) : Unit -> CheckResult(TupleOf2(Syntax, ListOf(Token)))}",
     "arm_sha256": "3c5c38e1daedca5e115323428496ac7e3d9b08aa78b1a050e94b132b0ac8c78f",
     "arity": 1,
@@ -2621,7 +2621,7 @@
   {
     "definition": "Parser.parse_paren",
     "path": "src/frontend.bend",
-    "line": 845,
+    "line": 848,
     "arm": "Match.Token_Kind.only_Token_Kind_RParen_Token_Kind_Colon_Token_Kind_Comma( _ => (otherwise1057(Unit{}))",
     "arm_sha256": "14d6be63b72c1a636c13950359984f926dccd9a234923ea57c9a603ae48107e8",
     "arity": 1,
@@ -2630,7 +2630,7 @@
   {
     "definition": "Parser.parse_paren",
     "path": "src/frontend.bend",
-    "line": 842,
+    "line": 845,
     "arm": "Match.Token_Kind.only_Token_Kind_RParen( _ => (otherwise1069(Unit{}))",
     "arm_sha256": "7d11a901e5955e0594d91160026b1c031d196c38c68e93010ae833f70edaaad8",
     "arity": 1,
@@ -2639,7 +2639,7 @@
   {
     "definition": "Parser.parse_paren",
     "path": "src/frontend.bend",
-    "line": 845,
+    "line": 848,
     "arm": "Match.Token_Kind.only_Token_Kind_RParen( _ => (otherwise1084(Unit{}))",
     "arm_sha256": "3579115e13ccbe53466a8e55babb31bf37c6ad9a9dcc856ee54d2e13eb148292",
     "arity": 1,
@@ -2648,7 +2648,7 @@
   {
     "definition": "Parser.parse_items_rest",
     "path": "src/frontend.bend",
-    "line": 850,
+    "line": 853,
     "arm": "{_ => (Parser.expected(&2, TupleOf2(Syntax, ListOf(Token)), \"',' or ')'\", p1104)) : Unit -> CheckResult(TupleOf2(Syntax, ListOf(Token)))}",
     "arm_sha256": "98cf779d31f49a60b64f17be41361c54f2e5da1cf7f28eeefeb0edf637cf3a98",
     "arity": 1,
@@ -2657,7 +2657,7 @@
   {
     "definition": "Parser.parse_items_rest",
     "path": "src/frontend.bend",
-    "line": 851,
+    "line": 854,
     "arm": "Match.Token_Kind.only_Token_Kind_RParen_Token_Kind_Comma( _ => (otherwise1110(Unit{}))",
     "arm_sha256": "97237ad11f32339710950c68149be2d2d9336b49ea0a824b358313dfe7739c94",
     "arity": 1,
@@ -2666,7 +2666,7 @@
   {
     "definition": "Parser.parse_items_body",
     "path": "src/frontend.bend",
-    "line": 855,
+    "line": 858,
     "arm": "{_ => (Parser.parse_items_rest(word_1104, build_1105, ts_1106, Nil{})) : Unit -> CheckResult(TupleOf2(Syntax, ListOf(Token)))}",
     "arm_sha256": "3d65b5ed48484d21a05e3932db6d9e899a11cec0154ef22b74800d174b99745c",
     "arity": 1,
@@ -2675,7 +2675,7 @@
   {
     "definition": "Parser.parse_items_body",
     "path": "src/frontend.bend",
-    "line": 856,
+    "line": 859,
     "arm": "Match.Token_Kind.only_Token_Kind_RParen( _ => (otherwise1117(Unit{}))",
     "arm_sha256": "2f60ae0e0c9470ead484f4a6f9538284dfbad90ff4e463e95bdd93ccd4d17154",
     "arity": 1,
@@ -2684,7 +2684,7 @@
   {
     "definition": "Parser.parse_items",
     "path": "src/frontend.bend",
-    "line": 860,
+    "line": 863,
     "arm": "{_ => (Parser.expected(&2, TupleOf2(Syntax, ListOf(Token)), String.concat([\"'(' after '\", word_1099, \"'\"]), ts_1101)) : Unit -> CheckResult(TupleOf2(Syntax, Lis ...",
     "arm_sha256": "8d5f88573af5cbf85264d64781b454eea009c8e02553ec3a1ab373bbc9c2b602",
     "arity": 1,
@@ -2693,7 +2693,7 @@
   {
     "definition": "Parser.parse_items",
     "path": "src/frontend.bend",
-    "line": 861,
+    "line": 864,
     "arm": "Match.Token_Kind.only_Token_Kind_LParen_Token_Kind_Unit( _ => (otherwise1097(Unit{}))",
     "arm_sha256": "87a10785dbb5abdcc8721f4ee73b0c13dfab12794074d870fa8bcad5b78ae1f5",
     "arity": 1,
@@ -2702,7 +2702,7 @@
   {
     "definition": "Parser.parse_atom_head",
     "path": "src/frontend.bend",
-    "line": 868,
+    "line": 871,
     "arm": "{_ => (Parser.expected(&2, TupleOf2(Syntax, ListOf(Token)), \"a term\", ts_1048)) : Unit -> CheckResult(TupleOf2(Syntax, ListOf(Token)))}",
     "arm_sha256": "5894309fc3635ad606482013e5d6666a6b5f9b5a0bb75dfe1c61ac763a3bb85a",
     "arity": 1,
@@ -2711,7 +2711,7 @@
   {
     "definition": "Parser.parse_atom_head",
     "path": "src/frontend.bend",
-    "line": 869,
+    "line": 872,
     "arm": "{_ => (Done{Tup2{Syntax.SType{Big.zero()}, p1042}}) : Unit -> CheckResult(TupleOf2(Syntax, ListOf(Token)))}",
     "arm_sha256": "8a6d0b0567ceca9354c75e6b7ea027ff98734ef1b8a74eb828d5ed3e40101b32",
     "arity": 1,
@@ -2720,7 +2720,7 @@
   {
     "definition": "Parser.parse_atom_head",
     "path": "src/frontend.bend",
-    "line": 871,
+    "line": 874,
     "arm": "Match.Token_Kind.only_Token_Kind_LParen_Token_Kind_Unit_Token_Kind_KTuple_Token_Kind_KSum_Token_Kind_KProd_Token_Kind_KProp_Token_Kind_KType_Token_Kind_KAuto_To ...",
     "arm_sha256": "0691c76c1aef403dc973da52d2730c9aa7315ef0b477cfcb2952b042aed81acf",
     "arity": 1,
@@ -2729,7 +2729,7 @@
   {
     "definition": "Parser.parse_atom_head",
     "path": "src/frontend.bend",
-    "line": 870,
+    "line": 873,
     "arm": "Match.List.only_Con( _ => (otherwise1122(Unit{}))",
     "arm_sha256": "e4d475407523f6eb3698ee235553ee7c10e78879e92b3931aa2626367b9f92e7",
     "arity": 1,
@@ -2738,7 +2738,7 @@
   {
     "definition": "Parser.parse_atom_head",
     "path": "src/frontend.bend",
-    "line": 870,
+    "line": 873,
     "arm": "Match.Token_Kind.only_Token_Kind_Nat( _ => (otherwise1122(Unit{}))",
     "arm_sha256": "d2031df8266390a1946e50f55b74b185cd32ed4962f62dd11f1dcf2f2355ff3c",
     "arity": 1,
@@ -2747,7 +2747,7 @@
   {
     "definition": "Parser.parse_postfix",
     "path": "src/frontend.bend",
-    "line": 875,
+    "line": 878,
     "arm": "{_ => (Done{Tup2{a_1038, ts_1039}}) : Unit -> CheckResult(TupleOf2(Syntax, ListOf(Token)))}",
     "arm_sha256": "33133b092660b8ecd77e90828c5557e849556b5efa36d2863939c078d29d4568",
     "arity": 1,
@@ -2756,7 +2756,7 @@
   {
     "definition": "Parser.parse_postfix",
     "path": "src/frontend.bend",
-    "line": 876,
+    "line": 879,
     "arm": "{_ => (Parser.parse_err(&2, TupleOf2(Syntax, ListOf(Token)), p1153, \"expected a leg number after '.'\")) : Unit -> CheckResult(TupleOf2(Syntax, ListOf(Token)))}",
     "arm_sha256": "e99ff287ee1c9081bab4aa791779c5221c1ccc4ce63f62b95e64e03f029b585a",
     "arity": 1,
@@ -2765,7 +2765,7 @@
   {
     "definition": "Parser.parse_postfix",
     "path": "src/frontend.bend",
-    "line": 877,
+    "line": 880,
     "arm": "Match.Token_Kind.only_Token_Kind_Dot_Token_Kind_Dot1_Token_Kind_Dot2( _ => (otherwise1154(Unit{}))",
     "arm_sha256": "45bf92087fae8c78cb90342701e736716e7735973b9ec07409b14a3a1f5e03dc",
     "arity": 1,
@@ -2774,7 +2774,7 @@
   {
     "definition": "Parser.parse_postfix",
     "path": "src/frontend.bend",
-    "line": 877,
+    "line": 880,
     "arm": "Match.List.only_Con( _ => (otherwise1155(Unit{}))",
     "arm_sha256": "c4a0fc576f84b3f50425a3953c72db7182eae5fd47d198236bcda710aa553b2c",
     "arity": 1,
@@ -2783,7 +2783,7 @@
   {
     "definition": "Parser.parse_postfix",
     "path": "src/frontend.bend",
-    "line": 877,
+    "line": 880,
     "arm": "Match.Token_Kind.only_Token_Kind_Nat( _ => (otherwise1155(Unit{}))",
     "arm_sha256": "0281e3b8e24f62cc15d9a8d4e588b7788280675cb69e1628d6afc229810a8651",
     "arity": 1,
@@ -2792,7 +2792,7 @@
   {
     "definition": "Parser.parse_inj",
     "path": "src/frontend.bend",
-    "line": 898,
+    "line": 901,
     "arm": "{_ => (Parser.expected(&2, TupleOf2(Syntax, ListOf(Token)), \"'K of N' after 'inj'\", ts_1018)) : Unit -> CheckResult(TupleOf2(Syntax, ListOf(Token)))}",
     "arm_sha256": "006b61cfe7ccf20e5d73212d1745c79561a000ce3f7c7ecc6ba7002b8b2a663d",
     "arity": 1,
@@ -2801,7 +2801,7 @@
   {
     "definition": "Parser.parse_inj",
     "path": "src/frontend.bend",
-    "line": 900,
+    "line": 903,
     "arm": "Match.Token_Kind.only_Token_Kind_Nat( _ => (otherwise1211(Unit{}))",
     "arm_sha256": "0c97a32aced413527583bf28eed6d0b52c93205fcb8c0b07c1efbb6de28a3fde",
     "arity": 1,
@@ -2810,7 +2810,7 @@
   {
     "definition": "Parser.parse_inj",
     "path": "src/frontend.bend",
-    "line": 900,
+    "line": 903,
     "arm": "Match.List.only_Con( _ => (otherwise1211(Unit{}))",
     "arm_sha256": "75064b09d7970d98c8422200d50e2b332e554a44a7335850cd6c0a4d8d8dd6d3",
     "arity": 1,
@@ -2819,7 +2819,7 @@
   {
     "definition": "Parser.parse_inj",
     "path": "src/frontend.bend",
-    "line": 900,
+    "line": 903,
     "arm": "Match.Token_Kind.only_Token_Kind_KOf( _ => (otherwise1211(Unit{}))",
     "arm_sha256": "49ac091a9007e9e4430ac8b2fb786cd7a3967d6f3c03cc2067e9d912117803f6",
     "arity": 1,
@@ -2828,7 +2828,7 @@
   {
     "definition": "Parser.parse_inj",
     "path": "src/frontend.bend",
-    "line": 900,
+    "line": 903,
     "arm": "Match.List.only_Con( _ => (otherwise1211(Unit{}))",
     "arm_sha256": "75064b09d7970d98c8422200d50e2b332e554a44a7335850cd6c0a4d8d8dd6d3",
     "arity": 1,
@@ -2837,7 +2837,7 @@
   {
     "definition": "Parser.parse_inj",
     "path": "src/frontend.bend",
-    "line": 900,
+    "line": 903,
     "arm": "Match.Token_Kind.only_Token_Kind_Nat( _ => (otherwise1211(Unit{}))",
     "arm_sha256": "0c97a32aced413527583bf28eed6d0b52c93205fcb8c0b07c1efbb6de28a3fde",
     "arity": 1,
@@ -2846,7 +2846,7 @@
   {
     "definition": "Parser.parse_app",
     "path": "src/frontend.bend",
-    "line": 905,
+    "line": 908,
     "arm": "{_ => (Match.Result(&2, TupleOf2(Syntax, ListOf(Token)), &2, Error, &2, CheckResult(TupleOf2(Syntax, ListOf(Token))), Parser.parse_atom(ts_1009), +item1204 => ( ...",
     "arm_sha256": "f802a6c609f4d067156c50fb930c465a32f19c2b876916bef1a9558c65340d87",
     "arity": 1,
@@ -2855,7 +2855,7 @@
   {
     "definition": "Parser.parse_app",
     "path": "src/frontend.bend",
-    "line": 908,
+    "line": 911,
     "arm": "Match.Token_Kind.only_Token_Kind_KInj_Token_Kind_KAbsurd( _ => (otherwise1197(Unit{}))",
     "arm_sha256": "6da58f19dfd4d0f089c5ab78669ba26ce25512bfbd48f4e4a6af1211bef3d634",
     "arity": 1,
@@ -2864,7 +2864,7 @@
   {
     "definition": "Parser.parse_arrow_plain",
     "path": "src/frontend.bend",
-    "line": 913,
+    "line": 916,
     "arm": "{_ => (Done{Tup2{p1252, p1253}}) : Unit -> CheckResult(TupleOf2(Syntax, ListOf(Token)))}",
     "arm_sha256": "37aac4d59d136cac53e450f86c18ab92befa7a9cf86cf0453c8fc41ff87627e0",
     "arity": 1,
@@ -2873,7 +2873,7 @@
   {
     "definition": "Parser.parse_arrow_plain",
     "path": "src/frontend.bend",
-    "line": 916,
+    "line": 919,
     "arm": "Match.Token_Kind.only_Token_Kind_Arrow_Token_Kind_Star( _ => (otherwise1259(Unit{}))",
     "arm_sha256": "2e5526fbdfc0e96282263782aaff9ba17c70535a7036ba9d6dfd78946e3d3ea4",
     "arity": 1,
@@ -2882,7 +2882,7 @@
   {
     "definition": "Parser.parse_group_op",
     "path": "src/frontend.bend",
-    "line": 920,
+    "line": 923,
     "arm": "{_ => (Parser.expected(&2, TupleOf2(Syntax, ListOf(Token)), \"'->' or '*'\", ts_988)) : Unit -> CheckResult(TupleOf2(Syntax, ListOf(Token)))}",
     "arm_sha256": "19a8573e16046f0015f2ee32e113409d5418feee413479025c4d147c4d13d30d",
     "arity": 1,
@@ -2891,7 +2891,7 @@
   {
     "definition": "Parser.parse_group_op",
     "path": "src/frontend.bend",
-    "line": 923,
+    "line": 926,
     "arm": "Match.Token_Kind.only_Token_Kind_Arrow_Token_Kind_Star( _ => (otherwise1291(Unit{}))",
     "arm_sha256": "78c860635a8ba012526bc4988096c4f6d12b30ea9b5d46b153eb5d9c4d2887f2",
     "arity": 1,
@@ -2900,7 +2900,7 @@
   {
     "definition": "Parser.parse_binders",
     "path": "src/frontend.bend",
-    "line": 931,
+    "line": 934,
     "arm": "{_ => (Done{Tup2{List.reverse(&2, Syntax.Binder, acc_808), ts_807}}) : Unit -> CheckResult(TupleOf2(ListOf(Syntax.Binder), ListOf(Token)))}",
     "arm_sha256": "ba7498236c0accc86df15e87e8c5b460784a49f32eee06efe57ef21bfaff5171",
     "arity": 1,
@@ -2909,7 +2909,7 @@
   {
     "definition": "Parser.parse_binders",
     "path": "src/frontend.bend",
-    "line": 933,
+    "line": 936,
     "arm": "Match.Token_Kind.only_Token_Kind_LParen( _ => (otherwise1327(Unit{}))",
     "arm_sha256": "7133fb8154f26ef8d2d3592b8e82814daeba2f27b1e026a9a7ad88c3d875ff01",
     "arity": 1,
@@ -2918,7 +2918,7 @@
   {
     "definition": "Parser.parse_fun",
     "path": "src/frontend.bend",
-    "line": 939,
+    "line": 942,
     "arm": "{_ => (Parser.expected(&2, TupleOf2(Syntax, ListOf(Token)), \"'=>'\", p1340)) : Unit -> CheckResult(TupleOf2(Syntax, ListOf(Token)))}",
     "arm_sha256": "587994ea0b9c291e3c50492a4e61472b5346d99b78165054d278228333ce568a",
     "arity": 1,
@@ -2927,7 +2927,7 @@
   {
     "definition": "Parser.parse_fun",
     "path": "src/frontend.bend",
-    "line": 941,
+    "line": 944,
     "arm": "Match.Token_Kind.only_Token_Kind_DArrow( _ => (otherwise1346(Unit{}))",
     "arm_sha256": "e2edefa1dce558e4e9f2221544088eef952d9da88b0189577543d46e85e30d31",
     "arity": 1,
@@ -2936,7 +2936,7 @@
   {
     "definition": "Parser.parse_names",
     "path": "src/frontend.bend",
-    "line": 945,
+    "line": 948,
     "arm": "{_ => (Tup2{List.reverse(&2, String, acc_934), ts_933}) : Unit -> TupleOf2(ListOf(String), ListOf(Token))}",
     "arm_sha256": "36fa23a88dd381a4ccedd936869c2d9bf5701df10a56d5f4daca8563618a46ae",
     "arity": 1,
@@ -2945,7 +2945,7 @@
   {
     "definition": "Parser.parse_names",
     "path": "src/frontend.bend",
-    "line": 946,
+    "line": 949,
     "arm": "Match.Token_Kind.only_Token_Kind_Ident( _ => (otherwise1394(Unit{}))",
     "arm_sha256": "495498c4c23622443b6571d39a955b5e7f287a4f15c65ca760b64baeb03f3d82",
     "arity": 1,
@@ -2954,7 +2954,7 @@
   {
     "definition": "Parser.parse_index_clause",
     "path": "src/frontend.bend",
-    "line": 950,
+    "line": 953,
     "arm": "{_ => (Tup3{None{}, Nil{}, ts_928}) : Unit -> TupleOf3(OptionOf(String), ListOf(String), ListOf(Token))}",
     "arm_sha256": "1c5d57fa86fbe7d27043bd494e70054ad06c9cee70787c60614b7ed16bdec166",
     "arity": 1,
@@ -2963,7 +2963,7 @@
   {
     "definition": "Parser.parse_index_clause",
     "path": "src/frontend.bend",
-    "line": 952,
+    "line": 955,
     "arm": "Match.Token_Kind.only_Token_Kind_KIn( _ => (otherwise1383(Unit{}))",
     "arm_sha256": "659384ee802702937dcc447639d940dca6b71f67bd8d97bf2670164971e77ad7",
     "arity": 1,
@@ -2972,7 +2972,7 @@
   {
     "definition": "Parser.parse_index_clause",
     "path": "src/frontend.bend",
-    "line": 952,
+    "line": 955,
     "arm": "Match.List.only_Con( _ => (otherwise1383(Unit{}))",
     "arm_sha256": "9fd647a20a5b452c877f65fae42a6e8e6ae65fef8f53502c9dd0d2025644c547",
     "arity": 1,
@@ -2981,7 +2981,7 @@
   {
     "definition": "Parser.parse_index_clause",
     "path": "src/frontend.bend",
-    "line": 952,
+    "line": 955,
     "arm": "Match.Token_Kind.only_Token_Kind_Ident( _ => (otherwise1383(Unit{}))",
     "arm_sha256": "1757ef0be70e39c7f0ac296f13478695730b8b393025d3e75dfb05bfb7128ae4",
     "arity": 1,
@@ -2990,7 +2990,7 @@
   {
     "definition": "Case.Parser.branch1446",
     "path": "src/frontend.bend",
-    "line": 957,
+    "line": 960,
     "arm": "{_ => (Done{Tup2{List.reverse(&2, Syntax.Field, acc_964), ts_963}}) : Unit -> CheckResult(TupleOf2(ListOf(Syntax.Field), ListOf(Token)))}",
     "arm_sha256": "8818fec8f66c8ad476f586f1cff30cbacec49db200625c1ec27ae1d81c4d133c",
     "arity": 1,
@@ -2999,7 +2999,7 @@
   {
     "definition": "Case.Parser.branch1446",
     "path": "src/frontend.bend",
-    "line": 958,
+    "line": 961,
     "arm": "Match.Token_Kind.only_Token_Kind_Ident( _ => (otherwise1444(Unit{}))",
     "arm_sha256": "5ec90e50b8b2592622265bc4bd7da51def569e5272ab7903cbd2f4989c0a8a1b",
     "arity": 1,
@@ -3008,7 +3008,7 @@
   {
     "definition": "Parser.parse_fields",
     "path": "src/frontend.bend",
-    "line": 962,
+    "line": 965,
     "arm": "{_ => (Case.Parser.branch1446(ts_963, acc_964)) : Unit -> CheckResult(TupleOf2(ListOf(Syntax.Field), ListOf(Token)))}",
     "arm_sha256": "fda96dbaa095d7191f47818a184ff092789aa90068fe4594d828b1491043bef6",
     "arity": 1,
@@ -3017,7 +3017,7 @@
   {
     "definition": "Parser.parse_fields",
     "path": "src/frontend.bend",
-    "line": 964,
+    "line": 967,
     "arm": "Match.Token_Kind.only_Token_Kind_LParen( _ => (otherwise1451(Unit{}))",
     "arm_sha256": "36ac428325b0aa36fae0a5e2b16751993ba81c404202a0684c1e9427b8c887ab",
     "arity": 1,
@@ -3026,7 +3026,7 @@
   {
     "definition": "Parser.parse_branches",
     "path": "src/frontend.bend",
-    "line": 972,
+    "line": 975,
     "arm": "{_ => (Done{Tup2{List.reverse(&2, Syntax.Branch, acc_939), ts_938}}) : Unit -> CheckResult(TupleOf2(ListOf(Syntax.Branch), ListOf(Token)))}",
     "arm_sha256": "de64395ec25066a84cb8a9efe1476f4e67e02dd0f5dec76120682cbf210bfb7a",
     "arity": 1,
@@ -3035,7 +3035,7 @@
   {
     "definition": "Parser.parse_branches",
     "path": "src/frontend.bend",
-    "line": 973,
+    "line": 976,
     "arm": "{_ => (Parser.parse_err(&2, TupleOf2(ListOf(Syntax.Branch), ListOf(Token)), p1426, \"expected a leg number or a constructor name after '|'\")) : Unit -> CheckResu ...",
     "arm_sha256": "c3f1d6be06b533f0b89f47e6ceb64100168c302b668c645064c01b03cdf2e280",
     "arity": 1,
@@ -3044,7 +3044,7 @@
   {
     "definition": "Parser.parse_branches",
     "path": "src/frontend.bend",
-    "line": 976,
+    "line": 979,
     "arm": "{_ => (Parser.expected(&2, TupleOf2(ListOf(Syntax.Branch), ListOf(Token)), \"'=>'\", p1464)) : Unit -> CheckResult(TupleOf2(ListOf(Syntax.Branch), ListOf(Token))) ...",
     "arm_sha256": "6bbde9f55f1ce1835768f4851967098dc3f8e79403e5a0fef1bcab07fe6f9e75",
     "arity": 1,
@@ -3053,7 +3053,7 @@
   {
     "definition": "Parser.parse_branches",
     "path": "src/frontend.bend",
-    "line": 981,
+    "line": 984,
     "arm": "{_ => (Parser.expected(&2, TupleOf2(ListOf(Syntax.Branch), ListOf(Token)), \"'=>'\", p1496)) : Unit -> CheckResult(TupleOf2(ListOf(Syntax.Branch), ListOf(Token))) ...",
     "arm_sha256": "420eee01ff5ac7a6475adff0fc5f2c1fd793edd7de8a20db159a6299250e3b55",
     "arity": 1,
@@ -3062,7 +3062,7 @@
   {
     "definition": "Parser.parse_branches",
     "path": "src/frontend.bend",
-    "line": 983,
+    "line": 986,
     "arm": "Match.Token_Kind.only_Token_Kind_Pipe( _ => (otherwise1427(Unit{}))",
     "arm_sha256": "4bb0d9684f139269998b7f4d55401a06d4f02a8c8e4157bf6d47320d4375120e",
     "arity": 1,
@@ -3071,7 +3071,7 @@
   {
     "definition": "Parser.parse_branches",
     "path": "src/frontend.bend",
-    "line": 983,
+    "line": 986,
     "arm": "Match.List.only_Con( _ => (otherwise1428(Unit{}))",
     "arm_sha256": "aa93d6c4707e67b4058776eeeb9052fbc622a00f3dc75dabc68230a81e4f796b",
     "arity": 1,
@@ -3080,7 +3080,7 @@
   {
     "definition": "Parser.parse_branches",
     "path": "src/frontend.bend",
-    "line": 983,
+    "line": 986,
     "arm": "Match.Token_Kind.only_Token_Kind_Ident_Token_Kind_Nat( _ => (otherwise1428(Unit{}))",
     "arm_sha256": "e3f571a9ff2107830c19d1762a7c4a0942e854562f5f4cca4ea0ec7e380dbc29",
     "arity": 1,
@@ -3089,7 +3089,7 @@
   {
     "definition": "Parser.parse_branches",
     "path": "src/frontend.bend",
-    "line": 978,
+    "line": 981,
     "arm": "Match.Token_Kind.only_Token_Kind_DArrow( _ => (otherwise1470(Unit{}))",
     "arm_sha256": "a364f402ed61d70ad53dae26bb77760b332c951863760e357d68853b8ba99600",
     "arity": 1,
@@ -3098,7 +3098,7 @@
   {
     "definition": "Parser.parse_branches",
     "path": "src/frontend.bend",
-    "line": 983,
+    "line": 986,
     "arm": "Match.Token_Kind.only_Token_Kind_DArrow( _ => (otherwise1502(Unit{}))",
     "arm_sha256": "14c0450c485fb8b0494595950f7f6d3b9b6cdc1026c9eb088f200e100fcc4eb7",
     "arity": 1,
@@ -3107,7 +3107,7 @@
   {
     "definition": "Parser.parse_case",
     "path": "src/frontend.bend",
-    "line": 992,
+    "line": 995,
     "arm": "{_ => (Parser.expected(&2, TupleOf2(Syntax, ListOf(Token)), \"'as' or 'with'\", p1365)) : Unit -> CheckResult(TupleOf2(Syntax, ListOf(Token)))}",
     "arm_sha256": "12252155cfa6167f3b9b3cdfb24ba2b4bd5953d178c0f950474922bcd32d1f9f",
     "arity": 1,
@@ -3116,7 +3116,7 @@
   {
     "definition": "Parser.parse_case",
     "path": "src/frontend.bend",
-    "line": 993,
+    "line": 996,
     "arm": "{_ => (Parser.parse_err(&2, TupleOf2(Syntax, ListOf(Token)), p1370, \"expected 'NAME [in FAMILY IDX..] return TYPE' after 'as'\")) : Unit -> CheckResult(TupleOf2( ...",
     "arm_sha256": "db2232be04aa01f2f8887ea6df5c8fcd154d0bb02f8cc3e61c964e1b0ae2461b",
     "arity": 1,
@@ -3125,7 +3125,7 @@
   {
     "definition": "Parser.parse_case",
     "path": "src/frontend.bend",
-    "line": 996,
+    "line": 999,
     "arm": "{_ => (Parser.expected(&2, TupleOf2(Syntax, ListOf(Token)), \"'return'\", p1402)) : Unit -> CheckResult(TupleOf2(Syntax, ListOf(Token)))}",
     "arm_sha256": "4e90a135cfe67d969fab6501fc13ce6337a67dd635238ea515f68b7881dacc0b",
     "arity": 1,
@@ -3134,7 +3134,7 @@
   {
     "definition": "Parser.parse_case",
     "path": "src/frontend.bend",
-    "line": 999,
+    "line": 1002,
     "arm": "{_ => (Parser.expected(&2, TupleOf2(Syntax, ListOf(Token)), \"'with'\", p1414)) : Unit -> CheckResult(TupleOf2(Syntax, ListOf(Token)))}",
     "arm_sha256": "dd0b9e558f656f4d64fea43c7e5e43033cba74959e7578da4b714eaf259a4736",
     "arity": 1,
@@ -3143,7 +3143,7 @@
   {
     "definition": "Parser.parse_case",
     "path": "src/frontend.bend",
-    "line": 1003,
+    "line": 1006,
     "arm": "Match.Token_Kind.only_Token_Kind_KAs_Token_Kind_KWith( _ => (otherwise1371(Unit{}))",
     "arm_sha256": "99c87826c19048cbffe66a00e5cb5abc8e91e3af55d103536d3874ab70ebb64f",
     "arity": 1,
@@ -3152,7 +3152,7 @@
   {
     "definition": "Parser.parse_case",
     "path": "src/frontend.bend",
-    "line": 1002,
+    "line": 1005,
     "arm": "Match.List.only_Con( _ => (otherwise1372(Unit{}))",
     "arm_sha256": "f6966164a3a58e2774a0abe70bbee721474f1a0c19da61747d118123e57a4601",
     "arity": 1,
@@ -3161,7 +3161,7 @@
   {
     "definition": "Parser.parse_case",
     "path": "src/frontend.bend",
-    "line": 1002,
+    "line": 1005,
     "arm": "Match.Token_Kind.only_Token_Kind_Ident( _ => (otherwise1372(Unit{}))",
     "arm_sha256": "b5805ca0dda1af728e3cbc7db8381d87707c5df24429cd7807cc65b2b4c5296a",
     "arity": 1,
@@ -3170,7 +3170,7 @@
   {
     "definition": "Parser.parse_case",
     "path": "src/frontend.bend",
-    "line": 1002,
+    "line": 1005,
     "arm": "Match.Token_Kind.only_Token_Kind_KReturn( _ => (otherwise1408(Unit{}))",
     "arm_sha256": "cb0079d12b3c09c25c11f6369e128a79494f0d857b9d10b915c75d726a50b5d6",
     "arity": 1,
@@ -3179,7 +3179,7 @@
   {
     "definition": "Parser.parse_case",
     "path": "src/frontend.bend",
-    "line": 1002,
+    "line": 1005,
     "arm": "Match.Token_Kind.only_Token_Kind_KWith( _ => (otherwise1420(Unit{}))",
     "arm_sha256": "a90aa40ad03c5323be94b9d0b24e8f8a3050bc7e67bf61ff1777cc5069961475",
     "arity": 1,
@@ -3188,7 +3188,7 @@
   {
     "definition": "Parser.parse_let",
     "path": "src/frontend.bend",
-    "line": 1007,
+    "line": 1010,
     "arm": "{_ => (Parser.expected(&2, TupleOf2(Syntax, ListOf(Token)), \"a name and ':' after 'let'\", ts_889)) : Unit -> CheckResult(TupleOf2(Syntax, ListOf(Token)))}",
     "arm_sha256": "23be03eac19ab103efa5a429a9a0706abca43a9a15fc954358ff356b18758be4",
     "arity": 1,
@@ -3197,7 +3197,7 @@
   {
     "definition": "Parser.parse_let",
     "path": "src/frontend.bend",
-    "line": 1010,
+    "line": 1013,
     "arm": "{_ => (Parser.expected(&2, TupleOf2(Syntax, ListOf(Token)), \"':='\", p1559)) : Unit -> CheckResult(TupleOf2(Syntax, ListOf(Token)))}",
     "arm_sha256": "31cd1889827c47f51406d9dbd53ca07818590227148dba5d163e845c7aaf8f28",
     "arity": 1,
@@ -3206,7 +3206,7 @@
   {
     "definition": "Parser.parse_let",
     "path": "src/frontend.bend",
-    "line": 1013,
+    "line": 1016,
     "arm": "{_ => (Parser.expected(&2, TupleOf2(Syntax, ListOf(Token)), \"'in'\", p1571)) : Unit -> CheckResult(TupleOf2(Syntax, ListOf(Token)))}",
     "arm_sha256": "eee11be6d2ec1547eb8f7be6526aa90696c7e73ddb8686908b989868b109152a",
     "arity": 1,
@@ -3215,7 +3215,7 @@
   {
     "definition": "Parser.parse_let",
     "path": "src/frontend.bend",
-    "line": 1015,
+    "line": 1018,
     "arm": "Match.Token_Kind.only_Token_Kind_Ident( _ => (otherwise1548(Unit{}))",
     "arm_sha256": "7ff1e70265f518c321d8f3d7104f8a8b505f81379323582564419a04dcd30c72",
     "arity": 1,
@@ -3224,7 +3224,7 @@
   {
     "definition": "Parser.parse_let",
     "path": "src/frontend.bend",
-    "line": 1015,
+    "line": 1018,
     "arm": "Match.List.only_Con( _ => (otherwise1548(Unit{}))",
     "arm_sha256": "4a160edbd843ac944a57d5b0e2bd7c5f22c4c43bb68536646634543eec534ce0",
     "arity": 1,
@@ -3233,7 +3233,7 @@
   {
     "definition": "Parser.parse_let",
     "path": "src/frontend.bend",
-    "line": 1015,
+    "line": 1018,
     "arm": "Match.Token_Kind.only_Token_Kind_Colon( _ => (otherwise1548(Unit{}))",
     "arm_sha256": "85f7f857ae0aeffe581be70e7c3a5507b14e7b66f8d5dc968a8a22e8d362c45d",
     "arity": 1,
@@ -3242,7 +3242,7 @@
   {
     "definition": "Parser.parse_let",
     "path": "src/frontend.bend",
-    "line": 1015,
+    "line": 1018,
     "arm": "Match.Token_Kind.only_Token_Kind_ColonEq( _ => (otherwise1565(Unit{}))",
     "arm_sha256": "0ee006776d7196c22137f5ae00ae39bbc2aa5d557b1f9f245faf680a5179eb7c",
     "arity": 1,
@@ -3251,7 +3251,7 @@
   {
     "definition": "Parser.parse_let",
     "path": "src/frontend.bend",
-    "line": 1015,
+    "line": 1018,
     "arm": "Match.Token_Kind.only_Token_Kind_KIn( _ => (otherwise1577(Unit{}))",
     "arm_sha256": "53b1bec949c726ce5b9f44ee9e6cbc55a3fea07cb1314cae1af01a9f4cff8c67",
     "arity": 1,
@@ -3260,7 +3260,7 @@
   {
     "definition": "Parser.parse_term",
     "path": "src/frontend.bend",
-    "line": 1019,
+    "line": 1022,
     "arm": "{_ => (Parser.parse_arrow(ts_791)) : Unit -> CheckResult(TupleOf2(Syntax, ListOf(Token)))}",
     "arm_sha256": "21e354d0eea4950a04733deed37f8b0eade2acd22fc30d7ca606dfa16fada7d3",
     "arity": 1,
@@ -3269,7 +3269,7 @@
   {
     "definition": "Parser.parse_term",
     "path": "src/frontend.bend",
-    "line": 1020,
+    "line": 1023,
     "arm": "Match.Token_Kind.only_Token_Kind_KFun_Token_Kind_KCase_Token_Kind_KMatch_Token_Kind_KLet( _ => (otherwise1314(Unit{}))",
     "arm_sha256": "89c19dd3f803542d93705cb4f35f91177de7a67da69629ce67016c4a6b48db24",
     "arity": 1,
@@ -3278,7 +3278,7 @@
   {
     "definition": "Parser.parse_rec_member",
     "path": "src/frontend.bend",
-    "line": 1024,
+    "line": 1027,
     "arm": "{_ => (Parser.expected(&2, TupleOf2(Syntax.Rec_def, ListOf(Token)), \"a definition name and ':'\", ts_1166)) : Unit -> CheckResult(TupleOf2(Syntax.Rec_def, ListOf ...",
     "arm_sha256": "205febedd176038f75691da7c0629976d84c43c5ae382594dc2dcb02d89e469f",
     "arity": 1,
@@ -3287,7 +3287,7 @@
   {
     "definition": "Parser.parse_rec_member",
     "path": "src/frontend.bend",
-    "line": 1027,
+    "line": 1030,
     "arm": "{_ => (Parser.expected(&2, TupleOf2(Syntax.Rec_def, ListOf(Token)), \"':='\", p1596)) : Unit -> CheckResult(TupleOf2(Syntax.Rec_def, ListOf(Token)))}",
     "arm_sha256": "29c8c4c6428d3010a68012e928c882876c05e97f857d41d5ab41a3473efaba01",
     "arity": 1,
@@ -3296,7 +3296,7 @@
   {
     "definition": "Parser.parse_rec_member",
     "path": "src/frontend.bend",
-    "line": 1029,
+    "line": 1032,
     "arm": "Match.Token_Kind.only_Token_Kind_Ident( _ => (otherwise953(Unit{}))",
     "arm_sha256": "00b2096211ec7921de83bc61f9565fa8844005fc77031e29b36a16b9baed27e2",
     "arity": 1,
@@ -3305,7 +3305,7 @@
   {
     "definition": "Parser.parse_rec_member",
     "path": "src/frontend.bend",
-    "line": 1029,
+    "line": 1032,
     "arm": "Match.List.only_Con( _ => (otherwise953(Unit{}))",
     "arm_sha256": "09a21f394fe6aa779960b9a9182f119d7d69eb767c51c7295a4759a3e296fa4a",
     "arity": 1,
@@ -3314,7 +3314,7 @@
   {
     "definition": "Parser.parse_rec_member",
     "path": "src/frontend.bend",
-    "line": 1029,
+    "line": 1032,
     "arm": "Match.Token_Kind.only_Token_Kind_Colon( _ => (otherwise953(Unit{}))",
     "arm_sha256": "38973fd8174cd6042a97019e8f97cbc91cc4803a41a07ab72eeb9a6447cc733f",
     "arity": 1,
@@ -3323,7 +3323,7 @@
   {
     "definition": "Parser.parse_rec_member",
     "path": "src/frontend.bend",
-    "line": 1029,
+    "line": 1032,
     "arm": "Match.Token_Kind.only_Token_Kind_ColonEq( _ => (otherwise1602(Unit{}))",
     "arm_sha256": "6f6ea42d59c6807c313e646015b0441ac2d2a21ce4f79130ad0ed48139af5660",
     "arity": 1,
@@ -3332,7 +3332,7 @@
   {
     "definition": "Parser.parse_rec_group",
     "path": "src/frontend.bend",
-    "line": 1034,
+    "line": 1037,
     "arm": "{_ => (Done{Tup2{List.reverse(&2, Syntax.Rec_def, Con{p1617, acc_1161}), p1618}}) : Unit -> CheckResult(TupleOf2(ListOf(Syntax.Rec_def), ListOf(Token)))}",
     "arm_sha256": "88c8a941a9e85d4f8b80b62054889b394eb1b280b0e0f80d27e65f255be6b967",
     "arity": 1,
@@ -3341,7 +3341,7 @@
   {
     "definition": "Parser.parse_rec_group",
     "path": "src/frontend.bend",
-    "line": 1035,
+    "line": 1038,
     "arm": "Match.Token_Kind.only_Token_Kind_KAnd( _ => (otherwise1624(Unit{}))",
     "arm_sha256": "04e172635fbba2bf5f6680ee8350e1dcf28876a0f5ba5c167e7c9ec57b07f91e",
     "arity": 1,
@@ -3350,7 +3350,7 @@
   {
     "definition": "Parser.parse_fam_ctors",
     "path": "src/frontend.bend",
-    "line": 1039,
+    "line": 1042,
     "arm": "{_ => (Done{Tup2{List.reverse(&2, Syntax.Fam_ctor, acc_1208), ts_1207}}) : Unit -> CheckResult(TupleOf2(ListOf(Syntax.Fam_ctor), ListOf(Token)))}",
     "arm_sha256": "a8b37a3710684269368ea061ef2f507c0a17dae35561241766cccd64ad79a67e",
     "arity": 1,
@@ -3359,7 +3359,7 @@
   {
     "definition": "Parser.parse_fam_ctors",
     "path": "src/frontend.bend",
-    "line": 1040,
+    "line": 1043,
     "arm": "{_ => (Parser.parse_err(&2, TupleOf2(ListOf(Syntax.Fam_ctor), ListOf(Token)), p1717, \"expected a constructor name and ':' after '|'\")) : Unit -> CheckResult(Tup ...",
     "arm_sha256": "081ccccfe896adbdca97e140c9653e265e8624196c32ac878162eeec2ba0d471",
     "arity": 1,
@@ -3368,7 +3368,7 @@
   {
     "definition": "Parser.parse_fam_ctors",
     "path": "src/frontend.bend",
-    "line": 1043,
+    "line": 1046,
     "arm": "{_ => (Parser.expected(&2, TupleOf2(ListOf(Syntax.Fam_ctor), ListOf(Token)), \"':' after constructor binders\", p1730)) : Unit -> CheckResult(TupleOf2(ListOf(Synt ...",
     "arm_sha256": "e443f05b046c35659786ce9650e51d3af83061ff02a78013c7109da9c40c18ff",
     "arity": 1,
@@ -3377,7 +3377,7 @@
   {
     "definition": "Parser.parse_fam_ctors",
     "path": "src/frontend.bend",
-    "line": 1046,
+    "line": 1049,
     "arm": "Match.Token_Kind.only_Token_Kind_Pipe( _ => (otherwise1718(Unit{}))",
     "arm_sha256": "7de11d64081cd0bd260cbd3f22b789a7bf04811b3ac79f360ee953cc93e5f977",
     "arity": 1,
@@ -3386,7 +3386,7 @@
   {
     "definition": "Parser.parse_fam_ctors",
     "path": "src/frontend.bend",
-    "line": 1046,
+    "line": 1049,
     "arm": "Match.List.only_Con( _ => (otherwise1719(Unit{}))",
     "arm_sha256": "5dbec3c59811986e85e308934f8a83a48382a1f74faf81a8d9735fe140abfb1d",
     "arity": 1,
@@ -3395,7 +3395,7 @@
   {
     "definition": "Parser.parse_fam_ctors",
     "path": "src/frontend.bend",
-    "line": 1046,
+    "line": 1049,
     "arm": "Match.Token_Kind.only_Token_Kind_Ident( _ => (otherwise1719(Unit{}))",
     "arm_sha256": "1aca1ef9828864ea5d3895c842f694af26c82dfd3a354d8dfa753ab6ac2be092",
     "arity": 1,
@@ -3404,7 +3404,7 @@
   {
     "definition": "Parser.parse_fam_ctors",
     "path": "src/frontend.bend",
-    "line": 1046,
+    "line": 1049,
     "arm": "Match.Token_Kind.only_Token_Kind_Colon( _ => (otherwise1736(Unit{}))",
     "arm_sha256": "863bf8225b06ebb9f8cacf48b64b8bad77587b37b3d163ce84ad8ea1216bb148",
     "arity": 1,
@@ -3413,7 +3413,7 @@
   {
     "definition": "Parser.parse_fam",
     "path": "src/frontend.bend",
-    "line": 1050,
+    "line": 1053,
     "arm": "{_ => (Parser.expected(&2, TupleOf2(Syntax.Fam, ListOf(Token)), \"a family name\", ts_1193)) : Unit -> CheckResult(TupleOf2(Syntax.Fam, ListOf(Token)))}",
     "arm_sha256": "e80cd9970fe8679b29f07843abe3d7519417684d0dd29ba90f641254b4b2c2cf",
     "arity": 1,
@@ -3422,7 +3422,7 @@
   {
     "definition": "Parser.parse_fam",
     "path": "src/frontend.bend",
-    "line": 1053,
+    "line": 1056,
     "arm": "{_ => (Parser.expected(&2, TupleOf2(Syntax.Fam, ListOf(Token)), \"':'\", p1693)) : Unit -> CheckResult(TupleOf2(Syntax.Fam, ListOf(Token)))}",
     "arm_sha256": "6496789eafa5f1966a615277f56e23f44ce020b74015c5c18551de3799ad9cea",
     "arity": 1,
@@ -3431,7 +3431,7 @@
   {
     "definition": "Parser.parse_fam",
     "path": "src/frontend.bend",
-    "line": 1056,
+    "line": 1059,
     "arm": "{_ => (Parser.expected(&2, TupleOf2(Syntax.Fam, ListOf(Token)), \"':=' or 'with'\", p1705)) : Unit -> CheckResult(TupleOf2(Syntax.Fam, ListOf(Token)))}",
     "arm_sha256": "d66bfe4454f06c1a286dfd1a210174d809b7e63a9bcc3c7004218297eda98898",
     "arity": 1,
@@ -3440,7 +3440,7 @@
   {
     "definition": "Parser.parse_fam",
     "path": "src/frontend.bend",
-    "line": 1059,
+    "line": 1062,
     "arm": "Match.Token_Kind.only_Token_Kind_Ident( _ => (otherwise1686(Unit{}))",
     "arm_sha256": "219a3f846ac4cfeaffaca7bbb39058b4e755d6886c1046505b5db02de3ca737d",
     "arity": 1,
@@ -3449,7 +3449,7 @@
   {
     "definition": "Parser.parse_fam",
     "path": "src/frontend.bend",
-    "line": 1059,
+    "line": 1062,
     "arm": "Match.Token_Kind.only_Token_Kind_Colon( _ => (otherwise1699(Unit{}))",
     "arm_sha256": "a287e2dd1c33382593820bd88dff7606548914513fd56364ebe3b5e0ddace05d",
     "arity": 1,
@@ -3458,7 +3458,7 @@
   {
     "definition": "Parser.parse_fam",
     "path": "src/frontend.bend",
-    "line": 1059,
+    "line": 1062,
     "arm": "Match.Token_Kind.only_Token_Kind_ColonEq_Token_Kind_KWith( _ => (otherwise1711(Unit{}))",
     "arm_sha256": "dd5d3bec8264ae37dd389873483dc31384e614c046badf6276ab13a3265c5f4d",
     "arity": 1,
@@ -3467,7 +3467,7 @@
   {
     "definition": "Parser.parse_fam_group",
     "path": "src/frontend.bend",
-    "line": 1064,
+    "line": 1067,
     "arm": "{_ => (Done{Tup2{List.reverse(&2, Syntax.Fam, Con{p1777, acc_1177}), p1778}}) : Unit -> CheckResult(TupleOf2(ListOf(Syntax.Fam), ListOf(Token)))}",
     "arm_sha256": "ace5383b7392dd3ac5eb30f2956ab3682929a5f20d78c0794128478197f3e776",
     "arity": 1,
@@ -3476,7 +3476,7 @@
   {
     "definition": "Parser.parse_fam_group",
     "path": "src/frontend.bend",
-    "line": 1065,
+    "line": 1068,
     "arm": "Match.Token_Kind.only_Token_Kind_KAnd( _ => (otherwise1784(Unit{}))",
     "arm_sha256": "eaf3c8ffb5d9da0b2cc1d8db5017199d2735fce6a1909b385414e6e2c20ab324",
     "arity": 1,
@@ -3485,7 +3485,7 @@
   {
     "definition": "Parser.parse_mutual_group",
     "path": "src/frontend.bend",
-    "line": 1069,
+    "line": 1072,
     "arm": "{_ => (Parser.expected(&2, TupleOf2(ListOf(Syntax.Fam), ListOf(Token)), \"'mu' or 'end' in a mutual group\", ts_1182)) : Unit -> CheckResult(TupleOf2(ListOf(Synta ...",
     "arm_sha256": "48f2e4c02af33dc831f9b7b4999740696a46c10dc8531fa96d79466f30024616",
     "arity": 1,
@@ -3494,7 +3494,7 @@
   {
     "definition": "Parser.parse_mutual_group",
     "path": "src/frontend.bend",
-    "line": 1072,
+    "line": 1075,
     "arm": "Match.Token_Kind.only_Token_Kind_KMu_Token_Kind_KEnd( _ => (otherwise1800(Unit{}))",
     "arm_sha256": "32579ccf41f2a6dbb9202f85c28d76bcaae365127a43e0b104b996fdfbcb19d2",
     "arity": 1,
@@ -3503,7 +3503,7 @@
   {
     "definition": "Parser.parse_decl",
     "path": "src/frontend.bend",
-    "line": 1076,
+    "line": 1079,
     "arm": "{_ => (Parser.expected(&2, TupleOf2(Syntax.Decl, ListOf(Token)), \"'def NAME :', 'def rec NAME :', 'axiom NAME :', 'mu NAME' or 'mutual'\", ts_1131)) : Unit -> Ch ...",
     "arm_sha256": "b3a96dad5f53f8eafefcbb170de9a8c1e63575eab239d8f765af7acb5919880a",
     "arity": 1,
@@ -3512,7 +3512,7 @@
   {
     "definition": "Parser.parse_decl",
     "path": "src/frontend.bend",
-    "line": 1080,
+    "line": 1083,
     "arm": "{_ => (Parser.expected(&2, TupleOf2(Syntax.Decl, ListOf(Token)), \"':='\", p1644)) : Unit -> CheckResult(TupleOf2(Syntax.Decl, ListOf(Token)))}",
     "arm_sha256": "b706ecce54fe638a20609901359b6a2278921678ce0d7d2285366a859cbe6c3b",
     "arity": 1,
@@ -3521,7 +3521,7 @@
   {
     "definition": "Parser.parse_decl",
     "path": "src/frontend.bend",
-    "line": 1085,
+    "line": 1088,
     "arm": "Match.Token_Kind.only_Token_Kind_KDef_Token_Kind_KAxiom_Token_Kind_KMu_Token_Kind_KMutual_Token_Kind_KNu( _ => (otherwise941(Unit{}))",
     "arm_sha256": "c4b143069c4a9c87454241a4d4e828844fb580a939f60c6cad21c88c20c5bebc",
     "arity": 1,
@@ -3530,7 +3530,7 @@
   {
     "definition": "Parser.parse_decl",
     "path": "src/frontend.bend",
-    "line": 1082,
+    "line": 1085,
     "arm": "Match.List.only_Con( _ => (otherwise941(Unit{}))",
     "arm_sha256": "d926b6a14e19f550ef57b97c04357af47fa7d039080cf929511bfdec68d3be6b",
     "arity": 1,
@@ -3539,7 +3539,7 @@
   {
     "definition": "Parser.parse_decl",
     "path": "src/frontend.bend",
-    "line": 1082,
+    "line": 1085,
     "arm": "Match.Token_Kind.only_Token_Kind_KRec_Token_Kind_Ident( _ => (otherwise941(Unit{}))",
     "arm_sha256": "94e5f7d1aff2954892eb6dc57016720d2f9784f47dffcbff6f2ad443c612cb07",
     "arity": 1,
@@ -3548,7 +3548,7 @@
   {
     "definition": "Parser.parse_decl",
     "path": "src/frontend.bend",
-    "line": 1082,
+    "line": 1085,
     "arm": "Match.List.only_Con( _ => (otherwise941(Unit{}))",
     "arm_sha256": "d926b6a14e19f550ef57b97c04357af47fa7d039080cf929511bfdec68d3be6b",
     "arity": 1,
@@ -3557,7 +3557,7 @@
   {
     "definition": "Parser.parse_decl",
     "path": "src/frontend.bend",
-    "line": 1082,
+    "line": 1085,
     "arm": "Match.Token_Kind.only_Token_Kind_Colon( _ => (otherwise941(Unit{}))",
     "arm_sha256": "db2d9ccb0e3e882fca80515aa6120accc3e8ff925cd99afef915fc8a6cb798a2",
     "arity": 1,
@@ -3566,7 +3566,7 @@
   {
     "definition": "Parser.parse_decl",
     "path": "src/frontend.bend",
-    "line": 1082,
+    "line": 1085,
     "arm": "Match.Token_Kind.only_Token_Kind_ColonEq( _ => (otherwise1650(Unit{}))",
     "arm_sha256": "63b230d391f87413b960ad95cda0fddfffa33558fc7a6bf9b442678c3a3179a9",
     "arity": 1,
@@ -3575,7 +3575,7 @@
   {
     "definition": "Parser.parse_decl",
     "path": "src/frontend.bend",
-    "line": 1083,
+    "line": 1086,
     "arm": "Match.List.only_Con( _ => (otherwise941(Unit{}))",
     "arm_sha256": "d926b6a14e19f550ef57b97c04357af47fa7d039080cf929511bfdec68d3be6b",
     "arity": 1,
@@ -3584,7 +3584,7 @@
   {
     "definition": "Parser.parse_decl",
     "path": "src/frontend.bend",
-    "line": 1083,
+    "line": 1086,
     "arm": "Match.Token_Kind.only_Token_Kind_Ident( _ => (otherwise941(Unit{}))",
     "arm_sha256": "04403803b392dcae2415d9facaf30e029ccff415f368934f8fd350ef64204d3b",
     "arity": 1,
@@ -3593,7 +3593,7 @@
   {
     "definition": "Parser.parse_decl",
     "path": "src/frontend.bend",
-    "line": 1083,
+    "line": 1086,
     "arm": "Match.List.only_Con( _ => (otherwise941(Unit{}))",
     "arm_sha256": "d926b6a14e19f550ef57b97c04357af47fa7d039080cf929511bfdec68d3be6b",
     "arity": 1,
@@ -3602,7 +3602,7 @@
   {
     "definition": "Parser.parse_decl",
     "path": "src/frontend.bend",
-    "line": 1083,
+    "line": 1086,
     "arm": "Match.Token_Kind.only_Token_Kind_Colon( _ => (otherwise941(Unit{}))",
     "arm_sha256": "db2d9ccb0e3e882fca80515aa6120accc3e8ff925cd99afef915fc8a6cb798a2",
     "arity": 1,
@@ -3611,7 +3611,7 @@
   {
     "definition": "Parser.parse_decls",
     "path": "src/frontend.bend",
-    "line": 1090,
+    "line": 1093,
     "arm": "{_ => (Match.Result(&2, TupleOf2(Syntax.Decl, ListOf(Token)), &2, Error, &2, CheckResult(ListOf(Syntax.Decl)), Parser.parse_decl(ts_1125), +item1839 => ((+local ...",
     "arm_sha256": "554a9cf434159b50b26b36d0645a7f579f272cacbc8aa2b5411a6ba53fc0d835",
     "arity": 1,
@@ -3620,7 +3620,7 @@
   {
     "definition": "Parser.parse_decls",
     "path": "src/frontend.bend",
-    "line": 1092,
+    "line": 1095,
     "arm": "Match.Token_Kind.only_Token_Kind_Eof( _ => (otherwise1832(Unit{}))",
     "arm_sha256": "a62687297262b25536419f6e06a0f9d1135baa0d79eaccd2dbde0bca29043f36",
     "arity": 1,
@@ -3629,7 +3629,7 @@
   {
     "definition": "Recognize.Mapping.collection",
     "path": "src/frontend.bend",
-    "line": 3237,
+    "line": 3240,
     "arm": "{_ => (Fail{Recognize.Error.Protocol{String.append(\"M1 \", name_1145)}}) : Unit -> ResultOf(Recognize.Error, ListOf(String))}",
     "arm_sha256": "eb9cd121014615fc9624a7c89a48199a27e04b24d1a33cb4c0f3e71afbeafe60",
     "arity": 1,
@@ -3638,7 +3638,7 @@
   {
     "definition": "Recognize.Mapping.collection",
     "path": "src/frontend.bend",
-    "line": 3238,
+    "line": 3241,
     "arm": "{_ => (Fail{Recognize.Error.Protocol{String.append(\"M1 \", name_1145)}}) : Unit -> ResultOf(Recognize.Error, ListOf(String))}",
     "arm_sha256": "eb9cd121014615fc9624a7c89a48199a27e04b24d1a33cb4c0f3e71afbeafe60",
     "arity": 1,
@@ -3647,7 +3647,7 @@
   {
     "definition": "Recognize.Mapping.collection",
     "path": "src/frontend.bend",
-    "line": 3239,
+    "line": 3242,
     "arm": "{_ => (Fail{Recognize.Error.Protocol{String.append(\"M1 \", name_1145)}}) : Unit -> ResultOf(Recognize.Error, ListOf(String))}",
     "arm_sha256": "eb9cd121014615fc9624a7c89a48199a27e04b24d1a33cb4c0f3e71afbeafe60",
     "arity": 1,
@@ -3656,7 +3656,7 @@
   {
     "definition": "Recognize.Mapping.collection",
     "path": "src/frontend.bend",
-    "line": 3238,
+    "line": 3241,
     "arm": "Match.Shape.only_Shape_SColl( _ => (otherwise9605(Unit{}))",
     "arm_sha256": "87b520d41d5e2b2f08ab4fd7def5cb925d5950ed3ac0adc1e2a3931cd38a306c",
     "arity": 1,
@@ -3665,7 +3665,7 @@
   {
     "definition": "Recognize.Mapping.collection",
     "path": "src/frontend.bend",
-    "line": 3239,
+    "line": 3242,
     "arm": "Match.Shape.only_Shape_SColl( _ => (otherwise9662(Unit{}))",
     "arm_sha256": "496f65c85eb1e94552740288e0e5532a550511891ae388cdee2d95a0bee11169",
     "arity": 1,
@@ -3674,7 +3674,7 @@
   {
     "definition": "Recognize.Mapping.collection",
     "path": "src/frontend.bend",
-    "line": 3240,
+    "line": 3243,
     "arm": "Match.Term.only_Term_Ran( _ => (otherwise9679(Unit{}))",
     "arm_sha256": "ce59335945edff54e2a63beeee6dedfb64f1657d2c9422a3ec85e9e1ac9cfcdf",
     "arity": 1,
@@ -3683,7 +3683,7 @@
   {
     "definition": "Recognize.Mapping.collection",
     "path": "src/frontend.bend",
-    "line": 3240,
+    "line": 3243,
     "arm": "Match.Shape.only_Shape_SColl( _ => (otherwise9679(Unit{}))",
     "arm_sha256": "369bdf2503927b00016fd1032f6f864cb50fe8b1e7fe9b08e90f3e2688a23a40",
     "arity": 1,
@@ -3692,7 +3692,7 @@
   {
     "definition": "Recognize.Mapping.collection",
     "path": "src/frontend.bend",
-    "line": 3240,
+    "line": 3243,
     "arm": "Match.Term.only_Term_Sec( _ => (otherwise9679(Unit{}))",
     "arm_sha256": "02cc48febd4d1a47344728dba851e6f2861b50e74c3a5fda082ec1cf8a61234e",
     "arity": 1,
@@ -3701,7 +3701,7 @@
   {
     "definition": "Recognize.Mapping.collection",
     "path": "src/frontend.bend",
-    "line": 3240,
+    "line": 3243,
     "arm": "Match.Shape.only_Shape_SColl( _ => (otherwise9679(Unit{}))",
     "arm_sha256": "369bdf2503927b00016fd1032f6f864cb50fe8b1e7fe9b08e90f3e2688a23a40",
     "arity": 1,
@@ -3710,7 +3710,7 @@
   {
     "definition": "Recognize.Mapping.collection",
     "path": "src/frontend.bend",
-    "line": 3240,
+    "line": 3243,
     "arm": "Match.List.only_Nil( _ => (otherwise9679(Unit{}))",
     "arm_sha256": "1a129692bdde55be4bbee01a654f1f07b1998acd4bd7e699e3c5ff8c10b30822",
     "arity": 1,
@@ -3719,7 +3719,7 @@
   {
     "definition": "Recognize.Mapping.collection",
     "path": "src/frontend.bend",
-    "line": 3240,
+    "line": 3243,
     "arm": "Match.Term.only_Term_Univ( _ => (otherwise9679(Unit{}))",
     "arm_sha256": "eaef366de11408d0bd0719e62d524a81761106e3f5469cd965584663c51a2052",
     "arity": 1,
