@@ -95,14 +95,16 @@ type Cli.Call.Fields is Data:
 def Cli.Call.fail(-A: Data, +command: String, +message: String) -> IO(A):
   NativeIO.die(A, 64, String.concat(["assay: ", command, ": ", message]))
 
-def Cli.Call.typ(+command: String, +text: String) -> IO(Abi.Schema.Value_type):
-  match text:
+def Cli.Call.typ_copy(+key: String, +command: String, +text: String) -> IO(Abi.Schema.Value_type):
+  match key:
     case "uint8": IO.pure(Abi.Schema.Value_type, Abi.Schema.Value_type.Uint8{})
     case "uint256": IO.pure(Abi.Schema.Value_type, Abi.Schema.Value_type.Uint256{})
     case "address": IO.pure(Abi.Schema.Value_type, Abi.Schema.Value_type.Address{})
     case "bool": IO.pure(Abi.Schema.Value_type, Abi.Schema.Value_type.Bool{})
     case "string": IO.pure(Abi.Schema.Value_type, Abi.Schema.Value_type.String{})
     case _: Cli.Call.fail(Abi.Schema.Value_type, command, String.append("unsupported input type: ", text))
+
+def Cli.Call.typ(+command: String, +text: String) -> IO(Abi.Schema.Value_type): Cli.Call.typ_copy(text, command, text)
 
 def Cli.Call.word(+result: Result<&2, &2, String, Big>) -> IO(Big):
   match result:
@@ -429,14 +431,16 @@ def Cli.Event.error(+error: Abi.Event.Error) -> String:
     case Abi.Event.Error.Too_many_topics{}: "too many indexed fields"
     case Abi.Event.Error.Codec{error}: Cli.Event.codec_error(error)
 
-def Cli.Event.typ(+text: String) -> IO(Abi.Schema.Value_type):
-  match text:
+def Cli.Event.typ_copy(+key: String, +text: String) -> IO(Abi.Schema.Value_type):
+  match key:
     case "uint8": IO.pure(Abi.Schema.Value_type, Abi.Schema.Value_type.Uint8{})
     case "uint256": IO.pure(Abi.Schema.Value_type, Abi.Schema.Value_type.Uint256{})
     case "address": IO.pure(Abi.Schema.Value_type, Abi.Schema.Value_type.Address{})
     case "bool": IO.pure(Abi.Schema.Value_type, Abi.Schema.Value_type.Bool{})
     case "string": IO.pure(Abi.Schema.Value_type, Abi.Schema.Value_type.String{})
     case _: NativeIO.die(Abi.Schema.Value_type, 64, String.append("assay: event-encode: unsupported field type: ", text))
+
+def Cli.Event.typ(+text: String) -> IO(Abi.Schema.Value_type): Cli.Event.typ_copy(text, text)
 
 def Cli.Event.indexed(+text: String) -> IO(Bool):
   match text:
@@ -517,14 +521,16 @@ def Cli.Event.run(+args: ListOf(String)) -> IO(Unit):
 
 def Cli.EventDecode.usage() -> IO(Unit): Cli.fail(64, "assay: event-decode: usage: assay event-decode NAME [--anonymous] --topics HEX[,HEX]... --data HEX [TYPE indexed|data]...")
 
-def Cli.EventDecode.typ(+text: String) -> IO(Abi.Schema.Value_type):
-  match text:
+def Cli.EventDecode.typ_copy(+key: String, +text: String) -> IO(Abi.Schema.Value_type):
+  match key:
     case "uint8": IO.pure(Abi.Schema.Value_type, Abi.Schema.Value_type.Uint8{})
     case "uint256": IO.pure(Abi.Schema.Value_type, Abi.Schema.Value_type.Uint256{})
     case "address": IO.pure(Abi.Schema.Value_type, Abi.Schema.Value_type.Address{})
     case "bool": IO.pure(Abi.Schema.Value_type, Abi.Schema.Value_type.Bool{})
     case "string": IO.pure(Abi.Schema.Value_type, Abi.Schema.Value_type.String{})
     case _: NativeIO.die(Abi.Schema.Value_type, 64, String.append("assay: event-decode: unsupported field type: ", text))
+
+def Cli.EventDecode.typ(+text: String) -> IO(Abi.Schema.Value_type): Cli.EventDecode.typ_copy(text, text)
 
 def Cli.EventDecode.indexed(+text: String) -> IO(Bool):
   match text:
@@ -663,19 +669,23 @@ def Cli.Mapping.parse(+invalid: String, +text: String) -> IO(Big):
 
 def Cli.Mapping.word(+text: String) -> IO(Big): Cli.Mapping.parse("expected a decimal or 0x-prefixed uint256", text)
 
-def Cli.Mapping.typ(+text: String) -> IO(Abi.Schema.Value_type):
-  match text:
+def Cli.Mapping.typ_copy(+key: String, +text: String) -> IO(Abi.Schema.Value_type):
+  match key:
     case "uint8": IO.pure(Abi.Schema.Value_type, Abi.Schema.Value_type.Uint8{})
     case "uint256": IO.pure(Abi.Schema.Value_type, Abi.Schema.Value_type.Uint256{})
     case "address": IO.pure(Abi.Schema.Value_type, Abi.Schema.Value_type.Address{})
     case "bool": IO.pure(Abi.Schema.Value_type, Abi.Schema.Value_type.Bool{})
     case _: NativeIO.die(Abi.Schema.Value_type, 64, String.append("assay: mapping-slot: unsupported key type: ", text))
 
-def Cli.Mapping.boolean(+text: String) -> IO(Big):
-  match text:
+def Cli.Mapping.typ(+text: String) -> IO(Abi.Schema.Value_type): Cli.Mapping.typ_copy(text, text)
+
+def Cli.Mapping.boolean_copy(+key: String, +text: String) -> IO(Big):
+  match key:
     case "true": IO.pure(Big, Big.one())
     case "false": IO.pure(Big, Big.zero())
     case _: Cli.Mapping.parse("expected true, false, a decimal or 0x-prefixed integer", text)
+
+def Cli.Mapping.boolean(+text: String) -> IO(Big): Cli.Mapping.boolean_copy(text, text)
 
 def Cli.Mapping.value(+typ: Abi.Schema.Value_type, +text: String) -> IO(Big):
   match typ:

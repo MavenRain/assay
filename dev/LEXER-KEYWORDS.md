@@ -32,10 +32,13 @@ adds `Recognize.identifier` as a sixth. [Word parsing](WORD-DIRECT.md) adds
 adds `Model.segment` as an eighth. [CLI prefix removal](CLI-PREFIX-DIRECT.md)
 adds `Trace.calldata`, `Trace.caller` and `Differential.caller`, for eleven. The [trace value follow-up](CLI-VALUE-DIRECT.md)
 adds `Trace.value`, for twelve. The [trace error follow-up](CLI-ERROR-DIRECT.md)
-adds `Trace.has_error`, for thirteen.
+adds `Trace.has_error`, for thirteen. The String-match workaround changes the
+`Lexer.ident_kind` pin to the digest of its wrapper. `LATE_PINS` adds the six
+`_copy` helpers and the five CLI wrappers, for eleven more.
 [cli_delta.py](cli_delta.py) pins
 the SHA-256 of each new declaration text and puts back the BASE declaration
-before the compare. The rest of the CLI bundle must still be
+before the compare. A late pin puts back the BASE declaration only when that
+BASE holds it. The rest of the CLI bundle must still be
 byte-identical to each BASE. This follows a user ruling of 2026-09-29.
 
 No kernel rule, EVM emission rule, launcher, benchmark method, performance

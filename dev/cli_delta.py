@@ -1,6 +1,7 @@
 """Pin accepted CLI changes before comparing each historical CLI bundle.
 
-Every listed declaration must match its digest and occur once in each input.
+Every PINS declaration must match its digest and occur once in each input.
+A LATE_PINS declaration must match its digest and occur once in the worktree.
 Restoring BASE bodies then leaves all other reachable CLI changes detectable.
 """
 import hashlib
@@ -11,7 +12,7 @@ import subprocess
 from bend_source import bundle, declarations, reachable
 
 PINS = {
-    'Lexer.ident_kind': '885331fd55467b8d6691413941c9ef60b74d616ed023c9ce330db4f4a9be8c7d',
+    'Lexer.ident_kind': 'd8dcc229aacd2f4ff6d3593420d552af2cfb635325ab971951fd261d7590eeea',
     'Lexer.nat_of_digits': 'a9b94145490a45c9f0f48a7ee185b6d5fb2f7f258b81aa8aebcc6285ed07fbb9',
     'Lexer.go': '62a383370952042300dba1d35d5a60ed1df8f1aa7c04f158bb9435b1aeae097c',
     'Lexer.lex': '2806175b462bcf9062a7c0468519bb0a2bf1ea84e9628b5827c30b769fd569b9',
@@ -34,8 +35,25 @@ PINS = {
     'Cli.usage': '359dcca7a5736227c26359c2cccf11430e9b703c0df32317380fa62fbfdeca02',
     'Cli.dispatch': '708b9b7871a3f40d757af018bea22098938e4b8c62641661a7744c991fc60401',
 }
+# The String-match workaround moves six String matches into _copy helpers.
+# No BASE holds these helpers.
+LATE_PINS = {
+    'Lexer.ident_kind_copy': 'be4d71b5a6ff2fac7452f0c4fd4562ab8f5db3fa32ececbd62bcb1a026418410',
+    'Cli.Call.typ_copy': '6b13cca96ef7bb47bcdcda2ce3a86c81144fada124c1372ea8fca4b4092ac55d',
+    'Cli.Event.typ_copy': '150863038166455cdd560dabdf3a70e94a6a03e693c71b57f22d09b8fa2ea3a2',
+    'Cli.EventDecode.typ_copy': '5a240e2845e163a068336140e67f636d1b272293ba47c89bc410fa55149be075',
+    'Cli.Mapping.typ_copy': '18f964e5eb1b01799e4d3a285b6d9135a3a053002e2b1e8b8653b41b54fa96fa',
+    'Cli.Mapping.boolean_copy': '31d5d0cebbae8673c49dd26df5e5286109ac96dce855225fe9c4f22163330910',
+    # Only some BASEs hold these wrappers.
+    # The BASE body replaces each wrapper that the BASE holds.
+    'Cli.Call.typ': '31cff19e8e895ed62b22fecd29295b04202163c07192000ab63bd41b7df880a5',
+    'Cli.Event.typ': '40473ba33635cb4eb99054c2eff14948903b4d51aab1f21253370e6e8b549823',
+    'Cli.EventDecode.typ': 'd7a91f428b5c46e48eab80475fdc91fd774bc4676b7f887c99bcb9a8560c7504',
+    'Cli.Mapping.typ': 'f19838a98a66e582fcd46c95460d53beeed66c2915454791a9a630f1e3a7c474',
+    'Cli.Mapping.boolean': 'cc9fd7f80117f197b9b984f77dec459b83fdfa821d83207cbf727e851d4572de',
+}
 # Reports identify the complete pin manifest, with a stable serialization.
-SHA256 = hashlib.sha256(json.dumps(PINS, sort_keys=True, separators=(',', ':')).encode()).hexdigest()
+SHA256 = hashlib.sha256(json.dumps([PINS, LATE_PINS], sort_keys=True, separators=(',', ':')).encode()).hexdigest()
 
 
 def only(rows, name):
@@ -51,6 +69,12 @@ def pinned(base_rows, work_rows):
         if base is None or work is None or hashlib.sha256(work.source.encode()).hexdigest() != digest:
             return None
         replacements[work.key] = base
+    for name, digest in LATE_PINS.items():
+        base, work = only(base_rows, name), only(work_rows, name)
+        if work is None or hashlib.sha256(work.source.encode()).hexdigest() != digest:
+            return None
+        if base is not None:
+            replacements[work.key] = base
     return [replacements.get(row.key, row) for row in work_rows]
 
 

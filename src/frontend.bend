@@ -713,8 +713,8 @@ def Lexer.is_ident_char(+c_344: Char) -> Bool:
 def Lexer.keywords() -> ListOf(TupleOf2(String, Token.Kind)):
   Con{Tup2{"def", Token.Kind.KDef{}}, Con{Tup2{"axiom", Token.Kind.KAxiom{}}, Con{Tup2{"fun", Token.Kind.KFun{}}, Con{Tup2{"inj", Token.Kind.KInj{}}, Con{Tup2{"of", Token.Kind.KOf{}}, Con{Tup2{"case", Token.Kind.KCase{}}, Con{Tup2{"match", Token.Kind.KMatch{}}, Con{Tup2{"as", Token.Kind.KAs{}}, Con{Tup2{"return", Token.Kind.KReturn{}}, Con{Tup2{"with", Token.Kind.KWith{}}, Con{Tup2{"tuple", Token.Kind.KTuple{}}, Con{Tup2{"sum", Token.Kind.KSum{}}, Con{Tup2{"prod", Token.Kind.KProd{}}, Con{Tup2{"absurd", Token.Kind.KAbsurd{}}, Con{Tup2{"Prop", Token.Kind.KProp{}}, Con{Tup2{"Type", Token.Kind.KType{}}, Con{Tup2{"let", Token.Kind.KLet{}}, Con{Tup2{"in", Token.Kind.KIn{}}, Con{Tup2{"natAdd", Token.Kind.KNatAdd{}}, Con{Tup2{"natSub", Token.Kind.KNatSub{}}, Con{Tup2{"natMul", Token.Kind.KNatMul{}}, Con{Tup2{"natEq", Token.Kind.KNatEq{}}, Con{Tup2{"natLt", Token.Kind.KNatLt{}}, Con{Tup2{"auto", Token.Kind.KAuto{}}, Con{Tup2{"mu", Token.Kind.KMu{}}, Con{Tup2{"mutual", Token.Kind.KMutual{}}, Con{Tup2{"end", Token.Kind.KEnd{}}, Con{Tup2{"nu", Token.Kind.KNu{}}, Con{Tup2{"and", Token.Kind.KAnd{}}, Con{Tup2{"rec", Token.Kind.KRec{}}, Nil{}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}
 @unsafe
-def Lexer.ident_kind(+s_348: String) -> Token.Kind:
-  match s_348:
+def Lexer.ident_kind_copy(+key: String, +name: String) -> Token.Kind:
+  match key:
     case "def": Token.Kind.KDef{}
     case "axiom": Token.Kind.KAxiom{}
     case "fun": Token.Kind.KFun{}
@@ -745,7 +745,10 @@ def Lexer.ident_kind(+s_348: String) -> Token.Kind:
     case "nu": Token.Kind.KNu{}
     case "and": Token.Kind.KAnd{}
     case "rec": Token.Kind.KRec{}
-    case name: Token.Kind.Ident{name}
+    case _: Token.Kind.Ident{name}
+@unsafe
+def Lexer.ident_kind(+s_348: String) -> Token.Kind:
+  Lexer.ident_kind_copy(s_348, s_348)
 @unsafe
 def Lexer.lex_err(-q0: Quant, -A0: Kind(q0), +loc_307: Token.Loc, +msg_308: String) -> Result<&2, q0, Error, A0>:
   Fail{Error.Parse{msg_308, Get.Token.Loc.line(loc_307), Get.Token.Loc.col(loc_307)}}
