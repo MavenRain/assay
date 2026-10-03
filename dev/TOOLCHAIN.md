@@ -1,6 +1,6 @@
 # Assay toolchain
 
-The current compiler uses Bend 2.0.28, pinned by commit in `toolchain.json`,
+The current compiler uses Bend 2.0.32, pinned by commit in `toolchain.json`,
 with Node.js 22 or newer and Python 3.11 or newer. Run
 `python3 -P dev/bootstrap-bend.py` from the repository root to build the pin
 with Git and Bun, then `make`. Set `BEND` to use an existing pinned checkout.

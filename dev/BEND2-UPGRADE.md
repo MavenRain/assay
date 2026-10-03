@@ -1,7 +1,8 @@
 # Bend 2.0.28
 
-`dev/toolchain.json` pins Bend 2.0.28 at
+This slice pinned Bend 2.0.28 at
 `bc178404f4778704fa5584a73fcdf72bcdf9f32c`, the upstream `v2.0.28` tag.
+The current pin is in `dev/toolchain.json`; see [Bend 2.0.32](#bend-2032).
 The compiler still emits JavaScript for the pinned Node runtime.
 
 For a fresh checkout, run `python3 -P dev/bootstrap-bend.py`. To upgrade an
@@ -36,3 +37,10 @@ remain unchanged. See [M4-SPEED.md](M4-SPEED.md) for the deferred speed gate.
 The same slice adds the [return-data commands](M2-RETURNDATA-CLI.md).
 Validation evidence is recorded in
 [the upgrade record](validation/2026-10-02-bend-upgrade-returndata-cli/README.md).
+
+## Bend 2.0.32
+
+`dev/toolchain.json` pins Bend 2.0.32 at
+`573002f01ec6c52416d44489543f69a9625facf8`, the upstream `v2.0.32` tag.
+The `io_eff` registration above is unchanged. The live Bend corpus manifest
+and the paired speed runner stay on 2.0.28 until the next paired measurement.
