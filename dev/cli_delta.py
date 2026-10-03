@@ -32,21 +32,26 @@ PINS = {
     # detection of every other reachable change in the historical CLI bundles.
     'Cli.checked': 'adfee7b75ec603dacc4c0bc96310f1c99629bcb0c2b3979ba7176702cc2a41e5',
     'Cli.compile': '1f40dbef64eeb21857c8ba0e7664093a56a0332f07947219961fdf98cac65342',
-    'Cli.run': '3f1ee1a1614debae113d863ef2e9e1077b3e2c33107d5983a0fd753fb982b4c2',
+    # M2 function ABI: Cli.run reads the source before it decodes the inputs.
+    # Thus typed calldata uses the function ABI plan of that source.
+    'Cli.run': '2033d214bcf2f42610b53ec4332a3ee0ba5944b5a3feaccc5fefc0d66249a671',
     # Mapping, event and calldata CLI tests check historical compatibility.
     'Cli.usage': '359dcca7a5736227c26359c2cccf11430e9b703c0df32317380fa62fbfdeca02',
     'Cli.dispatch': '708b9b7871a3f40d757af018bea22098938e4b8c62641661a7744c991fc60401',
     # Mapping runtime adds a plan to the source snapshot and excludes only
     # marked compiler temporaries from member counting. Semantic checks cover
     # ordinary identifiers, the user limit, packed programs and mapping access.
-    'Case.Packed.switch_35': 'fd2d4ccc8f6ae628efc4f381d7b96771e508ff2e11fb24c0602b235424a3468c',
-    'Case.Packed.switch_38': '6425d888ad1e134c26e28d451f01b102ffec8f668e7d88ebec2fa4a07b6e0676',
+    # M2 function ABI: the source snapshot now carries
+    # Mapping.Runtime.Plan.Functions, and Cli.Packed.read_file applies
+    # FunctionAbi.lower. This changes switch_35, switch_38 and read_file.
+    'Case.Packed.switch_35': 'd8637a9894bbe6831c404a3f7866d746688339ccb3d690e3ad1b2756d157fc8d',
+    'Case.Packed.switch_38': 'a8cf0834c2e9a0ba45b95b58236a5a3e7b226ce56dec397fae1847132935b3b9',
     'Case.Packed.switch_39': '81718f5956e21d6ceca6a9c4b1da46c5f6daeb59e6170ad3f37f8a6e4ef263b5',
     'Case.Packed.switch_40': '1f672130a9f1f27d6c76e22dec3cc749f310d0a94f6ca6a83223cff461915de7',
     'Case.Packed.switch_42': '35b679752a7683b0d64ddaa61f7bf9ae922c1409f919c61b536d1172faa97443',
     'Cli.Packed.Checked': '5c5e031fc16bd754c530ddfcb3c503b5d7e1f637f51311c413269c39ce429376',
     'Cli.Packed.Program': '4427c16a4382ce33da4a57ce90385aaf8054a8b6302cceaa3fcd4d7f2bad150b',
-    'Cli.Packed.read_file': 'd122c2190d7a88d5777795bc7e0f10a3254a268d509afe416c2cd22153fb2214',
+    'Cli.Packed.read_file': '3c6ccc3cad600aaa27063a32734d44236c2665f8ef0c2f4da24a7510dce847ad',
     'Contract.add_name': 'b0f9bc50ed5b13e863d6d663173672aa5c204e69bb5ecf0b66046c5a475cdd98',
 }
 # These helpers were introduced by source packing. Older baselines can lack

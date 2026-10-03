@@ -68,9 +68,14 @@ def main():
             ('MAPPING-RUNTIME', 600, ('python3', '-P', 'dev/mapping-runtime-test.py'),
              'MAPPING-RUNTIME live=40 refusals=27 constructor=1 layout=1 OK', True)]),
                 'mapping runtime must preserve all carried legs and add its required check')
-        require('--m2-mapping-runtime' in (ROOT / 'dev/gates.sh').read_text() and
-                'dev/stage-a-gates.py --m2-mapping-runtime' in (ROOT / 'Makefile').read_text(),
-                'default gate entry points must select mapping runtime')
+        functions = H.schedule(after, '--m2-function-abi')
+        require(functions == dict(stage='M2-FUNCTION-ABI', legs=mapping['legs'] + [
+            ('FUNCTION-ABI', 600, ('python3', '-P', 'dev/function-abi-test.py'),
+             'FUNCTION-ABI cases=47 mapping=1 caps=3 collision=2 refusals=12 cast=OK model=OK run=OK t8n=OK', True)]),
+                'function ABI must preserve all carried legs and add its required check')
+        require('--m2-function-abi' in (ROOT / 'dev/gates.sh').read_text() and
+                'dev/stage-a-gates.py --m2-function-abi' in (ROOT / 'Makefile').read_text(),
+                'default gate entry points must select function ABI')
     finally:
         sys.argv = original_argv
 

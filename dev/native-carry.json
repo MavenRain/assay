@@ -7,6 +7,7 @@
     "src/cli.bend",
     "src/emitter.bend",
     "src/frontend.bend",
+    "src/function_abi.bend",
     "src/keccak.bend",
     "src/kernel.bend",
     "src/layout.bend",
@@ -18,15 +19,16 @@
   "carried": {
     "src/abi.bend": "393d3f535cc3cff42605c702ef66d576cd803b4dc9745c8e69c7489527fac969",
     "src/assembler.bend": "99dd49f4b48478ba8c587342c9d2e0ce4e74e28c904a650440f1f6f783c817b1",
-    "src/cli.bend": "76020a8d22cc2038238e9dc40ec9a966209db60d14574f4d4b4c144266c0f4ab",
+    "src/cli.bend": "af80e214baaedd5bb6c30751a60f16cd48136e27045599bb3f630096e8860162",
     "src/emitter.bend": "1d9c503d7892739f43e49000a004b46469a6b8fbf535d6e0d941a3cede0c7337",
-    "src/frontend.bend": "8bf91479cbf7b6265ad90d34caef9d9a25b3e94cc7517e0b08ffb59e7f2832c1",
+    "src/frontend.bend": "68814ba46bd7164a9130a29aa6086f620e9f178a039948ebda96b93e02d400df",
     "src/keccak.bend": "cbfb3275116d3703a803181ceeafe8dc3e74d53f21cb9a539f29c28c5bc8e98a",
     "src/kernel.bend": "12657d56799719ee73fd354eae52335847cd20fd5d31aa791434a9e34bac717e",
     "src/layout.bend": "e3081d285ac1a4bfcad28347db772442d4d86a0c430596737ce27f48d0dd2017",
     "src/listing.bend": "697b9869205fc92f12b6a50fd4e82c6875440e677f01a06eecf83cb2982934ab",
     "src/os.js": "77d8c495a6ddf6d9cfc3060ef4ca95869b70b8e4dfd867fbc9efcfd57fb8c4ae",
     "src/test-os.js": "7a3604ea52e847ae3ed2054859a9746ac975b5db7f5665a355d041dd0f143ce0",
-    "src/tests.bend": "1160ce4e8451a38884c78cb1f80ad8ca6b29126db734acfe778879cec32871ee"
+    "src/tests.bend": "1160ce4e8451a38884c78cb1f80ad8ca6b29126db734acfe778879cec32871ee",
+    "src/function_abi.bend": "8a3c5a1c98824250377c32b688747b1534bf64d78d50bd6dcc287d38c32ed48b"
   }
 }

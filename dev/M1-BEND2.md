@@ -166,9 +166,11 @@ ownership check and [source packing check](M2-SOURCE-PACKING.md), for 99
 checks. The --m2-mapping-source mode appends the
 [mapping source check](M2-MAPPING-SOURCE.md), for 100 checks. The
 --m2-returndata-cli mode appends the
-[return-data CLI check](M2-RETURNDATA-CLI.md), for 101 checks. The default
-make gates and dev/gates.sh now select --m2-mapping-runtime, which appends the
-[mapping runtime check](M2-MAPPING-RUNTIME.md), for 102 checks.
+[return-data CLI check](M2-RETURNDATA-CLI.md), for 101 checks. The
+--m2-mapping-runtime mode appends the
+[mapping runtime check](M2-MAPPING-RUNTIME.md), for 102 checks. The default
+make gates and dev/gates.sh now select --m2-function-abi, which appends the
+[function ABI check](M2-FUNCTION-ABI.md), for 103 checks.
 Historical OCaml tools, native timing records and source seals remain
 available as diagnostics.
 

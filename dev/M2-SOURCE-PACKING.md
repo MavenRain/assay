@@ -65,9 +65,11 @@ the [M4 speed ownership check](M4-SPEED.md) to the 93 carried non-speed
 checks, for 99 checks. The --m2-mapping-source mode appends the
 [mapping source check](M2-MAPPING-SOURCE.md), for 100 checks. The
 --m2-returndata-cli mode appends the
-[return-data CLI check](M2-RETURNDATA-CLI.md), for 101 checks. The default
-make gates now selects --m2-mapping-runtime, which appends the
-[mapping runtime check](M2-MAPPING-RUNTIME.md), for 102 checks.
+[return-data CLI check](M2-RETURNDATA-CLI.md), for 101 checks. The
+--m2-mapping-runtime mode appends the
+[mapping runtime check](M2-MAPPING-RUNTIME.md), for 102 checks. The default
+make gates now selects --m2-function-abi, which appends the
+[function ABI check](M2-FUNCTION-ABI.md), for 103 checks.
 
 The [validation record](validation/2026-10-01-m2-source-packing/REPORT.json)
 pins source hashes and records the native suite, live cases, mutants,

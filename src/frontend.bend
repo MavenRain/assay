@@ -2564,6 +2564,7 @@ def Mapping.Runtime.Cells() -> Data: ListOf(Mapping.Runtime.Cell)
 type Mapping.Runtime.Plan is Data:
   Mapping.Runtime.Plan.Plain{}
   Mapping.Runtime.Plan.Mapped{schema: Mapping.Source.Schema, cells: Mapping.Runtime.Cells()}
+  Mapping.Runtime.Plan.Functions{functions: FunctionAbi.Functions(), plan: Mapping.Runtime.Plan}
 def Mapping.Runtime.Packet() -> Data: TupleOf2(Packed.Source.Info(), Mapping.Runtime.Plan)
 type Mapping.Runtime.Keys is Data:
   Mapping.Runtime.Keys{tail: ListOf(Contract.Token), stores: ListOf(Contract.Token), cells: Mapping.Runtime.Cells(), path: ListOf(TupleOf2(Big, Abi.Schema.Value_type)), typ: Abi.Schema.Value_type, next: Big}
@@ -2742,6 +2743,14 @@ def Mapping.Runtime.tokens(+source: String, +tokens: ListOf(Contract.Token)) -> 
     Native.choose(&2, CheckResult(Mapping.Runtime.Packet()), reserved, _ => Contract.fail(&2, Mapping.Runtime.Packet(), Contract.here(tokens), "RESERVED", "assayMap names are reserved for mapping lowering"), _ =>
       CheckResult.bind(Mapping.Source.Schema, Mapping.Runtime.Packet(), Mapping.Source.header(tokens), schema => Mapping.Runtime.schema(tokens, schema)))
   , _ => Mapping.Runtime.plain(Packed.Source.lower(source)))
+@unsafe
+def Mapping.Runtime.lexed(+tokens: ListOf(Contract.Token)) -> CheckResult(Mapping.Runtime.Packet()):
+  +mapped = Mapping.Runtime.storage_mapped(tokens)
+  +reserved = SeqList.exists(&2, Contract.Token, token => NativeString.equal(Model.segment(Big.zero(), Big.of_nat(8n), Get.Contract.Token.text(token)), "assayMap"), tokens)
+  Native.choose(&2, CheckResult(Mapping.Runtime.Packet()), mapped, _ =>
+    Native.choose(&2, CheckResult(Mapping.Runtime.Packet()), reserved, _ => Contract.fail(&2, Mapping.Runtime.Packet(), Contract.here(tokens), "RESERVED", "assayMap names are reserved for mapping lowering"), _ =>
+      CheckResult.bind(Mapping.Source.Schema, Mapping.Runtime.Packet(), Mapping.Source.header(tokens), schema => Mapping.Runtime.schema(tokens, schema)))
+  , _ => Mapping.Runtime.plain(Case.Packed.switch_3(Done{tokens})))
 def Mapping.Runtime.plain(+result: CheckResult(Packed.Source.Info())) -> CheckResult(Mapping.Runtime.Packet()):
   match result:
     case Fail{error}: Fail{error}

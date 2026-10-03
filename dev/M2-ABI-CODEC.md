@@ -52,9 +52,10 @@ The explicit `--m2-abi-codec` gate mode appends one leg to the unchanged
 [LAYOUT-MAPPING](M2-MAPPING.md), [EVENT-CODEC](M2-EVENTS.md),
 [CALL-CODEC](M2-CALLDATA.md), [RETURN-CODEC](M2-RETURNDATA.md),
 [REVERT-CODEC](M2-REVERTDATA.md) and the later checks, for 101 legs; see
-[M2-RETURNDATA-CLI](M2-RETURNDATA-CLI.md). The current default,
-`--m2-mapping-runtime`, adds [MAPPING-RUNTIME](M2-MAPPING-RUNTIME.md), for 102
-legs. Counts exclude BEND2-RATIO and BEND2-RATIO-TEST, which moved to
+[M2-RETURNDATA-CLI](M2-RETURNDATA-CLI.md).
+`--m2-mapping-runtime` adds [MAPPING-RUNTIME](M2-MAPPING-RUNTIME.md), for 102
+legs. The current default, `--m2-function-abi`, adds
+[FUNCTION-ABI](M2-FUNCTION-ABI.md), for 103 legs. Counts exclude BEND2-RATIO and BEND2-RATIO-TEST, which moved to
 [`--m4-speed`](M4-SPEED.md) on 2026-10-01.
 The ABI-CODEC leg has a 300-second deadline:
 

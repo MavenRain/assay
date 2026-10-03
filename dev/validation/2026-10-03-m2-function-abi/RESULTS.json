@@ -1,0 +1,285 @@
+{
+  "version": 1,
+  "base_head": "537ed7ca5d8bdb3dd7668c5ff0e8a9901a721289",
+  "compiler_commit": "573002f01ec6c52416d44489543f69a9625facf8",
+  "compiler_binary_sha256": "f0f7bd1091622614919c3a5932f3b65fafd6f7f94e101392c8f5fe34bd1c5305",
+  "assay_launcher_sha256": "34963dcf64733713c42962064f0a29c77ffc398d5a00b63aaec1a94c193b701b",
+  "assay_output_sha256": "68032dc4e1865bf6125120563843de7359ec1f61bc4dc9164d28b20c396b16db",
+  "assay_inputs_sha256": "5c90fd9d21999c5c13c6b1b42fb936cb4be935b1decc3052134176f83ca13963",
+  "final_source_hashes": {
+    "dev/DENOMINATORS.sha256": "6b778318ed09e46307b91cd8246bfd5bbb8c3247234f0cf3a18119ead95826f6",
+    "dev/bend-catchalls.json": "80857fcd683e33642505c00593dd920f2fb684313b555f1a40c803aac4950302",
+    "dev/cli_delta.py": "1854a37404f03c9622995a7c7ae335e37715e391a52de8fbe7f1015b2141664b",
+    "dev/function-abi-test.py": "ad63b6fc39f80ec322a927f0e813e9a1ad36e576dd0643f9f35302c361c85b40",
+    "dev/milestone-speed-test.py": "88c3377deec1529baa7f0ac2e4c4a1525bb3fb81e4631f772a3a7f4d851cc136",
+    "dev/native-carry.json": "94a86ed7312feab4f91ed3ec2e928b9caf1dd89d792e6a621f234115601ecd43",
+    "dev/stage-a-gates.py": "d469f996d659718649a4209a4f5e9201cf1ecf04f108d730278d06bc9c08e160",
+    "dev/trusted-lines.py": "799206d2239f04e1657299650305e11716062707c0d34141dc2118d93e4ecd6e",
+    "examples/FunctionCalldata.asy": "03ddb20211834b10be893b835b14f08e7778a12ed2bcc171d33d74f8eacfb865",
+    "src/abi.bend": "393d3f535cc3cff42605c702ef66d576cd803b4dc9745c8e69c7489527fac969",
+    "src/assembler.bend": "99dd49f4b48478ba8c587342c9d2e0ce4e74e28c904a650440f1f6f783c817b1",
+    "src/cli.bend": "af80e214baaedd5bb6c30751a60f16cd48136e27045599bb3f630096e8860162",
+    "src/emitter.bend": "1d9c503d7892739f43e49000a004b46469a6b8fbf535d6e0d941a3cede0c7337",
+    "src/frontend.bend": "68814ba46bd7164a9130a29aa6086f620e9f178a039948ebda96b93e02d400df",
+    "src/function_abi.bend": "8a3c5a1c98824250377c32b688747b1534bf64d78d50bd6dcc287d38c32ed48b",
+    "src/keccak.bend": "cbfb3275116d3703a803181ceeafe8dc3e74d53f21cb9a539f29c28c5bc8e98a",
+    "src/kernel.bend": "12657d56799719ee73fd354eae52335847cd20fd5d31aa791434a9e34bac717e",
+    "src/layout.bend": "e3081d285ac1a4bfcad28347db772442d4d86a0c430596737ce27f48d0dd2017",
+    "src/listing.bend": "697b9869205fc92f12b6a50fd4e82c6875440e677f01a06eecf83cb2982934ab",
+    "src/tests.bend": "1160ce4e8451a38884c78cb1f80ad8ca6b29126db734acfe778879cec32871ee"
+  },
+  "checks": {
+    "build": {
+      "exit_code": 0,
+      "revision": "pre-review",
+      "capture": "/Users/oobi/Documents/assay/.kanon-exec/run-gUGeru",
+      "files": {
+        "build.capture.json": "c7b953e417960c663f447ba6717369687c01676789d570f6d65079f5c40af9d1",
+        "build.stdout.log": "0f0c4b6180409758fdcc904d20c2c415f739031ba617b7f22ae816097554ddab",
+        "build.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    "function-abi": {
+      "exit_code": 0,
+      "revision": "pre-review",
+      "capture": "/Users/oobi/Documents/assay/.kanon-exec/run-kTDIe4",
+      "files": {
+        "function-abi.capture.json": "5cc88ca13836c27f69e31b579347ee75f160111e97460295fd3e8a1b32467895",
+        "function-abi.stdout.log": "27d1e69a8fead053bbf724b88df5d981c98ae1c36a0f1c9aa81d8d89b3dfddcb",
+        "function-abi.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    "native-tests": {
+      "exit_code": 0,
+      "revision": "earlier-in-change",
+      "capture": "/Users/oobi/Documents/assay/.kanon-exec/run-Yme8l0",
+      "files": {
+        "native-tests.capture.json": "d1cc98d40a6484f66b683c62488bc9c9883c2b528e1b6d99cc0594217863d7d9",
+        "native-tests.stdout.log": "43c4d9bbde13e09a7f572ed63c337d89164f767f0089e516afac5df6872e1d0a",
+        "native-tests.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    "mapping-runtime": {
+      "exit_code": 0,
+      "revision": "earlier-in-change",
+      "capture": "/Users/oobi/Documents/assay/.kanon-exec/run-hw5v4D",
+      "files": {
+        "mapping-runtime.capture.json": "60cd4fa59cedac396e492e4261aede3ae4cfe370ef678b333294dfc7243d5b60",
+        "mapping-runtime.stdout.log": "365f7730196bb599b2bbc580be7ba74535ace50349e9c65259e50ea89519b4e8",
+        "mapping-runtime.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    "packed-source": {
+      "exit_code": 0,
+      "revision": "earlier-in-change",
+      "capture": "/Users/oobi/Documents/assay/.kanon-exec/run-37yuj1",
+      "files": {
+        "packed-source.capture.json": "fa4e19a5ef22d4a4818c0aa537ec8710e65622955ade352ddf57a313a4655c64",
+        "packed-source.stdout.log": "b2148a3cba0b5e598a5d5fb70f2a513d807f0e38802236c3338cd4b5bc507eb1",
+        "packed-source.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    "calldata-cli": {
+      "exit_code": 0,
+      "revision": "earlier-in-change",
+      "capture": "/Users/oobi/Documents/assay/.kanon-exec/run-RInnfX",
+      "files": {
+        "calldata-cli.capture.json": "afb7c7ddc8dd711658717063d0833e899348a72871cc97716487426be31e9a8b",
+        "calldata-cli.stdout.log": "5016c18affd17bc782fb57a61cf60f4137316255976672861a9e9ef0238ab8d4",
+        "calldata-cli.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    "house": {
+      "exit_code": 0,
+      "revision": "pre-review",
+      "capture": "/Users/oobi/Documents/assay/.kanon-exec/run-TkoqaX",
+      "files": {
+        "house.capture.json": "efa19fbd52b900fc8a0a378e8a8996a7aba318f006e131a044964621651bd4a7",
+        "house.stdout.log": "59273f4501bf44b700566ae758aab2039a7b854852efddcfef1dd95f759020ed",
+        "house.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    "carry": {
+      "exit_code": 0,
+      "revision": "pre-review",
+      "capture": "/Users/oobi/Documents/assay/.kanon-exec/run-a3DfEk",
+      "files": {
+        "carry.capture.json": "a72d40560b80a1d83adc870658704ef451443dd58ee078df449e6bee978b6440",
+        "carry.stdout.log": "035c8ca472cd20146591885cf6b2c6c6a6809bb5fd8e3a27879fbd2e559ca008",
+        "carry.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    "r0-audit": {
+      "exit_code": 0,
+      "revision": "pre-review",
+      "capture": "/Users/oobi/Documents/assay/.kanon-exec/run-jYHCNR",
+      "files": {
+        "r0-audit.capture.json": "ed578aec40700f9a57c6742996bc776715305ca2bbb297e62fcdc7163cf7f54a",
+        "r0-audit.stdout.log": "748f171e179c623ead736b09fde522879069a45b6861304ce1508eddeb8e94c6",
+        "r0-audit.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    "trusted-lines": {
+      "exit_code": 0,
+      "revision": "pre-review",
+      "capture": "/Users/oobi/Documents/assay/.kanon-exec/run-tGvtuR",
+      "files": {
+        "trusted-lines.capture.json": "a6fbef8f0997094a60820a39a80711c66aae8ec0cc6499f272330b8d002e51c2",
+        "trusted-lines.stdout.log": "090f04b473176386ec4bbc4156285cd87d437d0a75d7bbd5da60d490e8f86298",
+        "trusted-lines.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    "schedule": {
+      "exit_code": 0,
+      "revision": "pre-review",
+      "capture": "/Users/oobi/Documents/assay/.kanon-exec/run-iCvgBs",
+      "files": {
+        "schedule.capture.json": "690a2008041634e14509dd2bf24c3c0cd1336c368adeeae1221e380a00e5fa4c",
+        "schedule.stdout.log": "06a73757a71c8f2dafa6ec1be406d254493e483223981a2b38ca33272b82d565",
+        "schedule.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    "attempt-collision-command": {
+      "exit_code": 1,
+      "revision": "resolved-test-command",
+      "capture": "/Users/oobi/Documents/assay/.kanon-exec/run-kEtCMK",
+      "files": {
+        "attempt-collision-command.capture.json": "0c7375455127c732dfdfd8e0f58cdc193de142e0a83b36e983e4566356f87279",
+        "attempt-collision-command.stdout.log": "59487f98209db5f3260daeb95350df8d8bd38e8f878331abfa34e9936a60cbb4",
+        "attempt-collision-command.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    "attempt-calldata-compatibility": {
+      "exit_code": 1,
+      "revision": "resolved-cli-pins",
+      "capture": "/Users/oobi/Documents/assay/.kanon-exec/run-aWkgzW",
+      "files": {
+        "attempt-calldata-compatibility.capture.json": "48203196e3e39548304499b83c226e8847680c97e371b01323f9828775ee6286",
+        "attempt-calldata-compatibility.stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "attempt-calldata-compatibility.stderr.log": "1a83a7ff7d621d7c065728d889ea4d9bd16edf1e77ca63ec8c6a4e91c78ebf5c"
+      }
+    },
+    "review-build": {
+      "exit_code": 0,
+      "revision": "review-fix",
+      "capture": "/Users/oobi/Documents/assay/dev/validation/2026-10-03-m2-function-abi/review-build.capture.json",
+      "files": {
+        "review-build.capture.json": "9f4f08e6a5f9c3e194064b6752b8e3e1aa3c68637cee3198ef8bd2ad6126939b",
+        "review-build.stdout.log": "0f0c4b6180409758fdcc904d20c2c415f739031ba617b7f22ae816097554ddab",
+        "review-build.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    "review-function-abi": {
+      "exit_code": 0,
+      "revision": "review-fix",
+      "capture": "/Users/oobi/Documents/assay/dev/validation/2026-10-03-m2-function-abi/review-function-abi.capture.json",
+      "files": {
+        "review-function-abi.capture.json": "3201e6eeb8950da930cdc0d6c085430b382032db213ac7032c7e4980b1acc0b9",
+        "review-function-abi.stdout.log": "15986c99302904b90ff09c981fc2260639a64b708cd8ef066b4f010472eff07d",
+        "review-function-abi.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    "review-mapping-runtime": {
+      "exit_code": 0,
+      "revision": "review-fix",
+      "capture": "/Users/oobi/Documents/assay/dev/validation/2026-10-03-m2-function-abi/review-mapping-runtime.capture.json",
+      "files": {
+        "review-mapping-runtime.capture.json": "f2cc7405030d5ab56cb2d9c259699b765d60028892d73a445f5fb1bf3a69cedb",
+        "review-mapping-runtime.stdout.log": "365f7730196bb599b2bbc580be7ba74535ace50349e9c65259e50ea89519b4e8",
+        "review-mapping-runtime.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    "review-packed-source": {
+      "exit_code": 0,
+      "revision": "review-fix",
+      "capture": "/Users/oobi/Documents/assay/dev/validation/2026-10-03-m2-function-abi/review-packed-source.capture.json",
+      "files": {
+        "review-packed-source.capture.json": "7393b540127f64032f8b195c871193b8f291b6fd5f6eb142c94797608f2937ad",
+        "review-packed-source.stdout.log": "b2148a3cba0b5e598a5d5fb70f2a513d807f0e38802236c3338cd4b5bc507eb1",
+        "review-packed-source.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    "review-calldata-cli": {
+      "exit_code": 0,
+      "revision": "review-fix",
+      "capture": "/Users/oobi/Documents/assay/dev/validation/2026-10-03-m2-function-abi/review-calldata-cli.capture.json",
+      "files": {
+        "review-calldata-cli.capture.json": "3e213860f64e35e06f3f3e9ac4e56d386016cf9b4edeb1f6508d4569a6753761",
+        "review-calldata-cli.stdout.log": "5016c18affd17bc782fb57a61cf60f4137316255976672861a9e9ef0238ab8d4",
+        "review-calldata-cli.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    "review-native-tests": {
+      "exit_code": 0,
+      "revision": "review-fix",
+      "capture": "/Users/oobi/Documents/assay/dev/validation/2026-10-03-m2-function-abi/review-native-tests.capture.json",
+      "files": {
+        "review-native-tests.capture.json": "82ca18b80e50e7fdfb4a3363594be72be5ec4993b8cfd232e3ae4d58d5d1fb77",
+        "review-native-tests.stdout.log": "43c4d9bbde13e09a7f572ed63c337d89164f767f0089e516afac5df6872e1d0a",
+        "review-native-tests.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    "review-house": {
+      "exit_code": 0,
+      "revision": "review-fix",
+      "capture": "/Users/oobi/Documents/assay/dev/validation/2026-10-03-m2-function-abi/review-house.capture.json",
+      "files": {
+        "review-house.capture.json": "53e93208eeda01fa19501cdea45587eae5616866a37366f4e92532081b838011",
+        "review-house.stdout.log": "59273f4501bf44b700566ae758aab2039a7b854852efddcfef1dd95f759020ed",
+        "review-house.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    "review-carry": {
+      "exit_code": 0,
+      "revision": "review-fix",
+      "capture": "/Users/oobi/Documents/assay/dev/validation/2026-10-03-m2-function-abi/review-carry.capture.json",
+      "files": {
+        "review-carry.capture.json": "5089212366a640561e8b964b5971b0278c25a4e59c4e6d1b3bfd7c7bedc7ce15",
+        "review-carry.stdout.log": "035c8ca472cd20146591885cf6b2c6c6a6809bb5fd8e3a27879fbd2e559ca008",
+        "review-carry.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    "review-r0-audit": {
+      "exit_code": 0,
+      "revision": "review-fix",
+      "capture": "/Users/oobi/Documents/assay/dev/validation/2026-10-03-m2-function-abi/review-r0-audit.capture.json",
+      "files": {
+        "review-r0-audit.capture.json": "66923434f590896c5b744fb598ab7f0047d90e1bc700697bfe75b1085fbcfa12",
+        "review-r0-audit.stdout.log": "748f171e179c623ead736b09fde522879069a45b6861304ce1508eddeb8e94c6",
+        "review-r0-audit.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    "review-trusted-lines": {
+      "exit_code": 0,
+      "revision": "review-fix",
+      "capture": "/Users/oobi/Documents/assay/dev/validation/2026-10-03-m2-function-abi/review-trusted-lines.capture.json",
+      "files": {
+        "review-trusted-lines.capture.json": "0e7c1ecf998e611e5eeaa9df99e38cb3399270886279a5a31ba3728271ac093d",
+        "review-trusted-lines.stdout.log": "090f04b473176386ec4bbc4156285cd87d437d0a75d7bbd5da60d490e8f86298",
+        "review-trusted-lines.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    "review-schedule": {
+      "exit_code": 0,
+      "revision": "review-fix",
+      "capture": "/Users/oobi/Documents/assay/dev/validation/2026-10-03-m2-function-abi/review-schedule.capture.json",
+      "files": {
+        "review-schedule.capture.json": "aff74d1a9b67ede7c7caf088a15fb04468a3696dfca98809e582a03937c23741",
+        "review-schedule.stdout.log": "06a73757a71c8f2dafa6ec1be406d254493e483223981a2b38ca33272b82d565",
+        "review-schedule.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    "review-denominators": {
+      "exit_code": 0,
+      "revision": "review-fix",
+      "capture": "/Users/oobi/Documents/assay/dev/validation/2026-10-03-m2-function-abi/review-denominators.capture.json",
+      "files": {
+        "review-denominators.capture.json": "fa6aa25adfdbbbc56a3f5633559043f9e25a9e1d72da7bf08751e04ac638e0ac",
+        "review-denominators.stdout.log": "6ae0c999a599ab55891ba8809da5980ab3bbe6ea9b874bac5ccb1917837e7fee",
+        "review-denominators.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    }
+  },
+  "full_103_leg_battery_run": false,
+  "m2_closed": false
+}

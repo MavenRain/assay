@@ -182,7 +182,7 @@
   {
     "definition": "Cli.MappingSource.run",
     "path": "src/cli.bend",
-    "line": 1082,
+    "line": 1084,
     "arm": "case _: Cli.fail(64, \"usage: assay mapping-layout FILE\")",
     "arm_sha256": "518185167ca7ef228e021c8042ad42b2584dabfae4ec62027124f01d54b7770e",
     "arity": 1,
@@ -3629,7 +3629,7 @@
   {
     "definition": "Recognize.Mapping.collection",
     "path": "src/frontend.bend",
-    "line": 3240,
+    "line": 3249,
     "arm": "{_ => (Fail{Recognize.Error.Protocol{String.append(\"M1 \", name_1145)}}) : Unit -> ResultOf(Recognize.Error, ListOf(String))}",
     "arm_sha256": "eb9cd121014615fc9624a7c89a48199a27e04b24d1a33cb4c0f3e71afbeafe60",
     "arity": 1,
@@ -3638,7 +3638,7 @@
   {
     "definition": "Recognize.Mapping.collection",
     "path": "src/frontend.bend",
-    "line": 3241,
+    "line": 3250,
     "arm": "{_ => (Fail{Recognize.Error.Protocol{String.append(\"M1 \", name_1145)}}) : Unit -> ResultOf(Recognize.Error, ListOf(String))}",
     "arm_sha256": "eb9cd121014615fc9624a7c89a48199a27e04b24d1a33cb4c0f3e71afbeafe60",
     "arity": 1,
@@ -3647,7 +3647,7 @@
   {
     "definition": "Recognize.Mapping.collection",
     "path": "src/frontend.bend",
-    "line": 3242,
+    "line": 3251,
     "arm": "{_ => (Fail{Recognize.Error.Protocol{String.append(\"M1 \", name_1145)}}) : Unit -> ResultOf(Recognize.Error, ListOf(String))}",
     "arm_sha256": "eb9cd121014615fc9624a7c89a48199a27e04b24d1a33cb4c0f3e71afbeafe60",
     "arity": 1,
@@ -3656,7 +3656,7 @@
   {
     "definition": "Recognize.Mapping.collection",
     "path": "src/frontend.bend",
-    "line": 3241,
+    "line": 3250,
     "arm": "Match.Shape.only_Shape_SColl( _ => (otherwise9605(Unit{}))",
     "arm_sha256": "87b520d41d5e2b2f08ab4fd7def5cb925d5950ed3ac0adc1e2a3931cd38a306c",
     "arity": 1,
@@ -3665,7 +3665,7 @@
   {
     "definition": "Recognize.Mapping.collection",
     "path": "src/frontend.bend",
-    "line": 3242,
+    "line": 3251,
     "arm": "Match.Shape.only_Shape_SColl( _ => (otherwise9662(Unit{}))",
     "arm_sha256": "496f65c85eb1e94552740288e0e5532a550511891ae388cdee2d95a0bee11169",
     "arity": 1,
@@ -3674,7 +3674,7 @@
   {
     "definition": "Recognize.Mapping.collection",
     "path": "src/frontend.bend",
-    "line": 3243,
+    "line": 3252,
     "arm": "Match.Term.only_Term_Ran( _ => (otherwise9679(Unit{}))",
     "arm_sha256": "ce59335945edff54e2a63beeee6dedfb64f1657d2c9422a3ec85e9e1ac9cfcdf",
     "arity": 1,
@@ -3683,7 +3683,7 @@
   {
     "definition": "Recognize.Mapping.collection",
     "path": "src/frontend.bend",
-    "line": 3243,
+    "line": 3252,
     "arm": "Match.Shape.only_Shape_SColl( _ => (otherwise9679(Unit{}))",
     "arm_sha256": "369bdf2503927b00016fd1032f6f864cb50fe8b1e7fe9b08e90f3e2688a23a40",
     "arity": 1,
@@ -3692,7 +3692,7 @@
   {
     "definition": "Recognize.Mapping.collection",
     "path": "src/frontend.bend",
-    "line": 3243,
+    "line": 3252,
     "arm": "Match.Term.only_Term_Sec( _ => (otherwise9679(Unit{}))",
     "arm_sha256": "02cc48febd4d1a47344728dba851e6f2861b50e74c3a5fda082ec1cf8a61234e",
     "arity": 1,
@@ -3701,7 +3701,7 @@
   {
     "definition": "Recognize.Mapping.collection",
     "path": "src/frontend.bend",
-    "line": 3243,
+    "line": 3252,
     "arm": "Match.Shape.only_Shape_SColl( _ => (otherwise9679(Unit{}))",
     "arm_sha256": "369bdf2503927b00016fd1032f6f864cb50fe8b1e7fe9b08e90f3e2688a23a40",
     "arity": 1,
@@ -3710,7 +3710,7 @@
   {
     "definition": "Recognize.Mapping.collection",
     "path": "src/frontend.bend",
-    "line": 3243,
+    "line": 3252,
     "arm": "Match.List.only_Nil( _ => (otherwise9679(Unit{}))",
     "arm_sha256": "1a129692bdde55be4bbee01a654f1f07b1998acd4bd7e699e3c5ff8c10b30822",
     "arity": 1,
@@ -3719,7 +3719,7 @@
   {
     "definition": "Recognize.Mapping.collection",
     "path": "src/frontend.bend",
-    "line": 3243,
+    "line": 3252,
     "arm": "Match.Term.only_Term_Univ( _ => (otherwise9679(Unit{}))",
     "arm_sha256": "eaef366de11408d0bd0719e62d524a81761106e3f5469cd965584663c51a2052",
     "arity": 1,

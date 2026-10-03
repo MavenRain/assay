@@ -848,9 +848,9 @@ def Cli.run_program(export: String, input: Model.Input, source: Cli.Program) -> 
       NativeIO.stdout(Model.print(outcome))
 @unsafe
 def Cli.run(path: String, +options: Cli.Options) -> IO(Unit): do IO<Unit>:
-  input : Model.Input <- Cli.model_result(Model.Input, 64, Model.inputs_with_caller(Cli.option("--calldata", "", options), Cli.option("--value", "0", options), Cli.storage(options), Cli.option("--caller", "0", options)))
+  +source : Cli.Packed.Program() <- Cli.Packed.program(path)
+  input : Model.Input <- Cli.model_result(Model.Input, 64, Cli.FunctionAbi.input(options, source))
   addressed : Model.Input <- Cli.model_result(Model.Input, 64, Model.with_address(input, Cli.option("--address", "0", options)))
-  source : Cli.Packed.Program() <- Cli.Packed.program(path)
   Cli.Packed.run(Cli.option("--export", "main", options), addressed, source)
 def Cli.trace_value(result: Result<&2, &2, Trace.Error, String>) -> IO(String):
   match result:
@@ -1002,6 +1002,7 @@ def Case.Packed.switch_35(+packed_switch_35: Cli.Packed.Program(), +export: Stri
       match plan:
         case Mapping.Runtime.Plan.Plain{}: Case.Packed.switch_34(parameters, export, input, program)
         case Mapping.Runtime.Plan.Mapped{_, cells}: Cli.MappingRuntime.run(export, input, program, cells)
+        case Mapping.Runtime.Plan.Functions{functions, inner}: Cli.FunctionAbi.run(export, input, program, parameters, functions, inner)
 @unsafe
 def Case.Packed.switch_36(+packed_switch_36: Cli.Program, +command: String, +export: String, +parameters: Packed.Parameters()) -> IO(Emit.Output):
   match packed_switch_36:
@@ -1019,6 +1020,7 @@ def Case.Packed.switch_38(+packed_switch_38: Cli.Packed.Program(), +command: Str
       match plan:
         case Mapping.Runtime.Plan.Plain{}: Case.Packed.switch_37(parameters, command, export, parameters, program)
         case Mapping.Runtime.Plan.Mapped{schema, cells}: Cli.MappingRuntime.compile(command, export, program, schema, cells)
+        case Mapping.Runtime.Plan.Functions{functions, inner}: Cli.FunctionAbi.compile(command, export, program, parameters, functions, inner)
 @unsafe
 def Case.Packed.switch_39(+packed_switch_39: Cli.Packed.Checked()) -> IO(Cli.Packed.Program()):
   match packed_switch_39:
@@ -1035,7 +1037,7 @@ def Cli.Packed.read_file(+path: String) -> IO(Cli.Packed.Checked()):
     read : Result<&2, &2, String, String> <- NativeIO.read(path)
     source : String <- Cli.require(String, 64, read)
     basename : String <- OS.basename(path)
-    Cli.MappingRuntime.lowered(basename, Mapping.Runtime.lower(source))), _ => NativeIO.die(Cli.Packed.Checked(), 64, String.concat(["assay: ", path, ": expected a .asy or .kan source"])))
+    Cli.MappingRuntime.lowered(basename, FunctionAbi.lower(source))), _ => NativeIO.die(Cli.Packed.Checked(), 64, String.concat(["assay: ", path, ": expected a .asy or .kan source"])))
 @unsafe
 def Case.Packed.switch_42(+packed_switch_42: CheckResult(Packed.Source.Info()), +basename: String) -> IO(Cli.Packed.Checked()):
   match packed_switch_42:

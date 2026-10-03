@@ -8,6 +8,7 @@ test:
 	python3 -P dev/mapping-cli-test.py
 	python3 -P dev/mapping-source-test.py
 	python3 -P dev/mapping-runtime-test.py
+	python3 -P dev/function-abi-test.py
 	python3 -P dev/event-cli-test.py
 	python3 -P dev/event-decode-cli-test.py
 	python3 -P dev/calldata-cli-test.py
@@ -21,6 +22,6 @@ test:
 	python3 -P dev/cli-value-direct-test.py
 	python3 -P dev/cli-error-direct-test.py
 gates: all
-	python3 -P dev/stage-a-gates.py --m2-mapping-runtime
+	python3 -P dev/stage-a-gates.py --m2-function-abi
 gates-m4-speed: all
 	python3 -P dev/stage-a-gates.py --m4-speed

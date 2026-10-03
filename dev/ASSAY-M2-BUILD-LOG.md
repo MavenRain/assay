@@ -1,5 +1,50 @@
 # Assay M2 build log
 
+## 2026-10-03: Function ABI source integration
+
+Completed M2 group 2. Source entries accept Uint8, Uint256, Address, Bool and
+String parameters. Typed selectors, ABI printing, canonical calldata checks
+and the model share the declared schema. String length and data-address
+operations lower to checked calldata access. Existing packed and mapping
+storage plans remain usable. Word results retain the current return ABI.
+See [source function calldata](M2-FUNCTION-ABI.md) and
+[FunctionCalldata.asy](../examples/FunctionCalldata.asy).
+
+The feature suite passed 47 calldata cases, one typed mapping program, three
+size-cap checks, two independently pinned selector-collision refusals and
+12 source refusals. Ordinary calldata cases compare cast encodings, the model,
+geth run and Cancun t8n. Native, mapping runtime, packed-source and public
+calldata CLI regressions passed during the change and again on the final
+build. The final pinned compiler build, house, carry, R0, trusted-line and
+schedule audits passed. The first CALLDATA-CLI run failed its compatibility
+pins. Four pins in dev/cli_delta.py (Cli.run, Case.Packed.switch_35,
+Case.Packed.switch_38, Cli.Packed.read_file) were updated for the function ABI
+plan and the new Cli.run input order.
+The [validation record](validation/2026-10-03-m2-function-abi/README.md)
+preserves full command captures, source hashes and revision scope.
+
+Review fixed hex-to-byte model decoding, inclusive scalar bounds, dynamic
+padding arithmetic and refusal command arguments. Typed input uses the
+codec's 131072-byte cap. Selector collisions fail before execution. New
+matches enumerate their variants; existing catch-all arms only moved lines.
+
+A second review fixed seven findings. A String parameter name now stays in
+its own entry, so a later declaration can reuse it. Typed-source diagnostics
+keep the source line and column. The suite adds one valid case and three
+string padding refusals. The denominator hashes, the validation record and
+the gate documentation now match the final staged tree. The record binds each
+final capture to the built program hash.
+
+The default schedule `--m2-function-abi` adds mandatory FUNCTION-ABI to all
+102 carried legs, for 103 total. `--m2-mapping-runtime` keeps its 102 legs.
+Historical schedules, markers, deadlines, mutants and trusted artifact limits
+remain unchanged. dev/trusted-lines.py now admits src/function_abi.bend as a
+source without a line budget, the same as src/frontend.bend. That file
+generates calldata check instructions for the emitter. No trusted artifact
+budget counts its 348 lines. M2 group 8 must review this boundary, and a
+change to its price needs a user ruling. The complete battery was not run and
+M2 is still open. Return and error ABI source integration is the next group.
+
 ## 2026-10-02: Mapping runtime access and grouped milestone plan
 
 Completed M2 group 1, mapping runtime access. Scalar and nested source keys

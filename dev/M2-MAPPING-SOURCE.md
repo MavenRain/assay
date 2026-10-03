@@ -54,7 +54,9 @@ bundle after restoring the pinned CLI adapters.
 `make test` includes this check. `--m2-mapping-source` appends
 `MAPPING-SOURCE` to the 99 carried checks, for 100. `--m2-returndata-cli`
 appends the [return-data CLI check](M2-RETURNDATA-CLI.md), for 101 checks.
-`make gates` now selects `--m2-mapping-runtime`, which appends the
+`--m2-mapping-runtime` appends the
 [mapping runtime check](M2-MAPPING-RUNTIME.md), for 102 checks.
+`make gates` now selects `--m2-function-abi`, which appends the
+[function ABI check](M2-FUNCTION-ABI.md), for 103 checks.
 The old `--m2-source-packing` schedule remains available unchanged. All
 trusted source budgets and the M4 speed gate remain fixed.
