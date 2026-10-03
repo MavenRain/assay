@@ -1,0 +1,12 @@
+{
+  "argv": [
+    "/Users/oobi/Documents/assay/_build/bin/assay",
+    "emit",
+    "/Users/oobi/Documents/assay/.gatework/mapping-runtime/deployer-mapping-root.asy",
+    "-o",
+    "/Users/oobi/Documents/assay/.gatework/mapping-runtime/invalid-deployer-mapping-root-emit"
+  ],
+  "exit": 1,
+  "stdout": "",
+  "stderr": "line 3, column 28: SURFACE_MAPPING: mapping root accepts only keyed sload and sstore\n"
+}

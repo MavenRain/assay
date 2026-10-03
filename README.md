@@ -28,8 +28,9 @@ nested [mapping storage locations](dev/M2-MAPPING.md#command-line).
 It prints an unsigned decimal slot for inspection or `run --storage` inputs;
 `assay mapping-layout FILE` inspects typed mapping source declarations,
 including nested mappings and packed scalar neighbors. See the
-[mapping source notes](dev/M2-MAPPING-SOURCE.md). Runtime mapping access
-in source contracts remains pending.
+[mapping source notes](dev/M2-MAPPING-SOURCE.md). Source contracts now support
+[mapping reads and writes](dev/M2-MAPPING-RUNTIME.md), including nested keys,
+constructor initialization and packed scalar neighbors.
 `assay event-encode NAME [--anonymous] [TYPE indexed|data VALUE]...` exposes
 the [typed event codec](dev/M2-EVENTS.md#command-line). It prints JSON topics
 and data for log inspection, including indexed string hashes and dynamic
@@ -44,9 +45,10 @@ identifies indexed string hashes separately.
 returns and dynamic strings. The [Bend 2.0.28 upgrade](dev/BEND2-UPGRADE.md)
 updates the pinned compiler and its JavaScript effect registration boundary.
 
-Milestone work proceeds through M2, M3 and M4. The compiler speed gate now
+Milestone work proceeds through the [grouped M2, M3 and M4 plan](dev/MILESTONE-GROUPS.md),
+with at most ten implementation turns allocated to each milestone. The compiler speed gate now
 belongs to [M4](dev/M4-SPEED.md), as requested on 2026-10-01, with the same
-Assay/Bend 2 ratio limit of 1.0. The current
+Assay/Bend 2 ratio limit of 1.0. The
 [M2 source packing slice](dev/M2-SOURCE-PACKING.md) compiles typed storage
 declarations into checked EVM reads, writes and constructor initialization.
 The [packed source model](dev/M2-PACKED-MODEL.md) runs the same typed
@@ -78,8 +80,8 @@ The [tenth M2 slice](dev/M2-EVENT-DECODE.md) strictly decodes typed event
 logs, preserving indexed strings as hashes. TRUSTED-LINES passes under
 the source budget the user re-ratified on 2026-09-28: abi 495, assembler
 505 and an unchanged total of 3550.
-Source lowering for mappings and events remains pending.
-`zsh -f dev/gates.sh` runs the default 101-leg gate battery, and
+Source lowering for events remains pending.
+`zsh -f dev/gates.sh` runs the default 102-leg gate battery, and
 `make gates-m4-speed` runs the two M4 speed legs.
 
 Assay is a Kanon language fork for EVM contracts.  It inherits the kernel and
@@ -419,7 +421,7 @@ and five mutations with restored controls.
 The address gate adds 1920 core comparisons, 128 artifact pairs,
 40 surface cases, 55 signed calls, seven public command checks,
 24 refusals and five mutations with restored controls.
-`dev/gates.sh` and `make gates` select `--m2-returndata-cli`: the 75
+`dev/gates.sh` and `make gates` select `--m2-mapping-runtime`: the 75
 `--m1-close` legs (proof-bundle, named-predicate, compound-invariant,
 named-guard, inferred-guard and inferred-arithmetic suites), then
 ERC20-REFERENCE, ABI-SCHEMA, ABI-CODEC, LAYOUT-PACKED, LAYOUT-MAPPING,
@@ -427,9 +429,10 @@ EVENT-CODEC, CALL-CODEC, RETURN-CODEC, REVERT-CODEC, EVENT-DECODE,
 LEXER-KEYWORDS, LEXER-DIRECT, IDENTIFIER-DIRECT, WORD-DIRECT,
 SEGMENT-DIRECT, CLI-PREFIX-DIRECT, CLI-VALUE-DIRECT, CLI-ERROR-DIRECT,
 MAPPING-CLI, EVENT-CLI, EVENT-DECODE-CLI, CALLDATA-CLI, MILESTONE-SPEED,
-PACKED-SOURCE, MAPPING-SOURCE and RETURNDATA-CLI, for 101 legs.
+PACKED-SOURCE, MAPPING-SOURCE, RETURNDATA-CLI and MAPPING-RUNTIME, for 102 legs.
 BEND2-RATIO and BEND2-RATIO-TEST moved to `--m4-speed` (`make gates-m4-speed`)
-on 2026-10-01. Each earlier mode keeps its other legs: `--m2-mapping-source`
+on 2026-10-01. Each earlier mode keeps its other legs: `--m2-returndata-cli`
+has 101, `--m2-mapping-source`
 has 100, `--m2-source-packing` 99, `--lexer-direct` 93,
 `--keyword-dispatch` 86, `--m2-event-decode` 85, `--m2-revertdata` 84,
 `--m2-returndata` 83, `--m2-calldata` 82, `--m2-events` 81,

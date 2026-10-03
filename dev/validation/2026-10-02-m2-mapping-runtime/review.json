@@ -1,0 +1,70 @@
+{
+  "base": "c6996645b3ae00db761cafc5cce6d75c46317eab",
+  "date": "2026-10-02",
+  "disposition": "scoped group ready to stage",
+  "implementation_findings_remaining": [],
+  "limits": [
+    "Full 102-leg cumulative battery remains pending for milestone closure.",
+    "Frontend integration has no individual line budget; M2 group 8 must review the boundary.",
+    "M2-ABI and all remaining milestone acceptance work remain open."
+  ],
+  "manual_inspection": [
+    "Nested mapping locations hash keys in source order with independent cast slot oracles.",
+    "Key cells lower to separate memory, and scratch starts beyond lowered locals and arguments.",
+    "Physical storage and layout exclude temporary fields; packed writes preserve unrelated bits.",
+    "Model temporary snapshots retain zero values and transaction failure restores initial storage.",
+    "Only internally marked generated names bypass the 32 user-member limit.",
+    "Mapping routing examines storage types and preserves ordinary Word identifiers.",
+    "Exactly nine reviewed CLI declarations are digest pinned; arbitrary reachable changes remain refused.",
+    "Changed, missing and duplicate pins, duplicate baselines and reachable additions have active controls.",
+    "All carried gate legs, success markers, assertions and deadlines remain enabled.",
+    "All six packed mutants remain enabled; serial compilation addresses the observed exit -9."
+  ],
+  "next_group": "M2 group 2, function ABI source integration",
+  "packet": {
+    "coverage": {
+      "complete": false,
+      "currentFiles": 299,
+      "indexedBaseChanged": 3,
+      "indexedCurrent": 296,
+      "type": "coverage"
+    },
+    "index_errors": [
+      {
+        "message": "unterminated or invalid byte literal: test/fixtures/reactor/byte-literal-bad-escape.kan",
+        "path": "test/fixtures/reactor/byte-literal-bad-escape.kan",
+        "side": "working",
+        "type": "index-error"
+      },
+      {
+        "message": "unterminated or invalid byte literal: test/fixtures/reactor/byte-literal-bad-hex.kan",
+        "path": "test/fixtures/reactor/byte-literal-bad-hex.kan",
+        "side": "working",
+        "type": "index-error"
+      },
+      {
+        "message": "unterminated or invalid byte literal: test/fixtures/reactor/byte-literal-unterminated.kan",
+        "path": "test/fixtures/reactor/byte-literal-unterminated.kan",
+        "side": "working",
+        "type": "index-error"
+      }
+    ],
+    "path": "/Users/oobi/Documents/gpt1/assay-m2-mapping-runtime-20261002/.kanonx/b610cede4960aee2774e96a4b1e62e434e751e3b0ae3553937de3b49510bf0d2.json",
+    "semantics": "Conservative lookup evidence; packet does not execute validation.",
+    "sha256": "b610cede4960aee2774e96a4b1e62e434e751e3b0ae3553937de3b49510bf0d2",
+    "summary": {
+      "changedDeclarations": 185,
+      "changedKanonFiles": 0,
+      "changedSourceFiles": 14,
+      "complete": false,
+      "type": "summary",
+      "validationPerformed": false
+    }
+  },
+  "source_hashes": {
+    "examples/MappingAccess.asy": "e522e56970d84085a4b69dc8542f28b00f44a89da95b48e34afa46de5f558def",
+    "src/cli.bend": "27a737e3a71f14591881766d27d2e6c7a6c81d34d8c59ae81a7ad19e79a178e0",
+    "src/emitter.bend": "09a77e7e060f0a59790e11cb3bf3949bc6ff702e24a6253c20cbd57c395d1ffc",
+    "src/frontend.bend": "6ac34d951361461b251b888652ae1fef11fac49baf20ea212b85b7449596dfab"
+  }
+}

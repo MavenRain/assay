@@ -39,8 +39,9 @@ with independent `cast` tuple encodings and explicit byte goldens. It checks
 empty returns and the complete historical CLI bundle after restoring the
 pinned dispatch and usage declarations. Two pin mutations must be refused.
 
-`make test` includes the check. The new default gate schedule,
-`--m2-returndata-cli`, appends `RETURNDATA-CLI` to all 100 mapping-source
-checks. Earlier schedules and the two M4 speed legs retain their commands,
+`make test` includes the check. At this slice the default gate schedule,
+`--m2-returndata-cli`, appended `RETURNDATA-CLI` to all 100 mapping-source
+checks. The default is now `--m2-mapping-runtime`, which appends
+[MAPPING-RUNTIME](M2-MAPPING-RUNTIME.md), for 102 checks. Earlier schedules and the two M4 speed legs retain their commands,
 deadlines and required success markers. This CLI slice adds no trusted source
 or kernel axiom. Source mapping access and event emission remain pending.

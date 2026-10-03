@@ -1,0 +1,10 @@
+{
+  "argv": [
+    "/Users/oobi/Documents/assay/_build/bin/assay",
+    "run",
+    "/Users/oobi/Documents/assay/.gatework/mapping-runtime/reserved-local.asy"
+  ],
+  "exit": 1,
+  "stdout": "",
+  "stderr": "line 1, column 1: SURFACE_RESERVED: assayMap names are reserved for mapping lowering\n"
+}

@@ -62,6 +62,15 @@ def main():
                     ('PACKED-SOURCE', 600, ('python3', '-P', 'dev/packed-source-test.py'),
                      'PACKED-SOURCE cases=66 model=packed executors=run+t8n mutants=6 OK', True)],
                 'source packing must append all six mandatory checks')
+        mapping = H.schedule(after, '--m2-mapping-runtime')
+        carried = H.schedule(after, '--m2-returndata-cli')
+        require(mapping == dict(stage='M2-MAPPING-RUNTIME', legs=carried['legs'] + [
+            ('MAPPING-RUNTIME', 600, ('python3', '-P', 'dev/mapping-runtime-test.py'),
+             'MAPPING-RUNTIME live=40 refusals=27 constructor=1 layout=1 OK', True)]),
+                'mapping runtime must preserve all carried legs and add its required check')
+        require('--m2-mapping-runtime' in (ROOT / 'dev/gates.sh').read_text() and
+                'dev/stage-a-gates.py --m2-mapping-runtime' in (ROOT / 'Makefile').read_text(),
+                'default gate entry points must select mapping runtime')
     finally:
         sys.argv = original_argv
 

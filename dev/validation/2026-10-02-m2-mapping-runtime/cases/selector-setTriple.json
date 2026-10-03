@@ -1,0 +1,10 @@
+{
+  "argv": [
+    "cast",
+    "sig",
+    "setTriple(uint256,uint256,uint256,uint256)"
+  ],
+  "exit": 0,
+  "stdout": "0x1c32d987\n",
+  "stderr": ""
+}

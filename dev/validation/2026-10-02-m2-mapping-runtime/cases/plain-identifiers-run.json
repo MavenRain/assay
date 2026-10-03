@@ -1,0 +1,12 @@
+{
+  "argv": [
+    "/Users/oobi/Documents/assay/_build/bin/assay",
+    "run",
+    "/Users/oobi/Documents/assay/.gatework/mapping-runtime/plain-identifiers.asy",
+    "--calldata",
+    "3bb2bcd000000000000000000000000000000000000000000000000000000000000000070000000000000000000000000000000000000000000000000000000000000009"
+  ],
+  "exit": 0,
+  "stdout": "{\"status\":\"success\",\"output\":\"0x0000000000000000000000000000000000000000000000000000000000000007\",\"storage\":{}}\n",
+  "stderr": ""
+}

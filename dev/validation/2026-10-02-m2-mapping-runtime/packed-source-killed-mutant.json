@@ -1,0 +1,12 @@
+{
+  "argv": [
+    "/opt/homebrew/opt/python@3.14/bin/python3.14",
+    "-P",
+    "/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-packed-model-preserve-_zeqpa1o/assay/dev/build.py",
+    "build",
+    "_build/bin/assay"
+  ],
+  "exit": 1,
+  "stdout": "",
+  "stderr": "All terms check, but 1769 defs rely on unsafe or foreign code:\n- Reusable\n- Budget\n- Check.Ctx\n- Rules.Evaluator\n- Erase.Ectx\n- Rules.Ops\n- Rules.Expansion\n- Rules.Rule_pack\n- Get.Abi.Custom_error.error_name\n- Get.Abi.Custom_error.arguments\n- Get.Abi.Schema.Parameter.typ\n- Match.Abi_Schema_Value_type\n- Get.Abi.Entry.name\n- Get.Abi.Entry.inputs\n- Get.Abi.Entry.mutability\n- Match.Abi_Mutability\n- Match.Abi_Schema_Declaration\n- Get.Abi.Schema.Parameter.name\n- Get.Abi.Schema.Function_.name\n... 1715 compiler log lines omitted ...\n- Order.translate\n- Positivity.positive\n- Positivity.ctor_fields\n- Check.check_ctor\n- Check.define_ctors\n- Local.Order.shape_ok.f7231\n- Local.Order.addr_ok.f7232\n- Local.Order.elim_ok.f7235\n- Local.Order.leg_ok.f7233\n- Local.Order.spine_ok.f7234\n- Local.Order.ok.f7230\n- Order.passes\n- Order.certify\n- Totality.spend_shape\n- Totality.spend_addr\n- Totality.spend_branches\n- Totality.spend_motive\n- Totality.spend_node\n- Totality.spend\n- Totality.spend_all\n- Totality.guard_group\n- Layout.Packed.plan_go\n- Layout.Packed.place\n- Layout.Packed.plan\n- Layout.Packed.print\n- Emit.Packed.names\n- Case.Packed.switch_31\n- Case.Packed.switch_33\n- Emit.Packed.find\n- Case.Packed.switch_7\n- Case.Packed.switch_30\n- Emit.Packed.slots\n- Mapping.Layout.slot_result\n- Case.Packed.switch_21\n- main\nBEND BUILD FAIL: Bend compilation failed (exit -9), full log: /private/var/folders/d4/9sdgktzs23s857pdkm4yfndw0000gn/T/assay-packed-model-preserve-_zeqpa1o/assay/_build/bend/assay.log\n"
+}

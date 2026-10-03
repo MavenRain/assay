@@ -16,7 +16,8 @@ commit 80bc4c6, removing only these two speed legs from the historical
 side. It verifies the complete M4 schedule and exercises nine runner controls.
 The default M2 schedule retains 93 carried non-speed checks and appends
 MAPPING-CLI, EVENT-CLI, EVENT-DECODE-CLI, CALLDATA-CLI, MILESTONE-SPEED,
-PACKED-SOURCE, MAPPING-SOURCE and RETURNDATA-CLI, for 101 checks.
+PACKED-SOURCE, MAPPING-SOURCE, RETURNDATA-CLI and MAPPING-RUNTIME, for 102
+checks.
 
 The last pre-transfer comparison was 1.591541253, above the unchanged 1.0
 limit. It is historical evidence and its source pins predate source packing.

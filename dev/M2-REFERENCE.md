@@ -17,7 +17,7 @@ reference leg has a 300-second deadline and requires the exact marker:
 ERC20-REFERENCE cases=85 creates=4 mutants=11 covered=431 scope=reference OK
 ```
 
-The current default, `--m2-returndata-cli`, extends this schedule with [ABI-SCHEMA](M2-ABI-SCHEMA.md),
+The `--m2-returndata-cli` mode extends this schedule with [ABI-SCHEMA](M2-ABI-SCHEMA.md),
 [ABI-CODEC](M2-ABI-CODEC.md), [LAYOUT-PACKED](M2-PACKING.md),
 [LAYOUT-MAPPING](M2-MAPPING.md), [EVENT-CODEC](M2-EVENTS.md),
 [CALL-CODEC](M2-CALLDATA.md), [RETURN-CODEC](M2-RETURNDATA.md),
@@ -34,7 +34,9 @@ The current default, `--m2-returndata-cli`, extends this schedule with [ABI-SCHE
 [CALLDATA-CLI](M2-CALLDATA-CLI.md), MILESTONE-SPEED,
 [PACKED-SOURCE](M2-SOURCE-PACKING.md),
 [MAPPING-SOURCE](M2-MAPPING-SOURCE.md) and
-[RETURNDATA-CLI](M2-RETURNDATA-CLI.md), for 101 checks.
+[RETURNDATA-CLI](M2-RETURNDATA-CLI.md), for 101 checks. The current default,
+`--m2-mapping-runtime`, appends [MAPPING-RUNTIME](M2-MAPPING-RUNTIME.md), for
+102 checks.
 
 The reference has 798 runtime bytes and a 107-byte constructor prefix.
 All 431 runtime instructions and all constructor instructions are covered.

@@ -60,8 +60,10 @@ follow-up, the check accepts one pinned `Lexer.ident_kind` delta and puts
 back the BASE declaration before the compare; see
 [LEXER-KEYWORDS](LEXER-KEYWORDS.md). `--m2-revertdata` appends
 REVERT-CODEC for 84 checks; `--m2-returndata` keeps its 83 checks. The
-current default, `--m2-returndata-cli`, runs 101; see
-[M2-RETURNDATA-CLI](M2-RETURNDATA-CLI.md). Counts exclude BEND2-RATIO and BEND2-RATIO-TEST, which moved to
+`--m2-returndata-cli` mode runs 101; see
+[M2-RETURNDATA-CLI](M2-RETURNDATA-CLI.md). The current default,
+`--m2-mapping-runtime`, adds [MAPPING-RUNTIME](M2-MAPPING-RUNTIME.md), for 102
+legs. Counts exclude BEND2-RATIO and BEND2-RATIO-TEST, which moved to
 [`--m4-speed`](M4-SPEED.md) on 2026-10-01.
 
 The [validation record](validation/2026-09-27-m2-revertdata/README.md)

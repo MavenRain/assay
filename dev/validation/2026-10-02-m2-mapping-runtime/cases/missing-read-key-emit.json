@@ -1,0 +1,12 @@
+{
+  "argv": [
+    "/Users/oobi/Documents/assay/_build/bin/assay",
+    "emit",
+    "/Users/oobi/Documents/assay/.gatework/mapping-runtime/missing-read-key.asy",
+    "-o",
+    "/Users/oobi/Documents/assay/.gatework/mapping-runtime/invalid-missing-read-key-emit"
+  ],
+  "exit": 1,
+  "stdout": "",
+  "stderr": "line 2, column 59: SURFACE_NAME: expected an unreserved identifier of at most 64 characters\n"
+}

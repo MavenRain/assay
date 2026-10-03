@@ -1,0 +1,12 @@
+{
+  "argv": [
+    "/Users/oobi/Documents/assay/_build/bin/assay",
+    "emit",
+    "/Users/oobi/Documents/assay/.gatework/mapping-runtime/plain-identifiers.asy",
+    "-o",
+    "/Users/oobi/Documents/assay/.gatework/mapping-runtime/plain-identifiers"
+  ],
+  "exit": 0,
+  "stdout": "",
+  "stderr": ""
+}

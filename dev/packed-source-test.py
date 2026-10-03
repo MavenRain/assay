@@ -328,7 +328,8 @@ def mutants():
                                timeout=600)
             require(result.returncode != 0 and 'PACKED-SOURCE' in result.stderr,
                     'mutant must fail a semantic assertion: ' + name)
-    with ThreadPoolExecutor(max_workers=3) as workers:
+    # Each compiler holds a full checked book. Bound peak memory across mutants.
+    with ThreadPoolExecutor(max_workers=1) as workers:
         list(workers.map(check_mutant, patches))
     return len(patches)
 

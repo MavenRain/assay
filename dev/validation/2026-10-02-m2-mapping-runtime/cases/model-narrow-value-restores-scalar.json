@@ -1,0 +1,14 @@
+{
+  "argv": [
+    "/Users/oobi/Documents/assay/_build/bin/assay",
+    "run",
+    "/Users/oobi/Documents/assay/.gatework/mapping-runtime/mapping.asy",
+    "--calldata",
+    "0e09e03100000000000000000000000000000000000000000000000000000000000000070000000000000000000000000000000000000000000000000000000000000100",
+    "--storage",
+    "7=3"
+  ],
+  "exit": 0,
+  "stdout": "{\"status\":\"revert\",\"output\":\"0x\",\"storage\":{\"7\":\"0x3\"}}\n",
+  "stderr": ""
+}

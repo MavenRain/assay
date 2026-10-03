@@ -1,0 +1,12 @@
+{
+  "argv": [
+    "/Users/oobi/Documents/assay/_build/bin/assay",
+    "emit",
+    "/Users/oobi/Documents/assay/.gatework/mapping-runtime/extra-key.asy",
+    "-o",
+    "/Users/oobi/Documents/assay/.gatework/mapping-runtime/invalid-extra-key-emit"
+  ],
+  "exit": 1,
+  "stdout": "",
+  "stderr": "line 2, column 73: SURFACE_SYNTAX: expected ;\n"
+}

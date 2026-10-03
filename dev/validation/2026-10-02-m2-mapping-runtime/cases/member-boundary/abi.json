@@ -1,0 +1,1 @@
+[{"type":"constructor","inputs":[],"stateMutability":"nonpayable"},{"type":"function","name":"get","inputs":[{"name":"key","type":"uint256"}],"outputs":[{"name":"","type":"uint256"}],"stateMutability":"nonpayable"}]

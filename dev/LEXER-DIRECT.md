@@ -37,7 +37,8 @@ the current `--lexer-direct` schedule's 93 legs, including the later
 legs. `make test` adds it after the keyword test.
 `make gates` and `dev/gates.sh` selected `--lexer-direct` until
 2026-10-01. They selected `--m2-source-packing` until 2026-10-02, then
-`--m2-mapping-source`, and now select `--m2-returndata-cli`. The earlier
+`--m2-mapping-source`, then `--m2-returndata-cli`, and now select
+`--m2-mapping-runtime`. The earlier
 `--keyword-dispatch` mode keeps its non-speed legs, now 86.
 
 `dev/cli_delta.py` now pins five lexer declarations, including the earlier

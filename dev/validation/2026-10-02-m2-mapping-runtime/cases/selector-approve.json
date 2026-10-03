@@ -1,0 +1,10 @@
+{
+  "argv": [
+    "cast",
+    "sig",
+    "approve(uint256,uint256,uint256)"
+  ],
+  "exit": 0,
+  "stdout": "0xb866c8a4\n",
+  "stderr": ""
+}

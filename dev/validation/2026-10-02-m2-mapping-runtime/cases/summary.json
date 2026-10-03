@@ -1,0 +1,13 @@
+{
+  "live_cases": 40,
+  "refusal_cases": 27,
+  "constructor": true,
+  "physical_layout": true,
+  "plain_identifier_controls": 3,
+  "member_boundary_control": true,
+  "mapping_root_parameter_control": true,
+  "peak_memory_bytes": {
+    "balanceOf": 352,
+    "approve": 384
+  }
+}

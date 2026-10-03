@@ -113,9 +113,11 @@ unchanged reachable compiler CLI bundle. Since the keyword-dispatch
 follow-up, the check accepts one pinned `Lexer.ident_kind` delta and puts
 back the BASE declaration before the compare; see
 [LEXER-KEYWORDS](LEXER-KEYWORDS.md). `--m2-event-decode` adds
-EVENT-DECODE, for 85 checks. The current default,
-`--m2-returndata-cli`, runs 101; see
-[M2-RETURNDATA-CLI](M2-RETURNDATA-CLI.md). Counts exclude BEND2-RATIO and BEND2-RATIO-TEST, which moved to
+EVENT-DECODE, for 85 checks. The
+`--m2-returndata-cli` mode runs 101; see
+[M2-RETURNDATA-CLI](M2-RETURNDATA-CLI.md). The current default,
+`--m2-mapping-runtime`, adds [MAPPING-RUNTIME](M2-MAPPING-RUNTIME.md), for 102
+legs. Counts exclude BEND2-RATIO and BEND2-RATIO-TEST, which moved to
 [`--m4-speed`](M4-SPEED.md) on 2026-10-01.
 
 The new implementation brings `src/abi.bend` to 495 lines, above the

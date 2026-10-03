@@ -953,8 +953,8 @@ def Cli.arguments(args: List<&1, String>) -> List<&2, String>:
     case Nil{}: Nil{}
     case Con{head, tail}: head <> Cli.arguments(tail)
 def Entry.Cli() -> IO(Unit): IO.bind(List<&1, String>, Unit, NativeIO.args(), args => Cli.main(Cli.arguments(args)))
-def Cli.Packed.Checked() -> Data: TupleOf2(Cli.Checked, Packed.Parameters())
-def Cli.Packed.Program() -> Data: TupleOf2(Cli.Program, Packed.Parameters())
+def Cli.Packed.Checked() -> Data: TupleOf3(Cli.Checked, Packed.Parameters(), Mapping.Runtime.Plan)
+def Cli.Packed.Program() -> Data: TupleOf3(Cli.Program, Packed.Parameters(), Mapping.Runtime.Plan)
 @unsafe
 def Cli.Packed.lowered(+basename: String, +result: CheckResult(Packed.Source.Info())) -> IO(Cli.Packed.Checked()):
   Case.Packed.switch_42(result, basename)
@@ -988,8 +988,10 @@ def Case.Packed.switch_34(+packed_switch_34: Packed.Parameters(), +export: Strin
 @unsafe
 def Case.Packed.switch_35(+packed_switch_35: Cli.Packed.Program(), +export: String, +input: Model.Input) -> IO(Unit):
   match packed_switch_35:
-    case Tup2{program, parameters}:
-      Case.Packed.switch_34(parameters, export, input, program)
+    case Tup3{program, parameters, plan}:
+      match plan:
+        case Mapping.Runtime.Plan.Plain{}: Case.Packed.switch_34(parameters, export, input, program)
+        case Mapping.Runtime.Plan.Mapped{_, cells}: Cli.MappingRuntime.run(export, input, program, cells)
 @unsafe
 def Case.Packed.switch_36(+packed_switch_36: Cli.Program, +command: String, +export: String, +parameters: Packed.Parameters()) -> IO(Emit.Output):
   match packed_switch_36:
@@ -1003,32 +1005,53 @@ def Case.Packed.switch_37(+packed_switch_37: Packed.Parameters(), +command: Stri
 @unsafe
 def Case.Packed.switch_38(+packed_switch_38: Cli.Packed.Program(), +command: String, +export: String) -> IO(Emit.Output):
   match packed_switch_38:
-    case Tup2{program, parameters}:
-      Case.Packed.switch_37(parameters, command, export, parameters, program)
+    case Tup3{program, parameters, plan}:
+      match plan:
+        case Mapping.Runtime.Plan.Plain{}: Case.Packed.switch_37(parameters, command, export, parameters, program)
+        case Mapping.Runtime.Plan.Mapped{schema, cells}: Cli.MappingRuntime.compile(command, export, program, schema, cells)
 @unsafe
 def Case.Packed.switch_39(+packed_switch_39: Cli.Packed.Checked()) -> IO(Cli.Packed.Program()):
   match packed_switch_39:
-    case Tup2{checked, parameters}: do IO<Cli.Packed.Program()>:
+    case Tup3{checked, parameters, plan}: do IO<Cli.Packed.Program()>:
       program : Cli.Program <- Cli.erase(checked)
-      return Tup2{program, parameters}
+      return Tup3{program, parameters, plan}
 @unsafe
 def Case.Packed.switch_40(+packed_switch_40: Cli.Packed.Checked()) -> IO(Cli.Checked):
   match packed_switch_40:
-    case Tup2{checked, _}: IO.pure(Cli.Checked, checked)
+    case Tup3{checked, _, _}: IO.pure(Cli.Checked, checked)
 @unsafe
 def Cli.Packed.read_file(+path: String) -> IO(Cli.Packed.Checked()):
   Native.choose(&1, IO(Cli.Packed.Checked()), Bool.or(String.ends_with(path, ".asy"), String.ends_with(path, ".kan")), _ => (do IO<Cli.Packed.Checked()>:
     read : Result<&2, &2, String, String> <- NativeIO.read(path)
     source : String <- Cli.require(String, 64, read)
     basename : String <- OS.basename(path)
-    Cli.Packed.lowered(basename, Packed.Source.lower(source))), _ => NativeIO.die(Cli.Packed.Checked(), 64, String.concat(["assay: ", path, ": expected a .asy or .kan source"])))
+    Cli.MappingRuntime.lowered(basename, Mapping.Runtime.lower(source))), _ => NativeIO.die(Cli.Packed.Checked(), 64, String.concat(["assay: ", path, ": expected a .asy or .kan source"])))
 @unsafe
 def Case.Packed.switch_42(+packed_switch_42: CheckResult(Packed.Source.Info()), +basename: String) -> IO(Cli.Packed.Checked()):
   match packed_switch_42:
     case Fail{error}: NativeIO.die(Cli.Packed.Checked(), 1, Error.to_string(error))
     case Done{Tup3{name, core, parameters}}: do IO<Cli.Packed.Checked()>:
       checked : Cli.Checked <- Cli.lowered(basename, Done{Tup2{name, core}})
-      return Tup2{checked, parameters}
+      return Tup3{checked, parameters, Mapping.Runtime.Plan.Plain{}}
+
+@unsafe
+def Cli.MappingRuntime.lowered(basename: String, result: CheckResult(Mapping.Runtime.Packet())) -> IO(Cli.Packed.Checked()):
+  match result:
+    case Fail{error}: NativeIO.die(Cli.Packed.Checked(), 1, Error.to_string(error))
+    case Done{Tup2{Tup3{name, core, parameters}, plan}}: do IO<Cli.Packed.Checked()>:
+      checked : Cli.Checked <- Cli.lowered(basename, Done{Tup2{name, core}})
+      return Tup3{checked, parameters, plan}
+@unsafe
+def Cli.MappingRuntime.compile(command: String, export: String, source: Cli.Program, schema: Mapping.Source.Schema, cells: Mapping.Runtime.Cells()) -> IO(Emit.Output):
+  match source:
+    case Cli.Program{contract, globals, rows, erased}: Cli.compiled(command, Emit.Mapping.program(contract, export, globals, rows, erased, schema, cells))
+@unsafe
+def Cli.MappingRuntime.run(export: String, input: Model.Input, source: Cli.Program, +cells: Mapping.Runtime.Cells()) -> IO(Unit):
+  match source:
+    case Cli.Program{_, globals, _, erased}: do IO<Unit>:
+      program : Model.Program <- Cli.model_result(Model.Program, 2, Model.Mapping.prepare(export, globals, erased, cells))
+      outcome : Model.Outcome <- Cli.model_result(Model.Outcome, 2, Model.Mapping.run(cells, program, input))
+      NativeIO.stdout(Model.print(outcome))
 
 @unsafe
 def Cli.MappingSource.output(+result: Layout.Packed.Result(String)) -> IO(Unit):

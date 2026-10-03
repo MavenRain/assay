@@ -1,0 +1,10 @@
+{
+  "argv": [
+    "cast",
+    "keccak",
+    "0x0000000000000000000000000000000000000000000000000000000000000001679795a0195a1b76cdebb7c51d74e058aee92919b8c3389af86ef24535e8a28c"
+  ],
+  "exit": 0,
+  "stdout": "0x9fffbb9e89029b0baa965344cab51a6b05088fdd0a0df87ecf7dddfe9e4c7b74\n",
+  "stderr": ""
+}

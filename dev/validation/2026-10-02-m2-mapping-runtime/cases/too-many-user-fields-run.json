@@ -1,0 +1,10 @@
+{
+  "argv": [
+    "/Users/oobi/Documents/assay/_build/bin/assay",
+    "run",
+    "/Users/oobi/Documents/assay/.gatework/mapping-runtime/too-many-user-fields.asy"
+  ],
+  "exit": 1,
+  "stdout": "",
+  "stderr": "line 0, column 0: SURFACE_LIMIT: at most 32 members\n"
+}

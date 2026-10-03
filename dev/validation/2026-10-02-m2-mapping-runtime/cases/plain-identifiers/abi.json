@@ -1,0 +1,1 @@
+[{"type":"constructor","inputs":[],"stateMutability":"nonpayable"},{"type":"function","name":"echo","inputs":[{"name":"Mapping","type":"uint256"},{"name":"assayMapUser","type":"uint256"}],"outputs":[{"name":"","type":"uint256"}],"stateMutability":"view"}]

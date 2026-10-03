@@ -1,0 +1,10 @@
+{
+  "argv": [
+    "cast",
+    "sig",
+    "setWide(uint256,uint256)"
+  ],
+  "exit": 0,
+  "stdout": "0x48420d37\n",
+  "stderr": ""
+}

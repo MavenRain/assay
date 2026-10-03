@@ -1,0 +1,10 @@
+{
+  "argv": [
+    "/Users/oobi/Documents/assay/_build/bin/assay",
+    "check",
+    "/Users/oobi/Documents/assay/.gatework/mapping-runtime/unknown-field.asy"
+  ],
+  "exit": 1,
+  "stdout": "",
+  "stderr": "line 2, column 60: SURFACE_SLOT: unknown field missing\n"
+}

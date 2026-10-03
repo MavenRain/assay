@@ -1,5 +1,51 @@
 # Assay M2 build log
 
+## 2026-10-02: Mapping runtime access and grouped milestone plan
+
+Completed M2 group 1, mapping runtime access. Scalar and nested source keys
+now reach `check`, `emit` and `run`. Constructors and entries share computed
+Keccak slots, checked key and value bounds, packed scalar neighbors and
+transaction rollback. Temporary key cells stay in memory. Physical layout
+metadata preserves the original field names and recursively describes mappings.
+See [mapping runtime](M2-MAPPING-RUNTIME.md) and
+[MappingAccess.asy](../examples/MappingAccess.asy).
+
+The [grouped plan](MILESTONE-GROUPS.md) allocates nine work turns plus one
+repair turn to M2, seven plus three to M3, and eight plus two to M4. Each group
+includes validation, review and staged changes. Milestone closure still requires
+the original acceptance gates and external evidence where applicable.
+
+Scoped validation passed: 40 live mapping cases in the model, geth run and
+Cancun t8n; 27 source refusals; exact constructor and layout checks; native
+tests; the complete packed-source suite with all six compiled mutants; mapping
+source and CLI regressions; calldata, return-data, event and event-decode CLI
+suites; schedule controls; and house, carry, R0 and trusted-line audits.
+The new default schedule extends the 101 carried legs to 102 with a mandatory
+MAPPING-RUNTIME leg. Historical schedules and required markers remain intact.
+Review fixes count only user fields toward the 32-member limit, refuse `deployer`
+on a mapping root, bound mapping scratch memory by the highest memory word of the
+program, check exact refusal text, Uint256 keys, Address values and peak memory,
+and reseal the pin files.
+One detached run measured the Bend 2 baseline again at a load average near
+13, with a ratio of 1.894 against the 1.0 limit; the 102-leg battery was
+not run.
+
+Final review made duplicate-baseline preservation controls run even when an
+older baseline lacks a reviewed helper. All nine changed CLI declarations are
+digest pinned, and arbitrary reachable changes still fail the comparison.
+Packed mutant compilation is serialized after a parallel compiler was killed
+with exit -9; all mutants, assertions and deadlines remain enabled.
+The [validation record](validation/2026-10-02-m2-mapping-runtime/README.md)
+preserves command captures, failures, live traces and hashes.
+
+M2 remains open. The complete 102-leg milestone battery was not run in this
+group. Function ABI source integration is next, followed by return and error
+ABI, source events, storage and refinement evidence, the complete ERC20,
+negative Lean mutants, audit reconciliation and the final M2-ABI gate.
+The frontend integration has no individual line budget in the current audit;
+M2 group 8 must review that boundary explicitly.
+
+
 ## 2026-10-02: Mapping declarations and layout inspection
 
 Base: af364d5. mapping-layout FILE parses typed scalar and nested mapping

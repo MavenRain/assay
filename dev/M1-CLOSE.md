@@ -135,7 +135,7 @@ ratification message remained. From 2026-09-22 to 2026-09-30
 `--m1-close` ran the same battery with BEND2-RATIO and BEND2-RATIO-TEST
 in their place (see [M1-BEND2.md](M1-BEND2.md)), with the NATIVE-MAPS and
 NATIVE-IO checks, for 77 legs. On 2026-10-01 the two speed legs moved to
-[`--m4-speed`](M4-SPEED.md), so `--m1-close` now runs 75 legs. The default
+[`--m4-speed`](M4-SPEED.md), so `--m1-close` now runs 75 legs. The
 `--m2-returndata-cli` mode adds the
 [M2 reference gate](M2-REFERENCE.md), [ABI-SCHEMA](M2-ABI-SCHEMA.md),
 [ABI-CODEC](M2-ABI-CODEC.md), [packing](M2-PACKING.md),
@@ -154,7 +154,9 @@ NATIVE-IO checks, for 77 legs. On 2026-10-01 the two speed legs moved to
 [CALLDATA-CLI](M2-CALLDATA-CLI.md), MILESTONE-SPEED,
 [PACKED-SOURCE](M2-SOURCE-PACKING.md),
 [MAPPING-SOURCE](M2-MAPPING-SOURCE.md) and
-[RETURNDATA-CLI](M2-RETURNDATA-CLI.md), for 101 checks.
+[RETURNDATA-CLI](M2-RETURNDATA-CLI.md), for 101 checks. The current default,
+`--m2-mapping-runtime`, appends [MAPPING-RUNTIME](M2-MAPPING-RUNTIME.md), for
+102 checks.
 
 That ratio test used synthetic reports to exercise the public command; these
 were decision tests and provided no timing evidence. It checked the

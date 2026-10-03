@@ -1,0 +1,12 @@
+{
+  "argv": [
+    "/Users/oobi/Documents/assay/_build/bin/assay",
+    "emit",
+    "/Users/oobi/Documents/assay/.gatework/mapping-runtime/mapping.asy",
+    "-o",
+    "/Users/oobi/Documents/assay/.gatework/mapping-runtime/mapping"
+  ],
+  "exit": 0,
+  "stdout": "",
+  "stderr": ""
+}

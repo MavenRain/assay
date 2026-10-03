@@ -1,0 +1,12 @@
+{
+  "argv": [
+    "/Users/oobi/Documents/assay/_build/bin/assay",
+    "emit",
+    "/Users/oobi/Documents/assay/.gatework/mapping-runtime/missing-nested-key.asy",
+    "-o",
+    "/Users/oobi/Documents/assay/.gatework/mapping-runtime/invalid-missing-nested-key-emit"
+  ],
+  "exit": 1,
+  "stdout": "",
+  "stderr": "line 2, column 75: SURFACE_NAME: expected an unreserved identifier of at most 64 characters\n"
+}

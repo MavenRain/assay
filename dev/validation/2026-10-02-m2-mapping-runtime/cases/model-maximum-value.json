@@ -1,0 +1,12 @@
+{
+  "argv": [
+    "/Users/oobi/Documents/assay/_build/bin/assay",
+    "run",
+    "/Users/oobi/Documents/assay/.gatework/mapping-runtime/mapping.asy",
+    "--calldata",
+    "4a4b9feb0000000000000000000000000000000000000000000000000000000000000001ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+  ],
+  "exit": 0,
+  "stdout": "{\"status\":\"success\",\"output\":\"0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff\",\"storage\":{\"92458281274488595289803937127152923398167637295201432141969818930235769911599\":\"0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff\"}}\n",
+  "stderr": ""
+}

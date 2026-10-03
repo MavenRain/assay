@@ -1,0 +1,12 @@
+{
+  "argv": [
+    "/Users/oobi/Documents/assay/_build/bin/assay",
+    "emit",
+    "/Users/oobi/Documents/assay/.gatework/mapping-runtime/unknown-key.asy",
+    "-o",
+    "/Users/oobi/Documents/assay/.gatework/mapping-runtime/invalid-unknown-key-emit"
+  ],
+  "exit": 1,
+  "stdout": "",
+  "stderr": "line 2, column 59: SURFACE_SCOPE: unbound word missing\n"
+}

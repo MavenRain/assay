@@ -10,7 +10,7 @@ from dataclasses import replace
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / 'dev'))
-from cli_delta import cli_sources, source_records, only, pinned, PINS
+from cli_delta import cli_sources, source_records, only, pinned, PINS, OPTIONAL_BASE
 spec = importlib.util.spec_from_file_location('mapping_oracles', ROOT / 'dev/layout-mapping-test.py')
 M = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(M)
@@ -106,7 +106,8 @@ def compatibility():
     before, after = cli_sources(records)
     if before != after:
         raise ValueError('COMPATIBILITY changed a carried CLI declaration')
-    for name in ('Cli.usage', 'Cli.dispatch'):
+    controls = 0
+    for name in ('Cli.usage', 'Cli.dispatch', 'Contract.add_name', *sorted(OPTIONAL_BASE)):
         row = only(records[1], name)
         if row is None or hashlib.sha256(row.source.encode()).hexdigest() != PINS[name]:
             raise ValueError('COMPATIBILITY missing command pin: ' + name)
@@ -114,6 +115,28 @@ def compatibility():
                   if r.key == row.key else r for r in records[1]]
         if pinned(records[0], poison) is not None:
             raise ValueError('COMPATIBILITY accepted a changed command pin: ' + name)
+        if pinned(records[0], [r for r in records[1] if r.key != row.key]) is not None:
+            raise ValueError('COMPATIBILITY accepted a missing pin: ' + name)
+        if pinned(records[0], records[1] + [row]) is not None:
+            raise ValueError('COMPATIBILITY accepted a duplicate pin: ' + name)
+        controls += 3
+    for name in sorted(OPTIONAL_BASE):
+        row = only(records[0], name)
+        duplicate = records[0] + [row] if row is not None else records[0] + [only(records[1], name)] * 2
+        if pinned(duplicate, records[1]) is not None:
+            raise ValueError('COMPATIBILITY accepted a duplicate baseline: ' + name)
+        controls += 1
+    root = only(records[1], 'Entry.Cli')
+    poison = [replace(r, source=r.source + '\n# unreviewed reachable change\n')
+              if r.key == root.key else r for r in records[1]]
+    left, right = cli_sources([records[0], poison])
+    if left == right:
+        raise ValueError('COMPATIBILITY ignored an unreviewed reachable change')
+    missing = [r for r in records[0] if r.name != 'Cli.Packed.Checked']
+    left, right = cli_sources([missing, records[1]])
+    if left == right:
+        raise ValueError('COMPATIBILITY ignored a reachable reviewed addition')
+    return controls + 2
 
 
 def only_case(cases, name):
@@ -126,7 +149,7 @@ def only_case(cases, name):
 def main():
     if len(sys.argv) != 1:
         raise ValueError('usage: mapping-cli-test.py')
-    compatibility()
+    pin_controls = compatibility()
     positives = M.positives()
     reference = M.reference()
     cases = []
@@ -160,7 +183,7 @@ def main():
                            for path in ('src/cli.bend', 'src/layout.bend', 'src/abi.bend',
                                         'src/keccak.bend', 'dev/mapping-cli-test.py',
                                         'dev/layout-mapping-test.py', 'dev/cli_delta.py',
-                                        'reference/erc20/slots.json')}, compatibility='OK', pin_controls=2)
+                                        'reference/erc20/slots.json')}, compatibility='OK', pin_controls=pin_controls)
     (work / 'report.json').write_text(json.dumps(report, indent=2) + '\n')
     print(f'MAPPING-CLI cases={len(cases)} oracle={len(positives)} reference={len(reference)} '
           f'refusals={len(negative)} OK')

@@ -2551,3 +2551,735 @@ def Mapping.Source.print(schema: Mapping.Source.Schema) -> Layout.Packed.Result(
       Layout.Packed.Result.bind(ListOf(Layout.Packed.Field), String, Layout.Packed.plan(Mapping.Source.parameters(fields)), physical =>
         Layout.Packed.Result.bind(ListOf(String), String, Mapping.Source.field_rows(fields, physical), rows =>
           Done{String.concat(["{\u{22}contract\u{22}:", Abi.quote(contract), ",\u{22}storage\u{22}:[", String.join(rows, ","), "]}"])}))
+
+type Mapping.Runtime.Cell is Data:
+  Mapping.Runtime.Cell.Scalar{field: Layout.Packed.Field}
+  Mapping.Runtime.Cell.Reserved{name: String}
+  Mapping.Runtime.Cell.Key{typ: Abi.Schema.Value_type, index: Big}
+  Mapping.Runtime.Cell.Access{typ: Abi.Schema.Value_type, base: Big, keys: ListOf(TupleOf2(Big, Abi.Schema.Value_type)), index: Big}
+def Mapping.Runtime.Cells() -> Data: ListOf(Mapping.Runtime.Cell)
+type Mapping.Runtime.Plan is Data:
+  Mapping.Runtime.Plan.Plain{}
+  Mapping.Runtime.Plan.Mapped{schema: Mapping.Source.Schema, cells: Mapping.Runtime.Cells()}
+def Mapping.Runtime.Packet() -> Data: TupleOf2(Packed.Source.Info(), Mapping.Runtime.Plan)
+type Mapping.Runtime.Keys is Data:
+  Mapping.Runtime.Keys{tail: ListOf(Contract.Token), stores: ListOf(Contract.Token), cells: Mapping.Runtime.Cells(), path: ListOf(TupleOf2(Big, Abi.Schema.Value_type)), typ: Abi.Schema.Value_type, next: Big}
+type Mapping.Runtime.Body is Data:
+  Mapping.Runtime.Body{tokens: ListOf(Contract.Token), cells: Mapping.Runtime.Cells(), next: Big}
+@unsafe
+def Mapping.Runtime.token(+text: String) -> Contract.Token: MkContract_Token{text, Big.zero(), Big.zero()}
+@unsafe
+def Mapping.Runtime.member_count(+names: ListOf(Contract.Token)) -> Nat:
+  match names:
+    case Nil{}: 0n
+    case Con{MkContract_Token{text, line, _}, tail}:
+      Native.choose(&2, Nat, Bool.and(Big.is_eq(line, Big.zero()), NativeString.equal(Model.segment(Big.zero(), Big.of_nat(8n), text), "assayMap")), _ => Mapping.Runtime.member_count(tail), _ => Succ{Mapping.Runtime.member_count(tail)})
+@unsafe
+def Mapping.Runtime.name(+index: Big) -> String: String.append("assayMap", Big.show(index))
+@unsafe
+def Mapping.Runtime.cell_name(+cell: Mapping.Runtime.Cell) -> String:
+  match cell:
+    case Mapping.Runtime.Cell.Scalar{Layout.Packed.Field{name, _, _, _}}: name
+    case Mapping.Runtime.Cell.Reserved{name}: name
+    case Mapping.Runtime.Cell.Key{_, index}: Mapping.Runtime.name(index)
+    case Mapping.Runtime.Cell.Access{_, _, _, index}: Mapping.Runtime.name(index)
+@unsafe
+def Mapping.Runtime.fields(+fields: ListOf(Mapping.Source.Field), +physical: ListOf(Layout.Packed.Field)) -> Mapping.Runtime.Cells():
+  match fields:
+    case Nil{}: []
+    case Con{Mapping.Source.Field{name, typ}, tail}:
+      Mapping.Runtime.field_physical(name, typ, tail, physical)
+@unsafe
+def Mapping.Runtime.field_physical(+name: String, +typ: Mapping.Source.Type, +tail: ListOf(Mapping.Source.Field), +physical: ListOf(Layout.Packed.Field)) -> Mapping.Runtime.Cells():
+  match physical:
+    case Nil{}: []
+    case Con{field, rest}: Mapping.Runtime.field_type(name, typ, tail, field, rest)
+@unsafe
+def Mapping.Runtime.field_type(+name: String, +typ: Mapping.Source.Type, +tail: ListOf(Mapping.Source.Field), +field: Layout.Packed.Field, +rest: ListOf(Layout.Packed.Field)) -> Mapping.Runtime.Cells():
+  match typ:
+    case Mapping.Source.Type.Scalar{_}: Mapping.Runtime.Cell.Scalar{field} <> Mapping.Runtime.fields(tail, rest)
+    case Mapping.Source.Type.Mapping{_, _}: Mapping.Runtime.Cell.Reserved{name} <> Mapping.Runtime.fields(tail, rest)
+@unsafe
+def Mapping.Runtime.lookup(+name: String, +fields: ListOf(Mapping.Source.Field), +physical: ListOf(Layout.Packed.Field)) -> OptionOf(TupleOf2(Mapping.Source.Type, Big)):
+  match fields:
+    case Nil{}: None{}
+    case Con{Mapping.Source.Field{label, typ}, tail}:
+      match physical:
+        case Nil{}: None{}
+        case Con{Layout.Packed.Field{_, _, slot, _}, rest}:
+          Native.choose(&2, OptionOf(TupleOf2(Mapping.Source.Type, Big)), NativeString.equal(name, label), _ => Some{Tup2{typ, slot}}, _ => Mapping.Runtime.lookup(name, tail, rest))
+def Mapping.Runtime.word_tokens(+word: Contract.Word) -> ListOf(Contract.Token):
+  match word:
+    case Contract.Word.Literal{token}: [Mapping.Runtime.token("("), Mapping.Runtime.token("word"), token, Mapping.Runtime.token(")")]
+    case Contract.Word.Local{token}: [token]
+@unsafe
+def Mapping.Runtime.keys(+typ: Mapping.Source.Type, +tokens: ListOf(Contract.Token), +index: Big) -> CheckResult(Mapping.Runtime.Keys):
+  match typ:
+    case Mapping.Source.Type.Scalar{value}: Done{Mapping.Runtime.Keys{tokens, [], [], [], value, index}}
+    case Mapping.Source.Type.Mapping{key, value}:
+      CheckResult.bind(TupleOf2(Contract.Word, ListOf(Contract.Token)), Mapping.Runtime.Keys, Contract.value(Big.zero(), tokens), pair => Mapping.Runtime.key_pair(key, value, index, pair))
+@unsafe
+def Mapping.Runtime.key_pair(+key: Abi.Schema.Value_type, +typ: Mapping.Source.Type, +index: Big, +pair: TupleOf2(Contract.Word, ListOf(Contract.Token))) -> CheckResult(Mapping.Runtime.Keys):
+  match pair:
+    case Tup2{word, tail}:
+      CheckResult.bind(Mapping.Runtime.Keys, Mapping.Runtime.Keys, Mapping.Runtime.keys(typ, tail, Big.add(index, Big.one())), keys => Mapping.Runtime.key_finish(key, index, word, keys))
+@unsafe
+def Mapping.Runtime.key_finish(+key: Abi.Schema.Value_type, +index: Big, +word: Contract.Word, +keys: Mapping.Runtime.Keys) -> CheckResult(Mapping.Runtime.Keys):
+  match keys:
+    case Mapping.Runtime.Keys{tail, stores, cells, path, typ, next}:
+      +prefix = List.append(&2, Contract.Token, [Mapping.Runtime.token("sstore"), Mapping.Runtime.token(Mapping.Runtime.name(index))], List.append(&2, Contract.Token, Mapping.Runtime.word_tokens(word), [Mapping.Runtime.token(";")]))
+      Done{Mapping.Runtime.Keys{tail, List.append(&2, Contract.Token, prefix, stores), Mapping.Runtime.Cell.Key{key, index} <> cells, Tup2{index, key} <> path, typ, next}}
+@unsafe
+def Mapping.Runtime.prepend(+prefix: ListOf(Contract.Token), +body: Mapping.Runtime.Body) -> Mapping.Runtime.Body:
+  match body:
+    case Mapping.Runtime.Body{tokens, cells, next}: Mapping.Runtime.Body{List.append(&2, Contract.Token, prefix, tokens), cells, next}
+@unsafe
+def Mapping.Runtime.access(+prefix: ListOf(Contract.Token), +base: Big, +keys: Mapping.Runtime.Keys, +schema: ListOf(Mapping.Source.Field), +physical: ListOf(Layout.Packed.Field)) -> CheckResult(Mapping.Runtime.Body):
+  match keys:
+    case Mapping.Runtime.Keys{tail, stores, cells, path, typ, next}:
+      +access = {Mapping.Runtime.Cell.Access{typ, base, path, next} : Mapping.Runtime.Cell}
+      +before = List.append(&2, Contract.Token, stores, List.append(&2, Contract.Token, prefix, [Mapping.Runtime.token(Mapping.Runtime.name(next))]))
+      CheckResult.bind(Mapping.Runtime.Body, Mapping.Runtime.Body, Mapping.Runtime.body(tail, schema, physical, Big.add(next, Big.one())), body => Mapping.Runtime.access_finish(before, List.append(&2, Mapping.Runtime.Cell, cells, [access]), body))
+@unsafe
+def Mapping.Runtime.access_finish(+prefix: ListOf(Contract.Token), +cells: Mapping.Runtime.Cells(), +body: Mapping.Runtime.Body) -> CheckResult(Mapping.Runtime.Body):
+  match body:
+    case Mapping.Runtime.Body{tokens, rest, next}: Done{Mapping.Runtime.Body{List.append(&2, Contract.Token, prefix, tokens), List.append(&2, Mapping.Runtime.Cell, cells, rest), next}}
+@unsafe
+def Mapping.Runtime.operation(+prefix: ListOf(Contract.Token), +name: Contract.Token, +tail: ListOf(Contract.Token), +schema: ListOf(Mapping.Source.Field), +physical: ListOf(Layout.Packed.Field), +index: Big) -> CheckResult(Mapping.Runtime.Body):
+  Mapping.Runtime.operation_lookup(prefix, name, tail, schema, physical, index, Mapping.Runtime.lookup(Get.Contract.Token.text(name), schema, physical))
+@unsafe
+def Mapping.Runtime.operation_lookup(+prefix: ListOf(Contract.Token), +name: Contract.Token, +tail: ListOf(Contract.Token), +schema: ListOf(Mapping.Source.Field), +physical: ListOf(Layout.Packed.Field), +index: Big, +found: OptionOf(TupleOf2(Mapping.Source.Type, Big))) -> CheckResult(Mapping.Runtime.Body):
+  match found:
+    case Some{Tup2{Mapping.Source.Type.Mapping{key, value}, base}}:
+      CheckResult.bind(Mapping.Runtime.Keys, Mapping.Runtime.Body, Mapping.Runtime.keys(Mapping.Source.Type.Mapping{key, value}, tail, index), keys => Mapping.Runtime.access(prefix, base, keys, schema, physical))
+    case None{}:
+      CheckResult.bind(Mapping.Runtime.Body, Mapping.Runtime.Body, Mapping.Runtime.body(tail, schema, physical, index), body => Done{Mapping.Runtime.prepend(List.append(&2, Contract.Token, prefix, [name]), body)})
+    case Some{Tup2{Mapping.Source.Type.Scalar{_}, _}}:
+      CheckResult.bind(Mapping.Runtime.Body, Mapping.Runtime.Body, Mapping.Runtime.body(tail, schema, physical, index), body => Done{Mapping.Runtime.prepend(List.append(&2, Contract.Token, prefix, [name]), body)})
+@unsafe
+def Mapping.Runtime.copy(+token: Contract.Token, +tail: ListOf(Contract.Token), +schema: ListOf(Mapping.Source.Field), +physical: ListOf(Layout.Packed.Field), +index: Big) -> CheckResult(Mapping.Runtime.Body):
+  CheckResult.bind(Mapping.Runtime.Body, Mapping.Runtime.Body, Mapping.Runtime.body(tail, schema, physical, index), body => Done{Mapping.Runtime.prepend([token], body)})
+@unsafe
+def Mapping.Runtime.body(+tokens: ListOf(Contract.Token), +schema: ListOf(Mapping.Source.Field), +physical: ListOf(Layout.Packed.Field), +index: Big) -> CheckResult(Mapping.Runtime.Body):
+  match tokens:
+    case Nil{}: Done{Mapping.Runtime.Body{[], [], index}}
+    case Con{result, Con{arrow, Con{load, Con{name, tail}}}}:
+      Native.choose(&2, CheckResult(Mapping.Runtime.Body), Bool.and(NativeString.equal(Get.Contract.Token.text(arrow), "<-"), NativeString.equal(Get.Contract.Token.text(load), "sload")), _ => Mapping.Runtime.operation([result, arrow, load], name, tail, schema, physical, index), _ => Mapping.Runtime.body_store(tokens, schema, physical, index))
+    case Con{_, Nil{}}: Mapping.Runtime.body_store(tokens, schema, physical, index)
+    case Con{_, Con{_, Nil{}}}: Mapping.Runtime.body_store(tokens, schema, physical, index)
+    case Con{_, Con{_, Con{_, Nil{}}}}: Mapping.Runtime.body_store(tokens, schema, physical, index)
+@unsafe
+def Mapping.Runtime.body_store(+tokens: ListOf(Contract.Token), +schema: ListOf(Mapping.Source.Field), +physical: ListOf(Layout.Packed.Field), +index: Big) -> CheckResult(Mapping.Runtime.Body):
+  match tokens:
+    case Nil{}: Done{Mapping.Runtime.Body{[], [], index}}
+    case Con{store, Con{name, tail}}:
+      Native.choose(&2, CheckResult(Mapping.Runtime.Body), NativeString.equal(Get.Contract.Token.text(store), "sstore"), _ => Mapping.Runtime.operation([store], name, tail, schema, physical, index), _ => Mapping.Runtime.store_other(store, name, tail, schema, physical, index))
+    case Con{token, tail}: Mapping.Runtime.copy(token, tail, schema, physical, index)
+@unsafe
+def Mapping.Runtime.store_other(+store: Contract.Token, +name: Contract.Token, +tail: ListOf(Contract.Token), +schema: ListOf(Mapping.Source.Field), +physical: ListOf(Layout.Packed.Field), +index: Big) -> CheckResult(Mapping.Runtime.Body):
+  Native.choose(&2, CheckResult(Mapping.Runtime.Body), NativeString.equal(Get.Contract.Token.text(store), "deployer"), _ => Mapping.Runtime.deployer(store, name, tail, schema, physical, index, Mapping.Runtime.lookup(Get.Contract.Token.text(name), schema, physical)), _ => Mapping.Runtime.copy(store, name <> tail, schema, physical, index))
+@unsafe
+def Mapping.Runtime.deployer(+store: Contract.Token, +name: Contract.Token, +tail: ListOf(Contract.Token), +schema: ListOf(Mapping.Source.Field), +physical: ListOf(Layout.Packed.Field), +index: Big, +found: OptionOf(TupleOf2(Mapping.Source.Type, Big))) -> CheckResult(Mapping.Runtime.Body):
+  match found:
+    case Some{Tup2{Mapping.Source.Type.Mapping{_, _}, _}}: Contract.fail(&2, Mapping.Runtime.Body, name, "MAPPING", "mapping root accepts only keyed sload and sstore")
+    case Some{Tup2{Mapping.Source.Type.Scalar{_}, _}}: Mapping.Runtime.copy(store, name <> tail, schema, physical, index)
+    case None{}: Mapping.Runtime.copy(store, name <> tail, schema, physical, index)
+@unsafe
+def Mapping.Runtime.split(+tokens: ListOf(Contract.Token), +prefix: ListOf(Contract.Token)) -> CheckResult(TupleOf2(ListOf(Contract.Token), ListOf(Contract.Token))):
+  match tokens:
+    case Nil{}: Contract.fail(&2, TupleOf2(ListOf(Contract.Token), ListOf(Contract.Token)), Contract.here(tokens), "MAPPING", "missing storage block")
+    case Con{token, tail}:
+      Native.choose(&2, CheckResult(TupleOf2(ListOf(Contract.Token), ListOf(Contract.Token))), NativeString.equal(Get.Contract.Token.text(token), "{"), _ => Mapping.Runtime.skip(tail, List.reverse(&2, Contract.Token, token <> prefix)), _ => Mapping.Runtime.split(tail, token <> prefix))
+@unsafe
+def Mapping.Runtime.skip(+tokens: ListOf(Contract.Token), +prefix: ListOf(Contract.Token)) -> CheckResult(TupleOf2(ListOf(Contract.Token), ListOf(Contract.Token))):
+  match tokens:
+    case Nil{}: Contract.fail(&2, TupleOf2(ListOf(Contract.Token), ListOf(Contract.Token)), Contract.here(tokens), "MAPPING", "unterminated storage block")
+    case Con{token, tail}:
+      Native.choose(&2, CheckResult(TupleOf2(ListOf(Contract.Token), ListOf(Contract.Token))), NativeString.equal(Get.Contract.Token.text(token), "}"), _ => Done{Tup2{prefix, tail}}, _ => Mapping.Runtime.skip(tail, prefix))
+@unsafe
+def Mapping.Runtime.declarations(+cells: Mapping.Runtime.Cells()) -> ListOf(Contract.Token):
+  match cells:
+    case Nil{}: []
+    case Con{cell, tail}:
+      List.append(&2, Contract.Token, [Mapping.Runtime.token(Mapping.Runtime.cell_name(cell)), Mapping.Runtime.token(":"), Mapping.Runtime.token("Word"), Mapping.Runtime.token(";")], Mapping.Runtime.declarations(tail))
+@unsafe
+def Mapping.Runtime.normalized(+schema: Mapping.Source.Schema, +physical: ListOf(Layout.Packed.Field), +prefix: ListOf(Contract.Token), +body: Mapping.Runtime.Body) -> CheckResult(Mapping.Runtime.Packet()):
+  match schema:
+    case Mapping.Source.Schema{_, fields}:
+      match body:
+        case Mapping.Runtime.Body{tokens, extra, _}:
+          +cells = List.append(&2, Mapping.Runtime.Cell, Mapping.Runtime.fields(fields, physical), extra)
+          +normalized = List.append(&2, Contract.Token, prefix, List.append(&2, Contract.Token, Mapping.Runtime.declarations(cells), Mapping.Runtime.token("}") <> tokens))
+          CheckResult.bind(TupleOf2(OptionOf(String), String), Mapping.Runtime.Packet(), Contract.parse(normalized), parsed => Mapping.Runtime.parsed(schema, cells, parsed))
+def Mapping.Runtime.parsed(+schema: Mapping.Source.Schema, +cells: Mapping.Runtime.Cells(), +parsed: TupleOf2(OptionOf(String), String)) -> CheckResult(Mapping.Runtime.Packet()):
+  match parsed:
+    case Tup2{name, core}: Done{Tup2{Tup3{name, core, []}, Mapping.Runtime.Plan.Mapped{schema, cells}}}
+@unsafe
+def Mapping.Runtime.normalize(+schema: Mapping.Source.Schema, +physical: ListOf(Layout.Packed.Field), +split: TupleOf2(ListOf(Contract.Token), ListOf(Contract.Token))) -> CheckResult(Mapping.Runtime.Packet()):
+  match schema:
+    case Mapping.Source.Schema{_, fields}:
+      match split:
+        case Tup2{prefix, tail}:
+          CheckResult.bind(Mapping.Runtime.Body, Mapping.Runtime.Packet(), Mapping.Runtime.body(tail, fields, physical, Big.of_nat(List.length(&2, Mapping.Source.Field, fields))), body => Mapping.Runtime.normalized(schema, physical, prefix, body))
+@unsafe
+def Mapping.Runtime.planned(+schema: Mapping.Source.Schema, +tokens: ListOf(Contract.Token), +result: Layout.Packed.Result(ListOf(Layout.Packed.Field))) -> CheckResult(Mapping.Runtime.Packet()):
+  match result:
+    case Fail{_}: Contract.fail(&2, Mapping.Runtime.Packet(), Contract.here(tokens), "MAPPING", "invalid mapping storage layout")
+    case Done{physical}: CheckResult.bind(TupleOf2(ListOf(Contract.Token), ListOf(Contract.Token)), Mapping.Runtime.Packet(), Mapping.Runtime.split(tokens, []), split => Mapping.Runtime.normalize(schema, physical, split))
+@unsafe
+def Mapping.Runtime.schema(+tokens: ListOf(Contract.Token), +schema: Mapping.Source.Schema) -> CheckResult(Mapping.Runtime.Packet()):
+  match schema:
+    case Mapping.Source.Schema{_, fields}:
+      Mapping.Runtime.planned(schema, tokens, Layout.Packed.plan(Mapping.Source.parameters(fields)))
+@unsafe
+def Mapping.Runtime.tokens(+source: String, +tokens: ListOf(Contract.Token)) -> CheckResult(Mapping.Runtime.Packet()):
+  +mapped = Mapping.Runtime.storage_mapped(tokens)
+  +reserved = SeqList.exists(&2, Contract.Token, token => NativeString.equal(Model.segment(Big.zero(), Big.of_nat(8n), Get.Contract.Token.text(token)), "assayMap"), tokens)
+  Native.choose(&2, CheckResult(Mapping.Runtime.Packet()), mapped, _ =>
+    Native.choose(&2, CheckResult(Mapping.Runtime.Packet()), reserved, _ => Contract.fail(&2, Mapping.Runtime.Packet(), Contract.here(tokens), "RESERVED", "assayMap names are reserved for mapping lowering"), _ =>
+      CheckResult.bind(Mapping.Source.Schema, Mapping.Runtime.Packet(), Mapping.Source.header(tokens), schema => Mapping.Runtime.schema(tokens, schema)))
+  , _ => Mapping.Runtime.plain(Packed.Source.lower(source)))
+def Mapping.Runtime.plain(+result: CheckResult(Packed.Source.Info())) -> CheckResult(Mapping.Runtime.Packet()):
+  match result:
+    case Fail{error}: Fail{error}
+    case Done{info}: Done{Tup2{info, Mapping.Runtime.Plan.Plain{}}}
+@unsafe
+def Mapping.Runtime.lower(+source: String) -> CheckResult(Mapping.Runtime.Packet()):
+  Native.choose(&2, CheckResult(Mapping.Runtime.Packet()), Packed.Source.contract(source), _ =>
+    Native.choose(&2, CheckResult(Mapping.Runtime.Packet()), Big.is_lt(Big.of_nat(65536n), Big.of_nat(String.length(source))), _ => Contract.fail(&2, Mapping.Runtime.Packet(), Contract.here([]), "LIMIT", "contract source exceeds 65536 bytes"), _ =>
+      CheckResult.bind(ListOf(Contract.Token), Mapping.Runtime.Packet(), Contract.lex(Series.from_string(source)), tokens => Mapping.Runtime.tokens(source, tokens)))
+  , _ => Mapping.Runtime.plain(Packed.Source.lower(source)))
+@unsafe
+def Mapping.Runtime.storage_mapped(+tokens: ListOf(Contract.Token)) -> Bool:
+  match tokens:
+    case Nil{}: False{}
+    case Con{token, tail}:
+      Native.choose(&2, Bool, NativeString.equal(Get.Contract.Token.text(token), "{"), _ => Mapping.Runtime.fields_mapped(tail), _ => Mapping.Runtime.storage_mapped(tail))
+@unsafe
+def Mapping.Runtime.fields_mapped(+tokens: ListOf(Contract.Token)) -> Bool:
+  match tokens:
+    case Nil{}: False{}
+    case Con{token, tail}:
+      Native.choose(&2, Bool, NativeString.equal(Get.Contract.Token.text(token), "}"), _ => False{}, _ =>
+        Native.choose(&2, Bool, NativeString.equal(Get.Contract.Token.text(token), ":"), _ => Bool.or(Mapping.Runtime.type_mapped(tail), Mapping.Runtime.fields_mapped(tail)), _ => Mapping.Runtime.fields_mapped(tail)))
+@unsafe
+def Mapping.Runtime.type_mapped(+tokens: ListOf(Contract.Token)) -> Bool:
+  match tokens:
+    case Nil{}: False{}
+    case Con{token, tail}:
+      Native.choose(&2, Bool, NativeString.equal(Get.Contract.Token.text(token), "("), _ => Mapping.Runtime.type_mapped(tail), _ => NativeString.equal(Get.Contract.Token.text(token), "Mapping"))
+@unsafe
+def Mapping.Runtime.find(+index: Big, +cells: Mapping.Runtime.Cells()) -> OptionOf(Mapping.Runtime.Cell):
+  match cells:
+    case Nil{}: None{}
+    case Con{cell, tail}: Native.choose(&2, OptionOf(Mapping.Runtime.Cell), Big.is_zero(index), _ => Some{cell}, _ => Mapping.Runtime.find(Big.sub(index, Big.one()), tail))
+@unsafe
+def Mapping.Runtime.fake_fields(+cells: Mapping.Runtime.Cells()) -> Emit.Packed.Fields():
+  match cells:
+    case Nil{}: []
+    case Con{cell, tail}: Layout.Packed.Field{Mapping.Runtime.cell_name(cell), Abi.Schema.Value_type.Uint256{}, Big.zero(), 0n} <> Mapping.Runtime.fake_fields(tail)
+@unsafe
+def Model.Mapping.key(+index: Big) -> Big: Big.add(Big.shift_left(Big.one(), 255n), index)
+@unsafe
+def Model.Mapping.path(+path: ListOf(TupleOf2(Big, Abi.Schema.Value_type)), +memory: Model.Storage) -> ListOf(Layout.Mapping.Key):
+  match path:
+    case Nil{}: []
+    case Con{Tup2{index, typ}, tail}: Layout.Mapping.Key{typ, Model.get(memory, Model.Mapping.key(index))} <> Model.Mapping.path(tail, memory)
+def Model.Mapping.location(+typ: Abi.Schema.Value_type, +result: Layout.Mapping.Result(Big)) -> Model.Result(Layout.Packed.Field):
+  match result:
+    case Fail{_}: Fail{Model.Error.Source{Emit.Error.Invalid_ir{"MAPPING: invalid storage key"}}}
+    case Done{slot}: Done{Layout.Packed.Field{"mapping", typ, slot, 0n}}
+@unsafe
+def Model.Mapping.physical(+cell: OptionOf(Mapping.Runtime.Cell), +memory: Model.Storage) -> Model.Result(Layout.Packed.Field):
+  match cell:
+    case Some{Mapping.Runtime.Cell.Scalar{field}}: Done{field}
+    case Some{Mapping.Runtime.Cell.Access{typ, base, path, _}}: Model.Mapping.location(typ, Layout.Mapping.path(base, Model.Mapping.path(path, memory)))
+    case Some{Mapping.Runtime.Cell.Key{_, _}}: Fail{Model.Error.Source{Emit.Error.Invalid_ir{"MAPPING: invalid storage operation"}}}
+    case Some{Mapping.Runtime.Cell.Reserved{_}}: Fail{Model.Error.Source{Emit.Error.Invalid_ir{"MAPPING: invalid storage operation"}}}
+    case None{}: Fail{Model.Error.Source{Emit.Error.Invalid_ir{"MAPPING: invalid storage operation"}}}
+@unsafe
+def Model.Mapping.store(+cells: Mapping.Runtime.Cells(), +input: Model.Input, +storage: Model.Storage, +memory: Model.Storage, +slot: Big, +value: Big, +next: Emit.Transaction) -> Model.Result(Model.Outcome):
+  Model.Mapping.store_cell(cells, input, storage, memory, value, next, Mapping.Runtime.find(slot, cells))
+@unsafe
+def Model.Mapping.store_cell(+cells: Mapping.Runtime.Cells(), +input: Model.Input, +storage: Model.Storage, +memory: Model.Storage, +value: Big, +next: Emit.Transaction, +cell: OptionOf(Mapping.Runtime.Cell)) -> Model.Result(Model.Outcome):
+  match cell:
+    case Some{Mapping.Runtime.Cell.Key{typ, index}}:
+      Big.when(Model.Result(Model.Outcome), Abi.Codec.within(Big.of_nat(Layout.Packed.bits(typ)), value),
+        _ => Model.Mapping.transaction(cells, input, storage, Tup2{Model.Mapping.key(index), value} <> memory, next),
+        _ => Done{Model.revert(Get.Model.Input.initial(input))})
+    case Some{Mapping.Runtime.Cell.Scalar{field}}:
+      Model.Result.bind(OptionOf(Model.Storage), Model.Outcome, Model.Packed.write_field(field, storage, value), written => Model.Mapping.after_write(cells, input, memory, next, written))
+    case Some{Mapping.Runtime.Cell.Access{typ, base, path, index}}:
+      Model.Result.bind(Layout.Packed.Field, Model.Outcome, Model.Mapping.location(typ, Layout.Mapping.path(base, Model.Mapping.path(path, memory))), field =>
+        Model.Result.bind(OptionOf(Model.Storage), Model.Outcome, Model.Packed.write_field(field, storage, value), written => Model.Mapping.after_write(cells, input, memory, next, written)))
+    case Some{Mapping.Runtime.Cell.Reserved{_}}: Fail{Model.Error.Source{Emit.Error.Invalid_ir{"MAPPING: invalid storage operation"}}}
+    case None{}: Fail{Model.Error.Source{Emit.Error.Invalid_ir{"MAPPING: invalid storage operation"}}}
+@unsafe
+def Model.Mapping.load(+cells: Mapping.Runtime.Cells(), +input: Model.Input, +storage: Model.Storage, +memory: Model.Storage, +slot: Big, +target: Big, +next: Emit.Transaction) -> Model.Result(Model.Outcome):
+  Model.Result.bind(Layout.Packed.Field, Model.Outcome, Model.Mapping.physical(Mapping.Runtime.find(slot, cells), memory), field =>
+    Model.Result.bind(OptionOf(Big), Model.Outcome, Model.Packed.read_field(field, storage), value => Model.Mapping.after_read(cells, input, storage, memory, target, next, value)))
+@unsafe
+def Model.Mapping.after_write(+cells: Mapping.Runtime.Cells(), +input: Model.Input, +memory: Model.Storage, +next: Emit.Transaction, +written: OptionOf(Model.Storage)) -> Model.Result(Model.Outcome):
+  match written:
+    case None{}: Done{Model.revert(Get.Model.Input.initial(input))}
+    case Some{storage}: Model.Mapping.transaction(cells, input, storage, memory, next)
+@unsafe
+def Model.Mapping.after_read(+cells: Mapping.Runtime.Cells(), +input: Model.Input, +storage: Model.Storage, +memory: Model.Storage, +target: Big, +next: Emit.Transaction, +loaded: OptionOf(Big)) -> Model.Result(Model.Outcome):
+  match loaded:
+    case None{}: Done{Model.revert(Get.Model.Input.initial(input))}
+    case Some{value}: Model.Mapping.transaction(cells, input, storage, Tup2{target, value} <> memory, next)
+@unsafe
+def Model.Mapping.effect(+effect: Emit.Effect) -> Emit.Transaction:
+  match effect:
+    case Emit.Effect.Return{value}: Emit.Transaction.Finish{Emit.Operand.Constant{value}}
+    case Emit.Effect.Read{slot}: Emit.Transaction.Load{slot, Big.zero(), Emit.Transaction.Finish{Emit.Operand.Memory{Big.zero()}}}
+    case Emit.Effect.Put{slot, value, next}: Emit.Transaction.Store{slot, Emit.Operand.Constant{value}, Model.Mapping.effect(next)}
+    case Emit.Effect.Deployer{slot, next}: Emit.Transaction.Context{Recognize.Context.Caller{}, Big.zero(), Emit.Transaction.Store{slot, Emit.Operand.Memory{Big.zero()}, Model.Mapping.effect(next)}}
+@unsafe
+def Model.Mapping.closed(+cells: Mapping.Runtime.Cells(), +input: Model.Input, +storage: Model.Storage, +effect: Emit.Effect) -> Model.Result(Model.Outcome):
+  Model.Mapping.transaction(cells, input, storage, [], Model.Mapping.effect(effect))
+
+type Emit.Mapping.Code is Data:
+  Emit.Mapping.Code{instructions: ListOf(Asm.Instruction), bound: OptionOf(Big), after: Bool}
+@unsafe
+def Emit.Mapping.window(+base: Big, +position: Big) -> Big:
+  Big.add(base, Big.add(Big.of_nat(64n), Big.mul(position, Big.of_nat(32n))))
+@unsafe
+def Emit.Mapping.memory_path(+path: ListOf(TupleOf2(Big, Abi.Schema.Value_type)), +base: Big, +position: Big) -> ListOf(TupleOf2(Big, Abi.Schema.Value_type)):
+  match path:
+    case Nil{}: []
+    case Con{Tup2{_, typ}, tail}: Tup2{Emit.Mapping.window(base, position), typ} <> Emit.Mapping.memory_path(tail, base, Big.add(position, Big.of_nat(1n)))
+@unsafe
+def Emit.Mapping.position(+index: Big, +path: ListOf(TupleOf2(Big, Abi.Schema.Value_type)), +position: Big) -> OptionOf(Big):
+  match path:
+    case Nil{}: None{}
+    case Con{Tup2{key, _}, tail}:
+      Native.choose(&2, OptionOf(Big), Big.is_eq(key, index), _ => Some{position}, _ => Emit.Mapping.position(index, tail, Big.add(position, Big.of_nat(1n))))
+@unsafe
+def Emit.Mapping.key_position(+index: Big, +cells: Mapping.Runtime.Cells()) -> Big:
+  match cells:
+    case Nil{}: index
+    case Con{cell, tail}: Emit.Mapping.key_cell(index, cell, tail)
+@unsafe
+def Emit.Mapping.key_cell(+index: Big, +cell: Mapping.Runtime.Cell, +tail: Mapping.Runtime.Cells()) -> Big:
+  match cell:
+    case Mapping.Runtime.Cell.Access{_, _, path, _}: Emit.Mapping.key_found(index, tail, Emit.Mapping.position(index, path, Big.zero()))
+    case Mapping.Runtime.Cell.Key{_, _}: Emit.Mapping.key_position(index, tail)
+    case Mapping.Runtime.Cell.Scalar{_}: Emit.Mapping.key_position(index, tail)
+    case Mapping.Runtime.Cell.Reserved{_}: Emit.Mapping.key_position(index, tail)
+@unsafe
+def Emit.Mapping.key_found(+index: Big, +tail: Mapping.Runtime.Cells(), +found: OptionOf(Big)) -> Big:
+  match found:
+    case Some{position}: position
+    case None{}: Emit.Mapping.key_position(index, tail)
+@unsafe
+def Emit.Mapping.memory(+cells: Mapping.Runtime.Cells(), +all: Mapping.Runtime.Cells(), +base: Big) -> Mapping.Runtime.Cells():
+  match cells:
+    case Nil{}: []
+    case Con{cell, tail}:
+      Emit.Mapping.memory_cell(cell, all, base, Emit.Mapping.memory(tail, all, base))
+@unsafe
+def Emit.Mapping.memory_cell(+cell: Mapping.Runtime.Cell, +all: Mapping.Runtime.Cells(), +base: Big, +rest: Mapping.Runtime.Cells()) -> Mapping.Runtime.Cells():
+  match cell:
+    case Mapping.Runtime.Cell.Key{typ, index}: Mapping.Runtime.Cell.Key{typ, Emit.Mapping.window(base, Emit.Mapping.key_position(index, all))} <> rest
+    case Mapping.Runtime.Cell.Access{typ, slot, path, _}: Mapping.Runtime.Cell.Access{typ, slot, Emit.Mapping.memory_path(path, base, Big.zero()), base} <> rest
+    case Mapping.Runtime.Cell.Scalar{field}: Mapping.Runtime.Cell.Scalar{field} <> rest
+    case Mapping.Runtime.Cell.Reserved{name}: Mapping.Runtime.Cell.Reserved{name} <> rest
+@unsafe
+def Emit.Mapping.count(+blocks: ListOf(Asm.Block)) -> Big:
+  match blocks:
+    case Nil{}: Big.zero()
+    case Con{block, tail}: Big.add(Big.of_nat((List.length(&2, Asm.Instruction, Get.Asm.Block.body(block)) + 16n: Nat)), Emit.Mapping.count(tail))
+@unsafe
+def Emit.Mapping.reverting_halt(+halt: Asm.Halt) -> Bool:
+  match halt:
+    case Asm.Halt.Stop{}: False{}
+    case Asm.Halt.Return{}: False{}
+    case Asm.Halt.Revert{}: True{}
+    case Asm.Halt.Invalid{}: False{}
+    case Asm.Halt.Selfdestruct{}: False{}
+@unsafe
+def Emit.Mapping.reverting(+ending: Asm.Ending) -> Bool:
+  match ending:
+    case Asm.Ending.Halt{halt}: Emit.Mapping.reverting_halt(halt)
+    case Asm.Ending.Goto{_, _}: False{}
+    case Asm.Ending.Branch{_, _, _}: False{}
+    case Asm.Ending.Next{_}: False{}
+@unsafe
+def Emit.Mapping.high_word(+offset: OptionOf(Big), +high: OptionOf(Big)) -> OptionOf(Big):
+  match offset:
+    case None{}: None{}
+    case Some{value}:
+      match high:
+        case None{}: None{}
+        case Some{limit}: Some{Big.maximum(limit, Big.add(value, Big.of_nat(32n)))}
+@unsafe
+def Emit.Mapping.memory_op(+name: String, +reverts: Bool) -> Bool:
+  Native.choose(&2, Bool, NativeString.equal(name, "MLOAD"), _ => True{}, _ => Native.choose(&2, Bool, NativeString.equal(name, "MSTORE"), _ => Native.choose(&2, Bool, reverts, _ => False{}, _ => True{}), _ => False{}))
+@unsafe
+def Emit.Mapping.high_body(+body: ListOf(Asm.Instruction), +reverts: Bool, +offset: OptionOf(Big), +high: OptionOf(Big)) -> OptionOf(Big):
+  match body:
+    case Nil{}: high
+    case Con{instruction, tail}: Emit.Mapping.high_step(instruction, tail, reverts, offset, high)
+@unsafe
+def Emit.Mapping.high_step(+instruction: Asm.Instruction, +tail: ListOf(Asm.Instruction), +reverts: Bool, +offset: OptionOf(Big), +high: OptionOf(Big)) -> OptionOf(Big):
+  match instruction:
+    case Asm.Instruction.Push{hex}: Emit.Mapping.high_body(tail, reverts, Some{Layout.Mapping.digest_value(hex, Big.zero())}, high)
+    case Asm.Instruction.Op{name}:
+      Native.choose(&2, OptionOf(Big), Emit.Mapping.memory_op(name, reverts), _ => Emit.Mapping.high_body(tail, reverts, None{}, Emit.Mapping.high_word(offset, high)), _ => Emit.Mapping.high_body(tail, reverts, None{}, high))
+    case Asm.Instruction.Dup{_}: Emit.Mapping.high_body(tail, reverts, None{}, high)
+    case Asm.Instruction.Swap{_}: Emit.Mapping.high_body(tail, reverts, None{}, high)
+@unsafe
+def Emit.Mapping.high(+blocks: ListOf(Asm.Block), +high: OptionOf(Big)) -> OptionOf(Big):
+  match blocks:
+    case Nil{}: high
+    case Con{block, tail}: Emit.Mapping.high(tail, Emit.Mapping.high_body(Get.Asm.Block.body(block), Emit.Mapping.reverting(Get.Asm.Block.ending(block)), None{}, high))
+@unsafe
+def Emit.Mapping.base(+blocks: ListOf(Asm.Block), +high: OptionOf(Big)) -> Big:
+  match high:
+    case Some{limit}: limit
+    case None{}: Big.add(Big.of_nat(256n), Big.mul(Emit.Mapping.count(blocks), Big.of_nat(32n)))
+@unsafe
+def Emit.Mapping.hash(+path: ListOf(TupleOf2(Big, Abi.Schema.Value_type)), +scratch: Big) -> ListOf(Asm.Instruction):
+  match path:
+    case Nil{}: []
+    case Con{Tup2{address, _}, tail}:
+      List.append(&2, Asm.Instruction, [Emit.number(Big.add(scratch, Big.of_nat(32n))), Asm.Instruction.Op{"MSTORE"}, Emit.number(address), Asm.Instruction.Op{"MLOAD"}, Emit.number(scratch), Asm.Instruction.Op{"MSTORE"}, Emit.number(Big.of_nat(64n)), Emit.number(scratch), Asm.Instruction.Op{"KECCAK256"}], Emit.Mapping.hash(tail, scratch))
+@unsafe
+def Emit.Mapping.bound(+typ: Abi.Schema.Value_type) -> OptionOf(Big):
+  Native.choose(&2, OptionOf(Big), Big.is_eq(Big.of_nat(Layout.Packed.bits(typ)), Big.of_nat(256n)), _ => None{}, _ => Some{Big.shift_left(Big.one(), Layout.Packed.bits(typ))})
+@unsafe
+def Emit.Mapping.scalar(+field: Layout.Packed.Field, +operation: String) -> Emit.Mapping.Code:
+  match field:
+    case Layout.Packed.Field{_, typ, _, _}:
+      Native.choose(&2, Emit.Mapping.Code, NativeString.equal(operation, "SLOAD"), _ =>
+        Emit.Mapping.Code{Emit.Packed.load(field), Native.choose(&2, OptionOf(Big), Emit.Packed.boolean(typ), _ => Some{Big.of_nat(2n)}, _ => None{}), True{}}, _ =>
+        Emit.Mapping.Code{Emit.Packed.store(field), Emit.Mapping.bound(typ), False{}})
+@unsafe
+def Emit.Mapping.access(+typ: Abi.Schema.Value_type, +base: Big, +path: ListOf(TupleOf2(Big, Abi.Schema.Value_type)), +scratch: Big, +operation: String) -> Emit.Mapping.Code:
+  +hash = {Emit.number(base) <> Emit.Mapping.hash(path, scratch) : ListOf(Asm.Instruction)}
+  Native.choose(&2, Emit.Mapping.Code, NativeString.equal(operation, "SLOAD"), _ =>
+    +mask = Native.choose(&2, ListOf(Asm.Instruction), Big.is_eq(Big.of_nat(Layout.Packed.width(typ)), Big.of_nat(32n)), _ => [], _ => [Emit.number(Emit.Packed.mask(Layout.Packed.width(typ))), Asm.Instruction.Op{"AND"}])
+    Emit.Mapping.Code{List.append(&2, Asm.Instruction, hash, Asm.Instruction.Op{"SLOAD"} <> mask), Native.choose(&2, OptionOf(Big), Emit.Packed.boolean(typ), _ => Some{Big.of_nat(2n)}, _ => None{}), True{}}
+  , _ =>
+    +store = Native.choose(&2, ListOf(Asm.Instruction), Big.is_eq(Big.of_nat(Layout.Packed.width(typ)), Big.of_nat(32n)), _ => [Asm.Instruction.Op{"SSTORE"}], _ =>
+      [Asm.Instruction.Dup{Big.one()}, Asm.Instruction.Op{"SLOAD"}, Emit.number(Big.sub(Emit.Packed.mask(32n), Emit.Packed.mask(Layout.Packed.width(typ)))), Asm.Instruction.Op{"AND"}, Asm.Instruction.Swap{Big.one()}, Asm.Instruction.Swap{Big.of_nat(2n)}, Asm.Instruction.Op{"OR"}, Asm.Instruction.Swap{Big.one()}, Asm.Instruction.Op{"SSTORE"}])
+    Emit.Mapping.Code{List.append(&2, Asm.Instruction, hash, store), Emit.Mapping.bound(typ), False{}})
+@unsafe
+def Emit.Mapping.code(+cell: OptionOf(Mapping.Runtime.Cell), +operation: String) -> Emit.Result(Emit.Mapping.Code):
+  match cell:
+    case Some{Mapping.Runtime.Cell.Scalar{field}}: Done{Emit.Mapping.scalar(field, operation)}
+    case Some{Mapping.Runtime.Cell.Key{typ, address}}:
+      Native.choose(&2, Emit.Result(Emit.Mapping.Code), NativeString.equal(operation, "SSTORE"), _ => Done{Emit.Mapping.Code{[Emit.number(address), Asm.Instruction.Op{"MSTORE"}], Emit.Mapping.bound(typ), False{}}}, _ => Fail{Emit.Error.Invalid_ir{"MAPPING: key temporary is write-only"}})
+    case Some{Mapping.Runtime.Cell.Access{typ, base, path, scratch}}: Done{Emit.Mapping.access(typ, base, path, scratch, operation)}
+    case Some{Mapping.Runtime.Cell.Reserved{_}}: Fail{Emit.Error.Invalid_ir{"MAPPING: invalid storage operation"}}
+    case None{}: Fail{Emit.Error.Invalid_ir{"MAPPING: invalid storage operation"}}
+@unsafe
+def Emit.Mapping.storage(+label: String, +destination: Bool, +stack: Big, +hex: String, +operation: String, +rest: ListOf(Asm.Instruction), +acc: ListOf(Asm.Instruction), +ending: Asm.Ending, +fields: Mapping.Runtime.Cells(), +serial: Nat) -> Emit.Result(ListOf(Asm.Block)):
+  Emit.Result.bind(Emit.Mapping.Code, ListOf(Asm.Block), Emit.Mapping.code(Mapping.Runtime.find(Layout.Mapping.digest_value(hex, Big.zero()), fields), operation), code => Emit.Mapping.storage_code(label, destination, stack, rest, acc, ending, fields, serial, code))
+@unsafe
+def Emit.Mapping.storage_code(+label: String, +destination: Bool, +stack: Big, +rest: ListOf(Asm.Instruction), +acc: ListOf(Asm.Instruction), +ending: Asm.Ending, +fields: Mapping.Runtime.Cells(), +serial: Nat, +code: Emit.Mapping.Code) -> Emit.Result(ListOf(Asm.Block)):
+  match code:
+    case Emit.Mapping.Code{instructions, bound, after}:
+      Emit.Mapping.storage_bound(label, destination, stack, rest, acc, ending, fields, serial, instructions, bound, after, List.append(&2, Asm.Instruction, List.reverse(&2, Asm.Instruction, instructions), acc))
+@unsafe
+def Emit.Mapping.storage_bound(+label: String, +destination: Bool, +stack: Big, +rest: ListOf(Asm.Instruction), +acc: ListOf(Asm.Instruction), +ending: Asm.Ending, +fields: Mapping.Runtime.Cells(), +serial: Nat, +instructions: ListOf(Asm.Instruction), +bound: OptionOf(Big), +after: Bool, +loaded: ListOf(Asm.Instruction)) -> Emit.Result(ListOf(Asm.Block)):
+  match bound:
+    case None{}: Emit.Mapping.scan(label, destination, stack, rest, loaded, ending, fields, serial)
+    case Some{limit}:
+      Native.choose(&2, Emit.Result(ListOf(Asm.Block)), after, _ => Emit.Mapping.guard(label, destination, stack, rest, loaded, ending, fields, serial, limit, []), _ => Emit.Mapping.guard(label, destination, stack, rest, acc, ending, fields, serial, limit, instructions))
+@unsafe
+def Emit.Mapping.assemble(+blocks: ListOf(Asm.Block), +cells: Mapping.Runtime.Cells()) -> Emit.Result(Asm):
+  +base = Emit.Mapping.base(blocks, Emit.Mapping.high(blocks, Some{Big.zero()}))
+  Emit.Result.bind(ListOf(Asm.Block), Asm, Emit.Mapping.blocks(blocks, Emit.Mapping.memory(cells, cells, base)), lowered => Emit.assemble(lowered))
+@unsafe
+def Emit.Mapping.program(+contract: String, +export: String, +globals: Global, +rows: ListOf(TupleOf2(String, Global.Entry)), +erased: ListOf(TupleOf2(String, Erase.Entry)), +schema: Mapping.Source.Schema, +cells: Mapping.Runtime.Cells()) -> Emit.Result(Emit.Output):
+  Emit.Result.bind(TupleOf5(ListOf(Emit.Entry), Emit.Effect, ListOf(String), ListOf(TupleOf2(Abi.Custom_error, String)), OptionOf(Emit.Transaction)), Emit.Output, Emit.Mapping.prepare_m1(export, globals, erased, cells), packet => Emit.Mapping.prepared(contract, rows, schema, cells, packet))
+@unsafe
+def Emit.Mapping.prepared(+contract: String, +rows: ListOf(TupleOf2(String, Global.Entry)), +schema: Mapping.Source.Schema, +cells: Mapping.Runtime.Cells(), +packet: TupleOf5(ListOf(Emit.Entry), Emit.Effect, ListOf(String), ListOf(TupleOf2(Abi.Custom_error, String)), OptionOf(Emit.Transaction))) -> Emit.Result(Emit.Output):
+  match packet:
+    case Tup5{entries, constructor, names, errors, fallback}:
+      Native.choose(&2, Emit.Result(Emit.Output), Emit.Packed.names(Mapping.Runtime.fake_fields(cells), names), _ =>
+        Emit.Result.bind(Asm, Emit.Output, Emit.Mapping.assemble(Emit.dispatch_blocks(fallback, entries), cells), program =>
+          +abi = Abi.print(Some{SeqList.map(&2, &2, TupleOf2(Abi.Custom_error, String), Abi.Custom_error, row => Emit.Packed.error(row), errors)}, Some{Maybe.is_some(&2, Emit.Transaction, fallback)}, SeqList.map(&2, &2, Emit.Entry, Abi.Entry, entry => Get.Emit.Entry.abi_entry(entry), entries))
+          Emit.Result.bind(Emit.Output, Emit.Output, Emit.output(contract, "generated mapping storage listing", runtime => Emit.Mapping.init(runtime, constructor, cells), abi, names, rows, program), output => Emit.Mapping.output(schema, output)))
+      , _ => Fail{Emit.Error.Invalid_ir{"MAPPING: checked core fields and source layout differ"}})
+@unsafe
+def Emit.Mapping.output(+schema: Mapping.Source.Schema, +output: Emit.Output) -> Emit.Result(Emit.Output):
+  match output:
+    case MkEmit_Output{runtime, init, abi, _, axioms, listing, _}:
+      Emit.Result.bind(String, Emit.Output, Mapping.Layout.print(schema), layout => Done{MkEmit_Output{runtime, init, abi, layout, axioms, listing, Mapping.Layout.slots(schema)}})
+
+@unsafe
+def Mapping.Layout.type_id(+typ: Mapping.Source.Type) -> String:
+  match typ:
+    case Mapping.Source.Type.Scalar{typ}: String.append("t_", Abi.Schema.type_name(typ))
+    case Mapping.Source.Type.Mapping{key, value}: String.concat(["t_mapping(", Mapping.Layout.type_id(Mapping.Source.Type.Scalar{key}), ",", Mapping.Layout.type_id(value), ")"])
+@unsafe
+def Mapping.Layout.label(+typ: Mapping.Source.Type) -> String:
+  match typ:
+    case Mapping.Source.Type.Scalar{typ}: Abi.Schema.type_name(typ)
+    case Mapping.Source.Type.Mapping{key, value}: String.concat(["mapping(", Abi.Schema.type_name(key), " => ", Mapping.Layout.label(value), ")"])
+@unsafe
+def Mapping.Layout.json(+typ: Mapping.Source.Type) -> String:
+  match typ:
+    case Mapping.Source.Type.Scalar{typ}: String.concat(["{", Abi.quote("encoding"), ":", Abi.quote("inplace"), ",", Abi.quote("label"), ":", Abi.quote(Abi.Schema.type_name(typ)), ",", Abi.quote("numberOfBytes"), ":", Abi.quote(Big.show(Big.of_nat(Layout.Packed.width(typ)))), "}"])
+    case Mapping.Source.Type.Mapping{key, value}: String.concat(["{", Abi.quote("encoding"), ":", Abi.quote("mapping"), ",", Abi.quote("label"), ":", Abi.quote(Mapping.Layout.label(typ)), ",", Abi.quote("key"), ":", Abi.quote(Mapping.Layout.type_id(Mapping.Source.Type.Scalar{key})), ",", Abi.quote("value"), ":", Abi.quote(Mapping.Layout.type_id(value)), ",", Abi.quote("numberOfBytes"), ":", Abi.quote("32"), "}"])
+@unsafe
+def Mapping.Layout.types(+typ: Mapping.Source.Type) -> ListOf(TupleOf2(String, String)):
+  Mapping.Layout.children(typ, Tup2{Mapping.Layout.type_id(typ), Mapping.Layout.json(typ)})
+@unsafe
+def Mapping.Layout.children(+typ: Mapping.Source.Type, +row: TupleOf2(String, String)) -> ListOf(TupleOf2(String, String)):
+  match typ:
+    case Mapping.Source.Type.Scalar{_}: [row]
+    case Mapping.Source.Type.Mapping{key, value}: row <> List.append(&2, TupleOf2(String, String), Mapping.Layout.types(Mapping.Source.Type.Scalar{key}), Mapping.Layout.types(value))
+def Mapping.Layout.row_id(+row: TupleOf2(String, String)) -> String:
+  match row:
+    case Tup2{name, _}: name
+@unsafe
+def Mapping.Layout.row(+row: TupleOf2(String, String)) -> String:
+  match row:
+    case Tup2{name, value}: String.concat([Abi.quote(name), ":", value])
+@unsafe
+def Mapping.Layout.type_rows(+fields: ListOf(Mapping.Source.Field)) -> ListOf(TupleOf2(String, String)):
+  match fields:
+    case Nil{}: []
+    case Con{Mapping.Source.Field{_, typ}, tail}: List.append(&2, TupleOf2(String, String), Mapping.Layout.types(typ), Mapping.Layout.type_rows(tail))
+@unsafe
+def Mapping.Layout.rows(+contract: String, +fields: ListOf(Mapping.Source.Field), +physical: ListOf(Layout.Packed.Field), +index: Big) -> ListOf(String):
+  match fields:
+    case Nil{}: []
+    case Con{Mapping.Source.Field{name, typ}, tail}:
+      match physical:
+        case Nil{}: []
+        case Con{Layout.Packed.Field{_, _, slot, offset}, rest}:
+          String.concat(["{", Abi.quote("astId"), ":", Big.show(index), ",", Abi.quote("contract"), ":", Abi.quote(contract), ",", Abi.quote("label"), ":", Abi.quote(name), ",", Abi.quote("slot"), ":", Abi.quote(Big.show(slot)), ",", Abi.quote("offset"), ":", Big.show(Big.of_nat(offset)), ",", Abi.quote("type"), ":", Abi.quote(Mapping.Layout.type_id(typ)), "}"]) <> Mapping.Layout.rows(contract, tail, rest, Big.add(index, Big.one()))
+@unsafe
+def Mapping.Layout.print(+schema: Mapping.Source.Schema) -> Emit.Result(String):
+  match schema:
+    case Mapping.Source.Schema{contract, fields}:
+      Mapping.Layout.planned(contract, fields, Layout.Packed.plan(Mapping.Source.parameters(fields)))
+@unsafe
+def Mapping.Layout.planned(+contract: String, +fields: ListOf(Mapping.Source.Field), +result: Layout.Packed.Result(ListOf(Layout.Packed.Field))) -> Emit.Result(String):
+  match result:
+    case Fail{_}: Fail{Emit.Error.Invalid_ir{"MAPPING: invalid storage layout"}}
+    case Done{physical}:
+      +types = SeqList.sort_uniq(&2, TupleOf2(String, String), a => b => NativeString.compare(Mapping.Layout.row_id(a), Mapping.Layout.row_id(b)), Mapping.Layout.type_rows(fields))
+      Done{String.concat(["{", Abi.quote("storage"), ":[", String.join(Mapping.Layout.rows(contract, fields, physical, Big.zero()), ","), "],", Abi.quote("types"), ":{", String.join(SeqList.map(&2, &2, TupleOf2(String, String), String, row => Mapping.Layout.row(row), types), ","), "}}"])}
+@unsafe
+def Mapping.Layout.slots(+schema: Mapping.Source.Schema) -> Big:
+  match schema:
+    case Mapping.Source.Schema{_, fields}:
+      Mapping.Layout.slot_result(Layout.Packed.plan(Mapping.Source.parameters(fields)))
+def Mapping.Layout.slot_result(+result: Layout.Packed.Result(ListOf(Layout.Packed.Field))) -> Big:
+  match result:
+    case Fail{_}: Big.zero()
+    case Done{physical}: Emit.Packed.slots(physical, Big.zero())
+@unsafe
+def Emit.Mapping.next(+label: String, +destination: Bool, +stack: Big, +instruction: Asm.Instruction, +rest: ListOf(Asm.Instruction), +acc: ListOf(Asm.Instruction), +ending: Asm.Ending, +fields: Mapping.Runtime.Cells(), +serial: Nat) -> Emit.Result(ListOf(Asm.Block)):
+  Emit.Mapping.scan(label, destination, stack, rest, Con{instruction, acc}, ending, fields, serial)
+
+@unsafe
+def Emit.Mapping.guard(+label: String, +destination: Bool, +stack: Big, +rest: ListOf(Asm.Instruction), +acc: ListOf(Asm.Instruction), +ending: Asm.Ending, +fields: Mapping.Runtime.Cells(), +serial: Nat, +bound: Big, +accepted: ListOf(Asm.Instruction)) -> Emit.Result(ListOf(Asm.Block)):
+  +continue = String.concat([label, ":mapping:", Big.show(Big.of_nat(serial)), ":continue"])
+  +reject = String.concat([label, ":mapping:", Big.show(Big.of_nat(serial)), ":reject"])
+  +guard = List.append(&2, Asm.Instruction, List.reverse(&2, Asm.Instruction, acc), [Asm.Instruction.Dup{Big.one()}, Emit.number(bound), Asm.Instruction.Swap{Big.one()}, Asm.Instruction.Op{"LT"}])
+  Case.MappingRuntime.switch_8(Emit.Mapping.scan(continue, True{}, Big.one(), rest, List.reverse(&2, Asm.Instruction, accepted), ending, fields, (serial + 1n: Nat)), continue, destination, guard, label, reject, stack)
+
+@unsafe
+def Emit.Mapping.scan(+label: String, +destination: Bool, +stack: Big, +instructions: ListOf(Asm.Instruction), +acc: ListOf(Asm.Instruction), +ending: Asm.Ending, +fields: Mapping.Runtime.Cells(), +serial: Nat) -> Emit.Result(ListOf(Asm.Block)):
+  Case.MappingRuntime.switch_26(instructions, acc, destination, ending, fields, label, serial, stack)
+
+@unsafe
+def Emit.Mapping.blocks(+blocks: ListOf(Asm.Block), +fields: Mapping.Runtime.Cells()) -> Emit.Result(ListOf(Asm.Block)):
+  Case.MappingRuntime.switch_22(blocks, fields)
+
+@unsafe
+def Emit.Mapping.init(+runtime: String, +constructor: Emit.Effect, +fields: Mapping.Runtime.Cells()) -> Emit.Result(String):
+  Case.MappingRuntime.switch_14(Emit.constructor_body(constructor), fields, runtime)
+
+@unsafe
+def Case.MappingRuntime.switch_8(+packed_switch_8: Emit.Result(ListOf(Asm.Block)), +continue: String, +destination: Bool, +guard: ListOf(Asm.Instruction), +label: String, +reject: String, +stack: Big) -> Emit.Result(ListOf(Asm.Block)):
+  match packed_switch_8:
+    case Fail{error}: Fail{error}
+    case Done{blocks}: Done{Con{MkAsm_Block{label, destination, stack, guard, Asm.Ending.Branch{Big.of_nat(2n), continue, reject}}, Con{MkAsm_Block{reject, True{}, Big.one(), [Asm.Instruction.Op{"POP"}, Emit.number(Big.zero()), Emit.number(Big.zero())], Asm.Ending.Halt{Asm.Halt.Revert{}}}, blocks}}}
+
+@unsafe
+def Case.MappingRuntime.switch_14(+packed_switch_14: Emit.Result(ListOf(Asm.Instruction)), +fields: Mapping.Runtime.Cells(), +runtime: String) -> Emit.Result(String):
+  match packed_switch_14:
+    case Fail{error}: Fail{error}
+    case Done{body}:
+      +size = Big.shift_right(Big.of_nat(String.length(runtime)), 1n)
+      Emit.settle_init(runtime, +offset => Emit.Mapping.assemble([
+        Emit.block(None{}, "constructor", [Asm.Instruction.Op{"CALLVALUE"}], Emit.branch_to("reject", "initialize")),
+        Emit.marked("initialize", List.append(&2, Asm.Instruction, body, [Emit.number(size), Emit.number(offset), Emit.number(Big.zero()), Asm.Instruction.Op{"CODECOPY"}, Emit.number(size), Emit.number(Big.zero())]), Asm.Ending.Halt{Asm.Halt.Return{}}),
+        Emit.marked("reject", [Emit.number(Big.zero()), Emit.number(Big.zero())], Asm.Ending.Halt{Asm.Halt.Revert{}})
+      ], fields))
+
+@unsafe
+def Case.MappingRuntime.switch_22(+packed_switch_22: ListOf(Asm.Block), +fields: Mapping.Runtime.Cells()) -> Emit.Result(ListOf(Asm.Block)):
+  match packed_switch_22:
+    case Nil{}: Done{Nil{}}
+    case Con{MkAsm_Block{label, destination, stack, body, ending}, rest}:
+      Case.MappingRuntime.switch_11(Emit.Mapping.scan(label, destination, stack, body, Nil{}, ending, fields, 0n), fields, rest)
+
+@unsafe
+def Case.MappingRuntime.switch_23(+packed_switch_23: Asm.Instruction, +acc: ListOf(Asm.Instruction), +destination: Bool, +ending: Asm.Ending, +fields: Mapping.Runtime.Cells(), +hex: String, +instruction: Asm.Instruction, +label: String, +rest: ListOf(Asm.Instruction), +serial: Nat, +stack: Big, +tail: ListOf(Asm.Instruction)) -> Emit.Result(ListOf(Asm.Block)):
+  match packed_switch_23:
+    case Asm.Instruction.Op{operation}:
+      Native.choose(&2, Emit.Result(ListOf(Asm.Block)), Bool.or(NativeString.equal(operation, "SLOAD"), NativeString.equal(operation, "SSTORE")), _ =>
+        Emit.Mapping.storage(label, destination, stack, hex, operation, rest, acc, ending, fields, serial), _ => Emit.Mapping.next(label, destination, stack, instruction, tail, acc, ending, fields, serial))
+    case Asm.Instruction.Push{_}: Emit.Mapping.next(label, destination, stack, instruction, tail, acc, ending, fields, serial)
+    case Asm.Instruction.Dup{_}: Emit.Mapping.next(label, destination, stack, instruction, tail, acc, ending, fields, serial)
+    case Asm.Instruction.Swap{_}: Emit.Mapping.next(label, destination, stack, instruction, tail, acc, ending, fields, serial)
+
+@unsafe
+def Case.MappingRuntime.switch_24(+packed_switch_24: ListOf(Asm.Instruction), +acc: ListOf(Asm.Instruction), +destination: Bool, +ending: Asm.Ending, +fields: Mapping.Runtime.Cells(), +hex: String, +instruction: Asm.Instruction, +label: String, +serial: Nat, +stack: Big, +tail: ListOf(Asm.Instruction)) -> Emit.Result(ListOf(Asm.Block)):
+  match packed_switch_24:
+    case Nil{}: Emit.Mapping.next(label, destination, stack, instruction, tail, acc, ending, fields, serial)
+    case Con{next, rest}:
+      Case.MappingRuntime.switch_23(next, acc, destination, ending, fields, hex, instruction, label, rest, serial, stack, tail)
+
+@unsafe
+def Case.MappingRuntime.switch_25(+packed_switch_25: Asm.Instruction, +acc: ListOf(Asm.Instruction), +destination: Bool, +ending: Asm.Ending, +fields: Mapping.Runtime.Cells(), +instruction: Asm.Instruction, +label: String, +serial: Nat, +stack: Big, +tail: ListOf(Asm.Instruction)) -> Emit.Result(ListOf(Asm.Block)):
+  match packed_switch_25:
+    case Asm.Instruction.Push{hex}:
+      Case.MappingRuntime.switch_24(tail, acc, destination, ending, fields, hex, instruction, label, serial, stack, tail)
+    case Asm.Instruction.Op{_}: Emit.Mapping.next(label, destination, stack, instruction, tail, acc, ending, fields, serial)
+    case Asm.Instruction.Dup{_}: Emit.Mapping.next(label, destination, stack, instruction, tail, acc, ending, fields, serial)
+    case Asm.Instruction.Swap{_}: Emit.Mapping.next(label, destination, stack, instruction, tail, acc, ending, fields, serial)
+
+@unsafe
+def Case.MappingRuntime.switch_26(+packed_switch_26: ListOf(Asm.Instruction), +acc: ListOf(Asm.Instruction), +destination: Bool, +ending: Asm.Ending, +fields: Mapping.Runtime.Cells(), +label: String, +serial: Nat, +stack: Big) -> Emit.Result(ListOf(Asm.Block)):
+  match packed_switch_26:
+    case Nil{}: Done{[MkAsm_Block{label, destination, stack, List.reverse(&2, Asm.Instruction, acc), ending}]}
+    case Con{instruction, tail}:
+      Case.MappingRuntime.switch_25(instruction, acc, destination, ending, fields, instruction, label, serial, stack, tail)
+
+@unsafe
+def Model.Mapping.transaction(+fields: Mapping.Runtime.Cells(), +input: Model.Input, +storage: Model.Storage, +memory: Model.Storage, +tx: Emit.Transaction) -> Model.Result(Model.Outcome):
+  match tx:
+    case Emit.Transaction.Finish{_}: Model.transaction(input, storage, memory, tx)
+    case Emit.Transaction.Abort{}: Model.transaction(input, storage, memory, tx)
+    case Emit.Transaction.Reject{_, _}: Model.transaction(input, storage, memory, tx)
+    case Emit.Transaction.Store{slot, operand, next}:
+      Model.Result.bind(Big, Model.Outcome, Model.operand(memory, operand), value => Model.Mapping.store(fields, input, storage, memory, slot, value, next))
+    case Emit.Transaction.Load{slot, target, next}: Model.Mapping.load(fields, input, storage, memory, slot, target, next)
+    case Emit.Transaction.Context{context, target, next}:
+      Model.Result.bind(Big, Model.Outcome, Model.Packed.context(input, memory, context), +value =>
+        Model.Mapping.transaction(fields, input, storage, Tup2{target, value} <> memory, next))
+    case Emit.Transaction.Arithmetic{operation, left, right, target, success, failure}:
+      Model.Result.bind(Big, Model.Outcome, Model.operand(memory, left), +a =>
+        Model.Result.bind(Big, Model.Outcome, Model.operand(memory, right), +b =>
+          +value = Model.Packed.arithmetic(operation, a, b)
+          Big.when(Model.Result(Model.Outcome), Abi.Codec.within(Big.of_nat(256n), value),
+            _ => Model.Mapping.transaction(fields, input, storage, Tup2{target, value} <> memory, success),
+            _ => Model.Mapping.transaction(fields, input, storage, memory, failure))))
+    case Emit.Transaction.Compute{operation, left, right, target, next}:
+      Model.Result.bind(Big, Model.Outcome, Model.operand(memory, left), +a =>
+        Model.Result.bind(Big, Model.Outcome, Model.operand(memory, right), +b =>
+          +value = Model.Packed.arithmetic(operation, a, b)
+          Big.when(Model.Result(Model.Outcome), Abi.Codec.within(Big.of_nat(256n), value),
+            _ => Model.Mapping.transaction(fields, input, storage, Tup2{target, value} <> memory, next),
+            _ => Fail{Model.Error.Source{Emit.Error.M1_shape{"proved arithmetic bound"}}})))
+    case Emit.Transaction.Compare{left, right, yes, no}:
+      Model.Result.bind(Big, Model.Outcome, Model.operand(memory, left), +a =>
+        Model.Result.bind(Big, Model.Outcome, Model.operand(memory, right), +b =>
+          Big.when(Model.Result(Model.Outcome), Big.is_le(a, b),
+            _ => Model.Mapping.transaction(fields, input, storage, memory, yes),
+            _ => Model.Mapping.transaction(fields, input, storage, memory, no))))
+
+@unsafe
+def Model.Mapping.entry(+fields: Mapping.Runtime.Cells(), +input: Model.Input, +entry: Emit.Entry) -> Model.Result(Model.Outcome):
+  +arity = Big.of_nat(List.length(&2, String, Get.Abi.Entry.inputs(Get.Emit.Entry.abi_entry(entry))))
+  +short = Big.is_lt(Big.of_nat(String.length(Get.Model.Input.data(input))), Big.add(Big.of_nat(8n), Big.mul(Big.of_nat(64n), arity)))
+  +unpaid = Bool.and(Bool.not(Big.is_eq(Get.Model.Input.value(input), Big.zero())), Bool.not(Abi.accepts_value(Get.Emit.Entry.abi_entry(entry))))
+  Big.when(Model.Result(Model.Outcome), Bool.or(short, unpaid), _ => Done{Model.revert(Get.Model.Input.initial(input))}, _ =>
+    +memory = SeqList.init(&2, TupleOf2(Big, Big), arity, +index => Tup2{Big.add(index, Big.one()), Model.calldata_word(Get.Model.Input.data(input), Big.add(Big.of_nat(4n), Big.mul(Big.of_nat(32n), index)))})
+    Model.Mapping.transaction(fields, input, Get.Model.Input.initial(input), memory, Get.Emit.Entry.tx(entry)))
+
+@unsafe
+def Model.Mapping.fallback(+fields: Mapping.Runtime.Cells(), +input: Model.Input, +fallback: Emit.Transaction) -> Model.Result(Model.Outcome):
+  Big.when(Model.Result(Model.Outcome), Big.is_eq(Get.Model.Input.value(input), Big.zero()),
+    _ => Model.Mapping.transaction(fields, input, Get.Model.Input.initial(input), [], fallback),
+    _ => Done{Model.revert(Get.Model.Input.initial(input))})
+
+@unsafe
+def Model.Mapping.run(+fields: Mapping.Runtime.Cells(), +program: Model.Program, +input: Model.Input) -> Model.Result(Model.Outcome):
+  match program:
+    case Model.Program.Closed{effect}: Model.Mapping.closed(fields, input, Get.Model.Input.initial(input), effect)
+    case Model.Program.Entries{entries, fallback}:
+      Big.when(Model.Result(Model.Outcome), Big.is_lt(Big.of_nat(String.length(Get.Model.Input.data(input))), Big.of_nat(8n)),
+        _ => Model.Mapping.fallback(fields, input, fallback), _ =>
+          +selector = Model.segment(Big.zero(), Big.of_nat(8n), Get.Model.Input.data(input))
+          Model.Mapping.dispatch(fields, input, fallback, SeqList.find(&2, Emit.Entry, +entry => NativeString.equal(Get.Emit.Entry.selector(entry), selector), entries)))
+
+@unsafe
+def Model.Mapping.dispatch(+fields: Mapping.Runtime.Cells(), +input: Model.Input, +fallback: Emit.Transaction, +entry: OptionOf(Emit.Entry)) -> Model.Result(Model.Outcome):
+  match entry:
+    case None{}: Model.Mapping.fallback(fields, input, fallback)
+    case Some{row}: Model.Mapping.entry(fields, input, row)
+@unsafe
+def Case.MappingRuntime.switch_11(+packed_switch_11: Emit.Result(ListOf(Asm.Block)), +fields: Mapping.Runtime.Cells(), +rest: ListOf(Asm.Block)) -> Emit.Result(ListOf(Asm.Block)):
+  match packed_switch_11:
+    case Fail{error}: Fail{error}
+    case Done{head}:
+      Case.MappingRuntime.switch_12(Emit.Mapping.blocks(rest, fields), head)
+
+@unsafe
+def Case.MappingRuntime.switch_12(+packed_switch_12: Emit.Result(ListOf(Asm.Block)), +head: ListOf(Asm.Block)) -> Emit.Result(ListOf(Asm.Block)):
+  match packed_switch_12:
+    case Fail{error}: Fail{error}
+    case Done{tail}: Done{List.append(&2, Asm.Block, head, tail)}
+@unsafe
+def Recognize.Mapping.collection(+limit: Big, +globals_1143: Global, +variant_1144: Bool, +name_1145: String) -> ResultOf(Recognize.Error, ListOf(String)):
+  Match.Result(&2, Global.Def_entry, &2, Recognize.Error, &2, ResultOf(Recognize.Error, ListOf(String)), Recognize.definition(globals_1143, name_1145), +item9689 => ((+local9599 => ((+scrut9600 = {Get.Global.Def_entry.def(local9599) : Term}
+  Match.Term(&2, ResultOf(Recognize.Error, ListOf(String)), scrut9600, +p9601 => (Fail{Recognize.Error.Protocol{String.append("M1 ", name_1145)}}), +p9602 => (Fail{Recognize.Error.Protocol{String.append("M1 ", name_1145)}}), +p9603 => +p9604 => ((+otherwise9605 = {_ => (Fail{Recognize.Error.Protocol{String.append("M1 ", name_1145)}}) : Unit -> ResultOf(Recognize.Error, ListOf(String))}
+  Match.Shape.only_Shape_SColl(&2, Term, &2, ResultOf(Recognize.Error, ListOf(String)), p9603, +p9606 => (Native.choose(&2, ResultOf(Recognize.Error, ListOf(String)), Big.when(Bool, variant_1144, _ => (Big.when(Bool, Big.is_lt(Big.zero(), p9606), _ => (Big.is_le(p9606, limit)), _ => (False{}))), _ => (False{})), _ => (Recognize.names_in_diagram(name_1145, p9606, p9604)), _ => (otherwise9605(Unit{})))), _ => (otherwise9605(Unit{}))))), +p9660 => +p9661 => ((+otherwise9662 = {_ => (Fail{Recognize.Error.Protocol{String.append("M1 ", name_1145)}}) : Unit -> ResultOf(Recognize.Error, ListOf(String))}
+  Match.Shape.only_Shape_SColl(&2, Term, &2, ResultOf(Recognize.Error, ListOf(String)), p9660, +p9663 => (Native.choose(&2, ResultOf(Recognize.Error, ListOf(String)), Big.when(Bool, Bool.not(variant_1144), _ => (Big.when(Bool, Big.is_le(Big.zero(), p9663), _ => (Big.is_le(p9663, limit)), _ => (False{}))), _ => (False{})), _ => (Recognize.names_in_diagram(name_1145, p9663, p9661)), _ => (otherwise9662(Unit{})))), _ => (otherwise9662(Unit{}))))), +p9664 => +p9665 => +p9666 => (Fail{Recognize.Error.Protocol{String.append("M1 ", name_1145)}}), +p9667 => (Fail{Recognize.Error.Protocol{String.append("M1 ", name_1145)}}), +p9668 => +p9669 => (Fail{Recognize.Error.Protocol{String.append("M1 ", name_1145)}}), +p9670 => +p9671 => +p9672 => (Fail{Recognize.Error.Protocol{String.append("M1 ", name_1145)}}), +p9673 => +p9674 => +p9675 => +p9676 => (Fail{Recognize.Error.Protocol{String.append("M1 ", name_1145)}}), +p9677 => +p9678 => ((+otherwise9679 = {_ => (Fail{Recognize.Error.Protocol{String.append("M1 ", name_1145)}}) : Unit -> ResultOf(Recognize.Error, ListOf(String))}
+  Match.Term.only_Term_Ran(&2, ResultOf(Recognize.Error, ListOf(String)), p9677, +p9680 => +p9681 => (Match.Shape.only_Shape_SColl(&2, Term, &2, ResultOf(Recognize.Error, ListOf(String)), p9680, +p9682 => (Native.choose(&2, ResultOf(Recognize.Error, ListOf(String)), Big.is_eq(p9682, Big.zero()), _ => (Match.Term.only_Term_Sec(&2, ResultOf(Recognize.Error, ListOf(String)), p9681, +p9683 => +p9684 => (Match.Shape.only_Shape_SColl(&2, Term, &2, ResultOf(Recognize.Error, ListOf(String)), p9683, +p9685 => (Native.choose(&2, ResultOf(Recognize.Error, ListOf(String)), Big.is_eq(p9685, Big.zero()), _ => (Match.List.only_Nil(&2, Term.Leg, &2, ResultOf(Recognize.Error, ListOf(String)), p9684, _ => (Match.Term.only_Term_Univ(&2, ResultOf(Recognize.Error, ListOf(String)), p9678, +p9686 => (Native.choose(&2, ResultOf(Recognize.Error, ListOf(String)), Big.when(Bool, Bool.not(variant_1144), _ => (Big.is_eq(p9686, Level.one())), _ => (False{})), _ => (Done{Nil{}}), _ => (otherwise9679(Unit{})))), _ => (otherwise9679(Unit{})))), _ => (otherwise9679(Unit{})))), _ => (otherwise9679(Unit{})))), _ => (otherwise9679(Unit{})))), _ => (otherwise9679(Unit{})))), _ => (otherwise9679(Unit{})))), _ => (otherwise9679(Unit{})))), _ => (otherwise9679(Unit{}))))), +p9687 => (Fail{Recognize.Error.Protocol{String.append("M1 ", name_1145)}}), +p9688 => (Fail{Recognize.Error.Protocol{String.append("M1 ", name_1145)}}), _ => (Fail{Recognize.Error.Protocol{String.append("M1 ", name_1145)}})))))(item9689)), +item9690 => Fail{item9690})
+
+@unsafe
+def Recognize.Mapping.schema(+limit: Big, +globals_1325: Global) -> ResultOf(Recognize.Error, TupleOf3(ListOf(String), ListOf(TupleOf2(String, ListOf(String))), ListOf(TupleOf2(String, ListOf(String))))):
+  (+scrut9588 = {Recognize.has_constructor(globals_1325, "Eff", "deployer") : Bool}
+  Match.Result(&2, Unit, &2, Recognize.Error, &2, ResultOf(Recognize.Error, TupleOf3(ListOf(String), ListOf(TupleOf2(String, ListOf(String))), ListOf(TupleOf2(String, ListOf(String))))), Recognize.schema(Some{scrut9588}, globals_1325), +item9855 => ((+local9591 => ((+scrut9592 = local9591
+  (Match.Result(&2, ListOf(String), &2, Recognize.Error, &2, ResultOf(Recognize.Error, TupleOf3(ListOf(String), ListOf(TupleOf2(String, ListOf(String))), ListOf(TupleOf2(String, ListOf(String))))), Recognize.Mapping.collection(limit, globals_1325, False{}, "Storage"), +item9852 => ((+local9692 => (Match.Result(&2, ListOf(TupleOf2(String, ListOf(String))), &2, Recognize.Error, &2, ResultOf(Recognize.Error, TupleOf3(ListOf(String), ListOf(TupleOf2(String, ListOf(String))), ListOf(TupleOf2(String, ListOf(String))))), Recognize.variant(globals_1325, "Entry"), +item9850 => ((+local9714 => (Match.Result(&2, ListOf(TupleOf2(String, ListOf(String))), &2, Recognize.Error, &2, ResultOf(Recognize.Error, TupleOf3(ListOf(String), ListOf(TupleOf2(String, ListOf(String))), ListOf(TupleOf2(String, ListOf(String))))), Native.choose(&2, ResultOf(Recognize.Error, ListOf(TupleOf2(String, ListOf(String)))), Maybe.is_some(&2, Global.Entry, Global.find("Error", globals_1325)), _ => (Recognize.variant(globals_1325, "Error")), _ => (Done{Nil{}})), +item9848 => ((+local9717 => ((+scrut9723 = {SeqList.sort_uniq(&2, String, (+arg9718 => +arg9719 => NativeString.compare(arg9718, arg9719)), List.append(&2, String, local9692, List.concat(&2, String, SeqList.map(&2, &2, TupleOf2(String, ListOf(String)), ListOf(String), (+local9722 => (Get.Tuple2.v1(&2, String, &2, ListOf(String), local9722))), List.append(&2, TupleOf2(String, ListOf(String)), local9714, local9717))))) : ListOf(String)}
+(+scrut9726 = {String.join(SeqList.map(&2, &2, String, String, (+local9725 => (Recognize.declaration(local9725, "Word 256"))), scrut9723), "") : String}
+(+scrut9729 = {Recognize.has_proofs(globals_1325) : Bool}
+(Match.Result(&2, Unit, &2, Recognize.Error, &2, ResultOf(Recognize.Error, TupleOf3(ListOf(String), ListOf(TupleOf2(String, ListOf(String))), ListOf(TupleOf2(String, ListOf(String))))), Assoc.fold(&2, &2, String, Global.Entry, ResultOf(Recognize.Error, Unit), (+local9732 => +local9734 => +local9736 => (Match.Result(&2, Unit, &2, Recognize.Error, &2, ResultOf(Recognize.Error, Unit), local9736, +item9745 => ((+local9739 => ((+scrut9740 = local9739
+(+scrut9741 = local9734
+Match.Global_Entry(&2, ResultOf(Recognize.Error, Unit), scrut9741, +p9742 => (Done{Unit{}}), +p9743 => (Native.choose(&2, ResultOf(Recognize.Error, Unit), Big.when(Bool, scrut9729, _ => (Big.when(Bool, Bool.not(NativeString.equal(local9732, "Nat")), _ => (Bool.not(NativeString.equal(local9732, "EvmOpcodes"))), _ => (False{}))), _ => (False{})), _ => (Fail{Recognize.Error.Protocol{String.append("M1 proof assumption ", local9732)}}), _ => (Done{Unit{}}))), +p9744 => (Done{Unit{}}))))))(item9745)), +item9746 => Fail{item9746}))), Get.Global.entries(globals_1325), Done{Unit{}}), +item9845 => ((+local9748 => ((+scrut9749 = local9748
+(+scrut9752 = {SeqList.filter(&2, Recognize.Context<&2, Unit>, (+local9751 => (Recognize.has_constructor(globals_1325, "Tx", Recognize.context_name(&2, Unit, local9751)))), Recognize.contexts()) : ListOf(Recognize.Context<&2, Unit>)}
+(+scrut9753 = {Recognize.has_constructor(globals_1325, "Tx", "payable") : Bool}
+((+scrut9792 = {String.append(Native.choose(&2, String, Match.List(&2, TupleOf2(String, ListOf(String)), &2, Bool, local9717, _ => True{}, +unused9754 => +unused9755 => False{}), _ => (String.append(Recognize.m1_protocol_for(Some{scrut9729}, Some{scrut9752}, Some{scrut9588}, Some{scrut9753}, ""), scrut9726)), _ => (Recognize.m1_protocol_for(Some{scrut9729}, Some{scrut9752}, Some{scrut9588}, Some{scrut9753}, String.append(scrut9726, Recognize.variant_source(globals_1325, "Error", local9717))))), String.append(Recognize.declaration("Storage", Recognize.collection_source("prod", local9692)), Recognize.variant_source(globals_1325, "Entry", local9714))) : String}
+Match.Result(&2, Unit, &2, Recognize.Error, &2, ResultOf(Recognize.Error, TupleOf3(ListOf(String), ListOf(TupleOf2(String, ListOf(String))), ListOf(TupleOf2(String, ListOf(String))))), Recognize.checked_schema(globals_1325, scrut9792), +item9842 => ((+local9797 => ((+scrut9798 = local9797
+(Match.Result(&2, Unit, &2, Recognize.Error, &2, ResultOf(Recognize.Error, TupleOf3(ListOf(String), ListOf(TupleOf2(String, ListOf(String))), ListOf(TupleOf2(String, ListOf(String))))), (+local9801 => +local9803 => (Native.choose(&2, ResultOf(Recognize.Error, Unit), SeqList.all(&2, TupleOf2(String, ListOf(String)), (+local9805 => ((+scrut9806 = local9805
+Match.Tuple2(&2, String, &2, ListOf(String), &2, Bool, scrut9806, +p9807 => +p9808 => (Big.when(Bool, Match.List(&2, String, &2, Bool, p9808, _ => True{}, +unused9809 => +unused9810 => False{}), _ => (Bool.not(Recognize.typed_unit(globals_1325, p9807))), _ => (False{}))))))), local9803), _ => (Fail{Recognize.Error.Protocol{String.append("M1 nullary ", String.append(local9801, " needs an explicit (prod () : Type 0) argument record"))}}), _ => (Done{Unit{}}))))("Entry", local9714), +item9839 => ((+local9812 => ((+scrut9813 = local9812
+(Match.Result(&2, Unit, &2, Recognize.Error, &2, ResultOf(Recognize.Error, TupleOf3(ListOf(String), ListOf(TupleOf2(String, ListOf(String))), ListOf(TupleOf2(String, ListOf(String))))), Native.choose(&2, ResultOf(Recognize.Error, Unit), Match.List(&2, TupleOf2(String, ListOf(String)), &2, Bool, local9717, _ => True{}, +unused9815 => +unused9816 => False{}), _ => (Done{Unit{}}), _ => ((+local9818 => +local9820 => (Native.choose(&2, ResultOf(Recognize.Error, Unit), SeqList.all(&2, TupleOf2(String, ListOf(String)), (+local9822 => ((+scrut9823 = local9822
+Match.Tuple2(&2, String, &2, ListOf(String), &2, Bool, scrut9823, +p9824 => +p9825 => (Big.when(Bool, Match.List(&2, String, &2, Bool, p9825, _ => True{}, +unused9826 => +unused9827 => False{}), _ => (Bool.not(Recognize.typed_unit(globals_1325, p9824))), _ => (False{}))))))), local9820), _ => (Fail{Recognize.Error.Protocol{String.append("M1 nullary ", String.append(local9818, " needs an explicit (prod () : Type 0) argument record"))}}), _ => (Done{Unit{}}))))("Error", local9717))), +item9836 => ((+local9829 => ((+scrut9830 = local9829
+Match.Result(&2, Global.Def_entry, &2, Recognize.Error, &2, ResultOf(Recognize.Error, TupleOf3(ListOf(String), ListOf(TupleOf2(String, ListOf(String))), ListOf(TupleOf2(String, ListOf(String))))), Recognize.definition(globals_1325, "storage"), +item9834 => ((+local9833 => (Native.choose(&2, ResultOf(Recognize.Error, TupleOf3(ListOf(String), ListOf(TupleOf2(String, ListOf(String))), ListOf(TupleOf2(String, ListOf(String))))), Equal.Term(Get.Global.Def_entry.ty(local9833), Term.Global{"Storage"}), _ => (Done{Tup3{local9692, local9714, local9717}}), _ => (Fail{Recognize.Error.Storage_shape{}}))))(item9834)), +item9835 => Fail{item9835}))))(item9836)), +item9837 => Fail{item9837})))))(item9839)), +item9840 => Fail{item9840})))))(item9842)), +item9843 => Fail{item9843}))))))))(item9845)), +item9846 => Fail{item9846})))))))(item9848)), +item9849 => Fail{item9849})))(item9850)), +item9851 => Fail{item9851})))(item9852)), +item9853 => Fail{item9853})))))(item9855)), +item9856 => Fail{item9856}))
+
+@unsafe
+def Emit.Mapping.prepare_m1(+export_1961: String, +globals_1962: Global, +erased_1963: ListOf(TupleOf2(String, Erase.Entry)), +cells: Mapping.Runtime.Cells()) -> Emit.Result(TupleOf5(ListOf(Emit.Entry), Emit.Effect, ListOf(String), ListOf(TupleOf2(Abi.Custom_error, String)), OptionOf(Emit.Transaction))):
+  Match.Result(&2, TupleOf3(ListOf(String), ListOf(TupleOf2(String, ListOf(String))), ListOf(TupleOf2(String, ListOf(String)))), &2, Emit.Error, &2, Emit.Result(TupleOf5(ListOf(Emit.Entry), Emit.Effect, ListOf(String), ListOf(TupleOf2(Abi.Custom_error, String)), OptionOf(Emit.Transaction))), Emit.recognize(&2, TupleOf3(ListOf(String), ListOf(TupleOf2(String, ListOf(String))), ListOf(TupleOf2(String, ListOf(String)))), Recognize.Mapping.schema(Big.of_nat(List.length(&2, Mapping.Runtime.Cell, cells)), globals_1962)), +item10051 => ((+local9858 => ((+scrut9859 = local9858
+  Match.Tuple3(&2, ListOf(String), &2, ListOf(TupleOf2(String, ListOf(String))), &2, ListOf(TupleOf2(String, ListOf(String))), &2, Emit.Result(TupleOf5(ListOf(Emit.Entry), Emit.Effect, ListOf(String), ListOf(TupleOf2(Abi.Custom_error, String)), OptionOf(Emit.Transaction))), scrut9859, +p9860 => +p9861 => +p9862 => ((Match.Result(&2, ListOf(TupleOf2(Abi.Custom_error, String)), &2, Emit.Error, &2, Emit.Result(TupleOf5(ListOf(Emit.Entry), Emit.Effect, ListOf(String), ListOf(TupleOf2(Abi.Custom_error, String)), OptionOf(Emit.Transaction))), Emit.error_table(p9862), +item10048 => ((+local9865 => (Match.Result(&2, Unit, &2, Emit.Error, &2, Emit.Result(TupleOf5(ListOf(Emit.Entry), Emit.Effect, ListOf(String), ListOf(TupleOf2(Abi.Custom_error, String)), OptionOf(Emit.Transaction))), Emit.recognize(&2, Unit, Recognize.m1_export(globals_1962, export_1961)), +item10046 => ((+local9917 => ((+scrut9918 = local9917
+(+scrut9919 = {Emit.environment(None{}, erased_1963) : Emit.Environment}
+(Match.Result(&2, Eterm.Ktm, &2, Emit.Error, &2, Emit.Result(TupleOf5(ListOf(Emit.Entry), Emit.Effect, ListOf(String), ListOf(TupleOf2(Abi.Custom_error, String)), OptionOf(Emit.Transaction))), (+local9923 => (Match.Maybe(&2, Eterm.Ktm, &2, Emit.Result(Eterm.Ktm), local9923, _ => Fail{Emit.Error.Missing{"storage"}}, +x => Done{x})))(Emit.lookup_body(scrut9919, "storage")), +item10043 => ((+local9925 => (Match.Result(&2, Unit, &2, Emit.Error, &2, Emit.Result(TupleOf5(ListOf(Emit.Entry), Emit.Effect, ListOf(String), ListOf(TupleOf2(Abi.Custom_error, String)), OptionOf(Emit.Transaction))), Emit.recognize(&2, Unit, Recognize.no_closure((+local9929 => (Emit.lookup_body(scrut9919, local9929))), Nil{}, local9925)), +item10041 => ((+local9931 => ((+scrut9932 = local9931
+Match.Result(&2, TupleOf2(Recognize.Value, Big), &2, Emit.Error, &2, Emit.Result(TupleOf5(ListOf(Emit.Entry), Emit.Effect, ListOf(String), ListOf(TupleOf2(Abi.Custom_error, String)), OptionOf(Emit.Transaction))), Emit.call(scrut9919, Big.of_nat(100000n), "storage", Nil{}), +item10039 => ((+local9935 => ((+scrut9936 = local9935
+Match.Tuple2(&2, Recognize.Value, &2, Big, &2, Emit.Result(TupleOf5(ListOf(Emit.Entry), Emit.Effect, ListOf(String), ListOf(TupleOf2(Abi.Custom_error, String)), OptionOf(Emit.Transaction))), scrut9936, +p9937 => +p9938 => ((Match.Result(&2, ListOf(String), &2, Emit.Error, &2, Emit.Result(TupleOf5(ListOf(Emit.Entry), Emit.Effect, ListOf(String), ListOf(TupleOf2(Abi.Custom_error, String)), OptionOf(Emit.Transaction))), Emit.recognize(&2, ListOf(String), Recognize.storage(p9937)), +item10036 => ((+local9941 => (Native.choose(&2, Emit.Result(TupleOf5(ListOf(Emit.Entry), Emit.Effect, ListOf(String), ListOf(TupleOf2(Abi.Custom_error, String)), OptionOf(Emit.Transaction))), Bool.not(Big.is_eq(Big.of_nat(List.length(&2, String, local9941)), Big.of_nat(List.length(&2, String, p9860)))), _ => (Fail{Emit.Error.Recognizer{Recognize.Error.Storage_shape{}}}), _ => (Match.Result(&2, TupleOf2(Recognize.Value, Big), &2, Emit.Error, &2, Emit.Result(TupleOf5(ListOf(Emit.Entry), Emit.Effect, ListOf(String), ListOf(TupleOf2(Abi.Custom_error, String)), OptionOf(Emit.Transaction))), Emit.call(scrut9919, p9938, "constructor", Nil{}), +item10034 => ((+local9944 => ((+scrut9945 = local9944
+Match.Tuple2(&2, Recognize.Value, &2, Big, &2, Emit.Result(TupleOf5(ListOf(Emit.Entry), Emit.Effect, ListOf(String), ListOf(TupleOf2(Abi.Custom_error, String)), OptionOf(Emit.Transaction))), scrut9945, +p9946 => +p9947 => ((Match.Result(&2, Emit.Effect, &2, Emit.Error, &2, Emit.Result(TupleOf5(ListOf(Emit.Entry), Emit.Effect, ListOf(String), ListOf(TupleOf2(Abi.Custom_error, String)), OptionOf(Emit.Transaction))), Emit.effect(Big.of_nat(List.length(&2, String, p9860)), p9946), +item10031 => ((+local9950 => ((+scrut9957 = {SeqList.filter_map(&2, &2, Recognize.Context<&2, Unit>, TupleOf2(Big, Recognize.Context<&2, Unit>), (+local9952 => (Match.Maybe(&2, Big, &2, OptionOf(TupleOf2(Big, Recognize.Context<&2, Unit>)), Recognize.constructor_tag(globals_1962, "Tx", Recognize.context_name(&2, Unit, local9952)), _ => None{}, +item9956 => (Some{(+local9954 => (Tup2{local9954, local9952}))(item9956)})))), Recognize.contexts()) : ListOf(TupleOf2(Big, Recognize.Context<&2, Unit>))}
+((+scrut9958 = {MkEmit_Environment{Get.Emit.Environment.functions(scrut9919), Get.Emit.Environment.postulates(scrut9919), True{}, scrut9957, Recognize.constructor_tag(globals_1962, "Tx", "payable")} : Emit.Environment}
+Match.Result(&2, TupleOf2(ListOf(Emit.Entry), Big), &2, Emit.Error, &2, Emit.Result(TupleOf5(ListOf(Emit.Entry), Emit.Effect, ListOf(String), ListOf(TupleOf2(Abi.Custom_error, String)), OptionOf(Emit.Transaction))), Emit.entries(scrut9958, local9865, Big.of_nat(List.length(&2, String, p9860)), p9947, export_1961, p9861), +item10028 => ((+local9961 => ((+scrut9962 = local9961
+Match.Tuple2(&2, ListOf(Emit.Entry), &2, Big, &2, Emit.Result(TupleOf5(ListOf(Emit.Entry), Emit.Effect, ListOf(String), ListOf(TupleOf2(Abi.Custom_error, String)), OptionOf(Emit.Transaction))), scrut9962, +p9963 => +p9964 => ((Match.Result(&2, OptionOf(Emit.Transaction), &2, Emit.Error, &2, Emit.Result(TupleOf5(ListOf(Emit.Entry), Emit.Effect, ListOf(String), ListOf(TupleOf2(Abi.Custom_error, String)), OptionOf(Emit.Transaction))), Native.choose(&2, Emit.Result(OptionOf(Emit.Transaction)), Bool.not(Maybe.is_some(&2, Global.Entry, Global.find("fallback", globals_1962))), _ => (Done{None{}}), _ => (Match.Result(&2, TupleOf2(Recognize.Value, Big), &2, Emit.Error, &2, Emit.Result(OptionOf(Emit.Transaction)), Emit.call(scrut9958, p9964, "fallback", Nil{}), +item10021 => ((+local9968 => ((+scrut9969 = local9968
+Match.Tuple2(&2, Recognize.Value, &2, Big, &2, Emit.Result(OptionOf(Emit.Transaction)), scrut9969, +p9970 => +p9971 => (Match.Result(&2, Unit, &2, Emit.Error, &2, Emit.Result(OptionOf(Emit.Transaction)), Emit.recognize(&2, Unit, Recognize.unboxed(p9970)), +item10019 => ((+local9974 => ((+scrut9975 = local9974
+Match.Result(&2, TupleOf3(Emit.Transaction, Big, Big), &2, Emit.Error, &2, Emit.Result(OptionOf(Emit.Transaction)), Emit.transaction(scrut9958, local9865, Big.of_nat(List.length(&2, String, p9860)), Big.zero(), p9971, Big.one(), p9970), +item10017 => ((+local9978 => ((+scrut9979 = local9978
+Match.Tuple3(&2, Emit.Transaction, &2, Big, &2, Big, &2, Emit.Result(OptionOf(Emit.Transaction)), scrut9979, +p9980 => +p9981 => +p9982 => (((+scrut9983 = p9980
+Match.Emit_Transaction(&2, Emit.Result(OptionOf(Emit.Transaction)), scrut9983, +p9984 => (Fail{Emit.Error.M1_shape{"fallback must be a closed revert"}}), _ => (Done{Some{p9980}}), +p9985 => +p9986 => (Native.choose(&2, Emit.Result(OptionOf(Emit.Transaction)), SeqList.all(&2, Emit.Operand, (+local9988 => ((+scrut9989 = local9988
+Match.Emit_Operand(&2, Bool, scrut9989, +p9990 => (True{}), +p9991 => (False{}))))), p9986), _ => (Done{Some{p9980}}), _ => (Fail{Emit.Error.M1_shape{"fallback must be a closed revert"}}))), +p9992 => +p9993 => +p9994 => (Fail{Emit.Error.M1_shape{"fallback must be a closed revert"}}), +p9995 => +p9996 => +p9997 => (Fail{Emit.Error.M1_shape{"fallback must be a closed revert"}}), +p9998 => +p9999 => +p10000 => (Fail{Emit.Error.M1_shape{"fallback must be a closed revert"}}), +p10001 => +p10002 => +p10003 => +p10004 => +p10005 => +p10006 => (Fail{Emit.Error.M1_shape{"fallback must be a closed revert"}}), +p10007 => +p10008 => +p10009 => +p10010 => +p10011 => (Fail{Emit.Error.M1_shape{"fallback must be a closed revert"}}), +p10012 => +p10013 => +p10014 => +p10015 => (Fail{Emit.Error.M1_shape{"fallback must be a closed revert"}})))))))))(item10017)), +item10018 => Fail{item10018}))))(item10019)), +item10020 => Fail{item10020}))))))(item10021)), +item10022 => Fail{item10022}))), +item10025 => ((+local10024 => (Done{Tup5{p9963, local9950, p9860, local9865, local10024}}))(item10025)), +item10026 => Fail{item10026})))))))(item10028)), +item10029 => Fail{item10029}))))))(item10031)), +item10032 => Fail{item10032})))))))(item10034)), +item10035 => Fail{item10035})))))(item10036)), +item10037 => Fail{item10037})))))))(item10039)), +item10040 => Fail{item10040}))))(item10041)), +item10042 => Fail{item10042})))(item10043)), +item10044 => Fail{item10044}))))))(item10046)), +item10047 => Fail{item10047})))(item10048)), +item10049 => Fail{item10049})))))))(item10051)), +item10052 => Fail{item10052})
+
+@unsafe
+def Model.Mapping.prepare(+export_1130: String, +globals_1131: Global, +erased_1132: ListOf(TupleOf2(String, Erase.Entry)), +cells: Mapping.Runtime.Cells()) -> Model.Result(Model.Program):
+  Native.choose(&2, Model.Result(Model.Program), Maybe.is_some(&2, Global.Entry, Global.find("Entry", globals_1131)), _ => (Match.Result(&2, TupleOf5(ListOf(Emit.Entry), Emit.Effect, ListOf(String), ListOf(TupleOf2(Abi.Custom_error, String)), OptionOf(Emit.Transaction)), &2, Model.Error, &2, Model.Result(Model.Program), (+local14302 => (Match.Result(&2, TupleOf5(ListOf(Emit.Entry), Emit.Effect, ListOf(String), ListOf(TupleOf2(Abi.Custom_error, String)), OptionOf(Emit.Transaction)), &2, Emit.Error, &2, Model.Result(TupleOf5(ListOf(Emit.Entry), Emit.Effect, ListOf(String), ListOf(TupleOf2(Abi.Custom_error, String)), OptionOf(Emit.Transaction))), local14302, +item14305 => Done{item14305}, +item14306 => (Fail{(+local14304 => (Model.Error.Source{local14304}))(item14306)}))))(Emit.Mapping.prepare_m1(export_1130, globals_1131, erased_1132, cells)), +item14330 => ((+local14308 => ((+scrut14309 = local14308
+  Match.Tuple5(&2, ListOf(Emit.Entry), &2, Emit.Effect, &2, ListOf(String), &2, ListOf(TupleOf2(Abi.Custom_error, String)), &2, OptionOf(Emit.Transaction), &2, Model.Result(Model.Program), scrut14309, +p14310 => +p14311 => +p14312 => +p14313 => +p14314 => (Match.Result(&2, Unit, &2, Model.Error, &2, Model.Result(Model.Program), Local.Model.valid.f14315(p14311), +item14328 => ((+local14326 => ((+scrut14327 = local14326
+  Done{Model.Program.Entries{p14310, Maybe.default(&2, Emit.Transaction, p14314, Emit.Transaction.Abort{})}})))(item14328)), +item14329 => Fail{item14329}))))))(item14330)), +item14331 => Fail{item14331})), _ => (Match.Result(&2, TupleOf2(Emit.Effect, ListOf(String)), &2, Model.Error, &2, Model.Result(Model.Program), (+local14334 => (Match.Result(&2, TupleOf2(Emit.Effect, ListOf(String)), &2, Emit.Error, &2, Model.Result(TupleOf2(Emit.Effect, ListOf(String))), local14334, +item14337 => Done{item14337}, +item14338 => (Fail{(+local14336 => (Model.Error.Source{local14336}))(item14338)}))))(Emit.prepare_m0(export_1130, globals_1131, erased_1132)), +item14344 => ((+local14340 => ((+scrut14341 = local14340
+  Match.Tuple2(&2, Emit.Effect, &2, ListOf(String), &2, Model.Result(Model.Program), scrut14341, +p14342 => +p14343 => (Done{Model.Program.Closed{p14342}})))))(item14344)), +item14345 => Fail{item14345})))

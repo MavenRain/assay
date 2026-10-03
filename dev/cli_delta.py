@@ -1,7 +1,8 @@
 """Pin accepted CLI changes before comparing each historical CLI bundle.
 
-Every listed declaration must match its digest and occur once in each input.
-Restoring BASE bodies then leaves all other reachable CLI changes detectable.
+Every listed worktree declaration must match its digest and occur once.
+Restoring existing BASE bodies leaves other reachable CLI changes detectable.
+Reviewed additions absent from an older BASE remain in the worktree bundle.
 """
 import hashlib
 import json
@@ -33,9 +34,30 @@ PINS = {
     # Mapping, event and calldata CLI tests check historical compatibility.
     'Cli.usage': '359dcca7a5736227c26359c2cccf11430e9b703c0df32317380fa62fbfdeca02',
     'Cli.dispatch': '708b9b7871a3f40d757af018bea22098938e4b8c62641661a7744c991fc60401',
+    # Mapping runtime adds a plan to the source snapshot and excludes only
+    # marked compiler temporaries from member counting. Semantic checks cover
+    # ordinary identifiers, the user limit, packed programs and mapping access.
+    'Case.Packed.switch_35': 'fd2d4ccc8f6ae628efc4f381d7b96771e508ff2e11fb24c0602b235424a3468c',
+    'Case.Packed.switch_38': '6425d888ad1e134c26e28d451f01b102ffec8f668e7d88ebec2fa4a07b6e0676',
+    'Case.Packed.switch_39': '81718f5956e21d6ceca6a9c4b1da46c5f6daeb59e6170ad3f37f8a6e4ef263b5',
+    'Case.Packed.switch_40': '1f672130a9f1f27d6c76e22dec3cc749f310d0a94f6ca6a83223cff461915de7',
+    'Case.Packed.switch_42': '35b679752a7683b0d64ddaa61f7bf9ae922c1409f919c61b536d1172faa97443',
+    'Cli.Packed.Checked': '5c5e031fc16bd754c530ddfcb3c503b5d7e1f637f51311c413269c39ce429376',
+    'Cli.Packed.Program': '4427c16a4382ce33da4a57ce90385aaf8054a8b6302cceaa3fcd4d7f2bad150b',
+    'Cli.Packed.read_file': 'd122c2190d7a88d5777795bc7e0f10a3254a268d509afe416c2cd22153fb2214',
+    'Contract.add_name': 'b0f9bc50ed5b13e863d6d663173672aa5c204e69bb5ecf0b66046c5a475cdd98',
+}
+# These helpers were introduced by source packing. Older baselines can lack
+# them, but their current bodies remain pinned and any reachable addition
+# still differs from the baseline bundle. A duplicate baseline is refused.
+OPTIONAL_BASE = {
+    'Case.Packed.switch_35', 'Case.Packed.switch_38', 'Case.Packed.switch_39',
+    'Case.Packed.switch_40', 'Case.Packed.switch_42', 'Cli.Packed.Checked', 'Cli.Packed.Program',
+    'Cli.Packed.read_file',
 }
 # Reports identify the complete pin manifest, with a stable serialization.
-SHA256 = hashlib.sha256(json.dumps(PINS, sort_keys=True, separators=(',', ':')).encode()).hexdigest()
+SHA256 = hashlib.sha256(json.dumps(dict(pins=PINS, optional_base=sorted(OPTIONAL_BASE)),
+                                  sort_keys=True, separators=(',', ':')).encode()).hexdigest()
 
 
 def only(rows, name):
@@ -48,9 +70,13 @@ def pinned(base_rows, work_rows):
     replacements = {}
     for name, digest in PINS.items():
         base, work = only(base_rows, name), only(work_rows, name)
-        if base is None or work is None or hashlib.sha256(work.source.encode()).hexdigest() != digest:
+        if work is None or hashlib.sha256(work.source.encode()).hexdigest() != digest:
             return None
-        replacements[work.key] = base
+        if base is None:
+            if name not in OPTIONAL_BASE or any(row.kind == 'def' and row.name == name for row in base_rows):
+                return None
+        else:
+            replacements[work.key] = base
     return [replacements.get(row.key, row) for row in work_rows]
 
 

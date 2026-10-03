@@ -1,0 +1,10 @@
+{
+  "argv": [
+    "/Users/oobi/Documents/assay/_build/bin/assay",
+    "check",
+    "/Users/oobi/Documents/assay/.gatework/mapping-runtime/mapping.asy"
+  ],
+  "exit": 0,
+  "stdout": "",
+  "stderr": ""
+}
