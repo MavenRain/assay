@@ -1,0 +1,82 @@
+[
+  {
+    "name": "SOURCE-EVENTS",
+    "command": [
+      "python3",
+      "-P",
+      "dev/event-source-test.py"
+    ],
+    "cwd": "ROOT",
+    "exit": 0,
+    "seconds": 49.679,
+    "stdout": "review/SOURCE-EVENTS.stdout",
+    "stderr": "review/SOURCE-EVENTS.stderr",
+    "stdout_sha256": "16c50c70d7f77fa5925b57619b2a6fa8517a1317a9cfcfafd3c601d25b3f55f8",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "trimmed_trailing_blank_lines": []
+  },
+  {
+    "name": "MILESTONE-SPEED",
+    "command": [
+      "python3",
+      "-P",
+      "dev/milestone-speed-test.py"
+    ],
+    "cwd": "ROOT",
+    "exit": 0,
+    "seconds": 0.254,
+    "stdout": "review/MILESTONE-SPEED.stdout",
+    "stderr": "review/MILESTONE-SPEED.stderr",
+    "stdout_sha256": "06a73757a71c8f2dafa6ec1be406d254493e483223981a2b38ca33272b82d565",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "trimmed_trailing_blank_lines": []
+  },
+  {
+    "name": "FUNCTION-ABI",
+    "command": [
+      "python3",
+      "-P",
+      "dev/function-abi-test.py"
+    ],
+    "cwd": "ROOT",
+    "exit": 0,
+    "seconds": 26.201,
+    "stdout": "review/FUNCTION-ABI.stdout",
+    "stderr": "review/FUNCTION-ABI.stderr",
+    "stdout_sha256": "15986c99302904b90ff09c981fc2260639a64b708cd8ef066b4f010472eff07d",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "trimmed_trailing_blank_lines": []
+  },
+  {
+    "name": "RETURN-ABI",
+    "command": [
+      "python3",
+      "-P",
+      "dev/return-abi-test.py"
+    ],
+    "cwd": "ROOT",
+    "exit": 0,
+    "seconds": 42.694,
+    "stdout": "review/RETURN-ABI.stdout",
+    "stderr": "review/RETURN-ABI.stderr",
+    "stdout_sha256": "ebcf5648efaeb21562aa3d44e64f396a18b61cb97d93317a2ed64cf63ead6318",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "trimmed_trailing_blank_lines": []
+  },
+  {
+    "name": "MAPPING-CLI",
+    "command": [
+      "python3",
+      "-P",
+      "dev/mapping-cli-test.py"
+    ],
+    "cwd": "ROOT",
+    "exit": 0,
+    "seconds": 46.0,
+    "stdout": "review/MAPPING-CLI.stdout",
+    "stderr": "review/MAPPING-CLI.stderr",
+    "stdout_sha256": "2a7b3f5b2e9327e19049e2339f050097a54e021b6ecf6b9f56ed8296c9562fb7",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "trimmed_trailing_blank_lines": []
+  }
+]

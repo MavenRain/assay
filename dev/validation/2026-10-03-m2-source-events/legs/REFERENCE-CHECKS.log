@@ -1,0 +1,39 @@
+REFERENCE-ORACLE evm version 1.14.12-stable
+REFERENCE-ORACLE cast 0.3.0 (5a8bd89 2024-12-20T08:45:53.135759000Z)
+REFERENCE-MEASURE runtime_bytes=20 gas=22232
+M0-TRACE scope=reference bytes=20 listing=17 cast=17 evm=13 skipped=4 storage=42 return=42 OK
+CREATE-MEASURE init_bytes=30 gas=4022 runtime_sha=e289c7e05023ac70a05725ddffd97143efe364fdbb882dedc9c04e3f8032a711 returned_sha=e289c7e05023ac70a05725ddffd97143efe364fdbb882dedc9c04e3f8032a711
+CREATE-EQ bytes=20 returned=20 installed=1 OK
+REFERENCE-CHECK trace-1 rejected=TRACE-PC
+REFERENCE-CHECK trace-2 rejected=TRACE-OP
+REFERENCE-CHECK trace-3 rejected=TRACE-OP
+REFERENCE-CHECK trace-4 rejected=TRACE-STACK
+REFERENCE-CHECK trace-5 rejected=TRACE-RETURN
+REFERENCE-CHECK trace-6 rejected=TRACE-EXEC
+REFERENCE-CHECK trace-7 rejected=TRACE-EXEC
+REFERENCE-CHECK trace-8 rejected=TRACE-STORAGE
+REFERENCE-CHECK trace-9 rejected=TRACE-CODE
+REFERENCE-CHECK trace-10 rejected=TRACE-ACCOUNT
+REFERENCE-CHECK trace-11 rejected=TRACE-SHAPE
+REFERENCE-CHECK trace-12 rejected=TRACE-SHAPE
+REFERENCE-CHECK create-13 rejected=CREATE-BYTES
+REFERENCE-CHECK create-14 rejected=CREATE-INSTALLED
+REFERENCE-CHECK create-15 rejected=CREATE-ACCOUNT
+REFERENCE-CHECK create-16 rejected=CREATE-PC
+REFERENCE-CHECK create-17 rejected=CREATE-OP
+REFERENCE-CHECK create-18 rejected=CREATE-OP
+REFERENCE-CHECK create-19 rejected=CREATE-EXEC
+REFERENCE-CHECK create-20 rejected=CREATE-EXEC
+REFERENCE-CHECK trace-21 rejected=TRACE-ACCOUNT
+REFERENCE-CHECK create-22 rejected=CREATE-ACCOUNT
+REFERENCE-CHECK missing-step rejected=TRACE-PC
+REFERENCE-CHECK duplicate-step rejected=TRACE-PC
+REFERENCE-CHECK reordered-steps rejected=TRACE-PC
+REFERENCE-CHECK missing-summary rejected=TRACE-SHAPE
+REFERENCE-CHECK duplicate-summary rejected=TRACE-SHAPE
+REFERENCE-CHECK cast-truncated rejected=TRACE-CAST
+REFERENCE-CHECK cast-immediate rejected=TRACE-CAST
+REFERENCE-CHECK json-duplicate rejected=JSON-DUPLICATE
+REFERENCE-CHECK json-scalar rejected=JSON-SHAPE
+REFERENCE-CHECK assembler-row rejected=REFERENCE-ASSEMBLER
+REFERENCE-CHECKS cases=32 controls=2 OK

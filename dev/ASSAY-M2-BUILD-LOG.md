@@ -938,3 +938,45 @@ D-2 (low, residual): REC/RESULT.json performance_ratio and count and
 the FINAL-CHECKS source-pins=152 marker are typed literals at
 archive.py:102 and final-checks.py:13, not derived from the captured
 outputs; the derivation lands in the main-loop record refresh.
+## 2026-10-03: source event declarations and emission
+
+M2 group 4 now connects event declarations and effectful emission to the shared
+ABI schema, checked compiler, model and EVM logs. Indexed scalar and string
+topics, anonymous LOG0 through LOG4, typed tuple data, packed and mapping writes,
+payable calls, ordered emissions and rollback have independent execution
+witnesses. Constructor emission has an explicit refusal.
+
+The reserved event guard proves only `Le 0 0`. A regression rejects the invalid
+invariant program that the initial false guard incorrectly accepted. The model
+and emitter enforce the same 131072-byte data cap, including its exact boundary.
+
+Validation is retained in
+[the source event record](validation/2026-10-03-m2-source-events/README.md):
+SOURCE-EVENTS passes 34 cases and 16 refusals; FUNCTION-ABI passes 47 cases;
+RETURN-ABI passes 49 cases, eight layouts and 30 refusals. The cumulative
+105-leg attempt completed 59 legs with 56 passes and three proof-related
+timeouts, then was stopped with SIGTERM during leg 60 under a host load
+average near 89. The exact 128-guard timeout also reproduces at the unchanged
+HEAD with the same pinned compiler and limit. The complete battery remains
+pending for M2 closure.
+
+The default wrappers now select source events. Existing deadlines and trusted
+artifact budgets are unchanged. The new compiler source module follows the
+function and return ABI module boundary and remains subject to the planned
+M2 group 8 audit. No commit or M2 closure is recorded by this staged slice.
+
+A review of the staged slice fixed six findings. F1: `ReturnAbi.string_blocks`
+writes a zero word after each copied String, so an earlier event tuple leaves
+no padding bytes in later String encodings; two regression cases cover it. F2:
+dev/cli_delta.py refreshes the pins of Case.Packed.switch_35,
+Case.Packed.switch_38 and Cli.Packed.read_file for the
+Mapping.Runtime.Plan.Events arm and EventSource.lower. F3:
+dev/event-source-test.py pins a diagnostic for every refusal mutant under
+check and emit, isolates the indexed limit in both overflow mutants and checks
+the ABI event rows of each variant. F4: the record archives the scoped
+outputs, the run manifest and the SIGTERM stop, and rechecks MILESTONE-SPEED
+and the 313 checksums on the final staged files. F5: README.md and ten dev
+pages name the 105-leg default gate mode. F7: event refusals report the
+offending token with the SURFACE_EVENT code, and a bare event declaration
+fails at its name. SOURCE-EVENTS now passes 34 cases and 16 refusals. The
+record keeps the review reruns under review/.

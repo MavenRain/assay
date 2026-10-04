@@ -1,0 +1,20 @@
+[
+  {
+    "result": {
+      "chunk_id": "f8a1fa",
+      "wall_time_seconds": 0.347490167,
+      "exit_code": 0,
+      "original_token_count": 0,
+      "output": ""
+    }
+  },
+  {
+    "result": {
+      "chunk_id": "9a7b98",
+      "wall_time_seconds": 0.313638792,
+      "exit_code": 1,
+      "original_token_count": 15,
+      "output": "mismatch: a tuple needs a right former as its expected type\n"
+    }
+  }
+]

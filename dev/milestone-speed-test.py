@@ -78,9 +78,14 @@ def main():
             ('RETURN-ABI', 900, ('python3', '-P', 'dev/return-abi-test.py'),
              'RETURN-ABI cases=49 layouts=8 refusals=30 cast=model=geth=t8n rollback=OK cap=OK OK', True)]),
                 'return ABI must preserve all carried legs and add its required check')
-        require('--m2-return-abi' in (ROOT / 'dev/gates.sh').read_text() and
-                'dev/stage-a-gates.py --m2-return-abi' in (ROOT / 'Makefile').read_text(),
-                'default gate entry points must select return ABI')
+        events = H.schedule(after, '--m2-source-events')
+        require(events == dict(stage='M2-SOURCE-EVENTS', legs=returns['legs'] + [
+            ('SOURCE-EVENTS', 900, ('python3', '-P', 'dev/event-source-test.py'),
+             'SOURCE-EVENTS cases=34 refusals=16 cast=model=geth=t8n logs=OK rollback=OK OK', True)]),
+                'source events must preserve all carried legs and add their required check')
+        require('--m2-source-events' in (ROOT / 'dev/gates.sh').read_text() and
+                'dev/stage-a-gates.py --m2-source-events' in (ROOT / 'Makefile').read_text(),
+                'default gate entry points must select source events')
     finally:
         sys.argv = original_argv
 

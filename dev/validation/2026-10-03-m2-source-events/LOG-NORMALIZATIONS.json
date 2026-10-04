@@ -1,0 +1,14 @@
+[
+  {
+    "path": "gates.stdout",
+    "raw_sha256": "0a1583c6d367049f28cc16f24d8c431521ccbf5a6784be273d0818e56ffc1b12",
+    "readable_sha256": "d264bfda892b8d7fa37b60bc43aac3c8618372c513b39ba85d2ecd56e15ec22f",
+    "raw_copy": "gates.stdout.raw.gz"
+  },
+  {
+    "path": "prior/reserved-fixture-name.stderr",
+    "raw_sha256": "6b55582cedb97fdc0ae00e12ef4bdce3ec8c282c2c68f68c8184fae423547f40",
+    "readable_sha256": "cfb0e8a461847cd668a3fcf1219037e17e1eee6672a96a18b12aa387bae7607c",
+    "raw_copy": "prior/reserved-fixture-name.stderr.raw.gz"
+  }
+]

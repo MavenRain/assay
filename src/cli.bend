@@ -1004,6 +1004,7 @@ def Case.Packed.switch_35(+packed_switch_35: Cli.Packed.Program(), +export: Stri
         case Mapping.Runtime.Plan.Mapped{_, cells}: Cli.MappingRuntime.run(export, input, program, cells)
         case Mapping.Runtime.Plan.Functions{functions, inner}: Cli.FunctionAbi.run(export, input, program, parameters, functions, inner)
         case Mapping.Runtime.Plan.Outputs{functions, errors, inner}: Cli.ReturnAbi.run(export, input, program, parameters, functions, errors, inner)
+        case Mapping.Runtime.Plan.Events{events, inner}: Cli.EventSource.run(export, input, program, parameters, events, inner)
 @unsafe
 def Case.Packed.switch_36(+packed_switch_36: Cli.Program, +command: String, +export: String, +parameters: Packed.Parameters()) -> IO(Emit.Output):
   match packed_switch_36:
@@ -1023,6 +1024,7 @@ def Case.Packed.switch_38(+packed_switch_38: Cli.Packed.Program(), +command: Str
         case Mapping.Runtime.Plan.Mapped{schema, cells}: Cli.MappingRuntime.compile(command, export, program, schema, cells)
         case Mapping.Runtime.Plan.Functions{functions, inner}: Cli.FunctionAbi.compile(command, export, program, parameters, functions, inner)
         case Mapping.Runtime.Plan.Outputs{functions, errors, inner}: Cli.ReturnAbi.compile(command, export, program, parameters, functions, errors, inner)
+        case Mapping.Runtime.Plan.Events{events, inner}: Cli.EventSource.compile(command, export, program, parameters, events, inner)
 @unsafe
 def Case.Packed.switch_39(+packed_switch_39: Cli.Packed.Checked()) -> IO(Cli.Packed.Program()):
   match packed_switch_39:
@@ -1039,7 +1041,7 @@ def Cli.Packed.read_file(+path: String) -> IO(Cli.Packed.Checked()):
     read : Result<&2, &2, String, String> <- NativeIO.read(path)
     source : String <- Cli.require(String, 64, read)
     basename : String <- OS.basename(path)
-    Cli.MappingRuntime.lowered(basename, ReturnAbi.lower(source))), _ => NativeIO.die(Cli.Packed.Checked(), 64, String.concat(["assay: ", path, ": expected a .asy or .kan source"])))
+    Cli.MappingRuntime.lowered(basename, EventSource.lower(source))), _ => NativeIO.die(Cli.Packed.Checked(), 64, String.concat(["assay: ", path, ": expected a .asy or .kan source"])))
 @unsafe
 def Case.Packed.switch_42(+packed_switch_42: CheckResult(Packed.Source.Info()), +basename: String) -> IO(Cli.Packed.Checked()):
   match packed_switch_42:

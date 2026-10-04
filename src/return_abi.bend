@@ -39,7 +39,8 @@ def ReturnAbi.scan(+tokens: ListOf(Contract.Token), +acc: ListOf(Contract.Token)
       Native.choose(&2, CheckResult(ReturnAbi.Source), FunctionAbi.eq(token, "error"), _ => ReturnAbi.error_tokens(token, tail, acc, functions, errors, fresh), _ =>
       Native.choose(&2, CheckResult(ReturnAbi.Source), Bool.and(FunctionAbi.eq(token, "pure"), FunctionAbi.dynamic(result)), _ => ReturnAbi.string_return(token, tail, acc, functions, errors, active, result, fresh), _ =>
       Native.choose(&2, CheckResult(ReturnAbi.Source), FunctionAbi.eq(token, "revert"), _ => ReturnAbi.revert(token, tail, acc, functions, errors, active, result, fresh), _ =>
-        ReturnAbi.token(token, tail, acc, functions, errors, active, result, fresh)))))
+      Native.choose(&2, CheckResult(ReturnAbi.Source), FunctionAbi.eq(token, "guard"), _ => ReturnAbi.event_guard(token, tail, acc, functions, errors, active, result, fresh), _ =>
+        ReturnAbi.token(token, tail, acc, functions, errors, active, result, fresh))))))
 @unsafe
 def ReturnAbi.entry(+entry: Contract.Token, +tokens: ListOf(Contract.Token), +acc: ListOf(Contract.Token), +functions: FunctionAbi.Functions(), +errors: ReturnAbi.Errors(), +fresh: Big) -> CheckResult(ReturnAbi.Source):
   match tokens:
@@ -132,40 +133,43 @@ def ReturnAbi.revert_found(+revert: Contract.Token, +name: Contract.Token, +rest
     case Some{Tup2{_, parameters}}:
       match parameters:
         case Nil{}: ReturnAbi.scan(name <> rest, revert <> acc, functions, errors, active, result, fresh)
-        case Con{_, _}: CheckResult.bind(ReturnAbi.Rejection, ReturnAbi.Source, ReturnAbi.arguments(revert, parameters, rest, active, [], [], fresh), rejection => ReturnAbi.rejection(revert, name, acc, functions, errors, active, result, rejection))
+        case Con{_, _}: CheckResult.bind(ReturnAbi.Rejection, ReturnAbi.Source, ReturnAbi.arguments(revert, parameters, rest, active, [], [], fresh, "ABI", "error"), rejection => ReturnAbi.rejection(revert, name, acc, functions, errors, active, result, rejection))
 @unsafe
 def ReturnAbi.rejection(+revert: Contract.Token, +name: Contract.Token, +acc: ListOf(Contract.Token), +functions: FunctionAbi.Functions(), +errors: ReturnAbi.Errors(), +active: ListOf(Abi.Schema.Parameter), +result: Abi.Schema.Value_type, +rejection: ReturnAbi.Rejection) -> CheckResult(ReturnAbi.Source):
   match rejection:
     case ReturnAbi.Rejection{prefix, arguments, tail, next}: ReturnAbi.scan(tail, ReturnAbi.append(List.append(&2, Contract.Token, prefix, revert <> name <> arguments), acc), functions, errors, active, result, next)
 @unsafe
-def ReturnAbi.arguments(+at: Contract.Token, +parameters: ListOf(Abi.Schema.Parameter), +tokens: ListOf(Contract.Token), +active: ListOf(Abi.Schema.Parameter), +prefix: ListOf(Contract.Token), +arguments: ListOf(Contract.Token), +fresh: Big) -> CheckResult(ReturnAbi.Rejection):
+def ReturnAbi.arguments(+at: Contract.Token, +parameters: ListOf(Abi.Schema.Parameter), +tokens: ListOf(Contract.Token), +active: ListOf(Abi.Schema.Parameter), +prefix: ListOf(Contract.Token), +arguments: ListOf(Contract.Token), +fresh: Big, +kind: String, +noun: String) -> CheckResult(ReturnAbi.Rejection):
   match parameters:
     case Nil{}: Done{ReturnAbi.Rejection{prefix, arguments, tokens, fresh}}
     case Con{parameter, tail}:
       match tokens:
-        case Nil{}: Contract.fail(&2, ReturnAbi.Rejection, at, "ABI", "missing error argument")
+        case Nil{}: Contract.fail(&2, ReturnAbi.Rejection, at, kind, String.append("missing ", String.append(noun, " argument")))
         case Con{open, rest}:
           Native.choose(&2, CheckResult(ReturnAbi.Rejection), FunctionAbi.eq(open, "("), _ =>
-            CheckResult.bind(TupleOf2(ListOf(Contract.Token), ListOf(Contract.Token)), ReturnAbi.Rejection, ReturnAbi.group(at, rest, Big.one(), [open]), group => ReturnAbi.argument_group(at, parameter, tail, active, prefix, arguments, fresh, group))
-          , _ => Contract.fail(&2, ReturnAbi.Rejection, open, "ABI", "error arguments require parentheses"))
+            CheckResult.bind(TupleOf2(ListOf(Contract.Token), ListOf(Contract.Token)), ReturnAbi.Rejection, ReturnAbi.group(at, rest, Big.one(), [open]), group => ReturnAbi.argument_group(at, parameter, tail, active, prefix, arguments, fresh, kind, noun, group))
+          , _ => Contract.fail(&2, ReturnAbi.Rejection, open, kind, String.append(noun, " arguments require parentheses")))
 @unsafe
-def ReturnAbi.argument_group(+at: Contract.Token, +parameter: Abi.Schema.Parameter, +tail: ListOf(Abi.Schema.Parameter), +active: ListOf(Abi.Schema.Parameter), +prefix: ListOf(Contract.Token), +arguments: ListOf(Contract.Token), +fresh: Big, +group: TupleOf2(ListOf(Contract.Token), ListOf(Contract.Token))) -> CheckResult(ReturnAbi.Rejection):
+def ReturnAbi.argument_group(+at: Contract.Token, +parameter: Abi.Schema.Parameter, +tail: ListOf(Abi.Schema.Parameter), +active: ListOf(Abi.Schema.Parameter), +prefix: ListOf(Contract.Token), +arguments: ListOf(Contract.Token), +fresh: Big, +kind: String, +noun: String, +group: TupleOf2(ListOf(Contract.Token), ListOf(Contract.Token))) -> CheckResult(ReturnAbi.Rejection):
   match group:
-    case Tup2{value, after}: ReturnAbi.argument(at, parameter, tail, value, after, active, prefix, arguments, fresh)
+    case Tup2{value, after}: ReturnAbi.argument(at, parameter, tail, value, after, active, prefix, arguments, fresh, kind, noun)
 @unsafe
-def ReturnAbi.argument(+at: Contract.Token, +parameter: Abi.Schema.Parameter, +tail: ListOf(Abi.Schema.Parameter), +value: ListOf(Contract.Token), +rest: ListOf(Contract.Token), +active: ListOf(Abi.Schema.Parameter), +prefix: ListOf(Contract.Token), +arguments: ListOf(Contract.Token), +fresh: Big) -> CheckResult(ReturnAbi.Rejection):
-  Native.choose(&2, CheckResult(ReturnAbi.Rejection), FunctionAbi.dynamic(Get.Abi.Schema.Parameter.typ(parameter)), _ => ReturnAbi.string_argument(at, tail, value, rest, active, prefix, arguments, fresh), _ => ReturnAbi.arguments(at, tail, rest, active, prefix, List.append(&2, Contract.Token, arguments, value), fresh))
+def ReturnAbi.argument(+at: Contract.Token, +parameter: Abi.Schema.Parameter, +tail: ListOf(Abi.Schema.Parameter), +value: ListOf(Contract.Token), +rest: ListOf(Contract.Token), +active: ListOf(Abi.Schema.Parameter), +prefix: ListOf(Contract.Token), +arguments: ListOf(Contract.Token), +fresh: Big, +kind: String, +noun: String) -> CheckResult(ReturnAbi.Rejection):
+  Native.choose(&2, CheckResult(ReturnAbi.Rejection), FunctionAbi.dynamic(Get.Abi.Schema.Parameter.typ(parameter)), _ => ReturnAbi.string_argument(at, tail, value, rest, active, prefix, arguments, fresh, kind, noun), _ => ReturnAbi.arguments(at, tail, rest, active, prefix, List.append(&2, Contract.Token, arguments, value), fresh, kind, noun))
+# The kind is the SURFACE code and the noun names the construct: ABI error or EVENT event.
 @unsafe
-def ReturnAbi.string_argument(+at: Contract.Token, +tail: ListOf(Abi.Schema.Parameter), +value: ListOf(Contract.Token), +rest: ListOf(Contract.Token), +active: ListOf(Abi.Schema.Parameter), +prefix: ListOf(Contract.Token), +arguments: ListOf(Contract.Token), +fresh: Big) -> CheckResult(ReturnAbi.Rejection):
+def ReturnAbi.string_wording(+noun: String) -> String: String.append("String ", String.append(noun, " arguments require a String parameter"))
+@unsafe
+def ReturnAbi.string_argument(+at: Contract.Token, +tail: ListOf(Abi.Schema.Parameter), +value: ListOf(Contract.Token), +rest: ListOf(Contract.Token), +active: ListOf(Abi.Schema.Parameter), +prefix: ListOf(Contract.Token), +arguments: ListOf(Contract.Token), +fresh: Big, +kind: String, +noun: String) -> CheckResult(ReturnAbi.Rejection):
   match value:
     case Con{_, Con{name, Con{_, Nil{}}}}:
-      Native.choose(&2, CheckResult(ReturnAbi.Rejection), FunctionAbi.is_string(active, name), _ => ReturnAbi.argument_alias(at, tail, rest, active, prefix, arguments, fresh, ReturnAbi.string_alias(at, name, fresh)), _ => Contract.fail(&2, ReturnAbi.Rejection, name, "ABI", "String error arguments require a String parameter"))
-    case Nil{}: Contract.fail(&2, ReturnAbi.Rejection, at, "ABI", "missing String error argument")
-    case Con{_, _}: Contract.fail(&2, ReturnAbi.Rejection, at, "ABI", "String error arguments require a String parameter")
+      Native.choose(&2, CheckResult(ReturnAbi.Rejection), FunctionAbi.is_string(active, name), _ => ReturnAbi.argument_alias(at, tail, rest, active, prefix, arguments, fresh, kind, noun, ReturnAbi.string_alias(at, name, fresh)), _ => Contract.fail(&2, ReturnAbi.Rejection, name, kind, ReturnAbi.string_wording(noun)))
+    case Nil{}: Contract.fail(&2, ReturnAbi.Rejection, at, kind, String.append("missing String ", String.append(noun, " argument")))
+    case Con{_, _}: Contract.fail(&2, ReturnAbi.Rejection, at, kind, ReturnAbi.string_wording(noun))
 @unsafe
-def ReturnAbi.argument_alias(+at: Contract.Token, +tail: ListOf(Abi.Schema.Parameter), +rest: ListOf(Contract.Token), +active: ListOf(Abi.Schema.Parameter), +prefix: ListOf(Contract.Token), +arguments: ListOf(Contract.Token), +fresh: Big, +alias: TupleOf2(ListOf(Contract.Token), String)) -> CheckResult(ReturnAbi.Rejection):
+def ReturnAbi.argument_alias(+at: Contract.Token, +tail: ListOf(Abi.Schema.Parameter), +rest: ListOf(Contract.Token), +active: ListOf(Abi.Schema.Parameter), +prefix: ListOf(Contract.Token), +arguments: ListOf(Contract.Token), +fresh: Big, +kind: String, +noun: String, +alias: TupleOf2(ListOf(Contract.Token), String)) -> CheckResult(ReturnAbi.Rejection):
   match alias:
-    case Tup2{code, offset}: ReturnAbi.arguments(at, tail, rest, active, List.append(&2, Contract.Token, prefix, code), List.append(&2, Contract.Token, arguments, FunctionAbi.tokens(at, ["(", offset, ")"])), Big.add(fresh, Big.one()))
+    case Tup2{code, offset}: ReturnAbi.arguments(at, tail, rest, active, List.append(&2, Contract.Token, prefix, code), List.append(&2, Contract.Token, arguments, FunctionAbi.tokens(at, ["(", offset, ")"])), Big.add(fresh, Big.one()), kind, noun)
 @unsafe
 def ReturnAbi.lower(+source: String) -> CheckResult(Mapping.Runtime.Packet()):
   Native.choose(&2, CheckResult(Mapping.Runtime.Packet()), Packed.Source.contract(source), _ =>
@@ -277,7 +281,7 @@ def ReturnAbi.string_blocks(+label: String, +copy: String, +next: String, +sourc
   +check = {List.concat(&2, Asm.Instruction, [read_length, FunctionAbi.save(length), size, FunctionAbi.save(end), [Emit.number(Big.of_nat(131072n)), Emit.number(base)], FunctionAbi.load(end), [Asm.Instruction.Op{"SUB"}, Asm.Instruction.Op{"GT"}]]) : ListOf(Asm.Instruction)}
   +offset = {List.concat(&2, Asm.Instruction, [[Emit.number(tuple)], FunctionAbi.load(cursor), [Asm.Instruction.Op{"SUB"}], FunctionAbi.save(head)]) : ListOf(Asm.Instruction)}
   +write_length = {List.concat(&2, Asm.Instruction, [FunctionAbi.load(length), FunctionAbi.load(cursor), [Asm.Instruction.Op{"MSTORE"}]]) : ListOf(Asm.Instruction)}
-  +data = {List.concat(&2, Asm.Instruction, [FunctionAbi.load(length), FunctionAbi.load(source), [Emit.number(Big.of_nat(36n)), Asm.Instruction.Op{"ADD"}], FunctionAbi.load(cursor), [Emit.number(Big.of_nat(32n)), Asm.Instruction.Op{"ADD"}, Asm.Instruction.Op{"CALLDATACOPY"}]]) : ListOf(Asm.Instruction)}
+  +data = {List.concat(&2, Asm.Instruction, [[Emit.number(Big.zero())], FunctionAbi.load(length), FunctionAbi.load(cursor), [Emit.number(Big.of_nat(32n)), Asm.Instruction.Op{"ADD"}, Asm.Instruction.Op{"ADD"}, Asm.Instruction.Op{"MSTORE"}], FunctionAbi.load(length), FunctionAbi.load(source), [Emit.number(Big.of_nat(36n)), Asm.Instruction.Op{"ADD"}], FunctionAbi.load(cursor), [Emit.number(Big.of_nat(32n)), Asm.Instruction.Op{"ADD"}, Asm.Instruction.Op{"CALLDATACOPY"}]]) : ListOf(Asm.Instruction)}
   +advance = {List.append(&2, Asm.Instruction, FunctionAbi.load(end), FunctionAbi.save(cursor)) : ListOf(Asm.Instruction)}
   [FunctionAbi.check(label, check, copy), Emit.marked(copy, List.concat(&2, Asm.Instruction, [offset, write_length, data, advance]), Emit.goto(next))]
 @unsafe

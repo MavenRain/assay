@@ -1,0 +1,8 @@
+COMPOUND-LIVE cases=64 creates=2 erasure=8 OK
+COMPOUND-REFUSALS cases=24 commands=3 OK
+COMPOUND-BOUNDARIES accepted=10 OK
+COMPOUND-MUTANT LEFT killed control=OK
+COMPOUND-MUTANT RIGHT killed control=OK
+COMPOUND-MUTANT RIGHT-FIELDS killed control=OK
+COMPOUND-MUTANT COMPONENT-EVIDENCE killed control=OK
+COMPOUND-INVARIANTS cases=64 creates=2 refusals=24 erasure=8 boundaries=10 mutants=4 OK

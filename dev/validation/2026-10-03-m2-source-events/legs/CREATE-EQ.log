@@ -1,0 +1,4 @@
+REFERENCE-ORACLE evm version 1.14.12-stable
+REFERENCE-ORACLE cast 0.3.0 (5a8bd89 2024-12-20T08:45:53.135759000Z)
+CREATE-MEASURE init_bytes=30 gas=4022 runtime_sha=e289c7e05023ac70a05725ddffd97143efe364fdbb882dedc9c04e3f8032a711 returned_sha=e289c7e05023ac70a05725ddffd97143efe364fdbb882dedc9c04e3f8032a711
+CREATE-EQ bytes=20 returned=20 installed=1 OK

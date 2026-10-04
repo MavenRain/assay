@@ -1,0 +1,538 @@
+{
+  "date_utc": "2026-10-03T22:50:46.974894+00:00",
+  "base": "386f240e1dcca6a829be10edbe1356bfec9286e1",
+  "bend_commit": "573002f01ec6c52416d44489543f69a9625facf8",
+  "bend_binary_sha256": "f0f7bd1091622614919c3a5932f3b65fafd6f7f94e101392c8f5fe34bd1c5305",
+  "assay_launcher_sha256": "7bfa5dab84ce69196322b59581706db57529bebaaf5786632619a3cfe944a1f0",
+  "assay_js_sha256": "7b5b74d47fa102975d06846c2447d1130869ca57e3ad828f1bdb285b6f5b1d89",
+  "command": "BEND=/Users/oobi/Documents/gpt1/assay-events-bend/bin/bend zsh -f dev/gates.sh",
+  "status": "SCOPED-PASS; CUMULATIVE-INCOMPLETE",
+  "planned_gates": 105,
+  "completed_gates": 59,
+  "passed_gates": 56,
+  "failed_gates": [
+    "INFERRED-GUARDS",
+    "PROOF-HOLES",
+    "INFERRED-BINDINGS"
+  ],
+  "pending_gates": [
+    "INFERRED-GUARD-BINDINGS",
+    "EVM-CONTEXT",
+    "SURFACE-CONTEXT",
+    "WORD-EQUALITY",
+    "HEX-LITERALS",
+    "INFERRED-WORDS",
+    "FALLBACK",
+    "DIFF-VALUE",
+    "TRACE-VALUE",
+    "TRACE-CALLER",
+    "DIFF-CALLER",
+    "PAYABLE",
+    "CALLVALUE",
+    "CALLDATASIZE",
+    "CALLDATALOAD",
+    "ADDRESS",
+    "ERC20-REFERENCE",
+    "ABI-SCHEMA",
+    "ABI-CODEC",
+    "LAYOUT-PACKED",
+    "LAYOUT-MAPPING",
+    "EVENT-CODEC",
+    "CALL-CODEC",
+    "RETURN-CODEC",
+    "REVERT-CODEC",
+    "EVENT-DECODE",
+    "LEXER-KEYWORDS",
+    "LEXER-DIRECT",
+    "IDENTIFIER-DIRECT",
+    "WORD-DIRECT",
+    "SEGMENT-DIRECT",
+    "CLI-PREFIX-DIRECT",
+    "CLI-VALUE-DIRECT",
+    "CLI-ERROR-DIRECT",
+    "MAPPING-CLI",
+    "EVENT-CLI",
+    "EVENT-DECODE-CLI",
+    "CALLDATA-CLI",
+    "MILESTONE-SPEED",
+    "PACKED-SOURCE",
+    "MAPPING-SOURCE",
+    "RETURNDATA-CLI",
+    "MAPPING-RUNTIME",
+    "FUNCTION-ABI",
+    "RETURN-ABI",
+    "SOURCE-EVENTS"
+  ],
+  "scoped_checks": [
+    {
+      "name": "SOURCE-EVENTS",
+      "stdout": "/Users/oobi/Documents/gpt1/assay-source-events/.kanon-exec/run-N4gJJF/command-0001.stdout",
+      "stderr": "/Users/oobi/Documents/gpt1/assay-source-events/.kanon-exec/run-N4gJJF/command-0001.stderr",
+      "archive_stdout": "scoped/SOURCE-EVENTS.stdout",
+      "archive_stderr": "scoped/SOURCE-EVENTS.stderr"
+    },
+    {
+      "name": "FUNCTION-ABI",
+      "stdout": "/Users/oobi/Documents/gpt1/assay-source-events/.kanon-exec/run-auukyD/command-0001.stdout",
+      "stderr": "/Users/oobi/Documents/gpt1/assay-source-events/.kanon-exec/run-auukyD/command-0001.stderr",
+      "archive_stdout": "scoped/FUNCTION-ABI.stdout",
+      "archive_stderr": "scoped/FUNCTION-ABI.stderr"
+    },
+    {
+      "name": "RETURN-ABI",
+      "stdout": "/Users/oobi/Documents/gpt1/assay-source-events/.kanon-exec/run-HENZxt/command-0001.stdout",
+      "stderr": "/Users/oobi/Documents/gpt1/assay-source-events/.kanon-exec/run-HENZxt/command-0001.stderr",
+      "archive_stdout": "scoped/RETURN-ABI.stdout",
+      "archive_stderr": "scoped/RETURN-ABI.stderr"
+    },
+    {
+      "name": "MILESTONE-SPEED",
+      "stdout": "/Users/oobi/Documents/assay/dev/validation/2026-10-03-m2-source-events/scoped/MILESTONE-SPEED.stdout",
+      "stderr": "/Users/oobi/Documents/assay/dev/validation/2026-10-03-m2-source-events/scoped/MILESTONE-SPEED.stderr",
+      "archive_stdout": "scoped/MILESTONE-SPEED.stdout",
+      "archive_stderr": "scoped/MILESTONE-SPEED.stderr"
+    },
+    {
+      "name": "DENOMINATORS",
+      "stdout": "/Users/oobi/Documents/assay/dev/validation/2026-10-03-m2-source-events/scoped/DENOMINATORS.stdout",
+      "stderr": "/Users/oobi/Documents/assay/dev/validation/2026-10-03-m2-source-events/scoped/DENOMINATORS.stderr",
+      "archive_stdout": "scoped/DENOMINATORS.stdout",
+      "archive_stderr": "scoped/DENOMINATORS.stderr"
+    }
+  ],
+  "interrupted_reason": "Host load average reached about 89. The 128-guard timeout also reproduced at the unchanged HEAD using the same pinned compiler and 30-second limit.",
+  "cases": 34,
+  "refusals": 16,
+  "compiler_sources_changed_during_final_run": false,
+  "harness_note": "The milestone-speed assertion was updated to 32 cases and 15 refusals in the pre-review run and to 34 cases and 16 refusals after the review fixes. Its scoped check and all 313 checksum checks passed. dev/milestone-speed-test.py and dev/DENOMINATORS.sha256 changed at 14:49:51 and 14:50:02, after the DENOMINATORS leg. Both were rechecked on the final staged files; see scoped/MILESTONE-SPEED.stdout and scoped/DENOMINATORS.stdout.",
+  "stopped_by": "SIGTERM (exit 143) during INFERRED-GUARD-BINDINGS, about 4.6 minutes after the INFERRED-BINDINGS timeout; 45 legs not reached",
+  "run_manifest": "gates.manifest.json",
+  "review": {
+    "reruns": "review/RERUNS.json",
+    "cases": "review/cases.json",
+    "findings": [
+      "F1",
+      "F2",
+      "F3",
+      "F4",
+      "F5",
+      "F7"
+    ]
+  },
+  "review_build_note": "The 59 cumulative legs and the scoped SOURCE-EVENTS, FUNCTION-ABI and RETURN-ABI checks ran on the pre-review build, assay.js sha256 f80f4951f1737aebf8cc2cd7478f665cc6312ea13ebd5564e9cf9b77222d3851 with launcher sha256 7bfa5dab84ce69196322b59581706db57529bebaaf5786632619a3cfe944a1f0. The review/ reruns and the scoped MILESTONE-SPEED and DENOMINATORS rechecks ran on the final build of the staged sources, assay.js sha256 7b5b74d47fa102975d06846c2447d1130869ca57e3ad828f1bdb285b6f5b1d89 with the unchanged launcher.",
+  "rows": [
+    {
+      "name": "BUILD",
+      "status": "PASS",
+      "exit": 0,
+      "elapsed_ms": 1014.1,
+      "deadline_s": 120.0
+    },
+    {
+      "name": "PIN-CARRY",
+      "status": "PASS",
+      "exit": 0,
+      "elapsed_ms": 90.3,
+      "deadline_s": 30.0
+    },
+    {
+      "name": "R0-COUNT",
+      "status": "PASS",
+      "exit": 0,
+      "elapsed_ms": 208.6,
+      "deadline_s": 10.0
+    },
+    {
+      "name": "R0-AUDIT",
+      "status": "PASS",
+      "exit": 0,
+      "elapsed_ms": 71.4,
+      "deadline_s": 10.0
+    },
+    {
+      "name": "HOUSE",
+      "status": "PASS",
+      "exit": 0,
+      "elapsed_ms": 747.1,
+      "deadline_s": 30.0
+    },
+    {
+      "name": "NATIVE-MAPS",
+      "status": "PASS",
+      "exit": 0,
+      "elapsed_ms": 428.3,
+      "deadline_s": 180.0
+    },
+    {
+      "name": "NATIVE-IO",
+      "status": "PASS",
+      "exit": 0,
+      "elapsed_ms": 1185.5,
+      "deadline_s": 180.0
+    },
+    {
+      "name": "TRUSTED-LINES",
+      "status": "PASS",
+      "exit": 0,
+      "elapsed_ms": 121.0,
+      "deadline_s": 10.0
+    },
+    {
+      "name": "SUITE-KERNEL",
+      "status": "PASS",
+      "exit": 0,
+      "elapsed_ms": 5000.2,
+      "deadline_s": 300.0
+    },
+    {
+      "name": "SUITE-SURFACE",
+      "status": "PASS",
+      "exit": 0,
+      "elapsed_ms": 146.7,
+      "deadline_s": 60.0
+    },
+    {
+      "name": "DRIVER",
+      "status": "PASS",
+      "exit": 0,
+      "elapsed_ms": 1951.1,
+      "deadline_s": 30.0
+    },
+    {
+      "name": "MUTANTS",
+      "status": "PASS",
+      "exit": 0,
+      "elapsed_ms": 6152.5,
+      "deadline_s": 300.0
+    },
+    {
+      "name": "DENOMINATORS",
+      "status": "PASS",
+      "exit": 0,
+      "elapsed_ms": 60.5,
+      "deadline_s": 10.0
+    },
+    {
+      "name": "KECCAK-VEC",
+      "status": "PASS",
+      "exit": 0,
+      "elapsed_ms": 3688.1,
+      "deadline_s": 120.0
+    },
+    {
+      "name": "KECCAK-MUTANTS",
+      "status": "PASS",
+      "exit": 0,
+      "elapsed_ms": 19591.7,
+      "deadline_s": 660.0
+    },
+    {
+      "name": "STACK-HEIGHT",
+      "status": "PASS",
+      "exit": 0,
+      "elapsed_ms": 7879.6,
+      "deadline_s": 780.0
+    },
+    {
+      "name": "DISASM-3WAY",
+      "status": "PASS",
+      "exit": 0,
+      "elapsed_ms": 3160.6,
+      "deadline_s": 120.0
+    },
+    {
+      "name": "ASM-MUTANTS",
+      "status": "PASS",
+      "exit": 0,
+      "elapsed_ms": 28513.6,
+      "deadline_s": 1860.0
+    },
+    {
+      "name": "FORK-DRIFT",
+      "status": "PASS",
+      "exit": 0,
+      "elapsed_ms": 225.1,
+      "deadline_s": 120.0
+    },
+    {
+      "name": "M0-TRACE",
+      "status": "PASS",
+      "exit": 0,
+      "elapsed_ms": 278.8,
+      "deadline_s": 120.0
+    },
+    {
+      "name": "CREATE-EQ",
+      "status": "PASS",
+      "exit": 0,
+      "elapsed_ms": 340.3,
+      "deadline_s": 120.0
+    },
+    {
+      "name": "REFERENCE-CHECKS",
+      "status": "PASS",
+      "exit": 0,
+      "elapsed_ms": 501.2,
+      "deadline_s": 180.0
+    },
+    {
+      "name": "REFERENCE-MUTANTS",
+      "status": "PASS",
+      "exit": 0,
+      "elapsed_ms": 3055.6,
+      "deadline_s": 1200.0
+    },
+    {
+      "name": "EMIT-CONSTRUCTORS",
+      "status": "PASS",
+      "exit": 0,
+      "elapsed_ms": 105.1,
+      "deadline_s": 30.0
+    },
+    {
+      "name": "WORD-UNBOX",
+      "status": "PASS",
+      "exit": 0,
+      "elapsed_ms": 70.7,
+      "deadline_s": 30.0
+    },
+    {
+      "name": "STORAGE-NOCLOS",
+      "status": "PASS",
+      "exit": 0,
+      "elapsed_ms": 66.4,
+      "deadline_s": 30.0
+    },
+    {
+      "name": "ABI-GOLD",
+      "status": "PASS",
+      "exit": 0,
+      "elapsed_ms": 604.8,
+      "deadline_s": 60.0
+    },
+    {
+      "name": "EMITTED-TRACE",
+      "status": "PASS",
+      "exit": 0,
+      "elapsed_ms": 572.2,
+      "deadline_s": 120.0
+    },
+    {
+      "name": "EMIT-SOURCES",
+      "status": "PASS",
+      "exit": 0,
+      "elapsed_ms": 5443.2,
+      "deadline_s": 600.0
+    },
+    {
+      "name": "EMIT-MUTANTS",
+      "status": "PASS",
+      "exit": 0,
+      "elapsed_ms": 36192.9,
+      "deadline_s": 1200.0
+    },
+    {
+      "name": "AXIOMS",
+      "status": "PASS",
+      "exit": 0,
+      "elapsed_ms": 5783.6,
+      "deadline_s": 480.0
+    },
+    {
+      "name": "TRACE-DRIVER",
+      "status": "PASS",
+      "exit": 0,
+      "elapsed_ms": 3186.4,
+      "deadline_s": 120.0
+    },
+    {
+      "name": "CORPUS",
+      "status": "PASS",
+      "exit": 0,
+      "elapsed_ms": 3007.9,
+      "deadline_s": 600.0
+    },
+    {
+      "name": "ERASED-BYTES",
+      "status": "PASS",
+      "exit": 0,
+      "elapsed_ms": 1027.6,
+      "deadline_s": 120.0
+    },
+    {
+      "name": "M0-RATIO",
+      "status": "PASS",
+      "exit": 0,
+      "elapsed_ms": 274.7,
+      "deadline_s": 60.0
+    },
+    {
+      "name": "F-MUTANTS",
+      "status": "PASS",
+      "exit": 0,
+      "elapsed_ms": 591.6,
+      "deadline_s": 180.0
+    },
+    {
+      "name": "DIFF-EXECUTOR",
+      "status": "PASS",
+      "exit": 0,
+      "elapsed_ms": 8687.9,
+      "deadline_s": 180.0
+    },
+    {
+      "name": "COUNTER-REFERENCE",
+      "status": "PASS",
+      "exit": 0,
+      "elapsed_ms": 2775.6,
+      "deadline_s": 300.0
+    },
+    {
+      "name": "M1-EMISSION",
+      "status": "PASS",
+      "exit": 0,
+      "elapsed_ms": 95016.6,
+      "deadline_s": 600.0
+    },
+    {
+      "name": "SOURCE-MODEL",
+      "status": "PASS",
+      "exit": 0,
+      "elapsed_ms": 78468.6,
+      "deadline_s": 600.0
+    },
+    {
+      "name": "CONTRACT-SURFACE",
+      "status": "PASS",
+      "exit": 0,
+      "elapsed_ms": 78576.2,
+      "deadline_s": 600.0
+    },
+    {
+      "name": "CONTRACT-ROUTE",
+      "status": "PASS",
+      "exit": 0,
+      "elapsed_ms": 1111.8,
+      "deadline_s": 90.0
+    },
+    {
+      "name": "SOURCE-PROOFS",
+      "status": "PASS",
+      "exit": 0,
+      "elapsed_ms": 101849.5,
+      "deadline_s": 600.0
+    },
+    {
+      "name": "NULLARY-ENTRIES",
+      "status": "PASS",
+      "exit": 0,
+      "elapsed_ms": 46101.4,
+      "deadline_s": 600.0
+    },
+    {
+      "name": "CUSTOM-ERRORS",
+      "status": "PASS",
+      "exit": 0,
+      "elapsed_ms": 84018.7,
+      "deadline_s": 600.0
+    },
+    {
+      "name": "PROOF-GUARDS",
+      "status": "PASS",
+      "exit": 0,
+      "elapsed_ms": 94777.0,
+      "deadline_s": 600.0
+    },
+    {
+      "name": "PROOF-TERMS",
+      "status": "PASS",
+      "exit": 0,
+      "elapsed_ms": 96104.2,
+      "deadline_s": 600.0
+    },
+    {
+      "name": "INVARIANTS",
+      "status": "PASS",
+      "exit": 0,
+      "elapsed_ms": 75663.4,
+      "deadline_s": 600.0
+    },
+    {
+      "name": "PROOF-HELPERS",
+      "status": "PASS",
+      "exit": 0,
+      "elapsed_ms": 104232.0,
+      "deadline_s": 600.0
+    },
+    {
+      "name": "PROOF-BUNDLES",
+      "status": "PASS",
+      "exit": 0,
+      "elapsed_ms": 120034.4,
+      "deadline_s": 600.0
+    },
+    {
+      "name": "PREDICATES",
+      "status": "PASS",
+      "exit": 0,
+      "elapsed_ms": 91183.3,
+      "deadline_s": 600.0
+    },
+    {
+      "name": "COMPOUND-INVARIANTS",
+      "status": "PASS",
+      "exit": 0,
+      "elapsed_ms": 74481.1,
+      "deadline_s": 600.0
+    },
+    {
+      "name": "COMPOUND-GUARDS",
+      "status": "PASS",
+      "exit": 0,
+      "elapsed_ms": 101422.5,
+      "deadline_s": 600.0
+    },
+    {
+      "name": "NAMED-GUARDS",
+      "status": "PASS",
+      "exit": 0,
+      "elapsed_ms": 103737.1,
+      "deadline_s": 600.0
+    },
+    {
+      "name": "INFERRED-GUARDS",
+      "status": "FAIL",
+      "exit": 1,
+      "elapsed_ms": 119495.3,
+      "deadline_s": 600.0
+    },
+    {
+      "name": "INFERRED-ARITHMETIC",
+      "status": "PASS",
+      "exit": 0,
+      "elapsed_ms": 136508.0,
+      "deadline_s": 600.0
+    },
+    {
+      "name": "INFERRED-HELPERS",
+      "status": "PASS",
+      "exit": 0,
+      "elapsed_ms": 241039.5,
+      "deadline_s": 600.0
+    },
+    {
+      "name": "PROOF-HOLES",
+      "status": "FAIL",
+      "exit": 1,
+      "elapsed_ms": 318720.2,
+      "deadline_s": 600.0
+    },
+    {
+      "name": "INFERRED-BINDINGS",
+      "status": "FAIL",
+      "exit": 1,
+      "elapsed_ms": 605951.0,
+      "deadline_s": 600.0
+    }
+  ]
+}

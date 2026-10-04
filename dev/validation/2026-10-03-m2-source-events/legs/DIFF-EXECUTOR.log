@@ -1,0 +1,36 @@
+DIFF-LIVE reference OK
+DIFF-LIVE overwrite-preserve OK
+DIFF-LIVE read-nonzero OK
+DIFF-LIVE clear OK
+DIFF-LIVE return-calldata OK
+DIFF-LIVE revert-data OK
+DIFF-LIVE revert-rollback OK
+DIFF-LIVE caller OK
+DIFF-LIVE gas OK
+DIFF-DRIVER cases=28 literal_argv=true OK
+DIFF-CHECK STATUS killed witness=DIFF_MISMATCH: status
+DIFF-CHECK RETURN killed witness=DIFF_MISMATCH: output
+DIFF-CHECK STORAGE killed witness=DIFF_MISMATCH: storage
+DIFF-CHECK NO-RESULT killed witness=DIFF_T8N: missing result or alloc
+DIFF-CHECK NO-ALLOC killed witness=DIFF_T8N: missing result or alloc
+DIFF-CHECK REJECTED killed witness=DIFF_T8N: transaction rejected
+DIFF-CHECK NO-RECEIPT killed witness=DIFF_T8N: expected one receipt
+DIFF-CHECK DUP-RECEIPT killed witness=DIFF_T8N: expected one receipt
+DIFF-CHECK RECEIPT-STATUS killed witness=DIFF_T8N: receipt and trace disagree
+DIFF-CHECK RECEIPT-HASH killed witness=DIFF_T8N: missing or unrelated transaction trace
+DIFF-CHECK RECEIPT-INDEX killed witness=DIFF_T8N: wrong receipt index
+DIFF-CHECK BAD-STORAGE killed witness=DIFF_STORAGE: invalid word
+DIFF-CHECK NO-TRACE killed witness=DIFF_T8N: missing or unrelated transaction trace
+DIFF-CHECK TRAILING-JSON killed witness=DIFF_RUN: missing state dump
+DIFF-CHECK DUP-JSON killed witness=DIFF_JSON: duplicate key a
+DIFF-CHECK NO-STATE killed witness=DIFF_RUN: missing state dump
+DIFF-CHECK EVM-FAULT killed witness=DIFF_EXECUTION: EVM fault
+DIFF-CHECK EXCESS-GAS killed witness=DIFF_TRACE: gas exceeds execution allowance
+DIFF-CHECK DUP-ACCOUNT killed witness=DIFF_PRESTATE: only unique fixture sender and receiver accounts are supported
+DIFF-CHECK DUP-SLOT killed witness=DIFF_STORAGE: duplicate slot
+DIFF-CHECK LIVE-FAULT killed witness=DIFF_EXECUTION: EVM fault
+DIFF-CHECK GASLIMIT killed witness=DIFF_CONTEXT: GASLIMIT is not supported
+DIFF-CHECK BASEFEE killed witness=DIFF_CONTEXT: BASEFEE is not supported
+DIFF-CHECK BLOBBASEFEE killed witness=DIFF_CONTEXT: BLOBBASEFEE is not supported
+DIFF-CHECKS killed=24/24 controls=1 OK
+DIFF-EXECUTOR live=20 driver=28 rejected=24 OK

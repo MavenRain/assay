@@ -235,6 +235,7 @@ def FunctionAbi.prepare(+export: String, +globals: Global, +erased: ListOf(Tuple
     case Mapping.Runtime.Plan.Plain{}: Emit.prepare_m1(export, globals, erased)
     case Mapping.Runtime.Plan.Functions{_, inner}: FunctionAbi.prepare(export, globals, erased, inner)
     case Mapping.Runtime.Plan.Outputs{_, _, inner}: FunctionAbi.prepare(export, globals, erased, inner)
+    case Mapping.Runtime.Plan.Events{_, inner}: FunctionAbi.prepare(export, globals, erased, inner)
 @unsafe
 def FunctionAbi.program(+contract: String, +export: String, +globals: Global, +rows: ListOf(TupleOf2(String, Global.Entry)), +erased: ListOf(TupleOf2(String, Erase.Entry)), +parameters: Packed.Parameters(), +functions: FunctionAbi.Functions(), +plan: Mapping.Runtime.Plan) -> Emit.Result(Emit.Output):
   Emit.Result.bind(FunctionAbi.Packet(), Emit.Output, FunctionAbi.prepare(export, globals, erased, plan), packet => FunctionAbi.prepared(contract, rows, parameters, functions, plan, packet))
@@ -256,6 +257,7 @@ def FunctionAbi.prepared_plan(+plan: Mapping.Runtime.Plan, +parameters: Packed.P
     case Mapping.Runtime.Plan.Plain{}: FunctionAbi.plain(parameters, contract, constructor, rows, abi, names, blocks)
     case Mapping.Runtime.Plan.Functions{_, inner}: FunctionAbi.prepared_plan(inner, parameters, contract, constructor, rows, abi, names, blocks)
     case Mapping.Runtime.Plan.Outputs{_, _, inner}: FunctionAbi.prepared_plan(inner, parameters, contract, constructor, rows, abi, names, blocks)
+    case Mapping.Runtime.Plan.Events{_, inner}: FunctionAbi.prepared_plan(inner, parameters, contract, constructor, rows, abi, names, blocks)
 @unsafe
 def FunctionAbi.plain(+parameters: Packed.Parameters(), +contract: String, +constructor: Emit.Effect, +rows: ListOf(TupleOf2(String, Global.Entry)), +abi: String, +names: ListOf(String), +blocks: ListOf(Asm.Block)) -> Emit.Result(Emit.Output):
   match parameters:
@@ -315,6 +317,7 @@ def FunctionAbi.model_prepare(+export: String, +globals: Global, +erased: ListOf
     case Mapping.Runtime.Plan.Plain{}: Model.prepare(export, globals, erased)
     case Mapping.Runtime.Plan.Functions{_, inner}: FunctionAbi.model_prepare(export, globals, erased, inner)
     case Mapping.Runtime.Plan.Outputs{_, _, inner}: FunctionAbi.model_prepare(export, globals, erased, inner)
+    case Mapping.Runtime.Plan.Events{_, inner}: FunctionAbi.model_prepare(export, globals, erased, inner)
 @unsafe
 def FunctionAbi.model_run(+parameters: Packed.Parameters(), +plan: Mapping.Runtime.Plan, +program: Model.Program, +input: Model.Input) -> Model.Result(Model.Outcome):
   match plan:
@@ -322,6 +325,7 @@ def FunctionAbi.model_run(+parameters: Packed.Parameters(), +plan: Mapping.Runti
     case Mapping.Runtime.Plan.Plain{}: FunctionAbi.model_plain(parameters, program, input)
     case Mapping.Runtime.Plan.Functions{_, inner}: FunctionAbi.model_run(parameters, inner, program, input)
     case Mapping.Runtime.Plan.Outputs{_, _, inner}: FunctionAbi.model_run(parameters, inner, program, input)
+    case Mapping.Runtime.Plan.Events{_, inner}: FunctionAbi.model_run(parameters, inner, program, input)
 @unsafe
 def FunctionAbi.model_plain(+parameters: Packed.Parameters(), +program: Model.Program, +input: Model.Input) -> Model.Result(Model.Outcome):
   match parameters:
@@ -339,6 +343,7 @@ def Cli.FunctionAbi.input_plan(+plan: Mapping.Runtime.Plan, +options: Cli.Option
     case Mapping.Runtime.Plan.Outputs{_, _, _}:
       Model.Result.bind(Model.Input, Model.Input, Model.inputs_with_caller("", Cli.option("--value", "0", options), Cli.storage(options), Cli.option("--caller", "0", options)), input => FunctionAbi.input_data(input, Trace.calldata(Cli.option("--calldata", "", options))))
     case Mapping.Runtime.Plan.Plain{}: Cli.FunctionAbi.legacy_input(options)
+    case Mapping.Runtime.Plan.Events{_, inner}: Cli.FunctionAbi.input_plan(inner, options)
     case Mapping.Runtime.Plan.Mapped{_, _}: Cli.FunctionAbi.legacy_input(options)
 @unsafe
 def Cli.FunctionAbi.legacy_input(+options: Cli.Options) -> Model.Result(Model.Input):

@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "/Users/oobi/Documents/gpt1/assay-source-events/dev/event-source-test.py", line 301, in <module>
+    main()
+    ~~~~^^
+  File "/Users/oobi/Documents/gpt1/assay-source-events/dev/event-source-test.py", line 263, in main
+    compare('event-proof-preserved', 'go()', [], word(0), [event('Tick', [])], **proven)
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oobi/Documents/gpt1/assay-source-events/dev/event-source-test.py", line 160, in compare
+    require(modeled == expected, name + ': model differs from the independent expected outcome')
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oobi/Documents/gpt1/assay-source-events/evm/diff.py", line 27, in require
+    raise ValueError(message)
+ValueError: event-proof-preserved: model differs from the independent expected outcome

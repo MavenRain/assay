@@ -1,0 +1,12 @@
+CORPUS-MEASURE {"creation_gas": 4022, "gas": 22232, "group": "contracts", "init_bytes": 30, "listing": 17, "path": "corpus/contracts/Ref20.asy", "runtime_bytes": 20, "steps": 13}
+CORPUS-MEASURE {"creation_gas": 1622, "gas": 16, "group": "contracts", "init_bytes": 18, "listing": 6, "path": "corpus/contracts/Return.asy", "runtime_bytes": 8, "steps": 6}
+CORPUS-MEASURE {"creation_gas": 3822, "gas": 2331, "group": "contracts", "init_bytes": 29, "listing": 17, "path": "corpus/contracts/Zero.asy", "runtime_bytes": 19, "steps": 13}
+CORPUS-MEASURE {"creation_gas": 10228, "gas": 22232, "group": "contracts", "init_bytes": 61, "listing": 17, "path": "corpus/contracts/Maximum.asy", "runtime_bytes": 51, "steps": 13}
+CORPUS-MEASURE {"creation_gas": 1622, "gas": 16, "group": "contracts", "init_bytes": 18, "listing": 6, "path": "corpus/contracts/Arithmetic.asy", "runtime_bytes": 8, "steps": 6}
+CORPUS-MEASURE {"creation_gas": 1622, "gas": 16, "group": "contracts", "init_bytes": 18, "listing": 6, "path": "corpus/contracts/Pair.asy", "runtime_bytes": 8, "steps": 6}
+CORPUS-MEASURE {"creation_gas": 6828, "gas": 44351, "group": "contracts", "init_bytes": 44, "listing": 27, "path": "corpus/contracts/TwoSlots.asy", "runtime_bytes": 34, "steps": 19}
+CORPUS-MEASURE {"creation_gas": 79694, "gas": 25625, "group": "contracts", "init_bytes": 410, "listing": 307, "path": "corpus/contracts/WideLabel.asy", "runtime_bytes": 398, "steps": 187}
+CORPUS-MEASURE {"creation_gas": 1622, "gas": 16, "group": "proofs", "init_bytes": 18, "listing": 6, "path": "corpus/proofs/Leaf.asy", "runtime_bytes": 8, "steps": 6}
+CORPUS-MEASURE {"creation_gas": 1622, "gas": 16, "group": "proofs", "init_bytes": 18, "listing": 6, "path": "corpus/proofs/Apply.asy", "runtime_bytes": 8, "steps": 6}
+CORPUS-MEASURE {"creation_gas": 1622, "gas": 16, "group": "proofs", "init_bytes": 18, "listing": 6, "path": "corpus/proofs/Let.asy", "runtime_bytes": 8, "steps": 6}
+CORPUS cases=11 five_files=5 OK

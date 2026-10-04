@@ -1,0 +1,8 @@
+PREDICATE-LIVE cases=72 creates=2 erasure=7 OK
+PREDICATE-REFUSALS cases=44 commands=3 OK
+PREDICATE-BOUNDARIES accepted=12 OK
+PREDICATE-MUTANT UNUSED-DECLARATION killed control=OK
+PREDICATE-MUTANT UNUSED-ARGUMENT killed control=OK
+PREDICATE-MUTANT ARGUMENT-ORDER killed control=OK
+PREDICATE-MUTANT EXPANSION killed control=OK
+PREDICATES cases=72 creates=2 refusals=44 erasure=7 boundaries=12 mutants=4 OK

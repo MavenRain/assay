@@ -55,8 +55,10 @@ The suite has 49 ordinary and cap cases, eight layout and isolated-error cases,
 and 30 source refusals. The large duplicated-string cap fixture uses a bounded
 feature-specific geth run and t8n adapter; the shared differential domain stays
 unchanged.
-The cumulative schedule is `python3 -P dev/stage-a-gates.py --m2-return-abi`.
+The cumulative schedule was `python3 -P dev/stage-a-gates.py --m2-return-abi`.
 It adds mandatory RETURN-ABI to the 103 carried function ABI legs, for 104.
+The current default, `--m2-source-events`, adds
+[SOURCE-EVENTS](M2-SOURCE-EVENTS.md), for 105 legs.
 
 The trusted artifact budgets remain unchanged. `src/return_abi.bend` is admitted
 as compiler source without a line budget, following `src/function_abi.bend`.

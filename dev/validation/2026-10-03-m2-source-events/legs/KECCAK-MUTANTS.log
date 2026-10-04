@@ -1,0 +1,5 @@
+KECCAK-MUTANT PADDING killed witness=K2 exit=1
+KECCAK-MUTANT END-BIT killed witness=K2 exit=1
+KECCAK-MUTANT EXACT-RATE killed witness=B136 exit=1
+KECCAK-MUTANT SELECTOR killed witness=S1 exit=1
+KECCAK-MUTANTS killed=4/4 control=OK

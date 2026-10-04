@@ -1,0 +1,23 @@
+Traceback (most recent call last):
+  File "/Users/oobi/Documents/gpt1/assay-source-events/dev/event-source-test.py", line 301, in <module>
+    main()
+    ~~~~^^
+  File "/Users/oobi/Documents/gpt1/assay-source-events/dev/event-source-test.py", line 246, in main
+        huge = variant('event-cap', '''contract EventCap where
+               ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      storage State := { cell : Word }
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        do sstore cell (word 9) ; emit Huge (message) (message) (message) (word 42) ; pure (word 0)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ''')
+    ^^^^
+  File "/Users/oobi/Documents/gpt1/assay-source-events/dev/event-source-test.py", line 206, in variant
+    C.checked('emit-' + name, [C.BINARY, 'emit', path, '-o', directory])
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oobi/Documents/gpt1/assay-source-events/dev/context-test.py", line 40, in checked
+    require(result.returncode == 0, 'CONTEXT-TOOL ' + name + ': ' + result.stderr)
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oobi/Documents/gpt1/assay-source-events/evm/diff.py", line 27, in require
+    raise ValueError(message)
+ValueError: CONTEXT-TOOL emit-event-cap: line 3, column 66: SURFACE_NAME: expected an unreserved identifier of at most 64 characters

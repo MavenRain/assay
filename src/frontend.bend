@@ -2566,6 +2566,7 @@ type Mapping.Runtime.Plan is Data:
   Mapping.Runtime.Plan.Mapped{schema: Mapping.Source.Schema, cells: Mapping.Runtime.Cells()}
   Mapping.Runtime.Plan.Functions{functions: FunctionAbi.Functions(), plan: Mapping.Runtime.Plan}
   Mapping.Runtime.Plan.Outputs{functions: FunctionAbi.Functions(), errors: ReturnAbi.Errors(), plan: Mapping.Runtime.Plan}
+  Mapping.Runtime.Plan.Events{events: EventSource.Events(), plan: Mapping.Runtime.Plan}
 def Mapping.Runtime.Packet() -> Data: TupleOf2(Packed.Source.Info(), Mapping.Runtime.Plan)
 type Mapping.Runtime.Keys is Data:
   Mapping.Runtime.Keys{tail: ListOf(Contract.Token), stores: ListOf(Contract.Token), cells: Mapping.Runtime.Cells(), path: ListOf(TupleOf2(Big, Abi.Schema.Value_type)), typ: Abi.Schema.Value_type, next: Big}

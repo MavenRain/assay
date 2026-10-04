@@ -1,0 +1,2 @@
+CONTRACT-ROUTE core=3 identity=true sampled_bytes=63000 bound=131072 OK
+CONTRACT-ROUTE-CONTROLS killed=2/2 OK

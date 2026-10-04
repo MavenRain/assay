@@ -1,0 +1,7 @@
+SOURCE-PROOF-MUTANT EXACT-ADD killed control=OK
+SOURCE-PROOF-MUTANT UPPER-BOUND killed control=OK
+SOURCE-PROOF-MUTANT SUB-ORDER killed control=OK
+SOURCE-PROOF-MUTANT TRACE killed control=OK
+SOURCE-PROOF-MUTANT DISPATCH killed control=OK
+SOURCE-PROOF-MUTANT ERROR-BRANCH killed control=OK
+SOURCE-PROOFS theorems=11 arithmetic=226 evm=16 recovery=6 effects=7 invalid=13 mutants=6 controls=4 OK

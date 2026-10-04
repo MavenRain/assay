@@ -1,0 +1,3 @@
+IA-LIVE cases=229 creates=2 OK
+Command '('python3', '-P', 'dev/inferred-binding-test.py')' timed out after 600 seconds
+LEG-TIMEOUT INFERRED-BINDINGS deadline_s=600 elapsed_s=605.949 cost=unmeasured

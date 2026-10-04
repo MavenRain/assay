@@ -2,7 +2,8 @@
 
 This slice starts at `a1e7440` and adds `Abi.Event` in native Bend 2.
 It constructs topics and data for a log from typed event parameters and
-values. Source event declarations and `emit` lowering remain pending.
+values. [Source event declarations and emission](M2-SOURCE-EVENTS.md) now
+connect this codec to the checked compiler, model and EVM handlers.
 
 ## API
 

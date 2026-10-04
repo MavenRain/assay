@@ -1,0 +1,3 @@
+M0-RATIO assay_ms_per_kloc=21155.452 bend_compile=32013.063 bend_check=17688.974 ratio=0.660838 fixed_ms=129.239 load=21.66 informational=true
+M0-PROOF-RATIO ms_per_kloc=27512.705 files=3 separate=true
+M0-RATIO provenance=dev/denominators.json fixed=spec-count-proxy subtraction=none OK

@@ -1,0 +1,16 @@
+{
+  "event": "Collision64007",
+  "error": "DeniedCollision973",
+  "selector": "4b6523bd",
+  "source": "contract EventCollision where\nstorage State := { cell : Word }\nevent Collision64007 ()\nerror DeniedCollision973 ()\nentry fail () : Eff Sig Word := do\n  guard DeniedCollision973 () (leWord (word 1) (word 0)) ; pure (word 0)\nentry log () : Eff Sig Word := do emit Collision64007 () ; pure (word 0)\n",
+  "command": [
+    "assay",
+    "run",
+    "/Users/oobi/Documents/gpt1/assay-source-events/.gatework/event-collision-probe.asy",
+    "--calldata",
+    "a9cc4718"
+  ],
+  "exit": 2,
+  "stdout": "",
+  "stderr": "assay: run: ABI_SELECTOR_COLLISION: 4b6523bd\n"
+}
