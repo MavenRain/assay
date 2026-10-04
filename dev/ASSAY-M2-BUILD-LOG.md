@@ -1,5 +1,74 @@
 # Assay M2 build log
 
+## 2026-10-03: Storage and refinement evidence
+
+Added the Lean and gate half of M2 group 5: the reusable
+`AssayProofs.Storage` library and the `storageModel` checker. Thirteen
+term-mode theorems cover strict scalar refinements, packed field
+locations, Word bounds and the slot and value bounds of a declared
+`Cell`. The five write theorems (exact replacement, readback,
+preservation of neighboring bits and the Word bound) are projections of
+a runtime-checked certificate, so they hold for every write that the
+check accepts, and `write_total` proves that the check accepts every
+valid input. The axiom oracle in `dev/storage-proof-test.py` reads the
+report line by line: the lines must name exactly the thirteen theorems
+in order, and a theorem passes when it depends on no axioms or when its
+listed axioms are a nonempty subset of its allowlist. Only `write_total`
+has an allowlist, `propext`, `Classical.choice` and `Quot.sound`, which
+it needs through the core `Nat` lemmas; the other twelve theorems must
+depend on no axioms, and any other axiom on any theorem fails the gate.
+See [storage evidence](M2-STORAGE-PROOFS.md).
+
+The storage gate compares 2,395 access probes with production Bend and
+independent bit-mask expectations, plus 533 refinement probes. The
+adapter has no length limit: it labels text that is not a natural
+number `invalid-value` on refine and write, and a natural number outside
+the declared type `out-of-range:<typ>`. The text `-1` and the other
+malformed literals moved out of the access and refinement corpora into
+a 17-row lexical corpus, where `007` and `+1` are compared in the Lean
+lane; six `-1` location and word probes remain in the access corpus as
+`invalid-location` and `invalid-word` refusals (`lexical=17`). The gate
+refuses two closure-storage fixtures at the lexer and requires the
+`SURFACE_TOKEN` diagnostic, because `->` is not a surface token
+(`grammar=2`). It applies seven Lean mutations: six must fail to compile
+(a relaxed refinement, the field and Word bounds, a function value in
+the unused `Cell` type as a shape control, the write shift and a write
+refusal) and one compiling mutation with a widened boolean limit must be
+caught by a live witness (`mutants=7`). It refuses seven corrupted axiom
+reports (`controls=7`). The erasure leg requires the generated C to hold
+none of the thirteen mangled theorem symbols and all four executable
+symbols, and a positive probe marker shows that the symbol scan can
+fail (`erasure=13`).
+Existing source-proof and storage execution regressions are recorded
+with the focused gate in the
+[validation archive](validation/2026-10-03-m2-storage-proofs/README.md).
+
+The first production attempt stopped at the compiler provenance guard:
+the default `.tools/bend` checkout was at `bc17840` while the project
+pins `573002f`. A separate checkout of the pinned revision was fetched
+and built for validation. The provenance guard remained in force.
+The corrected rerun is the recorded run. The refused first attempt and
+the other command captures of that session are not part of the record,
+and this entry is their only description. Two harness defects found
+before the recorded run are kept in the record as `FAILED-ATTEMPT-1`
+(a storage-closure fixture survived) and `FAILED-ATTEMPT-2` (the
+executable `write` symbol was missing).
+Afterward, `dev/bootstrap-bend.py --upgrade` restored the default local
+checkout to the declared pin, and a normal packed-adapter build passed.
+
+Gate inventory comparison preserves all 65 existing modes, including
+their commands, markers and deadlines. The new mode retains the previous
+105 cumulative legs and adds one storage-proof leg.
+
+`make test` includes the new test, and `make gates` and `dev/gates.sh`
+advance to cumulative `--m2-storage-proofs` while retaining earlier M2
+checks and deadlines, for 106 legs. This scoped group does not close M2.
+The ratified Prop-valued Word refinement over a Type 0 index is an open
+kernel item with no implementation yet and no owning group. `rg Word
+src/kernel.bend` finds no hit; the `Contract.Word` syntax type lives at
+`src/emitter.bend:4`, outside the kernel. ERC20 composition and the
+remaining golden, audit and cumulative acceptance groups remain open.
+
 ## 2026-10-03: Return and error ABI source integration
 
 Completed M2 group 3. Source entries return Uint8, Uint256, Address, Bool,

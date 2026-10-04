@@ -158,8 +158,10 @@ NATIVE-IO checks, for 77 legs. On 2026-10-01 the two speed legs moved to
 `--m2-mapping-runtime` appends [MAPPING-RUNTIME](M2-MAPPING-RUNTIME.md), for
 102 checks. `--m2-function-abi` appends [FUNCTION-ABI](M2-FUNCTION-ABI.md),
 for 103 checks. `--m2-return-abi` appends [RETURN-ABI](M2-RETURN-ABI.md), for
-104 checks. The current default, `--m2-source-events`, appends
-[SOURCE-EVENTS](M2-SOURCE-EVENTS.md), for 105 checks.
+104 checks. `--m2-source-events` appends
+[SOURCE-EVENTS](M2-SOURCE-EVENTS.md), for 105 checks. The current default,
+`--m2-storage-proofs`, appends [STORAGE-PROOFS](M2-STORAGE-PROOFS.md), for
+106 checks.
 
 That ratio test used synthetic reports to exercise the public command; these
 were decision tests and provided no timing evidence. It checked the

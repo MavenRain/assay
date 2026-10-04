@@ -1,0 +1,80 @@
+[
+  {
+    "name": "storage-proof",
+    "command": [
+      "python3",
+      "-P",
+      "dev/storage-proof-test.py"
+    ],
+    "exit": 0,
+    "marker": "STORAGE-PROOFS theorems=13 accesses=2395 refinements=533 lexical=17 grammar=2 mutants=7 controls=7 erasure=13 OK",
+    "stdout": "STORAGE-PROOFS theorems=13 accesses=2395 refinements=533 lexical=17 grammar=2 mutants=7 controls=7 erasure=13 OK\n",
+    "stderr": "",
+    "seconds": 69.28722783294506
+  },
+  {
+    "name": "milestone-speed",
+    "command": [
+      "python3",
+      "-P",
+      "dev/milestone-speed-test.py"
+    ],
+    "exit": 0,
+    "marker": "MILESTONE-SPEED schedules=57 controls=9 OK",
+    "stdout": "MILESTONE-SPEED schedules=57 controls=9 OK\n",
+    "stderr": "",
+    "seconds": 0.3576345418114215
+  },
+  {
+    "name": "source-proof",
+    "command": [
+      "python3",
+      "-P",
+      "dev/source-proof-test.py"
+    ],
+    "exit": 0,
+    "marker": "SOURCE-PROOFS theorems=11 arithmetic=226 evm=16 recovery=6 effects=7 invalid=13 mutants=6 controls=4 OK",
+    "stdout": "SOURCE-PROOF-MUTANT EXACT-ADD killed control=OK\nSOURCE-PROOF-MUTANT UPPER-BOUND killed control=OK\nSOURCE-PROOF-MUTANT SUB-ORDER killed control=OK\nSOURCE-PROOF-MUTANT TRACE killed control=OK\nSOURCE-PROOF-MUTANT DISPATCH killed control=OK\nSOURCE-PROOF-MUTANT ERROR-BRANCH killed control=OK\nSOURCE-PROOFS theorems=11 arithmetic=226 evm=16 recovery=6 effects=7 invalid=13 mutants=6 controls=4 OK\n",
+    "stderr": "",
+    "seconds": 264.4633791670203
+  },
+  {
+    "name": "layout-packed",
+    "command": [
+      "python3",
+      "-P",
+      "dev/layout-packed-test.py"
+    ],
+    "exit": 0,
+    "marker": "LAYOUT-PACKED layouts=11 accesses=1685 negative=40 mutants=11 scope=packing OK",
+    "stdout": "LAYOUT-PACKED layouts=11 accesses=1685 negative=40 mutants=11 scope=packing OK\n",
+    "stderr": "",
+    "seconds": 29.31370491697453
+  },
+  {
+    "name": "packed-source",
+    "command": [
+      "python3",
+      "-P",
+      "dev/packed-source-test.py"
+    ],
+    "exit": 0,
+    "marker": "PACKED-SOURCE cases=66 model=packed executors=run+t8n mutants=6 OK",
+    "stdout": "PACKED-SOURCE cases=66 model=packed executors=run+t8n mutants=6 OK\n",
+    "stderr": "",
+    "seconds": 178.5588987499941
+  },
+  {
+    "name": "mapping-runtime",
+    "command": [
+      "python3",
+      "-P",
+      "dev/mapping-runtime-test.py"
+    ],
+    "exit": 0,
+    "marker": "MAPPING-RUNTIME live=40 refusals=27 constructor=1 layout=1 OK",
+    "stdout": "MAPPING-RUNTIME live=40 refusals=27 constructor=1 layout=1 OK\n",
+    "stderr": "",
+    "seconds": 204.1336809999775
+  }
+]

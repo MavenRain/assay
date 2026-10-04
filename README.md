@@ -59,6 +59,16 @@ The [packed source model](dev/M2-PACKED-MODEL.md) runs the same typed
 contracts against physical storage words. Its tests compare its results
 with Cancun execution.
 
+The [storage and refinement certificates](dev/M2-STORAGE-PROOFS.md)
+check scalar bounds and packed-field locations in Lean with thirteen
+term-mode theorems. `write_total` proves that the runtime certificate
+check accepts every valid write, so readback and preservation of
+neighboring bits hold for every write on valid input. A strict
+per-theorem axiom oracle, an erasure check, a 17-row lexical corpus and
+executable comparisons against the production storage API cover the
+recorded corpus. The ratified Prop-valued Word refinement over a Type 0
+index remains an open M2 kernel item.
+
 The [M1 closure gate](dev/M1-CLOSE.md) combines the bounded counter,
 surface, proof and executor checks. The [first M2 slice](dev/M2-REFERENCE.md) adds a frozen,
 hand-assembled [ERC-20 reference](reference/erc20/README.md), with mappings,
@@ -88,7 +98,7 @@ The [source event group](dev/M2-SOURCE-EVENTS.md) connects declarations and
 emission to the checked compiler, typed ABI, model and EVM logs. It supports
 indexed strings, anonymous events, packed storage, mappings and rollback.
 Constructor emission has an explicit refusal.
-`zsh -f dev/gates.sh` runs the default 105-leg gate battery, and
+`zsh -f dev/gates.sh` runs the default 106-leg gate battery, and
 `make gates-m4-speed` runs the two M4 speed legs.
 
 Assay is a Kanon language fork for EVM contracts.  It inherits the kernel and
@@ -428,7 +438,7 @@ and five mutations with restored controls.
 The address gate adds 1920 core comparisons, 128 artifact pairs,
 40 surface cases, 55 signed calls, seven public command checks,
 24 refusals and five mutations with restored controls.
-`dev/gates.sh` and `make gates` select `--m2-source-events`: the 75
+`dev/gates.sh` and `make gates` select `--m2-storage-proofs`: the 75
 `--m1-close` legs (proof-bundle, named-predicate, compound-invariant,
 named-guard, inferred-guard and inferred-arithmetic suites), then
 ERC20-REFERENCE, ABI-SCHEMA, ABI-CODEC, LAYOUT-PACKED, LAYOUT-MAPPING,
@@ -436,8 +446,9 @@ EVENT-CODEC, CALL-CODEC, RETURN-CODEC, REVERT-CODEC, EVENT-DECODE,
 LEXER-KEYWORDS, LEXER-DIRECT, IDENTIFIER-DIRECT, WORD-DIRECT,
 SEGMENT-DIRECT, CLI-PREFIX-DIRECT, CLI-VALUE-DIRECT, CLI-ERROR-DIRECT,
 MAPPING-CLI, EVENT-CLI, EVENT-DECODE-CLI, CALLDATA-CLI, MILESTONE-SPEED,
-PACKED-SOURCE, MAPPING-SOURCE, RETURNDATA-CLI, MAPPING-RUNTIME, FUNCTION-ABI
-RETURN-ABI and SOURCE-EVENTS, for 105 legs. `--m2-return-abi` retains its
+PACKED-SOURCE, MAPPING-SOURCE, RETURNDATA-CLI, MAPPING-RUNTIME, FUNCTION-ABI,
+RETURN-ABI, SOURCE-EVENTS and STORAGE-PROOFS, for 106 legs.
+`--m2-source-events` retains its 105 legs. `--m2-return-abi` retains its
 104 legs. `--m2-function-abi` retains its 103 legs.
 `--m2-mapping-runtime` retains its 102 legs.
 BEND2-RATIO and BEND2-RATIO-TEST moved to `--m4-speed` (`make gates-m4-speed`)

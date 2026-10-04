@@ -48,9 +48,11 @@ String argument refusals carry the EVENT code at the emit token. A reserved
 name refusal points at the first reserved token. An event without a parameter
 list is refused at its name.
 
-The cumulative schedule is `python3 -P dev/stage-a-gates.py --m2-source-events`.
+The cumulative schedule was `python3 -P dev/stage-a-gates.py --m2-source-events`.
 It preserves the 104 return ABI legs and appends mandatory SOURCE-EVENTS, for
-105. The separate M4 speed schedule and existing deadlines remain unchanged.
+105. The current default,
+`--m2-storage-proofs`, adds [STORAGE-PROOFS](M2-STORAGE-PROOFS.md), for 106
+legs. The separate M4 speed schedule and existing deadlines remain unchanged.
 
 The trusted artifact budgets remain unchanged. `src/event_source.bend` is
 admitted as compiler source without a line budget, following the function and

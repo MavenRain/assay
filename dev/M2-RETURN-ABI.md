@@ -57,8 +57,10 @@ feature-specific geth run and t8n adapter; the shared differential domain stays
 unchanged.
 The cumulative schedule was `python3 -P dev/stage-a-gates.py --m2-return-abi`.
 It adds mandatory RETURN-ABI to the 103 carried function ABI legs, for 104.
-The current default, `--m2-source-events`, adds
-[SOURCE-EVENTS](M2-SOURCE-EVENTS.md), for 105 legs.
+`--m2-source-events` adds
+[SOURCE-EVENTS](M2-SOURCE-EVENTS.md), for 105 legs. The current default,
+`--m2-storage-proofs`, adds [STORAGE-PROOFS](M2-STORAGE-PROOFS.md), for
+106 legs.
 
 The trusted artifact budgets remain unchanged. `src/return_abi.bend` is admitted
 as compiler source without a line budget, following `src/function_abi.bend`.

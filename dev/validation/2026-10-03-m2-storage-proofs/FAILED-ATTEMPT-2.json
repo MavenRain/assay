@@ -1,0 +1,14 @@
+[
+  {
+    "name": "storage-proof",
+    "command": [
+      "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "-P",
+      "dev/storage-proof-test.py"
+    ],
+    "exit": 1,
+    "stdout": "",
+    "stderr": "Traceback (most recent call last):\n  File \"/Users/oobi/Documents/assay/dev/storage-proof-test.py\", line 204, in <module>\n    main()\n    ~~~~^^\n  File \"/Users/oobi/Documents/assay/dev/storage-proof-test.py\", line 196, in main\n    killed = mutants()\n  File \"/Users/oobi/Documents/assay/dev/storage-proof-test.py\", line 173, in mutants\n    require(b'l_AssayProofs_Storage_write' in code, 'missing executable write')\n    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/oobi/Documents/assay/dev/storage-proof-test.py\", line 21, in require\n    raise AssertionError('STORAGE-PROOFS ' + message)\nAssertionError: STORAGE-PROOFS missing executable write\n",
+    "seconds": 70.15179216698743
+  }
+]

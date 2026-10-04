@@ -83,9 +83,14 @@ def main():
             ('SOURCE-EVENTS', 900, ('python3', '-P', 'dev/event-source-test.py'),
              'SOURCE-EVENTS cases=34 refusals=16 cast=model=geth=t8n logs=OK rollback=OK OK', True)]),
                 'source events must preserve all carried legs and add their required check')
-        require('--m2-source-events' in (ROOT / 'dev/gates.sh').read_text() and
-                'dev/stage-a-gates.py --m2-source-events' in (ROOT / 'Makefile').read_text(),
-                'default gate entry points must select source events')
+        storage = H.schedule(after, '--m2-storage-proofs')
+        require(storage == dict(stage='M2-STORAGE-PROOFS', legs=events['legs'] + [
+            ('STORAGE-PROOFS', 600, ('python3', '-P', 'dev/storage-proof-test.py'),
+             'STORAGE-PROOFS theorems=13 accesses=2395 refinements=533 lexical=17 grammar=2 mutants=7 controls=7 erasure=13 OK', True)]),
+                'storage proofs must preserve all carried legs and add their required check')
+        require('--m2-storage-proofs' in (ROOT / 'dev/gates.sh').read_text() and
+                'dev/stage-a-gates.py --m2-storage-proofs' in (ROOT / 'Makefile').read_text(),
+                'default gate entry points must select storage proofs')
     finally:
         sys.argv = original_argv
 

@@ -10,3 +10,7 @@ lean_lib AssayProofs
 @[default_target]
 lean_exe sourceModel where
   root := `Main
+
+@[default_target]
+lean_exe storageModel where
+  root := `StorageMain

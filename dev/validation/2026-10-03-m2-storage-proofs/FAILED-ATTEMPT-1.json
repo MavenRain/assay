@@ -1,0 +1,14 @@
+[
+  {
+    "name": "storage-proof",
+    "command": [
+      "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "-P",
+      "dev/storage-proof-test.py"
+    ],
+    "exit": 1,
+    "stdout": "",
+    "stderr": "Traceback (most recent call last):\n  File \"/Users/oobi/Documents/assay/dev/storage-proof-test.py\", line 203, in <module>\n    main()\n    ~~~~^^\n  File \"/Users/oobi/Documents/assay/dev/storage-proof-test.py\", line 195, in main\n    killed = mutants()\n  File \"/Users/oobi/Documents/assay/dev/storage-proof-test.py\", line 161, in mutants\n    require(result['exit'] != 0 and 'error:' in result['stdout'], name + ' survived')\n    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/oobi/Documents/assay/dev/storage-proof-test.py\", line 21, in require\n    raise AssertionError('STORAGE-PROOFS ' + message)\nAssertionError: STORAGE-PROOFS storage-closure survived\n",
+    "seconds": 54.3734016250819
+  }
+]

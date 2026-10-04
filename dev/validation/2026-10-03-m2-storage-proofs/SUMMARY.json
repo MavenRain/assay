@@ -1,0 +1,10 @@
+{
+  "theorems": 13,
+  "accesses": 2395,
+  "refinements": 533,
+  "lexical": 17,
+  "grammar": 2,
+  "mutants": 7,
+  "controls": 7,
+  "erasure": 13
+}

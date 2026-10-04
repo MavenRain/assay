@@ -1,0 +1,16 @@
+{
+  "baseline": "7ec1b8ac4110d4f4dd070b81f02fad9b033d08c9",
+  "existing_modes_preserved": 65,
+  "previous_legs": 105,
+  "added_leg": [
+    "STORAGE-PROOFS",
+    600,
+    [
+      "python3",
+      "-P",
+      "dev/storage-proof-test.py"
+    ],
+    "STORAGE-PROOFS theorems=13 accesses=2395 refinements=533 lexical=17 grammar=2 mutants=7 controls=7 erasure=13 OK"
+  ],
+  "source_sha256": "d97777fc83f147b4766a03b2aa02b95651e3c68fe4e050b4cb9beb212f06b932"
+}
