@@ -1,0 +1,239 @@
+[
+  {
+    "name": "build-initial",
+    "capture": "/Users/oobi/Documents/assay/.kanon-exec/run-MH1WDg",
+    "argv": [
+      "python3",
+      "-P",
+      "dev/build.py",
+      "build",
+      "assay"
+    ],
+    "cwd": "/Users/oobi/Documents/assay",
+    "status": "complete",
+    "exit": 0,
+    "stdout_sha256": "f8c366c69a898e6846fb0ebe15556f2a42a1eb66b47a414d9b4981f2ac89770c",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "name": "build-final",
+    "capture": "/Users/oobi/Documents/assay/.kanon-exec/run-dTyiLs",
+    "argv": [
+      "python3",
+      "-P",
+      "dev/build.py",
+      "build"
+    ],
+    "cwd": "/Users/oobi/Documents/assay",
+    "status": "complete",
+    "exit": 0,
+    "stdout_sha256": "0f0c4b6180409758fdcc904d20c2c415f739031ba617b7f22ae816097554ddab",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "name": "return-abi",
+    "capture": "/Users/oobi/Documents/assay/.kanon-exec/run-Fd63tz",
+    "argv": [
+      "python3",
+      "-P",
+      "dev/return-abi-test.py"
+    ],
+    "cwd": "/Users/oobi/Documents/assay",
+    "status": "complete",
+    "exit": 0,
+    "stdout_sha256": "ebcf5648efaeb21562aa3d44e64f396a18b61cb97d93317a2ed64cf63ead6318",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "name": "source-events",
+    "capture": "/Users/oobi/Documents/assay/.kanon-exec/run-xkp0Fa",
+    "argv": [
+      "python3",
+      "-P",
+      "dev/event-source-test.py"
+    ],
+    "cwd": "/Users/oobi/Documents/assay",
+    "status": "complete",
+    "exit": 0,
+    "stdout_sha256": "16c50c70d7f77fa5925b57619b2a6fa8517a1317a9cfcfafd3c601d25b3f55f8",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "name": "erc20-initial-oracle-difference",
+    "capture": "/Users/oobi/Documents/assay/.kanon-exec/run-Zht9qT",
+    "argv": [
+      "python3",
+      "-P",
+      "dev/erc20-source-test.py"
+    ],
+    "cwd": "/Users/oobi/Documents/assay",
+    "status": "complete",
+    "exit": 1,
+    "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stderr_sha256": "08fe50e8936aedddd430cb10d3744df9c62c4fa4eee5e4b729e9425498370a7f"
+  },
+  {
+    "name": "erc20-model-timeout",
+    "capture": "/Users/oobi/Documents/assay/.kanon-exec/run-dOitFF",
+    "argv": [
+      "python3",
+      "-P",
+      "dev/erc20-source-test.py"
+    ],
+    "cwd": "/Users/oobi/Documents/assay",
+    "status": "complete",
+    "exit": 1,
+    "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stderr_sha256": "cd0cf93537b00993f92e1e003b44320e2f599bc9779d33a29babf0f40a26ca21"
+  },
+  {
+    "name": "erc20-serial-cancelled",
+    "capture": "/Users/oobi/Documents/assay/.kanon-exec/run-SLu49F",
+    "argv": [
+      "python3",
+      "-P",
+      "dev/erc20-source-test.py"
+    ],
+    "cwd": "/Users/oobi/Documents/assay",
+    "status": "interrupted",
+    "exit": 143,
+    "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "name": "erc20-literal-schema-initial",
+    "capture": "/Users/oobi/Documents/assay/.kanon-exec/run-HzGFyx",
+    "argv": [
+      "python3",
+      "-P",
+      "dev/erc20-source-test.py"
+    ],
+    "cwd": "/Users/oobi/Documents/assay",
+    "status": "complete",
+    "exit": 1,
+    "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stderr_sha256": "7016652757ef9392f8478bc754a5824e605b01dec2e7695cd1f7dd708c41d7b5"
+  },
+  {
+    "name": "literal-diagnostic-initial",
+    "capture": "/Users/oobi/Documents/gpt1/.kanon-exec/run-ZHtFgR",
+    "argv": [
+      "python3",
+      "-P",
+      "probe-assay-erc20-literals.py"
+    ],
+    "cwd": "/Users/oobi/Documents/gpt1",
+    "driver": "drivers/probe-assay-erc20-literals.py",
+    "driver_sha256": "ec5d3019ac5ea9d244b187b6c25ac80619a0f969fe22b7f2deaa54388f78b38b",
+    "status": "complete",
+    "exit": 1,
+    "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stderr_sha256": "f2fbee5fb6ac219385c968a413fdd039430e648856381cc2e3dac4e3b0e296b3",
+    "stderr_file": "literal-diagnostic-initial.stderr.gz"
+  },
+  {
+    "name": "literal-focused",
+    "capture": "/Users/oobi/Documents/gpt1/.kanon-exec/run-EjNsYS",
+    "argv": [
+      "python3",
+      "-P",
+      "probe-assay-erc20-literals.py"
+    ],
+    "cwd": "/Users/oobi/Documents/gpt1",
+    "driver": "drivers/probe-assay-erc20-literals.py",
+    "driver_sha256": "ec5d3019ac5ea9d244b187b6c25ac80619a0f969fe22b7f2deaa54388f78b38b",
+    "status": "complete",
+    "exit": 0,
+    "stdout_sha256": "5ecc0053ee874679b347b5069a7311cd59e193414304d416043e7f4d5fc26ad1",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "name": "erc20-final",
+    "capture": "/Users/oobi/Documents/gpt1/.kanon-exec/run-14nE1Z",
+    "argv": [
+      "python3",
+      "-P",
+      "run-assay-erc20-final.py"
+    ],
+    "cwd": "/Users/oobi/Documents/gpt1",
+    "driver": "drivers/run-assay-erc20-final.py",
+    "driver_sha256": "b7b5e6a6593f2ff769b1e13a4427ef7e531b552b6d94ba3d82074212ba48371c",
+    "status": "complete",
+    "exit": 0,
+    "stdout_sha256": "50a4320b28118efd52111fb4a2c69b539714f503e8ed493e84dcad9b6104ed77",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "name": "rerun-build",
+    "capture": "rerun/rerun.log",
+    "argv": [
+      "python3",
+      "-P",
+      "dev/build.py",
+      "build"
+    ],
+    "cwd": ".",
+    "status": "complete",
+    "exit": 0,
+    "stdout_file": "rerun/build.stdout",
+    "stderr_file": "rerun/build.stderr",
+    "stdout_sha256": "879c09ca8b3149cef1d8243fa9e7e03f9ed67ab50da7842ace1ebf443faecd0d",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "seconds": 1.0,
+    "peak_rss_bytes": 228098048
+  },
+  {
+    "name": "rerun-return-abi",
+    "capture": "rerun/rerun.log",
+    "argv": [
+      "python3",
+      "-P",
+      "dev/return-abi-test.py"
+    ],
+    "cwd": ".",
+    "status": "complete",
+    "exit": 0,
+    "stdout_file": "rerun/return-abi.stdout",
+    "stderr_file": "rerun/return-abi.stderr",
+    "stdout_sha256": "ebcf5648efaeb21562aa3d44e64f396a18b61cb97d93317a2ed64cf63ead6318",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "seconds": 46.1,
+    "peak_rss_bytes": 470286336
+  },
+  {
+    "name": "rerun-source-events",
+    "capture": "rerun/rerun.log",
+    "argv": [
+      "python3",
+      "-P",
+      "dev/event-source-test.py"
+    ],
+    "cwd": ".",
+    "status": "complete",
+    "exit": 0,
+    "stdout_file": "rerun/event-source.stdout",
+    "stderr_file": "rerun/event-source.stderr",
+    "stdout_sha256": "16c50c70d7f77fa5925b57619b2a6fa8517a1317a9cfcfafd3c601d25b3f55f8",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "seconds": 59.6,
+    "peak_rss_bytes": 291127296
+  },
+  {
+    "name": "rerun-erc20",
+    "capture": "rerun/rerun.log",
+    "argv": [
+      "python3",
+      "-P",
+      "dev/erc20-source-test.py"
+    ],
+    "cwd": ".",
+    "status": "complete",
+    "exit": 0,
+    "stdout_file": "rerun/erc20-source.stdout",
+    "stderr_file": "rerun/erc20-source.stderr",
+    "stdout_sha256": "432614749371a4c544d23311a9ef4e0c6ccdab6b3586bc186c99f08ac391ff33",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "seconds": 69.6,
+    "peak_rss_bytes": 146767872
+  }
+]

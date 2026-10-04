@@ -1,0 +1,28 @@
+{
+  "stage": "M2-SOURCE-ERC20",
+  "base": "be3062d62b751fc1c0ff790f8950e147b0e51723",
+  "full_milestone_closed": false,
+  "cumulative_gate_run": false,
+  "review_fixes": 7,
+  "cases": 85,
+  "canonical_refusals": 9,
+  "creates": 4,
+  "literals": 5,
+  "refusals": 15,
+  "zero_caller_probes": 1,
+  "runtime_bytes": 4994,
+  "audit_checks": 9,
+  "all_focused_checks_passed": true,
+  "compiler_output_sha256": "30cc330e63236c34c5c73081abdb44d2ed8c68e7c197e5e37d847492f687a3c2",
+  "erc20_seconds": 69.6,
+  "erc20_peak_rss_bytes": 146767872,
+  "erc20_deadline_seconds": 900,
+  "prereview_erc20_seconds": 147.96407437487505,
+  "max_peak_rss_bytes": 470286336,
+  "limits": [
+    "Fixed genesis holder; constructor event emission remains refused.",
+    "String result literals are bounded to 31 bytes.",
+    "Cumulative M2 acceptance and the open kernel refinement remain pending.",
+    "The cumulative 107-leg M2 gate was not run on the final tree."
+  ]
+}

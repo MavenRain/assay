@@ -1,0 +1,16 @@
+Traceback (most recent call last):
+  File "/Users/oobi/Documents/assay/dev/erc20-source-test.py", line 200, in <module>
+    main()
+    ~~~~^^
+  File "/Users/oobi/Documents/assay/dev/erc20-source-test.py", line 189, in main
+    strings, refusals = literals()
+                        ~~~~~~~~^^
+  File "/Users/oobi/Documents/assay/dev/erc20-source-test.py", line 143, in literals
+    cases.append(compare(path, runtime, row))
+                 ~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oobi/Documents/assay/dev/erc20-source-test.py", line 78, in compare
+    require(modeled == expected, name + ': model mismatch: ' + json.dumps(modeled))
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oobi/Documents/assay/evm/diff.py", line 27, in require
+    raise ValueError(message)
+ValueError: literal-empty: model mismatch: {"status": "success", "output": "0x00000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000000", "storage": {"0": "0x9"}}

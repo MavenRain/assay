@@ -172,9 +172,11 @@ checks. The --m2-mapping-source mode appends the
 --m2-return-abi mode appends the
 [return ABI check](M2-RETURN-ABI.md), for 104 checks.
 --m2-source-events appends the
-[source events check](M2-SOURCE-EVENTS.md), for 105 checks. The default
-make gates and dev/gates.sh now select --m2-storage-proofs, which appends the
-[storage proof check](M2-STORAGE-PROOFS.md), for 106 checks. --m2-function-abi
+[source events check](M2-SOURCE-EVENTS.md), for 105 checks.
+--m2-storage-proofs appends the
+[storage proof check](M2-STORAGE-PROOFS.md), for 106 checks. The default
+make gates and dev/gates.sh now select --m2-source-erc20, which appends the
+[source ERC20 check](M2-SOURCE-ERC20.md), for 107 checks. --m2-function-abi
 retains its 103 checks.
 Historical OCaml tools, native timing records and source seals remain
 available as diagnostics.

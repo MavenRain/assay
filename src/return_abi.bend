@@ -98,6 +98,9 @@ def ReturnAbi.string_alias(+at: Contract.Token, +name: Contract.Token, +fresh: B
   Tup2{FunctionAbi.tokens(at, [cursor, "<-", "stringdata", FunctionAbi.text(name), ";", offset, "<-", "sub", cursor, "(", "word", "36", ")", ";"]), offset}
 @unsafe
 def ReturnAbi.string_return(+pure: Contract.Token, +tokens: ListOf(Contract.Token), +acc: ListOf(Contract.Token), +functions: FunctionAbi.Functions(), +errors: ReturnAbi.Errors(), +active: ListOf(Abi.Schema.Parameter), +result: Abi.Schema.Value_type, +fresh: Big) -> CheckResult(ReturnAbi.Source):
+  ReturnAbi.Literal.return_or_parameter(pure, tokens, acc, functions, errors, active, result, fresh)
+@unsafe
+def ReturnAbi.parameter_return(+pure: Contract.Token, +tokens: ListOf(Contract.Token), +acc: ListOf(Contract.Token), +functions: FunctionAbi.Functions(), +errors: ReturnAbi.Errors(), +active: ListOf(Abi.Schema.Parameter), +result: Abi.Schema.Value_type, +fresh: Big) -> CheckResult(ReturnAbi.Source):
   match tokens:
     case Con{open, Con{name, Con{close, rest}}}:
       Native.choose(&2, CheckResult(ReturnAbi.Source), Bool.and(FunctionAbi.eq(open, "("), FunctionAbi.eq(close, ")")), _ => ReturnAbi.return_name(pure, name, rest, acc, functions, errors, active, result, fresh), _ => ReturnAbi.return_name(pure, open, name <> close <> rest, acc, functions, errors, active, result, fresh))
@@ -273,6 +276,9 @@ def ReturnAbi.fields(+root: String, +parameters: ListOf(Abi.Schema.Parameter), +
         [FunctionAbi.check(label, List.append(&2, Asm.Instruction, [Emit.number(ReturnAbi.maximum(typ))], List.append(&2, Asm.Instruction, FunctionAbi.load(source), [Asm.Instruction.Op{"GT"}])), copy), Emit.marked(copy, List.append(&2, Asm.Instruction, FunctionAbi.load(source), FunctionAbi.save(head)), Emit.goto(next))]), ReturnAbi.fields(root, tail, Big.add(index, Big.one()), raw, tuple, base, cursor, ending))
 @unsafe
 def ReturnAbi.string_blocks(+label: String, +copy: String, +next: String, +source: Big, +head: Big, +tuple: Big, +base: Big, +cursor: Big) -> ListOf(Asm.Block):
+  ReturnAbi.Literal.blocks(label, copy, next, source, head, tuple, base, cursor)
+@unsafe
+def ReturnAbi.calldata_string_blocks(+label: String, +copy: String, +next: String, +source: Big, +head: Big, +tuple: Big, +base: Big, +cursor: Big) -> ListOf(Asm.Block):
   +length = {Big.add(cursor, Big.of_nat(32n)) : Big}
   +end = {Big.add(cursor, Big.of_nat(64n)) : Big}
   +read_length = {List.append(&2, Asm.Instruction, FunctionAbi.load(source), [Emit.number(Big.of_nat(4n)), Asm.Instruction.Op{"ADD"}, Asm.Instruction.Op{"CALLDATALOAD"}]) : ListOf(Asm.Instruction)}
@@ -355,9 +361,7 @@ def ReturnAbi.value(+typ: Abi.Schema.Value_type, +value: Big, +data: String) -> 
     case Abi.Schema.Value_type.Address{}: Some{Abi.Codec.Value.Address{value}}
     case Abi.Schema.Value_type.Bool{}: Native.choose(&2, OptionOf(Abi.Codec.Value), Big.is_lt(Big.one(), value), _ => None{}, _ => Some{Abi.Codec.Value.Bool{Big.is_eq(value, Big.one())}})
     case Abi.Schema.Value_type.String{}:
-      +length = {Model.calldata_word(data, Big.add(value, Big.of_nat(4n))) : Big}
-      +hex = {Model.segment(Big.mul(Big.add(value, Big.of_nat(36n)), Big.of_nat(2n)), Big.mul(length, Big.of_nat(2n)), data) : String}
-      ReturnAbi.string_value(Cli.EventDecode.pairs(NativeString.to_list(hex)))
+      ReturnAbi.Literal.value(value, data)
 @unsafe
 def ReturnAbi.string_value(+bytes: OptionOf(ListOf(Char))) -> OptionOf(Abi.Codec.Value):
   match bytes:

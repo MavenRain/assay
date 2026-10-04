@@ -88,9 +88,14 @@ def main():
             ('STORAGE-PROOFS', 600, ('python3', '-P', 'dev/storage-proof-test.py'),
              'STORAGE-PROOFS theorems=13 accesses=2395 refinements=533 lexical=17 grammar=2 mutants=7 controls=7 erasure=13 OK', True)]),
                 'storage proofs must preserve all carried legs and add their required check')
-        require('--m2-storage-proofs' in (ROOT / 'dev/gates.sh').read_text() and
-                'dev/stage-a-gates.py --m2-storage-proofs' in (ROOT / 'Makefile').read_text(),
-                'default gate entry points must select storage proofs')
+        erc20 = H.schedule(after, '--m2-source-erc20')
+        require(erc20 == dict(stage='M2-SOURCE-ERC20', legs=storage['legs'] + [
+            ('ERC20-SOURCE', 900, ('python3', '-P', 'dev/erc20-source-test.py'),
+             'ERC20-SOURCE cases=85 canonical=9 creates=4 literals=5 refusals=15 zero_caller=1 model=geth=t8n logs=OK rollback=OK OK', True)]),
+                'source ERC20 must preserve all carried legs and add its required check')
+        require('--m2-source-erc20' in (ROOT / 'dev/gates.sh').read_text() and
+                'dev/stage-a-gates.py --m2-source-erc20' in (ROOT / 'Makefile').read_text(),
+                'default gate entry points must select source ERC20')
     finally:
         sys.argv = original_argv
 

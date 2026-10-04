@@ -18,11 +18,13 @@ Scalar results and error arguments are bounded at termination. Uint8 admits
 storage. Source checking still uses the carried Word proof core. The storage
 and refinement obligations in M2 group 5 remain open.
 
-String results and String error arguments currently refer to String parameters
+String results and String error arguments may refer to String parameters
 in the current entry. `pure message` and `pure (message)` return such a
-parameter. String construction, literals, concatenation and multiple results
-retain explicit refusals. Arbitrary bytes are preserved; UTF-8 is optional.
-Each String operand keeps its own calldata offset, including repeated operands
+parameter. Results also accept [constant byte strings](M2-SOURCE-ERC20.md#constant-string-results)
+of up to 31 bytes through `pure (string 0xHEX)`. Other String construction,
+concatenation and multiple results retain explicit refusals. Arbitrary bytes
+are preserved; UTF-8 is optional.
+Each String parameter operand keeps its own calldata offset, including repeated operands
 and multiple dynamic error fields. The emitter copies data into fresh memory
 and writes tuple offsets, lengths and zero padding.
 
@@ -58,9 +60,10 @@ unchanged.
 The cumulative schedule was `python3 -P dev/stage-a-gates.py --m2-return-abi`.
 It adds mandatory RETURN-ABI to the 103 carried function ABI legs, for 104.
 `--m2-source-events` adds
-[SOURCE-EVENTS](M2-SOURCE-EVENTS.md), for 105 legs. The current default,
-`--m2-storage-proofs`, adds [STORAGE-PROOFS](M2-STORAGE-PROOFS.md), for
-106 legs.
+[SOURCE-EVENTS](M2-SOURCE-EVENTS.md), for 105 legs. `--m2-storage-proofs`
+adds [STORAGE-PROOFS](M2-STORAGE-PROOFS.md), for 106 legs. The current
+default, `--m2-source-erc20`, adds [ERC20-SOURCE](M2-SOURCE-ERC20.md), for
+107 legs.
 
 The trusted artifact budgets remain unchanged. `src/return_abi.bend` is admitted
 as compiler source without a line budget, following `src/function_abi.bend`.

@@ -1,0 +1,14 @@
+{
+  "argv": [
+    "python3",
+    "-P",
+    "dev/erc20-source-test.py"
+  ],
+  "cwd": "/Users/oobi/Documents/assay",
+  "deadline_seconds": 900,
+  "seconds": 147.96407437487505,
+  "exit": 0,
+  "timed_out": false,
+  "stdout": "ERC20-SOURCE cases=85 canonical=9 creates=4 literals=5 refusals=15 model=geth=t8n logs=OK rollback=OK OK\n",
+  "stderr": ""
+}

@@ -4471,5 +4471,14 @@
     "arm_sha256": "a233209899f54025859d2c75c705ed718d8aae903d786459935bdfcd3841157e",
     "arity": 1,
     "reason": "test driver usage: arguments the driver does not name exit 64 with the usage line the OCaml helper printed."
+  },
+  {
+    "definition": "ReturnAbi.Literal.return_or_parameter",
+    "path": "src/string_literal.bend",
+    "line": 15,
+    "arm": "case other: ReturnAbi.parameter_return(pure, other, acc, functions, errors, active, result, fresh)",
+    "arm_sha256": "f413444066f6601740ca2feeec05e7ebd7f04e6d9da1769e5fe77b52908d2d5c",
+    "arity": 1,
+    "reason": "Delegate nonliteral token sequences to the existing String parameter parser. The literal arm separately checks its delimiter, hexadecimal digits, even length and 31-byte bound."
   }
 ]

@@ -1,0 +1,86 @@
+[
+  {
+    "name": "milestone-speed",
+    "argv": [
+      "python3",
+      "-P",
+      "dev/milestone-speed-test.py"
+    ],
+    "seconds": 2.2519072080031037,
+    "exit": 1,
+    "stdout": "",
+    "stderr": "Traceback (most recent call last):\n  File \"/Users/oobi/Documents/assay/dev/milestone-speed-test.py\", line 133, in <module>\n    main()\n    ~~~~^^\n  File \"/Users/oobi/Documents/assay/dev/milestone-speed-test.py\", line 91, in main\n    require('--m2-storage-proofs' in (ROOT / 'dev/gates.sh').read_text() and\n    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n            'dev/stage-a-gates.py --m2-storage-proofs' in (ROOT / 'Makefile').read_text(),\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n            'default gate entry points must select storage proofs')\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/oobi/Documents/assay/dev/milestone-speed-test.py\", line 22, in require\n    raise AssertionError('MILESTONE-SPEED ' + message)\nAssertionError: MILESTONE-SPEED default gate entry points must select storage proofs\n"
+  },
+  {
+    "name": "carry",
+    "argv": [
+      "zsh",
+      "-f",
+      "dev/carry-check.sh"
+    ],
+    "seconds": 1.24547200021334,
+    "exit": 0,
+    "stdout": "PIN 2c2e6e6831a0b2cf3107fa4aad392606109a2bcf\nCARRY files=16/16 diff=0 unlisted=0\n",
+    "stderr": ""
+  },
+  {
+    "name": "house",
+    "argv": [
+      "zsh",
+      "-f",
+      "dev/house.sh"
+    ],
+    "seconds": 5.989407332846895,
+    "exit": 1,
+    "stdout": "HOUSE unapproved catch-all: ReturnAbi.Literal.return_or_parameter (src/string_literal.bend)\nHOUSE no-exception OK\nHOUSE named-catchalls FAIL\nHOUSE no-mutable-state OK\nHOUSE one-catch-site OK\nHOUSE foreign-boundary OK\nHOUSE bool-dispatch OK\nHOUSE no-loop-keyword OK\nHOUSE no-bare-division OK\nHOUSE no-em-dash OK\nHOUSE FAIL\n",
+    "stderr": ""
+  },
+  {
+    "name": "r0-count",
+    "argv": [
+      "zsh",
+      "-f",
+      "dev/r0-count.sh"
+    ],
+    "seconds": 0.8364061671309173,
+    "exit": 0,
+    "stdout": "R0-COUNT OK\n",
+    "stderr": ""
+  },
+  {
+    "name": "r0-audit",
+    "argv": [
+      "zsh",
+      "-f",
+      "dev/r0-audit.sh"
+    ],
+    "seconds": 0.5815224589314312,
+    "exit": 0,
+    "stdout": "R0-AUDIT OK\n",
+    "stderr": ""
+  },
+  {
+    "name": "trusted-lines",
+    "argv": [
+      "zsh",
+      "-f",
+      "dev/trusted-lines.sh"
+    ],
+    "seconds": 0.7266652919352055,
+    "exit": 1,
+    "stdout": "TRUSTED-LINES unpriced=src/string_literal.bend\nTRUSTED-LINES kernel=3767/4000\nTRUSTED-LINES emitter=1792/1800\nTRUSTED-LINES assembler=414/505\nTRUSTED-LINES keccak=181/250\nTRUSTED-LINES abi=495/495\nTRUSTED-LINES layout=238/250\nTRUSTED-LINES listing=64/250\nTRUSTED-LINES total=3184/3550 ratified=3550\nTRUSTED-LINES FAIL\n",
+    "stderr": ""
+  },
+  {
+    "name": "diff-check",
+    "argv": [
+      "git",
+      "diff",
+      "--check"
+    ],
+    "seconds": 0.10219995793886483,
+    "exit": 0,
+    "stdout": "",
+    "stderr": ""
+  }
+]

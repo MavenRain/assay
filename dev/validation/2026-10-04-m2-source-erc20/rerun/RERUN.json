@@ -1,0 +1,283 @@
+{
+  "tree": "Final staged tree after review fixes F1 to F7",
+  "cwd": ".",
+  "cwd_note": "The repository root.",
+  "compiler_output_sha256": "30cc330e63236c34c5c73081abdb44d2ed8c68e7c197e5e37d847492f687a3c2",
+  "wrapper": [
+    "python3",
+    "-P",
+    "dev/validation/2026-10-04-m2-source-erc20/rerun/rerun-measure.py",
+    "OUT",
+    "ERR",
+    "CMD..."
+  ],
+  "wrapper_note": "Reads the wait4 resource usage of the step (ru_maxrss in bytes) and keeps its exit status. /usr/bin/time -l exits 1 in the sandbox of this machine (sysctl kern.clockrate: Operation not permitted).",
+  "first_attempt": {
+    "log": "rerun/run1-time-l-sandbox.log",
+    "started": "2026-10-04T15:03:37",
+    "finished": "2026-10-04T15:08:11",
+    "note": "Each step ran under /usr/bin/time -l, which exited 1 and printed no resource usage, so the step exits are masked. Every step printed its success marker."
+  },
+  "log": "rerun/rerun.log",
+  "passes": [
+    {
+      "started": "2026-10-04T15:08:37",
+      "finished": "2026-10-04T15:11:35",
+      "steps": [
+        {
+          "name": "build",
+          "argv": [
+            "python3",
+            "-P",
+            "dev/build.py",
+            "build"
+          ],
+          "exit": 0,
+          "seconds": 1.0,
+          "peak_rss_bytes": 228098048,
+          "marker": "BEND BUILD backends cached",
+          "stdout_file": "rerun/build.stdout",
+          "stderr_file": "rerun/build.stderr",
+          "stdout_sha256": "879c09ca8b3149cef1d8243fa9e7e03f9ed67ab50da7842ace1ebf443faecd0d",
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "name": "return-abi",
+          "argv": [
+            "python3",
+            "-P",
+            "dev/return-abi-test.py"
+          ],
+          "exit": 0,
+          "seconds": 46.1,
+          "peak_rss_bytes": 470286336,
+          "marker": "RETURN-ABI cases=49 layouts=8 refusals=30 cast=model=geth=t8n rollback=OK cap=OK OK",
+          "stdout_file": "rerun/return-abi.stdout",
+          "stderr_file": "rerun/return-abi.stderr",
+          "stdout_sha256": "ebcf5648efaeb21562aa3d44e64f396a18b61cb97d93317a2ed64cf63ead6318",
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "name": "event-source",
+          "argv": [
+            "python3",
+            "-P",
+            "dev/event-source-test.py"
+          ],
+          "exit": 0,
+          "seconds": 59.6,
+          "peak_rss_bytes": 291127296,
+          "marker": "SOURCE-EVENTS cases=34 refusals=16 cast=model=geth=t8n logs=OK rollback=OK OK",
+          "stdout_file": "rerun/event-source.stdout",
+          "stderr_file": "rerun/event-source.stderr",
+          "stdout_sha256": "16c50c70d7f77fa5925b57619b2a6fa8517a1317a9cfcfafd3c601d25b3f55f8",
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "name": "erc20-source",
+          "argv": [
+            "python3",
+            "-P",
+            "dev/erc20-source-test.py"
+          ],
+          "exit": 0,
+          "seconds": 69.6,
+          "peak_rss_bytes": 146767872,
+          "marker": "ERC20-SOURCE cases=85 canonical=9 creates=4 literals=5 refusals=15 zero_caller=1 model=geth=t8n logs=OK rollback=OK OK",
+          "stdout_file": "rerun/erc20-source.stdout",
+          "stderr_file": "rerun/erc20-source.stderr",
+          "stdout_sha256": "432614749371a4c544d23311a9ef4e0c6ccdab6b3586bc186c99f08ac391ff33",
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "name": "speed",
+          "argv": [
+            "python3",
+            "-P",
+            "dev/milestone-speed-test.py"
+          ],
+          "exit": 0,
+          "seconds": 0.3,
+          "peak_rss_bytes": 35307520,
+          "marker": "MILESTONE-SPEED schedules=57 controls=9 OK",
+          "stdout_file": "rerun/speed.stdout",
+          "stderr_file": "rerun/speed.stderr",
+          "stdout_sha256": "06a73757a71c8f2dafa6ec1be406d254493e483223981a2b38ca33272b82d565",
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "name": "house",
+          "argv": [
+            "python3",
+            "-P",
+            "dev/house.py",
+            "."
+          ],
+          "exit": 0,
+          "seconds": 0.9,
+          "peak_rss_bytes": 37175296,
+          "marker": "HOUSE OK",
+          "stdout_file": "rerun/house.stdout",
+          "stderr_file": "rerun/house.stderr",
+          "stdout_sha256": "59273f4501bf44b700566ae758aab2039a7b854852efddcfef1dd95f759020ed",
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "name": "carry",
+          "argv": [
+            "python3",
+            "-P",
+            "dev/carry-check.py",
+            "."
+          ],
+          "exit": 0,
+          "seconds": 0.1,
+          "peak_rss_bytes": 21364736,
+          "marker": "CARRY files=16/16 diff=0 unlisted=0",
+          "stdout_file": "rerun/carry.stdout",
+          "stderr_file": "rerun/carry.stderr",
+          "stdout_sha256": "e01f38ef74cf223da6972e258126bfba57160721815fe1900d99e559678eb70c",
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "name": "r0-audit",
+          "argv": [
+            "python3",
+            "-P",
+            "dev/r0-audit.py",
+            "."
+          ],
+          "exit": 0,
+          "seconds": 0.1,
+          "peak_rss_bytes": 23986176,
+          "marker": "R0-AUDIT OK",
+          "stdout_file": "rerun/r0-audit.stdout",
+          "stderr_file": "rerun/r0-audit.stderr",
+          "stdout_sha256": "748f171e179c623ead736b09fde522879069a45b6861304ce1508eddeb8e94c6",
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "name": "trusted",
+          "argv": [
+            "python3",
+            "-P",
+            "dev/trusted-lines.py",
+            "."
+          ],
+          "exit": 0,
+          "seconds": 0.1,
+          "peak_rss_bytes": 24461312,
+          "marker": "TRUSTED-LINES OK",
+          "stdout_file": "rerun/trusted.stdout",
+          "stderr_file": "rerun/trusted.stderr",
+          "stdout_sha256": "090f04b473176386ec4bbc4156285cd87d437d0a75d7bbd5da60d490e8f86298",
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "name": "denominators",
+          "argv": [
+            "shasum",
+            "-a",
+            "256",
+            "-c",
+            "dev/DENOMINATORS.sha256"
+          ],
+          "exit": 1,
+          "seconds": 0.1,
+          "peak_rss_bytes": 7192576,
+          "marker": "verification/lean-toolchain: OK",
+          "stdout_file": null,
+          "stderr_file": null,
+          "note": "Failed on the stale dev/stage-a-gates.py row: F7 changed the file after F4 had refreshed the row. The row was refreshed; the repeat pass overwrote this capture."
+        },
+        {
+          "name": "bend2",
+          "argv": [
+            "shasum",
+            "-a",
+            "256",
+            "-c",
+            "dev/BEND2.sha256"
+          ],
+          "exit": 0,
+          "seconds": 0.0,
+          "peak_rss_bytes": 7077888,
+          "marker": "dev/bend2-baseline.json: OK",
+          "stdout_file": null,
+          "stderr_file": null,
+          "note": "Passed; the repeat pass overwrote this capture."
+        }
+      ]
+    },
+    {
+      "started": "2026-10-04T15:12:29",
+      "finished": "2026-10-04T15:12:29",
+      "steps": [
+        {
+          "name": "denominators",
+          "argv": [
+            "shasum",
+            "-a",
+            "256",
+            "-c",
+            "dev/DENOMINATORS.sha256"
+          ],
+          "exit": 0,
+          "seconds": 0.1,
+          "peak_rss_bytes": 7323648,
+          "marker": "verification/lean-toolchain: OK",
+          "stdout_file": "rerun/denominators.stdout",
+          "stderr_file": "rerun/denominators.stderr",
+          "stdout_sha256": "e5e4f70fa225ece9bbef72bc823816e7611664e4e726e21f4e70e80b74427c56",
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "name": "bend2",
+          "argv": [
+            "shasum",
+            "-a",
+            "256",
+            "-c",
+            "dev/BEND2.sha256"
+          ],
+          "exit": 0,
+          "seconds": 0.0,
+          "peak_rss_bytes": 7094272,
+          "marker": "dev/bend2-baseline.json: OK",
+          "stdout_file": "rerun/bend2.stdout",
+          "stderr_file": "rerun/bend2.stderr",
+          "stdout_sha256": "1b177b6c73134653005f210563dab1e1f955d337c6b61d2b9a10e23844686e37",
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ]
+    }
+  ],
+  "repeat_reason": "Failed on the stale dev/stage-a-gates.py row: F7 changed the file after F4 had refreshed the row.",
+  "evidence": {
+    "erc20_cases": "rerun/erc20-cases.json",
+    "erc20_cases_sha256": "36fbd303a5393834684baf6816a73c518ad610f73a91d2788008cadeed107c31",
+    "delta_archive": "rerun/erc20-evidence-delta.tar.gz",
+    "delta_files": [
+      "cases.json",
+      "check-bad-invalid.json",
+      "create-2b5ad5c4795c026514f8317c7a215e218dccd6cf-0.json",
+      "create-2b5ad5c4795c026514f8317c7a215e218dccd6cf-1.json",
+      "create-7e5f4552091a69125d5dfcb7b8c2659029395bdf-0.json",
+      "create-7e5f4552091a69125d5dfcb7b8c2659029395bdf-1.json",
+      "emit-bad-invalid.json",
+      "model-zero-caller.json",
+      "run-bad-invalid.json",
+      "zero-caller-prestate.json",
+      "zero-caller-reference.json",
+      "zero-caller-source.json"
+    ],
+    "files_identical_to_erc20_evidence": 246,
+    "source_events_cases_identical_to": "source-events-cases.json"
+  },
+  "not_run": [
+    "dev/stage-a-gates.py --m2-source-erc20 (the cumulative 107-leg gate)",
+    "the other make test suites",
+    "drivers/run-assay-erc20-final.py",
+    "drivers/probe-assay-erc20-literals.py"
+  ]
+}

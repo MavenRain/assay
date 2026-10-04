@@ -15,6 +15,7 @@
     "src/listing.bend",
     "src/os.js",
     "src/return_abi.bend",
+    "src/string_literal.bend",
     "src/test-os.js",
     "src/tests.bend"
   ],
@@ -31,8 +32,9 @@
     "src/layout.bend": "e3081d285ac1a4bfcad28347db772442d4d86a0c430596737ce27f48d0dd2017",
     "src/listing.bend": "697b9869205fc92f12b6a50fd4e82c6875440e677f01a06eecf83cb2982934ab",
     "src/os.js": "77d8c495a6ddf6d9cfc3060ef4ca95869b70b8e4dfd867fbc9efcfd57fb8c4ae",
-    "src/return_abi.bend": "7e654f07ac5245a7b5ca1eb31eeff0813ff95c82460d8f6f536a8e89447c5f38",
+    "src/return_abi.bend": "fdf4b8f6e3e8bcab56847a12db029d3c9c4c30b93b38e6b21c62b6b0360070d1",
     "src/test-os.js": "7a3604ea52e847ae3ed2054859a9746ac975b5db7f5665a355d041dd0f143ce0",
-    "src/tests.bend": "1160ce4e8451a38884c78cb1f80ad8ca6b29126db734acfe778879cec32871ee"
+    "src/tests.bend": "1160ce4e8451a38884c78cb1f80ad8ca6b29126db734acfe778879cec32871ee",
+    "src/string_literal.bend": "4164236222f4d22a68beca23d8fd42371fe75b115c3e239577e6af8903b2723e"
   }
 }

@@ -1,0 +1,86 @@
+[
+  {
+    "name": "milestone-speed",
+    "argv": [
+      "python3",
+      "-P",
+      "dev/milestone-speed-test.py"
+    ],
+    "seconds": 0.7278270001988858,
+    "exit": 0,
+    "stdout": "MILESTONE-SPEED schedules=57 controls=9 OK\n",
+    "stderr": ""
+  },
+  {
+    "name": "carry",
+    "argv": [
+      "zsh",
+      "-f",
+      "dev/carry-check.sh"
+    ],
+    "seconds": 0.3027688330039382,
+    "exit": 0,
+    "stdout": "PIN 2c2e6e6831a0b2cf3107fa4aad392606109a2bcf\nCARRY files=16/16 diff=0 unlisted=0\n",
+    "stderr": ""
+  },
+  {
+    "name": "house",
+    "argv": [
+      "zsh",
+      "-f",
+      "dev/house.sh"
+    ],
+    "seconds": 2.3692776248790324,
+    "exit": 0,
+    "stdout": "HOUSE no-exception OK\nHOUSE named-catchalls OK\nHOUSE no-mutable-state OK\nHOUSE one-catch-site OK\nHOUSE foreign-boundary OK\nHOUSE bool-dispatch OK\nHOUSE no-loop-keyword OK\nHOUSE no-bare-division OK\nHOUSE no-em-dash OK\nHOUSE OK\n",
+    "stderr": ""
+  },
+  {
+    "name": "r0-count",
+    "argv": [
+      "zsh",
+      "-f",
+      "dev/r0-count.sh"
+    ],
+    "seconds": 0.6340637500397861,
+    "exit": 0,
+    "stdout": "R0-COUNT OK\n",
+    "stderr": ""
+  },
+  {
+    "name": "r0-audit",
+    "argv": [
+      "zsh",
+      "-f",
+      "dev/r0-audit.sh"
+    ],
+    "seconds": 0.6622864580713212,
+    "exit": 0,
+    "stdout": "R0-AUDIT OK\n",
+    "stderr": ""
+  },
+  {
+    "name": "trusted-lines",
+    "argv": [
+      "zsh",
+      "-f",
+      "dev/trusted-lines.sh"
+    ],
+    "seconds": 0.7995196250267327,
+    "exit": 1,
+    "stdout": "TRUSTED-LINES unpriced=src/string_literal.bend\nTRUSTED-LINES kernel=3767/4000\nTRUSTED-LINES emitter=1792/1800\nTRUSTED-LINES assembler=414/505\nTRUSTED-LINES keccak=181/250\nTRUSTED-LINES abi=495/495\nTRUSTED-LINES layout=238/250\nTRUSTED-LINES listing=64/250\nTRUSTED-LINES total=3184/3550 ratified=3550\nTRUSTED-LINES FAIL\n",
+    "stderr": ""
+  },
+  {
+    "name": "diff-check",
+    "argv": [
+      "git",
+      "diff",
+      "--check"
+    ],
+    "seconds": 0.13294720789417624,
+    "exit": 0,
+    "stdout": "",
+    "stderr": ""
+  }
+]

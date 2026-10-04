@@ -123,10 +123,11 @@ The full success marker is:
 STORAGE-PROOFS theorems=13 accesses=2395 refinements=533 lexical=17 grammar=2 mutants=7 controls=7 erasure=13 OK
 ```
 
-`make test` includes this gate. `make gates` and `dev/gates.sh` select
-the cumulative `--m2-storage-proofs` mode, which preserves the 105
-earlier legs and adds the storage gate with a 600-second deadline, for
-106 legs.
+`make test` includes this gate. The cumulative `--m2-storage-proofs` mode
+preserves the 105 earlier legs and adds the storage gate with a 600-second
+deadline, for 106 legs. `make gates` and `dev/gates.sh` now select
+`--m2-source-erc20`, which adds [ERC20-SOURCE](M2-SOURCE-ERC20.md), for 107
+legs.
 
 ## Scope
 

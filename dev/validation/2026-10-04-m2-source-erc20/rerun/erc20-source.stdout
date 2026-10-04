@@ -1,0 +1,1 @@
+ERC20-SOURCE cases=85 canonical=9 creates=4 literals=5 refusals=15 zero_caller=1 model=geth=t8n logs=OK rollback=OK OK

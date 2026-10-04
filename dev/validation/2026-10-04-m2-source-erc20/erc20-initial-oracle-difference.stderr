@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "/Users/oobi/Documents/assay/dev/erc20-source-test.py", line 173, in <module>
+    main()
+    ~~~~^^
+  File "/Users/oobi/Documents/assay/dev/erc20-source-test.py", line 161, in main
+    cases = [compare(source, runtime, row) for row in rows]
+             ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oobi/Documents/assay/dev/erc20-source-test.py", line 70, in compare
+    require(modeled == expected, name + ': model mismatch: ' + json.dumps(modeled))
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oobi/Documents/assay/evm/diff.py", line 27, in require
+    raise ValueError(message)
+ValueError: read-name-trailing: model mismatch: {"status": "revert", "output": "0x", "storage": {"0": "0x3e8", "255": "0xdead", "58360284217279989612084758189989710390442046430692280346670622958270788309115": "0x384", "92676804990766087305888763860833757847703558138555174366830468474285713478268": "0x64"}, "logs": []}

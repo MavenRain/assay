@@ -120,9 +120,10 @@ EVENT-DECODE, for 85 checks. The
 legs. `--m2-function-abi` adds [FUNCTION-ABI](M2-FUNCTION-ABI.md), for 103
 legs. `--m2-return-abi` adds [RETURN-ABI](M2-RETURN-ABI.md), for 104 legs.
 `--m2-source-events` adds
-[SOURCE-EVENTS](M2-SOURCE-EVENTS.md), for 105 legs. The current default,
-`--m2-storage-proofs`, adds [STORAGE-PROOFS](M2-STORAGE-PROOFS.md), for
-106 legs. Counts exclude BEND2-RATIO and BEND2-RATIO-TEST, which moved to
+[SOURCE-EVENTS](M2-SOURCE-EVENTS.md), for 105 legs. `--m2-storage-proofs`
+adds [STORAGE-PROOFS](M2-STORAGE-PROOFS.md), for 106 legs. The current
+default, `--m2-source-erc20`, adds [ERC20-SOURCE](M2-SOURCE-ERC20.md), for
+107 legs. Counts exclude BEND2-RATIO and BEND2-RATIO-TEST, which moved to
 [`--m4-speed`](M4-SPEED.md) on 2026-10-01.
 
 The new implementation brings `src/abi.bend` to 495 lines, above the

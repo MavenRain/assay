@@ -38,7 +38,10 @@ including canonical string payloads and scalar bounds with storage rollback.
 `assay event-encode NAME [--anonymous] [TYPE indexed|data VALUE]...` exposes
 the [typed event codec](dev/M2-EVENTS.md#command-line). It prints JSON topics
 and data for log inspection, including indexed string hashes and dynamic
-data fields. Event declarations and log emission from source remain pending.
+data fields. Source entries support [event declarations and log emission](dev/M2-SOURCE-EVENTS.md).
+The [source ERC20 fixture](dev/M2-SOURCE-ERC20.md) composes typed metadata,
+balances, allowances, transfers and approvals with those events. String results
+also accept `pure (string 0xHEX)` literals of up to 31 bytes.
 `assay event-decode NAME [--anonymous] --topics HEX[,HEX]... --data HEX [TYPE indexed|data]...`
 exposes the [strict event decoder](dev/M2-EVENT-DECODE.md#command-line).
 It prints typed JSON values, preserves string bytes as hexadecimal, and
@@ -98,7 +101,7 @@ The [source event group](dev/M2-SOURCE-EVENTS.md) connects declarations and
 emission to the checked compiler, typed ABI, model and EVM logs. It supports
 indexed strings, anonymous events, packed storage, mappings and rollback.
 Constructor emission has an explicit refusal.
-`zsh -f dev/gates.sh` runs the default 106-leg gate battery, and
+`zsh -f dev/gates.sh` runs the default 107-leg gate battery, and
 `make gates-m4-speed` runs the two M4 speed legs.
 
 Assay is a Kanon language fork for EVM contracts.  It inherits the kernel and
@@ -438,7 +441,7 @@ and five mutations with restored controls.
 The address gate adds 1920 core comparisons, 128 artifact pairs,
 40 surface cases, 55 signed calls, seven public command checks,
 24 refusals and five mutations with restored controls.
-`dev/gates.sh` and `make gates` select `--m2-storage-proofs`: the 75
+`dev/gates.sh` and `make gates` select `--m2-source-erc20`: the 75
 `--m1-close` legs (proof-bundle, named-predicate, compound-invariant,
 named-guard, inferred-guard and inferred-arithmetic suites), then
 ERC20-REFERENCE, ABI-SCHEMA, ABI-CODEC, LAYOUT-PACKED, LAYOUT-MAPPING,
@@ -447,7 +450,8 @@ LEXER-KEYWORDS, LEXER-DIRECT, IDENTIFIER-DIRECT, WORD-DIRECT,
 SEGMENT-DIRECT, CLI-PREFIX-DIRECT, CLI-VALUE-DIRECT, CLI-ERROR-DIRECT,
 MAPPING-CLI, EVENT-CLI, EVENT-DECODE-CLI, CALLDATA-CLI, MILESTONE-SPEED,
 PACKED-SOURCE, MAPPING-SOURCE, RETURNDATA-CLI, MAPPING-RUNTIME, FUNCTION-ABI,
-RETURN-ABI, SOURCE-EVENTS and STORAGE-PROOFS, for 106 legs.
+RETURN-ABI, SOURCE-EVENTS, STORAGE-PROOFS and ERC20-SOURCE, for 107 legs.
+`--m2-storage-proofs` retains its 106 legs.
 `--m2-source-events` retains its 105 legs. `--m2-return-abi` retains its
 104 legs. `--m2-function-abi` retains its 103 legs.
 `--m2-mapping-runtime` retains its 102 legs.

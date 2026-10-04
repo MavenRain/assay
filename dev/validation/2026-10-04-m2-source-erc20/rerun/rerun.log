@@ -1,0 +1,17 @@
+== rerun 2026-10-04T15:08:37 steps: build return-abi event-source erc20-source speed house carry r0-audit trusted denominators bend2
+EXIT build rc=0 secs=1.0 peak_rss_bytes=228098048 marker=[BEND BUILD backends cached]
+EXIT return-abi rc=0 secs=46.1 peak_rss_bytes=470286336 marker=[RETURN-ABI cases=49 layouts=8 refusals=30 cast=model=geth=t8n rollback=OK cap=OK OK]
+EXIT event-source rc=0 secs=59.6 peak_rss_bytes=291127296 marker=[SOURCE-EVENTS cases=34 refusals=16 cast=model=geth=t8n logs=OK rollback=OK OK]
+EXIT erc20-source rc=0 secs=69.6 peak_rss_bytes=146767872 marker=[ERC20-SOURCE cases=85 canonical=9 creates=4 literals=5 refusals=15 zero_caller=1 model=geth=t8n logs=OK rollback=OK OK]
+EXIT speed rc=0 secs=0.3 peak_rss_bytes=35307520 marker=[MILESTONE-SPEED schedules=57 controls=9 OK]
+EXIT house rc=0 secs=0.9 peak_rss_bytes=37175296 marker=[HOUSE OK]
+EXIT carry rc=0 secs=0.1 peak_rss_bytes=21364736 marker=[CARRY files=16/16 diff=0 unlisted=0]
+EXIT r0-audit rc=0 secs=0.1 peak_rss_bytes=23986176 marker=[R0-AUDIT OK]
+EXIT trusted rc=0 secs=0.1 peak_rss_bytes=24461312 marker=[TRUSTED-LINES OK]
+EXIT denominators rc=1 secs=0.1 peak_rss_bytes=7192576 marker=[verification/lean-toolchain: OK]
+EXIT bend2 rc=0 secs=0.0 peak_rss_bytes=7077888 marker=[dev/bend2-baseline.json: OK]
+== done 2026-10-04T15:11:35
+== rerun 2026-10-04T15:12:29 steps: denominators bend2
+EXIT denominators rc=0 secs=0.1 peak_rss_bytes=7323648 marker=[verification/lean-toolchain: OK]
+EXIT bend2 rc=0 secs=0.0 peak_rss_bytes=7094272 marker=[dev/bend2-baseline.json: OK]
+== done 2026-10-04T15:12:29

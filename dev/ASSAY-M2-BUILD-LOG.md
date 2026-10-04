@@ -1049,3 +1049,32 @@ pages name the 105-leg default gate mode. F7: event refusals report the
 offending token with the SURFACE_EVENT code, and a bare event declaration
 fails at its name. SOURCE-EVENTS now passes 34 cases and 16 refusals. The
 record keeps the review reruns under review/.
+
+## M2 group 6: source ERC20, 2026-10-04
+
+On `be3062d`, added `examples/ERC20.asy`: all nine standard entries,
+fixed supply, balances, allowances, approvals, transfers, metadata and
+typed Transfer/Approval events. The source uses the reference development
+account as a fixed genesis holder. It retains the constructor event
+refusal and the source decoder's strict trailing-calldata rule.
+
+Added `pure (string 0xHEX)` for String results up to 31 bytes, including
+empty and opaque byte strings. The checked Word representation separates
+literal tags from validated calldata offsets. String parameters named
+`string` retain their existing parenthesized return syntax.
+
+Focused validation passed: ERC20-SOURCE (85 cases, 9 explicit canonical
+refusals, 4 creates, 5 literal/parameter cases and 15 malformed-literal
+refusals), RETURN-ABI (49 cases, 8 layouts, 30 refusals), SOURCE-EVENTS
+(34 cases, 16 refusals), MILESTONE-SPEED (57 schedules and 9 controls),
+PIN-CARRY, HOUSE, R0-COUNT, R0-AUDIT, TRUSTED-LINES and diff whitespace.
+The final ERC20 command passed under its unchanged 900-second gate bound.
+
+The new `--m2-source-erc20` mode carries all 106 earlier legs and adds the
+ERC20 suite. Default gate entry points now select its 107 legs. Numeric
+source budgets and prior deadlines/markers are unchanged. The suite uses
+three isolated workers to avoid serial source-check overhead in the gate.
+
+Evidence, source hashes, command receipts and prior failed/interrupted
+attempts are in `dev/validation/2026-10-04-m2-source-erc20/`. The full M2
+acceptance battery was not rerun, and the milestone remains open.

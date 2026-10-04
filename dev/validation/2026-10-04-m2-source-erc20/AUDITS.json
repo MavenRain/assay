@@ -1,0 +1,256 @@
+[
+  {
+    "name": "milestone-speed",
+    "argv": [
+      "python3",
+      "-P",
+      "dev/milestone-speed-test.py"
+    ],
+    "seconds": 0.5776614998467267,
+    "exit": 0,
+    "stdout": "MILESTONE-SPEED schedules=57 controls=9 OK\n",
+    "stderr": ""
+  },
+  {
+    "name": "carry",
+    "argv": [
+      "zsh",
+      "-f",
+      "dev/carry-check.sh"
+    ],
+    "seconds": 0.23729245900176466,
+    "exit": 0,
+    "stdout": "PIN 2c2e6e6831a0b2cf3107fa4aad392606109a2bcf\nCARRY files=16/16 diff=0 unlisted=0\n",
+    "stderr": ""
+  },
+  {
+    "name": "house",
+    "argv": [
+      "zsh",
+      "-f",
+      "dev/house.sh"
+    ],
+    "seconds": 1.6991286668926477,
+    "exit": 0,
+    "stdout": "HOUSE no-exception OK\nHOUSE named-catchalls OK\nHOUSE no-mutable-state OK\nHOUSE one-catch-site OK\nHOUSE foreign-boundary OK\nHOUSE bool-dispatch OK\nHOUSE no-loop-keyword OK\nHOUSE no-bare-division OK\nHOUSE no-em-dash OK\nHOUSE OK\n",
+    "stderr": ""
+  },
+  {
+    "name": "r0-count",
+    "argv": [
+      "zsh",
+      "-f",
+      "dev/r0-count.sh"
+    ],
+    "seconds": 0.27623487496748567,
+    "exit": 0,
+    "stdout": "R0-COUNT OK\n",
+    "stderr": ""
+  },
+  {
+    "name": "r0-audit",
+    "argv": [
+      "zsh",
+      "-f",
+      "dev/r0-audit.sh"
+    ],
+    "seconds": 0.21084616682492197,
+    "exit": 0,
+    "stdout": "R0-AUDIT OK\n",
+    "stderr": ""
+  },
+  {
+    "name": "trusted-lines",
+    "argv": [
+      "zsh",
+      "-f",
+      "dev/trusted-lines.sh"
+    ],
+    "seconds": 0.40963712497614324,
+    "exit": 0,
+    "stdout": "TRUSTED-LINES kernel=3767/4000\nTRUSTED-LINES emitter=1792/1800\nTRUSTED-LINES assembler=414/505\nTRUSTED-LINES keccak=181/250\nTRUSTED-LINES abi=495/495\nTRUSTED-LINES layout=238/250\nTRUSTED-LINES listing=64/250\nTRUSTED-LINES total=3184/3550 ratified=3550\nTRUSTED-LINES OK\n",
+    "stderr": ""
+  },
+  {
+    "name": "diff-check",
+    "argv": [
+      "git",
+      "diff",
+      "--check"
+    ],
+    "seconds": 0.1035811249166727,
+    "exit": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "name": "rerun-milestone-speed",
+    "argv": [
+      "python3",
+      "-P",
+      "dev/milestone-speed-test.py"
+    ],
+    "cwd": ".",
+    "seconds": 0.3,
+    "exit": 0,
+    "peak_rss_bytes": 35307520,
+    "stdout": "MILESTONE-SPEED schedules=57 controls=9 OK\n",
+    "stderr": ""
+  },
+  {
+    "name": "rerun-house",
+    "argv": [
+      "python3",
+      "-P",
+      "dev/house.py",
+      "."
+    ],
+    "cwd": ".",
+    "seconds": 0.9,
+    "exit": 0,
+    "peak_rss_bytes": 37175296,
+    "stdout": "HOUSE no-exception OK\nHOUSE named-catchalls OK\nHOUSE no-mutable-state OK\nHOUSE one-catch-site OK\nHOUSE foreign-boundary OK\nHOUSE bool-dispatch OK\nHOUSE no-loop-keyword OK\nHOUSE no-bare-division OK\nHOUSE no-em-dash OK\nHOUSE OK\n",
+    "stderr": ""
+  },
+  {
+    "name": "rerun-carry",
+    "argv": [
+      "python3",
+      "-P",
+      "dev/carry-check.py",
+      "."
+    ],
+    "cwd": ".",
+    "seconds": 0.1,
+    "exit": 0,
+    "peak_rss_bytes": 21364736,
+    "stdout": "PIN 2c2e6e6831a0b2cf3107fa4aad392606109a2bcf\nCARRY files=16/16 diff=0 unlisted=0\n",
+    "stderr": ""
+  },
+  {
+    "name": "rerun-r0-audit",
+    "argv": [
+      "python3",
+      "-P",
+      "dev/r0-audit.py",
+      "."
+    ],
+    "cwd": ".",
+    "seconds": 0.1,
+    "exit": 0,
+    "peak_rss_bytes": 23986176,
+    "stdout": "R0-AUDIT OK\n",
+    "stderr": ""
+  },
+  {
+    "name": "rerun-trusted-lines",
+    "argv": [
+      "python3",
+      "-P",
+      "dev/trusted-lines.py",
+      "."
+    ],
+    "cwd": ".",
+    "seconds": 0.1,
+    "exit": 0,
+    "peak_rss_bytes": 24461312,
+    "stdout": "TRUSTED-LINES kernel=3767/4000\nTRUSTED-LINES emitter=1792/1800\nTRUSTED-LINES assembler=414/505\nTRUSTED-LINES keccak=181/250\nTRUSTED-LINES abi=495/495\nTRUSTED-LINES layout=238/250\nTRUSTED-LINES listing=64/250\nTRUSTED-LINES total=3184/3550 ratified=3550\nTRUSTED-LINES OK\n",
+    "stderr": ""
+  },
+  {
+    "name": "rerun-denominators",
+    "argv": [
+      "shasum",
+      "-a",
+      "256",
+      "-c",
+      "dev/DENOMINATORS.sha256"
+    ],
+    "cwd": ".",
+    "seconds": 0.1,
+    "exit": 1,
+    "peak_rss_bytes": 7192576,
+    "stdout": null,
+    "stderr": null,
+    "note": "Failed on the stale dev/stage-a-gates.py row: F7 changed the file after F4 had refreshed the row. The row was refreshed; the repeat pass overwrote this capture."
+  },
+  {
+    "name": "rerun-bend2",
+    "argv": [
+      "shasum",
+      "-a",
+      "256",
+      "-c",
+      "dev/BEND2.sha256"
+    ],
+    "cwd": ".",
+    "seconds": 0.0,
+    "exit": 0,
+    "peak_rss_bytes": 7077888,
+    "stdout": null,
+    "stderr": null,
+    "note": "Passed; the repeat pass overwrote this capture."
+  },
+  {
+    "name": "rerun-denominators-repeat",
+    "argv": [
+      "shasum",
+      "-a",
+      "256",
+      "-c",
+      "dev/DENOMINATORS.sha256"
+    ],
+    "cwd": ".",
+    "seconds": 0.1,
+    "exit": 0,
+    "peak_rss_bytes": 7323648,
+    "stdout_file": "rerun/denominators.stdout",
+    "stdout_sha256": "e5e4f70fa225ece9bbef72bc823816e7611664e4e726e21f4e70e80b74427c56",
+    "stderr": ""
+  },
+  {
+    "name": "rerun-bend2-repeat",
+    "argv": [
+      "shasum",
+      "-a",
+      "256",
+      "-c",
+      "dev/BEND2.sha256"
+    ],
+    "cwd": ".",
+    "seconds": 0.0,
+    "exit": 0,
+    "peak_rss_bytes": 7094272,
+    "stdout": "dev/bend2-baseline.json: OK\n",
+    "stderr": ""
+  },
+  {
+    "name": "seal-r0-count",
+    "argv": [
+      "zsh",
+      "-f",
+      "dev/r0-count.sh"
+    ],
+    "cwd": ".",
+    "seconds": 0.2,
+    "exit": 0,
+    "peak_rss_bytes": 65208320,
+    "stdout": "R0-COUNT OK\n",
+    "stderr": ""
+  },
+  {
+    "name": "seal-diff-check",
+    "argv": [
+      "git",
+      "diff",
+      "--cached",
+      "--check"
+    ],
+    "cwd": ".",
+    "seconds": 0.1,
+    "exit": 0,
+    "peak_rss_bytes": 11042816,
+    "stdout": "",
+    "stderr": ""
+  }
+]
