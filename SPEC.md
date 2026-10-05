@@ -40,9 +40,14 @@ suffix with exit 64 and a named message.
 | --- | --- | --- |
 | `SPi{quantity: Quantity, name: String, domain: A}` | M0 | admitted |
 | `SColl{arity: Big}` | M0 | admitted |
-| `SPar{left: A, right: A}` | M2 | kernel.bend |
+| `SPar{left: A, right: A}` | deferred | kernel.bend |
 | `SMu{name: String, arguments: List<A>}` | M1 | admitted |
-| `SNu{name: String, arguments: List<A>}` | M2 | kernel.bend |
+| `SNu{name: String, arguments: List<A>}` | deferred | kernel.bend |
+
+A row marked deferred is outside M2.  The source keeps its explicit
+refusal (deviation M2-G8-D1 of
+dev/ASSAY-M2-BUILD-LOG.md, USER ruling 2026-10-04, pending formal
+ratification).
 
 The type parameter is the kernel term.  Term in src/kernel.bend therefore spells no
 shape name (SA-D5).
@@ -52,7 +57,7 @@ admits the family it declares only strictly positively.  An occurrence
 to the right of an arrow is admitted.  An occurrence to the left of an
 arrow, an occurrence in an argument of a former, and an occurrence under
 any other former, are refused with the word `a family that is not
-strictly positive arrives at M2`.  A nested inductive is therefore M2
+strictly positive is deferred`.  A nested inductive is therefore deferred
 and is never reduced to a positive form (D-M1-2, R-Q5).  The check runs
 once, when the constructors are installed, and formation reads the
 stored verdict (A4).
@@ -93,11 +98,12 @@ Thirteen constructors.  Two of them form types.
 | `Ann of t * t` | M0 | admitted |
 | `Global of string` | M0 | admitted |
 | `Lit of Literal.t` | M0 | admitted |
-| `Auto` | M2 | Check in src/kernel.bend, "instances arrive at M2" |
+| `Auto` | deferred | Check in src/kernel.bend, "instances are deferred" |
 
 Addresses.  `APt` is the point address and carries the argument.  `ALeg`
 is the leg address.  `ACtor` is the constructor address of the two
-recursive shapes, so it arrives at M1 and M2.
+recursive shapes.  It arrives at M1 with `SMu`, and its use at `SNu` is
+deferred.
 
 ### 2.3 The erased form, Eterm in src/frontend.bend
 
@@ -106,9 +112,9 @@ recursive shapes, so it arrives at M1 and M2.
 | `KVar KLit KGlobal KErased KLet` | M0 | admitted |
 | `KClos KApp KTail` | M0 | admitted |
 | `KStruct KProj KTag KCase` | M0 | admitted |
-| `KDelay KForce` | M2 | Emit in src/emitter.bend |
+| `KDelay KForce` | deferred | Emit in src/emitter.bend |
 | `RI31 RStruct RUnion RFunc` | M0 | admitted |
-| `RThunk` | M2 | Emit in src/emitter.bend |
+| `RThunk` | deferred | Emit in src/emitter.bend |
 | `KFun KRec` | M0 | admitted |
 
 `tid` and `fid` are symbolic names and never integers.  the future linker
@@ -314,7 +320,7 @@ Level rules are functions per shape (R-Q6).  `ran_lvl` at SPi is
     imax l zero = zero
 
 is a framework axiom of kanon.  It gives Prop its impredicativity.  M0
-uses closed levels only.  Level variables arrive at M2.
+uses closed levels only.  Level variables are deferred.
 
 As built, in Rules in src/kernel.bend under the comment `(* SB-M3 site *)`:
 
@@ -359,7 +365,7 @@ column to confirm that no surface form is a former.
 | constructor `\| c binders : F args` | the existing constructor telescope and `In (SMu ..) (ACtor c)` introductions | binder sugar folds to arrows, preserving names and quantities.  SL-D1 |
 | `mutual mu ... mu ... end` | one mutually checked family group | two or more members.  SL-D2; the Stage G `and` spelling remains accepted |
 | `def rec f : A := body` and recursive `and` groups | a `Totality.guard_group` certificate admits `Order.translate`; the translated `Elim` body is checked and installed as `Global.Def` | sugar, not former.  SI-D9, SL-D9; no new term constructor |
-| `nu` | none.  Reserved;  the parser refuses it with "nu arrives at M2" | SA-D3 |
+| `nu` | none.  Reserved;  the parser refuses it with "nu is deferred" | SA-D3 |
 
 SB-D1.  `sum` and `prod` are the two collection type words.  Both are
 sugar rows and neither is a former:  the items are the legs of one
@@ -562,7 +568,7 @@ term    ::= 'fun' binder+ '=>' term
           | 'natAdd' | 'natSub' | 'natMul' | 'natEq' | 'natLt'
           | 'let' name ':' term ':=' term 'in' term
           | 'auto'                                 (* SA-D3 *)
-          | 'nu'                                  (* reserved, arrives at M2 *)
+          | 'nu'                                  (* reserved, deferred *)
           | '(' term ':' term ')'  |  name  |  '(' term ')'
 binder  ::= '(' ('0' | '1')? name ':' term ')'
 field   ::= ('0' | '1')? name | binder             (* M1 Stages H and L *)
@@ -599,8 +605,9 @@ eliminations before a following outer branch.  `end` closes a mutual
 declaration group only.  The index clause of Stage H remains available
 for indexed motives.  The parser accepts the optional-motive grammar,
 and the existing kernel requirement for a fibered motive still applies.
-`nu` retains the parser refusal "nu arrives at M2" in both declaration
-and term positions; `auto` retains its M2 checker refusal (SL-D6).
+`nu` retains the parser refusal "nu is deferred" in both declaration
+and term positions; `auto` retains its checker refusal "instances are
+deferred" (SL-D6).
 
 ## 10 Obligations at M0
 

@@ -1958,10 +1958,10 @@ def Value.close(+env_437: ListOf(Value), +body_438: Term) -> Value.Closure:
   MkValue_ClosureOf{env_437, body_438}
 @unsafe
 def Rules.spar_word() -> String:
-  "SPar arrives at M1"
+  "SPar is deferred"
 @unsafe
 def Rules.snu_word() -> String:
-  "SNu arrives at M2"
+  "SNu is deferred"
 @unsafe
 def Rules.map_shape(-q0: Quant, -A0: Kind(q0), -q1: Quant, -A1: Kind(q1), +f_773: Reusable(A1, Result<&2, q0, Error, A0>), +s_774: Shape<q1, A1>) -> Result<&2, q0, Error, Shape<q0, A0>>:
   (+scrut2008 = s_774
@@ -2510,7 +2510,7 @@ def Rules.mu_params_of(+diagram_1527: Term) -> CheckResult(ListOf(Term)):
   Match.Tuple2(&2, Shape<&2, Term>, &2, ListOf(Term.Leg), &2, ListOf(Term), scrut3167, +p3168 => +p3169 => (SeqList.map(&2, &2, Term.Leg, Term, (+local3171 => (Get.Term.Leg.l_body(local3171))), p3169))))))(item3172)}), +item3173 => Fail{item3173})))((+local3161 => (Match.Maybe(&2, TupleOf2(Shape<&2, Term>, ListOf(Term.Leg)), &2, CheckResult(TupleOf2(Shape<&2, Term>, ListOf(Term.Leg))), local3161, _ => Fail{Error.Mismatch{Rules.diagram_msg()}}, +x => Done{x})))(Rules.as_tsec(diagram_1527)))
 @unsafe
 def Positivity.nonpositive_word() -> String:
-  "a family that is not strictly positive arrives at M2"
+  "a family that is not strictly positive is deferred"
 @unsafe
 def Rules.mu_family(-q0: Quant, -A0: Kind(q0), +ops_1511: Rules.Ops<q0, A0>, +ctx_1512: A0, +n_1513: String) -> CheckResult(Positivity.Family):
   (do CheckResult<Positivity.Family>:
@@ -2535,7 +2535,7 @@ def Rules.mu_form_lan(-q0: Quant, -A0: Kind(q0), +ops_1566: Rules.Ops<q0, A0>, +
     Done{Get.Positivity.Family.f_level(bound3120)})))))))
 @unsafe
 def Rules.mu_ran_word() -> String:
-  "a right former at a mu shape arrives at M2"
+  "a right former at a mu shape is deferred"
 @unsafe
 def Rules.mu_indices(-q0: Quant, -A0: Kind(q0), +ops_1597: Rules.Ops<q0, A0>, +ctx_1598: A0, +n_1599: String, +ct_1600: Positivity.Ctor, +ixv_1601: ListOf(Value), +env_1602: ListOf(Value)) -> CheckResult(Unit):
   (+scrut3231 = {Big.of_nat(List.length(&2, Term, Get.Positivity.Ctor.c_res_idx(ct_1600))) : Big}
@@ -2842,7 +2842,7 @@ def Eval.eval_global(+globals_956: Global, +n_957: String) -> CheckResult(Value)
   ((+local4020 => ((+local4024 => +local4026 => (Match.Result(&2, Global.Entry, &2, Error, &2, CheckResult(Value), local4024, +item4027 => (local4026(item4027)), +item4028 => Fail{item4028})))(local4020, (+local4030 => ((+local4033 => (Match.Maybe(&2, Global.Def_entry, &2, CheckResult(Value), local4033, _ => (Done{scrut4014}), +value => ((+local4035 => (Native.choose(&2, CheckResult(Value), Big.when(Bool, Get.Global.Def_entry.reducible(local4035), _ => (Bool.not(Maybe.is_some(&2, Big, Get.Global.Def_entry.rec_arg(local4035)))), _ => (False{})), _ => (Eval.eval(globals_956, Nil{}, Get.Global.Def_entry.def(local4035))), _ => (Done{scrut4014}))))(value)))))(Global.def_of(local4030)))))))((+local4017 => (Match.Maybe(&2, Global.Entry, &2, CheckResult(Global.Entry), local4017, _ => Fail{Error.Unbound{n_957}}, +x => Done{x})))(Global.find(n_957, globals_956)))))
 @unsafe
 def Rules.auto_word() -> String:
-  "instances arrive at M2"
+  "instances are deferred"
 @unsafe
 def Eval.eval(globals_539, env_540, tm_541):
   (+scrut1995 = tm_541

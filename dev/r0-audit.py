@@ -52,8 +52,10 @@ def audit_spec(root):
     bad = []
     named = [name for _number, name, _milestone, _refuser in rows]
     for number, name, milestone, refuser in rows:
-        if not re.fullmatch(r"M[0-9]", milestone):
+        if not re.fullmatch(r"M[0-9]|deferred", milestone):
             bad.append(f"SPEC.md:{number}: {name} names no milestone")
+        if milestone == "deferred" and refuser == "admitted":
+            bad.append(f"SPEC.md:{number}: {name} is deferred but admitted")
         if refuser != "admitted" and not (root / "src" / refuser).exists():
             bad.append(f"SPEC.md:{number}: {name} cites the absent refuser {refuser}")
         if named.count(name) != 1:

@@ -178,7 +178,7 @@ def main():
         # (--help, --, --threads, --gpu) into the runnable driver suite, so the suite prints 28 cases.
         ("DRIVER", 30, ("python3", "-P", "dev/stage-a-test.py", "driver"), "DRIVER cases=28 OK"),
         # The 13 subprocess-based checks exceed two minutes under host load 80+.
-        ("MUTANTS", 300, ("python3", "-P", "dev/stage-a-test.py", "mutants"), "MUTANTS killed=13/13 OK"),
+        ("MUTANTS", 300, ("python3", "-P", "dev/stage-a-test.py", "mutants"), "MUTANTS killed=14/14 OK"),
         ("DENOMINATORS", 10, ("shasum", "-a", "256", "-c", "dev/DENOMINATORS.sha256"), "dev/denominators.json: OK"),
     ]
     if keccak:

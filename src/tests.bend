@@ -430,7 +430,7 @@ def Main.kneg_smu(+param_911: Unit) -> StringResult(Unit):
   (+scrut16112 = {Shape.SMu{"F", Con{Term.Univ{Level.zero()}, Nil{}}} : Shape<&2, Term>}
   (+scrut16113 = {Term.Sec{Shape.SColl{Big.zero()}, Nil{}} : Term}
   (+local16120 => (Match.Result(&2, Value, &2, Error, &2, StringResult(Unit), local16120, +x => (+local16122 => (Fail{"the right former at a mu shape is admitted at M1"}))(x), +x => (+local16124 => ((+scrut16143 = {Error.message(local16124) : String}
-  Native.choose(&2, StringResult(Unit), NativeString.equal(scrut16143, "a right former at a mu shape arrives at M2"), _ => (Done{Unit{}}), _ => (Fail{String.concat(["the message is \u{22}", scrut16143, "\u{22}"])})))))(x))))(Check.infer_term(None{}, Global.initial(), Term.Ran{scrut16112, scrut16113})))))
+  Native.choose(&2, StringResult(Unit), NativeString.equal(scrut16143, "a right former at a mu shape is deferred"), _ => (Done{Unit{}}), _ => (Fail{String.concat(["the message is \u{22}", scrut16143, "\u{22}"])})))))(x))))(Check.infer_term(None{}, Global.initial(), Term.Ran{scrut16112, scrut16113})))))
 @unsafe
 def Totality.guard(+_opt__795: Maybe<&1, Budget>, +globals_761: Global, +name_762: String, +ty_763: Term, +body_764: Term) -> CheckResult(OptionOf(Big)):
   (+scrut16149 = {(+scrut16147 = _opt__795
@@ -572,8 +572,8 @@ def Sl_surface.cases() -> List<&1, Tuple2<&2, &1, String, Reusable(Unit, StringR
   Sl_surface.parse_refusal("mutual mu N : Type 0 := end", "a mutual group needs at least two mu declarations"))))}, Con{Tup2{"mutual-unclosed-refusal", (+local16735 => ((+scrut16736 = local16735
   Sl_surface.parse_refusal("mutual mu A : Type 0 := mu B : Type 0 :=", "expected 'mu' or 'end' in a mutual group, found end of input"))))}, Con{Tup2{"mutual-and-refusal", (+local16738 => ((+scrut16739 = local16738
   Sl_surface.parse_refusal("mutual mu A : Type 0 := and B : Type 0 := end", "expected 'mu' or 'end' in a mutual group, found 'and'"))))}, Con{Tup2{"nu-term-refusal", (+local16741 => ((+scrut16742 = local16741
-  Sl_surface.parse_refusal("def f : Type 0 := nu", "nu arrives at M2"))))}, Con{Tup2{"nu-declaration-refusal", (+local16744 => ((+scrut16745 = local16744
-  Sl_surface.parse_refusal("nu N : Type 0 :=", "nu arrives at M2"))))}, Nil{}}}}}}}}}}}}}}}}}}}}}
+  Sl_surface.parse_refusal("def f : Type 0 := nu", "nu is deferred"))))}, Con{Tup2{"nu-declaration-refusal", (+local16744 => ((+scrut16745 = local16744
+  Sl_surface.parse_refusal("nu N : Type 0 :=", "nu is deferred"))))}, Nil{}}}}}}}}}}}}}}}}}}}}}
 @unsafe
 def Local.Abi_codec.parse.f16754(result_806, param_851):
   (+scrut16755 = param_851

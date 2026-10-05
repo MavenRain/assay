@@ -10,7 +10,7 @@ and `SNu` stay out.  This is raw syntax: its constructors do not assert
 that every former and shape combination passes the kernel checker.
 
 `Term` carries the twelve M0 constructors of lib/term.ml, in the order of
-SPEC.md:26-42.  `Auto` stays out because check.ml refuses it until M2.
+SPEC.md:26-42.  `Auto` stays out because the checker refuses it as deferred.
 Variables are de Bruijn indices, as lib/term.ml holds `Var of int`
 (SF-D5).  `Level.t` is an OCaml `int` at lib/level.ml:2, so `univ` holds
 a `Nat`.

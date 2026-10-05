@@ -1,5 +1,53 @@
 # Assay M2 build log
 
+## M2 group 8: coverage and audit reconciliation, 2026-10-04
+
+Part R2 is complete. Part R1 (the kernel half of the Word refinement)
+and part C (the audit) remain open.
+
+Deviation M2-G8-D1. USER ruling 2026-10-04, pending formal ratification.
+SPEC.md marked these kan-lang carry-over constructs M2: `SPar`, `SNu`
+and `nu`, families that are not strictly positive (nested inductives),
+a right former at a mu shape, `Auto` instances, level variables, and
+`KDelay`, `KForce` and `RThunk`. The verdict M2 gate needs none of them.
+They are now deferred. Each construct keeps its explicit refusal, and no
+refusal test is removed. Only the milestone words change:
+
+| construct | old word | new word |
+| --- | --- | --- |
+| `SPar` | `SPar arrives at M1` | `SPar is deferred` |
+| `SNu` | `SNu arrives at M2` | `SNu is deferred` |
+| `nu`, term and declaration | `nu arrives at M2` | `nu is deferred` |
+| nested inductive | `a family that is not strictly positive arrives at M2` | `a family that is not strictly positive is deferred` |
+| right former at a mu shape | `a right former at a mu shape arrives at M2` | `a right former at a mu shape is deferred` |
+| `Auto` | `instances arrive at M2` | `instances are deferred` |
+| `KDelay`, `KForce`, `RThunk` | `EMIT_<NAME> (M2)` | `EMIT_<NAME> (deferred)` |
+
+The `SPar` word said M1, but SPEC.md has marked `SPar` M2 since SG-D6.
+The emitter tag is shared, so `EMIT_STRING` also changes from `(M2)` to
+`(deferred)`. Groups 9 and 10 do not add runtime string literals, so the
+new tag is also correct for strings. Level variables have no surface
+syntax: the grammar admits `Type` with a numeral only. Their SPEC.md
+prose now says deferred. The SPEC.md rows now say deferred, and a note
+under the shape table defines the word. src/tests.bend and two negative
+fixtures pin the new words. The source hashes in dev/native-carry.json
+and dev/DENOMINATORS.sha256 are refreshed. This narrows item 5 of the
+closure plan. Part C checks that each deferred refusal has a test. Earlier sections of this log and the M1 log keep the old
+words as history.
+
+R0-AUDIT accepted only `M<digit>` in the SPEC.md shape table. It now also
+accepts `deferred`. Each row still needs a refusing module. The
+R0-AUDIT-SPEC mutant now edits the first deferred row, because no
+`| M2 | kernel.bend |` row remains.
+
+Validation passed: the Bend build; core tests (18 adapters, 24 commands);
+the kernel suite; one-paths (22/22); stage-A mutants (13/13);
+MILESTONE-SPEED (57 schedules, 9 controls); R0-COUNT; R0-AUDIT; house
+rules; trusted-line budgets; carry-check (16/16, diff 0); DENOMINATORS;
+and whitespace checks. Peak RSS was 375 MB. The first R0-AUDIT run and
+the first mutants run failed on the two old `M2` patterns above. Both
+passed after the fixes. Part C writes the validation record of the group.
+
 ## 2026-10-04: ABI goldens and negative witnesses
 
 Completed M2 group 7. The unchanged, provenance-pinned ERC20 golden now

@@ -23,18 +23,18 @@
     "src/abi.bend": "393d3f535cc3cff42605c702ef66d576cd803b4dc9745c8e69c7489527fac969",
     "src/assembler.bend": "99dd49f4b48478ba8c587342c9d2e0ce4e74e28c904a650440f1f6f783c817b1",
     "src/cli.bend": "9c8da055dbb6ae53e8f8ebcc33816cc1f89fb28af0c085eda35329414563c087",
-    "src/emitter.bend": "1d9c503d7892739f43e49000a004b46469a6b8fbf535d6e0d941a3cede0c7337",
+    "src/emitter.bend": "dc218f809c70c1f924e08b64eaddffa53de679c3b036b9287ba97f24dcbaf6ff",
     "src/event_source.bend": "fd682f7d0ace1d821e23dcaab28d33329fb8358781ae424b329bb218c0be4315",
-    "src/frontend.bend": "c1000965340c0da183941a28b19f28a9aa71d176d56872ddab04f0f5d389da82",
+    "src/frontend.bend": "3a34273d67fcb38c0e6c34173387cb4e8ef3656a99a1b92f86366b21d708c01a",
     "src/function_abi.bend": "4b7261bed78e3da463a02f7987a1976c52cdfdc74f8e8cb60d57fa4b2a4899b7",
     "src/keccak.bend": "cbfb3275116d3703a803181ceeafe8dc3e74d53f21cb9a539f29c28c5bc8e98a",
-    "src/kernel.bend": "12657d56799719ee73fd354eae52335847cd20fd5d31aa791434a9e34bac717e",
+    "src/kernel.bend": "30cabf936876e7764b1a05d2b65f97a911208c72d8618d439858360e409bc405",
     "src/layout.bend": "e3081d285ac1a4bfcad28347db772442d4d86a0c430596737ce27f48d0dd2017",
     "src/listing.bend": "697b9869205fc92f12b6a50fd4e82c6875440e677f01a06eecf83cb2982934ab",
     "src/os.js": "77d8c495a6ddf6d9cfc3060ef4ca95869b70b8e4dfd867fbc9efcfd57fb8c4ae",
     "src/return_abi.bend": "fdf4b8f6e3e8bcab56847a12db029d3c9c4c30b93b38e6b21c62b6b0360070d1",
     "src/test-os.js": "7a3604ea52e847ae3ed2054859a9746ac975b5db7f5665a355d041dd0f143ce0",
-    "src/tests.bend": "1160ce4e8451a38884c78cb1f80ad8ca6b29126db734acfe778879cec32871ee",
+    "src/tests.bend": "0031ed0cf1c9daacf26ccb78f1206aa12111f3bc2a2773b9aa5ca1a59061b739",
     "src/string_literal.bend": "4164236222f4d22a68beca23d8fd42371fe75b115c3e239577e6af8903b2723e"
   }
 }
