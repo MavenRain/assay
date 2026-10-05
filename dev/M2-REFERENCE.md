@@ -40,9 +40,9 @@ The `--m2-returndata-cli` mode extends this schedule with [ABI-SCHEMA](M2-ABI-SC
 for 103 checks. `--m2-return-abi` appends [RETURN-ABI](M2-RETURN-ABI.md), for
 104 checks. `--m2-source-events` appends
 [SOURCE-EVENTS](M2-SOURCE-EVENTS.md), for 105 checks. `--m2-storage-proofs`
-appends [STORAGE-PROOFS](M2-STORAGE-PROOFS.md), for 106 checks. The current
-default, `--m2-source-erc20`, appends [ERC20-SOURCE](M2-SOURCE-ERC20.md),
-for 107 checks.
+appends [STORAGE-PROOFS](M2-STORAGE-PROOFS.md), for 106 checks. `--m2-source-erc20`
+appends [ERC20-SOURCE](M2-SOURCE-ERC20.md), for 107 checks. The current
+default, `--m2-abi`, appends [M2-ABI](M2-ABI-GOLDENS.md), for 108 checks.
 
 The reference has 798 runtime bytes and a 107-byte constructor prefix.
 All 431 runtime instructions and all constructor instructions are covered.

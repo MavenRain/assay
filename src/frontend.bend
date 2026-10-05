@@ -3274,7 +3274,52 @@ Match.Tuple2(&2, String, &2, ListOf(String), &2, Bool, scrut9823, +p9824 => +p98
 Match.Result(&2, Global.Def_entry, &2, Recognize.Error, &2, ResultOf(Recognize.Error, TupleOf3(ListOf(String), ListOf(TupleOf2(String, ListOf(String))), ListOf(TupleOf2(String, ListOf(String))))), Recognize.definition(globals_1325, "storage"), +item9834 => ((+local9833 => (Native.choose(&2, ResultOf(Recognize.Error, TupleOf3(ListOf(String), ListOf(TupleOf2(String, ListOf(String))), ListOf(TupleOf2(String, ListOf(String))))), Equal.Term(Get.Global.Def_entry.ty(local9833), Term.Global{"Storage"}), _ => (Done{Tup3{local9692, local9714, local9717}}), _ => (Fail{Recognize.Error.Storage_shape{}}))))(item9834)), +item9835 => Fail{item9835}))))(item9836)), +item9837 => Fail{item9837})))))(item9839)), +item9840 => Fail{item9840})))))(item9842)), +item9843 => Fail{item9843}))))))))(item9845)), +item9846 => Fail{item9846})))))))(item9848)), +item9849 => Fail{item9849})))(item9850)), +item9851 => Fail{item9851})))(item9852)), +item9853 => Fail{item9853})))))(item9855)), +item9856 => Fail{item9856}))
 
 @unsafe
-def Emit.Mapping.prepare_m1(+export_1961: String, +globals_1962: Global, +erased_1963: ListOf(TupleOf2(String, Erase.Entry)), +cells: Mapping.Runtime.Cells()) -> Emit.Result(TupleOf5(ListOf(Emit.Entry), Emit.Effect, ListOf(String), ListOf(TupleOf2(Abi.Custom_error, String)), OptionOf(Emit.Transaction))):
+def Emit.Mapping.readonly(+cells: Mapping.Runtime.Cells(), +tx: Emit.Transaction) -> Bool:
+  match tx:
+    case Emit.Transaction.Finish{_}: True{}
+    case Emit.Transaction.Abort{}: True{}
+    case Emit.Transaction.Reject{_, _}: True{}
+    case Emit.Transaction.Store{slot, _, next}: Emit.Mapping.readonly_store(Mapping.Runtime.find(slot, cells), cells, next)
+    case Emit.Transaction.Load{_, _, next}: Emit.Mapping.readonly(cells, next)
+    case Emit.Transaction.Context{_, _, next}: Emit.Mapping.readonly(cells, next)
+    case Emit.Transaction.Arithmetic{_, _, _, _, yes, no}: Bool.and(Emit.Mapping.readonly(cells, yes), Emit.Mapping.readonly(cells, no))
+    case Emit.Transaction.Compute{_, _, _, _, next}: Emit.Mapping.readonly(cells, next)
+    case Emit.Transaction.Compare{_, _, yes, no}: Bool.and(Emit.Mapping.readonly(cells, yes), Emit.Mapping.readonly(cells, no))
+
+@unsafe
+def Emit.Mapping.readonly_store(+cell: OptionOf(Mapping.Runtime.Cell), +cells: Mapping.Runtime.Cells(), +next: Emit.Transaction) -> Bool:
+  match cell:
+    case Some{Mapping.Runtime.Cell.Key{_, _}}: Emit.Mapping.readonly(cells, next)
+    case Some{Mapping.Runtime.Cell.Scalar{_}}: False{}
+    case Some{Mapping.Runtime.Cell.Access{_, _, _, _}}: False{}
+    case Some{Mapping.Runtime.Cell.Reserved{_}}: False{}
+    case None{}: False{}
+
+@unsafe
+def Emit.Mapping.mutability(+cells: Mapping.Runtime.Cells(), +tx: Emit.Transaction, +mutability: Abi.Mutability) -> Abi.Mutability:
+  match mutability:
+    case Abi.Mutability.Payable{}: Abi.Mutability.Payable{}
+    case Abi.Mutability.View{}: Native.choose(&2, Abi.Mutability, Emit.Mapping.readonly(cells, tx), _ => Abi.Mutability.View{}, _ => Abi.Mutability.Nonpayable{})
+    case Abi.Mutability.Nonpayable{}: Native.choose(&2, Abi.Mutability, Emit.Mapping.readonly(cells, tx), _ => Abi.Mutability.View{}, _ => Abi.Mutability.Nonpayable{})
+
+@unsafe
+def Emit.Mapping.entry(+cells: Mapping.Runtime.Cells(), +entry: Emit.Entry) -> Emit.Entry:
+  match entry:
+    case MkEmit_Entry{MkAbi_Entry{name, inputs, mutability}, selector, tx}:
+      MkEmit_Entry{MkAbi_Entry{name, inputs, Emit.Mapping.mutability(cells, tx, mutability)}, selector, tx}
+
+@unsafe
+def Emit.Mapping.prepare_m1(+export: String, +globals: Global, +erased: ListOf(TupleOf2(String, Erase.Entry)), +cells: Mapping.Runtime.Cells()) -> Emit.Result(FunctionAbi.Packet()):
+  Emit.Result.bind(FunctionAbi.Packet(), FunctionAbi.Packet(), Emit.Mapping.prepare_raw(export, globals, erased, cells), packet => Emit.Mapping.classified(cells, packet))
+
+@unsafe
+def Emit.Mapping.classified(+cells: Mapping.Runtime.Cells(), +packet: FunctionAbi.Packet()) -> Emit.Result(FunctionAbi.Packet()):
+  match packet:
+    case Tup5{entries, constructor, names, errors, fallback}:
+      Done{Tup5{SeqList.map(&2, &2, Emit.Entry, Emit.Entry, entry => Emit.Mapping.entry(cells, entry), entries), constructor, names, errors, fallback}}
+
+@unsafe
+def Emit.Mapping.prepare_raw(+export_1961: String, +globals_1962: Global, +erased_1963: ListOf(TupleOf2(String, Erase.Entry)), +cells: Mapping.Runtime.Cells()) -> Emit.Result(TupleOf5(ListOf(Emit.Entry), Emit.Effect, ListOf(String), ListOf(TupleOf2(Abi.Custom_error, String)), OptionOf(Emit.Transaction))):
   Match.Result(&2, TupleOf3(ListOf(String), ListOf(TupleOf2(String, ListOf(String))), ListOf(TupleOf2(String, ListOf(String)))), &2, Emit.Error, &2, Emit.Result(TupleOf5(ListOf(Emit.Entry), Emit.Effect, ListOf(String), ListOf(TupleOf2(Abi.Custom_error, String)), OptionOf(Emit.Transaction))), Emit.recognize(&2, TupleOf3(ListOf(String), ListOf(TupleOf2(String, ListOf(String))), ListOf(TupleOf2(String, ListOf(String)))), Recognize.Mapping.schema(Big.of_nat(List.length(&2, Mapping.Runtime.Cell, cells)), globals_1962)), +item10051 => ((+local9858 => ((+scrut9859 = local9858
   Match.Tuple3(&2, ListOf(String), &2, ListOf(TupleOf2(String, ListOf(String))), &2, ListOf(TupleOf2(String, ListOf(String))), &2, Emit.Result(TupleOf5(ListOf(Emit.Entry), Emit.Effect, ListOf(String), ListOf(TupleOf2(Abi.Custom_error, String)), OptionOf(Emit.Transaction))), scrut9859, +p9860 => +p9861 => +p9862 => ((Match.Result(&2, ListOf(TupleOf2(Abi.Custom_error, String)), &2, Emit.Error, &2, Emit.Result(TupleOf5(ListOf(Emit.Entry), Emit.Effect, ListOf(String), ListOf(TupleOf2(Abi.Custom_error, String)), OptionOf(Emit.Transaction))), Emit.error_table(p9862), +item10048 => ((+local9865 => (Match.Result(&2, Unit, &2, Emit.Error, &2, Emit.Result(TupleOf5(ListOf(Emit.Entry), Emit.Effect, ListOf(String), ListOf(TupleOf2(Abi.Custom_error, String)), OptionOf(Emit.Transaction))), Emit.recognize(&2, Unit, Recognize.m1_export(globals_1962, export_1961)), +item10046 => ((+local9917 => ((+scrut9918 = local9917
 (+scrut9919 = {Emit.environment(None{}, erased_1963) : Emit.Environment}

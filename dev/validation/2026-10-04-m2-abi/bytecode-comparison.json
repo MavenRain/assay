@@ -1,0 +1,9 @@
+{
+  "predecessor": "/Users/oobi/Documents/assay/.gatework/erc20-source/compiled-erc20",
+  "current": "/Users/oobi/Documents/gpt1/assay-m2-abi-controls/.gatework/m2-abi/compiled-erc20",
+  "equal": true,
+  "sha256": {
+    "runtime.hex": "31a53af9c4f14a94c63bd67adeaf1500365af00393d263177311e46c83af937a",
+    "init.hex": "5bff5ae65668672bb773d66ffad3d9ed6f96458f8b5a5ca15cd2489d8e44de7a"
+  }
+}

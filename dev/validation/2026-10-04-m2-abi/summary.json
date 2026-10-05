@@ -1,0 +1,10 @@
+{
+  "entries": 12,
+  "abi_controls": 16,
+  "mutability": 20,
+  "lean_negatives": 8,
+  "storage_mutants": 7,
+  "axiom_controls": 7,
+  "erasure": 13,
+  "golden_sha256": "7715636c0342b68c68f6b93c1daf97e35d901770d2a7086055607bff8c31d3df"
+}

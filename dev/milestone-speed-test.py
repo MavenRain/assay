@@ -93,9 +93,14 @@ def main():
             ('ERC20-SOURCE', 900, ('python3', '-P', 'dev/erc20-source-test.py'),
              'ERC20-SOURCE cases=85 canonical=9 creates=4 literals=5 refusals=15 zero_caller=1 model=geth=t8n logs=OK rollback=OK OK', True)]),
                 'source ERC20 must preserve all carried legs and add its required check')
-        require('--m2-source-erc20' in (ROOT / 'dev/gates.sh').read_text() and
-                'dev/stage-a-gates.py --m2-source-erc20' in (ROOT / 'Makefile').read_text(),
-                'default gate entry points must select source ERC20')
+        abi = H.schedule(after, '--m2-abi')
+        require(abi == dict(stage='M2-ABI', legs=erc20['legs'] + [
+            ('M2-ABI', 600, ('python3', '-P', 'dev/m2-abi-test.py'),
+             'M2-ABI entries=12 abi_controls=16 mutability=20 lean_negatives=8 storage_mutants=7 axiom_controls=7 erasure=13 jq_sorted=equal OK', True)]),
+                'M2 ABI must preserve all carried legs and add its required check')
+        require(re.search(r'(?m)/stage-a-gates\.py --m2-abi$', (ROOT / 'dev/gates.sh').read_text()) and
+                re.search(r'(?m)\bdev/stage-a-gates\.py --m2-abi$', (ROOT / 'Makefile').read_text()),
+                'default gate entry points must select M2 ABI')
     finally:
         sys.argv = original_argv
 

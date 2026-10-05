@@ -1,0 +1,275 @@
+[
+  {
+    "name": "build-computed-match-rejected",
+    "artifact": "/Users/oobi/Documents/gpt1/assay-m2-abi-controls/.kanon-exec/run-N9gu2J",
+    "exit": 1,
+    "counts": {
+      "stdout_bytes": 0,
+      "stderr_bytes": 535,
+      "stdout_lines": 0,
+      "stderr_lines": 9,
+      "error_lines": 2,
+      "warning_lines": 0
+    }
+  },
+  {
+    "name": "build-lambda-match-rejected",
+    "artifact": "/Users/oobi/Documents/gpt1/assay-m2-abi-controls/.kanon-exec/run-Ro1uS4",
+    "exit": 1,
+    "counts": {
+      "stdout_bytes": 0,
+      "stderr_bytes": 544,
+      "stdout_lines": 0,
+      "stderr_lines": 9,
+      "error_lines": 3,
+      "warning_lines": 0
+    }
+  },
+  {
+    "name": "build-initial",
+    "artifact": "/Users/oobi/Documents/gpt1/assay-m2-abi-controls/.kanon-exec/run-INzFoX",
+    "exit": 0,
+    "counts": {
+      "stdout_bytes": 71,
+      "stderr_bytes": 0,
+      "stdout_lines": 3,
+      "stderr_lines": 0,
+      "error_lines": 0,
+      "warning_lines": 0
+    }
+  },
+  {
+    "name": "harness-manifest-key-failure",
+    "artifact": "/Users/oobi/Documents/gpt1/assay-m2-abi-controls/.kanon-exec/run-9iHNBi",
+    "exit": 1,
+    "counts": {
+      "stdout_bytes": 0,
+      "stderr_bytes": 615,
+      "stdout_lines": 0,
+      "stderr_lines": 11,
+      "error_lines": 1,
+      "warning_lines": 0
+    }
+  },
+  {
+    "name": "harness-reserved-name-failure",
+    "artifact": "/Users/oobi/Documents/gpt1/assay-m2-abi-controls/.kanon-exec/run-2ahaWv",
+    "exit": 1,
+    "counts": {
+      "stdout_bytes": 0,
+      "stderr_bytes": 1237,
+      "stdout_lines": 0,
+      "stderr_lines": 18,
+      "error_lines": 3,
+      "warning_lines": 0
+    }
+  },
+  {
+    "name": "m2-abi-initial",
+    "artifact": "/Users/oobi/Documents/gpt1/assay-m2-abi-controls/.kanon-exec/run-YIVKQF",
+    "exit": 0,
+    "counts": {
+      "stdout_bytes": 130,
+      "stderr_bytes": 0,
+      "stdout_lines": 1,
+      "stderr_lines": 0,
+      "error_lines": 0,
+      "warning_lines": 0
+    }
+  },
+  {
+    "name": "build-log-classifier-rename",
+    "artifact": "/Users/oobi/Documents/gpt1/assay-m2-abi-controls/.kanon-exec/run-5NwhUR",
+    "exit": 0,
+    "counts": {
+      "stdout_bytes": 71,
+      "stderr_bytes": 0,
+      "stdout_lines": 3,
+      "stderr_lines": 0,
+      "error_lines": 0,
+      "warning_lines": 0
+    }
+  },
+  {
+    "name": "m2-abi-log-classifier",
+    "artifact": "/Users/oobi/Documents/gpt1/assay-m2-abi-controls/.kanon-exec/run-SRzFLN",
+    "exit": 0,
+    "counts": {
+      "stdout_bytes": 130,
+      "stderr_bytes": 0,
+      "stdout_lines": 1,
+      "stderr_lines": 0,
+      "error_lines": 0,
+      "warning_lines": 0
+    }
+  },
+  {
+    "name": "house-catchall-failure",
+    "artifact": "/Users/oobi/Documents/gpt1/assay-m2-abi-controls/.kanon-exec/run-8AVrbd",
+    "exit": 1,
+    "counts": {
+      "stdout_bytes": 378,
+      "stderr_bytes": 0,
+      "stdout_lines": 12,
+      "stderr_lines": 0,
+      "error_lines": 0,
+      "warning_lines": 0
+    }
+  },
+  {
+    "name": "budget-wrong-invocation",
+    "artifact": "/Users/oobi/Documents/gpt1/assay-m2-abi-controls/.kanon-exec/run-phxpGB",
+    "exit": 1,
+    "counts": {
+      "stdout_bytes": 0,
+      "stderr_bytes": 273,
+      "stdout_lines": 0,
+      "stderr_lines": 5,
+      "error_lines": 1,
+      "warning_lines": 0
+    }
+  },
+  {
+    "name": "trusted-lines",
+    "artifact": "/Users/oobi/Documents/gpt1/assay-m2-abi-controls/.kanon-exec/run-r0NhCs",
+    "exit": 0,
+    "counts": {
+      "stdout_bytes": 269,
+      "stderr_bytes": 0,
+      "stdout_lines": 9,
+      "stderr_lines": 0,
+      "error_lines": 0,
+      "warning_lines": 0
+    }
+  },
+  {
+    "name": "house-exhaustive",
+    "artifact": "/Users/oobi/Documents/gpt1/assay-m2-abi-controls/.kanon-exec/run-6N2Moq",
+    "exit": 0,
+    "counts": {
+      "stdout_bytes": 226,
+      "stderr_bytes": 0,
+      "stdout_lines": 10,
+      "stderr_lines": 0,
+      "error_lines": 0,
+      "warning_lines": 0
+    }
+  },
+  {
+    "name": "build-final",
+    "artifact": "/Users/oobi/Documents/gpt1/assay-m2-abi-controls/.kanon-exec/run-UiBUUK",
+    "exit": 0,
+    "counts": {
+      "stdout_bytes": 71,
+      "stderr_bytes": 0,
+      "stdout_lines": 3,
+      "stderr_lines": 0,
+      "error_lines": 0,
+      "warning_lines": 0
+    }
+  },
+  {
+    "name": "m2-abi-final",
+    "artifact": "/Users/oobi/Documents/gpt1/assay-m2-abi-controls/.kanon-exec/run-pNWspA",
+    "exit": 0,
+    "counts": {
+      "stdout_bytes": 130,
+      "stderr_bytes": 0,
+      "stdout_lines": 1,
+      "stderr_lines": 0,
+      "error_lines": 0,
+      "warning_lines": 0
+    }
+  },
+  {
+    "name": "mapping-before-exhaustive-matches",
+    "artifact": "/Users/oobi/Documents/gpt1/assay-m2-abi-controls/.kanon-exec/run-YbFhNt",
+    "exit": 0,
+    "counts": {
+      "stdout_bytes": 62,
+      "stderr_bytes": 0,
+      "stdout_lines": 1,
+      "stderr_lines": 0,
+      "error_lines": 0,
+      "warning_lines": 0
+    }
+  },
+  {
+    "name": "erc20-before-exhaustive-matches",
+    "artifact": "/Users/oobi/Documents/gpt1/assay-m2-abi-controls/.kanon-exec/run-h5mtKr",
+    "exit": 0,
+    "counts": {
+      "stdout_bytes": 119,
+      "stderr_bytes": 0,
+      "stdout_lines": 1,
+      "stderr_lines": 0,
+      "error_lines": 0,
+      "warning_lines": 0
+    }
+  },
+  {
+    "name": "function-abi-final",
+    "artifact": "/Users/oobi/Documents/gpt1/assay-m2-abi-controls/.kanon-exec/run-9Iu7cn",
+    "exit": 0,
+    "counts": {
+      "stdout_bytes": 94,
+      "stderr_bytes": 0,
+      "stdout_lines": 1,
+      "stderr_lines": 0,
+      "error_lines": 0,
+      "warning_lines": 0
+    }
+  },
+  {
+    "name": "core-final",
+    "artifact": "/Users/oobi/Documents/gpt1/assay-m2-abi-controls/.kanon-exec/run-fRsrTp",
+    "exit": 0,
+    "counts": {
+      "stdout_bytes": 11358,
+      "stderr_bytes": 0,
+      "stdout_lines": 402,
+      "stderr_lines": 0,
+      "error_lines": 1,
+      "warning_lines": 0
+    }
+  },
+  {
+    "name": "schedule-final",
+    "artifact": "/Users/oobi/Documents/gpt1/assay-m2-abi-controls/.kanon-exec/run-LdjMrG",
+    "exit": 0,
+    "counts": {
+      "stdout_bytes": 83,
+      "stderr_bytes": 0,
+      "stdout_lines": 1,
+      "stderr_lines": 0,
+      "error_lines": 0,
+      "warning_lines": 0
+    }
+  },
+  {
+    "name": "house-final",
+    "artifact": "/Users/oobi/Documents/gpt1/assay-m2-abi-controls/.kanon-exec/run-JdZFpW",
+    "exit": 0,
+    "counts": {
+      "stdout_bytes": 226,
+      "stderr_bytes": 0,
+      "stdout_lines": 10,
+      "stderr_lines": 0,
+      "error_lines": 0,
+      "warning_lines": 0
+    }
+  },
+  {
+    "name": "events-final",
+    "artifact": "/Users/oobi/Documents/gpt1/assay-m2-abi-controls/.kanon-exec/run-yuB9lw",
+    "exit": 0,
+    "counts": {
+      "stdout_bytes": 78,
+      "stderr_bytes": 0,
+      "stdout_lines": 1,
+      "stderr_lines": 0,
+      "error_lines": 0,
+      "warning_lines": 0
+    }
+  }
+]

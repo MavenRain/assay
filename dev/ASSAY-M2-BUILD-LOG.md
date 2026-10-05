@@ -1,5 +1,48 @@
 # Assay M2 build log
 
+## 2026-10-04: ABI goldens and negative witnesses
+
+Completed M2 group 7. The unchanged, provenance-pinned ERC20 golden now
+equals the complete emitted ABI under live `jq -S -c` normalization.
+The comparison exposed mapping reads incorrectly marked `nonpayable`.
+Mapping entry classification now distinguishes temporary key stores from
+persistent writes; event classification separately adds log effects.
+Payable entries retain their classification. The emitted ERC20 runtime
+and creation bytes equal the predecessor artifacts in the primary checkout.
+
+The new M2-ABI gate rejects sixteen ABI controls: fifteen altered schemas
+that differ after `jq` normalization, and one schema with a conflicting
+repeated key that `jq` alone makes equal to the golden, which a strict
+parse rejects. It also checks twenty mutability cases. Eight direct Lean witness mutants must fail with a type
+error at the edited line, between successful unchanged controls. The gate
+also reruns seven storage implementation mutants, seven axiom-report
+controls and thirteen theorem erasure checks with executable controls.
+The per-theorem axiom allowlist and source budgets are unchanged.
+
+Validation passed: the Bend build; core tests (18 adapters, 24 commands);
+M2-ABI; function ABI (47 cases); source events (34 cases, 16 refusals);
+house rules; trusted-line budgets; Python compilation; and whitespace
+checks. Mapping runtime (40 live cases, 27 refusals) and source ERC20
+(85 cases, four creates) passed before the equivalent catch-all cases
+were expanded into explicit variants. The final M2-ABI run covers the
+same mapping mutability behavior after that expansion. A schedule
+inspection preserves every command, deadline and marker in the previous
+107 legs and adds M2-ABI as leg 108 with a 600-second deadline floor.
+`make test`, `make gates` and `dev/gates.sh` include the new gate.
+
+Initial Bend matches on a computed expression and a lambda binder were
+rejected and moved into named functions. House rejected two new catch-all
+matches, which were replaced by exhaustive cases. Harness development
+caught an incorrect manifest field name and a reserved source identifier;
+both were corrected. An initial direct budget-script call lacked its root
+argument; the supported wrapper passed. These failures and successful
+reruns are retained in the [validation archive](validation/2026-10-04-m2-abi/).
+
+See [ABI goldens](M2-ABI-GOLDENS.md) for the oracle and controls. This is a
+scoped group completion, not the cumulative M2 closure run. The kernel
+Word refinement over a Type 0 index, audit reconciliation and milestone
+closure remain open.
+
 ## 2026-10-03: Storage and refinement evidence
 
 Added the Lean and gate half of M2 group 5: the reusable

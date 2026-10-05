@@ -73,7 +73,8 @@ def leg_deadline(name, carried, recorded):
 def main():
     root = Path(__file__).resolve().parent.parent
     m4_speed = sys.argv[1:] == ["--m4-speed"]
-    source_erc20 = sys.argv[1:] == ["--m2-source-erc20"]
+    m2_abi = sys.argv[1:] == ["--m2-abi"]
+    source_erc20 = m2_abi or sys.argv[1:] == ["--m2-source-erc20"]
     storage_proofs = source_erc20 or sys.argv[1:] == ["--m2-storage-proofs"]
     source_events = storage_proofs or sys.argv[1:] == ["--m2-source-events"]
     return_abi = source_events or sys.argv[1:] == ["--m2-return-abi"]
@@ -96,7 +97,7 @@ def main():
     erc20 = abi_schema or sys.argv[1:] == ["--m2-reference"]
     close = erc20 or sys.argv[1:] == ["--m1-close"] or m4_speed
     if not close and sys.argv[1:] not in ([], ["--keccak"], ["--asm"], ["--reference"], ["--emit"], ["--m0"], ["--m1-executor"], ["--m1-counter"], ["--m1-emission"], ["--m1-run"], ["--m1-surface"], ["--m1-proofs"], ["--m1-nullary"], ["--m1-errors"], ["--m1-guards"], ["--m1-proof-terms"], ["--m1-invariants"], ["--m1-proof-helpers"], ["--m1-proof-bundles"], ["--m1-predicates"], ["--m1-compound-invariants"], ["--m1-compound-guards"], ["--m1-named-guards"], ["--m1-inferred-guards"], ["--m1-inferred-arithmetic"], ["--m1-inferred-helpers"], ["--m1-proof-holes"], ["--m1-inferred-bindings"], ["--m1-inferred-guard-bindings"], ["--m1-context"], ["--m1-context-surface"], ["--m1-equality"], ["--m1-hex-literals"], ["--m1-inferred-words"], ["--m1-fallback"], ["--m1-diff-value"], ["--m1-trace-value"], ["--m1-trace-caller"], ["--m1-diff-caller"], ["--m1-payable"], ["--m1-callvalue"], ["--m1-calldatasize"], ["--m1-calldataload"], ["--m1-address"]):
-        print("usage: stage-a-gates.py [--keccak|--asm|--reference|--emit|--m0|--m1-executor|--m1-counter|--m1-emission|--m1-run|--m1-surface|--m1-proofs|--m1-nullary|--m1-errors|--m1-guards|--m1-proof-terms|--m1-invariants|--m1-proof-helpers|--m1-proof-bundles|--m1-predicates|--m1-compound-invariants|--m1-compound-guards|--m1-named-guards|--m1-inferred-guards|--m1-inferred-arithmetic|--m1-inferred-helpers|--m1-proof-holes|--m1-inferred-bindings|--m1-inferred-guard-bindings|--m1-context|--m1-context-surface|--m1-equality|--m1-hex-literals|--m1-inferred-words|--m1-fallback|--m1-diff-value|--m1-trace-value|--m1-trace-caller|--m1-diff-caller|--m1-payable|--m1-callvalue|--m1-calldatasize|--m1-calldataload|--m1-address|--m1-close|--m2-reference|--m2-abi-schema|--m2-abi-codec|--m2-packing|--m2-mapping|--m2-events|--m2-calldata|--m2-returndata|--m2-revertdata|--m2-event-decode|--keyword-dispatch|--lexer-direct|--m2-source-packing|--m2-mapping-source|--m2-returndata-cli|--m2-mapping-runtime|--m2-function-abi|--m2-return-abi|--m2-source-events|--m2-storage-proofs|--m2-source-erc20|--m4-speed]")
+        print("usage: stage-a-gates.py [--keccak|--asm|--reference|--emit|--m0|--m1-executor|--m1-counter|--m1-emission|--m1-run|--m1-surface|--m1-proofs|--m1-nullary|--m1-errors|--m1-guards|--m1-proof-terms|--m1-invariants|--m1-proof-helpers|--m1-proof-bundles|--m1-predicates|--m1-compound-invariants|--m1-compound-guards|--m1-named-guards|--m1-inferred-guards|--m1-inferred-arithmetic|--m1-inferred-helpers|--m1-proof-holes|--m1-inferred-bindings|--m1-inferred-guard-bindings|--m1-context|--m1-context-surface|--m1-equality|--m1-hex-literals|--m1-inferred-words|--m1-fallback|--m1-diff-value|--m1-trace-value|--m1-trace-caller|--m1-diff-caller|--m1-payable|--m1-callvalue|--m1-calldatasize|--m1-calldataload|--m1-address|--m1-close|--m2-reference|--m2-abi-schema|--m2-abi-codec|--m2-packing|--m2-mapping|--m2-events|--m2-calldata|--m2-returndata|--m2-revertdata|--m2-event-decode|--keyword-dispatch|--lexer-direct|--m2-source-packing|--m2-mapping-source|--m2-returndata-cli|--m2-mapping-runtime|--m2-function-abi|--m2-return-abi|--m2-source-events|--m2-storage-proofs|--m2-source-erc20|--m2-abi|--m4-speed]")
         print("       stage-a-gates.py --m2-reference")
         print("       stage-a-gates.py --m2-abi-schema")
         print("       stage-a-gates.py --m2-abi-codec")
@@ -104,13 +105,14 @@ def main():
         print("       stage-a-gates.py --m2-source-packing")
         print("       stage-a-gates.py --m2-storage-proofs")
         print("       stage-a-gates.py --m2-source-erc20")
+        print("       stage-a-gates.py --m2-abi")
         print("       stage-a-gates.py --m2-mapping-source")
         print("       stage-a-gates.py --m2-returndata-cli")
         print("       stage-a-gates.py --m2-mapping-runtime")
         print("       stage-a-gates.py --m2-function-abi")
         print("       stage-a-gates.py --m2-return-abi")
         print("       stage-a-gates.py --m2-source-events")
-        print("M2 modes: --m2-reference|--m2-abi-schema|--m2-abi-codec|--m2-packing|--m2-mapping|--m2-events|--m2-calldata|--m2-returndata|--m2-revertdata|--m2-event-decode|--keyword-dispatch|--lexer-direct|--m2-source-packing|--m2-mapping-source|--m2-returndata-cli|--m2-mapping-runtime|--m2-function-abi|--m2-return-abi|--m2-source-events|--m2-storage-proofs|--m2-source-erc20")
+        print("M2 modes: --m2-reference|--m2-abi-schema|--m2-abi-codec|--m2-packing|--m2-mapping|--m2-events|--m2-calldata|--m2-returndata|--m2-revertdata|--m2-event-decode|--keyword-dispatch|--lexer-direct|--m2-source-packing|--m2-mapping-source|--m2-returndata-cli|--m2-mapping-runtime|--m2-function-abi|--m2-return-abi|--m2-source-events|--m2-storage-proofs|--m2-source-erc20|--m2-abi")
         return 64
 
     recorded, gaps, record_path = recorded_runs(root)
@@ -546,6 +548,11 @@ def main():
         m1_names.add("ERC20-SOURCE")
         legs.append(("ERC20-SOURCE", 900, ("python3", "-P", "dev/erc20-source-test.py"),
                      "ERC20-SOURCE cases=85 canonical=9 creates=4 literals=5 refusals=15 zero_caller=1 model=geth=t8n logs=OK rollback=OK OK"))
+    if m2_abi:
+        stage = "M2-ABI"
+        m1_names.add("M2-ABI")
+        legs.append(("M2-ABI", 600, ("python3", "-P", "dev/m2-abi-test.py"),
+                     "M2-ABI entries=12 abi_controls=16 mutability=20 lean_negatives=8 storage_mutants=7 axiom_controls=7 erasure=13 jq_sorted=equal OK"))
     if m4_speed:
         stage = "M4-SPEED"
         m1_names.clear()

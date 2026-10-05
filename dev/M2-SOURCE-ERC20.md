@@ -79,7 +79,9 @@ run only. The model and the emitted runtime must revert with empty data and
 no logs. The reference runtime must succeed with one Transfer log.
 
 The suite is included in `make test` and the cumulative
-`dev/stage-a-gates.py --m2-source-erc20` mode, now selected by `dev/gates.sh`.
+`dev/stage-a-gates.py --m2-source-erc20` mode, for 107 legs. `dev/gates.sh`
+now selects `--m2-abi`, which adds [M2-ABI](M2-ABI-GOLDENS.md), for 108
+legs.
 Existing gate deadlines and success markers are preserved. Focused evidence
 is archived under `dev/validation/2026-10-04-m2-source-erc20/`.
 The full M2 acceptance battery and the open kernel refinement requirement

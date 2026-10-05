@@ -201,17 +201,17 @@ def EventSource.abi(+functions: FunctionAbi.Functions(), +entries: ListOf(Emit.E
   +declarations = {SeqList.map(&2, &2, Emit.Entry, Abi.Schema.Declaration, entry => Abi.Schema.Declaration.Function{FunctionAbi.function(Get.Emit.Entry.abi_entry(entry), functions)}, entries) : ListOf(Abi.Schema.Declaration)}
   Abi.Schema.print(Abi.Schema.Declaration.Constructor{[], False{}} <> List.concat(&2, Abi.Schema.Declaration, [declarations, SeqList.map(&2, &2, TupleOf2(String, ListOf(Abi.Schema.Parameter)), Abi.Schema.Declaration, ReturnAbi.error_declaration, EventSource.errors(errors)), SeqList.map(&2, &2, EventSource.Event, Abi.Schema.Declaration, EventSource.declaration, events), Native.choose(&2, ListOf(Abi.Schema.Declaration), Maybe.is_some(&2, Emit.Transaction, fallback), _ => [Abi.Schema.Declaration.Fallback{False{}}], _ => [])]))
 @unsafe
-def EventSource.writes(+events: EventSource.Events(), +tx: Emit.Transaction) -> Bool:
+def EventSource.emits(+events: EventSource.Events(), +tx: Emit.Transaction) -> Bool:
   match tx:
     case Emit.Transaction.Finish{_}: False{}
     case Emit.Transaction.Abort{}: False{}
     case Emit.Transaction.Reject{_, _}: False{}
-    case Emit.Transaction.Store{_, _, _}: True{}
-    case Emit.Transaction.Load{_, _, next}: EventSource.writes(events, next)
-    case Emit.Transaction.Context{_, _, next}: EventSource.writes(events, next)
-    case Emit.Transaction.Arithmetic{_, _, _, _, yes, no}: Bool.or(EventSource.writes(events, yes), EventSource.writes(events, no))
-    case Emit.Transaction.Compute{_, _, _, _, next}: EventSource.writes(events, next)
-    case Emit.Transaction.Compare{_, _, yes, no}: Bool.or(EventSource.reject_event(events, no), Bool.or(EventSource.writes(events, yes), EventSource.writes(events, no)))
+    case Emit.Transaction.Store{_, _, next}: EventSource.emits(events, next)
+    case Emit.Transaction.Load{_, _, next}: EventSource.emits(events, next)
+    case Emit.Transaction.Context{_, _, next}: EventSource.emits(events, next)
+    case Emit.Transaction.Arithmetic{_, _, _, _, yes, no}: Bool.or(EventSource.emits(events, yes), EventSource.emits(events, no))
+    case Emit.Transaction.Compute{_, _, _, _, next}: EventSource.emits(events, next)
+    case Emit.Transaction.Compare{_, _, yes, no}: Bool.or(EventSource.reject_event(events, no), Bool.or(EventSource.emits(events, yes), EventSource.emits(events, no)))
 @unsafe
 def EventSource.reject_event(+events: EventSource.Events(), +tx: Emit.Transaction) -> Bool:
   match tx:
@@ -228,7 +228,7 @@ def EventSource.reject_event(+events: EventSource.Events(), +tx: Emit.Transactio
 def EventSource.entry(+events: EventSource.Events(), +entry: Emit.Entry) -> Emit.Entry:
   match entry:
     case MkEmit_Entry{MkAbi_Entry{name, inputs, mutability}, selector, tx}:
-      MkEmit_Entry{MkAbi_Entry{name, inputs, Native.choose(&2, Abi.Mutability, EventSource.writes(events, tx), _ => EventSource.mutability(mutability), _ => mutability)}, selector, tx}
+      MkEmit_Entry{MkAbi_Entry{name, inputs, Native.choose(&2, Abi.Mutability, EventSource.emits(events, tx), _ => EventSource.mutability(mutability), _ => mutability)}, selector, tx}
 def EventSource.mutability(+mutability: Abi.Mutability) -> Abi.Mutability:
   match mutability:
     case Abi.Mutability.Payable{}: Abi.Mutability.Payable{}

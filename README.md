@@ -52,6 +52,8 @@ identifies indexed string hashes separately.
 returns and dynamic strings. The [Bend 2.0.28 upgrade](dev/BEND2-UPGRADE.md)
 updates the pinned compiler and its JavaScript effect registration boundary.
 
+The [M2 ABI gate](dev/M2-ABI-GOLDENS.md) compares the complete source ERC20 ABI
+with its pinned golden and checks negative Lean witnesses and proof erasure.
 Milestone work proceeds through the [grouped M2, M3 and M4 plan](dev/MILESTONE-GROUPS.md),
 with at most ten implementation turns allocated to each milestone. The compiler speed gate now
 belongs to [M4](dev/M4-SPEED.md), as requested on 2026-10-01, with the same
@@ -101,7 +103,7 @@ The [source event group](dev/M2-SOURCE-EVENTS.md) connects declarations and
 emission to the checked compiler, typed ABI, model and EVM logs. It supports
 indexed strings, anonymous events, packed storage, mappings and rollback.
 Constructor emission has an explicit refusal.
-`zsh -f dev/gates.sh` runs the default 107-leg gate battery, and
+`zsh -f dev/gates.sh` runs the default 108-leg gate battery, and
 `make gates-m4-speed` runs the two M4 speed legs.
 
 Assay is a Kanon language fork for EVM contracts.  It inherits the kernel and
@@ -441,7 +443,7 @@ and five mutations with restored controls.
 The address gate adds 1920 core comparisons, 128 artifact pairs,
 40 surface cases, 55 signed calls, seven public command checks,
 24 refusals and five mutations with restored controls.
-`dev/gates.sh` and `make gates` select `--m2-source-erc20`: the 75
+`dev/gates.sh` and `make gates` select `--m2-abi`: the 75
 `--m1-close` legs (proof-bundle, named-predicate, compound-invariant,
 named-guard, inferred-guard and inferred-arithmetic suites), then
 ERC20-REFERENCE, ABI-SCHEMA, ABI-CODEC, LAYOUT-PACKED, LAYOUT-MAPPING,
@@ -450,7 +452,9 @@ LEXER-KEYWORDS, LEXER-DIRECT, IDENTIFIER-DIRECT, WORD-DIRECT,
 SEGMENT-DIRECT, CLI-PREFIX-DIRECT, CLI-VALUE-DIRECT, CLI-ERROR-DIRECT,
 MAPPING-CLI, EVENT-CLI, EVENT-DECODE-CLI, CALLDATA-CLI, MILESTONE-SPEED,
 PACKED-SOURCE, MAPPING-SOURCE, RETURNDATA-CLI, MAPPING-RUNTIME, FUNCTION-ABI,
-RETURN-ABI, SOURCE-EVENTS, STORAGE-PROOFS and ERC20-SOURCE, for 107 legs.
+RETURN-ABI, SOURCE-EVENTS, STORAGE-PROOFS, ERC20-SOURCE and
+[M2-ABI](dev/M2-ABI-GOLDENS.md), for 108 legs.
+`--m2-source-erc20` retains its 107 legs.
 `--m2-storage-proofs` retains its 106 legs.
 `--m2-source-events` retains its 105 legs. `--m2-return-abi` retains its
 104 legs. `--m2-function-abi` retains its 103 legs.

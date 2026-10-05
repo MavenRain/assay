@@ -13,6 +13,7 @@ test:
 	python3 -P dev/event-source-test.py
 	python3 -P dev/storage-proof-test.py
 	python3 -P dev/erc20-source-test.py
+	python3 -P dev/m2-abi-test.py
 	python3 -P dev/event-cli-test.py
 	python3 -P dev/event-decode-cli-test.py
 	python3 -P dev/calldata-cli-test.py
@@ -26,6 +27,6 @@ test:
 	python3 -P dev/cli-value-direct-test.py
 	python3 -P dev/cli-error-direct-test.py
 gates: all
-	python3 -P dev/stage-a-gates.py --m2-source-erc20
+	python3 -P dev/stage-a-gates.py --m2-abi
 gates-m4-speed: all
 	python3 -P dev/stage-a-gates.py --m4-speed
