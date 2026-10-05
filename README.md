@@ -72,7 +72,8 @@ neighboring bits hold for every write on valid input. A strict
 per-theorem axiom oracle, an erasure check, a 17-row lexical corpus and
 executable comparisons against the production storage API cover the
 recorded corpus. The ratified Prop-valued Word refinement over a Type 0
-index remains an open M2 kernel item.
+index is accepted by the M0 protocol as an erased `InRange` witness on
+`word`, checked by the kernel with no new former (width 256 only).
 
 The [M1 closure gate](dev/M1-CLOSE.md) combines the bounded counter,
 surface, proof and executor checks. The [first M2 slice](dev/M2-REFERENCE.md) adds a frozen,

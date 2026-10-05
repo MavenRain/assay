@@ -34,6 +34,11 @@ def main():
         for mode in modes:
             previous = H.schedule(before, mode)
             previous['legs'] = [leg for leg in previous['legs'] if leg[0] not in SPEED]
+            # fa19053 (2026-10-05) added the 14th stage-A mutant, so the carried MUTANTS marker
+            # of the 80bc4c6 baseline is adjusted to the current count, as the SPEED legs are.
+            previous['legs'] = [(leg[0], leg[1], leg[2], leg[3].replace('MUTANTS killed=13/13 OK',
+                                                                        'MUTANTS killed=14/14 OK'), *leg[4:])
+                                for leg in previous['legs']]
             current = H.schedule(after, mode)
             require(previous == current, 'changed carried schedule: ' + mode)
             require(not SPEED.intersection(leg[0] for leg in current['legs']), 'early speed leg: ' + mode)

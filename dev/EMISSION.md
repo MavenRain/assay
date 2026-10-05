@@ -29,7 +29,20 @@ index is erased.  M0 effect operands and storage fields use `Word 256`.
 The Word recognizer checks every payload in the range `[0, 2^256)` and
 lowers the tag to one word.  The index is not itself a range proof.  A
 boxed Word, wrong constructor shape or out-of-range payload is refused.
-Prop-valued refinements remain the M2 item in R-QA.
+The recognizer also accepts a refined protocol.  The source defines
+`InRange : Nat -> Nat -> Prop` as the canonical predicate `case natEq
+bits 256 ... case natLt n 2^256 ... return Prop`, and `word` takes a
+third binder `(0 p : InRange bits n)`.  The kernel checks the witness by
+the literal fast path, so a payload at or above 2^256, a witness for
+another value or a width other than 256 is refused before emission.  The
+witness is erased, and a refined contract emits the same bytes as its
+unrefined form.  The limit: `Nat` has no eliminator, so the bound is the
+literal 2^256 and the refinement covers width 256 only.  An axiom
+witness passes the kernel; the emitter range check stays as the backstop
+and refuses it with `WORD_UNBOX_RANGE`.  `dev/refined-word-test.py`
+checks both forms against `dev/refined-word-data/`.
+The `word` constructor's arity selects the protocol. An extra `InRange`
+helper in an unrefined contract does not change protocol selection.
 
 `Storage` is a named `prod` of `Word 256` fields.  `storage : Storage`
 contains slot numbers, consecutive from zero.  Its declaration and the

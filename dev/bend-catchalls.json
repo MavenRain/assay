@@ -614,7 +614,7 @@
   {
     "definition": "Emit.error_value",
     "path": "src/emitter.bend",
-    "line": 758,
+    "line": 764,
     "arm": "{_ => (Fail{Emit.Error.M1_shape{\"Error arguments\"}}) : Unit -> Emit.Result(ListOf(Recognize.Value))}",
     "arm_sha256": "14d4809bcab084b756c8d530efb38102ae5a85baa8ee0052b1c78a1fa01072b4",
     "arity": 1,
@@ -623,7 +623,7 @@
   {
     "definition": "Emit.error_value",
     "path": "src/emitter.bend",
-    "line": 759,
+    "line": 765,
     "arm": "Match.Recognize_Value.only_Recognize_Value_Struct( _ => (otherwise8827(Unit{}))",
     "arm_sha256": "9f769243e6f639f9ea3dd875a70c7352f58c1eedad7fc7d482ee208c86c97d9e",
     "arity": 1,
@@ -632,7 +632,7 @@
   {
     "definition": "Emit.error_value",
     "path": "src/emitter.bend",
-    "line": 759,
+    "line": 765,
     "arm": "Match.List.only_Nil( _ => (otherwise8827(Unit{}))",
     "arm_sha256": "4b7a1d0c370171145d95c460b81302cc532c4831faa7bea2a8c1e89054c60aff",
     "arity": 1,
@@ -641,7 +641,7 @@
   {
     "definition": "Case.Emit.branch8955",
     "path": "src/emitter.bend",
-    "line": 763,
+    "line": 769,
     "arm": "{_ => (Fail{Emit.Error.M1_shape{\"context arguments\"}}) : Unit -> Emit.Result(TupleOf2(Recognize.Context<&2, Emit.Operand>, Recognize.Value))}",
     "arm_sha256": "c1f3891ccbc5f409febaa68c6a00089a3db30c55f269d2d8c7f4be71e39bc3e5",
     "arity": 1,
@@ -650,7 +650,7 @@
   {
     "definition": "Case.Emit.branch8955",
     "path": "src/emitter.bend",
-    "line": 764,
+    "line": 770,
     "arm": "{_ => (Fail{Emit.Error.M1_shape{\"context arguments\"}}) : Unit -> Emit.Result(TupleOf2(Recognize.Context<&2, Emit.Operand>, Recognize.Value))}",
     "arm_sha256": "c1f3891ccbc5f409febaa68c6a00089a3db30c55f269d2d8c7f4be71e39bc3e5",
     "arity": 1,
@@ -659,7 +659,7 @@
   {
     "definition": "Case.Emit.branch8955",
     "path": "src/emitter.bend",
-    "line": 765,
+    "line": 771,
     "arm": "{_ => (Fail{Emit.Error.M1_shape{\"context arguments\"}}) : Unit -> Emit.Result(TupleOf2(Recognize.Context<&2, Emit.Operand>, Recognize.Value))}",
     "arm_sha256": "c1f3891ccbc5f409febaa68c6a00089a3db30c55f269d2d8c7f4be71e39bc3e5",
     "arity": 1,
@@ -668,7 +668,7 @@
   {
     "definition": "Case.Emit.branch8955",
     "path": "src/emitter.bend",
-    "line": 766,
+    "line": 772,
     "arm": "{_ => (Fail{Emit.Error.M1_shape{\"context arguments\"}}) : Unit -> Emit.Result(TupleOf2(Recognize.Context<&2, Emit.Operand>, Recognize.Value))}",
     "arm_sha256": "c1f3891ccbc5f409febaa68c6a00089a3db30c55f269d2d8c7f4be71e39bc3e5",
     "arity": 1,
@@ -677,7 +677,7 @@
   {
     "definition": "Case.Emit.branch8955",
     "path": "src/emitter.bend",
-    "line": 767,
+    "line": 773,
     "arm": "{_ => (Fail{Emit.Error.M1_shape{\"context arguments\"}}) : Unit -> Emit.Result(TupleOf2(Recognize.Context<&2, Emit.Operand>, Recognize.Value))}",
     "arm_sha256": "c1f3891ccbc5f409febaa68c6a00089a3db30c55f269d2d8c7f4be71e39bc3e5",
     "arity": 1,
@@ -686,7 +686,7 @@
   {
     "definition": "Case.Emit.branch8955",
     "path": "src/emitter.bend",
-    "line": 764,
+    "line": 770,
     "arm": "Match.List.only_Con( _ => (otherwise8914(Unit{}))",
     "arm_sha256": "def4394aa4a9c6d2219b1cfde791181082015820ab00f8c66b57c9a9221d49f8",
     "arity": 1,
@@ -695,7 +695,7 @@
   {
     "definition": "Case.Emit.branch8955",
     "path": "src/emitter.bend",
-    "line": 764,
+    "line": 770,
     "arm": "Match.List.only_Nil( _ => (otherwise8914(Unit{}))",
     "arm_sha256": "ce6c3db2d22e29efc0fe02731ffa28c7fd10a53abba31c3c8b5384deee9e0877",
     "arity": 1,
@@ -704,7 +704,7 @@
   {
     "definition": "Case.Emit.branch8955",
     "path": "src/emitter.bend",
-    "line": 765,
+    "line": 771,
     "arm": "Match.List.only_Con( _ => (otherwise8917(Unit{}))",
     "arm_sha256": "e25f564701954c338d0081c4a5d7c00ab480f9e171fcb9e1aaee79c07091643e",
     "arity": 1,
@@ -713,7 +713,7 @@
   {
     "definition": "Case.Emit.branch8955",
     "path": "src/emitter.bend",
-    "line": 765,
+    "line": 771,
     "arm": "Match.List.only_Nil( _ => (otherwise8917(Unit{}))",
     "arm_sha256": "ea7c32ed859fd6b29491e9a005bf9020f7f126dd50aa1eca8c076187b9ea8af6",
     "arity": 1,
@@ -722,7 +722,7 @@
   {
     "definition": "Case.Emit.branch8955",
     "path": "src/emitter.bend",
-    "line": 766,
+    "line": 772,
     "arm": "Match.List.only_Con( _ => (otherwise8920(Unit{}))",
     "arm_sha256": "b5547e29310d8758aecfd2d1a675682f32c4884d9019bff5a1b6790a6d87e18f",
     "arity": 1,
@@ -731,7 +731,7 @@
   {
     "definition": "Case.Emit.branch8955",
     "path": "src/emitter.bend",
-    "line": 766,
+    "line": 772,
     "arm": "Match.List.only_Nil( _ => (otherwise8920(Unit{}))",
     "arm_sha256": "c063746f0ffb7ca0a06a19eab9a88c321065608bbfc4c934042822d4211eaa7a",
     "arity": 1,
@@ -740,7 +740,7 @@
   {
     "definition": "Case.Emit.branch8955",
     "path": "src/emitter.bend",
-    "line": 767,
+    "line": 773,
     "arm": "Match.List.only_Con( _ => (otherwise8924(Unit{}))",
     "arm_sha256": "f5fa968b4a0bd892327b5f9707fd3073c8ff91a424276e29b6aa9d337fad9088",
     "arity": 1,
@@ -749,7 +749,7 @@
   {
     "definition": "Case.Emit.branch8955",
     "path": "src/emitter.bend",
-    "line": 767,
+    "line": 773,
     "arm": "Match.List.only_Con( _ => (otherwise8924(Unit{}))",
     "arm_sha256": "f5fa968b4a0bd892327b5f9707fd3073c8ff91a424276e29b6aa9d337fad9088",
     "arity": 1,
@@ -758,7 +758,7 @@
   {
     "definition": "Case.Emit.branch8955",
     "path": "src/emitter.bend",
-    "line": 767,
+    "line": 773,
     "arm": "Match.List.only_Nil( _ => (otherwise8924(Unit{}))",
     "arm_sha256": "1aaa4cd1bfaa3563b011686b8d754764957985aa6bcb1e63f5d65940c3c80157",
     "arity": 1,
@@ -767,7 +767,7 @@
   {
     "definition": "Case.Emit.branch8955",
     "path": "src/emitter.bend",
-    "line": 768,
+    "line": 774,
     "arm": "Match.List.only_Con( _ => (otherwise8934(Unit{}))",
     "arm_sha256": "bbab97f9e192a51f6e88b32388c66f36e62ff4c0ccdf6798e02ccddb89d29aa8",
     "arity": 1,
@@ -776,7 +776,7 @@
   {
     "definition": "Case.Emit.branch8955",
     "path": "src/emitter.bend",
-    "line": 768,
+    "line": 774,
     "arm": "Match.List.only_Nil( _ => (otherwise8934(Unit{}))",
     "arm_sha256": "ad1bd0af8cb9499d57c724fe304172a5ff7210044fad7deb30a1efedec21ad1f",
     "arity": 1,
@@ -785,7 +785,7 @@
   {
     "definition": "Emit.transaction",
     "path": "src/emitter.bend",
-    "line": 793,
+    "line": 799,
     "arm": "{_ => (Fail{Emit.Error.M1_shape{\"expected Tx\"}}) : Unit -> Emit.Result(TupleOf3(Emit.Transaction, Big, Big))}",
     "arm_sha256": "f271abeaee9999ff37101939baa277ae078a90208b076687bd076a6cd6afdf3e",
     "arity": 1,
@@ -794,24 +794,6 @@
   {
     "definition": "Emit.transaction",
     "path": "src/emitter.bend",
-    "line": 795,
-    "arm": "{_ => (Fail{Emit.Error.M1_shape{\"Tx constructor\"}}) : Unit -> Emit.Result(TupleOf3(Emit.Transaction, Big, Big))}",
-    "arm_sha256": "3529992f56090a3240cbc8bb7b46198dac38c3be2034b140d5c97274cf251585",
-    "arity": 1,
-    "reason": "lowered default binder: every shape the eliminator chain of this declaration does not name takes this one fallback, Fail{Emit.Error.M1_shape{\"Tx constructor\"}}) : Unit -> Emit. ..., which carries the OCaml answer for that match."
-  },
-  {
-    "definition": "Emit.transaction",
-    "path": "src/emitter.bend",
-    "line": 798,
-    "arm": "{_ => (Fail{Emit.Error.M1_shape{\"Tx constructor\"}}) : Unit -> Emit.Result(TupleOf3(Emit.Transaction, Big, Big))}",
-    "arm_sha256": "3529992f56090a3240cbc8bb7b46198dac38c3be2034b140d5c97274cf251585",
-    "arity": 1,
-    "reason": "lowered default binder: every shape the eliminator chain of this declaration does not name takes this one fallback, Fail{Emit.Error.M1_shape{\"Tx constructor\"}}) : Unit -> Emit. ..., which carries the OCaml answer for that match."
-  },
-  {
-    "definition": "Emit.transaction",
-    "path": "src/emitter.bend",
     "line": 801,
     "arm": "{_ => (Fail{Emit.Error.M1_shape{\"Tx constructor\"}}) : Unit -> Emit.Result(TupleOf3(Emit.Transaction, Big, Big))}",
     "arm_sha256": "3529992f56090a3240cbc8bb7b46198dac38c3be2034b140d5c97274cf251585",
@@ -821,7 +803,7 @@
   {
     "definition": "Emit.transaction",
     "path": "src/emitter.bend",
-    "line": 805,
+    "line": 804,
     "arm": "{_ => (Fail{Emit.Error.M1_shape{\"Tx constructor\"}}) : Unit -> Emit.Result(TupleOf3(Emit.Transaction, Big, Big))}",
     "arm_sha256": "3529992f56090a3240cbc8bb7b46198dac38c3be2034b140d5c97274cf251585",
     "arity": 1,
@@ -839,7 +821,7 @@
   {
     "definition": "Emit.transaction",
     "path": "src/emitter.bend",
-    "line": 809,
+    "line": 811,
     "arm": "{_ => (Fail{Emit.Error.M1_shape{\"Tx constructor\"}}) : Unit -> Emit.Result(TupleOf3(Emit.Transaction, Big, Big))}",
     "arm_sha256": "3529992f56090a3240cbc8bb7b46198dac38c3be2034b140d5c97274cf251585",
     "arity": 1,
@@ -857,7 +839,7 @@
   {
     "definition": "Emit.transaction",
     "path": "src/emitter.bend",
-    "line": 816,
+    "line": 815,
     "arm": "{_ => (Fail{Emit.Error.M1_shape{\"Tx constructor\"}}) : Unit -> Emit.Result(TupleOf3(Emit.Transaction, Big, Big))}",
     "arm_sha256": "3529992f56090a3240cbc8bb7b46198dac38c3be2034b140d5c97274cf251585",
     "arity": 1,
@@ -875,7 +857,25 @@
   {
     "definition": "Emit.transaction",
     "path": "src/emitter.bend",
-    "line": 798,
+    "line": 822,
+    "arm": "{_ => (Fail{Emit.Error.M1_shape{\"Tx constructor\"}}) : Unit -> Emit.Result(TupleOf3(Emit.Transaction, Big, Big))}",
+    "arm_sha256": "3529992f56090a3240cbc8bb7b46198dac38c3be2034b140d5c97274cf251585",
+    "arity": 1,
+    "reason": "lowered default binder: every shape the eliminator chain of this declaration does not name takes this one fallback, Fail{Emit.Error.M1_shape{\"Tx constructor\"}}) : Unit -> Emit. ..., which carries the OCaml answer for that match."
+  },
+  {
+    "definition": "Emit.transaction",
+    "path": "src/emitter.bend",
+    "line": 825,
+    "arm": "{_ => (Fail{Emit.Error.M1_shape{\"Tx constructor\"}}) : Unit -> Emit.Result(TupleOf3(Emit.Transaction, Big, Big))}",
+    "arm_sha256": "3529992f56090a3240cbc8bb7b46198dac38c3be2034b140d5c97274cf251585",
+    "arity": 1,
+    "reason": "lowered default binder: every shape the eliminator chain of this declaration does not name takes this one fallback, Fail{Emit.Error.M1_shape{\"Tx constructor\"}}) : Unit -> Emit. ..., which carries the OCaml answer for that match."
+  },
+  {
+    "definition": "Emit.transaction",
+    "path": "src/emitter.bend",
+    "line": 804,
     "arm": "Match.List.only_Con( _ => (Native.choose(&2, Emit.Result(TupleOf3(Emit.Transaction, Big, Big)), Equal.OptionOf_Big_(Some{p8902}, Get.Emit.Environment.payable_ta ...",
     "arm_sha256": "516521c27b46a54fe4d423752cd08a7cfd01745b054437e6ba3e7c01275eb72a",
     "arity": 1,
@@ -884,7 +884,7 @@
   {
     "definition": "Emit.transaction",
     "path": "src/emitter.bend",
-    "line": 798,
+    "line": 804,
     "arm": "Match.List.only_Nil( _ => (Native.choose(&2, Emit.Result(TupleOf3(Emit.Transaction, Big, Big)), Equal.OptionOf_Big_(Some{p8902}, Get.Emit.Environment.payable_ta ...",
     "arm_sha256": "d53c54197e7e15f6c5b9fcee7f588b5b56cb3ca6420578d31eff998c20f699e7",
     "arity": 1,
@@ -893,7 +893,7 @@
   {
     "definition": "Emit.transaction",
     "path": "src/emitter.bend",
-    "line": 801,
+    "line": 807,
     "arm": "Match.List.only_Con( _ => (Native.choose(&2, Emit.Result(TupleOf3(Emit.Transaction, Big, Big)), Equal.OptionOf_Big_(Some{p8902}, Get.Emit.Environment.payable_ta ...",
     "arm_sha256": "578e1c4f09e2cd17176cb5b0e6ff19566aa9be25c325e8dd32d57bb6d6012765",
     "arity": 1,
@@ -902,7 +902,7 @@
   {
     "definition": "Emit.transaction",
     "path": "src/emitter.bend",
-    "line": 801,
+    "line": 807,
     "arm": "Match.List.only_Con( _ => (Native.choose(&2, Emit.Result(TupleOf3(Emit.Transaction, Big, Big)), Equal.OptionOf_Big_(Some{p8902}, Get.Emit.Environment.payable_ta ...",
     "arm_sha256": "578e1c4f09e2cd17176cb5b0e6ff19566aa9be25c325e8dd32d57bb6d6012765",
     "arity": 1,
@@ -911,7 +911,7 @@
   {
     "definition": "Emit.transaction",
     "path": "src/emitter.bend",
-    "line": 801,
+    "line": 807,
     "arm": "Match.List.only_Nil( _ => (Native.choose(&2, Emit.Result(TupleOf3(Emit.Transaction, Big, Big)), Equal.OptionOf_Big_(Some{p8902}, Get.Emit.Environment.payable_ta ...",
     "arm_sha256": "af42f252460de4a9c1b4821b4cbc720d43cc870ef69f7f4ff3cfa9c72508a54e",
     "arity": 1,
@@ -920,7 +920,7 @@
   {
     "definition": "Emit.transaction",
     "path": "src/emitter.bend",
-    "line": 805,
+    "line": 811,
     "arm": "Match.List.only_Con( _ => (Native.choose(&2, Emit.Result(TupleOf3(Emit.Transaction, Big, Big)), Equal.OptionOf_Big_(Some{p8902}, Get.Emit.Environment.payable_ta ...",
     "arm_sha256": "f9867964bebbdc44800ce59a603121a88929136e3086cac604ff7d88e39ceedb",
     "arity": 1,
@@ -929,7 +929,7 @@
   {
     "definition": "Emit.transaction",
     "path": "src/emitter.bend",
-    "line": 805,
+    "line": 811,
     "arm": "Match.List.only_Nil( _ => (Native.choose(&2, Emit.Result(TupleOf3(Emit.Transaction, Big, Big)), Equal.OptionOf_Big_(Some{p8902}, Get.Emit.Environment.payable_ta ...",
     "arm_sha256": "98ce93231234542ff80f35644442a71e6144f49e2e0416d9e285ba6fefa5c922",
     "arity": 1,
@@ -938,7 +938,7 @@
   {
     "definition": "Emit.transaction",
     "path": "src/emitter.bend",
-    "line": 807,
+    "line": 813,
     "arm": "Match.List.only_Con( _ => (Native.choose(&2, Emit.Result(TupleOf3(Emit.Transaction, Big, Big)), Equal.OptionOf_Big_(Some{p8902}, Get.Emit.Environment.payable_ta ...",
     "arm_sha256": "53c5313bf60b3ecde325bc61463c15e63a2a2c865d4272e85271b482851bf6cb",
     "arity": 1,
@@ -947,7 +947,7 @@
   {
     "definition": "Emit.transaction",
     "path": "src/emitter.bend",
-    "line": 807,
+    "line": 813,
     "arm": "Match.List.only_Con( _ => (Native.choose(&2, Emit.Result(TupleOf3(Emit.Transaction, Big, Big)), Equal.OptionOf_Big_(Some{p8902}, Get.Emit.Environment.payable_ta ...",
     "arm_sha256": "53c5313bf60b3ecde325bc61463c15e63a2a2c865d4272e85271b482851bf6cb",
     "arity": 1,
@@ -956,7 +956,7 @@
   {
     "definition": "Emit.transaction",
     "path": "src/emitter.bend",
-    "line": 807,
+    "line": 813,
     "arm": "Match.List.only_Nil( _ => (Native.choose(&2, Emit.Result(TupleOf3(Emit.Transaction, Big, Big)), Equal.OptionOf_Big_(Some{p8902}, Get.Emit.Environment.payable_ta ...",
     "arm_sha256": "62e430a5cf8c8950899d3b6a0fae35ea6c53129d746d4e30cd13714d8b9e4277",
     "arity": 1,
@@ -965,7 +965,7 @@
   {
     "definition": "Emit.transaction",
     "path": "src/emitter.bend",
-    "line": 809,
+    "line": 815,
     "arm": "Match.List.only_Con( _ => (Native.choose(&2, Emit.Result(TupleOf3(Emit.Transaction, Big, Big)), Equal.OptionOf_Big_(Some{p8902}, Get.Emit.Environment.payable_ta ...",
     "arm_sha256": "128244842e54e253f0759b5a22d7efa13b737c3368ded98f07f3061e3c6af1e7",
     "arity": 1,
@@ -974,7 +974,7 @@
   {
     "definition": "Emit.transaction",
     "path": "src/emitter.bend",
-    "line": 809,
+    "line": 815,
     "arm": "Match.List.only_Con( _ => (Native.choose(&2, Emit.Result(TupleOf3(Emit.Transaction, Big, Big)), Equal.OptionOf_Big_(Some{p8902}, Get.Emit.Environment.payable_ta ...",
     "arm_sha256": "128244842e54e253f0759b5a22d7efa13b737c3368ded98f07f3061e3c6af1e7",
     "arity": 1,
@@ -983,7 +983,7 @@
   {
     "definition": "Emit.transaction",
     "path": "src/emitter.bend",
-    "line": 809,
+    "line": 815,
     "arm": "Match.List.only_Nil( _ => (Native.choose(&2, Emit.Result(TupleOf3(Emit.Transaction, Big, Big)), Equal.OptionOf_Big_(Some{p8902}, Get.Emit.Environment.payable_ta ...",
     "arm_sha256": "2e359153b05f30908f2dbdc592335e7c0b0e523934388b85305caea3bd3573bf",
     "arity": 1,
@@ -992,7 +992,7 @@
   {
     "definition": "Emit.transaction",
     "path": "src/emitter.bend",
-    "line": 813,
+    "line": 819,
     "arm": "Match.List.only_Con( _ => (Native.choose(&2, Emit.Result(TupleOf3(Emit.Transaction, Big, Big)), Equal.OptionOf_Big_(Some{p8902}, Get.Emit.Environment.payable_ta ...",
     "arm_sha256": "2757d3772aaa789e31c6826f778f232db8a30ed403e3fc566ffd7962ab179201",
     "arity": 1,
@@ -1001,7 +1001,7 @@
   {
     "definition": "Emit.transaction",
     "path": "src/emitter.bend",
-    "line": 813,
+    "line": 819,
     "arm": "Match.List.only_Con( _ => (Native.choose(&2, Emit.Result(TupleOf3(Emit.Transaction, Big, Big)), Equal.OptionOf_Big_(Some{p8902}, Get.Emit.Environment.payable_ta ...",
     "arm_sha256": "2757d3772aaa789e31c6826f778f232db8a30ed403e3fc566ffd7962ab179201",
     "arity": 1,
@@ -1010,7 +1010,7 @@
   {
     "definition": "Emit.transaction",
     "path": "src/emitter.bend",
-    "line": 813,
+    "line": 819,
     "arm": "Match.List.only_Nil( _ => (Native.choose(&2, Emit.Result(TupleOf3(Emit.Transaction, Big, Big)), Equal.OptionOf_Big_(Some{p8902}, Get.Emit.Environment.payable_ta ...",
     "arm_sha256": "630007ff6853ddd0cd5ca172461ee77bd5a918fee94f3464cd86b530196bab33",
     "arity": 1,
@@ -1019,7 +1019,7 @@
   {
     "definition": "Emit.transaction",
     "path": "src/emitter.bend",
-    "line": 816,
+    "line": 822,
     "arm": "Match.List.only_Con( _ => (Native.choose(&2, Emit.Result(TupleOf3(Emit.Transaction, Big, Big)), Equal.OptionOf_Big_(Some{p8902}, Get.Emit.Environment.payable_ta ...",
     "arm_sha256": "bb721243645ca37ae0f0e46bac7050e7a2f0554f3fcf8799bac132356cdaf336",
     "arity": 1,
@@ -1028,7 +1028,7 @@
   {
     "definition": "Emit.transaction",
     "path": "src/emitter.bend",
-    "line": 816,
+    "line": 822,
     "arm": "Match.List.only_Con( _ => (Native.choose(&2, Emit.Result(TupleOf3(Emit.Transaction, Big, Big)), Equal.OptionOf_Big_(Some{p8902}, Get.Emit.Environment.payable_ta ...",
     "arm_sha256": "bb721243645ca37ae0f0e46bac7050e7a2f0554f3fcf8799bac132356cdaf336",
     "arity": 1,
@@ -1037,7 +1037,7 @@
   {
     "definition": "Emit.transaction",
     "path": "src/emitter.bend",
-    "line": 816,
+    "line": 822,
     "arm": "Match.List.only_Nil( _ => (Native.choose(&2, Emit.Result(TupleOf3(Emit.Transaction, Big, Big)), Equal.OptionOf_Big_(Some{p8902}, Get.Emit.Environment.payable_ta ...",
     "arm_sha256": "b86e31e898d751f702f40240dab3fad86fa37bce5f1ea919a10c0c13194fd414",
     "arity": 1,
@@ -1046,7 +1046,7 @@
   {
     "definition": "Emit.transaction",
     "path": "src/emitter.bend",
-    "line": 819,
+    "line": 825,
     "arm": "Match.List.only_Con( _ => (Native.choose(&2, Emit.Result(TupleOf3(Emit.Transaction, Big, Big)), Equal.OptionOf_Big_(Some{p8902}, Get.Emit.Environment.payable_ta ...",
     "arm_sha256": "41d5ccf8d811a3aa5ddea2a52991ca0384ef0421f8c99d5b8c87c86ec3ab78d0",
     "arity": 1,
@@ -1055,7 +1055,7 @@
   {
     "definition": "Emit.transaction",
     "path": "src/emitter.bend",
-    "line": 819,
+    "line": 825,
     "arm": "Match.List.only_Nil( _ => (Native.choose(&2, Emit.Result(TupleOf3(Emit.Transaction, Big, Big)), Equal.OptionOf_Big_(Some{p8902}, Get.Emit.Environment.payable_ta ...",
     "arm_sha256": "a5f1558c610b189082f0758336479fe2ad115717a32e1ebcd73986ea0bef682d",
     "arity": 1,
@@ -1064,7 +1064,7 @@
   {
     "definition": "Emit.transaction",
     "path": "src/emitter.bend",
-    "line": 822,
+    "line": 828,
     "arm": "Match.List.only_Con( _ => (Native.choose(&2, Emit.Result(TupleOf3(Emit.Transaction, Big, Big)), Equal.OptionOf_Big_(Some{p8902}, Get.Emit.Environment.payable_ta ...",
     "arm_sha256": "158b201abdac60232c552d398611afda83193e3e268c427d2cf69aebd71d1d49",
     "arity": 1,
@@ -1073,7 +1073,7 @@
   {
     "definition": "Emit.transaction",
     "path": "src/emitter.bend",
-    "line": 822,
+    "line": 828,
     "arm": "Match.List.only_Con( _ => (Native.choose(&2, Emit.Result(TupleOf3(Emit.Transaction, Big, Big)), Equal.OptionOf_Big_(Some{p8902}, Get.Emit.Environment.payable_ta ...",
     "arm_sha256": "158b201abdac60232c552d398611afda83193e3e268c427d2cf69aebd71d1d49",
     "arity": 1,
@@ -1082,7 +1082,7 @@
   {
     "definition": "Emit.transaction",
     "path": "src/emitter.bend",
-    "line": 822,
+    "line": 828,
     "arm": "Match.List.only_Nil( _ => (Native.choose(&2, Emit.Result(TupleOf3(Emit.Transaction, Big, Big)), Equal.OptionOf_Big_(Some{p8902}, Get.Emit.Environment.payable_ta ...",
     "arm_sha256": "3f20e74fae89deeed5b2eddb5d83a84294cfbb27148ba0719e03082e0088ea6a",
     "arity": 1,
@@ -1091,7 +1091,7 @@
   {
     "definition": "Emit.entries",
     "path": "src/emitter.bend",
-    "line": 874,
+    "line": 880,
     "arm": "{_ => (Tup2{False{}, p9431}) : Unit -> TupleOf2(Bool, Recognize.Value)}",
     "arm_sha256": "7e355f9f728aafc9782531209bd2930b3378ed70e8199d7841f21da7a1733182",
     "arity": 1,
@@ -1100,7 +1100,7 @@
   {
     "definition": "Emit.entries",
     "path": "src/emitter.bend",
-    "line": 875,
+    "line": 881,
     "arm": "Match.List.only_Con( _ => (otherwise9449(Unit{}))",
     "arm_sha256": "e18832bf3700f8ecc9b041d59820886ebf3950c637fbf2517456aebcd313fb3f",
     "arity": 1,
@@ -1109,7 +1109,7 @@
   {
     "definition": "Emit.entries",
     "path": "src/emitter.bend",
-    "line": 875,
+    "line": 881,
     "arm": "Match.List.only_Nil( _ => (otherwise9449(Unit{}))",
     "arm_sha256": "d03d53c16002058e2b4d70579d6d112b510a34fd224cc98d91b97b74d69aaed6",
     "arity": 1,
@@ -1118,7 +1118,7 @@
   {
     "definition": "Recognize.names_in_diagram",
     "path": "src/emitter.bend",
-    "line": 922,
+    "line": 928,
     "arm": "{_ => (Fail{Recognize.Error.Protocol{String.append(\"M1 \", name_1120)}}) : Unit -> ResultOf(Recognize.Error, ListOf(String))}",
     "arm_sha256": "b6fd69f4872652d950e09501050c10befb2b57b05d74139ad0291b29b24e15be",
     "arity": 1,
@@ -1127,7 +1127,7 @@
   {
     "definition": "Recognize.names_in_diagram",
     "path": "src/emitter.bend",
-    "line": 924,
+    "line": 930,
     "arm": "{_ => (Fail{Recognize.Error.Protocol{String.append(\"M1 \", name_1120)}}) : Unit -> ResultOf(Recognize.Error, ListOf(String))}",
     "arm_sha256": "b6fd69f4872652d950e09501050c10befb2b57b05d74139ad0291b29b24e15be",
     "arity": 1,
@@ -1136,7 +1136,7 @@
   {
     "definition": "Recognize.names_in_diagram",
     "path": "src/emitter.bend",
-    "line": 925,
+    "line": 931,
     "arm": "Match.Shape.only_Shape_SColl( _ => (otherwise9620(Unit{}))",
     "arm_sha256": "4bf8934a254988595ccec420a45d3fa22669892ef19388c769cb42c9915e24c7",
     "arity": 1,
@@ -1145,7 +1145,7 @@
   {
     "definition": "Recognize.names_in_diagram",
     "path": "src/emitter.bend",
-    "line": 925,
+    "line": 931,
     "arm": "Match.Term.only_Term_Global( _ => (otherwise9632(Unit{}))",
     "arm_sha256": "166968488af7afcf202f39c03714011009a819dd04be8e5f3ddeba3670a0204d",
     "arity": 1,
@@ -1154,7 +1154,7 @@
   {
     "definition": "Recognize.collection",
     "path": "src/emitter.bend",
-    "line": 929,
+    "line": 935,
     "arm": "{_ => (Fail{Recognize.Error.Protocol{String.append(\"M1 \", name_1145)}}) : Unit -> ResultOf(Recognize.Error, ListOf(String))}",
     "arm_sha256": "eb9cd121014615fc9624a7c89a48199a27e04b24d1a33cb4c0f3e71afbeafe60",
     "arity": 1,
@@ -1163,7 +1163,7 @@
   {
     "definition": "Recognize.collection",
     "path": "src/emitter.bend",
-    "line": 930,
+    "line": 936,
     "arm": "{_ => (Fail{Recognize.Error.Protocol{String.append(\"M1 \", name_1145)}}) : Unit -> ResultOf(Recognize.Error, ListOf(String))}",
     "arm_sha256": "eb9cd121014615fc9624a7c89a48199a27e04b24d1a33cb4c0f3e71afbeafe60",
     "arity": 1,
@@ -1172,7 +1172,7 @@
   {
     "definition": "Recognize.collection",
     "path": "src/emitter.bend",
-    "line": 931,
+    "line": 937,
     "arm": "{_ => (Fail{Recognize.Error.Protocol{String.append(\"M1 \", name_1145)}}) : Unit -> ResultOf(Recognize.Error, ListOf(String))}",
     "arm_sha256": "eb9cd121014615fc9624a7c89a48199a27e04b24d1a33cb4c0f3e71afbeafe60",
     "arity": 1,
@@ -1181,7 +1181,7 @@
   {
     "definition": "Recognize.collection",
     "path": "src/emitter.bend",
-    "line": 930,
+    "line": 936,
     "arm": "Match.Shape.only_Shape_SColl( _ => (otherwise9605(Unit{}))",
     "arm_sha256": "87b520d41d5e2b2f08ab4fd7def5cb925d5950ed3ac0adc1e2a3931cd38a306c",
     "arity": 1,
@@ -1190,7 +1190,7 @@
   {
     "definition": "Recognize.collection",
     "path": "src/emitter.bend",
-    "line": 931,
+    "line": 937,
     "arm": "Match.Shape.only_Shape_SColl( _ => (otherwise9662(Unit{}))",
     "arm_sha256": "496f65c85eb1e94552740288e0e5532a550511891ae388cdee2d95a0bee11169",
     "arity": 1,
@@ -1199,7 +1199,7 @@
   {
     "definition": "Recognize.collection",
     "path": "src/emitter.bend",
-    "line": 932,
+    "line": 938,
     "arm": "Match.Term.only_Term_Ran( _ => (otherwise9679(Unit{}))",
     "arm_sha256": "ce59335945edff54e2a63beeee6dedfb64f1657d2c9422a3ec85e9e1ac9cfcdf",
     "arity": 1,
@@ -1208,7 +1208,7 @@
   {
     "definition": "Recognize.collection",
     "path": "src/emitter.bend",
-    "line": 932,
+    "line": 938,
     "arm": "Match.Shape.only_Shape_SColl( _ => (otherwise9679(Unit{}))",
     "arm_sha256": "369bdf2503927b00016fd1032f6f864cb50fe8b1e7fe9b08e90f3e2688a23a40",
     "arity": 1,
@@ -1217,7 +1217,7 @@
   {
     "definition": "Recognize.collection",
     "path": "src/emitter.bend",
-    "line": 932,
+    "line": 938,
     "arm": "Match.Term.only_Term_Sec( _ => (otherwise9679(Unit{}))",
     "arm_sha256": "02cc48febd4d1a47344728dba851e6f2861b50e74c3a5fda082ec1cf8a61234e",
     "arity": 1,
@@ -1226,7 +1226,7 @@
   {
     "definition": "Recognize.collection",
     "path": "src/emitter.bend",
-    "line": 932,
+    "line": 938,
     "arm": "Match.Shape.only_Shape_SColl( _ => (otherwise9679(Unit{}))",
     "arm_sha256": "369bdf2503927b00016fd1032f6f864cb50fe8b1e7fe9b08e90f3e2688a23a40",
     "arity": 1,
@@ -1235,7 +1235,7 @@
   {
     "definition": "Recognize.collection",
     "path": "src/emitter.bend",
-    "line": 932,
+    "line": 938,
     "arm": "Match.List.only_Nil( _ => (otherwise9679(Unit{}))",
     "arm_sha256": "1a129692bdde55be4bbee01a654f1f07b1998acd4bd7e699e3c5ff8c10b30822",
     "arity": 1,
@@ -1244,7 +1244,7 @@
   {
     "definition": "Recognize.collection",
     "path": "src/emitter.bend",
-    "line": 932,
+    "line": 938,
     "arm": "Match.Term.only_Term_Univ( _ => (otherwise9679(Unit{}))",
     "arm_sha256": "eaef366de11408d0bd0719e62d524a81761106e3f5469cd965584663c51a2052",
     "arity": 1,
@@ -1253,7 +1253,7 @@
   {
     "definition": "Recognize.m1_export",
     "path": "src/emitter.bend",
-    "line": 1008,
+    "line": 1014,
     "arm": "{_ => (Fail{Recognize.Error.Protocol{\"M1 export must have type Entry -> Tx\"}}) : Unit -> ResultOf(Recognize.Error, Unit)}",
     "arm_sha256": "41b14995079f9382f21edc1af1778c1f68fd2edc5fba22d58f889d273584590f",
     "arity": 1,
@@ -1262,7 +1262,7 @@
   {
     "definition": "Recognize.m1_export",
     "path": "src/emitter.bend",
-    "line": 1009,
+    "line": 1015,
     "arm": "Match.Shape.only_Shape_SPi( _ => (otherwise9877(Unit{}))",
     "arm_sha256": "144e6c3daa4bef808af90509175a5bb3a974bef59176643708333a1cc426be44",
     "arity": 1,
@@ -1271,7 +1271,7 @@
   {
     "definition": "Recognize.m1_export",
     "path": "src/emitter.bend",
-    "line": 1009,
+    "line": 1015,
     "arm": "Match.Quantity.only_Quantity_One_Quantity_Many( _ => (otherwise9877(Unit{}))",
     "arm_sha256": "6ff68450282b31e01a8598e113de13dfe4cdbb0e849e21d31f00a93b62d698db",
     "arity": 1,
@@ -1280,7 +1280,7 @@
   {
     "definition": "Recognize.m1_export",
     "path": "src/emitter.bend",
-    "line": 1009,
+    "line": 1015,
     "arm": "Match.Term.only_Term_Global( _ => (otherwise9877(Unit{}))",
     "arm_sha256": "c2eb0542c107cb65ee7f1959ee496b61b2062d1c4f110dc1bea439ac209f01ef",
     "arity": 1,
@@ -1289,7 +1289,7 @@
   {
     "definition": "Recognize.m1_export",
     "path": "src/emitter.bend",
-    "line": 1009,
+    "line": 1015,
     "arm": "Match.Term.only_Term_Lan( _ => (otherwise9877(Unit{}))",
     "arm_sha256": "8076f6e988ea4ff07f82a47324d7b82c42985421a3624dd07c974bc47c3ab6d3",
     "arity": 1,
@@ -1298,7 +1298,7 @@
   {
     "definition": "Recognize.m1_export",
     "path": "src/emitter.bend",
-    "line": 1009,
+    "line": 1015,
     "arm": "Match.Shape.only_Shape_SMu( _ => (otherwise9877(Unit{}))",
     "arm_sha256": "fda5d20a55ff0b0c4a57c6c7bd3c06de6e9cb4a7501b96c9ef80bf72939d4b97",
     "arity": 1,
@@ -1307,7 +1307,7 @@
   {
     "definition": "Recognize.m1_export",
     "path": "src/emitter.bend",
-    "line": 1009,
+    "line": 1015,
     "arm": "Match.List.only_Nil( _ => (otherwise9877(Unit{}))",
     "arm_sha256": "d69f44dfbd01887d8310fee85808c034b2dddc96b247342cf398b318673c6124",
     "arity": 1,
@@ -1316,7 +1316,7 @@
   {
     "definition": "Recognize.m1_export",
     "path": "src/emitter.bend",
-    "line": 1009,
+    "line": 1015,
     "arm": "Match.Term.only_Term_Sec( _ => (otherwise9877(Unit{}))",
     "arm_sha256": "18f56b73be7098aa1bf37179fdf7c7e50850e4fd038321e890832146038743f0",
     "arity": 1,
@@ -1325,7 +1325,7 @@
   {
     "definition": "Recognize.m1_export",
     "path": "src/emitter.bend",
-    "line": 1009,
+    "line": 1015,
     "arm": "Match.Shape.only_Shape_SColl( _ => (otherwise9877(Unit{}))",
     "arm_sha256": "c4a6cb868ae2963e524089961e8dc3aa50c089d5e86a4318b70cc82cffab1c99",
     "arity": 1,
@@ -1334,7 +1334,7 @@
   {
     "definition": "Recognize.m1_export",
     "path": "src/emitter.bend",
-    "line": 1009,
+    "line": 1015,
     "arm": "Match.List.only_Nil( _ => (otherwise9877(Unit{}))",
     "arm_sha256": "d69f44dfbd01887d8310fee85808c034b2dddc96b247342cf398b318673c6124",
     "arity": 1,
@@ -1343,7 +1343,7 @@
   {
     "definition": "Recognize.m1_export",
     "path": "src/emitter.bend",
-    "line": 1009,
+    "line": 1015,
     "arm": "Match.Term.only_Term_Global( _ => (otherwise9877(Unit{}))",
     "arm_sha256": "c2eb0542c107cb65ee7f1959ee496b61b2062d1c4f110dc1bea439ac209f01ef",
     "arity": 1,
@@ -1352,7 +1352,7 @@
   {
     "definition": "Recognize.m1_export",
     "path": "src/emitter.bend",
-    "line": 1009,
+    "line": 1015,
     "arm": "Match.Term.only_Term_Lan( _ => (otherwise9877(Unit{}))",
     "arm_sha256": "8076f6e988ea4ff07f82a47324d7b82c42985421a3624dd07c974bc47c3ab6d3",
     "arity": 1,
@@ -1361,7 +1361,7 @@
   {
     "definition": "Recognize.m1_export",
     "path": "src/emitter.bend",
-    "line": 1009,
+    "line": 1015,
     "arm": "Match.Shape.only_Shape_SMu( _ => (otherwise9877(Unit{}))",
     "arm_sha256": "fda5d20a55ff0b0c4a57c6c7bd3c06de6e9cb4a7501b96c9ef80bf72939d4b97",
     "arity": 1,
@@ -1370,7 +1370,7 @@
   {
     "definition": "Recognize.m1_export",
     "path": "src/emitter.bend",
-    "line": 1009,
+    "line": 1015,
     "arm": "Match.List.only_Nil( _ => (otherwise9877(Unit{}))",
     "arm_sha256": "d69f44dfbd01887d8310fee85808c034b2dddc96b247342cf398b318673c6124",
     "arity": 1,
@@ -1379,7 +1379,7 @@
   {
     "definition": "Recognize.m1_export",
     "path": "src/emitter.bend",
-    "line": 1009,
+    "line": 1015,
     "arm": "Match.Term.only_Term_Sec( _ => (otherwise9877(Unit{}))",
     "arm_sha256": "18f56b73be7098aa1bf37179fdf7c7e50850e4fd038321e890832146038743f0",
     "arity": 1,
@@ -1388,7 +1388,7 @@
   {
     "definition": "Recognize.m1_export",
     "path": "src/emitter.bend",
-    "line": 1009,
+    "line": 1015,
     "arm": "Match.Shape.only_Shape_SColl( _ => (otherwise9877(Unit{}))",
     "arm_sha256": "c4a6cb868ae2963e524089961e8dc3aa50c089d5e86a4318b70cc82cffab1c99",
     "arity": 1,
@@ -1397,7 +1397,7 @@
   {
     "definition": "Recognize.m1_export",
     "path": "src/emitter.bend",
-    "line": 1009,
+    "line": 1015,
     "arm": "Match.List.only_Nil( _ => (otherwise9877(Unit{}))",
     "arm_sha256": "d69f44dfbd01887d8310fee85808c034b2dddc96b247342cf398b318673c6124",
     "arity": 1,
@@ -1406,7 +1406,7 @@
   {
     "definition": "Contract.comment",
     "path": "src/emitter.bend",
-    "line": 1072,
+    "line": 1078,
     "arm": "{_ => (Contract.comment(NativeInt.add(col_764, Big.one()), p10286)) : Unit -> Tuple2<&2, &1, Big, (Unit -> Series<&2, Char>)>}",
     "arm_sha256": "1a3d53414d1aa1247ede4e74f407b3c15f4964f43d76dc14ba800d0559d9a356",
     "arity": 1,
@@ -1415,7 +1415,7 @@
   {
     "definition": "Contract.space",
     "path": "src/emitter.bend",
-    "line": 1077,
+    "line": 1083,
     "arm": "{_ => (Tup3{line_769, col_770, seq_771}) : Unit -> Tuple3<&2, &2, &1, Big, Big, (Unit -> Series<&2, Char>)>}",
     "arm_sha256": "2ed8066f63421b1752c9c8aa8b1a67aaff3e5a5d028ade426a9674d4267d8c6d",
     "arity": 1,
@@ -1424,7 +1424,7 @@
   {
     "definition": "Contract.space",
     "path": "src/emitter.bend",
-    "line": 1079,
+    "line": 1085,
     "arm": "{_ => (Tup3{line_769, col_770, seq_771}) : Unit -> Tuple3<&2, &2, &1, Big, Big, (Unit -> Series<&2, Char>)>}",
     "arm_sha256": "2ed8066f63421b1752c9c8aa8b1a67aaff3e5a5d028ade426a9674d4267d8c6d",
     "arity": 1,
@@ -1433,7 +1433,7 @@
   {
     "definition": "Local.Contract.scan.f10300",
     "path": "src/emitter.bend",
-    "line": 1090,
+    "line": 1096,
     "arm": "{_ => (scrut10312(NativeString.repeat(Big.to_nat(Big.one()), p10314), p10315)) : Unit -> CheckResult(ListOf(Contract.Token))}",
     "arm_sha256": "34d0731ff98b55f7cd331835b2da4ed7d392654feb082e3c71138bb2d40f2a1a",
     "arity": 1,
@@ -1442,7 +1442,7 @@
   {
     "definition": "Local.Contract.scan.f10300",
     "path": "src/emitter.bend",
-    "line": 1091,
+    "line": 1097,
     "arm": "{_ => (Contract.fail(&2, ListOf(Contract.Token), scrut10307(\"\"), \"TOKEN\", \"unexpected character\")) : Unit -> CheckResult(ListOf(Contract.Token))}",
     "arm_sha256": "1eee0411ec6ea47e5eeaf49c1ce2f5ddcce94db0c797c2de8aa942591db779e6",
     "arity": 1,
@@ -1451,7 +1451,7 @@
   {
     "definition": "Contract.value",
     "path": "src/emitter.bend",
-    "line": 1119,
+    "line": 1125,
     "arm": "{_ => (Match.Result(&2, TupleOf2(Contract.Token, ListOf(Contract.Token)), &2, Error, &2, CheckResult(TupleOf2(Contract.Word, ListOf(Contract.Token))), Contract. ...",
     "arm_sha256": "2bc00f4a184ab2ebaa1e1a020208c4afd7eb213805f66c291d9602f1bac0aa4d",
     "arity": 1,
@@ -1460,7 +1460,7 @@
   {
     "definition": "Contract.value",
     "path": "src/emitter.bend",
-    "line": 1122,
+    "line": 1128,
     "arm": "Match.List.only_Con( _ => (otherwise10378(Unit{}))",
     "arm_sha256": "992fd230f5bf7d39a1edb04babf591bc77344e706c07a06e2c7a4bdfda7c4791",
     "arity": 1,
@@ -1469,25 +1469,25 @@
   {
     "definition": "Contract.opens_value",
     "path": "src/emitter.bend",
-    "line": 1131,
-    "arm": "{_ => (False{}) : Unit -> Bool}",
-    "arm_sha256": "52c2bc533a3a5c5cc42417fa281e23f17d73711b5c7ea3fa25af1e414ff944ee",
-    "arity": 1,
-    "reason": "lowered default binder: every shape the eliminator chain of this declaration does not name takes this one fallback, False{}) : Unit -> Bool}, which carries the OCaml answer for that match."
-  },
-  {
-    "definition": "Contract.opens_condition",
-    "path": "src/emitter.bend",
-    "line": 1136,
-    "arm": "{_ => (False{}) : Unit -> Bool}",
-    "arm_sha256": "52c2bc533a3a5c5cc42417fa281e23f17d73711b5c7ea3fa25af1e414ff944ee",
-    "arity": 1,
-    "reason": "lowered default binder: every shape the eliminator chain of this declaration does not name takes this one fallback, False{}) : Unit -> Bool}, which carries the OCaml answer for that match."
-  },
-  {
-    "definition": "Contract.opens_condition",
-    "path": "src/emitter.bend",
     "line": 1137,
+    "arm": "{_ => (False{}) : Unit -> Bool}",
+    "arm_sha256": "52c2bc533a3a5c5cc42417fa281e23f17d73711b5c7ea3fa25af1e414ff944ee",
+    "arity": 1,
+    "reason": "lowered default binder: every shape the eliminator chain of this declaration does not name takes this one fallback, False{}) : Unit -> Bool}, which carries the OCaml answer for that match."
+  },
+  {
+    "definition": "Contract.opens_condition",
+    "path": "src/emitter.bend",
+    "line": 1142,
+    "arm": "{_ => (False{}) : Unit -> Bool}",
+    "arm_sha256": "52c2bc533a3a5c5cc42417fa281e23f17d73711b5c7ea3fa25af1e414ff944ee",
+    "arity": 1,
+    "reason": "lowered default binder: every shape the eliminator chain of this declaration does not name takes this one fallback, False{}) : Unit -> Bool}, which carries the OCaml answer for that match."
+  },
+  {
+    "definition": "Contract.opens_condition",
+    "path": "src/emitter.bend",
+    "line": 1143,
     "arm": "{_ => ((+otherwise10443 = {_ => (SeqList.exists(&2, String, +item10444 => NativeString.equal(Get.Contract.Token.text(p10440), item10444), Con{\"leWord\", Con{\"lt2 ...",
     "arm_sha256": "8bd15c69e3ca18b078549119931eab71fbc2b2c92752aa2876e2c1516c52886e",
     "arity": 1,
@@ -1496,7 +1496,7 @@
   {
     "definition": "Contract.opens_condition",
     "path": "src/emitter.bend",
-    "line": 1137,
+    "line": 1143,
     "arm": "{_ => (SeqList.exists(&2, String, +item10444 => NativeString.equal(Get.Contract.Token.text(p10440), item10444), Con{\"leWord\", Con{\"lt256\", Con{\"eqWord\", Nil{}}} ...",
     "arm_sha256": "57a580e2ca59d21239aa8e38134c2c090260bf6f99bbca293f1387f0c454d536",
     "arity": 1,
@@ -1505,7 +1505,7 @@
   {
     "definition": "Contract.opens_condition",
     "path": "src/emitter.bend",
-    "line": 1139,
+    "line": 1145,
     "arm": "Match.List.only_Con( _ => (otherwise10436(Unit{}))",
     "arm_sha256": "04d934037bc30afc1b38b2d32da7249e4aed27dea4acc4c3a0457633aacbc5de",
     "arity": 1,
@@ -1514,7 +1514,7 @@
   {
     "definition": "Contract.opens_condition",
     "path": "src/emitter.bend",
-    "line": 1138,
+    "line": 1144,
     "arm": "Match.List.only_Con( _ => (otherwise10443(Unit{}))",
     "arm_sha256": "b01fc94ec3709814d15c583f4ddf3e1fa746e215345afd1ad3eba11fe3d0961a",
     "arity": 1,
@@ -1523,7 +1523,7 @@
   {
     "definition": "Contract.opens_condition",
     "path": "src/emitter.bend",
-    "line": 1139,
+    "line": 1145,
     "arm": "Match.List.only_Con( _ => (otherwise10442(Unit{}))",
     "arm_sha256": "abf567091493dcf7a1146dce65d7ee9f72d1c3ab7858a018451492beee5f6251",
     "arity": 1,
@@ -1532,7 +1532,7 @@
   {
     "definition": "Local.Contract.more.f10459",
     "path": "src/emitter.bend",
-    "line": 1143,
+    "line": 1149,
     "arm": "{_ => (Done{Tup2{List.reverse(&2, Contract.Word, acc_1013), tokens_1014}}) : Unit -> CheckResult(TupleOf2(ListOf(Contract.Word), ListOf(Contract.Token)))}",
     "arm_sha256": "89d75cf83fce623af049b39083bbc41ef92bb5b9767a5a5172bbe97b270e4484",
     "arity": 1,
@@ -1541,7 +1541,7 @@
   {
     "definition": "Local.Contract.more.f10459",
     "path": "src/emitter.bend",
-    "line": 1144,
+    "line": 1150,
     "arm": "{_ => ((Native.choose(&2, CheckResult(TupleOf2(ListOf(Contract.Word), ListOf(Contract.Token))), Big.is_le(Big.of_nat(32n), Big.of_nat(List.length(&2, Contract.W ...",
     "arm_sha256": "f64dc15b101a5a773a94adb9865e156ae982efa3fefc770580338dddce1cc7af",
     "arity": 1,
@@ -1550,7 +1550,7 @@
   {
     "definition": "Local.Contract.more.f10459",
     "path": "src/emitter.bend",
-    "line": 1146,
+    "line": 1152,
     "arm": "Match.List.only_Con( _ => (otherwise10467(Unit{}))",
     "arm_sha256": "f0fe8de5288dbd9fb6211005849abf55539c056619b4918cda5f4c405857e538",
     "arity": 1,
@@ -1559,7 +1559,7 @@
   {
     "definition": "Local.Contract.arguments.f10524",
     "path": "src/emitter.bend",
-    "line": 1160,
+    "line": 1166,
     "arm": "{_ => (Match.Result(&2, ListOf(Contract.Token), &2, Error, q0, Result<&2, q0, Error, Tuple2<q0, &2, List<q0, A0>, ListOf(Contract.Token)>>, Contract.expect(\")\", ...",
     "arm_sha256": "5d03d4dd2cb4b641512071b3fd50bbbc874b0d7ffd0ad19ae40923a2d18d0865",
     "arity": 1,
@@ -1568,7 +1568,7 @@
   {
     "definition": "Contract.predicate_arguments",
     "path": "src/emitter.bend",
-    "line": 1166,
+    "line": 1172,
     "arm": "{_ => ((+local10570 => +local10572 => (Local.Contract.arguments.f10524(q0, A0, p10522, operand_1041, local10570, local10572)))(Nil{}, tokens_1043)) : Unit -> Re ...",
     "arm_sha256": "35b8de2908b6fac48ee87d51d5324def11ed73e38ce011ef779a0c13a88d9578",
     "arity": 1,
@@ -1577,7 +1577,7 @@
   {
     "definition": "Local.Contract.parse.f10579",
     "path": "src/emitter.bend",
-    "line": 1172,
+    "line": 1178,
     "arm": "{_ => ((+otherwise10596 = {_ => (Match.Result(&2, TupleOf2(Contract.Predicate, ListOf(Contract.Token)), &2, Error, &2, CheckResult(TupleOf3(Contract.Condition,  ...",
     "arm_sha256": "0cca3b3353c093789d8d8d6e26c02b60d8a1fce8321495633a188de18ab3b8e4",
     "arity": 1,
@@ -1586,7 +1586,7 @@
   {
     "definition": "Local.Contract.parse.f10579",
     "path": "src/emitter.bend",
-    "line": 1172,
+    "line": 1178,
     "arm": "{_ => (Match.Result(&2, TupleOf2(Contract.Predicate, ListOf(Contract.Token)), &2, Error, &2, CheckResult(TupleOf3(Contract.Condition, Big, ListOf(Contract.Token ...",
     "arm_sha256": "c8d0146eb8f3ff9b38cd5a7bfb675d930f4959d4b38997d645aff31ab85698b5",
     "arity": 1,
@@ -1595,7 +1595,7 @@
   {
     "definition": "Local.Contract.parse.f10579",
     "path": "src/emitter.bend",
-    "line": 1175,
+    "line": 1181,
     "arm": "Match.List.only_Con( _ => (otherwise10596(Unit{}))",
     "arm_sha256": "9a458124dbfb31c44367e1a73aadc23ec9b9a3a3d522d21ab80047282f9d9c5a",
     "arity": 1,
@@ -1604,7 +1604,7 @@
   {
     "definition": "Contract.claim_with",
     "path": "src/emitter.bend",
-    "line": 1190,
+    "line": 1196,
     "arm": "{_ => ((+otherwise10706 = {_ => (Match.Result(&2, TupleOf2(Contract.Predicate, ListOf(Contract.Token)), &2, Error, &2, CheckResult(TupleOf2(Contract.Claim, List ...",
     "arm_sha256": "188046c42f9a1fb31c995419ccf15b79067cf2fc91b51593d26015bff185ecc8",
     "arity": 1,
@@ -1613,7 +1613,7 @@
   {
     "definition": "Contract.claim_with",
     "path": "src/emitter.bend",
-    "line": 1190,
+    "line": 1196,
     "arm": "{_ => (Match.Result(&2, TupleOf2(Contract.Predicate, ListOf(Contract.Token)), &2, Error, &2, CheckResult(TupleOf2(Contract.Claim, ListOf(Contract.Token))), Cont ...",
     "arm_sha256": "eba29b9870c88155b60e876d855756e44c4b9db34f87c711e7e39432318f8b2a",
     "arity": 1,
@@ -1622,7 +1622,7 @@
   {
     "definition": "Contract.claim_with",
     "path": "src/emitter.bend",
-    "line": 1193,
+    "line": 1199,
     "arm": "Match.List.only_Con( _ => (otherwise10706(Unit{}))",
     "arm_sha256": "daf6adf718182f95cc17c9d48d47e1103a8cbc38650d29712351721634087693",
     "arity": 1,
@@ -1631,7 +1631,7 @@
   {
     "definition": "Contract.proof_binding",
     "path": "src/emitter.bend",
-    "line": 1208,
+    "line": 1214,
     "arm": "{_ => (Done{Tup2{None{}, p10806}}) : Unit -> CheckResult(TupleOf2(OptionOf(Contract.Claim), ListOf(Contract.Token)))}",
     "arm_sha256": "7d18bcb6428989194b2aaa34ea291682d9781750be6117056bc2232e6080eeae",
     "arity": 1,
@@ -1640,7 +1640,7 @@
   {
     "definition": "Local.Contract.arguments.f10854",
     "path": "src/emitter.bend",
-    "line": 1216,
+    "line": 1222,
     "arm": "{_ => (Match.Result(&2, ListOf(Contract.Token), &2, Error, &2, CheckResult(TupleOf2(Contract.Proof, ListOf(Contract.Token))), Contract.expect(\")\", p10867), +ite ...",
     "arm_sha256": "67aeb2a520aec8f8a7aa8de8e7ceb16d95525648b60d1557b7fe24481b0d912e",
     "arity": 1,
@@ -1649,7 +1649,7 @@
   {
     "definition": "Local.Contract.arguments.f10854",
     "path": "src/emitter.bend",
-    "line": 1218,
+    "line": 1224,
     "arm": "{_ => ((+local10898 => +local10900 => (Local.Contract.arguments.f10854(depth_1151, name_1184, local10898, local10900)))(List.append(&2, Contract.Proof, acc_1188 ...",
     "arm_sha256": "e9e43f0eaf6c7d219ae2c4959cd4054a63fa8c48e9503fd309e4285b55333f0a",
     "arity": 1,
@@ -1658,7 +1658,7 @@
   {
     "definition": "Case.Contract.branch10923",
     "path": "src/emitter.bend",
-    "line": 1224,
+    "line": 1230,
     "arm": "{_ => (Done{Tup2{Contract.Proof.Proof_name{p10845}, p10846}}) : Unit -> CheckResult(TupleOf2(Contract.Proof, ListOf(Contract.Token)))}",
     "arm_sha256": "2dc95eedd3621f601a5878e165b103aff6388c17d9e464b953cd36cadf01733f",
     "arity": 1,
@@ -1667,7 +1667,7 @@
   {
     "definition": "Case.Contract.branch10923",
     "path": "src/emitter.bend",
-    "line": 1226,
+    "line": 1232,
     "arm": "{_ => ((+local10914 => +local10916 => (Local.Contract.arguments.f10854(depth_1151, p10845, local10914, local10916)))(Nil{}, p10849)) : Unit -> CheckResult(Tuple ...",
     "arm_sha256": "4b41b7ad19c9d5f326c6d4182e984a8d201ad67204b0fff0d5f357e29bdf8ba1",
     "arity": 1,
@@ -1676,7 +1676,7 @@
   {
     "definition": "Contract.proof_term",
     "path": "src/emitter.bend",
-    "line": 1231,
+    "line": 1237,
     "arm": "{_ => (Case.Contract.branch10923(tokens_1152, depth_1151)) : Unit -> CheckResult(TupleOf2(Contract.Proof, ListOf(Contract.Token)))}",
     "arm_sha256": "73af0e54a3378e4701658cccda020c682a4db4ee894c0084b236835fbd66acf7",
     "arity": 1,
@@ -1685,7 +1685,7 @@
   {
     "definition": "Contract.proof_term",
     "path": "src/emitter.bend",
-    "line": 1232,
+    "line": 1238,
     "arm": "{_ => (Match.Result(&2, TupleOf2(Contract.Proof, ListOf(Contract.Token)), &2, Error, &2, CheckResult(TupleOf2(Contract.Proof, ListOf(Contract.Token))), Contract ...",
     "arm_sha256": "fa2b2cacf420b07986ef0a853ca48aeafda9d18faf6b8f3e0999e368f259f95b",
     "arity": 1,
@@ -1694,7 +1694,7 @@
   {
     "definition": "Contract.proof_term",
     "path": "src/emitter.bend",
-    "line": 1234,
+    "line": 1240,
     "arm": "{_ => (Done{Tup2{p10935, p10936}}) : Unit -> CheckResult(TupleOf2(Contract.Proof, ListOf(Contract.Token)))}",
     "arm_sha256": "e656d44718770079a09d821269f1d656cfc40ea22e427e4ff469b23a3ad4a3e7",
     "arity": 1,
@@ -1703,7 +1703,7 @@
   {
     "definition": "Contract.proof_term",
     "path": "src/emitter.bend",
-    "line": 1238,
+    "line": 1244,
     "arm": "Match.List.only_Con( _ => (otherwise10930(Unit{}))",
     "arm_sha256": "517806f7684f1087e5858a23d3b1cc0f1822b41270ff21eda67ff15ff51fdf06",
     "arity": 1,
@@ -1712,7 +1712,7 @@
   {
     "definition": "Local.Contract.args.f11026",
     "path": "src/emitter.bend",
-    "line": 1250,
+    "line": 1256,
     "arm": "{_ => (Case.Contract.branch11058(acc_1204, rest_1205, name_1201)) : Unit -> CheckResult(TupleOf2(OptionOf(TupleOf2(Contract.Token, ListOf(Contract.Word))), List ...",
     "arm_sha256": "8d1b8debb886bb8ac1b9775e1aae9f6a126500c5a33c37beb007374b2c6802c4",
     "arity": 1,
@@ -1721,7 +1721,7 @@
   {
     "definition": "Local.Contract.args.f11026",
     "path": "src/emitter.bend",
-    "line": 1251,
+    "line": 1257,
     "arm": "Match.List.only_Con( _ => (Native.choose(&2, CheckResult(TupleOf2(OptionOf(TupleOf2(Contract.Token, ListOf(Contract.Word))), ListOf(Contract.Token))), Contract. ...",
     "arm_sha256": "e97d8a4e69e1ecb40ab3b78a12a5f9596351cdffad6b1ace0f902fcc4493c3cd",
     "arity": 1,
@@ -1730,7 +1730,7 @@
   {
     "definition": "Local.Contract.args.f11083",
     "path": "src/emitter.bend",
-    "line": 1259,
+    "line": 1265,
     "arm": "{_ => (Case.Contract.branch11115(acc_1204, rest_1205, name_1201)) : Unit -> CheckResult(TupleOf2(OptionOf(TupleOf2(Contract.Token, ListOf(Contract.Word))), List ...",
     "arm_sha256": "691659a2d4f46df050e3947d4448ad23fb91f70ef7602122f15d26fd462dac0c",
     "arity": 1,
@@ -1739,7 +1739,7 @@
   {
     "definition": "Local.Contract.args.f11083",
     "path": "src/emitter.bend",
-    "line": 1260,
+    "line": 1266,
     "arm": "Match.List.only_Con( _ => (Native.choose(&2, CheckResult(TupleOf2(OptionOf(TupleOf2(Contract.Token, ListOf(Contract.Word))), ListOf(Contract.Token))), Contract. ...",
     "arm_sha256": "6425bf24ec46bfb80cca59c0ab30a31c2557636a5e78baa325ad205707af9bf0",
     "arity": 1,
@@ -1748,7 +1748,7 @@
   {
     "definition": "Contract.guard_condition",
     "path": "src/emitter.bend",
-    "line": 1265,
+    "line": 1271,
     "arm": "{_ => (Match.Result(&2, TupleOf2(Contract.Token, ListOf(Contract.Token)), &2, Error, &2, CheckResult(TupleOf2(OptionOf(TupleOf2(Contract.Token, ListOf(Contract. ...",
     "arm_sha256": "74a7b6bbeb996147ec7793b65fdcae2f6bd87ce47f9084c3f384504e1f312928",
     "arity": 1,
@@ -1757,7 +1757,7 @@
   {
     "definition": "Case.Contract.branch11264",
     "path": "src/emitter.bend",
-    "line": 1289,
+    "line": 1295,
     "arm": "{_ => (Contract.fail(&2, TupleOf2(TupleOf2(ListOf(Contract.Step), Contract.Ending), ListOf(Contract.Token)), Contract.here(local11224), \"EFFECT\", \"expected sloa ...",
     "arm_sha256": "62a8f37a62c138e8837da6f0e0524b0a2797a737d6213b2911f347017fbab381",
     "arity": 1,
@@ -1766,7 +1766,7 @@
   {
     "definition": "Local.Contract.steps.f11204",
     "path": "src/emitter.bend",
-    "line": 1298,
+    "line": 1304,
     "arm": "{_ => (Match.Result(&2, TupleOf2(Contract.Token, ListOf(Contract.Token)), &2, Error, &2, CheckResult(TupleOf2(TupleOf2(ListOf(Contract.Step), Contract.Ending),  ...",
     "arm_sha256": "ba1e767cb75d9df3c49c19ff17b2f3b2d4dcf387900093b15d0a41b25c763eda",
     "arity": 1,
@@ -1775,7 +1775,7 @@
   {
     "definition": "Local.Contract.steps.f11204",
     "path": "src/emitter.bend",
-    "line": 1300,
+    "line": 1306,
     "arm": "{_ => (Match.Result(&2, TupleOf2(Contract.Word, ListOf(Contract.Token)), &2, Error, &2, CheckResult(TupleOf2(TupleOf2(ListOf(Contract.Step), Contract.Ending), L ...",
     "arm_sha256": "722880a9f5204e0e0b3fe383557a62bdfddad4eb110f4cc7e9c695da9fcebfac",
     "arity": 1,
@@ -1784,7 +1784,7 @@
   {
     "definition": "Local.Contract.steps.f11204",
     "path": "src/emitter.bend",
-    "line": 1308,
+    "line": 1314,
     "arm": "{_ => ((Match.Result(&2, TupleOf2(TupleOf2(OptionOf(TupleOf2(Contract.Token, ListOf(Contract.Word))), Contract.Condition), ListOf(Contract.Token)), &2, Error, & ...",
     "arm_sha256": "95d62d09ca250da8fc5ddda4dac4759904716436458c82975f69bdc6f32e32ac",
     "arity": 1,
@@ -1793,7 +1793,7 @@
   {
     "definition": "Local.Contract.steps.f11204",
     "path": "src/emitter.bend",
-    "line": 1312,
+    "line": 1318,
     "arm": "{_ => (Match.Result(&2, TupleOf2(Contract.Token, ListOf(Contract.Token)), &2, Error, &2, CheckResult(TupleOf2(TupleOf2(ListOf(Contract.Step), Contract.Ending),  ...",
     "arm_sha256": "27aca2e3502aa5de274e53951cb8cb704647bf2992714d3501e589fadab4b73a",
     "arity": 1,
@@ -1802,7 +1802,7 @@
   {
     "definition": "Local.Contract.steps.f11204",
     "path": "src/emitter.bend",
-    "line": 1314,
+    "line": 1320,
     "arm": "{_ => (Con{\":\", Con{\"Word\", Con{\":=\", Nil{}}}}) : Unit -> ListOf(String)}",
     "arm_sha256": "465d8c8028d8ccb7dc4508a3da1700358b3ef3a5f594b5e54d778588cb048bbc",
     "arity": 1,
@@ -1811,7 +1811,7 @@
   {
     "definition": "Local.Contract.steps.f11204",
     "path": "src/emitter.bend",
-    "line": 1320,
+    "line": 1326,
     "arm": "{_ => (Match.Result(&2, TupleOf2(Contract.Proof, ListOf(Contract.Token)), &2, Error, &2, CheckResult(TupleOf2(OptionOf(Contract.Proof), ListOf(Contract.Token))) ...",
     "arm_sha256": "1bb982d758838afc855d43b684382f489eebad5593ebc93d3d3e212ed97997d2",
     "arity": 1,
@@ -1820,7 +1820,7 @@
   {
     "definition": "Local.Contract.steps.f11204",
     "path": "src/emitter.bend",
-    "line": 1302,
+    "line": 1308,
     "arm": "Match.List.only_Con( _ => (otherwise11281(Unit{}))",
     "arm_sha256": "75ac63ba2479cc0a207a20aee3a8a0c476958b8aa6fac3cf943c56c8a76d4f79",
     "arity": 1,
@@ -1829,7 +1829,7 @@
   {
     "definition": "Local.Contract.steps.f11204",
     "path": "src/emitter.bend",
-    "line": 1302,
+    "line": 1308,
     "arm": "Match.List.only_Con( _ => (otherwise11281(Unit{}))",
     "arm_sha256": "75ac63ba2479cc0a207a20aee3a8a0c476958b8aa6fac3cf943c56c8a76d4f79",
     "arity": 1,
@@ -1838,7 +1838,7 @@
   {
     "definition": "Local.Contract.steps.f11204",
     "path": "src/emitter.bend",
-    "line": 1312,
+    "line": 1318,
     "arm": "Match.List.only_Con( _ => (otherwise11346(Unit{}))",
     "arm_sha256": "bb7aea801622f2ea7672206e6e8d816a09030824f5e3b68d83ca620537b6578f",
     "arity": 1,
@@ -1847,7 +1847,7 @@
   {
     "definition": "Local.Contract.steps.f11204",
     "path": "src/emitter.bend",
-    "line": 1327,
+    "line": 1333,
     "arm": "Match.List.only_Con( _ => (otherwise11378(Unit{}))",
     "arm_sha256": "9a27841f6cafdd167c3ec7473875b2fb5d1438634f608ac2487f19c077eef567",
     "arity": 1,
@@ -1856,7 +1856,7 @@
   {
     "definition": "Local.Contract.more.f11521",
     "path": "src/emitter.bend",
-    "line": 1343,
+    "line": 1349,
     "arm": "{_ => (Contract.fail(&2, TupleOf2(ListOf(Contract.Token), ListOf(Contract.Token)), Contract.here(p11530), \"SYNTAX\", \"expected ; or }\")) : Unit -> CheckResult(Tu ...",
     "arm_sha256": "5ee9d65cf7ef572aed1082e62cfc84f7d84a8b94a988b5c586403539d438665d",
     "arity": 1,
@@ -1865,7 +1865,7 @@
   {
     "definition": "Local.Contract.more.f11521",
     "path": "src/emitter.bend",
-    "line": 1344,
+    "line": 1350,
     "arm": "{_ => (Local.Contract.more.f11521(local11533, p11536)) : Unit -> CheckResult(TupleOf2(ListOf(Contract.Token), ListOf(Contract.Token)))}",
     "arm_sha256": "8f99bc4760fb948094139d35b46f43cfd316cd2be42571e95013227bfb27da57",
     "arity": 1,
@@ -1874,7 +1874,7 @@
   {
     "definition": "Local.Contract.more.f11521",
     "path": "src/emitter.bend",
-    "line": 1345,
+    "line": 1351,
     "arm": "Match.List.only_Con( _ => (otherwise11541(Unit{}))",
     "arm_sha256": "44f71c9920855c4a995abe26fda3a25ba829d7775c8ad336bb9f09ce8bdc027c",
     "arity": 1,
@@ -1883,7 +1883,7 @@
   {
     "definition": "Case.Contract.branch11582",
     "path": "src/emitter.bend",
-    "line": 1352,
+    "line": 1358,
     "arm": "{_ => (Done{Tup2{List.reverse(&2, Contract.Token, local11567), local11570}}) : Unit -> CheckResult(TupleOf2(ListOf(Contract.Token), ListOf(Contract.Token)))}",
     "arm_sha256": "70ed9666ee56232764c2b23c3d5f10df2ed8e51e6d71d9451e6490d4ae7f0018",
     "arity": 1,
@@ -1892,7 +1892,7 @@
   {
     "definition": "Local.Contract.more.f11554",
     "path": "src/emitter.bend",
-    "line": 1358,
+    "line": 1364,
     "arm": "{_ => (Match.Result(&2, TupleOf2(Contract.Token, ListOf(Contract.Token)), &2, Error, &2, CheckResult(TupleOf2(ListOf(Contract.Token), ListOf(Contract.Token))),  ...",
     "arm_sha256": "c1cb32b8bf86c61111cb1c4c5e126e223b4b0f5fe0d91a9efae15001bbe80adc",
     "arity": 1,
@@ -1901,7 +1901,7 @@
   {
     "definition": "Local.Contract.parameters.f11609",
     "path": "src/emitter.bend",
-    "line": 1367,
+    "line": 1373,
     "arm": "{_ => (Done{Tup2{acc_1418, tokens_1419}}) : Unit -> CheckResult(TupleOf2(ListOf(Contract.Parameter), ListOf(Contract.Token)))}",
     "arm_sha256": "c53995b1da6bd2386e04e68c8f81cf6571db47a254dc2daae322b3a18b323aa1",
     "arity": 1,
@@ -1910,7 +1910,7 @@
   {
     "definition": "Local.Contract.parameters.f11609",
     "path": "src/emitter.bend",
-    "line": 1371,
+    "line": 1377,
     "arm": "{_ => (Match.Result(&2, TupleOf2(Contract.Claim, ListOf(Contract.Token)), &2, Error, &2, CheckResult(TupleOf2(Contract.Parameter, ListOf(Contract.Token))), Cont ...",
     "arm_sha256": "c925a0d7a77dc3a6193bcefc8c8f4d683ca76d693212a641d378ca517c94555b",
     "arity": 1,
@@ -1919,7 +1919,7 @@
   {
     "definition": "Local.Contract.parameters.f11721",
     "path": "src/emitter.bend",
-    "line": 1385,
+    "line": 1391,
     "arm": "{_ => (Done{Tup2{List.reverse(&2, Contract.Token, names_1453), tokens_1454}}) : Unit -> CheckResult(TupleOf2(ListOf(Contract.Token), ListOf(Contract.Token)))}",
     "arm_sha256": "e986eb25d6796c4b9292bf84e8cb7274ea95e540cf38562a6fa79f6fc1d24796",
     "arity": 1,
@@ -1928,7 +1928,7 @@
   {
     "definition": "Local.Contract.operand.f11807",
     "path": "src/emitter.bend",
-    "line": 1397,
+    "line": 1403,
     "arm": "{_ => ((+otherwise11822 = {_ => (Contract.fail(&2, TupleOf2(Contract.Word, ListOf(Contract.Token)), Contract.here(tokens_1483), \"INVARIANT\", \"expected a snapsho ...",
     "arm_sha256": "5bbafb3975057769a2afd6e5b7a885f1a6ee6840fdd260a0fadb97f07d936c93",
     "arity": 1,
@@ -1937,7 +1937,7 @@
   {
     "definition": "Local.Contract.operand.f11807",
     "path": "src/emitter.bend",
-    "line": 1397,
+    "line": 1403,
     "arm": "{_ => (Contract.fail(&2, TupleOf2(Contract.Word, ListOf(Contract.Token)), Contract.here(tokens_1483), \"INVARIANT\", \"expected a snapshot field or literal\")) : Un ...",
     "arm_sha256": "62c333b2e1cbd75641337e76d555bf8ee58335a77412065dbf72b12baeed798a",
     "arity": 1,
@@ -1946,7 +1946,7 @@
   {
     "definition": "Local.Contract.operand.f11807",
     "path": "src/emitter.bend",
-    "line": 1399,
+    "line": 1405,
     "arm": "Match.List.only_Con( _ => (otherwise11822(Unit{}))",
     "arm_sha256": "9a7781ca927e9545c59fda2b0759a4a35947736f77ec132fb07e0b2947a9e549",
     "arity": 1,
@@ -1955,7 +1955,7 @@
   {
     "definition": "Local.Contract.operand.f11807",
     "path": "src/emitter.bend",
-    "line": 1401,
+    "line": 1407,
     "arm": "Match.List.only_Con( _ => (otherwise11821(Unit{}))",
     "arm_sha256": "fed2d1953df12f21c778d804e8bc6eb1d6a5f32b05f2ccd20bb6f1daf0c6d065",
     "arity": 1,
@@ -1964,7 +1964,7 @@
   {
     "definition": "Contract.proof",
     "path": "src/emitter.bend",
-    "line": 1526,
+    "line": 1532,
     "arm": "{_ => (Contract.fail(&2, Contract.Proof, p12336, \"PROOF\", \"wrong proof operation argument count\")) : Unit -> CheckResult(Contract.Proof)}",
     "arm_sha256": "42db39a0f20659b349be1ce34bccaac5271e32a1f12e8e72d957b8b0704f912b",
     "arity": 1,
@@ -1973,7 +1973,7 @@
   {
     "definition": "Contract.proof",
     "path": "src/emitter.bend",
-    "line": 1527,
+    "line": 1533,
     "arm": "{_ => (Contract.fail(&2, Contract.Proof, p12336, \"PROOF\", \"wrong proof operation argument count\")) : Unit -> CheckResult(Contract.Proof)}",
     "arm_sha256": "42db39a0f20659b349be1ce34bccaac5271e32a1f12e8e72d957b8b0704f912b",
     "arity": 1,
@@ -1982,7 +1982,7 @@
   {
     "definition": "Contract.proof",
     "path": "src/emitter.bend",
-    "line": 1528,
+    "line": 1534,
     "arm": "{_ => (Contract.fail(&2, Contract.Proof, p12336, \"PROOF\", \"wrong proof operation argument count\")) : Unit -> CheckResult(Contract.Proof)}",
     "arm_sha256": "42db39a0f20659b349be1ce34bccaac5271e32a1f12e8e72d957b8b0704f912b",
     "arity": 1,
@@ -1991,7 +1991,7 @@
   {
     "definition": "Contract.proof",
     "path": "src/emitter.bend",
-    "line": 1527,
+    "line": 1533,
     "arm": "Match.List.only_Con( _ => (otherwise12344(Unit{}))",
     "arm_sha256": "0df914dba10fee2e51d199e5fc761e161ba2fe80840a1335de481f227b5da6f3",
     "arity": 1,
@@ -2000,7 +2000,7 @@
   {
     "definition": "Contract.proof",
     "path": "src/emitter.bend",
-    "line": 1527,
+    "line": 1533,
     "arm": "Match.List.only_Nil( _ => (otherwise12344(Unit{}))",
     "arm_sha256": "b98c88b69ee74c40b0472ca163cf5f8bfefa925551f542f1f67e157177875c6a",
     "arity": 1,
@@ -2009,7 +2009,7 @@
   {
     "definition": "Contract.proof",
     "path": "src/emitter.bend",
-    "line": 1528,
+    "line": 1534,
     "arm": "Match.List.only_Nil( _ => (otherwise12349(Unit{}))",
     "arm_sha256": "046816acb17aa6203f8b98b3175c961df67e7338a2a4803d11701cd4b31d26d7",
     "arity": 1,
@@ -2018,7 +2018,7 @@
   {
     "definition": "Contract.proof",
     "path": "src/emitter.bend",
-    "line": 1529,
+    "line": 1535,
     "arm": "Match.List.only_Nil( _ => (otherwise12352(Unit{}))",
     "arm_sha256": "85eec404d7a1abbd530f346f9c474d041fdee386097444d8c735b8c47ce02101",
     "arity": 1,
@@ -2027,7 +2027,7 @@
   {
     "definition": "Local.Contract.declarations.f13817",
     "path": "src/emitter.bend",
-    "line": 1664,
+    "line": 1670,
     "arm": "{_ => (Contract.fail(&2, TupleOf2(OptionOf(String), String), Contract.here(tokens_2207), \"DECLARATION\", \"expected entry, error, invariant, predicate, proof, con ...",
     "arm_sha256": "6f0c2f3faf45af5bf21ed393a752e7ca9fa6cae663e615e129be14e40a56ce03",
     "arity": 1,
@@ -2036,7 +2036,7 @@
   {
     "definition": "Local.Contract.declarations.f13817",
     "path": "src/emitter.bend",
-    "line": 1674,
+    "line": 1680,
     "arm": "Match.List.only_Nil( _ => (otherwise13870(Unit{}))",
     "arm_sha256": "4817795676358acdf2ce153150e71b0bf48767a8906a2cde15967b21818ed7ca",
     "arity": 1,

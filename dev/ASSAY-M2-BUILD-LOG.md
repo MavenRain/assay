@@ -2,8 +2,7 @@
 
 ## M2 group 8: coverage and audit reconciliation, 2026-10-04
 
-Part R2 is complete. Part R1 (the kernel half of the Word refinement)
-and part C (the audit) remain open.
+Parts R2 and R1 are complete. Part C (the audit) remains open.
 
 Deviation M2-G8-D1. USER ruling 2026-10-04, pending formal ratification.
 SPEC.md marked these kan-lang carry-over constructs M2: `SPar`, `SNu`
@@ -47,6 +46,60 @@ rules; trusted-line budgets; carry-check (16/16, diff 0); DENOMINATORS;
 and whitespace checks. Peak RSS was 375 MB. The first R0-AUDIT run and
 the first mutants run failed on the two old `M2` patterns above. Both
 passed after the fixes. Part C writes the validation record of the group.
+
+Part R1: the kernel half of the Prop-valued Word refinement over a
+Type 0 index (design verdict Q-A, finding F-1). No new kernel former
+and no change to `src/kernel.bend`. The source defines
+`InRange : Nat -> Nat -> Prop` as `case natEq bits 256 ... case natLt n
+2^256 ... return Prop`, and `word` takes a third binder
+`(0 p : InRange bits n)`. The kernel checks the witness by the literal
+fast path: a payload at or above 2^256, a witness for another value and
+a width other than 256 are refused by the kernel. The witness is
+erased. The recognizer in `src/emitter.bend` accepts the refined
+protocol as a second canonical text when `Word.word` has three binders
+(`Recognize.refined`, `Recognize.refined_word`, `base_protocol`,
+`proof_protocol` with the arm `| word 0 bits n 0 p => n`, and a sixth
+`refined` argument of `m1_protocol_for`); `src/frontend.bend` passes it
+from `Recognize.Mapping.schema`. The unrefined text is unchanged, so
+every existing contract and golden emits the same bytes. The refined
+`Ref20.asy` and `GuardCore.asy` fixtures emit bytes identical to the
+unrefined originals. An axiom witness passes the kernel and is refused
+by the emitter range check with `WORD_UNBOX_RANGE`, which stays as the
+backstop. Limit: `Nat` has no eliminator, so the bound is the literal
+2^256 and the refinement covers width 256 only.
+
+Files: `dev/refined-word-data/` (two valid and four negative fixtures
+with `.err` texts) and `dev/refined-word-test.py`, which prints
+`REFINED-WORD valid=2 kernel_refused=3 emitter_refused=1 OK` and checks
+four legacy contracts with unrelated or canonical `InRange` helpers. Part C
+wires it as a gate leg. The emitter trusted lines move from 1792 to
+1798 of 1800; the budget does not move. The catch-all registry
+`dev/bend-catchalls.json` records the shifted emitter lines (159 rows,
+same arms). The source hashes in `dev/native-carry.json` and
+`dev/DENOMINATORS.sha256` are refreshed.
+
+R1 validation passed: the Bend build (peak RSS 1748 MB); core tests (18
+adapters, 24 commands); the kernel suite; one-paths (22/22); stage-A
+mutants (14/14); MILESTONE-SPEED (57 schedules, 9 controls); R0-COUNT;
+R0-AUDIT; house rules; trusted-line budgets (3190/3550); carry-check
+(16/16, diff 0); DENOMINATORS (325 lines); whitespace checks; and
+`dev/refined-word-test.py`. Peak RSS of the checks was 370 MB. One
+repair outside R1: fa19053 raised the MUTANTS marker of
+`dev/stage-a-gates.py` to 14/14, and `dev/milestone-speed-test.py`
+compared the carried modes against the 80bc4c6 baseline marker 13/13,
+so MILESTONE-SPEED failed at HEAD before R1. The test now adjusts that
+historical marker, as it already adjusts the SPEED legs.
+
+R1 staged review, 2026-10-05: fixed one medium compatibility regression.
+Selecting the refined protocol by the presence of `InRange` rejected
+legacy M0 and M1 contracts that defined that helper. Four cases passed
+on fa19053 and failed on the original staged compiler. Selection now
+uses the three-binder `word` constructor, followed by the existing
+canonical schema checks. The four cases emit unchanged artifact bytes.
+The expanded refined-word test, kernel suite, 18 adapters / 24 commands,
+14 stage-A mutants, MILESTONE-SPEED, R0-COUNT, R0-AUDIT, house rules,
+trusted-line budgets, carry-check, denominator hashes and whitespace
+checks passed. No CI weakening or unresolved review findings remain.
 
 ## 2026-10-04: ABI goldens and negative witnesses
 

@@ -140,11 +140,13 @@ there is no theorem that the certificate-failure branch is unreachable
 for every valid input.
 
 The ratified M2 kernel item for a Prop-valued Word refinement over a
-Type 0 index (design verdict Q-A, finding F-1) remains open. `Refined`
-models that refinement in Lean only. This group does not change
-`src/kernel.bend`. Group 5 therefore
-discharges the Lean and gate half of its row. The kernel half is open
-and is not assigned to an M2 group yet.
+Type 0 index (design verdict Q-A, finding F-1) is discharged by group 8
+with no change to `src/kernel.bend`: the source defines `InRange` as a
+Prop-valued predicate and `word` carries an erased witness, which the
+kernel checks by the literal fast path (the M0 protocol in
+[EMISSION.md](EMISSION.md)). `Refined` models that refinement in Lean.
+Group 5 discharges the Lean and gate half of its row, and group 8 the
+kernel half. The refinement covers width 256 only.
 
 M2 remains open for ERC20 composition, ABI goldens and mutation coverage,
 audit reconciliation and the cumulative M2-ABI closure gate.
