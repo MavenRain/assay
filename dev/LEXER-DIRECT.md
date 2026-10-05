@@ -40,7 +40,7 @@ legs. `make test` adds it after the keyword test.
 `--m2-mapping-source`, then `--m2-returndata-cli`, then
 `--m2-mapping-runtime`, then `--m2-function-abi`, then `--m2-return-abi`,
 then `--m2-source-events`, then `--m2-storage-proofs`, then
-`--m2-source-erc20`, and now select `--m2-abi`. The earlier
+`--m2-source-erc20`, then `--m2-abi`, and now select `--m2-reconcile`. The earlier
 `--keyword-dispatch` mode keeps its non-speed legs, now 86.
 
 `dev/cli_delta.py` now pins five lexer declarations, including the earlier

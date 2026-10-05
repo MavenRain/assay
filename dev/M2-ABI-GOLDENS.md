@@ -3,7 +3,8 @@
 M2 group 7 checks the complete source ERC20 ABI against the frozen reference
 and adds direct Lean rejection controls. Run `python3 -P dev/m2-abi-test.py`
 after `make`. `make test` includes this gate, and `dev/gates.sh` and
-`make gates` select the cumulative `--m2-abi` schedule.
+`make gates` select the cumulative `--m2-reconcile` schedule, which
+includes the `--m2-abi` legs.
 
 ## Golden provenance and equality
 
@@ -92,7 +93,8 @@ Validation records are under
 [`dev/validation/2026-10-04-m2-abi/`](validation/2026-10-04-m2-abi/).
 The cumulative schedule retains the 107 `--m2-source-erc20` legs with
 their deadlines and markers, then adds M2-ABI with a 600-second deadline
-floor, for 108 legs.
+floor, for 108 legs. The current default, `--m2-reconcile`, adds
+[M2-RECONCILE](M2-RECONCILE.md) and REFINED-WORD, for 110 legs.
 
 This completes the goldens and negative-control group. The ratified
 Prop-valued Word refinement over a Type 0 kernel index remains open,

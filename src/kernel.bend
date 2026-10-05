@@ -3318,7 +3318,7 @@ def Check.head_ty(+c_970: Check.Ctx, +h_971: Value.Head) -> CheckResult(Value):
   Match.Tuple3(&2, String, &2, Quantity, &2, Value, &2, Value, scrut5264, +p5265 => +p5266 => +p5267 => (p5267)))))(item5268)}), +item5269 => Fail{item5269})))((+local5258 => (Match.Maybe(&2, TupleOf3(String, Quantity, Value), &2, CheckResult(TupleOf3(String, Quantity, Value)), local5258, _ => Fail{Error.Unbound{"a local level is outside the context"}}, +x => Done{x})))(Rules.at(&2, TupleOf3(String, Quantity, Value), NativeInt.sub(NativeInt.sub(Get.Check.Ctx.size(c_970), p5255), Big.one()), Get.Check.Ctx.locals(c_970))))), +p5270 => ((+local5276 => ((+local5280 => +local5282 => (Match.Result(&2, Global.Entry, &2, Error, &2, CheckResult(Value), local5280, +item5283 => (local5282(item5283)), +item5284 => Fail{item5284})))(local5276, (+local5286 => (Eval.eval(Get.Check.Ctx.globals(c_970), Nil{}, Global.entry_ty(local5286)))))))((+local5273 => (Match.Maybe(&2, Global.Entry, &2, CheckResult(Global.Entry), local5273, _ => Fail{Error.Unbound{p5270}}, +x => Done{x})))(Global.find(p5270, Get.Check.Ctx.globals(c_970)))))))
 @unsafe
 def Check.string_word() -> String:
-  "string types arrive at M1"
+  "string types are deferred"
 @unsafe
 def Check.infer_node(+c_1012: Check.Ctx, +mode_1013: Quantity, +t_1014: Term) -> CheckResult(TupleOf2(Value, Quantity.Usage)):
   (+scrut4295 = t_1014

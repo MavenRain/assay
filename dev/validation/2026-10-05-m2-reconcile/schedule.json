@@ -1,0 +1,27 @@
+{
+  "previous": 108,
+  "current": 110,
+  "preserved": true,
+  "added": [
+    [
+      "M2-RECONCILE",
+      60,
+      [
+        "python3",
+        "-P",
+        "dev/m2-reconcile-test.py"
+      ],
+      "M2-RECONCILE deferred=9 tested=5 open=4 docs=17 legs=110 mutants=15 fixtures=10 controls=3 OK"
+    ],
+    [
+      "REFINED-WORD",
+      600,
+      [
+        "python3",
+        "-P",
+        "dev/refined-word-test.py"
+      ],
+      "REFINED-WORD valid=2 kernel_refused=3 emitter_refused=1 OK"
+    ]
+  ]
+}

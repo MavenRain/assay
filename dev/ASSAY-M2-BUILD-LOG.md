@@ -2,7 +2,7 @@
 
 ## M2 group 8: coverage and audit reconciliation, 2026-10-04
 
-Parts R2 and R1 are complete. Part C (the audit) remains open.
+Parts R2, R1 and C are complete. M2 stays open until group 9.
 
 Deviation M2-G8-D1. USER ruling 2026-10-04, pending formal ratification.
 SPEC.md marked these kan-lang carry-over constructs M2: `SPar`, `SNu`
@@ -100,6 +100,52 @@ The expanded refined-word test, kernel suite, 18 adapters / 24 commands,
 14 stage-A mutants, MILESTONE-SPEED, R0-COUNT, R0-AUDIT, house rules,
 trusted-line budgets, carry-check, denominator hashes and whitespace
 checks passed. No CI weakening or unresolved review findings remain.
+
+Part C: the audit, 2026-10-05. `dev/M2-RECONCILE.md` records the
+deferred-construct refusal matrix and the audit table.
+`dev/m2-reconcile-test.py` checks both without a build and prints
+`M2-RECONCILE deferred=9 tested=5 open=4 docs=17 legs=110 mutants=15 fixtures=10 controls=3 OK`.
+The new default gate mode `--m2-reconcile` keeps the 108 `--m2-abi` legs
+and adds M2-RECONCILE (60-second floor) and REFINED-WORD (600-second
+floor), for 110 legs. `make test` runs both scripts. A fifteenth stage-A
+mutant, R0-AUDIT-MILESTONE, makes the `SPar` milestone label invalid, and
+R0-AUDIT must report that `SPar` names no milestone.
+
+Two stale source texts changed and no line moved: `src/kernel.bend` now
+says "string types are deferred" and `src/emitter.bend` now says
+`EMIT_HIGHER_ORDER (deferred)`. Trusted lines are unchanged at 3190 of
+3550 (emitter 1798 of 1800). 17 documents name the new default mode and
+the 110-leg count. `dev/native-carry.json` pins the two changed sources
+and `dev/DENOMINATORS.sha256` has 327 rows (325 before).
+
+Deviation M2-G8-D2. Pending USER ruling. The group brief requires a test
+for each explicit refusal. Four deferred constructs have none: `SPar` and
+`SNu` (kernel refusal text, no test), `RThunk` (emitter refusal, no test)
+and level variables (no named refusal site and no test). They are OPEN
+rows of the matrix, and the test does not require them.
+
+Deviation M2-G8-D3. Pending USER ruling. The group brief asks for corpus
+rows for coverage gaps. Part C added none. Each of the 11 files in
+`corpus/contracts` and `corpus/proofs` has a row in
+`corpus/MANIFEST.json`, but no row is an M2 source contract. The audit
+compared files with rows only.
+
+One more audit row is OPEN. The compiler sources `frontend`,
+`function_abi`, `return_abi`, `event_source` and `string_literal` (4792
+lines) have no line budget. Earlier entries asked group 8 to review this
+boundary. `dev/trusted-lines.py` names each source and the
+TRUSTED-UNPRICED mutant is killed. A price needs a USER ruling.
+
+Part C validation passed: the Bend build (peak RSS 1368 MB);
+M2-RECONCILE; REFINED-WORD (187 s in one run against the 600-second
+floor); core tests (18 adapters, 24 commands); the kernel suite;
+ONE-PATHS 22/22; 15 of 15 stage-A mutants; MILESTONE-SPEED (57
+schedules, 9 controls); R0-COUNT; R0-AUDIT; house rules; trusted-line
+budgets; carry-check (16 files); 327 denominator hashes; and the
+whitespace check. No leg failed. The largest check used 343 MB. The
+record is `dev/validation/2026-10-05-m2-reconcile/`. The 110-leg battery
+was not run. It belongs to group 9. No deadline, marker, allowlist or
+golden was relaxed.
 
 ## 2026-10-04: ABI goldens and negative witnesses
 

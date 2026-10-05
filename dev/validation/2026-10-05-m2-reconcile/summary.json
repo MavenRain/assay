@@ -1,0 +1,20 @@
+{
+  "deferred": 9,
+  "tested": 5,
+  "open": 4,
+  "docs": 17,
+  "legs": 110,
+  "mutants": 15,
+  "fixtures": 10,
+  "controls": 3,
+  "refined_word": {
+    "valid": 2,
+    "kernel_refused": 3,
+    "emitter_refused": 1
+  },
+  "refined_word_secs": 186.8,
+  "deadline_floor_secs": {
+    "M2_RECONCILE": 60,
+    "REFINED_WORD": 600
+  }
+}

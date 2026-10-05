@@ -176,8 +176,10 @@ checks. The --m2-mapping-source mode appends the
 --m2-storage-proofs appends the
 [storage proof check](M2-STORAGE-PROOFS.md), for 106 checks.
 --m2-source-erc20 appends the [source ERC20 check](M2-SOURCE-ERC20.md), for
-107 checks. The default make gates and dev/gates.sh now select --m2-abi,
-which appends the [ABI golden check](M2-ABI-GOLDENS.md), for 108 checks.
+107 checks. --m2-abi appends the [ABI golden check](M2-ABI-GOLDENS.md), for 108
+checks. The default make gates and dev/gates.sh now select --m2-reconcile,
+which appends the [reconciliation check](M2-RECONCILE.md) and the refined
+Word check, for 110 checks.
 --m2-function-abi
 retains its 103 checks.
 Historical OCaml tools, native timing records and source seals remain

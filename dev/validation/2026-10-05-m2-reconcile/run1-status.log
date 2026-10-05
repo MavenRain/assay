@@ -1,0 +1,17 @@
+m2-reconcile exit=0 maxrss_mb=30 last=M2-RECONCILE deferred=9 tested=5 open=4 docs=17 legs=110 mutants=15 fixtures=10 controls=3 OK
+PINS carry=['src/emitter.bend', 'src/kernel.bend'] rows=325->327 changed=15
+r0-count exit=0 maxrss_mb=62 last=R0-COUNT OK
+r0-audit exit=0 maxrss_mb=23 last=R0-AUDIT OK
+house exit=0 maxrss_mb=30 last=HOUSE OK
+trusted-lines exit=0 maxrss_mb=24 last=TRUSTED-LINES OK
+carry-check exit=0 maxrss_mb=21 last=CARRY files=16/16 diff=0 unlisted=0
+denominators exit=0 maxrss_mb=7 last=verification/test/AbiControls.lean: OK
+diff --check clean
+build exit=0 maxrss_mb=1368 last=BEND BUILD backends cached
+refined-word exit=0 maxrss_mb=93 last=REFINED-WORD valid=2 kernel_refused=3 emitter_refused=1 OK
+runtest exit=0 maxrss_mb=246 last=RUNTEST adapters=18 commands=24 OK
+kernel-suite exit=0 maxrss_mb=343 last=SUITE-KERNEL OK
+one-paths exit=0 maxrss_mb=75 last=ONE-PATHS 22/22 OK
+mutants exit=0 maxrss_mb=63 last=MUTANTS killed=15/15 OK
+milestone-speed exit=0 maxrss_mb=34 last=MILESTONE-SPEED schedules=57 controls=9 OK
+not-fully-staged=0 paths=28

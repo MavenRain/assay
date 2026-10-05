@@ -1,0 +1,10 @@
+REFINED-WORD-CHECK Ref20.asy accepted OK
+REFINED-WORD-CHECK GuardCore.asy accepted OK
+REFINED-WORD-REFUSE out-of-range kernel OK
+REFINED-WORD-REFUSE other-value kernel OK
+REFINED-WORD-REFUSE width-8 kernel OK
+REFINED-WORD-REFUSE forged-axiom emitter OK
+REFINED-WORD-BYTES Ref20.asy identical to corpus/contracts/Ref20.asy OK
+REFINED-WORD-BYTES GuardCore.asy identical to examples/GuardCore.asy OK
+REFINED-WORD legacy_helpers=4 OK
+REFINED-WORD valid=2 kernel_refused=3 emitter_refused=1 OK

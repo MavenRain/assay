@@ -62,8 +62,10 @@ It adds mandatory RETURN-ABI to the 103 carried function ABI legs, for 104.
 `--m2-source-events` adds
 [SOURCE-EVENTS](M2-SOURCE-EVENTS.md), for 105 legs. `--m2-storage-proofs`
 adds [STORAGE-PROOFS](M2-STORAGE-PROOFS.md), for 106 legs. `--m2-source-erc20`
-adds [ERC20-SOURCE](M2-SOURCE-ERC20.md), for 107 legs. The current default,
-`--m2-abi`, adds [M2-ABI](M2-ABI-GOLDENS.md), for 108 legs.
+adds [ERC20-SOURCE](M2-SOURCE-ERC20.md), for 107 legs. `--m2-abi` adds
+[M2-ABI](M2-ABI-GOLDENS.md), for 108 legs. The current default,
+`--m2-reconcile`, adds [M2-RECONCILE](M2-RECONCILE.md) and REFINED-WORD,
+for 110 legs.
 
 The trusted artifact budgets remain unchanged. `src/return_abi.bend` is admitted
 as compiler source without a line budget, following `src/function_abi.bend`.

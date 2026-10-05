@@ -161,8 +161,10 @@ for 103 checks. `--m2-return-abi` appends [RETURN-ABI](M2-RETURN-ABI.md), for
 104 checks. `--m2-source-events` appends
 [SOURCE-EVENTS](M2-SOURCE-EVENTS.md), for 105 checks. `--m2-storage-proofs`
 appends [STORAGE-PROOFS](M2-STORAGE-PROOFS.md), for 106 checks. `--m2-source-erc20`
-appends [ERC20-SOURCE](M2-SOURCE-ERC20.md), for 107 checks. The current
-default, `--m2-abi`, appends [M2-ABI](M2-ABI-GOLDENS.md), for 108 checks.
+appends [ERC20-SOURCE](M2-SOURCE-ERC20.md), for 107 checks. `--m2-abi`
+appends [M2-ABI](M2-ABI-GOLDENS.md), for 108 checks. The current default,
+`--m2-reconcile`, appends [M2-RECONCILE](M2-RECONCILE.md) and REFINED-WORD,
+for 110 checks.
 
 That ratio test used synthetic reports to exercise the public command; these
 were decision tests and provided no timing evidence. It checked the

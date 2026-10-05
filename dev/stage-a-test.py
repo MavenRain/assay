@@ -91,6 +91,7 @@ def mutants(root):
         ("R0-AUDIT", "src/unlisted.bend", "# SColl\n", "r0-audit.sh", "R0-AUDIT FAIL"),
         ("R0-AUDIT-SPEC", "SPEC.md", (root / "SPEC.md").read_text().replace("| deferred | kernel.bend |", "| deferred | gone.bend |", 1), "r0-audit.sh", "cites the absent refuser gone.bend"),
         ("R0-AUDIT-DEFERRED", "SPEC.md", (root / "SPEC.md").read_text().replace("| M0 | admitted |", "| deferred | admitted |", 1), "r0-audit.sh", "SPi is deferred but admitted"),
+        ("R0-AUDIT-MILESTONE", "SPEC.md", (root / "SPEC.md").read_text().replace("| deferred | kernel.bend |", "| later | kernel.bend |", 1), "r0-audit.sh", "SPar names no milestone"),
         ("HOUSE", "src/cli.bend", driver_source + "\ndef bad() -> U32:\n  panic(\"bad\")\n", "house.sh", "HOUSE FAIL"),
         ("HOUSE-LOOP", "src/cli.bend", driver_source + "\ndef bad() -> U32:\n  while True{}: 0\n", "house.sh", "HOUSE no-loop-keyword FAIL"),
         ("HOUSE-DIVISION", "src/cli.bend", driver_source + "\ndef half(n: U32) -> U32:\n  n / 2\n", "house.sh", "HOUSE no-bare-division FAIL"),

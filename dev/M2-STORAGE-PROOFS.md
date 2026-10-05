@@ -126,9 +126,10 @@ STORAGE-PROOFS theorems=13 accesses=2395 refinements=533 lexical=17 grammar=2 mu
 `make test` includes this gate. The cumulative `--m2-storage-proofs` mode
 preserves the 105 earlier legs and adds the storage gate with a 600-second
 deadline, for 106 legs. `--m2-source-erc20` adds
-[ERC20-SOURCE](M2-SOURCE-ERC20.md), for 107 legs. `make gates` and
-`dev/gates.sh` now select `--m2-abi`, which adds
-[M2-ABI](M2-ABI-GOLDENS.md), for 108 legs.
+[ERC20-SOURCE](M2-SOURCE-ERC20.md), for 107 legs. `--m2-abi` adds
+[M2-ABI](M2-ABI-GOLDENS.md), for 108 legs. `make gates` and `dev/gates.sh`
+now select `--m2-reconcile`, which adds
+[M2-RECONCILE](M2-RECONCILE.md) and REFINED-WORD, for 110 legs.
 
 ## Scope
 

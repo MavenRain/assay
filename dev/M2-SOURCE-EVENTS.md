@@ -52,8 +52,9 @@ The cumulative schedule was `python3 -P dev/stage-a-gates.py --m2-source-events`
 It preserves the 104 return ABI legs and appends mandatory SOURCE-EVENTS, for
 105. `--m2-storage-proofs` adds [STORAGE-PROOFS](M2-STORAGE-PROOFS.md), for
 106 legs. `--m2-source-erc20` adds [ERC20-SOURCE](M2-SOURCE-ERC20.md), for
-107 legs. The current default, `--m2-abi`, adds [M2-ABI](M2-ABI-GOLDENS.md),
-for 108 legs. The separate M4 speed
+107 legs. `--m2-abi` adds [M2-ABI](M2-ABI-GOLDENS.md), for 108 legs.
+The current default, `--m2-reconcile`, adds
+[M2-RECONCILE](M2-RECONCILE.md) and REFINED-WORD, for 110 legs. The separate M4 speed
 schedule and existing deadlines remain unchanged.
 
 The trusted artifact budgets remain unchanged. `src/event_source.bend` is

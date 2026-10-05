@@ -1,0 +1,340 @@
+[
+  {
+    "name": "m2-reconcile",
+    "run": 1,
+    "exit": 0,
+    "secs": null,
+    "maxrss_mb": 30,
+    "marker": "M2-RECONCILE deferred=9 tested=5 open=4 docs=17 legs=110 mutants=15 fixtures=10 controls=3 OK",
+    "artifact": null,
+    "counts": null
+  },
+  {
+    "name": "r0-count",
+    "run": 1,
+    "exit": 0,
+    "secs": null,
+    "maxrss_mb": 62,
+    "marker": "R0-COUNT OK",
+    "artifact": null,
+    "counts": null
+  },
+  {
+    "name": "r0-audit",
+    "run": 1,
+    "exit": 0,
+    "secs": null,
+    "maxrss_mb": 23,
+    "marker": "R0-AUDIT OK",
+    "artifact": null,
+    "counts": null
+  },
+  {
+    "name": "house",
+    "run": 1,
+    "exit": 0,
+    "secs": null,
+    "maxrss_mb": 30,
+    "marker": "HOUSE OK",
+    "artifact": null,
+    "counts": null
+  },
+  {
+    "name": "trusted-lines",
+    "run": 1,
+    "exit": 0,
+    "secs": null,
+    "maxrss_mb": 24,
+    "marker": "TRUSTED-LINES OK",
+    "artifact": null,
+    "counts": null
+  },
+  {
+    "name": "carry-check",
+    "run": 1,
+    "exit": 0,
+    "secs": null,
+    "maxrss_mb": 21,
+    "marker": "CARRY files=16/16 diff=0 unlisted=0",
+    "artifact": null,
+    "counts": null
+  },
+  {
+    "name": "denominators",
+    "run": 1,
+    "exit": 0,
+    "secs": null,
+    "maxrss_mb": 7,
+    "marker": "verification/test/AbiControls.lean: OK",
+    "artifact": null,
+    "counts": null
+  },
+  {
+    "name": "build",
+    "run": 1,
+    "exit": 0,
+    "secs": null,
+    "maxrss_mb": 1368,
+    "marker": "BEND BUILD backends cached",
+    "artifact": "dev/validation/2026-10-05-m2-reconcile/build.log",
+    "counts": {
+      "stdout_bytes": 67,
+      "stderr_bytes": 0,
+      "stdout_lines": 3,
+      "stderr_lines": 0,
+      "error_lines": 0,
+      "warning_lines": 0
+    }
+  },
+  {
+    "name": "refined-word",
+    "run": 1,
+    "exit": 0,
+    "secs": null,
+    "maxrss_mb": 93,
+    "marker": "REFINED-WORD valid=2 kernel_refused=3 emitter_refused=1 OK",
+    "artifact": null,
+    "counts": null
+  },
+  {
+    "name": "runtest",
+    "run": 1,
+    "exit": 0,
+    "secs": null,
+    "maxrss_mb": 246,
+    "marker": "RUNTEST adapters=18 commands=24 OK",
+    "artifact": "dev/validation/2026-10-05-m2-reconcile/runtest.log",
+    "counts": {
+      "stdout_bytes": 11358,
+      "stderr_bytes": 0,
+      "stdout_lines": 402,
+      "stderr_lines": 0,
+      "error_lines": 0,
+      "warning_lines": 0
+    }
+  },
+  {
+    "name": "kernel-suite",
+    "run": 1,
+    "exit": 0,
+    "secs": null,
+    "maxrss_mb": 343,
+    "marker": "SUITE-KERNEL OK",
+    "artifact": "dev/validation/2026-10-05-m2-reconcile/kernel-suite.log",
+    "counts": {
+      "stdout_bytes": 8594,
+      "stderr_bytes": 0,
+      "stdout_lines": 344,
+      "stderr_lines": 0,
+      "error_lines": 0,
+      "warning_lines": 0
+    }
+  },
+  {
+    "name": "one-paths",
+    "run": 1,
+    "exit": 0,
+    "secs": null,
+    "maxrss_mb": 75,
+    "marker": "ONE-PATHS 22/22 OK",
+    "artifact": "dev/validation/2026-10-05-m2-reconcile/one-paths.log",
+    "counts": {
+      "stdout_bytes": 2401,
+      "stderr_bytes": 0,
+      "stdout_lines": 24,
+      "stderr_lines": 0,
+      "error_lines": 0,
+      "warning_lines": 0
+    }
+  },
+  {
+    "name": "mutants",
+    "run": 1,
+    "exit": 0,
+    "secs": null,
+    "maxrss_mb": 63,
+    "marker": "MUTANTS killed=15/15 OK",
+    "artifact": "dev/validation/2026-10-05-m2-reconcile/mutants.log",
+    "counts": {
+      "stdout_bytes": 516,
+      "stderr_bytes": 0,
+      "stdout_lines": 16,
+      "stderr_lines": 0,
+      "error_lines": 0,
+      "warning_lines": 0
+    }
+  },
+  {
+    "name": "milestone-speed",
+    "run": 1,
+    "exit": 0,
+    "secs": null,
+    "maxrss_mb": 34,
+    "marker": "MILESTONE-SPEED schedules=57 controls=9 OK",
+    "artifact": null,
+    "counts": null
+  },
+  {
+    "name": "refined-word",
+    "run": 2,
+    "exit": 0,
+    "secs": 186.8,
+    "maxrss_mb": 99,
+    "marker": "REFINED-WORD valid=2 kernel_refused=3 emitter_refused=1 OK",
+    "artifact": "dev/validation/2026-10-05-m2-reconcile/refined-word.log",
+    "counts": {
+      "stdout_bytes": 489,
+      "stderr_bytes": 0,
+      "stdout_lines": 10,
+      "stderr_lines": 0,
+      "error_lines": 0,
+      "warning_lines": 0
+    }
+  },
+  {
+    "name": "m2-reconcile",
+    "run": 2,
+    "exit": 0,
+    "secs": 3.6,
+    "maxrss_mb": 30,
+    "marker": "M2-RECONCILE deferred=9 tested=5 open=4 docs=17 legs=110 mutants=15 fixtures=10 controls=3 OK",
+    "artifact": null,
+    "counts": null
+  },
+  {
+    "name": "m2-reconcile",
+    "run": 2,
+    "exit": 0,
+    "secs": 3.4,
+    "maxrss_mb": 30,
+    "marker": "M2-RECONCILE deferred=9 tested=5 open=4 docs=17 legs=110 mutants=15 fixtures=10 controls=3 OK",
+    "artifact": "dev/validation/2026-10-05-m2-reconcile/m2-reconcile.log",
+    "counts": {
+      "stdout_bytes": 94,
+      "stderr_bytes": 0,
+      "stdout_lines": 1,
+      "stderr_lines": 0,
+      "error_lines": 0,
+      "warning_lines": 0
+    }
+  },
+  {
+    "name": "r0-count",
+    "run": 2,
+    "exit": 0,
+    "secs": 1.4,
+    "maxrss_mb": 62,
+    "marker": "R0-COUNT OK",
+    "artifact": "dev/validation/2026-10-05-m2-reconcile/r0-count.log",
+    "counts": {
+      "stdout_bytes": 12,
+      "stderr_bytes": 0,
+      "stdout_lines": 1,
+      "stderr_lines": 0,
+      "error_lines": 0,
+      "warning_lines": 0
+    }
+  },
+  {
+    "name": "r0-audit",
+    "run": 2,
+    "exit": 0,
+    "secs": 0.5,
+    "maxrss_mb": 23,
+    "marker": "R0-AUDIT OK",
+    "artifact": "dev/validation/2026-10-05-m2-reconcile/r0-audit.log",
+    "counts": {
+      "stdout_bytes": 12,
+      "stderr_bytes": 0,
+      "stdout_lines": 1,
+      "stderr_lines": 0,
+      "error_lines": 0,
+      "warning_lines": 0
+    }
+  },
+  {
+    "name": "house",
+    "run": 2,
+    "exit": 0,
+    "secs": 3.1,
+    "maxrss_mb": 34,
+    "marker": "HOUSE OK",
+    "artifact": "dev/validation/2026-10-05-m2-reconcile/house.log",
+    "counts": {
+      "stdout_bytes": 226,
+      "stderr_bytes": 0,
+      "stdout_lines": 10,
+      "stderr_lines": 0,
+      "error_lines": 0,
+      "warning_lines": 0
+    }
+  },
+  {
+    "name": "trusted-lines",
+    "run": 2,
+    "exit": 0,
+    "secs": 1.3,
+    "maxrss_mb": 23,
+    "marker": "TRUSTED-LINES OK",
+    "artifact": "dev/validation/2026-10-05-m2-reconcile/trusted-lines.log",
+    "counts": {
+      "stdout_bytes": 269,
+      "stderr_bytes": 0,
+      "stdout_lines": 9,
+      "stderr_lines": 0,
+      "error_lines": 0,
+      "warning_lines": 0
+    }
+  },
+  {
+    "name": "carry-check",
+    "run": 2,
+    "exit": 0,
+    "secs": 0.5,
+    "maxrss_mb": 21,
+    "marker": "CARRY files=16/16 diff=0 unlisted=0",
+    "artifact": "dev/validation/2026-10-05-m2-reconcile/carry-check.log",
+    "counts": {
+      "stdout_bytes": 81,
+      "stderr_bytes": 0,
+      "stdout_lines": 2,
+      "stderr_lines": 0,
+      "error_lines": 0,
+      "warning_lines": 0
+    }
+  },
+  {
+    "name": "denominators",
+    "run": 2,
+    "exit": 0,
+    "secs": 0.6,
+    "maxrss_mb": 7,
+    "marker": "verification/test/AbiControls.lean: OK",
+    "artifact": "dev/validation/2026-10-05-m2-reconcile/denominators.log",
+    "counts": {
+      "stdout_bytes": 15063,
+      "stderr_bytes": 0,
+      "stdout_lines": 327,
+      "stderr_lines": 0,
+      "error_lines": 0,
+      "warning_lines": 0
+    }
+  },
+  {
+    "name": "milestone-speed",
+    "run": 2,
+    "exit": 0,
+    "secs": 4.7,
+    "maxrss_mb": 34,
+    "marker": "MILESTONE-SPEED schedules=57 controls=9 OK",
+    "artifact": "dev/validation/2026-10-05-m2-reconcile/milestone-speed.log",
+    "counts": {
+      "stdout_bytes": 43,
+      "stderr_bytes": 0,
+      "stdout_lines": 1,
+      "stderr_lines": 0,
+      "error_lines": 0,
+      "warning_lines": 0
+    }
+  }
+]

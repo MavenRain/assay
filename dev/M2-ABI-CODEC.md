@@ -59,8 +59,10 @@ legs. `--m2-return-abi` adds [RETURN-ABI](M2-RETURN-ABI.md), for 104 legs.
 `--m2-source-events` adds
 [SOURCE-EVENTS](M2-SOURCE-EVENTS.md), for 105 legs. `--m2-storage-proofs`
 adds [STORAGE-PROOFS](M2-STORAGE-PROOFS.md), for 106 legs. `--m2-source-erc20`
-adds [ERC20-SOURCE](M2-SOURCE-ERC20.md), for 107 legs. The current default,
-`--m2-abi`, adds [M2-ABI](M2-ABI-GOLDENS.md), for 108 legs. Counts exclude
+adds [ERC20-SOURCE](M2-SOURCE-ERC20.md), for 107 legs. `--m2-abi` adds
+[M2-ABI](M2-ABI-GOLDENS.md), for 108 legs. The current default,
+`--m2-reconcile`, adds [M2-RECONCILE](M2-RECONCILE.md) and REFINED-WORD,
+for 110 legs. Counts exclude
 BEND2-RATIO and BEND2-RATIO-TEST, which moved to
 [`--m4-speed`](M4-SPEED.md) on 2026-10-01.
 The ABI-CODEC leg has a 300-second deadline:

@@ -34,10 +34,10 @@ def main():
         for mode in modes:
             previous = H.schedule(before, mode)
             previous['legs'] = [leg for leg in previous['legs'] if leg[0] not in SPEED]
-            # fa19053 (2026-10-05) added the 14th stage-A mutant, so the carried MUTANTS marker
+            # fa19053 added the 14th stage-A mutant and M2 group 8 part C the 15th, so the carried MUTANTS marker
             # of the 80bc4c6 baseline is adjusted to the current count, as the SPEED legs are.
             previous['legs'] = [(leg[0], leg[1], leg[2], leg[3].replace('MUTANTS killed=13/13 OK',
-                                                                        'MUTANTS killed=14/14 OK'), *leg[4:])
+                                                                        'MUTANTS killed=15/15 OK'), *leg[4:])
                                 for leg in previous['legs']]
             current = H.schedule(after, mode)
             require(previous == current, 'changed carried schedule: ' + mode)
@@ -103,9 +103,16 @@ def main():
             ('M2-ABI', 600, ('python3', '-P', 'dev/m2-abi-test.py'),
              'M2-ABI entries=12 abi_controls=16 mutability=20 lean_negatives=8 storage_mutants=7 axiom_controls=7 erasure=13 jq_sorted=equal OK', True)]),
                 'M2 ABI must preserve all carried legs and add its required check')
-        require(re.search(r'(?m)/stage-a-gates\.py --m2-abi$', (ROOT / 'dev/gates.sh').read_text()) and
-                re.search(r'(?m)\bdev/stage-a-gates\.py --m2-abi$', (ROOT / 'Makefile').read_text()),
-                'default gate entry points must select M2 ABI')
+        reconcile = H.schedule(after, '--m2-reconcile')
+        require(reconcile == dict(stage='M2-RECONCILE', legs=abi['legs'] + [
+            ('M2-RECONCILE', 60, ('python3', '-P', 'dev/m2-reconcile-test.py'),
+             'M2-RECONCILE deferred=9 tested=5 open=4 docs=17 legs=110 mutants=15 fixtures=10 controls=3 OK', True),
+            ('REFINED-WORD', 600, ('python3', '-P', 'dev/refined-word-test.py'),
+             'REFINED-WORD valid=2 kernel_refused=3 emitter_refused=1 OK', True)]),
+                'M2 reconciliation must preserve all carried legs and add its two required checks')
+        require(re.search(r'(?m)/stage-a-gates\.py --m2-reconcile$', (ROOT / 'dev/gates.sh').read_text()) and
+                re.search(r'(?m)\bdev/stage-a-gates\.py --m2-reconcile$', (ROOT / 'Makefile').read_text()),
+                'default gate entry points must select M2 reconciliation')
     finally:
         sys.argv = original_argv
 
