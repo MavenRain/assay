@@ -1,0 +1,7 @@
+Error:
+- expected : ':'
+- observed : ')'
+Location:
+127 |       [Char.from_u32(32), Char.from_u32(10), Char.from_u32(13), Char.from_u32(9)]))), _ => SCon{local16018, acc}, _ => acc)),
+128>|     local16013, SNil{}))) : Reusable(String, String)}
+129 |   (+local16024 => (Local.Trace.scan.f16021(scrut16020, local16024)))(NativeString.split(Char.from_u32(34), text_1204)))

@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "/Users/oobi/Documents/gpt1/assay/dev/lexer-direct-test.py", line 289, in <module>
+    main()
+    ~~~~^^
+  File "/Users/oobi/Documents/gpt1/assay/dev/lexer-direct-test.py", line 262, in main
+    output, _ = run(compile_adapter(mutated, entry, 'mutant-' + name))
+                    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oobi/Documents/gpt1/assay/dev/lexer-direct-test.py", line 87, in compile_adapter
+    raise ValueError(f'{name} build failed: {WORK / (name + "-build.log")}')
+ValueError: mutant-identifier build failed: /Users/oobi/Documents/gpt1/assay/_build/lexer-direct/mutant-identifier-build.log
+make: *** [test] Error 1

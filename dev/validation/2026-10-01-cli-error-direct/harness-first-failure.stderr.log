@@ -1,0 +1,1 @@
+CLI-ERROR-DIRECT FAIL golden mismatch: '"error"::1': wanted false, got true

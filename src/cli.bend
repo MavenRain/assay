@@ -77,7 +77,11 @@ def Local.Trace.scan.f16021(+compact_1205: Reusable(String, String), +param_1223
   Native.choose(&2, Bool, NativeString.equal(scrut16034, ":"), _ => (Match.Maybe(&2, String, &2, Bool, SeqList.find(&2, String, (+local16043 => (True{})), p16033), _ => (True{}), +value => ((+local16037 => (Big.when(Bool, Bool.not(NativeString.equal(local16037, "")), _ => (True{}), _ => ((+local16040 => (Local.Trace.scan.f16021(compact_1205, local16040)))(p16033)))))(value)))), _ => (Native.choose(&2, Bool, String.starts_with(scrut16034, ":null"), _ => ((+local16046 => (Local.Trace.scan.f16021(compact_1205, local16046)))(p16033)), _ => (Native.choose(&2, Bool, String.starts_with(scrut16034, ":"), _ => (True{}), _ => ((+local16049 => (Local.Trace.scan.f16021(compact_1205, local16049)))(p16033)))))))))), _ => (otherwise16028(Unit{})))), _ => (otherwise16028(Unit{})))))))
 @unsafe
 def Trace.has_error(+text_1204: String) -> Bool:
-  (+scrut16020 = {(+local16013 => (NativeString.of_list(Series.to_list(&2, Char, (+local16016 => (Series.of_list(&2, Char, SeqList.filter(&2, Char, (+local16018 => (Bool.not(SeqList.exists(&2, Char, +item16019 => NativeChar.equal(local16018, item16019), Con{Char.from_u32(32), Con{Char.from_u32(10), Con{Char.from_u32(13), Con{Char.from_u32(9), Nil{}}}}})))), Series.to_list(&2, Char, local16016)))))(Series.from_string(local16013)))))) : Reusable(String, String)}
+  (+scrut16020 = {(+local16013 => String.reverse(NativeString.fold(&2, String,
+    (+acc => +local16018 => Native.choose(&2, String, Bool.not(SeqList.exists(&2, Char,
+      +item16019 => NativeChar.equal(local16018, item16019),
+      [Char.from_u32(32), Char.from_u32(10), Char.from_u32(13), Char.from_u32(9)])), _ => SCon{local16018, acc}, _ => acc)),
+    local16013, SNil{}))) : Reusable(String, String)}
   (+local16024 => (Local.Trace.scan.f16021(scrut16020, local16024)))(NativeString.split(Char.from_u32(34), text_1204)))
 @unsafe
 def Trace.error(+param_288: Trace.Error) -> String:

@@ -63,7 +63,8 @@ default adds [CALL-CODEC](M2-CALLDATA.md), [RETURN-CODEC](M2-RETURNDATA.md),
 [SEGMENT-DIRECT](SEGMENT-DIRECT.md),
 [CLI-PREFIX-DIRECT](CLI-PREFIX-DIRECT.md), and
 [CLI-VALUE-DIRECT](CLI-VALUE-DIRECT.md),
-for 94 checks.
+[CLI-ERROR-DIRECT](CLI-ERROR-DIRECT.md),
+for 95 checks.
 
 The [validation record](validation/2026-09-26-m2-events/README.md) contains
 the scoped test results and source hashes. M2 compiler integration,

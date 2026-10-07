@@ -28,7 +28,7 @@ Native carry hashes follow the changed CLI source.
 
 `make test` includes this comparison. The existing `--lexer-direct`
 gate mode includes mandatory `CLI-PREFIX-DIRECT` and
-`CLI-VALUE-DIRECT` legs, for 94 legs.
+`CLI-VALUE-DIRECT` and `CLI-ERROR-DIRECT` legs, for 95 legs.
 Compatibility retains all 56 predecessor modes and all earlier default
 legs. Benchmark methodology and the 1.0 compilation speed bound retain
 their requirements.

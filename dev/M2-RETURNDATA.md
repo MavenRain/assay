@@ -71,7 +71,8 @@ default adds [REVERT-CODEC](M2-REVERTDATA.md),
 [LEXER-DIRECT](LEXER-DIRECT.md), [IDENTIFIER-DIRECT](IDENTIFIER-DIRECT.md),
 [WORD-DIRECT](WORD-DIRECT.md), [SEGMENT-DIRECT](SEGMENT-DIRECT.md),
 [CLI-PREFIX-DIRECT](CLI-PREFIX-DIRECT.md), and
-[CLI-VALUE-DIRECT](CLI-VALUE-DIRECT.md), for 94 checks.
+[CLI-VALUE-DIRECT](CLI-VALUE-DIRECT.md),
+[CLI-ERROR-DIRECT](CLI-ERROR-DIRECT.md), for 95 checks.
 
 The [validation record](validation/2026-09-27-m2-returndata/README.md)
 retains the scoped results, command captures, case corpus and source

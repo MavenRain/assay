@@ -1,12 +1,16 @@
 # M1 Bend 2 compilation comparison
 
 The 2026-09-22 compilation-speed requirement is an Assay/Bend 2 ratio at
-most 1.0. The current native Bend comparison is 1.087435467 and does not pass.
-See [CLI-VALUE-DIRECT.md](CLI-VALUE-DIRECT.md) for the current source and record.
-Its five measured rounds of six cases completed in a 19.595-second window
-that started at 2026-10-01 10:50 UTC. `dev/bend2-baseline.json` holds the
+most 1.0. The current native Bend comparison is 1.448724421 and does not pass.
+See [CLI-ERROR-DIRECT.md](CLI-ERROR-DIRECT.md) for the current source and record.
+Its five measured rounds of six cases completed in a 26.843-second window
+on 2026-10-02. `dev/bend2-baseline.json` holds the
 report, and `dev/BEND2.sha256` seals it. This describes the recorded host
-window and does not isolate a speed effect of decimal normalization.
+window and does not isolate a speed effect of response error compaction.
+The previous 1.591541253 comparison failed and is retained in
+`dev/validation/2026-10-01-cli-error-direct/paired-measurement.json`.
+The previous 1.087435467 comparison failed and is retained in
+`dev/validation/2026-10-01-cli-value-direct/paired-measurement.json`.
 The previous 1.639908573 comparison failed in its 9.366-second window and is
 retained in `dev/validation/2026-10-01-cli-prefix-direct/paired-measurement.json`.
 The previous 1.538120777 comparison failed in its 18.362-second window and is
@@ -152,7 +156,8 @@ the [M2 reference gate](M2-REFERENCE.md), [ABI-SCHEMA](M2-ABI-SCHEMA.md),
 [SEGMENT-DIRECT](SEGMENT-DIRECT.md),
 [CLI-PREFIX-DIRECT](CLI-PREFIX-DIRECT.md), and
 [CLI-VALUE-DIRECT](CLI-VALUE-DIRECT.md),
-for 94 checks.
+[CLI-ERROR-DIRECT](CLI-ERROR-DIRECT.md),
+for 95 checks.
 
 `dev/bend2-ratio-test.py` passes three controls, rejects 37 invalid cases,
 and kills six mutations. It covers the inclusive boundary, a ratio above

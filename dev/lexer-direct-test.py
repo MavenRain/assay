@@ -84,7 +84,7 @@ def compile_adapter(records, entry, name):
                             capture_output=True, env=os.environ | {'BEND_NO_TELEMETRY': '1'}, timeout=180)
     (WORK / (name + '-build.log')).write_bytes(result.stdout + result.stderr)
     if result.returncode:
-        raise ValueError(f'{name} build failed: {WORK / (name + "-build.log")}')
+        raise ValueError(f'{name} build failed (exit={result.returncode}): {WORK / (name + "-build.log")}')
     launcher = WORK / name
     build.executable(launcher, build.wrapper(build.runtime(), '../lexer-direct/' + name))
     return launcher

@@ -18,7 +18,7 @@
   "carried": {
     "src/abi.bend": "393d3f535cc3cff42605c702ef66d576cd803b4dc9745c8e69c7489527fac969",
     "src/assembler.bend": "926e906d011f53dd4b92ff2ffbd090d472a46cca7fae72829b9cb3bd98223c9d",
-    "src/cli.bend": "de9fd581b7e88863cf2123760a428745c9464f1f0b6d5b191f2b4bb37614cffa",
+    "src/cli.bend": "8892ac5661baf9adf577c1058f3cb4ec04b955df8d924e37f7ddf3a6ec96d2e5",
     "src/emitter.bend": "945a260e7b605251c193b447f0ed2ce73e0213883e05bd2be3b7c986679859b7",
     "src/frontend.bend": "8409f38ccc746e117df8c94527ccb6cc07f9379ef4e266cb5718d4b481b1a905",
     "src/keccak.bend": "cbfb3275116d3703a803181ceeafe8dc3e74d53f21cb9a539f29c28c5bc8e98a",

@@ -1,5 +1,67 @@
 # Assay M2 build log
 
+## 2026-10-02: Trace error compaction through a string fold
+
+Building on the staged direct-conversion slice at `bacd4ba`,
+`Trace.has_error` now folds over each string segment and reverses the
+retained characters. This removes the intermediate input and filtered
+character lists. Whitespace recognition and response scanning are preserved.
+The trusted kernel is unchanged, and the thirteen declaration pins are
+resealed without hiding changes to the scanner.
+
+The complete `make test` run passes the kernel suite, all 24 commands
+across 18 adapters, and all eight conversion checks. Error detection
+matches 519 predecessor results and independent goldens. Six compiled
+mutants, including reversed output, fail at their named witnesses;
+the restored control passes. Compatibility retains all 56 historical
+schedules and the current 95 mandatory legs. House and native carry pass.
+Compiler failure diagnostics now include actual exit codes.
+
+The fresh five-round, six-case paired measurement records median batch
+times of 3177.324957 ms for Assay and 2193.187959 ms for Bend 2, giving
+a ratio of 1.448724421 in a 26.843-second window. The frozen baseline
+matches the archive byte for byte. The unchanged 1.0 speed limit refuses
+this result; all 37 benchmark refusals and six compiled mutations pass.
+This host measurement does not isolate the fold's speed effect. The full
+milestone battery and M2 source lowering remain open.
+
+Sources, full captures and the initial compiler failures are recorded in
+`dev/validation/2026-10-02-cli-error-fold/`.
+
+## 2026-10-01: Direct trace response error detection
+
+Starting at `bacd4ba`, `Trace.has_error` converts string segments directly
+to character lists and back when removing JSON whitespace. The scanner's
+handling of keys, null values, empty strings and malformed responses is
+preserved. The declaration pin extends the CLI manifest to thirteen
+entries, and compatibility preserves all 56 historical schedules and
+the restored CLI bundle byte for byte.
+
+The default gate schedule adds `CLI-ERROR-DIRECT`, for 95 legs.
+The new check compares 519 compiled predecessor results with independent
+goldens and kills five compiled mutants with named wrong answers before
+restoring the control. The complete `make test` run passes the native
+kernel suite, 24 commands across 18 adapters, and all eight conversion
+checks. The trace driver passes 20 live process checks.
+
+The five shifted CLI catch-all line records are refreshed without
+changing their approved arms or rationales. The house audit and native
+carry check pass. Source hashes are resealed after these changes.
+
+The fresh five-round, six-case paired measurement gives matched median
+times of 920.754958 ms for Assay and 578.530375 ms for Bend 2, a ratio
+of 1.591541253 in a 7.874-second host window. The active baseline at
+that slice was byte-identical to the archived measurement. The 1.0 speed bound remains
+unchanged and refuses this result. This measurement does not isolate
+the conversion change's speed effect. Benchmark controls pass with
+37 refusals and six compiled mutations. The full milestone battery
+and M2 source lowering remain open.
+
+See `dev/CLI-ERROR-DIRECT.md` and
+`dev/validation/2026-10-01-cli-error-direct/` for sources and evidence.
+
+
+
 ## 2026-10-01: Direct trace decimal normalization
 
 Starting at `7af4b0478d6e1dd23ab98c0b3aa7f9e0d8d25fcd`, `Trace.value`

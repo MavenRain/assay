@@ -23,7 +23,7 @@ Native carry hashes follow the changed emitter source.
 `make test` includes the substring check. `make gates` includes the mandatory
 `SEGMENT-DIRECT` leg through its existing `--lexer-direct` mode. Schedule
 compatibility retains all 56 predecessor modes and requires the current
-94 legs, including all six direct-conversion checks. The benchmark method
+95 legs, including all seven direct-conversion checks. The benchmark method
 and 1.0 speed limit retain their requirements.
 
 Validation evidence is recorded under

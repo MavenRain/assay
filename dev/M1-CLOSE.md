@@ -2,9 +2,13 @@
 
 Status: BEND2-RATIO fails on the current frozen record. The requirement,
 set by the user on 2026-09-22, is compilation speed at least as fast as Bend 2.
-The [current paired comparison](CLI-VALUE-DIRECT.md) measures a ratio of 1.087435467
-against the unchanged 1.0 limit, in a 19.595-second window that started at
-2026-10-01 10:50 UTC. This describes the recorded host window.
+The [current paired comparison](CLI-ERROR-DIRECT.md) measures a ratio of 1.448724421
+against the unchanged 1.0 limit, in a 26.843-second window on
+2026-10-02. This describes the recorded host window.
+The previous 1.591541253 comparison failed and is retained in
+`dev/validation/2026-10-01-cli-error-direct/paired-measurement.json`.
+The previous 1.087435467 comparison failed and is retained in
+`dev/validation/2026-10-01-cli-value-direct/paired-measurement.json`.
 The previous 1.639908573 comparison failed and is retained in
 `dev/validation/2026-10-01-cli-prefix-direct/paired-measurement.json`.
 The previous 1.538120777 comparison failed and is retained in
