@@ -188,7 +188,7 @@ def live():
     return count
 
 
-def refusal(name, text, marker, folder, checked=False):
+def refusal(name, text, marker, folder, checked=False, timeout=30):
     source = folder / (name + '.asy')
     source.write_text(text)
     if checked:
@@ -196,7 +196,7 @@ def refusal(name, text, marker, folder, checked=False):
     for command in (('emit', 'run') if checked else ('check', 'emit', 'run')):
         output = folder / (name + '-out')
         args = ['-o', output] if command == 'emit' else []
-        result = M.capture('refusal-' + name + '-' + command, [BINARY, command, source, *args])
+        result = M.capture('refusal-' + name + '-' + command, [BINARY, command, source, *args], timeout=timeout)
         require(result.returncode == (2 if checked else 1) and marker in result.stderr and
                 not result.stdout and not output.exists(), 'ERROR-REFUSAL ' + name)
 

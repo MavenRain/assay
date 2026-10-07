@@ -133,7 +133,7 @@ def refusals(only=None):
     require(bool(rows), 'IB-REFUSAL-WITNESS ' + str(only))
     with tempfile.TemporaryDirectory(prefix='assay-inferred-binding-refusals-') as temporary:
         for name, text, marker in rows:
-            E.refusal('ib-' + name, text, marker, Path(temporary))
+            E.refusal('ib-' + name, text, marker, Path(temporary), timeout=120)
     print(f'IB-REFUSALS cases={len(rows)} commands=3 OK', flush=True)
     return len(rows)
 
