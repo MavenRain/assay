@@ -1,0 +1,28 @@
+PASS DENOMINATORS exit=0 elapsed_ms=120.8 deadline_s=10
+PASS M2-RECONCILE exit=0 elapsed_ms=77.8 deadline_s=60
+FAIL MILESTONE-SPEED exit=1 elapsed_ms=114.1 deadline_s=60
+Traceback (most recent call last):
+  File "/Users/oobi/Documents/assay/dev/milestone-speed-test.py", line 155, in <module>
+    main()
+    ~~~~^^
+  File "/Users/oobi/Documents/assay/dev/milestone-speed-test.py", line 43, in main
+    require(previous == current, 'changed carried schedule: ' + mode)
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oobi/Documents/assay/dev/milestone-speed-test.py", line 22, in require
+    raise AssertionError('MILESTONE-SPEED ' + message)
+AssertionError: MILESTONE-SPEED changed carried schedule: --emit
+
+PASS LEXER-DIRECT exit=0 elapsed_ms=15795.2 deadline_s=600
+PASS CORPUS exit=0 elapsed_ms=3988.4 deadline_s=600
+PASS ERASED-BYTES exit=0 elapsed_ms=874.1 deadline_s=120
+FAIL M0-RATIO exit=1 elapsed_ms=165.7 deadline_s=60
+M0-RATIO FAIL RATIO-CORPUS
+
+PASS M0-TRACE exit=0 elapsed_ms=240.5 deadline_s=120
+PASS CREATE-EQ exit=0 elapsed_ms=290.0 deadline_s=120
+PASS DIFF-EXECUTOR exit=0 elapsed_ms=9103.8 deadline_s=180
+PASS SOURCE-MODEL exit=0 elapsed_ms=73760.3 deadline_s=600
+PASS REFERENCE-CHECKS exit=0 elapsed_ms=538.5 deadline_s=180
+PASS F-MUTANTS exit=0 elapsed_ms=496.6 deadline_s=180
+PASS REFERENCE-MUTANTS exit=0 elapsed_ms=2655.7 deadline_s=1200
+LEGS-RUN total=14 pass=12 fail=2

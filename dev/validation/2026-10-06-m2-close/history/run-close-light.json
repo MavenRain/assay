@@ -1,0 +1,23 @@
+{
+ "command": [
+  "python3",
+  "-P",
+  "/Users/oobi/Documents/assay-m2-close-build/legs.py",
+  "/Users/oobi/Documents/assay-m2-close-build/logs/run-close-light-legs",
+  "M2-RECONCILE",
+  "DENOMINATORS",
+  "HOUSE",
+  "R0-COUNT",
+  "R0-AUDIT",
+  "TRUSTED-LINES",
+  "PIN-CARRY",
+  "MILESTONE-SPEED"
+ ],
+ "exit": 0,
+ "secs": 6.0,
+ "limit_mb": 4096.0,
+ "peak_process_mb": 32,
+ "peak_tree_mb": 55,
+ "samples": 3,
+ "killed": null
+}

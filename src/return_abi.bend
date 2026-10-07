@@ -8,7 +8,7 @@ type ReturnAbi.Rejection is Data:
 def ReturnAbi.enabled(+tokens: ListOf(Contract.Token)) -> Bool:
   match tokens:
     case Con{eff, Con{sig, Con{typ, tail}}}:
-      Bool.or(Bool.and(FunctionAbi.eq(eff, "error"), FunctionAbi.enabled(sig <> typ <> tail)), Bool.or(Bool.and(FunctionAbi.eq(eff, "Eff"), Bool.and(FunctionAbi.eq(sig, "Sig"), Bool.not(FunctionAbi.eq(typ, "Word")))), ReturnAbi.enabled(sig <> typ <> tail)))
+      Bool.or(Bool.and(FunctionAbi.eq(eff, "error"), FunctionAbi.enabled(sig <> typ <> tail)), Bool.or(Bool.and(FunctionAbi.eq(eff, "Eff"), Bool.and(FunctionAbi.eq(sig, "Sig"), Bool.not(Bool.or(FunctionAbi.eq(typ, "Word"), FunctionAbi.eq(typ, "Never"))))), ReturnAbi.enabled(sig <> typ <> tail)))
     case Con{token, tail}: Native.choose(&2, Bool, FunctionAbi.eq(token, "error"), _ => FunctionAbi.enabled(tail), _ => ReturnAbi.enabled(tail))
     case Nil{}: False{}
 @unsafe

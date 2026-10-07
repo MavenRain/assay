@@ -1,0 +1,29 @@
+{
+ "command": [
+  "python3",
+  "-P",
+  "/Users/oobi/Documents/assay-m2-close-build/legs.py",
+  "/Users/oobi/Documents/assay-m2-close-build/logs/run-4b-legs",
+  "DENOMINATORS",
+  "M2-RECONCILE",
+  "MILESTONE-SPEED",
+  "LEXER-DIRECT",
+  "CORPUS",
+  "ERASED-BYTES",
+  "M0-RATIO",
+  "M0-TRACE",
+  "CREATE-EQ",
+  "DIFF-EXECUTOR",
+  "SOURCE-MODEL",
+  "REFERENCE-CHECKS",
+  "F-MUTANTS",
+  "REFERENCE-MUTANTS"
+ ],
+ "exit": 1,
+ "secs": 108.4,
+ "limit_mb": 4096.0,
+ "peak_process_mb": 1815,
+ "peak_tree_mb": 1931,
+ "samples": 54,
+ "killed": null
+}

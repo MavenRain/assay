@@ -1,0 +1,6 @@
+FAIL ADDRESS exit=1 elapsed_ms=1012312.9 deadline_s=3600
+ADDRESS-MUTANT SURFACE killed control=OK
+ADDRESS FAIL ADDRESS-MUTANT build mutant-SCHEMA
+
+PASS INFERRED-BINDINGS exit=0 elapsed_ms=339660.2 deadline_s=1800
+LEGS-RUN total=2 pass=1 fail=1

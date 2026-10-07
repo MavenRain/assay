@@ -2739,10 +2739,19 @@
     "definition": "Parser.parse_atom_head",
     "path": "src/frontend.bend",
     "line": 873,
-    "arm": "Match.Token_Kind.only_Token_Kind_Nat( _ => (otherwise1122(Unit{}))",
-    "arm_sha256": "d2031df8266390a1946e50f55b74b185cd32ed4962f62dd11f1dcf2f2355ff3c",
+    "arm": "Match.Token_Kind.only_Token_Kind_Nat( _ => (Match.Token_Kind.only_Token_Kind_Ident(&2, CheckResult(TupleOf2(Syntax, ListOf(Token))), p1125, +level_name => (Pars ...",
+    "arm_sha256": "9748eaf96cc14e241ba8659b895ae538677b2b588ba98aa54bc7da431f0e7324",
     "arity": 1,
-    "reason": "selective eliminator forward: the call names Token_Kind_Nat and sends every other shape to otherwise1122, the lowered default of this declaration, which carries the OCaml answer for that match."
+    "reason": "selective eliminator forward: the call names Token_Kind_Nat and sends every other shape to the nested Token_Kind_Ident eliminator, which refuses a level variable and sends the rest to otherwise1122, the lowered default of this declaration, which carries the OCaml answer for that match."
+  },
+  {
+    "definition": "Parser.parse_atom_head",
+    "path": "src/frontend.bend",
+    "line": 873,
+    "arm": "Match.Token_Kind.only_Token_Kind_Ident( _ => (otherwise1122(Unit{}))",
+    "arm_sha256": "0e79e55dd53b9d9e9b28ea111f364440fd3c8188254b92c027b5669a975fd255",
+    "arity": 1,
+    "reason": "selective eliminator forward: the call names Token_Kind_Ident and sends every other shape to otherwise1122, the lowered default of this declaration, which carries the OCaml answer for that match."
   },
   {
     "definition": "Parser.parse_postfix",
@@ -4394,7 +4403,7 @@
   {
     "definition": "Tests.effect_batch",
     "path": "src/tests.bend",
-    "line": 1126,
+    "line": 1128,
     "arm": "case _: NativeIO.die(Unit, 64, \"invalid effect manifest\")",
     "arm_sha256": "56d3f812d4ec96d554e3a1c219cc96a15625fd0bb1324936705b229a1b3066d5",
     "arity": 1,
@@ -4403,7 +4412,7 @@
   {
     "definition": "Tests.asm_cases",
     "path": "src/tests.bend",
-    "line": 1151,
+    "line": 1153,
     "arm": "case _: NativeIO.die(Unit, 64, \"usage: asm_cases suite | fixtures | listing HEX | effect OPCODE HEIGHT\")",
     "arm_sha256": "e00f724a085c644e01f92c8f8faf32c69461de551153f5c9d9c91b6a45f603de",
     "arity": 1,
@@ -4412,7 +4421,7 @@
   {
     "definition": "Tests.emit_cases",
     "path": "src/tests.bend",
-    "line": 1200,
+    "line": 1202,
     "arm": "case _: NativeIO.die(Unit, 64, \"usage: emit_cases constructors | words | storage | layout\")",
     "arm_sha256": "8d82bde306681ddcf0797e059f01fe518737f662fcb334df6d704ff63f9224b3",
     "arity": 1,
@@ -4421,7 +4430,7 @@
   {
     "definition": "Tests.roundtrip",
     "path": "src/tests.bend",
-    "line": 1208,
+    "line": 1210,
     "arm": "case _: NativeIO.die(Unit, 64, \"roundtrip FILE\")",
     "arm_sha256": "9ad0d90e5175181777259a3ffc684b79db5e50927b5e4a9a705f43e734e1eb44",
     "arity": 1,
@@ -4430,7 +4439,7 @@
   {
     "definition": "Tests.fixture",
     "path": "src/tests.bend",
-    "line": 1265,
+    "line": 1267,
     "arm": "case _: NativeIO.die(Unit, 64, \"fixture MODE FILE\")",
     "arm_sha256": "5754ea8deff4ce8de7717aadbdcc70768368ae52b01effbe767a1b81da413b4e",
     "arity": 1,
@@ -4439,7 +4448,7 @@
   {
     "definition": "Fixture.batch",
     "path": "src/tests.bend",
-    "line": 1292,
+    "line": 1294,
     "arm": "case _: NativeIO.die(Unit, 64, \"invalid fixture manifest\")",
     "arm_sha256": "b3eb3021e2c4670acd2201f74a788d59d6ecdbf3a6f99a01310b2028983cb96b",
     "arity": 1,
@@ -4448,7 +4457,7 @@
   {
     "definition": "Tests.export_mu",
     "path": "src/tests.bend",
-    "line": 1322,
+    "line": 1324,
     "arm": "case _: Tests.export_usage()",
     "arm_sha256": "3100a09bc56b58f36c47bcaa76ff9374d4db0f86d0bc9f518f516248769292ab",
     "arity": 1,
@@ -4457,7 +4466,7 @@
   {
     "definition": "Tests.contract_route",
     "path": "src/tests.bend",
-    "line": 1372,
+    "line": 1374,
     "arm": "case _: NativeIO.die(Unit, 64, \"contract_route [copy|allocate]\")",
     "arm_sha256": "f9cfa6aaa44a3f15e2bb4494069d9dd089920f4b6bd0430bb5d1549321f2a192",
     "arity": 1,

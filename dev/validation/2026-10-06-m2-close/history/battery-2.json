@@ -1,0 +1,15 @@
+{
+ "command": [
+  "make",
+  "-C",
+  "/Users/oobi/Documents/assay",
+  "gates"
+ ],
+ "exit": 2,
+ "secs": 13831.6,
+ "limit_mb": 4096.0,
+ "peak_process_mb": 2010,
+ "peak_tree_mb": 2186,
+ "samples": 6891,
+ "killed": null
+}

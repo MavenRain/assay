@@ -1,0 +1,4 @@
+PASS PAYABLE exit=0 elapsed_ms=121208.9 deadline_s=600
+PASS CALLVALUE exit=0 elapsed_ms=272196.7 deadline_s=780
+PASS ADDRESS exit=0 elapsed_ms=3276452.4 deadline_s=3600
+LEGS-RUN total=3 pass=3 fail=0

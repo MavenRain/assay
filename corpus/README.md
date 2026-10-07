@@ -1,6 +1,7 @@
-# Frozen M0 corpus
+# Frozen M0 corpus and M2 row
 
-`MANIFEST.json` pins eight contracts and three proof variants.  It records
+`MANIFEST.json` pins eight contracts, three proof variants and one M2
+contract.  It records
 the physical line count, SHA-256, expected return word, final storage and
 the hashes of all five emitted files for each source.  Each file is a
 complete module.  The repeated protocol declarations are part of the input
@@ -17,6 +18,13 @@ The proof group uses a leaf, application and let expression
 as the erased argument.  These have distinct checked term shapes and
 identical runtime and creation bytes.  All declarations are identical
 across the proof group.  This is a small M0 seed, not an M2 proof suite.
+
+The M2 group holds `m2/ERC20.asy`, a byte copy of `examples/ERC20.asy`.
+It has no fallback, so its row records the calldata `313ce567`
+(`decimals()`).  A row without `calldata` runs with empty calldata in the
+corpus check and with `00ff` in the source model.  The expected word is
+18 and the storage stays empty, because the runtime runs without the
+constructor.  The ratio does not time this group.
 
 The OCaml denominator is the 24-file, 6215-line kernel corpus used by the
 Stage 0 spike.  Its files remain in `lib/` and are hash-pinned here.

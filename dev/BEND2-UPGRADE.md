@@ -43,4 +43,4 @@ Validation evidence is recorded in
 `dev/toolchain.json` pins Bend 2.0.32 at
 `573002f01ec6c52416d44489543f69a9625facf8`, the upstream `v2.0.32` tag.
 The `io_eff` registration above is unchanged. The live Bend corpus manifest
-and the paired speed runner stay on 2.0.28 until the next paired measurement.
+and the paired speed runner stay on 2.0.32 until the next paired measurement.

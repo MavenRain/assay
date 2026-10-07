@@ -1,0 +1,42 @@
+PASS DENOMINATORS exit=0 elapsed_ms=118.8 deadline_s=10
+PASS MILESTONE-SPEED exit=0 elapsed_ms=206.7 deadline_s=60
+PASS M0-RATIO exit=0 elapsed_ms=110.6 deadline_s=60
+FAIL M2-RECONCILE exit=1 elapsed_ms=80.0 deadline_s=60
+M2-RECONCILE FAIL M2-RECONCILE-MUTANTS MUTANTS killed=15/15 OK
+
+FAIL ADDRESS exit=1 elapsed_ms=680551.3 deadline_s=1860
+ADDRESS FAIL Command '['/Users/oobi/Documents/assay/_build/bin/assay', 'run', '/Users/oobi/Documents/assay/.gatework/address/matrix-0100100.asy', '--calldata', '155cc7de0000000000000000000000000000000000000000000000000000000000000004', '--value', '0', '--caller', '0x7e5f4552091a69125d5dfcb7b8c2659029395bdf', '--address', '0x7265636569766572', '--storage', '0=7', '--storage', '7=23']' timed out after 30 seconds
+
+FAIL INFERRED-BINDINGS exit=1 elapsed_ms=1206858.4 deadline_s=1800
+IA-LIVE cases=229 creates=2 OK
+IA-ERASURE pairs=21 files=5 OK
+IB-REFUSALS cases=25 commands=3 OK
+IB-BOUNDARIES nested=128 bundle_nodes=4095 spine_depth=32 positive=6 negative=1 OK
+Traceback (most recent call last):
+  File "/Users/oobi/Documents/assay/dev/inferred-binding-test.py", line 232, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "/Users/oobi/Documents/assay/dev/inferred-binding-test.py", line 224, in main
+    erased, invalid, limits, killed = IA.erasure(), refusals(), boundaries(), mutants()
+                                                                              ~~~~~~~^^
+  File "/Users/oobi/Documents/assay/dev/inferred-binding-test.py", line 198, in mutants
+    result = M.capture(label, ['python3', '-P', 'dev/inferred-binding-test.py', 'witness', case], cwd=copy)
+  File "/Users/oobi/Documents/assay/dev/model-test.py", line 27, in capture
+    result = subprocess.run([str(arg) for arg in argv], cwd=cwd, env=env,
+                            capture_output=True, text=True, timeout=timeout)
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py", line 557, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py", line 1221, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py", line 2154, in _communicate
+    self._check_timeout(endtime, orig_timeout, stdout, stderr)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py", line 1268, in _check_timeout
+    raise TimeoutExpired(
+    ...<2 lines>...
+            stderr=b''.join(stderr_seq) if stderr_seq else None)
+subprocess.TimeoutExpired: Command '['python3', '-P', 'dev/inferred-binding-test.py', 'witness', 'bundle-expansion']' timed out after 30 seconds
+
+LEGS-RUN total=6 pass=3 fail=3

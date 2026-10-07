@@ -1,0 +1,9 @@
+PASS M2-RECONCILE exit=0 elapsed_ms=88.6 deadline_s=60
+PASS DENOMINATORS exit=0 elapsed_ms=69.7 deadline_s=10
+PASS HOUSE exit=0 elapsed_ms=3132.2 deadline_s=30
+PASS R0-COUNT exit=0 elapsed_ms=175.7 deadline_s=10
+PASS R0-AUDIT exit=0 elapsed_ms=89.8 deadline_s=10
+PASS TRUSTED-LINES exit=0 elapsed_ms=190.3 deadline_s=10
+PASS PIN-CARRY exit=0 elapsed_ms=108.6 deadline_s=30
+PASS MILESTONE-SPEED exit=0 elapsed_ms=443.5 deadline_s=60
+LEGS-RUN total=8 pass=8 fail=0

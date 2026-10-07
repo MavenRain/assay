@@ -1,0 +1,16 @@
+{
+ "command": [
+  "python3",
+  "-P",
+  "/Users/oobi/Documents/assay-m2-close-build/legs.py",
+  "/Users/oobi/Documents/assay-m2-close-build/logs/run-5g-legs",
+  "ADDRESS"
+ ],
+ "exit": 0,
+ "secs": 1116.4,
+ "limit_mb": 4096.0,
+ "peak_process_mb": 1730,
+ "peak_tree_mb": 1843,
+ "samples": 557,
+ "killed": null
+}

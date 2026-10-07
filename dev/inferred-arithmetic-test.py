@@ -81,7 +81,7 @@ def live(only=None):
         for name, text, _explicit, behavior, failure in rows:
             source = folder / f'{name}.asy'
             source.write_text(text)
-            runtime, init = P.emit(source, folder / name, name)
+            runtime, init = P.emit(source, folder / name, name, timeout=600)
             if behavior == 'counter':
                 E.creation(runtime, init, folder, expected_storage={E.D.RECEIVER: {'1': '0x64'}})
                 creates += 2
@@ -116,7 +116,7 @@ def erasure():
             for index, text in enumerate((inferred, explicit)):
                 source, output = folder / f'{name}-{index}.asy', folder / f'{name}-{index}'
                 source.write_text(text)
-                P.emit(source, output, f'erasure-{name}-{index}')
+                P.emit(source, output, f'erasure-{name}-{index}', timeout=600)
                 outputs.append(H.outputs(output))
             require(outputs[0] == outputs[1] and len(outputs[0]) == 5, 'IA-ERASURE five files ' + name)
             captures.append(dict(name=name, variants=[{file: hashlib.sha256(data).hexdigest()

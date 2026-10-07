@@ -1,0 +1,7 @@
+PASS CONTRACT-SURFACE exit=0 elapsed_ms=75640.8 deadline_s=600
+PASS NULLARY-ENTRIES exit=0 elapsed_ms=43374.8 deadline_s=600
+PASS INVARIANTS exit=0 elapsed_ms=94062.9 deadline_s=600
+PASS PROOF-HELPERS exit=0 elapsed_ms=226588.7 deadline_s=600
+PASS SURFACE-CONTEXT exit=0 elapsed_ms=269085.8 deadline_s=600
+PASS CALLVALUE exit=0 elapsed_ms=415755.5 deadline_s=780
+LEGS-RUN total=6 pass=6 fail=0

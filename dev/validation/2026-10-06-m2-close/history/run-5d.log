@@ -1,0 +1,38 @@
+PASS M2-RECONCILE exit=0 elapsed_ms=123.0 deadline_s=60
+FAIL ADDRESS exit=1 elapsed_ms=1860014.2 deadline_s=1860
+Command '('python3', '-P', 'dev/address-test.py')' timed out after 1860 seconds
+LEG-TIMEOUT ADDRESS deadline_s=1860 elapsed_s=1860.013
+
+FAIL INFERRED-BINDINGS exit=1 elapsed_ms=556757.3 deadline_s=1800
+IA-LIVE cases=229 creates=2 OK
+IA-ERASURE pairs=21 files=5 OK
+IB-REFUSALS cases=25 commands=3 OK
+IB-BOUNDARIES nested=128 bundle_nodes=4095 spine_depth=32 positive=6 negative=1 OK
+Traceback (most recent call last):
+  File "/Users/oobi/Documents/assay/dev/inferred-binding-test.py", line 232, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "/Users/oobi/Documents/assay/dev/inferred-binding-test.py", line 224, in main
+    erased, invalid, limits, killed = IA.erasure(), refusals(), boundaries(), mutants()
+                                                                              ~~~~~~~^^
+  File "/Users/oobi/Documents/assay/dev/inferred-binding-test.py", line 198, in mutants
+    result = M.capture(label, ['python3', '-P', 'dev/inferred-binding-test.py', 'witness', case], cwd=copy)
+  File "/Users/oobi/Documents/assay/dev/model-test.py", line 27, in capture
+    result = subprocess.run([str(arg) for arg in argv], cwd=cwd, env=env,
+                            capture_output=True, text=True, timeout=timeout)
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py", line 557, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py", line 1221, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py", line 2154, in _communicate
+    self._check_timeout(endtime, orig_timeout, stdout, stderr)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py", line 1268, in _check_timeout
+    raise TimeoutExpired(
+    ...<2 lines>...
+            stderr=b''.join(stderr_seq) if stderr_seq else None)
+subprocess.TimeoutExpired: Command '['python3', '-P', 'dev/inferred-binding-test.py', 'witness', 'bundle-expansion']' timed out after 30 seconds
+
+LEGS-RUN total=3 pass=1 fail=2

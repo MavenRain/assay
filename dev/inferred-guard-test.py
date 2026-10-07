@@ -75,7 +75,7 @@ def live(only=None):
         for name, text, _explicit, error, behavior in rows:
             source = folder / f'{name}.asy'
             source.write_text(text)
-            runtime, init = P.emit(source, folder / name, name)
+            runtime, init = P.emit(source, folder / name, name, timeout=600)
             if name == 'invariant':
                 E.creation(runtime, init, folder, expected_storage={})
                 creates += 2
@@ -105,7 +105,7 @@ def erasure():
             for index, text in enumerate((inferred, explicit)):
                 source, output = folder / f'{name}-{index}.asy', folder / f'{name}-{index}'
                 source.write_text(text)
-                P.emit(source, output, f'erasure-{name}-{index}')
+                P.emit(source, output, f'erasure-{name}-{index}', timeout=600)
                 outputs.append(H.outputs(output))
             require(outputs[0] == outputs[1] and len(outputs[0]) == 5, 'IG-ERASURE five files ' + name)
             captures.append(dict(name=name, variants=[{file: hashlib.sha256(data).hexdigest()
@@ -176,7 +176,7 @@ def boundaries():
         for index, text in enumerate(texts):
             source = folder / f'{index}.asy'
             source.write_text(text)
-            P.emit(source, folder / str(index), f'boundary-{index}')
+            P.emit(source, folder / str(index), f'boundary-{index}', timeout=600)
     print(f'IG-BOUNDARIES accepted={len(texts)} OK', flush=True)
     return len(texts)
 

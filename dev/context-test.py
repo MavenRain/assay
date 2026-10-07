@@ -35,8 +35,8 @@ def capture(name, argv, *, cwd=ROOT, timeout=30):
     return result
 
 
-def checked(name, argv):
-    result = capture(name, argv)
+def checked(name, argv, *, timeout=30):
+    result = capture(name, argv, timeout=timeout)
     require(result.returncode == 0, 'CONTEXT-TOOL ' + name + ': ' + result.stderr)
     return result.stdout
 

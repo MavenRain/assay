@@ -1,0 +1,18 @@
+{
+ "command": [
+  "python3",
+  "-P",
+  "/Users/oobi/Documents/assay-m2-close-build/legs.py",
+  "/Users/oobi/Documents/assay-m2-close-build/logs/run-5d-legs",
+  "M2-RECONCILE",
+  "ADDRESS",
+  "INFERRED-BINDINGS"
+ ],
+ "exit": 1,
+ "secs": 2418.1,
+ "limit_mb": 4096.0,
+ "peak_process_mb": 1568,
+ "peak_tree_mb": 1680,
+ "samples": 1206,
+ "killed": null
+}

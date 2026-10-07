@@ -83,8 +83,8 @@ counter, storage, guards, ABI, source proofs, and Cancun execution.
 
 ## Reproduction
 
-The upstream is [bendlang/bend](https://github.com/bendlang/bend/tree/bc178404f4778704fa5584a73fcdf72bcdf9f32c),
-tag `v2.0.28`, commit `bc178404f4778704fa5584a73fcdf72bcdf9f32c`.
+The upstream is [bendlang/bend](https://github.com/bendlang/bend/tree/573002f01ec6c52416d44489543f69a9625facf8),
+tag `v2.0.32`, commit `573002f01ec6c52416d44489543f69a9625facf8`.
 Records before 2026-10-02 used tag `v2.0.25`, commit `c65bcb78`. See
 [BEND2-UPGRADE.md](BEND2-UPGRADE.md).
 Use Bun 1.3.11, Node.js v23.10.0 exactly (the ratio harness pins it),
@@ -92,8 +92,8 @@ Python 3.11 or newer, and a C compiler (`cc`) on PATH.
 No global Bend installation is required.
 
 ```sh
-git clone --depth 1 --branch v2.0.28 https://github.com/bendlang/bend.git ../bend2-v2.0.28
-python3 -P dev/bend2-ratio.py --measure NEW.json --bend-root ../bend2-v2.0.28
+git clone --depth 1 --branch v2.0.32 https://github.com/bendlang/bend.git ../bend2-v2.0.32
+python3 -P dev/bend2-ratio.py --measure NEW.json --bend-root ../bend2-v2.0.32
 ```
 
 The harness checks the pinned source hashes and versions, builds

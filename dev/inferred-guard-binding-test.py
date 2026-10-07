@@ -145,7 +145,7 @@ def boundaries():
             for index, variant in enumerate((text, typed)):
                 source, output = folder / f'{name}-{index}.asy', folder / f'{name}-{index}'
                 source.write_text(variant)
-                P.emit(source, output, f'boundary-{name}-{index}')
+                P.emit(source, output, f'boundary-{name}-{index}', timeout=600)
                 outputs.append(H.outputs(output))
             require(outputs[0] == outputs[1] and len(outputs[0]) == 5, 'IGB-BOUNDARY erasure ' + name)
             captures.append(dict(name=name, source_sha256=hashlib.sha256(text.encode()).hexdigest(),

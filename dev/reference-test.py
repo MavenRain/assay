@@ -75,12 +75,14 @@ def run(root, name, *args):
     return result.stdout
 
 
-def execute(root, name, code, *, create=False, plain=False):
+def execute(root, name, code, *, create=False, plain=False, calldata=''):
     # All executions, including controls, name a prestate.  No default fork.
     prestate = root / "evm/fixtures/cancun.json"
     require(prestate.is_file(), "PRESTATE", "missing evm/fixtures/cancun.json")
     args = ["evm", "--verbosity", "0", "run", "--prestate", str(prestate),
             "--gas", str(GAS), "--sender", SENDER, "--receiver", RECEIVER, "--code", code]
+    if calldata:
+        args += ["--input", calldata]
     if not plain:
         args += ["--json", "--dump"]
     if create:

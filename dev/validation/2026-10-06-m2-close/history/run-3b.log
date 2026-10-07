@@ -1,0 +1,33 @@
+FAIL LEXER-DIRECT exit=1 elapsed_ms=494.9 deadline_s=600
+Traceback (most recent call last):
+  File "/Users/oobi/Documents/assay/dev/lexer-direct-compatibility.py", line 95, in <module>
+    main()
+    ~~~~^^
+  File "/Users/oobi/Documents/assay/dev/lexer-direct-compatibility.py", line 46, in main
+    require(helpers.historical_schedule(before, mode) == helpers.schedule(after, mode), 'MODE ' + mode)
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oobi/Documents/assay/dev/lexer-direct-compatibility.py", line 25, in require
+    raise ValueError(label)
+ValueError: MODE --emit
+Traceback (most recent call last):
+  File "/Users/oobi/Documents/assay/dev/lexer-direct-test.py", line 289, in <module>
+    main()
+    ~~~~^^
+  File "/Users/oobi/Documents/assay/dev/lexer-direct-test.py", line 213, in main
+    subprocess.run([sys.executable, '-P', str(ROOT / 'dev/lexer-direct-compatibility.py')], check=True)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py", line 578, in run
+    raise CalledProcessError(retcode, process.args,
+                             output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['/opt/homebrew/opt/python@3.14/bin/python3.14', '-P', '/Users/oobi/Documents/assay/dev/lexer-direct-compatibility.py']' returned non-zero exit status 1.
+
+PASS INFERRED-GUARDS exit=0 elapsed_ms=264306.8 deadline_s=1800
+FAIL INFERRED-BINDINGS exit=1 elapsed_ms=287409.7 deadline_s=1800
+IA-LIVE cases=229 creates=2 OK
+IA-ERASURE pairs=21 files=5 OK
+IB-REFUSALS cases=25 commands=3 OK
+INFERRED-BINDINGS FAIL M1-TOOL bundle-limit: bend: memory fault (machine stack overflow?)
+
+
+PASS INFERRED-GUARD-BINDINGS exit=0 elapsed_ms=430943.9 deadline_s=1800
+LEGS-RUN total=4 pass=2 fail=2

@@ -174,6 +174,22 @@
         "layout.json": "8ac33058b205964882c7e3d85131fd9f743f485193b4143b8a23fc767965d03a",
         "runtime.hex": "23a23373870b3b4f9cf24757c1bf36f796a5ebd119b8de301591d7156bf76210"
       }
+    },
+    {
+      "path": "corpus/m2/ERC20.asy",
+      "group": "m2",
+      "calldata": "313ce567",
+      "answer": "18",
+      "storage": {},
+      "sha256": "9dd6a5c108c32952330e17716d6cfb87c3e6c1f7e244c72609169a60c3be55d4",
+      "lines": 47,
+      "outputs": {
+        "abi.json": "2a11e775e153e3fae9c31a6de82a8bfc62bcb8ff549dd232ec3a9f5bd826f141",
+        "axioms.txt": "61f8b9f0cb83fe5250e13b39b40e705d106caa92810d60168dfe5f4c3a89a302",
+        "init.hex": "5bff5ae65668672bb773d66ffad3d9ed6f96458f8b5a5ca15cd2489d8e44de7a",
+        "layout.json": "10b59476e6641d77aedc33b770face8595040b669cdca56b779ef48c42157739",
+        "runtime.hex": "31a53af9c4f14a94c63bd67adeaf1500365af00393d263177311e46c83af937a"
+      }
     }
   ],
   "bend": [

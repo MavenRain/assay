@@ -29,7 +29,7 @@ def corpus(root):
             files = emission.emit(root, root / row['path'], directory)
             data.outputs(directory, row)
             runtime, init = files['runtime.hex'].strip(), files['init.hex'].strip()
-            records = ref.execute(root, 'corpus-' + directory.name, runtime)
+            records = ref.execute(root, 'corpus-' + directory.name, runtime, calldata=row.get('calldata', ''))
             steps, summary, state = ref.success(records, 'CORPUS-EXEC')
             data.require(summary['output'] == f'{int(row["answer"]):064x}', 'CORPUS-RETURN ' + row['path'])
             accounts = {key.lower(): value for key, value in state['accounts'].items()}

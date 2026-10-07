@@ -1,0 +1,2 @@
+PASS HOUSE exit=0 elapsed_ms=695.0 deadline_s=30
+LEGS-RUN total=1 pass=1 fail=0

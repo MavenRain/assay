@@ -55,8 +55,10 @@ updates the pinned compiler and its JavaScript effect registration boundary.
 The [M2 ABI gate](dev/M2-ABI-GOLDENS.md) compares the complete source ERC20 ABI
 with its pinned golden and checks negative Lean witnesses and proof erasure.
 The [M2 reconciliation](dev/M2-RECONCILE.md) audits budgets, provenance,
-coverage and documents against the code. M2 stays open until the group 9
-closure battery passes on the final source hashes.
+coverage and documents against the code. M2 remains open pending a passing
+cumulative battery on the final source hashes. The
+[M2 closure](dev/M2-CLOSE.md) records the group 9 closure battery
+attempt and subsequent focused reruns.
 Milestone work proceeds through the [grouped M2, M3 and M4 plan](dev/MILESTONE-GROUPS.md),
 with at most ten implementation turns allocated to each milestone. The compiler speed gate now
 belongs to [M4](dev/M4-SPEED.md), as requested on 2026-10-01, with the same
@@ -372,8 +374,9 @@ Stage E checks Word unboxing and closure-free storage before assembly.
 The M0 source fixture emits the exact committed reference bytes. Its ABI is
 empty, and its layout declares one full-word slot.  The carried proof seed
 is hash-pinned and retains its original fidelity statement.
-The [frozen corpus](corpus/README.md) has eight contracts and three
-structural proof variants.  `zsh -f dev/ratio.sh` verifies and reports the
+The [frozen corpus](corpus/README.md) has eight contracts, three
+structural proof variants and one untimed M2 ERC-20 contract.
+`zsh -f dev/ratio.sh` verifies and reports the
 frozen wall-time measurements.  The ratio is informational at M0.
 
 The gate battery checks the build, complete inherited kernel suite,
@@ -398,7 +401,7 @@ It also rejects 32 corrupt execution captures and eight damaged fixtures,
 then requires restored controls to pass.  Gas use and code sizes are reported.
 Stage E adds source execution, emitted creation, recognizer mutations,
 canonical JSON equality and the carried seed's 42 axiom reports.
-Stage F adds execution and creation for all eleven corpus files, exact
+Stage F adds execution and creation for all twelve corpus files, exact
 five-file hashes, proof-shape byte equality, the frozen ratio report and
 seven rejection witnesses.  The M0 trace row verifies all five outputs.
 The trace driver also has 20 cases for calldata, path handling, tool
@@ -408,14 +411,14 @@ The trace-caller gate adds 45 execution comparisons, two funding faults
 and 31 input refusals, including caller operands and access-check rollback.
 The differential-caller gate adds 45 signed execution comparisons, four
 funding or nonce refusals, 33 input refusals and five adapter refusals.
-The executor gate adds 20 live cases, 28 driver cases and 24 rejection
+The executor gate adds 21 live cases, 28 driver cases and 24 rejection
 witnesses. The counter reference adds 30 cases, two constructor probes,
 eight bytecode mutations and five call-value refusals. Every runtime
 instruction is exercised. The core emitter adds 30 source/reference
 comparisons on both executor paths, eight general source cases, eleven
 refusals and eight compiler mutations with restored controls.
 The source model adds 30 counter comparisons against both executors and
-the reference, ten extra cases, all eleven M0 corpus programs, driver
+the reference, ten extra cases, all twelve corpus programs, driver
 and source refusals, and eight mutations with restored controls.
 The surface counter has exact five-file equality with the core source.
 Its gate adds 30 counter rows, 14 additional execution cases, 36 refusals

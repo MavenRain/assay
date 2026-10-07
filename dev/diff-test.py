@@ -61,7 +61,7 @@ def live():
                            capture_output=True, text=True, timeout=30)
             report, evidence = DIFF.execute((output / 'runtime.hex').read_text().strip(), '00ff', BASE, evm)
             receipts.append(dict(name=str(source.relative_to(ROOT)), report=report, evidence=evidence))
-    require(len(receipts) == 20, 'DIFF-LIVE corpus inventory')
+    require(len(receipts) == 21, 'DIFF-LIVE corpus inventory')
     return receipts
 
 

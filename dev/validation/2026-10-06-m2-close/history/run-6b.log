@@ -1,0 +1,6 @@
+PASS INFERRED-BINDINGS exit=0 elapsed_ms=334205.5 deadline_s=1800
+PASS INFERRED-GUARD-BINDINGS exit=0 elapsed_ms=319561.6 deadline_s=1800
+PASS EVM-CONTEXT exit=0 elapsed_ms=123826.9 deadline_s=600
+PASS SURFACE-CONTEXT exit=0 elapsed_ms=133071.7 deadline_s=600
+PASS WORD-EQUALITY exit=0 elapsed_ms=101143.1 deadline_s=600
+LEGS-RUN total=5 pass=5 fail=0

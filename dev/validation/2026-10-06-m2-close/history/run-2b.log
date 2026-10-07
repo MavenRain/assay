@@ -1,0 +1,14 @@
+PASS SUITE-KERNEL exit=0 elapsed_ms=10526.3 deadline_s=300
+PASS SUITE-SURFACE exit=0 elapsed_ms=198.1 deadline_s=60
+PASS EMIT-CONSTRUCTORS exit=0 elapsed_ms=104.5 deadline_s=30
+PASS M2-RECONCILE exit=0 elapsed_ms=123.9 deadline_s=60
+PASS FALLBACK exit=0 elapsed_ms=144799.6 deadline_s=600
+PASS NULLARY-ENTRIES exit=0 elapsed_ms=63136.4 deadline_s=600
+PASS RETURN-ABI exit=0 elapsed_ms=70393.5 deadline_s=900
+PASS FUNCTION-ABI exit=0 elapsed_ms=39874.6 deadline_s=600
+PASS TRACE-VALUE exit=0 elapsed_ms=33063.2 deadline_s=180
+PASS DIFF-VALUE exit=0 elapsed_ms=29713.5 deadline_s=180
+PASS SOURCE-EVENTS exit=0 elapsed_ms=64532.3 deadline_s=900
+PASS ERC20-SOURCE exit=0 elapsed_ms=90815.9 deadline_s=900
+PASS M2-ABI exit=0 elapsed_ms=43159.6 deadline_s=600
+LEGS-RUN total=13 pass=13 fail=0

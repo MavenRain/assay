@@ -1,0 +1,7 @@
+PASS MAPPING-CLI exit=0 elapsed_ms=70563.8 deadline_s=600
+PASS EVENT-CLI exit=0 elapsed_ms=54099.3 deadline_s=600
+PASS EVENT-DECODE-CLI exit=0 elapsed_ms=76470.2 deadline_s=600
+PASS CALLDATA-CLI exit=0 elapsed_ms=78809.2 deadline_s=600
+PASS RETURNDATA-CLI exit=0 elapsed_ms=72060.3 deadline_s=600
+PASS MAPPING-SOURCE exit=0 elapsed_ms=22316.4 deadline_s=600
+LEGS-RUN total=6 pass=6 fail=0

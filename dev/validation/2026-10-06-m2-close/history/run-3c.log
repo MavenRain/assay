@@ -1,0 +1,2 @@
+PASS LEXER-DIRECT exit=0 elapsed_ms=185950.2 deadline_s=600
+LEGS-RUN total=1 pass=1 fail=0

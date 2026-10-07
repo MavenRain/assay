@@ -1,0 +1,18 @@
+{
+ "command": [
+  "python3",
+  "-P",
+  "/Users/oobi/Documents/assay-m2-close-build/legs.py",
+  "/Users/oobi/Documents/assay-m2-close-build/logs/run-6a-legs",
+  "PAYABLE",
+  "CALLVALUE",
+  "ADDRESS"
+ ],
+ "exit": 0,
+ "secs": 3671.5,
+ "limit_mb": 4096.0,
+ "peak_process_mb": 1769,
+ "peak_tree_mb": 1907,
+ "samples": 1827,
+ "killed": null
+}

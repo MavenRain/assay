@@ -55,6 +55,28 @@ PINS = {
     'Cli.Packed.Program': '4427c16a4382ce33da4a57ce90385aaf8054a8b6302cceaa3fcd4d7f2bad150b',
     'Cli.Packed.read_file': '1b90db3a796bd272a2896d868f070a805b4f014c729b8a60f3af61457ff698e3',
     'Contract.add_name': 'b0f9bc50ed5b13e863d6d663173672aa5c204e69bb5ecf0b66046c5a475cdd98',
+    # M2 R1 (fa19053) words deferred-construct refusals as deferred, not as a
+    # milestone. a5d5cfe adds the refined Word protocol to the emitter protocol
+    # chain. 092fa7a also words Check.string_word and Emit.error. The BASE
+    # bodies replace these bodies, so Recognize.refined and
+    # Recognize.refined_word are not reachable in the pinned bundle.
+    # refined-word-test.py and the negative goldens check the new behavior.
+    'Check.string_word': 'c67802dc8da66d34e588ac30bff6460f5e174528c2d5e9135c3aacf81971fe71',
+    'Positivity.nonpositive_word': 'd993f6746697779c1c3f9fcdc19ab910ac047d3b0a62f59056093f6a7cef4f73',
+    'Rules.auto_word': '84cabf006b79fd6031d0f54c9f9fbbd61a502c2d9a70e21193f710fbf6a3f440',
+    'Rules.mu_ran_word': 'e4f2fc83c22f9d76ff4ca6d6dd41ea82356324ae6f39f14f2882dfba7477fc38',
+    'Rules.snu_word': 'ec3bbabb4fe243e8afb5c9b72d86abcdd8294d1a15c343397f24135933997a46',
+    'Rules.spar_word': 'd45847235f6cf27f609448a32931a04ad240063c926af5a4518f75b0766eeffd',
+    'Parser.parse_atom_head': '81602e715b68ee6bae87e3fc6bcf5c8c3bc3e57dec60c19761c9ea55b77dcf26',
+    'Parser.parse_decl': 'f634d89d1e961f2518e89af6e7cfcf21b8c21713d831b486952829ba5e39d8c2',
+    'Emit.error': '09f44aac8b5ef05b166e8f9af28813d039b5317c82313e8270f8a6961bd52f32',
+    'Contract.generate': '98e69b7a73e28ada3fa3220b37c275793e985ee53a4968c51967fe7f7d471628',
+    'Recognize.base_protocol': 'edaad2db8f54d88838078fb263f26acc90fda65284697adefe9da71c482ae513',
+    'Recognize.schema': '4b55333d349a406a03106fea2cbdc557ba2310f9cca78629515ac07dae9e7df4',
+    'Recognize.protocol': '6e7d93cc15f8a67f5d3a2a4456e873327ea8251c8aa9d70382c095ffc968d5b2',
+    'Recognize.proof_protocol': 'b85e49715968750b91db6d9b4637d670e4ee8b045c4e2eab2b96a9b620cb4f29',
+    'Recognize.m1_protocol_for': '1f3743b19b9819474c0b242b2bb7493fbc6d16ee861afacb31ca9f3f2b996182',
+    'Recognize.m1_schema': 'c9a22eee9a5271aa07a6a88c2a40a94206419e1456a65c9b71393a3958706bfc',
 }
 # These helpers were introduced by source packing. Older baselines can lack
 # them, but their current bodies remain pinned and any reachable addition

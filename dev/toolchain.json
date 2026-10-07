@@ -7,5 +7,5 @@
   "backend": "javascript",
   "runtime": "node",
   "node_minimum_major": 22,
-  "stack_kib": 65500
+  "stack_kib": 131072
 }

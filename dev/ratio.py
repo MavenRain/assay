@@ -108,7 +108,7 @@ def measure(root, target, milestone='M0'):
                             else:
                                 data.require(native_outputs[row['path']] == identity, 'RATIO-BEND-OUTPUT')
                         else:
-                            data.require('All terms check' in output, 'RATIO-BEND-CHECK')
+                            data.require('ALL PROOFS CHECK' in output, 'RATIO-BEND-CHECK')
                 elif name == 'fixed':
                     argv = [str(binary), 'spec-count']
                     begin = time.perf_counter_ns()

@@ -25,16 +25,16 @@
     "src/cli.bend": "9c8da055dbb6ae53e8f8ebcc33816cc1f89fb28af0c085eda35329414563c087",
     "src/emitter.bend": "0936d4e0dfd886f1e7b8c7bfe2a56d42cdbdb0b3d87972489a31414be2724aad",
     "src/event_source.bend": "fd682f7d0ace1d821e23dcaab28d33329fb8358781ae424b329bb218c0be4315",
-    "src/frontend.bend": "7bcb408f545a141506a40daef9bdfe45f468e7f769bd69fbc7b89ad387be396c",
+    "src/frontend.bend": "8275a001e9ccffdc98771f13bfc59b1a2da4bb0e89db4eff0d948e440087e1d9",
     "src/function_abi.bend": "4b7261bed78e3da463a02f7987a1976c52cdfdc74f8e8cb60d57fa4b2a4899b7",
     "src/keccak.bend": "cbfb3275116d3703a803181ceeafe8dc3e74d53f21cb9a539f29c28c5bc8e98a",
     "src/kernel.bend": "b304a849dab51b0936848b82b93851843f7f644b85cc60774a8789f96ac04082",
     "src/layout.bend": "e3081d285ac1a4bfcad28347db772442d4d86a0c430596737ce27f48d0dd2017",
     "src/listing.bend": "697b9869205fc92f12b6a50fd4e82c6875440e677f01a06eecf83cb2982934ab",
     "src/os.js": "77d8c495a6ddf6d9cfc3060ef4ca95869b70b8e4dfd867fbc9efcfd57fb8c4ae",
-    "src/return_abi.bend": "fdf4b8f6e3e8bcab56847a12db029d3c9c4c30b93b38e6b21c62b6b0360070d1",
+    "src/return_abi.bend": "d303a03fc7f042e45b8dc346aef3cbac1fcb4db1a3d48f5909e68e955db8cfa8",
     "src/test-os.js": "7a3604ea52e847ae3ed2054859a9746ac975b5db7f5665a355d041dd0f143ce0",
-    "src/tests.bend": "0031ed0cf1c9daacf26ccb78f1206aa12111f3bc2a2773b9aa5ca1a59061b739",
+    "src/tests.bend": "2cab934de473dfd56a227df4424dd50a5975b2d941b89c3f16d220d4fea3391a",
     "src/string_literal.bend": "4164236222f4d22a68beca23d8fd42371fe75b115c3e239577e6af8903b2723e"
   }
 }

@@ -13,6 +13,7 @@ import sys
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from bend_source import declarations
+from carried_text import rewrite
 from cli_delta import SHA256 as CLI_DELTA_SHA256, cli_sources, source_records
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -50,7 +51,7 @@ def main():
     require(current['stage'] == 'LEXER-DIRECT', 'STAGE')
     require(current['legs'][:-7] == previous['legs'], 'PRIOR-LEGS')
     require(current['legs'][-7] == ('LEXER-DIRECT', 600, ('python3', '-P', 'dev/lexer-direct-test.py'),
-            'LEXER-DIRECT cases=287 golden=4 mutants=3 rounds=5 OK', True), 'NEW-LEG')
+            'LEXER-DIRECT cases=288 golden=4 mutants=3 rounds=5 OK', True), 'NEW-LEG')
     require(current['legs'][-6] == ('IDENTIFIER-DIRECT', 600,
             ('python3', '-P', 'dev/identifier-direct-test.py'),
             'IDENTIFIER-DIRECT cases=1043 golden=1043 mutants=2 OK', True), 'IDENTIFIER-LEG')
@@ -69,8 +70,12 @@ def main():
     require(current['legs'][-1] == ('CLI-ERROR-DIRECT', 600,
             ('python3', '-P', 'dev/cli-error-direct-test.py'),
             'CLI-ERROR-DIRECT cases=519 golden=519 mutants=5 OK', True), 'CLI-ERROR-LEG')
-    for path in ('src/abi.bend', 'src/tests.bend'):
-        require((ROOT / path).read_text() == old(path), 'UNCHANGED ' + path)
+    require((ROOT / 'src/abi.bend').read_text() == old('src/abi.bend'), 'UNCHANGED src/abi.bend')
+    # Later commits rewrote some carried test lines, and D2 appends tests.
+    # The check applies those rewrites to the BASE text and then asks for a prefix.
+    carried = rewrite(old('src/tests.bend'))
+    require(carried is not None and (ROOT / 'src/tests.bend').read_text().startswith(carried),
+            'PREFIX src/tests.bend')
     require((ROOT / 'dev/bend_source.py').read_text() == old('dev/bend_source.py'), 'BUNDLER')
     records = source_records(ROOT, BASE)
     sources = cli_sources(records)

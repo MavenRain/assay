@@ -1,0 +1,6 @@
+PASS CALLDATASIZE exit=0 elapsed_ms=442192.7 deadline_s=1860
+PASS CALLDATALOAD exit=0 elapsed_ms=928703.2 deadline_s=1860
+FAIL ADDRESS exit=1 elapsed_ms=850229.9 deadline_s=1860
+ADDRESS FAIL ADDRESS-INPUT 0
+
+LEGS-RUN total=3 pass=2 fail=1

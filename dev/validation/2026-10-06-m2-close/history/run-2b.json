@@ -1,0 +1,28 @@
+{
+ "command": [
+  "python3",
+  "-P",
+  "/Users/oobi/Documents/assay-m2-close-build/legs.py",
+  "/Users/oobi/Documents/assay-m2-close-build/logs/run-2b-legs",
+  "SUITE-KERNEL",
+  "SUITE-SURFACE",
+  "EMIT-CONSTRUCTORS",
+  "M2-RECONCILE",
+  "FALLBACK",
+  "NULLARY-ENTRIES",
+  "RETURN-ABI",
+  "FUNCTION-ABI",
+  "TRACE-VALUE",
+  "DIFF-VALUE",
+  "SOURCE-EVENTS",
+  "ERC20-SOURCE",
+  "M2-ABI"
+ ],
+ "exit": 0,
+ "secs": 591.3,
+ "limit_mb": 4096.0,
+ "peak_process_mb": 1820,
+ "peak_tree_mb": 2001,
+ "samples": 295,
+ "killed": null
+}

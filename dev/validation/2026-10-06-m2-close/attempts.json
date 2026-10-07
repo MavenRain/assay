@@ -1,0 +1,3836 @@
+[
+  {
+    "run": "battery-1",
+    "name": "BUILD",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 2497.4,
+    "deadline_s": 120,
+    "passed": true
+  },
+  {
+    "run": "battery-1",
+    "name": "PIN-CARRY",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 319.7,
+    "deadline_s": 30,
+    "passed": true
+  },
+  {
+    "run": "battery-1",
+    "name": "R0-COUNT",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 521.3,
+    "deadline_s": 10,
+    "passed": true
+  },
+  {
+    "run": "battery-1",
+    "name": "R0-AUDIT",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 245.6,
+    "deadline_s": 10,
+    "passed": true
+  },
+  {
+    "run": "battery-1",
+    "name": "HOUSE",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 2802.6,
+    "deadline_s": 30,
+    "passed": true
+  },
+  {
+    "run": "battery-1",
+    "name": "NATIVE-MAPS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 1555.1,
+    "deadline_s": 180,
+    "passed": true
+  },
+  {
+    "run": "battery-1",
+    "name": "NATIVE-IO",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 3278.9,
+    "deadline_s": 180,
+    "passed": true
+  },
+  {
+    "run": "battery-1",
+    "name": "TRUSTED-LINES",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 277.5,
+    "deadline_s": 10,
+    "passed": true
+  },
+  {
+    "run": "battery-1",
+    "name": "SUITE-KERNEL",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 13766.5,
+    "deadline_s": 300,
+    "passed": true
+  },
+  {
+    "run": "battery-1",
+    "name": "SUITE-SURFACE",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 306.2,
+    "deadline_s": 60,
+    "passed": true
+  },
+  {
+    "run": "battery-1",
+    "name": "DRIVER",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 7163.6,
+    "deadline_s": 30,
+    "passed": true
+  },
+  {
+    "run": "battery-1",
+    "name": "MUTANTS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 14985.6,
+    "deadline_s": 300,
+    "passed": true
+  },
+  {
+    "run": "battery-1",
+    "name": "DENOMINATORS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 128.0,
+    "deadline_s": 10,
+    "passed": true
+  },
+  {
+    "run": "battery-1",
+    "name": "KECCAK-VEC",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 7191.4,
+    "deadline_s": 120,
+    "passed": true
+  },
+  {
+    "run": "battery-1",
+    "name": "KECCAK-MUTANTS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 45046.1,
+    "deadline_s": 660,
+    "passed": true
+  },
+  {
+    "run": "battery-1",
+    "name": "STACK-HEIGHT",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 16497.4,
+    "deadline_s": 780,
+    "passed": true
+  },
+  {
+    "run": "battery-1",
+    "name": "DISASM-3WAY",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 6876.5,
+    "deadline_s": 120,
+    "passed": true
+  },
+  {
+    "run": "battery-1",
+    "name": "ASM-MUTANTS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 70239.7,
+    "deadline_s": 1860,
+    "passed": true
+  },
+  {
+    "run": "battery-1",
+    "name": "FORK-DRIFT",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 443.3,
+    "deadline_s": 120,
+    "passed": true
+  },
+  {
+    "run": "battery-1",
+    "name": "M0-TRACE",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 546.5,
+    "deadline_s": 120,
+    "passed": true
+  },
+  {
+    "run": "battery-1",
+    "name": "CREATE-EQ",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 633.7,
+    "deadline_s": 120,
+    "passed": true
+  },
+  {
+    "run": "battery-1",
+    "name": "REFERENCE-CHECKS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 945.0,
+    "deadline_s": 180,
+    "passed": true
+  },
+  {
+    "run": "battery-1",
+    "name": "REFERENCE-MUTANTS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 5436.7,
+    "deadline_s": 1200,
+    "passed": true
+  },
+  {
+    "run": "battery-1",
+    "name": "EMIT-CONSTRUCTORS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 167.1,
+    "deadline_s": 30,
+    "passed": true
+  },
+  {
+    "run": "battery-1",
+    "name": "WORD-UNBOX",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 119.1,
+    "deadline_s": 30,
+    "passed": true
+  },
+  {
+    "run": "battery-1",
+    "name": "STORAGE-NOCLOS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 115.2,
+    "deadline_s": 30,
+    "passed": true
+  },
+  {
+    "run": "battery-1",
+    "name": "ABI-GOLD",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 987.6,
+    "deadline_s": 60,
+    "passed": true
+  },
+  {
+    "run": "battery-1",
+    "name": "EMITTED-TRACE",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 853.2,
+    "deadline_s": 120,
+    "passed": true
+  },
+  {
+    "run": "battery-1",
+    "name": "EMIT-SOURCES",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 11980.1,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-1",
+    "name": "EMIT-MUTANTS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 73865.6,
+    "deadline_s": 1200,
+    "passed": true
+  },
+  {
+    "run": "battery-1",
+    "name": "AXIOMS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 7580.0,
+    "deadline_s": 480,
+    "passed": true
+  },
+  {
+    "run": "battery-1",
+    "name": "TRACE-DRIVER",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 7661.0,
+    "deadline_s": 120,
+    "passed": true
+  },
+  {
+    "run": "battery-1",
+    "name": "CORPUS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 7016.7,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-1",
+    "name": "ERASED-BYTES",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 2268.1,
+    "deadline_s": 120,
+    "passed": true
+  },
+  {
+    "run": "battery-1",
+    "name": "M0-RATIO",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 569.8,
+    "deadline_s": 60,
+    "passed": true
+  },
+  {
+    "run": "battery-1",
+    "name": "F-MUTANTS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 1313.4,
+    "deadline_s": 180,
+    "passed": true
+  },
+  {
+    "run": "battery-1",
+    "name": "DIFF-EXECUTOR",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 18296.4,
+    "deadline_s": 180,
+    "passed": true
+  },
+  {
+    "run": "battery-1",
+    "name": "COUNTER-REFERENCE",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 4824.0,
+    "deadline_s": 300,
+    "passed": true
+  },
+  {
+    "run": "battery-1",
+    "name": "M1-EMISSION",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 205554.4,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-1",
+    "name": "SOURCE-MODEL",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 131758.8,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-1",
+    "name": "CONTRACT-SURFACE",
+    "kind": "FAIL",
+    "exit": 1,
+    "elapsed_ms": 47222.3,
+    "deadline_s": 600,
+    "passed": false
+  },
+  {
+    "run": "battery-1",
+    "name": "CONTRACT-ROUTE",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 1299.0,
+    "deadline_s": 90,
+    "passed": true
+  },
+  {
+    "run": "battery-1",
+    "name": "SOURCE-PROOFS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 135712.0,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-1",
+    "name": "NULLARY-ENTRIES",
+    "kind": "FAIL",
+    "exit": 1,
+    "elapsed_ms": 36434.9,
+    "deadline_s": 600,
+    "passed": false
+  },
+  {
+    "run": "battery-1",
+    "name": "CUSTOM-ERRORS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 107854.0,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-1",
+    "name": "PROOF-GUARDS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 123791.6,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-1",
+    "name": "PROOF-TERMS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 127037.0,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-1",
+    "name": "INVARIANTS",
+    "kind": "FAIL",
+    "exit": 1,
+    "elapsed_ms": 76410.9,
+    "deadline_s": 600,
+    "passed": false
+  },
+  {
+    "run": "battery-1",
+    "name": "PROOF-HELPERS",
+    "kind": "FAIL",
+    "exit": 1,
+    "elapsed_ms": 106571.7,
+    "deadline_s": 600,
+    "passed": false
+  },
+  {
+    "run": "battery-1",
+    "name": "PROOF-BUNDLES",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 184658.7,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-1",
+    "name": "PREDICATES",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 131895.9,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-1",
+    "name": "COMPOUND-INVARIANTS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 108252.3,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-1",
+    "name": "COMPOUND-GUARDS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 154189.5,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-1",
+    "name": "NAMED-GUARDS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 161485.5,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-1",
+    "name": "INFERRED-GUARDS",
+    "kind": "FAIL",
+    "exit": 1,
+    "elapsed_ms": 163666.9,
+    "deadline_s": 600,
+    "passed": false
+  },
+  {
+    "run": "battery-1",
+    "name": "INFERRED-ARITHMETIC",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 202131.4,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-1",
+    "name": "INFERRED-HELPERS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 363815.8,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-1",
+    "name": "PROOF-HOLES",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 288129.0,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-1",
+    "name": "INFERRED-BINDINGS",
+    "kind": "FAIL",
+    "exit": 1,
+    "elapsed_ms": 259695.6,
+    "deadline_s": 600,
+    "passed": false
+  },
+  {
+    "run": "battery-1",
+    "name": "INFERRED-GUARD-BINDINGS",
+    "kind": "FAIL",
+    "exit": 1,
+    "elapsed_ms": 217197.3,
+    "deadline_s": 600,
+    "passed": false
+  },
+  {
+    "run": "battery-1",
+    "name": "EVM-CONTEXT",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 173219.2,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-1",
+    "name": "SURFACE-CONTEXT",
+    "kind": "FAIL",
+    "exit": 1,
+    "elapsed_ms": 164432.8,
+    "deadline_s": 600,
+    "passed": false
+  },
+  {
+    "run": "battery-1",
+    "name": "WORD-EQUALITY",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 139562.9,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-1",
+    "name": "HEX-LITERALS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 157632.0,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-1",
+    "name": "INFERRED-WORDS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 164647.5,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-1",
+    "name": "FALLBACK",
+    "kind": "FAIL",
+    "exit": 1,
+    "elapsed_ms": 46411.9,
+    "deadline_s": 600,
+    "passed": false
+  },
+  {
+    "run": "battery-1",
+    "name": "DIFF-VALUE",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 36491.5,
+    "deadline_s": 180,
+    "passed": true
+  },
+  {
+    "run": "battery-1",
+    "name": "TRACE-VALUE",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 32652.6,
+    "deadline_s": 180,
+    "passed": true
+  },
+  {
+    "run": "battery-1",
+    "name": "TRACE-CALLER",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 60604.5,
+    "deadline_s": 480,
+    "passed": true
+  },
+  {
+    "run": "battery-1",
+    "name": "DIFF-CALLER",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 69438.2,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-1",
+    "name": "PAYABLE",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 174741.8,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-1",
+    "name": "CALLVALUE",
+    "kind": "FAIL",
+    "exit": 1,
+    "elapsed_ms": 414045.3,
+    "deadline_s": 780,
+    "passed": false
+  },
+  {
+    "run": "battery-1",
+    "name": "CALLDATASIZE",
+    "kind": "FAIL",
+    "exit": 1,
+    "elapsed_ms": 1022444.1,
+    "deadline_s": 1860,
+    "passed": false
+  },
+  {
+    "run": "battery-1",
+    "name": "CALLDATALOAD",
+    "kind": "FAIL",
+    "exit": 1,
+    "elapsed_ms": 477202.8,
+    "deadline_s": 1860,
+    "passed": false
+  },
+  {
+    "run": "battery-1",
+    "name": "ADDRESS",
+    "kind": "FAIL",
+    "exit": 1,
+    "elapsed_ms": 62880.5,
+    "deadline_s": 1860,
+    "passed": false
+  },
+  {
+    "run": "battery-1",
+    "name": "ERC20-REFERENCE",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 194224.2,
+    "deadline_s": 300,
+    "passed": true
+  },
+  {
+    "run": "battery-1b",
+    "name": "ABI-SCHEMA",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 44321.0,
+    "deadline_s": 300,
+    "passed": true
+  },
+  {
+    "run": "battery-1b",
+    "name": "ABI-CODEC",
+    "kind": "FAIL",
+    "exit": 1,
+    "elapsed_ms": 300080.7,
+    "deadline_s": 300,
+    "passed": false
+  },
+  {
+    "run": "battery-1b",
+    "name": "ABI-CODEC",
+    "kind": "LEG-TIMEOUT",
+    "exit": null,
+    "elapsed_ms": 300073.0,
+    "deadline_s": 300,
+    "passed": false
+  },
+  {
+    "run": "battery-1b",
+    "name": "LAYOUT-PACKED",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 106003.8,
+    "deadline_s": 300,
+    "passed": true
+  },
+  {
+    "run": "battery-1b",
+    "name": "LAYOUT-MAPPING",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 89244.2,
+    "deadline_s": 300,
+    "passed": true
+  },
+  {
+    "run": "battery-1b",
+    "name": "EVENT-CODEC",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 81884.4,
+    "deadline_s": 300,
+    "passed": true
+  },
+  {
+    "run": "battery-1b",
+    "name": "CALL-CODEC",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 52532.0,
+    "deadline_s": 300,
+    "passed": true
+  },
+  {
+    "run": "battery-1b",
+    "name": "RETURN-CODEC",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 85593.0,
+    "deadline_s": 300,
+    "passed": true
+  },
+  {
+    "run": "battery-1b",
+    "name": "REVERT-CODEC",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 97572.9,
+    "deadline_s": 300,
+    "passed": true
+  },
+  {
+    "run": "battery-1b",
+    "name": "EVENT-DECODE",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 41409.8,
+    "deadline_s": 300,
+    "passed": true
+  },
+  {
+    "run": "battery-1b",
+    "name": "LEXER-KEYWORDS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 1775.6,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-1b",
+    "name": "LEXER-DIRECT",
+    "kind": "FAIL",
+    "exit": 1,
+    "elapsed_ms": 295.9,
+    "deadline_s": 600,
+    "passed": false
+  },
+  {
+    "run": "battery-1b",
+    "name": "IDENTIFIER-DIRECT",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 2392.7,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-1b",
+    "name": "WORD-DIRECT",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 8371.7,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-1b",
+    "name": "SEGMENT-DIRECT",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 4610.4,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-1b",
+    "name": "CLI-PREFIX-DIRECT",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 41556.1,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-1b",
+    "name": "CLI-VALUE-DIRECT",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 23246.5,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-1b",
+    "name": "CLI-ERROR-DIRECT",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 8745.3,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-1b",
+    "name": "MAPPING-CLI",
+    "kind": "FAIL",
+    "exit": 1,
+    "elapsed_ms": 1570.1,
+    "deadline_s": 600,
+    "passed": false
+  },
+  {
+    "run": "battery-1b",
+    "name": "EVENT-CLI",
+    "kind": "FAIL",
+    "exit": 1,
+    "elapsed_ms": 1205.1,
+    "deadline_s": 600,
+    "passed": false
+  },
+  {
+    "run": "battery-1b",
+    "name": "EVENT-DECODE-CLI",
+    "kind": "FAIL",
+    "exit": 1,
+    "elapsed_ms": 1077.9,
+    "deadline_s": 600,
+    "passed": false
+  },
+  {
+    "run": "battery-1b",
+    "name": "CALLDATA-CLI",
+    "kind": "FAIL",
+    "exit": 1,
+    "elapsed_ms": 1139.0,
+    "deadline_s": 600,
+    "passed": false
+  },
+  {
+    "run": "battery-1b",
+    "name": "MILESTONE-SPEED",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 710.4,
+    "deadline_s": 60,
+    "passed": true
+  },
+  {
+    "run": "battery-1b",
+    "name": "PACKED-SOURCE",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 251349.8,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-1b",
+    "name": "MAPPING-SOURCE",
+    "kind": "FAIL",
+    "exit": 1,
+    "elapsed_ms": 1091.0,
+    "deadline_s": 600,
+    "passed": false
+  },
+  {
+    "run": "battery-1b",
+    "name": "RETURNDATA-CLI",
+    "kind": "FAIL",
+    "exit": 1,
+    "elapsed_ms": 1768.8,
+    "deadline_s": 600,
+    "passed": false
+  },
+  {
+    "run": "battery-1b",
+    "name": "MAPPING-RUNTIME",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 135307.5,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-1b",
+    "name": "FUNCTION-ABI",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 64104.3,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-1b",
+    "name": "RETURN-ABI",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 130225.8,
+    "deadline_s": 900,
+    "passed": true
+  },
+  {
+    "run": "battery-1b",
+    "name": "SOURCE-EVENTS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 233367.5,
+    "deadline_s": 900,
+    "passed": true
+  },
+  {
+    "run": "battery-1b",
+    "name": "STORAGE-PROOFS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 110639.2,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-1b",
+    "name": "ERC20-SOURCE",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 185305.7,
+    "deadline_s": 900,
+    "passed": true
+  },
+  {
+    "run": "battery-1b",
+    "name": "M2-ABI",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 74064.3,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-1b",
+    "name": "M2-RECONCILE",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 136.3,
+    "deadline_s": 60,
+    "passed": true
+  },
+  {
+    "run": "battery-1b",
+    "name": "REFINED-WORD",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 12504.6,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-1b",
+    "name": "INFERRED-GUARDS",
+    "kind": "FAIL",
+    "exit": 1,
+    "elapsed_ms": 248766.8,
+    "deadline_s": 600,
+    "passed": false
+  },
+  {
+    "run": "battery-1b",
+    "name": "INFERRED-BINDINGS",
+    "kind": "FAIL",
+    "exit": 1,
+    "elapsed_ms": 489776.3,
+    "deadline_s": 600,
+    "passed": false
+  },
+  {
+    "run": "battery-1b",
+    "name": "INFERRED-GUARD-BINDINGS",
+    "kind": "FAIL",
+    "exit": 1,
+    "elapsed_ms": 365632.7,
+    "deadline_s": 600,
+    "passed": false
+  },
+  {
+    "run": "run-2a",
+    "name": "CONTRACT-SURFACE",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 75640.8,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "run-2a",
+    "name": "NULLARY-ENTRIES",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 43374.8,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "run-2a",
+    "name": "INVARIANTS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 94062.9,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "run-2a",
+    "name": "PROOF-HELPERS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 226588.7,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "run-2a",
+    "name": "SURFACE-CONTEXT",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 269085.8,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "run-2a",
+    "name": "CALLVALUE",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 415755.5,
+    "deadline_s": 780,
+    "passed": true
+  },
+  {
+    "run": "run-2b",
+    "name": "SUITE-KERNEL",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 10526.3,
+    "deadline_s": 300,
+    "passed": true
+  },
+  {
+    "run": "run-2b",
+    "name": "SUITE-SURFACE",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 198.1,
+    "deadline_s": 60,
+    "passed": true
+  },
+  {
+    "run": "run-2b",
+    "name": "EMIT-CONSTRUCTORS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 104.5,
+    "deadline_s": 30,
+    "passed": true
+  },
+  {
+    "run": "run-2b",
+    "name": "M2-RECONCILE",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 123.9,
+    "deadline_s": 60,
+    "passed": true
+  },
+  {
+    "run": "run-2b",
+    "name": "FALLBACK",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 144799.6,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "run-2b",
+    "name": "NULLARY-ENTRIES",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 63136.4,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "run-2b",
+    "name": "RETURN-ABI",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 70393.5,
+    "deadline_s": 900,
+    "passed": true
+  },
+  {
+    "run": "run-2b",
+    "name": "FUNCTION-ABI",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 39874.6,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "run-2b",
+    "name": "TRACE-VALUE",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 33063.2,
+    "deadline_s": 180,
+    "passed": true
+  },
+  {
+    "run": "run-2b",
+    "name": "DIFF-VALUE",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 29713.5,
+    "deadline_s": 180,
+    "passed": true
+  },
+  {
+    "run": "run-2b",
+    "name": "SOURCE-EVENTS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 64532.3,
+    "deadline_s": 900,
+    "passed": true
+  },
+  {
+    "run": "run-2b",
+    "name": "ERC20-SOURCE",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 90815.9,
+    "deadline_s": 900,
+    "passed": true
+  },
+  {
+    "run": "run-2b",
+    "name": "M2-ABI",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 43159.6,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "run-3a",
+    "name": "MAPPING-CLI",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 70563.8,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "run-3a",
+    "name": "EVENT-CLI",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 54099.3,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "run-3a",
+    "name": "EVENT-DECODE-CLI",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 76470.2,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "run-3a",
+    "name": "CALLDATA-CLI",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 78809.2,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "run-3a",
+    "name": "RETURNDATA-CLI",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 72060.3,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "run-3a",
+    "name": "MAPPING-SOURCE",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 22316.4,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "run-3b",
+    "name": "LEXER-DIRECT",
+    "kind": "FAIL",
+    "exit": 1,
+    "elapsed_ms": 494.9,
+    "deadline_s": 600,
+    "passed": false
+  },
+  {
+    "run": "run-3b",
+    "name": "INFERRED-GUARDS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 264306.8,
+    "deadline_s": 1800,
+    "passed": true
+  },
+  {
+    "run": "run-3b",
+    "name": "INFERRED-BINDINGS",
+    "kind": "FAIL",
+    "exit": 1,
+    "elapsed_ms": 287409.7,
+    "deadline_s": 1800,
+    "passed": false
+  },
+  {
+    "run": "run-3b",
+    "name": "INFERRED-GUARD-BINDINGS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 430943.9,
+    "deadline_s": 1800,
+    "passed": true
+  },
+  {
+    "run": "run-3c",
+    "name": "LEXER-DIRECT",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 185950.2,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "run-4a",
+    "name": "CALLDATASIZE",
+    "kind": "FAIL",
+    "exit": 1,
+    "elapsed_ms": 999116.5,
+    "deadline_s": 1860,
+    "passed": false
+  },
+  {
+    "run": "run-4a",
+    "name": "CALLDATALOAD",
+    "kind": "FAIL",
+    "exit": 1,
+    "elapsed_ms": 1000765.8,
+    "deadline_s": 1860,
+    "passed": false
+  },
+  {
+    "run": "run-4a",
+    "name": "ADDRESS",
+    "kind": "FAIL",
+    "exit": 1,
+    "elapsed_ms": 862765.0,
+    "deadline_s": 1860,
+    "passed": false
+  },
+  {
+    "run": "run-4a",
+    "name": "ABI-CODEC",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 106322.6,
+    "deadline_s": 300,
+    "passed": true
+  },
+  {
+    "run": "run-4b",
+    "name": "DENOMINATORS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 120.8,
+    "deadline_s": 10,
+    "passed": true
+  },
+  {
+    "run": "run-4b",
+    "name": "M2-RECONCILE",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 77.8,
+    "deadline_s": 60,
+    "passed": true
+  },
+  {
+    "run": "run-4b",
+    "name": "MILESTONE-SPEED",
+    "kind": "FAIL",
+    "exit": 1,
+    "elapsed_ms": 114.1,
+    "deadline_s": 60,
+    "passed": false
+  },
+  {
+    "run": "run-4b",
+    "name": "LEXER-DIRECT",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 15795.2,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "run-4b",
+    "name": "CORPUS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 3988.4,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "run-4b",
+    "name": "ERASED-BYTES",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 874.1,
+    "deadline_s": 120,
+    "passed": true
+  },
+  {
+    "run": "run-4b",
+    "name": "M0-RATIO",
+    "kind": "FAIL",
+    "exit": 1,
+    "elapsed_ms": 165.7,
+    "deadline_s": 60,
+    "passed": false
+  },
+  {
+    "run": "run-4b",
+    "name": "M0-TRACE",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 240.5,
+    "deadline_s": 120,
+    "passed": true
+  },
+  {
+    "run": "run-4b",
+    "name": "CREATE-EQ",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 290.0,
+    "deadline_s": 120,
+    "passed": true
+  },
+  {
+    "run": "run-4b",
+    "name": "DIFF-EXECUTOR",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 9103.8,
+    "deadline_s": 180,
+    "passed": true
+  },
+  {
+    "run": "run-4b",
+    "name": "SOURCE-MODEL",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 73760.3,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "run-4b",
+    "name": "REFERENCE-CHECKS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 538.5,
+    "deadline_s": 180,
+    "passed": true
+  },
+  {
+    "run": "run-4b",
+    "name": "F-MUTANTS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 496.6,
+    "deadline_s": 180,
+    "passed": true
+  },
+  {
+    "run": "run-4b",
+    "name": "REFERENCE-MUTANTS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 2655.7,
+    "deadline_s": 1200,
+    "passed": true
+  },
+  {
+    "run": "run-4c",
+    "name": "CALLDATASIZE",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 442192.7,
+    "deadline_s": 1860,
+    "passed": true
+  },
+  {
+    "run": "run-4c",
+    "name": "CALLDATALOAD",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 928703.2,
+    "deadline_s": 1860,
+    "passed": true
+  },
+  {
+    "run": "run-4c",
+    "name": "ADDRESS",
+    "kind": "FAIL",
+    "exit": 1,
+    "elapsed_ms": 850229.9,
+    "deadline_s": 1860,
+    "passed": false
+  },
+  {
+    "run": "run-5a",
+    "name": "DENOMINATORS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 118.8,
+    "deadline_s": 10,
+    "passed": true
+  },
+  {
+    "run": "run-5a",
+    "name": "MILESTONE-SPEED",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 206.7,
+    "deadline_s": 60,
+    "passed": true
+  },
+  {
+    "run": "run-5a",
+    "name": "M0-RATIO",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 110.6,
+    "deadline_s": 60,
+    "passed": true
+  },
+  {
+    "run": "run-5a",
+    "name": "M2-RECONCILE",
+    "kind": "FAIL",
+    "exit": 1,
+    "elapsed_ms": 80.0,
+    "deadline_s": 60,
+    "passed": false
+  },
+  {
+    "run": "run-5a",
+    "name": "ADDRESS",
+    "kind": "FAIL",
+    "exit": 1,
+    "elapsed_ms": 680551.3,
+    "deadline_s": 1860,
+    "passed": false
+  },
+  {
+    "run": "run-5a",
+    "name": "INFERRED-BINDINGS",
+    "kind": "FAIL",
+    "exit": 1,
+    "elapsed_ms": 1206858.4,
+    "deadline_s": 1800,
+    "passed": false
+  },
+  {
+    "run": "run-5d",
+    "name": "M2-RECONCILE",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 123.0,
+    "deadline_s": 60,
+    "passed": true
+  },
+  {
+    "run": "run-5d",
+    "name": "ADDRESS",
+    "kind": "FAIL",
+    "exit": 1,
+    "elapsed_ms": 1860014.2,
+    "deadline_s": 1860,
+    "passed": false
+  },
+  {
+    "run": "run-5d",
+    "name": "ADDRESS",
+    "kind": "LEG-TIMEOUT",
+    "exit": null,
+    "elapsed_ms": 1860013.0,
+    "deadline_s": 1860,
+    "passed": false
+  },
+  {
+    "run": "run-5d",
+    "name": "INFERRED-BINDINGS",
+    "kind": "FAIL",
+    "exit": 1,
+    "elapsed_ms": 556757.3,
+    "deadline_s": 1800,
+    "passed": false
+  },
+  {
+    "run": "run-5e",
+    "name": "MILESTONE-SPEED",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 565.6,
+    "deadline_s": 60,
+    "passed": true
+  },
+  {
+    "run": "run-5e",
+    "name": "M2-RECONCILE",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 237.3,
+    "deadline_s": 60,
+    "passed": true
+  },
+  {
+    "run": "run-5e",
+    "name": "ADDRESS",
+    "kind": "FAIL",
+    "exit": 1,
+    "elapsed_ms": 3602152.5,
+    "deadline_s": 3600,
+    "passed": false
+  },
+  {
+    "run": "run-5e",
+    "name": "ADDRESS",
+    "kind": "LEG-TIMEOUT",
+    "exit": null,
+    "elapsed_ms": 3601729.0,
+    "deadline_s": 3600,
+    "passed": false
+  },
+  {
+    "run": "run-5e",
+    "name": "INFERRED-BINDINGS",
+    "kind": "FAIL",
+    "exit": 1,
+    "elapsed_ms": 41694.6,
+    "deadline_s": 1800,
+    "passed": false
+  },
+  {
+    "run": "run-5f",
+    "name": "ADDRESS",
+    "kind": "FAIL",
+    "exit": 1,
+    "elapsed_ms": 1012312.9,
+    "deadline_s": 3600,
+    "passed": false
+  },
+  {
+    "run": "run-5f",
+    "name": "INFERRED-BINDINGS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 339660.2,
+    "deadline_s": 1800,
+    "passed": true
+  },
+  {
+    "run": "run-5g",
+    "name": "ADDRESS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 1116140.4,
+    "deadline_s": 3600,
+    "passed": true
+  },
+  {
+    "run": "run-5h",
+    "name": "HOUSE",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 695.0,
+    "deadline_s": 30,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "BUILD",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 936.1,
+    "deadline_s": 120,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "PIN-CARRY",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 91.2,
+    "deadline_s": 30,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "R0-COUNT",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 146.7,
+    "deadline_s": 10,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "R0-AUDIT",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 71.7,
+    "deadline_s": 10,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "HOUSE",
+    "kind": "FAIL",
+    "exit": 1,
+    "elapsed_ms": 743.8,
+    "deadline_s": 30,
+    "passed": false
+  },
+  {
+    "run": "battery-2",
+    "name": "NATIVE-MAPS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 397.7,
+    "deadline_s": 180,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "NATIVE-IO",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 1219.8,
+    "deadline_s": 180,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "TRUSTED-LINES",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 127.0,
+    "deadline_s": 10,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "SUITE-KERNEL",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 5616.9,
+    "deadline_s": 300,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "SUITE-SURFACE",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 152.4,
+    "deadline_s": 60,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "DRIVER",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 1958.8,
+    "deadline_s": 30,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "MUTANTS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 7454.0,
+    "deadline_s": 300,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "DENOMINATORS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 90.0,
+    "deadline_s": 10,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "KECCAK-VEC",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 3855.5,
+    "deadline_s": 120,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "KECCAK-MUTANTS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 20245.7,
+    "deadline_s": 660,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "STACK-HEIGHT",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 7623.1,
+    "deadline_s": 780,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "DISASM-3WAY",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 3375.0,
+    "deadline_s": 120,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "ASM-MUTANTS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 30307.4,
+    "deadline_s": 1860,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "FORK-DRIFT",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 231.9,
+    "deadline_s": 120,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "M0-TRACE",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 265.0,
+    "deadline_s": 120,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "CREATE-EQ",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 318.9,
+    "deadline_s": 120,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "REFERENCE-CHECKS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 507.6,
+    "deadline_s": 180,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "REFERENCE-MUTANTS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 2972.6,
+    "deadline_s": 1200,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "EMIT-CONSTRUCTORS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 99.0,
+    "deadline_s": 30,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "WORD-UNBOX",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 70.2,
+    "deadline_s": 30,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "STORAGE-NOCLOS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 68.5,
+    "deadline_s": 30,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "ABI-GOLD",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 545.5,
+    "deadline_s": 60,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "EMITTED-TRACE",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 475.9,
+    "deadline_s": 120,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "EMIT-SOURCES",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 5319.0,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "EMIT-MUTANTS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 35055.6,
+    "deadline_s": 1200,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "AXIOMS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 5225.6,
+    "deadline_s": 480,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "TRACE-DRIVER",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 3165.1,
+    "deadline_s": 120,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "CORPUS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 4571.6,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "ERASED-BYTES",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 946.8,
+    "deadline_s": 120,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "M0-RATIO",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 188.0,
+    "deadline_s": 60,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "F-MUTANTS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 550.8,
+    "deadline_s": 180,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "DIFF-EXECUTOR",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 10120.1,
+    "deadline_s": 180,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "COUNTER-REFERENCE",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 2551.9,
+    "deadline_s": 300,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "M1-EMISSION",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 92721.3,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "SOURCE-MODEL",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 81594.5,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "CONTRACT-SURFACE",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 80227.4,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "CONTRACT-ROUTE",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 925.9,
+    "deadline_s": 90,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "SOURCE-PROOFS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 101228.3,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "NULLARY-ENTRIES",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 43635.0,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "CUSTOM-ERRORS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 81271.4,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "PROOF-GUARDS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 92975.9,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "PROOF-TERMS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 94929.5,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "INVARIANTS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 80267.9,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "PROOF-HELPERS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 107791.8,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "PROOF-BUNDLES",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 155938.1,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "PREDICATES",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 102065.4,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "COMPOUND-INVARIANTS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 82384.0,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "COMPOUND-GUARDS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 111184.9,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "NAMED-GUARDS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 110457.4,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "INFERRED-GUARDS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 208603.7,
+    "deadline_s": 1800,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "INFERRED-ARITHMETIC",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 145258.2,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "INFERRED-HELPERS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 277204.3,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "PROOF-HOLES",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 236551.3,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "INFERRED-BINDINGS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 408351.0,
+    "deadline_s": 1800,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "INFERRED-GUARD-BINDINGS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 376488.6,
+    "deadline_s": 1800,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "EVM-CONTEXT",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 143703.3,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "SURFACE-CONTEXT",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 164813.2,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "WORD-EQUALITY",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 119785.1,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "HEX-LITERALS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 150567.9,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "INFERRED-WORDS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 129956.2,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "FALLBACK",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 144301.2,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "DIFF-VALUE",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 31139.3,
+    "deadline_s": 180,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "TRACE-VALUE",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 33203.7,
+    "deadline_s": 180,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "TRACE-CALLER",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 75274.5,
+    "deadline_s": 480,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "DIFF-CALLER",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 179099.2,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "PAYABLE",
+    "kind": "FAIL",
+    "exit": 1,
+    "elapsed_ms": 600064.9,
+    "deadline_s": 600,
+    "passed": false
+  },
+  {
+    "run": "battery-2",
+    "name": "PAYABLE",
+    "kind": "LEG-TIMEOUT",
+    "exit": null,
+    "elapsed_ms": 600047.0,
+    "deadline_s": 600,
+    "passed": false
+  },
+  {
+    "run": "battery-2",
+    "name": "CALLVALUE",
+    "kind": "FAIL",
+    "exit": 1,
+    "elapsed_ms": 780186.8,
+    "deadline_s": 780,
+    "passed": false
+  },
+  {
+    "run": "battery-2",
+    "name": "CALLVALUE",
+    "kind": "LEG-TIMEOUT",
+    "exit": null,
+    "elapsed_ms": 780137.0,
+    "deadline_s": 780,
+    "passed": false
+  },
+  {
+    "run": "battery-2",
+    "name": "CALLDATASIZE",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 1747946.5,
+    "deadline_s": 1860,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "CALLDATALOAD",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 1599790.3,
+    "deadline_s": 1860,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "ADDRESS",
+    "kind": "FAIL",
+    "exit": 1,
+    "elapsed_ms": 3600027.6,
+    "deadline_s": 3600,
+    "passed": false
+  },
+  {
+    "run": "battery-2",
+    "name": "ADDRESS",
+    "kind": "LEG-TIMEOUT",
+    "exit": null,
+    "elapsed_ms": 3600024.0,
+    "deadline_s": 3600,
+    "passed": false
+  },
+  {
+    "run": "battery-2",
+    "name": "ERC20-REFERENCE",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 9418.2,
+    "deadline_s": 300,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "ABI-SCHEMA",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 14096.3,
+    "deadline_s": 300,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "ABI-CODEC",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 158541.7,
+    "deadline_s": 300,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "LAYOUT-PACKED",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 12181.8,
+    "deadline_s": 300,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "LAYOUT-MAPPING",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 18105.8,
+    "deadline_s": 300,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "EVENT-CODEC",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 36562.5,
+    "deadline_s": 300,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "CALL-CODEC",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 28926.0,
+    "deadline_s": 300,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "RETURN-CODEC",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 35800.0,
+    "deadline_s": 300,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "REVERT-CODEC",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 73482.0,
+    "deadline_s": 300,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "EVENT-DECODE",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 18649.6,
+    "deadline_s": 300,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "LEXER-KEYWORDS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 1620.2,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "LEXER-DIRECT",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 25047.0,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "IDENTIFIER-DIRECT",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 2113.0,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "WORD-DIRECT",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 7066.9,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "SEGMENT-DIRECT",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 6563.0,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "CLI-PREFIX-DIRECT",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 22626.8,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "CLI-VALUE-DIRECT",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 8133.2,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "CLI-ERROR-DIRECT",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 5481.7,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "MAPPING-CLI",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 42284.4,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "EVENT-CLI",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 20205.0,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "EVENT-DECODE-CLI",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 16020.3,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "CALLDATA-CLI",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 32257.5,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "MILESTONE-SPEED",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 210.1,
+    "deadline_s": 60,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "PACKED-SOURCE",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 76777.4,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "MAPPING-SOURCE",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 11502.4,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "RETURNDATA-CLI",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 28432.3,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "MAPPING-RUNTIME",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 78130.4,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "FUNCTION-ABI",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 47590.3,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "RETURN-ABI",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 86142.9,
+    "deadline_s": 900,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "SOURCE-EVENTS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 61241.5,
+    "deadline_s": 900,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "STORAGE-PROOFS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 34231.2,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "ERC20-SOURCE",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 43533.7,
+    "deadline_s": 900,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "M2-ABI",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 33359.8,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "M2-RECONCILE",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 92.6,
+    "deadline_s": 60,
+    "passed": true
+  },
+  {
+    "run": "battery-2",
+    "name": "REFINED-WORD",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 3890.5,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "run-6a",
+    "name": "PAYABLE",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 121208.9,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "run-6a",
+    "name": "CALLVALUE",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 272196.7,
+    "deadline_s": 780,
+    "passed": true
+  },
+  {
+    "run": "run-6a",
+    "name": "ADDRESS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 3276452.4,
+    "deadline_s": 3600,
+    "passed": true
+  },
+  {
+    "run": "run-close-light",
+    "name": "M2-RECONCILE",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 88.6,
+    "deadline_s": 60,
+    "passed": true
+  },
+  {
+    "run": "run-close-light",
+    "name": "DENOMINATORS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 69.7,
+    "deadline_s": 10,
+    "passed": true
+  },
+  {
+    "run": "run-close-light",
+    "name": "HOUSE",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 3132.2,
+    "deadline_s": 30,
+    "passed": true
+  },
+  {
+    "run": "run-close-light",
+    "name": "R0-COUNT",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 175.7,
+    "deadline_s": 10,
+    "passed": true
+  },
+  {
+    "run": "run-close-light",
+    "name": "R0-AUDIT",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 89.8,
+    "deadline_s": 10,
+    "passed": true
+  },
+  {
+    "run": "run-close-light",
+    "name": "TRUSTED-LINES",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 190.3,
+    "deadline_s": 10,
+    "passed": true
+  },
+  {
+    "run": "run-close-light",
+    "name": "PIN-CARRY",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 108.6,
+    "deadline_s": 30,
+    "passed": true
+  },
+  {
+    "run": "run-close-light",
+    "name": "MILESTONE-SPEED",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 443.5,
+    "deadline_s": 60,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "BUILD",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 1679.2,
+    "deadline_s": 120,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "PIN-CARRY",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 136.2,
+    "deadline_s": 30,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "R0-COUNT",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 355.2,
+    "deadline_s": 10,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "R0-AUDIT",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 136.3,
+    "deadline_s": 10,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "HOUSE",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 1260.7,
+    "deadline_s": 30,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "NATIVE-MAPS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 732.5,
+    "deadline_s": 180,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "NATIVE-IO",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 1643.0,
+    "deadline_s": 180,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "TRUSTED-LINES",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 235.5,
+    "deadline_s": 10,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "SUITE-KERNEL",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 15156.1,
+    "deadline_s": 300,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "SUITE-SURFACE",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 341.8,
+    "deadline_s": 60,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "DRIVER",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 7936.8,
+    "deadline_s": 30,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "MUTANTS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 22437.7,
+    "deadline_s": 300,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "DENOMINATORS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 169.1,
+    "deadline_s": 10,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "KECCAK-VEC",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 12317.4,
+    "deadline_s": 120,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "KECCAK-MUTANTS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 67868.9,
+    "deadline_s": 660,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "STACK-HEIGHT",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 22574.5,
+    "deadline_s": 780,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "DISASM-3WAY",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 16070.3,
+    "deadline_s": 120,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "ASM-MUTANTS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 55387.8,
+    "deadline_s": 1860,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "FORK-DRIFT",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 1174.7,
+    "deadline_s": 120,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "M0-TRACE",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 587.6,
+    "deadline_s": 120,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "CREATE-EQ",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 544.0,
+    "deadline_s": 120,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "REFERENCE-CHECKS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 1109.0,
+    "deadline_s": 180,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "REFERENCE-MUTANTS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 5252.1,
+    "deadline_s": 1200,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "EMIT-CONSTRUCTORS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 148.4,
+    "deadline_s": 30,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "WORD-UNBOX",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 119.2,
+    "deadline_s": 30,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "STORAGE-NOCLOS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 104.0,
+    "deadline_s": 30,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "ABI-GOLD",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 1064.6,
+    "deadline_s": 60,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "EMITTED-TRACE",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 1006.0,
+    "deadline_s": 120,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "EMIT-SOURCES",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 12065.0,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "EMIT-MUTANTS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 116751.8,
+    "deadline_s": 1200,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "AXIOMS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 10473.2,
+    "deadline_s": 480,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "TRACE-DRIVER",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 7040.1,
+    "deadline_s": 120,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "CORPUS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 7758.5,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "ERASED-BYTES",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 13554.8,
+    "deadline_s": 120,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "M0-RATIO",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 878.7,
+    "deadline_s": 60,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "F-MUTANTS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 4655.7,
+    "deadline_s": 180,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "DIFF-EXECUTOR",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 35201.6,
+    "deadline_s": 180,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "COUNTER-REFERENCE",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 12649.7,
+    "deadline_s": 300,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "M1-EMISSION",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 364640.0,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "SOURCE-MODEL",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 324532.2,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "CONTRACT-SURFACE",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 367373.5,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "CONTRACT-ROUTE",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 2283.6,
+    "deadline_s": 90,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "SOURCE-PROOFS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 370300.6,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "NULLARY-ENTRIES",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 138478.2,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "CUSTOM-ERRORS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 272297.1,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "PROOF-GUARDS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 228687.5,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "PROOF-TERMS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 144429.1,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "INVARIANTS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 112130.8,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "PROOF-HELPERS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 170766.4,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "PROOF-BUNDLES",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 191177.3,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "PREDICATES",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 140940.4,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "COMPOUND-INVARIANTS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 81573.5,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "COMPOUND-GUARDS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 107065.2,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "NAMED-GUARDS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 109162.9,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "INFERRED-GUARDS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 382602.2,
+    "deadline_s": 1800,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "INFERRED-ARITHMETIC",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 235801.3,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "INFERRED-HELPERS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 303311.7,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "PROOF-HOLES",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 249723.9,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "INFERRED-BINDINGS",
+    "kind": "FAIL",
+    "exit": 1,
+    "elapsed_ms": 1322838.3,
+    "deadline_s": 1800,
+    "passed": false
+  },
+  {
+    "run": "battery-3",
+    "name": "INFERRED-GUARD-BINDINGS",
+    "kind": "FAIL",
+    "exit": 1,
+    "elapsed_ms": 61372.7,
+    "deadline_s": 1800,
+    "passed": false
+  },
+  {
+    "run": "battery-3",
+    "name": "EVM-CONTEXT",
+    "kind": "FAIL",
+    "exit": 1,
+    "elapsed_ms": 600026.3,
+    "deadline_s": 600,
+    "passed": false
+  },
+  {
+    "run": "battery-3",
+    "name": "EVM-CONTEXT",
+    "kind": "LEG-TIMEOUT",
+    "exit": null,
+    "elapsed_ms": 600024.0,
+    "deadline_s": 600,
+    "passed": false
+  },
+  {
+    "run": "battery-3",
+    "name": "SURFACE-CONTEXT",
+    "kind": "FAIL",
+    "exit": 1,
+    "elapsed_ms": 600110.4,
+    "deadline_s": 600,
+    "passed": false
+  },
+  {
+    "run": "battery-3",
+    "name": "SURFACE-CONTEXT",
+    "kind": "LEG-TIMEOUT",
+    "exit": null,
+    "elapsed_ms": 600105.0,
+    "deadline_s": 600,
+    "passed": false
+  },
+  {
+    "run": "battery-3",
+    "name": "WORD-EQUALITY",
+    "kind": "FAIL",
+    "exit": 1,
+    "elapsed_ms": 600111.5,
+    "deadline_s": 600,
+    "passed": false
+  },
+  {
+    "run": "battery-3",
+    "name": "WORD-EQUALITY",
+    "kind": "LEG-TIMEOUT",
+    "exit": null,
+    "elapsed_ms": 600109.0,
+    "deadline_s": 600,
+    "passed": false
+  },
+  {
+    "run": "battery-3",
+    "name": "HEX-LITERALS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 393723.5,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "INFERRED-WORDS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 212458.6,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "FALLBACK",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 106890.0,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "DIFF-VALUE",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 26404.7,
+    "deadline_s": 180,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "TRACE-VALUE",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 24271.1,
+    "deadline_s": 180,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "TRACE-CALLER",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 51618.1,
+    "deadline_s": 480,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "DIFF-CALLER",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 58822.0,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "PAYABLE",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 128072.6,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "CALLVALUE",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 253280.1,
+    "deadline_s": 780,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "CALLDATASIZE",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 520197.5,
+    "deadline_s": 1860,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "CALLDATALOAD",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 1049563.2,
+    "deadline_s": 1860,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "ADDRESS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 1091261.5,
+    "deadline_s": 3600,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "ERC20-REFERENCE",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 7625.9,
+    "deadline_s": 300,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "ABI-SCHEMA",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 11473.7,
+    "deadline_s": 300,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "ABI-CODEC",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 125469.6,
+    "deadline_s": 300,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "LAYOUT-PACKED",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 10336.7,
+    "deadline_s": 300,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "LAYOUT-MAPPING",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 11054.8,
+    "deadline_s": 300,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "EVENT-CODEC",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 12367.1,
+    "deadline_s": 300,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "CALL-CODEC",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 13103.7,
+    "deadline_s": 300,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "RETURN-CODEC",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 10985.2,
+    "deadline_s": 300,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "REVERT-CODEC",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 13874.2,
+    "deadline_s": 300,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "EVENT-DECODE",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 11404.4,
+    "deadline_s": 300,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "LEXER-KEYWORDS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 872.8,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "LEXER-DIRECT",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 16810.9,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "IDENTIFIER-DIRECT",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 1627.6,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "WORD-DIRECT",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 5345.6,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "SEGMENT-DIRECT",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 2702.8,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "CLI-PREFIX-DIRECT",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 12478.2,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "CLI-VALUE-DIRECT",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 4535.2,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "CLI-ERROR-DIRECT",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 3350.7,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "MAPPING-CLI",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 26452.4,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "EVENT-CLI",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 8544.2,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "EVENT-DECODE-CLI",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 11409.1,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "CALLDATA-CLI",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 27367.4,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "MILESTONE-SPEED",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 235.8,
+    "deadline_s": 60,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "PACKED-SOURCE",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 62594.9,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "MAPPING-SOURCE",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 9557.0,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "RETURNDATA-CLI",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 26806.0,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "MAPPING-RUNTIME",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 47756.3,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "FUNCTION-ABI",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 24728.5,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "RETURN-ABI",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 38316.1,
+    "deadline_s": 900,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "SOURCE-EVENTS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 49787.3,
+    "deadline_s": 900,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "STORAGE-PROOFS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 29126.6,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "ERC20-SOURCE",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 42668.5,
+    "deadline_s": 900,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "M2-ABI",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 32653.3,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "M2-RECONCILE",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 103.2,
+    "deadline_s": 60,
+    "passed": true
+  },
+  {
+    "run": "battery-3",
+    "name": "REFINED-WORD",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 2985.6,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "run-6b",
+    "name": "INFERRED-BINDINGS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 334205.5,
+    "deadline_s": 1800,
+    "passed": true
+  },
+  {
+    "run": "run-6b",
+    "name": "INFERRED-GUARD-BINDINGS",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 319561.6,
+    "deadline_s": 1800,
+    "passed": true
+  },
+  {
+    "run": "run-6b",
+    "name": "EVM-CONTEXT",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 123826.9,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "run-6b",
+    "name": "SURFACE-CONTEXT",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 133071.7,
+    "deadline_s": 600,
+    "passed": true
+  },
+  {
+    "run": "run-6b",
+    "name": "WORD-EQUALITY",
+    "kind": "PASS",
+    "exit": 0,
+    "elapsed_ms": 101143.1,
+    "deadline_s": 600,
+    "passed": true
+  }
+]

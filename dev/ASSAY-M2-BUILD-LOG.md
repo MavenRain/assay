@@ -1,8 +1,50 @@
 # Assay M2 build log
 
+## M2 group 9: closure, 2026-10-06
+
+M2 remains open pending a passing cumulative battery on the final sources.
+Battery 3, the closure attempt, ran `make gates` with
+110 legs under a 4096 MB memory guard. 105 legs passed in
+it. EVM-CONTEXT, SURFACE-CONTEXT and WORD-EQUALITY stopped at the leg deadline in the closure battery. INFERRED-BINDINGS (`assay emit` at 600 seconds) and INFERRED-GUARD-BINDINGS (`assay run` at 30 seconds) failed in the closure battery when one inner command reached its own time limit. Each passed when run alone in run-6b. The record keeps both attempts. The battery took 12576.9 seconds. The peak memory
+of the process tree was 2193 MB. The staged tree at launch was
+`553a927a7c06876279fdc36f7679898a6fc2bb1e`.
+
+The record keeps the failures and the reruns. Battery 1 ran on `092fa7a`
+and completed 76 legs: 63 passed and 13 failed.
+Run 1b ran the legs that battery 1 did not reach and six suspect legs. It
+stopped before its last three legs. Group 10 repaired the failures, and
+focused runs tested each repair. Battery 2 ran on the repaired tree.
+106 of 110 legs passed. HOUSE failed, and group 10 repaired it.
+PAYABLE, CALLVALUE and ADDRESS stopped at the leg deadline in battery 2. Each passed when run alone in run-6a.
+
+The record is in
+[validation/2026-10-06-m2-close](validation/2026-10-06-m2-close/README.md).
+[M2-CLOSE.md](M2-CLOSE.md) gives the user rulings and the limits.
+
+## M2 group 10: repairs for the closure battery, 2026-10-05 to 2026-10-06
+
+Group 10 used the repair reserve for the failures of batteries 1 and 2.
+
+- Mutations: the anchors in `dev/mutations/` match the current emitted
+  text. The ADDRESS SCHEMA mutant text is repaired for the HOUSE leg.
+- Return ABI: `src/return_abi.bend` has the repair for the FALLBACK
+  mutant.
+- Ruling D2: `src/tests.bend` has refusal tests for `SPar`, `SNu`,
+  `RThunk` and level variables. `src/frontend.bend` refuses level
+  variables with a named refusal. LEXER-DIRECT counts 288 cases.
+- Ruling D3: `corpus/m2/ERC20.asy` is a corpus row with its manifest
+  entries and measurements.
+- Bend 2: the pins follow Bend 2 `v2.0.32`, commit `573002f`.
+- Pins: `dev/cli_delta.py`, `dev/native-carry.json` and
+  `dev/DENOMINATORS.sha256` follow the changed sources.
+  `dev/carried_text.py` holds the exact rewrites of carried test lines.
+- Limits: the inferred legs use longer emit timeouts.
+  `dev/toolchain.json` sets the stack limit to 131072 KiB.
+- ADDRESS uses `examples/ContractAddress.asy` as its fixture.
+
 ## M2 group 8: coverage and audit reconciliation, 2026-10-04
 
-Parts R2, R1 and C are complete. M2 stays open until group 9.
+Parts R2, R1 and C are complete. Group 9 acceptance remains pending.
 
 Deviation M2-G8-D1. USER ruling 2026-10-04, pending formal ratification.
 SPEC.md marked these kan-lang carry-over constructs M2: `SPar`, `SNu`

@@ -32,13 +32,9 @@ def main():
     original_argv = sys.argv
     try:
         for mode in modes:
-            previous = H.schedule(before, mode)
-            previous['legs'] = [leg for leg in previous['legs'] if leg[0] not in SPEED]
-            # fa19053 added the 14th stage-A mutant and M2 group 8 part C the 15th, so the carried MUTANTS marker
-            # of the 80bc4c6 baseline is adjusted to the current count, as the SPEED legs are.
-            previous['legs'] = [(leg[0], leg[1], leg[2], leg[3].replace('MUTANTS killed=13/13 OK',
-                                                                        'MUTANTS killed=15/15 OK'), *leg[4:])
-                                for leg in previous['legs']]
+            # historical_schedule drops the SPEED legs and carries the markers and deadlines that moved
+            # after the 80bc4c6 baseline (MUTANTS 15/15, D2, D3 corpus rows, INFERRED 1800 s).
+            previous = H.historical_schedule(before, mode)
             current = H.schedule(after, mode)
             require(previous == current, 'changed carried schedule: ' + mode)
             require(not SPEED.intersection(leg[0] for leg in current['legs']), 'early speed leg: ' + mode)
@@ -106,7 +102,7 @@ def main():
         reconcile = H.schedule(after, '--m2-reconcile')
         require(reconcile == dict(stage='M2-RECONCILE', legs=abi['legs'] + [
             ('M2-RECONCILE', 60, ('python3', '-P', 'dev/m2-reconcile-test.py'),
-             'M2-RECONCILE deferred=9 tested=5 open=4 docs=17 legs=110 mutants=15 fixtures=10 controls=3 OK', True),
+             'M2-RECONCILE deferred=9 tested=9 open=0 docs=17 legs=110 mutants=15 fixtures=10 controls=3 OK', True),
             ('REFINED-WORD', 600, ('python3', '-P', 'dev/refined-word-test.py'),
              'REFINED-WORD valid=2 kernel_refused=3 emitter_refused=1 OK', True)]),
                 'M2 reconciliation must preserve all carried legs and add its two required checks')

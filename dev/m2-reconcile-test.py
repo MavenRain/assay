@@ -19,9 +19,9 @@ EMIT = ('src/emitter.bend', '" (deferred)"')
 # A None is an OPEN row of dev/M2-RECONCILE.md: the text, the named refusal or the test is absent.
 DEFERRED = (
     ('SPar', '| `SPar{left: A, right: A}` | deferred | kernel.bend |',
-     ('src/kernel.bend', '"SPar is deferred"'), None),
+     ('src/kernel.bend', '"SPar is deferred"'), ('src/tests.bend', 'Main.kneg("spar")', '"SPar is deferred"')),
     ('SNu', '| `SNu{name: String, arguments: List<A>}` | deferred | kernel.bend |',
-     ('src/kernel.bend', '"SNu is deferred"'), None),
+     ('src/kernel.bend', '"SNu is deferred"'), ('src/tests.bend', 'Main.kneg("snu")', '"SNu is deferred"')),
     ('nu', 'the parser refuses it with "nu is deferred"',
      ('src/frontend.bend', '"nu is deferred"'),
      ('src/tests.bend', 'Sl_surface.parse_refusal("nu N : Type 0 :=", "nu is deferred")')),
@@ -35,13 +35,15 @@ DEFERRED = (
      ('src/tests.bend', '"a right former at a mu shape is deferred"')),
     ('KDelay KForce', '| `KDelay KForce` | deferred | Emit in src/emitter.bend |',
      EMIT, ('src/tests.bend', 'Emit.Error.Later{"KDELAY"}', 'KForce')),
-    ('RThunk', '| `RThunk` | deferred | Emit in src/emitter.bend |', EMIT, None),
-    ('level variables', 'Level variables are deferred.', None, None),
+    ('RThunk', '| `RThunk` | deferred | Emit in src/emitter.bend |', EMIT,
+     ('src/tests.bend', 'Emit.Error.Later{"RTHUNK"}', 'Eterm.Repr.RThunk{')),
+    ('level variables', 'Level variables are deferred.', ('src/frontend.bend', '"level variables are deferred"'),
+     ('src/tests.bend', 'Sl_surface.parse_refusal("axiom A : Type u", "level variables are deferred")')),
 )
 COUNTED = (MODE, '110')
 DOCS = {
     'README.md': (MODE, 'default 110-leg gate battery', '`--m2-abi` retains its 108 legs.',
-                  'M2 stays open until the group 9'),
+                  '[M2 closure](dev/M2-CLOSE.md) records the group 9'),
     'dev/LEXER-DIRECT.md': (MODE,),
     **{'dev/' + name + '.md': COUNTED for name in (
         'M1-BEND2', 'M1-CLOSE', 'M2-ABI-CODEC', 'M2-ABI-GOLDENS', 'M2-ABI-SCHEMA', 'M2-EVENT-DECODE',
@@ -114,7 +116,7 @@ def main():
     mutants = re.findall(r'(?m)^        \("([A-Z0-9-]+)", ', table)
     marker = f'MUTANTS killed={len(mutants)}/{len(mutants)} OK'
     require('R0-AUDIT-MILESTONE' in mutants and marker in read('dev/stage-a-gates.py')
-            and marker in read('dev/milestone-speed-test.py'), 'M2-RECONCILE-MUTANTS ' + marker)
+            and marker in read('dev/revert-compatibility.py'), 'M2-RECONCILE-MUTANTS ' + marker)
     data = ROOT / 'dev/refined-word-data'
     require(sorted(path.name for path in data.iterdir()) == sorted(FIXTURES)
             and all((data / name).read_text().strip() for name in FIXTURES)

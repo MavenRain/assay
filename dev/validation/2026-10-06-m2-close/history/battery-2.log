@@ -1,0 +1,149 @@
+python3 -P dev/build.py build
+BEND BUILD assay cached
+BEND BUILD tests cached
+BEND BUILD backends cached
+python3 -P dev/stage-a-gates.py --m2-reconcile
+PASS BUILD exit=0 elapsed_ms=936.1 deadline_s=120
+PASS PIN-CARRY exit=0 elapsed_ms=91.2 deadline_s=30
+PASS R0-COUNT exit=0 elapsed_ms=146.7 deadline_s=10
+PASS R0-AUDIT exit=0 elapsed_ms=71.7 deadline_s=10
+FAIL HOUSE exit=1 elapsed_ms=743.8 deadline_s=30
+HOUSE unapproved catch-all: Parser.parse_atom_head (src/frontend.bend)
+HOUSE unapproved catch-all: Parser.parse_atom_head (src/frontend.bend)
+HOUSE missing named catch-all: Parser.parse_atom_head (src/frontend.bend)
+HOUSE catch-all line drift: Fixture.batch (src/tests.bend) records line 1292, scan finds line 1294
+HOUSE catch-all line drift: Tests.asm_cases (src/tests.bend) records line 1151, scan finds line 1153
+HOUSE catch-all line drift: Tests.contract_route (src/tests.bend) records line 1372, scan finds line 1374
+HOUSE catch-all line drift: Tests.effect_batch (src/tests.bend) records line 1126, scan finds line 1128
+HOUSE catch-all line drift: Tests.emit_cases (src/tests.bend) records line 1200, scan finds line 1202
+HOUSE catch-all line drift: Tests.export_mu (src/tests.bend) records line 1322, scan finds line 1324
+HOUSE catch-all line drift: Tests.fixture (src/tests.bend) records line 1265, scan finds line 1267
+HOUSE catch-all line drift: Tests.roundtrip (src/tests.bend) records line 1208, scan finds line 1210
+HOUSE no-exception OK
+HOUSE named-catchalls FAIL
+HOUSE no-mutable-state OK
+HOUSE one-catch-site OK
+HOUSE foreign-boundary OK
+HOUSE bool-dispatch OK
+HOUSE no-loop-keyword OK
+HOUSE no-bare-division OK
+HOUSE no-em-dash OK
+HOUSE FAIL
+
+PASS NATIVE-MAPS exit=0 elapsed_ms=397.7 deadline_s=180
+PASS NATIVE-IO exit=0 elapsed_ms=1219.8 deadline_s=180
+PASS TRUSTED-LINES exit=0 elapsed_ms=127.0 deadline_s=10
+PASS SUITE-KERNEL exit=0 elapsed_ms=5616.9 deadline_s=300
+PASS SUITE-SURFACE exit=0 elapsed_ms=152.4 deadline_s=60
+PASS DRIVER exit=0 elapsed_ms=1958.8 deadline_s=30
+PASS MUTANTS exit=0 elapsed_ms=7454.0 deadline_s=300
+PASS DENOMINATORS exit=0 elapsed_ms=90.0 deadline_s=10
+PASS KECCAK-VEC exit=0 elapsed_ms=3855.5 deadline_s=120
+PASS KECCAK-MUTANTS exit=0 elapsed_ms=20245.7 deadline_s=660
+PASS STACK-HEIGHT exit=0 elapsed_ms=7623.1 deadline_s=780
+PASS DISASM-3WAY exit=0 elapsed_ms=3375.0 deadline_s=120
+PASS ASM-MUTANTS exit=0 elapsed_ms=30307.4 deadline_s=1860
+PASS FORK-DRIFT exit=0 elapsed_ms=231.9 deadline_s=120
+PASS M0-TRACE exit=0 elapsed_ms=265.0 deadline_s=120
+PASS CREATE-EQ exit=0 elapsed_ms=318.9 deadline_s=120
+PASS REFERENCE-CHECKS exit=0 elapsed_ms=507.6 deadline_s=180
+PASS REFERENCE-MUTANTS exit=0 elapsed_ms=2972.6 deadline_s=1200
+PASS EMIT-CONSTRUCTORS exit=0 elapsed_ms=99.0 deadline_s=30
+PASS WORD-UNBOX exit=0 elapsed_ms=70.2 deadline_s=30
+PASS STORAGE-NOCLOS exit=0 elapsed_ms=68.5 deadline_s=30
+PASS ABI-GOLD exit=0 elapsed_ms=545.5 deadline_s=60
+PASS EMITTED-TRACE exit=0 elapsed_ms=475.9 deadline_s=120
+PASS EMIT-SOURCES exit=0 elapsed_ms=5319.0 deadline_s=600
+PASS EMIT-MUTANTS exit=0 elapsed_ms=35055.6 deadline_s=1200
+PASS AXIOMS exit=0 elapsed_ms=5225.6 deadline_s=480
+PASS TRACE-DRIVER exit=0 elapsed_ms=3165.1 deadline_s=120
+PASS CORPUS exit=0 elapsed_ms=4571.6 deadline_s=600
+PASS ERASED-BYTES exit=0 elapsed_ms=946.8 deadline_s=120
+PASS M0-RATIO exit=0 elapsed_ms=188.0 deadline_s=60
+PASS F-MUTANTS exit=0 elapsed_ms=550.8 deadline_s=180
+PASS DIFF-EXECUTOR exit=0 elapsed_ms=10120.1 deadline_s=180
+PASS COUNTER-REFERENCE exit=0 elapsed_ms=2551.9 deadline_s=300
+PASS M1-EMISSION exit=0 elapsed_ms=92721.3 deadline_s=600
+PASS SOURCE-MODEL exit=0 elapsed_ms=81594.5 deadline_s=600
+PASS CONTRACT-SURFACE exit=0 elapsed_ms=80227.4 deadline_s=600
+PASS CONTRACT-ROUTE exit=0 elapsed_ms=925.9 deadline_s=90
+PASS SOURCE-PROOFS exit=0 elapsed_ms=101228.3 deadline_s=600
+PASS NULLARY-ENTRIES exit=0 elapsed_ms=43635.0 deadline_s=600
+PASS CUSTOM-ERRORS exit=0 elapsed_ms=81271.4 deadline_s=600
+PASS PROOF-GUARDS exit=0 elapsed_ms=92975.9 deadline_s=600
+PASS PROOF-TERMS exit=0 elapsed_ms=94929.5 deadline_s=600
+PASS INVARIANTS exit=0 elapsed_ms=80267.9 deadline_s=600
+PASS PROOF-HELPERS exit=0 elapsed_ms=107791.8 deadline_s=600
+PASS PROOF-BUNDLES exit=0 elapsed_ms=155938.1 deadline_s=600
+PASS PREDICATES exit=0 elapsed_ms=102065.4 deadline_s=600
+PASS COMPOUND-INVARIANTS exit=0 elapsed_ms=82384.0 deadline_s=600
+PASS COMPOUND-GUARDS exit=0 elapsed_ms=111184.9 deadline_s=600
+PASS NAMED-GUARDS exit=0 elapsed_ms=110457.4 deadline_s=600
+PASS INFERRED-GUARDS exit=0 elapsed_ms=208603.7 deadline_s=1800
+PASS INFERRED-ARITHMETIC exit=0 elapsed_ms=145258.2 deadline_s=600
+PASS INFERRED-HELPERS exit=0 elapsed_ms=277204.3 deadline_s=600
+PASS PROOF-HOLES exit=0 elapsed_ms=236551.3 deadline_s=600
+PASS INFERRED-BINDINGS exit=0 elapsed_ms=408351.0 deadline_s=1800
+PASS INFERRED-GUARD-BINDINGS exit=0 elapsed_ms=376488.6 deadline_s=1800
+PASS EVM-CONTEXT exit=0 elapsed_ms=143703.3 deadline_s=600
+PASS SURFACE-CONTEXT exit=0 elapsed_ms=164813.2 deadline_s=600
+PASS WORD-EQUALITY exit=0 elapsed_ms=119785.1 deadline_s=600
+PASS HEX-LITERALS exit=0 elapsed_ms=150567.9 deadline_s=600
+PASS INFERRED-WORDS exit=0 elapsed_ms=129956.2 deadline_s=600
+PASS FALLBACK exit=0 elapsed_ms=144301.2 deadline_s=600
+PASS DIFF-VALUE exit=0 elapsed_ms=31139.3 deadline_s=180
+PASS TRACE-VALUE exit=0 elapsed_ms=33203.7 deadline_s=180
+PASS TRACE-CALLER exit=0 elapsed_ms=75274.5 deadline_s=480
+PASS DIFF-CALLER exit=0 elapsed_ms=179099.2 deadline_s=600
+FAIL PAYABLE exit=1 elapsed_ms=600064.9 deadline_s=600
+Command '('python3', '-P', 'dev/payable-test.py')' timed out after 600 seconds
+LEG-TIMEOUT PAYABLE deadline_s=600 elapsed_s=600.047 cost=unmeasured record_s=180.015 record_outcome=killed
+
+FAIL CALLVALUE exit=1 elapsed_ms=780186.8 deadline_s=780
+Command '('python3', '-P', 'dev/callvalue-test.py')' timed out after 780 seconds
+LEG-TIMEOUT CALLVALUE deadline_s=780 elapsed_s=780.137 cost=unmeasured record_s=240.018 record_outcome=killed
+
+PASS CALLDATASIZE exit=0 elapsed_ms=1747946.5 deadline_s=1860
+PASS CALLDATALOAD exit=0 elapsed_ms=1599790.3 deadline_s=1860
+FAIL ADDRESS exit=1 elapsed_ms=3600027.6 deadline_s=3600
+Command '('python3', '-P', 'dev/address-test.py')' timed out after 3600 seconds
+LEG-TIMEOUT ADDRESS deadline_s=3600 elapsed_s=3600.024 cost=unmeasured record_s=600.058 record_outcome=killed
+
+PASS ERC20-REFERENCE exit=0 elapsed_ms=9418.2 deadline_s=300
+PASS ABI-SCHEMA exit=0 elapsed_ms=14096.3 deadline_s=300
+PASS ABI-CODEC exit=0 elapsed_ms=158541.7 deadline_s=300
+PASS LAYOUT-PACKED exit=0 elapsed_ms=12181.8 deadline_s=300
+PASS LAYOUT-MAPPING exit=0 elapsed_ms=18105.8 deadline_s=300
+PASS EVENT-CODEC exit=0 elapsed_ms=36562.5 deadline_s=300
+PASS CALL-CODEC exit=0 elapsed_ms=28926.0 deadline_s=300
+PASS RETURN-CODEC exit=0 elapsed_ms=35800.0 deadline_s=300
+PASS REVERT-CODEC exit=0 elapsed_ms=73482.0 deadline_s=300
+PASS EVENT-DECODE exit=0 elapsed_ms=18649.6 deadline_s=300
+PASS LEXER-KEYWORDS exit=0 elapsed_ms=1620.2 deadline_s=600
+PASS LEXER-DIRECT exit=0 elapsed_ms=25047.0 deadline_s=600
+PASS IDENTIFIER-DIRECT exit=0 elapsed_ms=2113.0 deadline_s=600
+PASS WORD-DIRECT exit=0 elapsed_ms=7066.9 deadline_s=600
+PASS SEGMENT-DIRECT exit=0 elapsed_ms=6563.0 deadline_s=600
+PASS CLI-PREFIX-DIRECT exit=0 elapsed_ms=22626.8 deadline_s=600
+PASS CLI-VALUE-DIRECT exit=0 elapsed_ms=8133.2 deadline_s=600
+PASS CLI-ERROR-DIRECT exit=0 elapsed_ms=5481.7 deadline_s=600
+PASS MAPPING-CLI exit=0 elapsed_ms=42284.4 deadline_s=600
+PASS EVENT-CLI exit=0 elapsed_ms=20205.0 deadline_s=600
+PASS EVENT-DECODE-CLI exit=0 elapsed_ms=16020.3 deadline_s=600
+PASS CALLDATA-CLI exit=0 elapsed_ms=32257.5 deadline_s=600
+PASS MILESTONE-SPEED exit=0 elapsed_ms=210.1 deadline_s=60
+PASS PACKED-SOURCE exit=0 elapsed_ms=76777.4 deadline_s=600
+PASS MAPPING-SOURCE exit=0 elapsed_ms=11502.4 deadline_s=600
+PASS RETURNDATA-CLI exit=0 elapsed_ms=28432.3 deadline_s=600
+PASS MAPPING-RUNTIME exit=0 elapsed_ms=78130.4 deadline_s=600
+PASS FUNCTION-ABI exit=0 elapsed_ms=47590.3 deadline_s=600
+PASS RETURN-ABI exit=0 elapsed_ms=86142.9 deadline_s=900
+PASS SOURCE-EVENTS exit=0 elapsed_ms=61241.5 deadline_s=900
+PASS STORAGE-PROOFS exit=0 elapsed_ms=34231.2 deadline_s=600
+PASS ERC20-SOURCE exit=0 elapsed_ms=43533.7 deadline_s=900
+PASS M2-ABI exit=0 elapsed_ms=33359.8 deadline_s=600
+PASS M2-RECONCILE exit=0 elapsed_ms=92.6 deadline_s=60
+PASS REFINED-WORD exit=0 elapsed_ms=3890.5 deadline_s=600
+M0-VALIDATION FAIL; M0-EXIT requires the user commit and ratification
+STAGE-M2-RECONCILE FAIL
+make: *** [gates] Error 1

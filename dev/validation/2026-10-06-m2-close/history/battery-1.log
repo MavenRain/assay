@@ -1,0 +1,219 @@
+python3 -P dev/build.py build
+BEND BUILD assay cached
+BEND BUILD tests cached
+BEND BUILD backends cached
+python3 -P dev/stage-a-gates.py --m2-reconcile
+PASS BUILD exit=0 elapsed_ms=2497.4 deadline_s=120
+PASS PIN-CARRY exit=0 elapsed_ms=319.7 deadline_s=30
+PASS R0-COUNT exit=0 elapsed_ms=521.3 deadline_s=10
+PASS R0-AUDIT exit=0 elapsed_ms=245.6 deadline_s=10
+PASS HOUSE exit=0 elapsed_ms=2802.6 deadline_s=30
+PASS NATIVE-MAPS exit=0 elapsed_ms=1555.1 deadline_s=180
+PASS NATIVE-IO exit=0 elapsed_ms=3278.9 deadline_s=180
+PASS TRUSTED-LINES exit=0 elapsed_ms=277.5 deadline_s=10
+PASS SUITE-KERNEL exit=0 elapsed_ms=13766.5 deadline_s=300
+PASS SUITE-SURFACE exit=0 elapsed_ms=306.2 deadline_s=60
+PASS DRIVER exit=0 elapsed_ms=7163.6 deadline_s=30
+PASS MUTANTS exit=0 elapsed_ms=14985.6 deadline_s=300
+PASS DENOMINATORS exit=0 elapsed_ms=128.0 deadline_s=10
+PASS KECCAK-VEC exit=0 elapsed_ms=7191.4 deadline_s=120
+PASS KECCAK-MUTANTS exit=0 elapsed_ms=45046.1 deadline_s=660
+PASS STACK-HEIGHT exit=0 elapsed_ms=16497.4 deadline_s=780
+PASS DISASM-3WAY exit=0 elapsed_ms=6876.5 deadline_s=120
+PASS ASM-MUTANTS exit=0 elapsed_ms=70239.7 deadline_s=1860
+PASS FORK-DRIFT exit=0 elapsed_ms=443.3 deadline_s=120
+PASS M0-TRACE exit=0 elapsed_ms=546.5 deadline_s=120
+PASS CREATE-EQ exit=0 elapsed_ms=633.7 deadline_s=120
+PASS REFERENCE-CHECKS exit=0 elapsed_ms=945.0 deadline_s=180
+PASS REFERENCE-MUTANTS exit=0 elapsed_ms=5436.7 deadline_s=1200
+PASS EMIT-CONSTRUCTORS exit=0 elapsed_ms=167.1 deadline_s=30
+PASS WORD-UNBOX exit=0 elapsed_ms=119.1 deadline_s=30
+PASS STORAGE-NOCLOS exit=0 elapsed_ms=115.2 deadline_s=30
+PASS ABI-GOLD exit=0 elapsed_ms=987.6 deadline_s=60
+PASS EMITTED-TRACE exit=0 elapsed_ms=853.2 deadline_s=120
+PASS EMIT-SOURCES exit=0 elapsed_ms=11980.1 deadline_s=600
+PASS EMIT-MUTANTS exit=0 elapsed_ms=73865.6 deadline_s=1200
+PASS AXIOMS exit=0 elapsed_ms=7580.0 deadline_s=480
+PASS TRACE-DRIVER exit=0 elapsed_ms=7661.0 deadline_s=120
+PASS CORPUS exit=0 elapsed_ms=7016.7 deadline_s=600
+PASS ERASED-BYTES exit=0 elapsed_ms=2268.1 deadline_s=120
+PASS M0-RATIO exit=0 elapsed_ms=569.8 deadline_s=60
+PASS F-MUTANTS exit=0 elapsed_ms=1313.4 deadline_s=180
+PASS DIFF-EXECUTOR exit=0 elapsed_ms=18296.4 deadline_s=180
+PASS COUNTER-REFERENCE exit=0 elapsed_ms=4824.0 deadline_s=300
+PASS M1-EMISSION exit=0 elapsed_ms=205554.4 deadline_s=600
+PASS SOURCE-MODEL exit=0 elapsed_ms=131758.8 deadline_s=600
+FAIL CONTRACT-SURFACE exit=1 elapsed_ms=47222.3 deadline_s=600
+SURFACE-LIVE counter=30 variants=14 creates=2 covered=216 five_files=5 executors=2 OK
+SURFACE-DRIVER refusals=36 commands=3 bounds=5 no_tools=true OK
+CONTRACT-SURFACE FAIL: SURFACE-MUTANT-ANCHOR SLOT
+
+PASS CONTRACT-ROUTE exit=0 elapsed_ms=1299.0 deadline_s=90
+PASS SOURCE-PROOFS exit=0 elapsed_ms=135712.0 deadline_s=600
+FAIL NULLARY-ENTRIES exit=1 elapsed_ms=36434.9 deadline_s=600
+NULLARY-LIVE cases=18 widths=35 creates=2 covered=156 OK
+NULLARY-ENTRIES FAIL: NULLARY-MUTANT-ANCHOR SURFACE-UNIVERSE
+
+PASS CUSTOM-ERRORS exit=0 elapsed_ms=107854.0 deadline_s=600
+PASS PROOF-GUARDS exit=0 elapsed_ms=123791.6 deadline_s=600
+PASS PROOF-TERMS exit=0 elapsed_ms=127037.0 deadline_s=600
+FAIL INVARIANTS exit=1 elapsed_ms=76410.9 deadline_s=600
+INVARIANT-LIVE cases=52 creates=2 erasure=4 files=5 OK
+INVARIANT-REFUSALS cases=30 OK
+INVARIANT-MUTANT SECOND killed control=OK
+INVARIANTS FAIL: INVARIANT-MUTANT-ANCHOR CONSTRUCTOR
+
+FAIL PROOF-HELPERS exit=1 elapsed_ms=106571.7 deadline_s=600
+HELPER-LIVE cases=104 creates=2 guarded_erasure=6 OK
+HELPER-REFUSALS cases=50 commands=3 OK
+HELPER-ERASURE variants=7 five_files=5 boundaries=6 OK
+HELPER-MUTANT-ANCHOR DECLARATION
+
+PASS PROOF-BUNDLES exit=0 elapsed_ms=184658.7 deadline_s=600
+PASS PREDICATES exit=0 elapsed_ms=131895.9 deadline_s=600
+PASS COMPOUND-INVARIANTS exit=0 elapsed_ms=108252.3 deadline_s=600
+PASS COMPOUND-GUARDS exit=0 elapsed_ms=154189.5 deadline_s=600
+PASS NAMED-GUARDS exit=0 elapsed_ms=161485.5 deadline_s=600
+FAIL INFERRED-GUARDS exit=1 elapsed_ms=163666.9 deadline_s=600
+IG-LIVE cases=112 creates=2 OK
+IG-ERASURE pairs=14 files=5 OK
+IG-REFUSALS cases=24 commands=3 OK
+Traceback (most recent call last):
+  File "/Users/oobi/Documents/assay/dev/inferred-guard-test.py", line 237, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "/Users/oobi/Documents/assay/dev/inferred-guard-test.py", line 229, in main
+    erased, invalid, accepted, killed = erasure(), refusals(), boundaries(), mutants()
+                                                               ~~~~~~~~~~^^
+  File "/Users/oobi/Documents/assay/dev/inferred-guard-test.py", line 179, in boundaries
+    P.emit(source, folder / str(index), f'boundary-{index}')
+    ~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oobi/Documents/assay/dev/m1-emit-test.py", line 47, in emit
+    checked(name, [BINARY, 'emit', source, '-o', output, *extra])
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oobi/Documents/assay/dev/m1-emit-test.py", line 41, in checked
+    result = capture(name, argv)
+  File "/Users/oobi/Documents/assay/dev/m1-emit-test.py", line 34, in capture
+    result = subprocess.run([str(arg) for arg in argv], cwd=cwd, capture_output=True, text=True, timeout=timeout)
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py", line 557, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py", line 1221, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py", line 2154, in _communicate
+    self._check_timeout(endtime, orig_timeout, stdout, stderr)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py", line 1268, in _check_timeout
+    raise TimeoutExpired(
+    ...<2 lines>...
+            stderr=b''.join(stderr_seq) if stderr_seq else None)
+subprocess.TimeoutExpired: Command '['/Users/oobi/Documents/assay/_build/bin/assay', 'emit', '/tmp/claude-501/assay-inferred-boundaries-irliizvb/5.asy', '-o', '/tmp/claude-501/assay-inferred-boundaries-irliizvb/5']' timed out after 30 seconds
+
+PASS INFERRED-ARITHMETIC exit=0 elapsed_ms=202131.4 deadline_s=600
+PASS INFERRED-HELPERS exit=0 elapsed_ms=363815.8 deadline_s=600
+PASS PROOF-HOLES exit=0 elapsed_ms=288129.0 deadline_s=600
+FAIL INFERRED-BINDINGS exit=1 elapsed_ms=259695.6 deadline_s=600
+IA-LIVE cases=229 creates=2 OK
+IA-ERASURE pairs=21 files=5 OK
+IB-REFUSALS cases=25 commands=3 OK
+Traceback (most recent call last):
+  File "/Users/oobi/Documents/assay/dev/inferred-binding-test.py", line 232, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "/Users/oobi/Documents/assay/dev/inferred-binding-test.py", line 224, in main
+    erased, invalid, limits, killed = IA.erasure(), refusals(), boundaries(), mutants()
+                                                                ~~~~~~~~~~^^
+  File "/Users/oobi/Documents/assay/dev/inferred-binding-test.py", line 153, in boundaries
+    P.emit(source, folder / f'{depth}-{suffix}', f'nested-{depth}-{suffix}')
+    ~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oobi/Documents/assay/dev/m1-emit-test.py", line 47, in emit
+    checked(name, [BINARY, 'emit', source, '-o', output, *extra])
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oobi/Documents/assay/dev/m1-emit-test.py", line 41, in checked
+    result = capture(name, argv)
+  File "/Users/oobi/Documents/assay/dev/m1-emit-test.py", line 34, in capture
+    result = subprocess.run([str(arg) for arg in argv], cwd=cwd, capture_output=True, text=True, timeout=timeout)
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py", line 557, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py", line 1221, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py", line 2154, in _communicate
+    self._check_timeout(endtime, orig_timeout, stdout, stderr)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py", line 1268, in _check_timeout
+    raise TimeoutExpired(
+    ...<2 lines>...
+            stderr=b''.join(stderr_seq) if stderr_seq else None)
+subprocess.TimeoutExpired: Command '['/Users/oobi/Documents/assay/_build/bin/assay', 'emit', '/tmp/claude-501/assay-inferred-binding-boundaries-szv95rjm/nested-128-inferred.asy', '-o', '/tmp/claude-501/assay-inferred-binding-boundaries-szv95rjm/128-inferred']' timed out after 30 seconds
+
+FAIL INFERRED-GUARD-BINDINGS exit=1 elapsed_ms=217197.3 deadline_s=600
+IG-LIVE cases=160 creates=2 OK
+IG-ERASURE pairs=20 files=5 OK
+IGB-REFUSALS cases=27 commands=3 OK
+Traceback (most recent call last):
+  File "/Users/oobi/Documents/assay/dev/inferred-guard-binding-test.py", line 214, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "/Users/oobi/Documents/assay/dev/inferred-guard-binding-test.py", line 206, in main
+    erased, invalid, accepted, killed = IG.erasure(), refusals(), boundaries(), mutants()
+                                                                  ~~~~~~~~~~^^
+  File "/Users/oobi/Documents/assay/dev/inferred-guard-binding-test.py", line 148, in boundaries
+    P.emit(source, output, f'boundary-{name}-{index}')
+    ~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oobi/Documents/assay/dev/m1-emit-test.py", line 47, in emit
+    checked(name, [BINARY, 'emit', source, '-o', output, *extra])
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oobi/Documents/assay/dev/m1-emit-test.py", line 41, in checked
+    result = capture(name, argv)
+  File "/Users/oobi/Documents/assay/dev/m1-emit-test.py", line 34, in capture
+    result = subprocess.run([str(arg) for arg in argv], cwd=cwd, capture_output=True, text=True, timeout=timeout)
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py", line 557, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py", line 1221, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py", line 2154, in _communicate
+    self._check_timeout(endtime, orig_timeout, stdout, stderr)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py", line 1268, in _check_timeout
+    raise TimeoutExpired(
+    ...<2 lines>...
+            stderr=b''.join(stderr_seq) if stderr_seq else None)
+subprocess.TimeoutExpired: Command '['/Users/oobi/Documents/assay/_build/bin/assay', 'emit', '/tmp/claude-501/assay-guard-binding-boundaries-vg4lv83o/steps-0.asy', '-o', '/tmp/claude-501/assay-guard-binding-boundaries-vg4lv83o/steps-0']' timed out after 30 seconds
+
+PASS EVM-CONTEXT exit=0 elapsed_ms=173219.2 deadline_s=600
+FAIL SURFACE-CONTEXT exit=1 elapsed_ms=164432.8 deadline_s=600
+SURFACE-CONTEXT-MUTANT CALLER killed control=OK
+SURFACE-CONTEXT-MUTANT DEPLOYER killed control=OK
+SURFACE-CONTEXT FAIL SURFACE-CONTEXT-MUTANT anchor STATE
+
+PASS WORD-EQUALITY exit=0 elapsed_ms=139562.9 deadline_s=600
+PASS HEX-LITERALS exit=0 elapsed_ms=157632.0 deadline_s=600
+PASS INFERRED-WORDS exit=0 elapsed_ms=164647.5 deadline_s=600
+FAIL FALLBACK exit=1 elapsed_ms=46411.9 deadline_s=600
+FALLBACK FAIL: FALLBACK-EMPTY bytes runtime.hex
+
+PASS DIFF-VALUE exit=0 elapsed_ms=36491.5 deadline_s=180
+PASS TRACE-VALUE exit=0 elapsed_ms=32652.6 deadline_s=180
+PASS TRACE-CALLER exit=0 elapsed_ms=60604.5 deadline_s=480
+PASS DIFF-CALLER exit=0 elapsed_ms=69438.2 deadline_s=600
+PASS PAYABLE exit=0 elapsed_ms=174741.8 deadline_s=600
+FAIL CALLVALUE exit=1 elapsed_ms=414045.3 deadline_s=780
+CALLVALUE-MUTANT SURFACE killed control=OK
+CALLVALUE FAIL CALLVALUE-MUTANT anchor SCHEMA
+
+FAIL CALLDATASIZE exit=1 elapsed_ms=1022444.1 deadline_s=1860
+CALLDATASIZE FAIL Command '['/Users/oobi/Documents/assay/_build/bin/assay', 'run', '/Users/oobi/Documents/assay/.gatework/calldatasize/core-11001.asy', '--calldata', '59748c98', '--value', '19', '--caller', '0x7e5f4552091a69125d5dfcb7b8c2659029395bdf', '--storage', '0=7', '--storage', '7=23']' timed out after 30 seconds
+
+FAIL CALLDATALOAD exit=1 elapsed_ms=477202.8 deadline_s=1860
+CALLDATALOAD FAIL Command '['/Users/oobi/Documents/assay/_build/bin/assay', 'run', '/Users/oobi/Documents/assay/.gatework/calldataload/core-000001.asy', '--calldata', '80020513', '--value', '0', '--caller', '0x7e5f4552091a69125d5dfcb7b8c2659029395bdf', '--storage', '0=7', '--storage', '7=23']' timed out after 30 seconds
+
+FAIL ADDRESS exit=1 elapsed_ms=62880.5 deadline_s=1860
+ADDRESS FAIL Command '['/Users/oobi/Documents/assay/_build/bin/assay', 'run', '/Users/oobi/Documents/assay/.gatework/address/matrix-0000000.asy', '--calldata', '800205130000000000000000000000000000000000000000000000000000000000000004', '--value', '0', '--caller', '0x7e5f4552091a69125d5dfcb7b8c2659029395bdf', '--address', '0x7265636569766572', '--storage', '0=7', '--storage', '7=23']' timed out after 30 seconds
+
+PASS ERC20-REFERENCE exit=0 elapsed_ms=194224.2 deadline_s=300
+make: *** [gates] Terminated: 15

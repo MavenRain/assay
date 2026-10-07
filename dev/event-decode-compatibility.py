@@ -13,6 +13,7 @@ import sys
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from bend_source import declarations
+from carried_text import rewrite
 from cli_delta import SHA256 as CLI_DELTA_SHA256, cli_sources, source_records
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -51,8 +52,12 @@ def main():
     require(current['legs'][:-1] == previous['legs'], 'PRIOR-LEGS')
     require(current['legs'][-1] == ('EVENT-DECODE', 300, ('python3', '-P', 'dev/event-decode-test.py'),
             'EVENT-DECODE oracle=71 reference=21 negative=59 refusal=8 mutants=12 scope=event-decode OK', True), 'NEW-LEG')
-    for path in ('src/abi.bend', 'src/tests.bend'):
-        require((ROOT / path).read_text().startswith(old(path)), 'PREFIX ' + path)
+    require((ROOT / 'src/abi.bend').read_text().startswith(old('src/abi.bend')), 'PREFIX src/abi.bend')
+    # Later commits rewrote some carried test lines.
+    # The check applies those rewrites to the BASE text first.
+    carried = rewrite(old('src/tests.bend'))
+    require(carried is not None and (ROOT / 'src/tests.bend').read_text().startswith(carried),
+            'PREFIX src/tests.bend')
     require((ROOT / 'dev/bend_source.py').read_text() == old('dev/bend_source.py'), 'BUNDLER')
     records = source_records(ROOT, BASE)
     sources = cli_sources(records)

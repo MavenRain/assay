@@ -150,7 +150,7 @@ def boundaries():
             for suffix, proof in [('inferred', term), ('typed', typed)]:
                 source = folder / f'nested-{depth}-{suffix}.asy'
                 source.write_text(G.guarded('add').replace('addLt a b p', 'addLt a b ' + proof))
-                P.emit(source, folder / f'{depth}-{suffix}', f'nested-{depth}-{suffix}')
+                P.emit(source, folder / f'{depth}-{suffix}', f'nested-{depth}-{suffix}', timeout=600)
             require(H.outputs(folder / f'{depth}-inferred') == H.outputs(folder / f'{depth}-typed'), 'IB-DEPTH erasure')
             inferred = folder / f'nested-{depth}-inferred.asy'
             typed_source = folder / f'nested-{depth}-typed.asy'
@@ -163,7 +163,7 @@ def boundaries():
                            ('spine-depth', growing_spine(32))]:
             source = folder / (name + '.asy')
             source.write_text(text)
-            P.emit(source, folder / name, name)
+            P.emit(source, folder / name, name, timeout=600)
         require(H.outputs(folder / 'bundle-limit') == H.outputs(folder / 'bundle-erased'), 'IB-BUNDLE erasure')
         require(H.outputs(folder / 'spine-depth') == H.outputs(folder / 'bundle-erased'), 'IB-SPINE erasure')
         captures.append(dict(bundle_nodes=4095, source_sha256=hashlib.sha256(growing_bundle(11).encode()).hexdigest()))
@@ -195,7 +195,7 @@ def mutants():
                 label = ('mutant-' if mutated else 'control-') + name
                 build = M.capture(label + '-build', ['zsh', '-f', 'dev/build.sh', 'build', 'bin/assay'], cwd=copy, timeout=120)
                 require(build.returncode == 0, 'IB-MUTANT-BUILD ' + label)
-                result = M.capture(label, ['python3', '-P', 'dev/inferred-binding-test.py', 'witness', case], cwd=copy)
+                result = M.capture(label, ['python3', '-P', 'dev/inferred-binding-test.py', 'witness', case], cwd=copy, timeout=600)
                 require(result.returncode == (1 if mutated else 0) and (not mutated or marker in result.stdout), 'IB-MUTANT ' + label)
                 captures.append(dict(name=label, witness=case, expected_marker=marker,
                     returncode=result.returncode, source_sha256=hashlib.sha256(path.read_bytes()).hexdigest()))

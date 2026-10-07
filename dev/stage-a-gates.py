@@ -212,7 +212,7 @@ def main():
     if emission:
         legs.extend([
             ("EMIT-CONSTRUCTORS", 30, ("_build/test/emit_cases", "constructors"),
-             "EMIT-CONSTRUCTORS cases=22 OK"),
+             "EMIT-CONSTRUCTORS cases=23 OK"),
             ("WORD-UNBOX", 30, ("_build/test/emit_cases", "words"),
              "WORD-UNBOX ktag=0 kstruct=0 words=3 cases=9 OK"),
             ("STORAGE-NOCLOS", 30, ("_build/test/emit_cases", "storage"),
@@ -234,7 +234,7 @@ def main():
             ("TRACE-DRIVER", 120, ("python3", "-P", "dev/trace-test.py"),
              "TRACE-DRIVER cases=20 explicit_prestate=true literal_argv=true OK"),
             ("CORPUS", 600, ("python3", "-P", "dev/corpus-test.py", "corpus"),
-             "CORPUS cases=11 five_files=5 OK"),
+             "CORPUS cases=12 five_files=5 OK"),
             ("ERASED-BYTES", 120, ("python3", "-P", "dev/corpus-test.py", "erased"),
              "ERASED-BYTES mutants=2 caught=1 equal=2 scope=M0-seed OK"),
             ("M0-RATIO", 60, ("zsh", "-f", "dev/ratio.sh"),
@@ -244,7 +244,7 @@ def main():
         ])
     if executor:
         legs.append(("DIFF-EXECUTOR", 180, ("python3", "-P", "dev/diff-test.py"),
-                     "DIFF-EXECUTOR live=20 driver=28 rejected=24 OK"))
+                     "DIFF-EXECUTOR live=21 driver=28 rejected=24 OK"))
     if counter:
         legs.append(("COUNTER-REFERENCE", 300, ("python3", "-P", "dev/counter-test.py"),
                      "COUNTER-REFERENCE cases=30 creates=2 mutants=8 value_rejected=5 covered=120 scope=reference OK"))
@@ -253,7 +253,7 @@ def main():
                      "M1-EMISSION counter=30 sources=8 refusals=11 mutants=8 OK"))
     if model:
         legs.append(("SOURCE-MODEL", 600, ("python3", "-P", "dev/model-test.py"),
-                     "SOURCE-MODEL counter=30 variants=10 corpus=11 invalid=28 refusals=6 mutants=8 OK"))
+                     "SOURCE-MODEL counter=30 variants=10 corpus=12 invalid=28 refusals=6 mutants=8 OK"))
     if surface:
         legs.append(("CONTRACT-SURFACE", 600, ("python3", "-P", "dev/contract-test.py"),
                      "CONTRACT-SURFACE counter=30 variants=14 refusals=36 mutants=8 OK"))
@@ -297,7 +297,7 @@ def main():
         legs.append(("NAMED-GUARDS", 600, ("python3", "-P", "dev/named-guard-test.py"),
                      "NAMED-GUARDS cases=96 creates=2 refusals=27 erasure=10 boundaries=6 mutants=4 OK"))
     if inferred_guards:
-        legs.append(("INFERRED-GUARDS", 600, ("python3", "-P", "dev/inferred-guard-test.py"),
+        legs.append(("INFERRED-GUARDS", 1800, ("python3", "-P", "dev/inferred-guard-test.py"),
                      "INFERRED-GUARDS cases=112 creates=2 refusals=24 erasure_pairs=14 boundaries=6 mutants=4 OK"))
     if inferred_arithmetic:
         legs.append(("INFERRED-ARITHMETIC", 600, ("python3", "-P", "dev/inferred-arithmetic-test.py"),
@@ -309,10 +309,10 @@ def main():
         legs.append(("PROOF-HOLES", 600, ("python3", "-P", "dev/proof-hole-test.py"),
                      "PROOF-HOLES cases=242 creates=2 refusals=25 erasure_pairs=23 boundaries=6 mutants=4 OK"))
     if inferred_bindings:
-        legs.append(("INFERRED-BINDINGS", 600, ("python3", "-P", "dev/inferred-binding-test.py"),
+        legs.append(("INFERRED-BINDINGS", 1800, ("python3", "-P", "dev/inferred-binding-test.py"),
                      "INFERRED-BINDINGS cases=229 creates=2 refusals=25 erasure_pairs=21 boundaries=6 mutants=6 OK"))
     if inferred_guard_bindings:
-        legs.append(("INFERRED-GUARD-BINDINGS", 600, ("python3", "-P", "dev/inferred-guard-binding-test.py"),
+        legs.append(("INFERRED-GUARD-BINDINGS", 1800, ("python3", "-P", "dev/inferred-guard-binding-test.py"),
                      "INFERRED-GUARD-BINDINGS cases=160 creates=2 refusals=27 erasure_pairs=20 boundaries=4 mutants=4 OK"))
     if context:
         legs.append(("EVM-CONTEXT", 600, ("python3", "-P", "dev/context-test.py"),
@@ -357,7 +357,7 @@ def main():
         legs.append(("CALLDATALOAD", 600, ("python3", "-P", "dev/calldataload-test.py"),
                      "CALLDATALOAD cases=2240 signed=35 pairs=64 probes=31 public=2 refusals=18 mutants=5 OK"))
     if address:
-        legs.append(("ADDRESS", 600, ("python3", "-P", "dev/address-test.py"),
+        legs.append(("ADDRESS", 3600, ("python3", "-P", "dev/address-test.py"),
                      "ADDRESS cases=1920 signed=15 pairs=128 probes=40 public=7 refusals=24 mutants=5 OK"))
     # Review round 2026-09-11 (D-1):  the M0 verdict reads the legs of
     # M0-PLAN section 8 only.  A leg that this mode appends is an M1 leg,
@@ -479,7 +479,7 @@ def main():
         stage = "LEXER-DIRECT"
         m1_names.update(("LEXER-DIRECT", "IDENTIFIER-DIRECT", "WORD-DIRECT", "SEGMENT-DIRECT", "CLI-PREFIX-DIRECT", "CLI-VALUE-DIRECT", "CLI-ERROR-DIRECT"))
         legs.append(("LEXER-DIRECT", 600, ("python3", "-P", "dev/lexer-direct-test.py"),
-                     "LEXER-DIRECT cases=287 golden=4 mutants=3 rounds=5 OK"))
+                     "LEXER-DIRECT cases=288 golden=4 mutants=3 rounds=5 OK"))
         legs.append(("IDENTIFIER-DIRECT", 600, ("python3", "-P", "dev/identifier-direct-test.py"),
                      "IDENTIFIER-DIRECT cases=1043 golden=1043 mutants=2 OK"))
         legs.append(("WORD-DIRECT", 600, ("python3", "-P", "dev/word-direct-test.py"),
@@ -560,7 +560,7 @@ def main():
         m1_names.add("M2-RECONCILE")
         m1_names.add("REFINED-WORD")
         legs.append(("M2-RECONCILE", 60, ("python3", "-P", "dev/m2-reconcile-test.py"),
-                     "M2-RECONCILE deferred=9 tested=5 open=4 docs=17 legs=110 mutants=15 fixtures=10 controls=3 OK"))
+                     "M2-RECONCILE deferred=9 tested=9 open=0 docs=17 legs=110 mutants=15 fixtures=10 controls=3 OK"))
         legs.append(("REFINED-WORD", 600, ("python3", "-P", "dev/refined-word-test.py"),
                      "REFINED-WORD valid=2 kernel_refused=3 emitter_refused=1 OK"))
     if m4_speed:

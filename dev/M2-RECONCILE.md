@@ -23,7 +23,7 @@ no build. `make test` includes it and `dev/refined-word-test.py`.
   Each control must fail.
 
 The marker is
-`M2-RECONCILE deferred=9 tested=5 open=4 docs=17 legs=110 mutants=15 fixtures=10 controls=3 OK`.
+`M2-RECONCILE deferred=9 tested=9 open=0 docs=17 legs=110 mutants=15 fixtures=10 controls=3 OK`.
 
 ## Gate mode
 
@@ -32,21 +32,23 @@ deadlines and markers. It adds M2-RECONCILE with a 60-second deadline floor
 and REFINED-WORD with a 600-second deadline floor, for 110 legs.
 REFINED-WORD requires
 `REFINED-WORD valid=2 kernel_refused=3 emitter_refused=1 OK`.
-M2 stays open until the group 9 closure battery passes.
+The group 9 closure battery failed five legs. Focused reruns passed, but
+M2 remains open pending a passing cumulative battery on the final sources. See
+[M2 closure](M2-CLOSE.md).
 
 ## Deferred-construct refusal matrix
 
 | Construct | Refusal site | Test evidence | Status |
 |---|---|---|---|
-| `SPar` | `src/kernel.bend`, "SPar is deferred" | none | OPEN |
-| `SNu` | `src/kernel.bend`, "SNu is deferred" | none | OPEN |
+| `SPar` | `src/kernel.bend`, "SPar is deferred" | `src/tests.bend`, KNEG `spar` | OK |
+| `SNu` | `src/kernel.bend`, "SNu is deferred" | `src/tests.bend`, KNEG `snu` | OK |
 | `nu` | `src/frontend.bend`, "nu is deferred" | `src/tests.bend`, two parser refusals | OK |
 | `Auto` | `src/kernel.bend`, "instances are deferred" | `test/neg/n06-auto.err` | OK |
 | Family that is not strictly positive | `src/kernel.bend` | `test/neg/mu-nonpositive.err` | OK |
 | Right former at a mu shape | `src/kernel.bend` | `src/tests.bend` | OK |
 | `KDelay`, `KForce` | `src/emitter.bend`, "EMIT_... (deferred)" | `src/tests.bend`, `Emit.Error.Later` cases | OK |
-| `RThunk` | `src/emitter.bend`, "EMIT_... (deferred)" | none | OPEN |
-| Level variables | no named refusal | none | OPEN |
+| `RThunk` | `src/emitter.bend`, "EMIT_... (deferred)" | `src/tests.bend`, EMIT-CONSTRUCTORS case `thunk` | OK |
+| Level variables | `src/frontend.bend`, "level variables are deferred" | `src/tests.bend`, one parser refusal | OK |
 
 SPEC.md has no row for the right former at a mu shape. The kernel message
 is the only record.
@@ -60,25 +62,24 @@ is the only record.
 | No mutant for a bad milestone label | `dev/stage-a-test.py`, R0-AUDIT-MILESTONE | FIXED | MUTANTS moves from 14 to 15. |
 | REFINED-WORD was not a gate leg | `dev/stage-a-gates.py`, `--m2-reconcile` | FIXED | Leg added. `make test` runs it. |
 | Default gate mode and leg count in documents | `dev/m2-reconcile-test.py`, 17 documents | FIXED | Each document names `--m2-reconcile` and 110. |
-| Deferred refusals without a test | matrix above, four OPEN rows | OPEN | Add a test for each row, or record a ruling. Deviation M2-G8-D2. |
-| Artifact boundaries | `dev/trusted-lines.py`, mutant TRUSTED-UNPRICED | OPEN | The kernel and six artifacts have a line budget. The compiler sources `frontend`, `function_abi`, `return_abi`, `event_source` and `string_literal` (4792 lines) have none. The source list is explicit and the mutant is killed. A price needs a USER ruling. |
+| Deferred refusals without a test | matrix above | FIXED | Each row has a test. The parser refuses `Type` followed by a name with "level variables are deferred". EMIT-CONSTRUCTORS moves from 22 to 23 cases. Deviation M2-G8-D2, USER ruling 2026-10-05. |
+| Artifact boundaries | `dev/trusted-lines.py`, mutant TRUSTED-UNPRICED | RULED | The kernel and six artifacts have a line budget. The compiler sources `frontend`, `function_abi`, `return_abi`, `event_source` and `string_literal` (4792 lines) have none. The source list is explicit and the mutant is killed. USER ruling 2026-10-05: leave these sources unpriced and record it. |
 | Trusted-line budget | TRUSTED-LINES, `dev/trusted-lines.py` | OK | Emitter 1798 of 1800, kernel 3767 of 4000, total 3190 of 3550. Part C added no line. |
 | R0 counts | R0-COUNT, R0-AUDIT | OK | Both legs pass. Their five mutants are killed. |
-| Denominator pins | `dev/DENOMINATORS.sha256` | FIXED | 327 rows verify. Rows were added for this document and for `dev/m2-reconcile-test.py`. |
+| Denominator pins | `dev/DENOMINATORS.sha256` | FIXED | 328 rows verify. Rows were added for this document, for `dev/m2-reconcile-test.py` and for `corpus/m2/ERC20.asy`. |
 | Gate deadlines | `dev/stage-a-gates.py`, `--m2-reconcile` | OK | The 108 carried legs keep their deadlines. In one run REFINED-WORD took 187 s, and the 600-second floor is 3.2 times that. M2-RECONCILE took 4 s against 60 s. |
 | Source pins | `dev/native-carry.json`, `dev/carry-check.sh` | FIXED | Pins refreshed for `src/emitter.bend` and `src/kernel.bend`. CARRY reports 16 of 16 files, no difference and no unlisted file. |
 | ERC20 reference and ABI provenance | `reference/erc20`, `dev/ABI-PROVENANCE.md` | OK | `MANIFEST.json`, `README.md` and `abi.json` have the hashes of the group 7 record. Part C did not change them. |
 | Earlier source record | `dev/validation/2026-10-04-m2-abi/SOURCES.sha256` | OK | 47 of 47 rows verify at commit 0e81531. 38 rows verify now. The nine other files are group 8 edits. |
-| Corpus coverage | `corpus/MANIFEST.json` | OPEN | Each of the 11 files in `corpus/contracts` and `corpus/proofs` has a row. No row is an M2 source contract, and no row was added. Deviation M2-G8-D3. |
+| Corpus coverage | `corpus/MANIFEST.json` | FIXED | Each of the 12 files in `corpus/contracts`, `corpus/proofs` and `corpus/m2` has a row. The `m2` row is `corpus/m2/ERC20.asy`. It runs `decimals()` with the row calldata `313ce567`. The ratio does not time it. User ruling M2-G8-D3. |
 | Baseline comparers | six `dev/*-compatibility.py` files | OK | None contains `MUTANTS killed`, `13/13` or `14/14`. No marker drift is possible there. |
 | Refined Word evidence (R1) | `dev/refined-word-test.py`, `dev/refined-word-data` | OK | Two valid fixtures emit bytes identical to the contracts without the witness. The kernel refuses three fixtures and the emitter refuses one. Four legacy helper cases pass. |
 
 ## Limits
 
-- The check is static. Part C did not run the 110-leg battery. That run
-  belongs to group 9.
-- The test does not require an OPEN row of the matrix. The marker counts
-  these rows as `open=4`.
+- The check is static. Part C did not run the 110-leg battery. Group 9
+  ran it. See [M2 closure](M2-CLOSE.md).
+- The matrix has no OPEN row. The marker counts OPEN rows as `open=0`.
 - The corpus audit compared files with manifest rows only. It did not
   compare each M2 feature with a corpus row.
 - Part C did not run the M2-ABI leg again and did not compare

@@ -68,7 +68,7 @@ def outcome(name, path, runtime, data, value, want, *, signed=False, address=Non
             '--caller', hex(C.SENDER), '--address', hex(address)]
     for slot, stored in P.SLOTS.items():
         argv += ['--storage', f'{int(slot, 16)}={int(stored, 16)}']
-    model = json.loads(C.checked('model-' + name, argv))
+    model = json.loads(C.checked('model-' + name, argv, timeout=600))
     require(model == want, 'ADDRESS-MODEL ' + name)
     state = C.prestate(P.SLOTS)
     evm, _ = C.evm_run(name, runtime, data, C.SENDER, slots=P.SLOTS, value=value, state=state)
@@ -207,7 +207,9 @@ def refusals(only_schema=False):
         return len(rows)
     invalid = ['', '-1', '0x', '0xg', '1_0', ' 1', '+1', str(2**160), '0x1' + '0' * 40, str(2**256)]
     for i, value in enumerate(invalid):
-        result = C.capture('input-' + str(i), [C.BINARY, 'run', '/missing.asy', '--address', value])
+        # 4696cbc reads the source before the --address check, so a readable fixture is needed here.
+        fixture = str(Path(__file__).resolve().parent.parent / 'examples/ContractAddress.asy')
+        result = C.capture('input-' + str(i), [C.BINARY, 'run', fixture, '--address', value])
         require(result.returncode == 64 and 'RUN_INPUT' in result.stderr, 'ADDRESS-INPUT ' + str(i))
     for i, flags in enumerate([['--address'], ['--address', '0', '--address', '1']]):
         result = C.capture('option-' + str(i), [C.BINARY, 'run', '/missing.asy'] + flags)

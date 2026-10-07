@@ -1,0 +1,16 @@
+{
+ "command": [
+  "python3",
+  "-P",
+  "/Users/oobi/Documents/assay-m2-close-build/legs.py",
+  "/Users/oobi/Documents/assay-m2-close-build/logs/run-3c-legs",
+  "LEXER-DIRECT"
+ ],
+ "exit": 0,
+ "secs": 186.7,
+ "limit_mb": 4096.0,
+ "peak_process_mb": 601,
+ "peak_tree_mb": 639,
+ "samples": 93,
+ "killed": null
+}

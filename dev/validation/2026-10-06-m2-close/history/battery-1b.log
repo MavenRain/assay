@@ -1,0 +1,179 @@
+PASS ABI-SCHEMA exit=0 elapsed_ms=44321.0 deadline_s=300
+FAIL ABI-CODEC exit=1 elapsed_ms=300080.7 deadline_s=300
+Command '('python3', '-P', 'dev/abi-codec-test.py')' timed out after 300 seconds
+LEG-TIMEOUT ABI-CODEC deadline_s=300 elapsed_s=300.073
+
+PASS LAYOUT-PACKED exit=0 elapsed_ms=106003.8 deadline_s=300
+PASS LAYOUT-MAPPING exit=0 elapsed_ms=89244.2 deadline_s=300
+PASS EVENT-CODEC exit=0 elapsed_ms=81884.4 deadline_s=300
+PASS CALL-CODEC exit=0 elapsed_ms=52532.0 deadline_s=300
+PASS RETURN-CODEC exit=0 elapsed_ms=85593.0 deadline_s=300
+PASS REVERT-CODEC exit=0 elapsed_ms=97572.9 deadline_s=300
+PASS EVENT-DECODE exit=0 elapsed_ms=41409.8 deadline_s=300
+PASS LEXER-KEYWORDS exit=0 elapsed_ms=1775.6 deadline_s=600
+FAIL LEXER-DIRECT exit=1 elapsed_ms=295.9 deadline_s=600
+Traceback (most recent call last):
+  File "/Users/oobi/Documents/assay/dev/lexer-direct-compatibility.py", line 90, in <module>
+    main()
+    ~~~~^^
+  File "/Users/oobi/Documents/assay/dev/lexer-direct-compatibility.py", line 45, in main
+    require(helpers.historical_schedule(before, mode) == helpers.schedule(after, mode), 'MODE ' + mode)
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oobi/Documents/assay/dev/lexer-direct-compatibility.py", line 24, in require
+    raise ValueError(label)
+ValueError: MODE 
+Traceback (most recent call last):
+  File "/Users/oobi/Documents/assay/dev/lexer-direct-test.py", line 289, in <module>
+    main()
+    ~~~~^^
+  File "/Users/oobi/Documents/assay/dev/lexer-direct-test.py", line 213, in main
+    subprocess.run([sys.executable, '-P', str(ROOT / 'dev/lexer-direct-compatibility.py')], check=True)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py", line 578, in run
+    raise CalledProcessError(retcode, process.args,
+                             output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['/opt/homebrew/opt/python@3.14/bin/python3.14', '-P', '/Users/oobi/Documents/assay/dev/lexer-direct-compatibility.py']' returned non-zero exit status 1.
+
+PASS IDENTIFIER-DIRECT exit=0 elapsed_ms=2392.7 deadline_s=600
+PASS WORD-DIRECT exit=0 elapsed_ms=8371.7 deadline_s=600
+PASS SEGMENT-DIRECT exit=0 elapsed_ms=4610.4 deadline_s=600
+PASS CLI-PREFIX-DIRECT exit=0 elapsed_ms=41556.1 deadline_s=600
+PASS CLI-VALUE-DIRECT exit=0 elapsed_ms=23246.5 deadline_s=600
+PASS CLI-ERROR-DIRECT exit=0 elapsed_ms=8745.3 deadline_s=600
+FAIL MAPPING-CLI exit=1 elapsed_ms=1570.1 deadline_s=600
+MAPPING-CLI FAIL: COMPATIBILITY changed a carried CLI declaration
+
+FAIL EVENT-CLI exit=1 elapsed_ms=1205.1 deadline_s=600
+EVENT-CLI FAIL: COMPATIBILITY changed a carried CLI declaration
+
+FAIL EVENT-DECODE-CLI exit=1 elapsed_ms=1077.9 deadline_s=600
+EVENT-DECODE-CLI FAIL: COMPATIBILITY changed a carried CLI declaration
+
+FAIL CALLDATA-CLI exit=1 elapsed_ms=1139.0 deadline_s=600
+CALLDATA-CLI FAIL: COMPATIBILITY changed a carried CLI declaration
+
+PASS MILESTONE-SPEED exit=0 elapsed_ms=710.4 deadline_s=60
+PASS PACKED-SOURCE exit=0 elapsed_ms=251349.8 deadline_s=600
+FAIL MAPPING-SOURCE exit=1 elapsed_ms=1091.0 deadline_s=600
+MAPPING-SOURCE FAIL: MAPPING-SOURCE historical CLI changed
+
+FAIL RETURNDATA-CLI exit=1 elapsed_ms=1768.8 deadline_s=600
+RETURNDATA-CLI FAIL: COMPATIBILITY changed a carried CLI declaration
+
+PASS MAPPING-RUNTIME exit=0 elapsed_ms=135307.5 deadline_s=600
+PASS FUNCTION-ABI exit=0 elapsed_ms=64104.3 deadline_s=600
+PASS RETURN-ABI exit=0 elapsed_ms=130225.8 deadline_s=900
+PASS SOURCE-EVENTS exit=0 elapsed_ms=233367.5 deadline_s=900
+PASS STORAGE-PROOFS exit=0 elapsed_ms=110639.2 deadline_s=600
+PASS ERC20-SOURCE exit=0 elapsed_ms=185305.7 deadline_s=900
+PASS M2-ABI exit=0 elapsed_ms=74064.3 deadline_s=600
+PASS M2-RECONCILE exit=0 elapsed_ms=136.3 deadline_s=60
+PASS REFINED-WORD exit=0 elapsed_ms=12504.6 deadline_s=600
+FAIL INFERRED-GUARDS exit=1 elapsed_ms=248766.8 deadline_s=600
+IG-LIVE cases=112 creates=2 OK
+IG-ERASURE pairs=14 files=5 OK
+IG-REFUSALS cases=24 commands=3 OK
+Traceback (most recent call last):
+  File "/Users/oobi/Documents/assay/dev/inferred-guard-test.py", line 237, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "/Users/oobi/Documents/assay/dev/inferred-guard-test.py", line 229, in main
+    erased, invalid, accepted, killed = erasure(), refusals(), boundaries(), mutants()
+                                                               ~~~~~~~~~~^^
+  File "/Users/oobi/Documents/assay/dev/inferred-guard-test.py", line 179, in boundaries
+    P.emit(source, folder / str(index), f'boundary-{index}')
+    ~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oobi/Documents/assay/dev/m1-emit-test.py", line 47, in emit
+    checked(name, [BINARY, 'emit', source, '-o', output, *extra])
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oobi/Documents/assay/dev/m1-emit-test.py", line 41, in checked
+    result = capture(name, argv)
+  File "/Users/oobi/Documents/assay/dev/m1-emit-test.py", line 34, in capture
+    result = subprocess.run([str(arg) for arg in argv], cwd=cwd, capture_output=True, text=True, timeout=timeout)
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py", line 557, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py", line 1221, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py", line 2154, in _communicate
+    self._check_timeout(endtime, orig_timeout, stdout, stderr)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py", line 1268, in _check_timeout
+    raise TimeoutExpired(
+    ...<2 lines>...
+            stderr=b''.join(stderr_seq) if stderr_seq else None)
+subprocess.TimeoutExpired: Command '['/Users/oobi/Documents/assay/_build/bin/assay', 'emit', '/tmp/claude-501/assay-inferred-boundaries-nena9669/5.asy', '-o', '/tmp/claude-501/assay-inferred-boundaries-nena9669/5']' timed out after 30 seconds
+
+FAIL INFERRED-BINDINGS exit=1 elapsed_ms=489776.3 deadline_s=600
+IA-LIVE cases=229 creates=2 OK
+IA-ERASURE pairs=21 files=5 OK
+IB-REFUSALS cases=25 commands=3 OK
+Traceback (most recent call last):
+  File "/Users/oobi/Documents/assay/dev/inferred-binding-test.py", line 232, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "/Users/oobi/Documents/assay/dev/inferred-binding-test.py", line 224, in main
+    erased, invalid, limits, killed = IA.erasure(), refusals(), boundaries(), mutants()
+                                                                ~~~~~~~~~~^^
+  File "/Users/oobi/Documents/assay/dev/inferred-binding-test.py", line 153, in boundaries
+    P.emit(source, folder / f'{depth}-{suffix}', f'nested-{depth}-{suffix}')
+    ~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oobi/Documents/assay/dev/m1-emit-test.py", line 47, in emit
+    checked(name, [BINARY, 'emit', source, '-o', output, *extra])
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oobi/Documents/assay/dev/m1-emit-test.py", line 41, in checked
+    result = capture(name, argv)
+  File "/Users/oobi/Documents/assay/dev/m1-emit-test.py", line 34, in capture
+    result = subprocess.run([str(arg) for arg in argv], cwd=cwd, capture_output=True, text=True, timeout=timeout)
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py", line 557, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py", line 1221, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py", line 2154, in _communicate
+    self._check_timeout(endtime, orig_timeout, stdout, stderr)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py", line 1268, in _check_timeout
+    raise TimeoutExpired(
+    ...<2 lines>...
+            stderr=b''.join(stderr_seq) if stderr_seq else None)
+subprocess.TimeoutExpired: Command '['/Users/oobi/Documents/assay/_build/bin/assay', 'emit', '/tmp/claude-501/assay-inferred-binding-boundaries-32pxd3w8/nested-128-inferred.asy', '-o', '/tmp/claude-501/assay-inferred-binding-boundaries-32pxd3w8/128-inferred']' timed out after 30 seconds
+
+FAIL INFERRED-GUARD-BINDINGS exit=1 elapsed_ms=365632.7 deadline_s=600
+IG-LIVE cases=160 creates=2 OK
+IG-ERASURE pairs=20 files=5 OK
+IGB-REFUSALS cases=27 commands=3 OK
+Traceback (most recent call last):
+  File "/Users/oobi/Documents/assay/dev/inferred-guard-binding-test.py", line 214, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "/Users/oobi/Documents/assay/dev/inferred-guard-binding-test.py", line 206, in main
+    erased, invalid, accepted, killed = IG.erasure(), refusals(), boundaries(), mutants()
+                                                                  ~~~~~~~~~~^^
+  File "/Users/oobi/Documents/assay/dev/inferred-guard-binding-test.py", line 148, in boundaries
+    P.emit(source, output, f'boundary-{name}-{index}')
+    ~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oobi/Documents/assay/dev/m1-emit-test.py", line 47, in emit
+    checked(name, [BINARY, 'emit', source, '-o', output, *extra])
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oobi/Documents/assay/dev/m1-emit-test.py", line 41, in checked
+    result = capture(name, argv)
+  File "/Users/oobi/Documents/assay/dev/m1-emit-test.py", line 34, in capture
+    result = subprocess.run([str(arg) for arg in argv], cwd=cwd, capture_output=True, text=True, timeout=timeout)
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py", line 557, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py", line 1221, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py", line 2154, in _communicate
+    self._check_timeout(endtime, orig_timeout, stdout, stderr)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py", line 1268, in _check_timeout
+    raise TimeoutExpired(
+    ...<2 lines>...
+            stderr=b''.join(stderr_seq) if stderr_seq else None)
+subprocess.TimeoutExpired: Command '['/Users/oobi/Documents/assay/_build/bin/assay', 'emit', '/tmp/claude-501/assay-guard-binding-boundaries-9gsj1yj_/steps-0.asy', '-o', '/tmp/claude-501/assay-guard-binding-boundaries-9gsj1yj_/steps-0']' timed out after 30 seconds
+

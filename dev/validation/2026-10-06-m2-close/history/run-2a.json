@@ -1,0 +1,21 @@
+{
+ "command": [
+  "python3",
+  "-P",
+  "/Users/oobi/Documents/assay-m2-close-build/legs.py",
+  "/Users/oobi/Documents/assay-m2-close-build/logs/run-2a-legs",
+  "CONTRACT-SURFACE",
+  "NULLARY-ENTRIES",
+  "INVARIANTS",
+  "PROOF-HELPERS",
+  "SURFACE-CONTEXT",
+  "CALLVALUE"
+ ],
+ "exit": 0,
+ "secs": 1126.3,
+ "limit_mb": 4096.0,
+ "peak_process_mb": 1995,
+ "peak_tree_mb": 2196,
+ "samples": 562,
+ "killed": null
+}

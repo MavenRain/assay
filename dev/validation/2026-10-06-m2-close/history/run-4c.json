@@ -1,0 +1,18 @@
+{
+ "command": [
+  "python3",
+  "-P",
+  "/Users/oobi/Documents/assay-m2-close-build/legs.py",
+  "/Users/oobi/Documents/assay-m2-close-build/logs/run-4c-legs",
+  "CALLDATASIZE",
+  "CALLDATALOAD",
+  "ADDRESS"
+ ],
+ "exit": 1,
+ "secs": 2222.2,
+ "limit_mb": 4096.0,
+ "peak_process_mb": 1711,
+ "peak_tree_mb": 1826,
+ "samples": 1107,
+ "killed": null
+}

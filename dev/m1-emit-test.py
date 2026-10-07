@@ -37,14 +37,15 @@ def capture(name, argv, *, cwd=ROOT, timeout=30):
     return result
 
 
-def checked(name, argv):
-    result = capture(name, argv)
+def checked(name, argv, *, timeout=30):
+    result = capture(name, argv, timeout=timeout)
     require(result.returncode == 0 and not result.stderr, 'M1-TOOL ' + name + ': ' + result.stderr)
     return result.stdout
 
 
-def emit(source, output, name, *extra):
-    checked(name, [BINARY, 'emit', source, '-o', output, *extra])
+# The 128-step boundary emits cost about 150 cpu s each on the Bend host. Speed is M4 work.
+def emit(source, output, name, *extra, timeout=30):
+    checked(name, [BINARY, 'emit', source, '-o', output, *extra], timeout=timeout)
     require({path.name for path in output.iterdir()} ==
             {'runtime.hex', 'init.hex', 'abi.json', 'layout.json', 'axioms.txt'}, 'M1-FIVE-FILES')
     require((output / 'axioms.txt').read_text() == 'EvmOpcodes\n', 'M1-AXIOMS')

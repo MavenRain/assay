@@ -38,7 +38,8 @@ def model(name, source, row, *, extra=(), cwd=ROOT, env=None):
     result = capture('model-' + name, [*argv, *extra], cwd=cwd, env=env)
     require(result.returncode == 0 and not result.stderr, 'MODEL-EXEC ' + name + ': ' + result.stderr)
     out = json.loads(result.stdout, object_pairs_hook=D.unique)
-    require(set(out) == {'status', 'output', 'storage'}, 'MODEL-SHAPE ' + name)
+    logs = out.pop('logs', [])
+    require(set(out) == {'status', 'output', 'storage'} and logs == [], 'MODEL-SHAPE ' + name)
     expected = D.storage({D.RECEIVER: dict(storage=row['after'])}).get(D.RECEIVER, {})
     require(out == dict(status=row['status'], output=row['output'], storage=expected), 'MODEL-EXPECTED ' + name)
     return out
@@ -119,7 +120,7 @@ def live():
             source = ROOT / case['path']
             require(hashlib.sha256(source.read_bytes()).hexdigest() == case['sha256'], 'MODEL-CORPUS hash')
             name = 'corpus-' + source.stem
-            row = dict(name=name, calldata='00ff', value=0, before={},
+            row = dict(name=name, calldata=case.get('calldata', '00ff'), value=0, before={},
                        after={hex(int(key)): hex(int(value)) for key, value in case['storage'].items()},
                        status='success', output='0x' + f'{int(case["answer"]):064x}')
             agreement(name, source, row, folder, outputs=case['outputs'])

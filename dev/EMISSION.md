@@ -120,3 +120,5 @@ ERASED-BYTES seed compiles three different checked proof shapes and
 requires identical runtime and creation bytes.  Changing the runtime
 payload must change both byte strings.  This is an executable M0 seed,
 not a proof of erasure correctness or the full M2 erasure gate.
+M2 adds a twelfth corpus file, `corpus/m2/ERC20.asy`, outside the timed
+groups.
