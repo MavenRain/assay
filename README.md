@@ -55,10 +55,9 @@ updates the pinned compiler and its JavaScript effect registration boundary.
 The [M2 ABI gate](dev/M2-ABI-GOLDENS.md) compares the complete source ERC20 ABI
 with its pinned golden and checks negative Lean witnesses and proof erasure.
 The [M2 reconciliation](dev/M2-RECONCILE.md) audits budgets, provenance,
-coverage and documents against the code. M2 remains open pending a passing
-cumulative battery on the final source hashes. The
+coverage and documents against the code. M2 is closed. The
 [M2 closure](dev/M2-CLOSE.md) records the group 9 closure battery
-attempt and subsequent focused reruns.
+on the final source hashes.
 Milestone work proceeds through the [grouped M2, M3 and M4 plan](dev/MILESTONE-GROUPS.md),
 with at most ten implementation turns allocated to each milestone. The compiler speed gate now
 belongs to [M4](dev/M4-SPEED.md), as requested on 2026-10-01, with the same

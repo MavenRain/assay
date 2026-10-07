@@ -5,22 +5,24 @@ This directory records the group 9 closure battery of milestone M2.
 The battery command is `make gates`. It ran from the repository root under a
 memory guard with a limit of 4096 MB. The battery has 110 legs.
 
-Closure run: `battery-3`. Launch: 2026-10-06T19:38:44Z. HEAD: `092fa7ab51778ff703c6adea74a027e8a37b1a78`. Staged tree: `553a927a7c06876279fdc36f7679898a6fc2bb1e`.
-Result: 105 of 110 legs passed in the closure run. 5 legs failed in the closure run and passed in the later run `run-6b`: `INFERRED-BINDINGS`, `INFERRED-GUARD-BINDINGS`, `EVM-CONTEXT`, `SURFACE-CONTEXT`, `WORD-EQUALITY`.
-Closed: no. A passing cumulative battery on the final sources is still required.
-The focused reruns do not change battery 3's exit status or identify its inputs
-as the later staged sources.
+Closure run: `battery-6`. Launch: 2026-10-07T10:01:34Z. HEAD: `b8d57161a2e1bef3274bd94c913ec23b5f256688`. Tree: `2798cf59afb44d5a2f0f57da886aadd853231677`.
+Result: 110 of 110 legs passed in the closure run. No leg needed a rerun.
+Closed: yes.
+
+The closure run used the committed tree `2798cf59afb44d5a2f0f57da886aadd853231677`. After the run, only
+the closure documents and their pins changed: `README.md`, `dev/ASSAY-M2-BUILD-LOG.md`, `dev/DENOMINATORS.sha256`, `dev/M2-CLOSE.md`, `dev/M2-RECONCILE.md`, `dev/MILESTONE-GROUPS.md`.
+The light legs that read these files ran on the edited tree as `run-b6-light`: 8 of 8 passed.
 
 ## Files
 
-- `battery.log`: the closure run log. One row for each leg, with the output of each failed leg.
+- `battery.log`: the closure run log. One row for each leg.
 - `battery.json`: the memory guard result of the closure run.
 - `legs.tar.gz`: the 110 leg logs of the closure run.
 - `attempts.json`: one row for each leg row of each run, in run order.
 - `summary.json`: the counts of each run and the closure result.
 - `history/`: the logs of the other runs, in run order. Failed runs are kept.
-- `LAUNCH-SOURCES.sha256`: the SHA-256 of each blob outside this directory in the recorded launch tree `553a927a7c06876279fdc36f7679898a6fc2bb1e`.
-- `SOURCES.sha256`: the SHA-256 of each staged blob outside this directory after review corrections. This later inventory is not the launch inventory and does not imply that the cumulative battery passed on these sources.
+- `LAUNCH-SOURCES.sha256`: the SHA-256 of each blob outside this directory in the launch tree `2798cf59afb44d5a2f0f57da886aadd853231677`.
+- `SOURCES.sha256`: the SHA-256 of each of the 8803 staged blobs outside this directory after the closure edits.
 
 ## Run history
 
@@ -48,19 +50,22 @@ The closure rules record failures as well as successful reruns. Each run is list
 | `run-5h` | 1 | 1 | 0 | 0 |
 | `battery-2` | 110 | 106 | 4 | 3 |
 | `run-6a` | 3 | 3 | 0 | 0 |
-| `run-close-light` | 8 | 8 | 0 | 0 |
 | `battery-3` | 110 | 105 | 5 | 3 |
 | `run-6b` | 5 | 5 | 0 | 0 |
+| `run-close-light` | 8 | 8 | 0 | 0 |
+| `battery-4` | 110 | 109 | 1 | 0 |
+| `battery-5` | 70 | 70 | 0 | 0 |
+| `battery-6` | 110 | 110 | 0 | 0 |
+| `run-b6-light` | 8 | 8 | 0 | 0 |
 
 ## Check the sources
 
-Check the later staged review inventory from the repository root:
+Check the staged inventory from the repository root:
 
 ```sh
 shasum -a 256 -c dev/validation/2026-10-06-m2-close/SOURCES.sha256
 ```
 
-The launch inventory must instead be compared with blobs read from the recorded
-launch tree, not with the current working tree. For example,
-`git show 553a927a7c06876279fdc36f7679898a6fc2bb1e:dev/m2-reconcile-test.py | shasum -a 256`
+Compare the launch inventory with blobs read from the launch tree. For example,
+`git show 2798cf59afb44d5a2f0f57da886aadd853231677:dev/m2-reconcile-test.py | shasum -a 256`
 matches the `dev/m2-reconcile-test.py` entry in `LAUNCH-SOURCES.sha256`.

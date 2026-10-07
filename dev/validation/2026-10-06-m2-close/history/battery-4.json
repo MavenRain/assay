@@ -5,11 +5,11 @@
   "/Users/oobi/Documents/assay",
   "gates"
  ],
- "exit": 0,
- "secs": 7563.5,
+ "exit": 2,
+ "secs": 10087.0,
  "limit_mb": 4096.0,
- "peak_process_mb": 2153,
- "peak_tree_mb": 2266,
- "samples": 3774,
+ "peak_process_mb": 2066,
+ "peak_tree_mb": 2178,
+ "samples": 5032,
  "killed": null
 }

@@ -2,7 +2,7 @@
 
 The remaining roadmap is grouped into at most ten implementation turns per milestone. A turn owns a complete feature group, its relevant checks, its review, and staged changes. Tool calls and fixes within that turn do not create extra groups. Completion depends on the milestone acceptance gate passing, not on reaching the turn limit.
 
-M1 is closed. M2 remains open pending its cumulative acceptance battery; M3 and M4 remain open. Mapping runtime access is the first M2 group; ABI source integration follows it. These groups preserve the functional roadmap in the design verdict. Compiler speed belongs to M4 under the later milestone decision documented in [M4 speed](M4-SPEED.md).
+M1 and M2 are closed. M3 and M4 remain open. Mapping runtime access is the first M2 group; ABI source integration follows it. These groups preserve the functional roadmap in the design verdict. Compiler speed belongs to M4 under the later milestone decision documented in [M4 speed](M4-SPEED.md).
 
 ## M2 ERC20 mappings events ABI and packing
 
@@ -18,7 +18,7 @@ Nine planned turns, with turn ten reserved for repairs and reruns.
 | 6 | Complete ERC20 contract | Supply, balances, allowances, approval and transfer behavior compose with metadata and events. Success, failure, self-transfer and allowance boundaries have independent expected outcomes. Implemented in [source ERC20](M2-SOURCE-ERC20.md), with a fixed genesis holder and the existing constructor event refusal preserved. |
 | 7 | ABI goldens and negative mutants | The complete ERC20 ABI equals the provenance-pinned golden under jq normalization. Required negative Lean mutants are rejected, and proof erasure controls remain effective. Implemented in [ABI goldens and negative witnesses](M2-ABI-GOLDENS.md), including mapping-read mutability repair, sixteen ABI controls, eight direct Lean rejections and the existing storage mutation and erasure controls. |
 | 8 | Coverage and audit reconciliation | Artifact boundaries, budgets, source provenance, corpus coverage and documentation are reviewed against the completed implementation. Unsupported features retain explicit refusals. Implemented in [coverage and audit reconciliation](M2-RECONCILE.md), including the audit table, the deferred-construct refusal matrix, the REFINED-WORD gate leg and a fifteenth stage-A mutant. Each deferred refusal has a test (deviation M2-G8-D2, USER ruling 2026-10-05). |
-| 9 | M2 closure | The cumulative M2 battery and M2-ABI acceptance gate pass on the final source hashes. Archive evidence and stage the closure record. Pending: [M2 closure](M2-CLOSE.md) records the failed battery and focused reruns. |
+| 9 | M2 closure | The cumulative M2 battery and M2-ABI acceptance gate pass on the final source hashes. Archive evidence and stage the closure record. Implemented in [M2 closure](M2-CLOSE.md). |
 | 10 | Repair reserve | Resolve findings or failed gates from the preceding groups without dropping requirements. Group 10 repairs are listed in [M2 closure](M2-CLOSE.md). |
 
 ## M3 vault external calls and epoch discipline

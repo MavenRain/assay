@@ -3,200 +3,115 @@ BEND BUILD assay cached
 BEND BUILD tests cached
 BEND BUILD backends cached
 python3 -P dev/stage-a-gates.py --m2-reconcile
-PASS BUILD exit=0 elapsed_ms=1679.2 deadline_s=120
-PASS PIN-CARRY exit=0 elapsed_ms=136.2 deadline_s=30
-PASS R0-COUNT exit=0 elapsed_ms=355.2 deadline_s=10
-PASS R0-AUDIT exit=0 elapsed_ms=136.3 deadline_s=10
-PASS HOUSE exit=0 elapsed_ms=1260.7 deadline_s=30
-PASS NATIVE-MAPS exit=0 elapsed_ms=732.5 deadline_s=180
-PASS NATIVE-IO exit=0 elapsed_ms=1643.0 deadline_s=180
-PASS TRUSTED-LINES exit=0 elapsed_ms=235.5 deadline_s=10
-PASS SUITE-KERNEL exit=0 elapsed_ms=15156.1 deadline_s=300
-PASS SUITE-SURFACE exit=0 elapsed_ms=341.8 deadline_s=60
-PASS DRIVER exit=0 elapsed_ms=7936.8 deadline_s=30
-PASS MUTANTS exit=0 elapsed_ms=22437.7 deadline_s=300
-PASS DENOMINATORS exit=0 elapsed_ms=169.1 deadline_s=10
-PASS KECCAK-VEC exit=0 elapsed_ms=12317.4 deadline_s=120
-PASS KECCAK-MUTANTS exit=0 elapsed_ms=67868.9 deadline_s=660
-PASS STACK-HEIGHT exit=0 elapsed_ms=22574.5 deadline_s=780
-PASS DISASM-3WAY exit=0 elapsed_ms=16070.3 deadline_s=120
-PASS ASM-MUTANTS exit=0 elapsed_ms=55387.8 deadline_s=1860
-PASS FORK-DRIFT exit=0 elapsed_ms=1174.7 deadline_s=120
-PASS M0-TRACE exit=0 elapsed_ms=587.6 deadline_s=120
-PASS CREATE-EQ exit=0 elapsed_ms=544.0 deadline_s=120
-PASS REFERENCE-CHECKS exit=0 elapsed_ms=1109.0 deadline_s=180
-PASS REFERENCE-MUTANTS exit=0 elapsed_ms=5252.1 deadline_s=1200
-PASS EMIT-CONSTRUCTORS exit=0 elapsed_ms=148.4 deadline_s=30
-PASS WORD-UNBOX exit=0 elapsed_ms=119.2 deadline_s=30
-PASS STORAGE-NOCLOS exit=0 elapsed_ms=104.0 deadline_s=30
-PASS ABI-GOLD exit=0 elapsed_ms=1064.6 deadline_s=60
-PASS EMITTED-TRACE exit=0 elapsed_ms=1006.0 deadline_s=120
-PASS EMIT-SOURCES exit=0 elapsed_ms=12065.0 deadline_s=600
-PASS EMIT-MUTANTS exit=0 elapsed_ms=116751.8 deadline_s=1200
-PASS AXIOMS exit=0 elapsed_ms=10473.2 deadline_s=480
-PASS TRACE-DRIVER exit=0 elapsed_ms=7040.1 deadline_s=120
-PASS CORPUS exit=0 elapsed_ms=7758.5 deadline_s=600
-PASS ERASED-BYTES exit=0 elapsed_ms=13554.8 deadline_s=120
-PASS M0-RATIO exit=0 elapsed_ms=878.7 deadline_s=60
-PASS F-MUTANTS exit=0 elapsed_ms=4655.7 deadline_s=180
-PASS DIFF-EXECUTOR exit=0 elapsed_ms=35201.6 deadline_s=180
-PASS COUNTER-REFERENCE exit=0 elapsed_ms=12649.7 deadline_s=300
-PASS M1-EMISSION exit=0 elapsed_ms=364640.0 deadline_s=600
-PASS SOURCE-MODEL exit=0 elapsed_ms=324532.2 deadline_s=600
-PASS CONTRACT-SURFACE exit=0 elapsed_ms=367373.5 deadline_s=600
-PASS CONTRACT-ROUTE exit=0 elapsed_ms=2283.6 deadline_s=90
-PASS SOURCE-PROOFS exit=0 elapsed_ms=370300.6 deadline_s=600
-PASS NULLARY-ENTRIES exit=0 elapsed_ms=138478.2 deadline_s=600
-PASS CUSTOM-ERRORS exit=0 elapsed_ms=272297.1 deadline_s=600
-PASS PROOF-GUARDS exit=0 elapsed_ms=228687.5 deadline_s=600
-PASS PROOF-TERMS exit=0 elapsed_ms=144429.1 deadline_s=600
-PASS INVARIANTS exit=0 elapsed_ms=112130.8 deadline_s=600
-PASS PROOF-HELPERS exit=0 elapsed_ms=170766.4 deadline_s=600
-PASS PROOF-BUNDLES exit=0 elapsed_ms=191177.3 deadline_s=600
-PASS PREDICATES exit=0 elapsed_ms=140940.4 deadline_s=600
-PASS COMPOUND-INVARIANTS exit=0 elapsed_ms=81573.5 deadline_s=600
-PASS COMPOUND-GUARDS exit=0 elapsed_ms=107065.2 deadline_s=600
-PASS NAMED-GUARDS exit=0 elapsed_ms=109162.9 deadline_s=600
-PASS INFERRED-GUARDS exit=0 elapsed_ms=382602.2 deadline_s=1800
-PASS INFERRED-ARITHMETIC exit=0 elapsed_ms=235801.3 deadline_s=600
-PASS INFERRED-HELPERS exit=0 elapsed_ms=303311.7 deadline_s=600
-PASS PROOF-HOLES exit=0 elapsed_ms=249723.9 deadline_s=600
-FAIL INFERRED-BINDINGS exit=1 elapsed_ms=1322838.3 deadline_s=1800
-IA-LIVE cases=229 creates=2 OK
-IA-ERASURE pairs=21 files=5 OK
-IB-REFUSALS cases=25 commands=3 OK
-Traceback (most recent call last):
-  File "/Users/oobi/Documents/assay/dev/inferred-binding-test.py", line 232, in <module>
-    sys.exit(main())
-             ~~~~^^
-  File "/Users/oobi/Documents/assay/dev/inferred-binding-test.py", line 224, in main
-    erased, invalid, limits, killed = IA.erasure(), refusals(), boundaries(), mutants()
-                                                                ~~~~~~~~~~^^
-  File "/Users/oobi/Documents/assay/dev/inferred-binding-test.py", line 153, in boundaries
-    P.emit(source, folder / f'{depth}-{suffix}', f'nested-{depth}-{suffix}', timeout=600)
-    ~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/oobi/Documents/assay/dev/m1-emit-test.py", line 48, in emit
-    checked(name, [BINARY, 'emit', source, '-o', output, *extra], timeout=timeout)
-    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/oobi/Documents/assay/dev/m1-emit-test.py", line 41, in checked
-    result = capture(name, argv, timeout=timeout)
-  File "/Users/oobi/Documents/assay/dev/m1-emit-test.py", line 34, in capture
-    result = subprocess.run([str(arg) for arg in argv], cwd=cwd, capture_output=True, text=True, timeout=timeout)
-  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py", line 557, in run
-    stdout, stderr = process.communicate(input, timeout=timeout)
-                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py", line 1221, in communicate
-    stdout, stderr = self._communicate(input, endtime, timeout)
-                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py", line 2154, in _communicate
-    self._check_timeout(endtime, orig_timeout, stdout, stderr)
-    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py", line 1268, in _check_timeout
-    raise TimeoutExpired(
-    ...<2 lines>...
-            stderr=b''.join(stderr_seq) if stderr_seq else None)
-subprocess.TimeoutExpired: Command '['/Users/oobi/Documents/assay/_build/bin/assay', 'emit', '/tmp/claude-501/assay-inferred-binding-boundaries-c6ur1o4e/nested-128-typed.asy', '-o', '/tmp/claude-501/assay-inferred-binding-boundaries-c6ur1o4e/128-typed']' timed out after 600 seconds
-
-FAIL INFERRED-GUARD-BINDINGS exit=1 elapsed_ms=61372.7 deadline_s=1800
-Traceback (most recent call last):
-  File "/Users/oobi/Documents/assay/dev/inferred-guard-binding-test.py", line 214, in <module>
-    sys.exit(main())
-             ~~~~^^
-  File "/Users/oobi/Documents/assay/dev/inferred-guard-binding-test.py", line 205, in main
-    cases, creates = IG.live()
-                     ~~~~~~~^^
-  File "/Users/oobi/Documents/assay/dev/inferred-guard-test.py", line 92, in live
-    H.compare(f'ig-{name}-{index}', source, runtime, row)
-    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/oobi/Documents/assay/dev/proof-helper-test.py", line 45, in compare
-    M.model(name, source, row)
-    ~~~~~~~^^^^^^^^^^^^^^^^^^^
-  File "/Users/oobi/Documents/assay/dev/model-test.py", line 38, in model
-    result = capture('model-' + name, [*argv, *extra], cwd=cwd, env=env)
-  File "/Users/oobi/Documents/assay/dev/model-test.py", line 27, in capture
-    result = subprocess.run([str(arg) for arg in argv], cwd=cwd, env=env,
-                            capture_output=True, text=True, timeout=timeout)
-  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py", line 557, in run
-    stdout, stderr = process.communicate(input, timeout=timeout)
-                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py", line 1221, in communicate
-    stdout, stderr = self._communicate(input, endtime, timeout)
-                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py", line 2154, in _communicate
-    self._check_timeout(endtime, orig_timeout, stdout, stderr)
-    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py", line 1268, in _check_timeout
-    raise TimeoutExpired(
-    ...<2 lines>...
-            stderr=b''.join(stderr_seq) if stderr_seq else None)
-subprocess.TimeoutExpired: Command '['/Users/oobi/Documents/assay/_build/bin/assay', 'run', '/tmp/claude-501/assay-inferred-live-5vrbo5dk/named.asy', '--calldata', '0x1ab06ee500000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000', '--value', '0', '--storage', '0=0x2', '--storage', '1=0x8', '--storage', '2=0xabc']' timed out after 30 seconds
-
-FAIL EVM-CONTEXT exit=1 elapsed_ms=600026.3 deadline_s=600
-CONTEXT-LIVE cases=224 signed=56 creates=64 OK
-CONTEXT-REFUSALS cases=7 OK
-CONTEXT-INPUT cases=7 OK
-CONTEXT-NESTED cases=2 OK
-CONTEXT-INDEPENDENT cases=6 OK
-Command '('python3', '-P', 'dev/context-test.py')' timed out after 600 seconds
-LEG-TIMEOUT EVM-CONTEXT deadline_s=600 elapsed_s=600.024 cost=unmeasured
-
-FAIL SURFACE-CONTEXT exit=1 elapsed_ms=600110.4 deadline_s=600
-SURFACE-CONTEXT-MUTANT CALLER killed control=OK
-Command '('python3', '-P', 'dev/context-surface-test.py')' timed out after 600 seconds
-LEG-TIMEOUT SURFACE-CONTEXT deadline_s=600 elapsed_s=600.105 cost=unmeasured
-
-FAIL WORD-EQUALITY exit=1 elapsed_ms=600111.5 deadline_s=600
-EQUALITY-MUTANT PAYLOAD killed control=OK
-Command '('python3', '-P', 'dev/equality-test.py')' timed out after 600 seconds
-LEG-TIMEOUT WORD-EQUALITY deadline_s=600 elapsed_s=600.109 cost=unmeasured
-
-PASS HEX-LITERALS exit=0 elapsed_ms=393723.5 deadline_s=600
-PASS INFERRED-WORDS exit=0 elapsed_ms=212458.6 deadline_s=600
-PASS FALLBACK exit=0 elapsed_ms=106890.0 deadline_s=600
-PASS DIFF-VALUE exit=0 elapsed_ms=26404.7 deadline_s=180
-PASS TRACE-VALUE exit=0 elapsed_ms=24271.1 deadline_s=180
-PASS TRACE-CALLER exit=0 elapsed_ms=51618.1 deadline_s=480
-PASS DIFF-CALLER exit=0 elapsed_ms=58822.0 deadline_s=600
-PASS PAYABLE exit=0 elapsed_ms=128072.6 deadline_s=600
-PASS CALLVALUE exit=0 elapsed_ms=253280.1 deadline_s=780
-PASS CALLDATASIZE exit=0 elapsed_ms=520197.5 deadline_s=1860
-PASS CALLDATALOAD exit=0 elapsed_ms=1049563.2 deadline_s=1860
-PASS ADDRESS exit=0 elapsed_ms=1091261.5 deadline_s=3600
-PASS ERC20-REFERENCE exit=0 elapsed_ms=7625.9 deadline_s=300
-PASS ABI-SCHEMA exit=0 elapsed_ms=11473.7 deadline_s=300
-PASS ABI-CODEC exit=0 elapsed_ms=125469.6 deadline_s=300
-PASS LAYOUT-PACKED exit=0 elapsed_ms=10336.7 deadline_s=300
-PASS LAYOUT-MAPPING exit=0 elapsed_ms=11054.8 deadline_s=300
-PASS EVENT-CODEC exit=0 elapsed_ms=12367.1 deadline_s=300
-PASS CALL-CODEC exit=0 elapsed_ms=13103.7 deadline_s=300
-PASS RETURN-CODEC exit=0 elapsed_ms=10985.2 deadline_s=300
-PASS REVERT-CODEC exit=0 elapsed_ms=13874.2 deadline_s=300
-PASS EVENT-DECODE exit=0 elapsed_ms=11404.4 deadline_s=300
-PASS LEXER-KEYWORDS exit=0 elapsed_ms=872.8 deadline_s=600
-PASS LEXER-DIRECT exit=0 elapsed_ms=16810.9 deadline_s=600
-PASS IDENTIFIER-DIRECT exit=0 elapsed_ms=1627.6 deadline_s=600
-PASS WORD-DIRECT exit=0 elapsed_ms=5345.6 deadline_s=600
-PASS SEGMENT-DIRECT exit=0 elapsed_ms=2702.8 deadline_s=600
-PASS CLI-PREFIX-DIRECT exit=0 elapsed_ms=12478.2 deadline_s=600
-PASS CLI-VALUE-DIRECT exit=0 elapsed_ms=4535.2 deadline_s=600
-PASS CLI-ERROR-DIRECT exit=0 elapsed_ms=3350.7 deadline_s=600
-PASS MAPPING-CLI exit=0 elapsed_ms=26452.4 deadline_s=600
-PASS EVENT-CLI exit=0 elapsed_ms=8544.2 deadline_s=600
-PASS EVENT-DECODE-CLI exit=0 elapsed_ms=11409.1 deadline_s=600
-PASS CALLDATA-CLI exit=0 elapsed_ms=27367.4 deadline_s=600
-PASS MILESTONE-SPEED exit=0 elapsed_ms=235.8 deadline_s=60
-PASS PACKED-SOURCE exit=0 elapsed_ms=62594.9 deadline_s=600
-PASS MAPPING-SOURCE exit=0 elapsed_ms=9557.0 deadline_s=600
-PASS RETURNDATA-CLI exit=0 elapsed_ms=26806.0 deadline_s=600
-PASS MAPPING-RUNTIME exit=0 elapsed_ms=47756.3 deadline_s=600
-PASS FUNCTION-ABI exit=0 elapsed_ms=24728.5 deadline_s=600
-PASS RETURN-ABI exit=0 elapsed_ms=38316.1 deadline_s=900
-PASS SOURCE-EVENTS exit=0 elapsed_ms=49787.3 deadline_s=900
-PASS STORAGE-PROOFS exit=0 elapsed_ms=29126.6 deadline_s=600
-PASS ERC20-SOURCE exit=0 elapsed_ms=42668.5 deadline_s=900
-PASS M2-ABI exit=0 elapsed_ms=32653.3 deadline_s=600
-PASS M2-RECONCILE exit=0 elapsed_ms=103.2 deadline_s=60
-PASS REFINED-WORD exit=0 elapsed_ms=2985.6 deadline_s=600
+PASS BUILD exit=0 elapsed_ms=1881.1 deadline_s=120
+PASS PIN-CARRY exit=0 elapsed_ms=97.1 deadline_s=30
+PASS R0-COUNT exit=0 elapsed_ms=269.5 deadline_s=10
+PASS R0-AUDIT exit=0 elapsed_ms=68.9 deadline_s=10
+PASS HOUSE exit=0 elapsed_ms=728.0 deadline_s=30
+PASS NATIVE-MAPS exit=0 elapsed_ms=443.6 deadline_s=180
+PASS NATIVE-IO exit=0 elapsed_ms=1187.6 deadline_s=180
+PASS TRUSTED-LINES exit=0 elapsed_ms=122.2 deadline_s=10
+PASS SUITE-KERNEL exit=0 elapsed_ms=5133.9 deadline_s=300
+PASS SUITE-SURFACE exit=0 elapsed_ms=185.6 deadline_s=60
+PASS DRIVER exit=0 elapsed_ms=2158.4 deadline_s=30
+PASS MUTANTS exit=0 elapsed_ms=7826.1 deadline_s=300
+PASS DENOMINATORS exit=0 elapsed_ms=102.5 deadline_s=10
+PASS KECCAK-VEC exit=0 elapsed_ms=4248.1 deadline_s=120
+PASS KECCAK-MUTANTS exit=0 elapsed_ms=27750.4 deadline_s=660
+PASS STACK-HEIGHT exit=0 elapsed_ms=8852.0 deadline_s=780
+PASS DISASM-3WAY exit=0 elapsed_ms=3649.4 deadline_s=120
+PASS ASM-MUTANTS exit=0 elapsed_ms=41583.7 deadline_s=1860
+PASS FORK-DRIFT exit=0 elapsed_ms=237.0 deadline_s=120
+PASS M0-TRACE exit=0 elapsed_ms=292.0 deadline_s=120
+PASS CREATE-EQ exit=0 elapsed_ms=344.4 deadline_s=120
+PASS REFERENCE-CHECKS exit=0 elapsed_ms=524.2 deadline_s=180
+PASS REFERENCE-MUTANTS exit=0 elapsed_ms=2961.6 deadline_s=1200
+PASS EMIT-CONSTRUCTORS exit=0 elapsed_ms=124.6 deadline_s=30
+PASS WORD-UNBOX exit=0 elapsed_ms=112.0 deadline_s=30
+PASS STORAGE-NOCLOS exit=0 elapsed_ms=73.1 deadline_s=30
+PASS ABI-GOLD exit=0 elapsed_ms=1645.1 deadline_s=60
+PASS EMITTED-TRACE exit=0 elapsed_ms=727.6 deadline_s=120
+PASS EMIT-SOURCES exit=0 elapsed_ms=7560.5 deadline_s=600
+PASS EMIT-MUTANTS exit=0 elapsed_ms=42009.3 deadline_s=1200
+PASS AXIOMS exit=0 elapsed_ms=6938.7 deadline_s=480
+PASS TRACE-DRIVER exit=0 elapsed_ms=3867.1 deadline_s=120
+PASS CORPUS exit=0 elapsed_ms=5129.3 deadline_s=600
+PASS ERASED-BYTES exit=0 elapsed_ms=1235.7 deadline_s=120
+PASS M0-RATIO exit=0 elapsed_ms=307.5 deadline_s=60
+PASS F-MUTANTS exit=0 elapsed_ms=649.5 deadline_s=180
+PASS DIFF-EXECUTOR exit=0 elapsed_ms=11011.7 deadline_s=180
+PASS COUNTER-REFERENCE exit=0 elapsed_ms=2591.4 deadline_s=300
+PASS M1-EMISSION exit=0 elapsed_ms=95851.0 deadline_s=600
+PASS SOURCE-MODEL exit=0 elapsed_ms=91325.1 deadline_s=600
+PASS CONTRACT-SURFACE exit=0 elapsed_ms=80730.3 deadline_s=600
+PASS CONTRACT-ROUTE exit=0 elapsed_ms=957.8 deadline_s=90
+PASS SOURCE-PROOFS exit=0 elapsed_ms=100851.7 deadline_s=600
+PASS NULLARY-ENTRIES exit=0 elapsed_ms=45039.7 deadline_s=600
+PASS CUSTOM-ERRORS exit=0 elapsed_ms=80252.8 deadline_s=600
+PASS PROOF-GUARDS exit=0 elapsed_ms=91713.5 deadline_s=600
+PASS PROOF-TERMS exit=0 elapsed_ms=92627.9 deadline_s=600
+PASS INVARIANTS exit=0 elapsed_ms=75405.2 deadline_s=600
+PASS PROOF-HELPERS exit=0 elapsed_ms=103355.7 deadline_s=600
+PASS PROOF-BUNDLES exit=0 elapsed_ms=117678.9 deadline_s=600
+PASS PREDICATES exit=0 elapsed_ms=90446.1 deadline_s=600
+PASS COMPOUND-INVARIANTS exit=0 elapsed_ms=74559.0 deadline_s=600
+PASS COMPOUND-GUARDS exit=0 elapsed_ms=101271.3 deadline_s=600
+PASS NAMED-GUARDS exit=0 elapsed_ms=103995.0 deadline_s=600
+PASS INFERRED-GUARDS exit=0 elapsed_ms=193012.6 deadline_s=1800
+PASS INFERRED-ARITHMETIC exit=0 elapsed_ms=132600.3 deadline_s=600
+PASS INFERRED-HELPERS exit=0 elapsed_ms=235587.2 deadline_s=600
+PASS PROOF-HOLES exit=0 elapsed_ms=212427.5 deadline_s=600
+PASS INFERRED-BINDINGS exit=0 elapsed_ms=334343.2 deadline_s=1800
+PASS INFERRED-GUARD-BINDINGS exit=0 elapsed_ms=324653.3 deadline_s=1800
+PASS EVM-CONTEXT exit=0 elapsed_ms=126026.0 deadline_s=600
+PASS SURFACE-CONTEXT exit=0 elapsed_ms=138238.5 deadline_s=600
+PASS WORD-EQUALITY exit=0 elapsed_ms=105995.0 deadline_s=600
+PASS HEX-LITERALS exit=0 elapsed_ms=118259.8 deadline_s=600
+PASS INFERRED-WORDS exit=0 elapsed_ms=119199.9 deadline_s=600
+PASS FALLBACK exit=0 elapsed_ms=100751.2 deadline_s=600
+PASS DIFF-VALUE exit=0 elapsed_ms=25055.9 deadline_s=180
+PASS TRACE-VALUE exit=0 elapsed_ms=23099.0 deadline_s=180
+PASS TRACE-CALLER exit=0 elapsed_ms=44122.4 deadline_s=480
+PASS DIFF-CALLER exit=0 elapsed_ms=50244.9 deadline_s=600
+PASS PAYABLE exit=0 elapsed_ms=117312.6 deadline_s=600
+PASS CALLVALUE exit=0 elapsed_ms=240576.8 deadline_s=780
+PASS CALLDATASIZE exit=0 elapsed_ms=502232.9 deadline_s=1860
+PASS CALLDATALOAD exit=0 elapsed_ms=1052755.8 deadline_s=1860
+PASS ADDRESS exit=0 elapsed_ms=1097632.8 deadline_s=3600
+PASS ERC20-REFERENCE exit=0 elapsed_ms=7661.8 deadline_s=300
+PASS ABI-SCHEMA exit=0 elapsed_ms=10507.3 deadline_s=300
+PASS ABI-CODEC exit=0 elapsed_ms=121697.3 deadline_s=300
+PASS LAYOUT-PACKED exit=0 elapsed_ms=10590.6 deadline_s=300
+PASS LAYOUT-MAPPING exit=0 elapsed_ms=11813.3 deadline_s=300
+PASS EVENT-CODEC exit=0 elapsed_ms=13231.4 deadline_s=300
+PASS CALL-CODEC exit=0 elapsed_ms=13728.6 deadline_s=300
+PASS RETURN-CODEC exit=0 elapsed_ms=10933.9 deadline_s=300
+PASS REVERT-CODEC exit=0 elapsed_ms=13637.5 deadline_s=300
+PASS EVENT-DECODE exit=0 elapsed_ms=11373.2 deadline_s=300
+PASS LEXER-KEYWORDS exit=0 elapsed_ms=1605.6 deadline_s=600
+PASS LEXER-DIRECT exit=0 elapsed_ms=17647.0 deadline_s=600
+PASS IDENTIFIER-DIRECT exit=0 elapsed_ms=1818.7 deadline_s=600
+PASS WORD-DIRECT exit=0 elapsed_ms=4940.6 deadline_s=600
+PASS SEGMENT-DIRECT exit=0 elapsed_ms=2689.6 deadline_s=600
+PASS CLI-PREFIX-DIRECT exit=0 elapsed_ms=12803.8 deadline_s=600
+PASS CLI-VALUE-DIRECT exit=0 elapsed_ms=4504.8 deadline_s=600
+PASS CLI-ERROR-DIRECT exit=0 elapsed_ms=3414.9 deadline_s=600
+PASS MAPPING-CLI exit=0 elapsed_ms=27444.2 deadline_s=600
+PASS EVENT-CLI exit=0 elapsed_ms=9010.9 deadline_s=600
+PASS EVENT-DECODE-CLI exit=0 elapsed_ms=11616.1 deadline_s=600
+PASS CALLDATA-CLI exit=0 elapsed_ms=27027.9 deadline_s=600
+PASS MILESTONE-SPEED exit=0 elapsed_ms=208.6 deadline_s=60
+PASS PACKED-SOURCE exit=0 elapsed_ms=64857.9 deadline_s=600
+PASS MAPPING-SOURCE exit=0 elapsed_ms=9021.6 deadline_s=600
+PASS RETURNDATA-CLI exit=0 elapsed_ms=26445.8 deadline_s=600
+PASS MAPPING-RUNTIME exit=0 elapsed_ms=49056.1 deadline_s=600
+PASS FUNCTION-ABI exit=0 elapsed_ms=25063.3 deadline_s=600
+PASS RETURN-ABI exit=0 elapsed_ms=41189.5 deadline_s=900
+PASS SOURCE-EVENTS exit=0 elapsed_ms=50884.3 deadline_s=900
+PASS STORAGE-PROOFS exit=0 elapsed_ms=29686.4 deadline_s=600
+PASS ERC20-SOURCE exit=0 elapsed_ms=43972.2 deadline_s=900
+PASS M2-ABI exit=0 elapsed_ms=33712.7 deadline_s=600
+PASS M2-RECONCILE exit=0 elapsed_ms=94.0 deadline_s=60
+PASS REFINED-WORD exit=0 elapsed_ms=3074.5 deadline_s=600
 M0-VALIDATION OK; M0-EXIT requires the user commit and ratification
-STAGE-M2-RECONCILE FAIL
-make: *** [gates] Error 1
+STAGE-M2-RECONCILE OK

@@ -141,13 +141,6 @@
       "timeouts": 0
     },
     {
-      "stem": "run-close-light",
-      "legs": 8,
-      "passed": 8,
-      "failed": 0,
-      "timeouts": 0
-    },
-    {
       "stem": "battery-3",
       "legs": 110,
       "passed": 105,
@@ -160,50 +153,85 @@
       "passed": 5,
       "failed": 0,
       "timeouts": 0
+    },
+    {
+      "stem": "run-close-light",
+      "legs": 8,
+      "passed": 8,
+      "failed": 0,
+      "timeouts": 0
+    },
+    {
+      "stem": "battery-4",
+      "legs": 110,
+      "passed": 109,
+      "failed": 1,
+      "timeouts": 0
+    },
+    {
+      "stem": "battery-5",
+      "legs": 70,
+      "passed": 70,
+      "failed": 0,
+      "timeouts": 0
+    },
+    {
+      "stem": "battery-6",
+      "legs": 110,
+      "passed": 110,
+      "failed": 0,
+      "timeouts": 0
+    },
+    {
+      "stem": "run-b6-light",
+      "legs": 8,
+      "passed": 8,
+      "failed": 0,
+      "timeouts": 0
     }
   ],
   "closure": {
-    "stem": "battery-3",
+    "stem": "battery-6",
     "legs": 110,
-    "passed": 105,
-    "failed": 5,
-    "timeouts": 3,
-    "exit": 2,
-    "secs": 12576.9,
+    "passed": 110,
+    "failed": 0,
+    "timeouts": 0,
+    "exit": 0,
+    "secs": 7563.5,
     "limit_mb": 4096.0,
-    "peak_tree_mb": 2193,
+    "peak_tree_mb": 2266,
     "killed": null,
     "launch": {
-      "launch_utc": "2026-10-06T19:38:44Z",
-      "head": "092fa7ab51778ff703c6adea74a027e8a37b1a78",
-      "tree": "553a927a7c06876279fdc36f7679898a6fc2bb1e",
-      "load": "12:38  28 users, load averages: 19.88 23.67 30.92"
+      "launch_utc": "2026-10-07T10:01:34Z",
+      "head": "b8d57161a2e1bef3274bd94c913ec23b5f256688",
+      "tree": "2798cf59afb44d5a2f0f57da886aadd853231677",
+      "load": " 3:01  28 users, load averages: 11.67 21.85 26.28"
     },
     "leg_logs": 110
   },
-  "after": "run-6b",
-  "tree": "553a927a7c06876279fdc36f7679898a6fc2bb1e",
+  "after_edits": "run-b6-light",
+  "tree": "2798cf59afb44d5a2f0f57da886aadd853231677",
   "legs": 110,
-  "closed": false,
-  "rerun_pass": [
-    "INFERRED-BINDINGS",
-    "INFERRED-GUARD-BINDINGS",
-    "EVM-CONTEXT",
-    "SURFACE-CONTEXT",
-    "WORD-EQUALITY"
-  ],
-  "unresolved": [
-    "A passing cumulative M2 battery on the final source hashes is still required."
-  ],
+  "closed": true,
+  "rerun_pass": [],
+  "unresolved": [],
   "source_inventories": {
     "launch": {
       "path": "LAUNCH-SOURCES.sha256",
-      "tree": "553a927a7c06876279fdc36f7679898a6fc2bb1e"
+      "tree": "2798cf59afb44d5a2f0f57da886aadd853231677"
     },
     "review": {
       "path": "SOURCES.sha256",
-      "scope": "staged blobs outside this record after review corrections",
-      "cumulative_pass": false
-    }
+      "scope": "staged blobs outside this record after the closure edits",
+      "cumulative_pass": true
+    },
+    "changed_after_launch": [
+      "README.md",
+      "dev/ASSAY-M2-BUILD-LOG.md",
+      "dev/DENOMINATORS.sha256",
+      "dev/M2-CLOSE.md",
+      "dev/M2-RECONCILE.md",
+      "dev/MILESTONE-GROUPS.md"
+    ]
   }
 }

@@ -32,9 +32,8 @@ deadlines and markers. It adds M2-RECONCILE with a 60-second deadline floor
 and REFINED-WORD with a 600-second deadline floor, for 110 legs.
 REFINED-WORD requires
 `REFINED-WORD valid=2 kernel_refused=3 emitter_refused=1 OK`.
-The group 9 closure battery failed five legs. Focused reruns passed, but
-M2 remains open pending a passing cumulative battery on the final sources. See
-[M2 closure](M2-CLOSE.md).
+The group 9 closure battery passed on the final sources, and M2 is
+closed. See [M2 closure](M2-CLOSE.md).
 
 ## Deferred-construct refusal matrix
 

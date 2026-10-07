@@ -1,13 +1,12 @@
 # Assay M2 build log
 
-## M2 group 9: closure, 2026-10-06
+## M2 group 9: closure, 2026-10-06 to 2026-10-07
 
-M2 remains open pending a passing cumulative battery on the final sources.
-Battery 3, the closure attempt, ran `make gates` with
-110 legs under a 4096 MB memory guard. 105 legs passed in
-it. EVM-CONTEXT, SURFACE-CONTEXT and WORD-EQUALITY stopped at the leg deadline in the closure battery. INFERRED-BINDINGS (`assay emit` at 600 seconds) and INFERRED-GUARD-BINDINGS (`assay run` at 30 seconds) failed in the closure battery when one inner command reached its own time limit. Each passed when run alone in run-6b. The record keeps both attempts. The battery took 12576.9 seconds. The peak memory
-of the process tree was 2193 MB. The staged tree at launch was
-`553a927a7c06876279fdc36f7679898a6fc2bb1e`.
+Group 9 closed M2. Battery 6, the closure battery, ran `make gates` with
+110 legs on the committed tree `2798cf59afb44d5a2f0f57da886aadd853231677`
+under a 4096 MB memory guard. 110 of 110 legs passed. The
+battery took 7563.5 seconds. The peak memory of the process tree was
+2266 MB.
 
 The record keeps the failures and the reruns. Battery 1 ran on `092fa7a`
 and completed 76 legs: 63 passed and 13 failed.
@@ -15,7 +14,17 @@ Run 1b ran the legs that battery 1 did not reach and six suspect legs. It
 stopped before its last three legs. Group 10 repaired the failures, and
 focused runs tested each repair. Battery 2 ran on the repaired tree.
 106 of 110 legs passed. HOUSE failed, and group 10 repaired it.
-PAYABLE, CALLVALUE and ADDRESS stopped at the leg deadline in battery 2. Each passed when run alone in run-6a.
+PAYABLE, CALLVALUE and ADDRESS stopped at the leg deadline in battery 2.
+Each passed when run alone in run-6a. Battery 3 ran on the staged tree
+`553a927a`. 105 of 110 legs passed. EVM-CONTEXT, SURFACE-CONTEXT and
+WORD-EQUALITY stopped at the leg deadline. INFERRED-BINDINGS and
+INFERRED-GUARD-BINDINGS failed when one inner command reached its own time
+limit. Each passed when run alone in run-6b. These focused passes do not
+close M2, so commit `30feb7b` recorded M2 as open. Battery 4 ran on
+`30feb7b`. 109 of 110 legs passed. INFERRED-BINDINGS failed when one
+inner `assay check` reached its 30 second time limit. Battery 5 ran on
+the same tree. A user ruling stopped it after 70 legs passed. Commit
+`b8d5716` raised that limit to 120 seconds.
 
 The record is in
 [validation/2026-10-06-m2-close](validation/2026-10-06-m2-close/README.md).
@@ -44,7 +53,7 @@ Group 10 used the repair reserve for the failures of batteries 1 and 2.
 
 ## M2 group 8: coverage and audit reconciliation, 2026-10-04
 
-Parts R2, R1 and C are complete. Group 9 acceptance remains pending.
+Parts R2, R1 and C are complete. Group 9 closed M2.
 
 Deviation M2-G8-D1. USER ruling 2026-10-04, pending formal ratification.
 SPEC.md marked these kan-lang carry-over constructs M2: `SPar`, `SNu`

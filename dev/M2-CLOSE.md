@@ -1,8 +1,7 @@
 # M2 closure
 
-Status: M2 remains open. The group 9 closure battery exited 2 with five
-failed legs. Their later focused passes do not establish a passing cumulative
-battery on the final source hashes. M3 and M4 remain open.
+Status: M2 is closed. Battery 6, the group 9 closure battery, passed all
+110 legs on the committed final sources. M3 and M4 remain open.
 
 ## Command
 
@@ -15,21 +14,21 @@ for the process tree was 4096 MB.
 | Field | Value |
 | --- | --- |
 | Legs | 110 |
-| Legs that passed in the closure battery | 105 |
-| Battery time | 12576.9 seconds |
-| Peak memory of the process tree | 2193 MB |
-| Launch (UTC) | 2026-10-06T19:38:44Z |
-| Staged tree at launch | `553a927a7c06876279fdc36f7679898a6fc2bb1e` |
+| Legs that passed in the closure battery | 110 |
+| Battery time | 7563.5 seconds |
+| Peak memory of the process tree | 2266 MB |
+| Launch (UTC) | 2026-10-07T10:01:34Z |
+| HEAD at launch | `b8d57161a2e1bef3274bd94c913ec23b5f256688` |
+| Tree at launch | `2798cf59afb44d5a2f0f57da886aadd853231677` |
 
-EVM-CONTEXT, SURFACE-CONTEXT and WORD-EQUALITY stopped at the leg deadline in the closure battery. INFERRED-BINDINGS (`assay emit` at 600 seconds) and INFERRED-GUARD-BINDINGS (`assay run` at 30 seconds) failed in the closure battery when one inner command reached its own time limit. Each passed when run alone in run-6b. The record keeps both attempts.
+Every leg passed in the closure battery. No leg needed a rerun.
 
 The record is in
 [validation/2026-10-06-m2-close](validation/2026-10-06-m2-close/README.md).
 It keeps the closure battery, each earlier attempt and the leg logs.
-`LAUNCH-SOURCES.sha256` identifies the blobs in the recorded launch tree.
-`SOURCES.sha256` identifies the later staged review tree; it is not evidence
-that battery 3 ran on those blobs. A passing cumulative run on the final
-sources is still required before closure.
+`LAUNCH-SOURCES.sha256` identifies the blobs in the launch tree.
+`SOURCES.sha256` identifies the staged closure tree. The two differ only
+in the closure documents and their pins.
 
 ## Run history
 
@@ -41,7 +40,21 @@ sources is still required before closure.
    record lists each run.
 4. Battery 2 ran on the repaired tree. 106 of 110 legs passed.
    HOUSE failed, and group 10 repaired it. PAYABLE, CALLVALUE and ADDRESS stopped at the leg deadline in battery 2. Each passed when run alone in run-6a.
-5. Battery 3 is the closure battery. 105 of 110 legs passed in it.
+5. Battery 3 ran on the staged tree `553a927a`. 105 of 110 legs passed.
+   EVM-CONTEXT, SURFACE-CONTEXT and WORD-EQUALITY stopped at the leg
+   deadline. INFERRED-BINDINGS and INFERRED-GUARD-BINDINGS failed when one
+   inner command reached its own time limit. Each passed when run alone in
+   run-6b. These focused passes do not close M2, so commit `30feb7b`
+   recorded M2 as open.
+6. Battery 4 ran on the committed tree `61f9d5d2`. 109 of 110 legs
+   passed. INFERRED-BINDINGS failed. In its BUNDLE-LIMIT mutant witness,
+   one inner `assay check` reached its 30 second time limit. The leg did
+   not reach its own deadline.
+7. Battery 5 started on the same tree. A user ruling stopped it after 70
+   legs passed, to raise that inner limit. Commit `b8d5716` raised the
+   limit of the bundle-expansion refusal check to 120 seconds.
+8. Battery 6 is the closure battery. It ran on the committed tree
+   `2798cf59`. 110 of 110 legs passed in it.
 
 ## Group 10 repairs
 

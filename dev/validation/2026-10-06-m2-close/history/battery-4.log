@@ -1,0 +1,124 @@
+python3 -P dev/build.py build
+BEND BUILD assay cached
+BEND BUILD tests cached
+BEND BUILD backends cached
+python3 -P dev/stage-a-gates.py --m2-reconcile
+PASS BUILD exit=0 elapsed_ms=1484.2 deadline_s=120
+PASS PIN-CARRY exit=0 elapsed_ms=133.3 deadline_s=30
+PASS R0-COUNT exit=0 elapsed_ms=205.7 deadline_s=10
+PASS R0-AUDIT exit=0 elapsed_ms=124.3 deadline_s=10
+PASS HOUSE exit=0 elapsed_ms=1100.6 deadline_s=30
+PASS NATIVE-MAPS exit=0 elapsed_ms=775.4 deadline_s=180
+PASS NATIVE-IO exit=0 elapsed_ms=1472.4 deadline_s=180
+PASS TRUSTED-LINES exit=0 elapsed_ms=160.7 deadline_s=10
+PASS SUITE-KERNEL exit=0 elapsed_ms=6498.7 deadline_s=300
+PASS SUITE-SURFACE exit=0 elapsed_ms=173.7 deadline_s=60
+PASS DRIVER exit=0 elapsed_ms=3022.6 deadline_s=30
+PASS MUTANTS exit=0 elapsed_ms=11304.9 deadline_s=300
+PASS DENOMINATORS exit=0 elapsed_ms=126.5 deadline_s=10
+PASS KECCAK-VEC exit=0 elapsed_ms=4590.9 deadline_s=120
+PASS KECCAK-MUTANTS exit=0 elapsed_ms=35240.3 deadline_s=660
+PASS STACK-HEIGHT exit=0 elapsed_ms=12391.4 deadline_s=780
+PASS DISASM-3WAY exit=0 elapsed_ms=5817.6 deadline_s=120
+PASS ASM-MUTANTS exit=0 elapsed_ms=55973.5 deadline_s=1860
+PASS FORK-DRIFT exit=0 elapsed_ms=380.9 deadline_s=120
+PASS M0-TRACE exit=0 elapsed_ms=374.5 deadline_s=120
+PASS CREATE-EQ exit=0 elapsed_ms=394.9 deadline_s=120
+PASS REFERENCE-CHECKS exit=0 elapsed_ms=740.7 deadline_s=180
+PASS REFERENCE-MUTANTS exit=0 elapsed_ms=3773.6 deadline_s=1200
+PASS EMIT-CONSTRUCTORS exit=0 elapsed_ms=112.2 deadline_s=30
+PASS WORD-UNBOX exit=0 elapsed_ms=84.5 deadline_s=30
+PASS STORAGE-NOCLOS exit=0 elapsed_ms=83.7 deadline_s=30
+PASS ABI-GOLD exit=0 elapsed_ms=651.3 deadline_s=60
+PASS EMITTED-TRACE exit=0 elapsed_ms=683.1 deadline_s=120
+PASS EMIT-SOURCES exit=0 elapsed_ms=9995.2 deadline_s=600
+PASS EMIT-MUTANTS exit=0 elapsed_ms=66446.3 deadline_s=1200
+PASS AXIOMS exit=0 elapsed_ms=6367.0 deadline_s=480
+PASS TRACE-DRIVER exit=0 elapsed_ms=5377.2 deadline_s=120
+PASS CORPUS exit=0 elapsed_ms=6989.0 deadline_s=600
+PASS ERASED-BYTES exit=0 elapsed_ms=1751.0 deadline_s=120
+PASS M0-RATIO exit=0 elapsed_ms=264.6 deadline_s=60
+PASS F-MUTANTS exit=0 elapsed_ms=959.2 deadline_s=180
+PASS DIFF-EXECUTOR exit=0 elapsed_ms=19252.7 deadline_s=180
+PASS COUNTER-REFERENCE exit=0 elapsed_ms=3594.8 deadline_s=300
+PASS M1-EMISSION exit=0 elapsed_ms=185889.8 deadline_s=600
+PASS SOURCE-MODEL exit=0 elapsed_ms=205696.2 deadline_s=600
+PASS CONTRACT-SURFACE exit=0 elapsed_ms=129405.3 deadline_s=600
+PASS CONTRACT-ROUTE exit=0 elapsed_ms=1113.3 deadline_s=90
+PASS SOURCE-PROOFS exit=0 elapsed_ms=138561.2 deadline_s=600
+PASS NULLARY-ENTRIES exit=0 elapsed_ms=62543.1 deadline_s=600
+PASS CUSTOM-ERRORS exit=0 elapsed_ms=107060.4 deadline_s=600
+PASS PROOF-GUARDS exit=0 elapsed_ms=84221.1 deadline_s=600
+PASS PROOF-TERMS exit=0 elapsed_ms=88032.8 deadline_s=600
+PASS INVARIANTS exit=0 elapsed_ms=78313.0 deadline_s=600
+PASS PROOF-HELPERS exit=0 elapsed_ms=111779.9 deadline_s=600
+PASS PROOF-BUNDLES exit=0 elapsed_ms=134708.9 deadline_s=600
+PASS PREDICATES exit=0 elapsed_ms=108273.8 deadline_s=600
+PASS COMPOUND-INVARIANTS exit=0 elapsed_ms=153265.8 deadline_s=600
+PASS COMPOUND-GUARDS exit=0 elapsed_ms=236782.0 deadline_s=600
+PASS NAMED-GUARDS exit=0 elapsed_ms=274537.0 deadline_s=600
+PASS INFERRED-GUARDS exit=0 elapsed_ms=333649.5 deadline_s=1800
+PASS INFERRED-ARITHMETIC exit=0 elapsed_ms=166731.7 deadline_s=600
+PASS INFERRED-HELPERS exit=0 elapsed_ms=300082.2 deadline_s=600
+PASS PROOF-HOLES exit=0 elapsed_ms=313813.0 deadline_s=600
+FAIL INFERRED-BINDINGS exit=1 elapsed_ms=452128.0 deadline_s=1800
+IA-LIVE cases=229 creates=2 OK
+IA-ERASURE pairs=21 files=5 OK
+IB-REFUSALS cases=25 commands=3 OK
+IB-BOUNDARIES nested=128 bundle_nodes=4095 spine_depth=32 positive=6 negative=1 OK
+INFERRED-BINDINGS FAIL IB-MUTANT mutant-BUNDLE-LIMIT
+
+PASS INFERRED-GUARD-BINDINGS exit=0 elapsed_ms=684824.9 deadline_s=1800
+PASS EVM-CONTEXT exit=0 elapsed_ms=220247.3 deadline_s=600
+PASS SURFACE-CONTEXT exit=0 elapsed_ms=398779.3 deadline_s=600
+PASS WORD-EQUALITY exit=0 elapsed_ms=243553.5 deadline_s=600
+PASS HEX-LITERALS exit=0 elapsed_ms=235325.0 deadline_s=600
+PASS INFERRED-WORDS exit=0 elapsed_ms=217430.1 deadline_s=600
+PASS FALLBACK exit=0 elapsed_ms=167895.7 deadline_s=600
+PASS DIFF-VALUE exit=0 elapsed_ms=35922.4 deadline_s=180
+PASS TRACE-VALUE exit=0 elapsed_ms=33014.0 deadline_s=180
+PASS TRACE-CALLER exit=0 elapsed_ms=62199.5 deadline_s=480
+PASS DIFF-CALLER exit=0 elapsed_ms=70560.4 deadline_s=600
+PASS PAYABLE exit=0 elapsed_ms=164080.9 deadline_s=600
+PASS CALLVALUE exit=0 elapsed_ms=289513.7 deadline_s=780
+PASS CALLDATASIZE exit=0 elapsed_ms=619572.9 deadline_s=1860
+PASS CALLDATALOAD exit=0 elapsed_ms=977903.6 deadline_s=1860
+PASS ADDRESS exit=0 elapsed_ms=1033705.5 deadline_s=3600
+PASS ERC20-REFERENCE exit=0 elapsed_ms=7059.9 deadline_s=300
+PASS ABI-SCHEMA exit=0 elapsed_ms=9939.7 deadline_s=300
+PASS ABI-CODEC exit=0 elapsed_ms=118375.5 deadline_s=300
+PASS LAYOUT-PACKED exit=0 elapsed_ms=9985.0 deadline_s=300
+PASS LAYOUT-MAPPING exit=0 elapsed_ms=10499.5 deadline_s=300
+PASS EVENT-CODEC exit=0 elapsed_ms=11658.5 deadline_s=300
+PASS CALL-CODEC exit=0 elapsed_ms=12868.3 deadline_s=300
+PASS RETURN-CODEC exit=0 elapsed_ms=11294.8 deadline_s=300
+PASS REVERT-CODEC exit=0 elapsed_ms=13318.9 deadline_s=300
+PASS EVENT-DECODE exit=0 elapsed_ms=11129.7 deadline_s=300
+PASS LEXER-KEYWORDS exit=0 elapsed_ms=887.5 deadline_s=600
+PASS LEXER-DIRECT exit=0 elapsed_ms=16411.7 deadline_s=600
+PASS IDENTIFIER-DIRECT exit=0 elapsed_ms=1655.0 deadline_s=600
+PASS WORD-DIRECT exit=0 elapsed_ms=5563.5 deadline_s=600
+PASS SEGMENT-DIRECT exit=0 elapsed_ms=2771.0 deadline_s=600
+PASS CLI-PREFIX-DIRECT exit=0 elapsed_ms=12556.3 deadline_s=600
+PASS CLI-VALUE-DIRECT exit=0 elapsed_ms=4139.5 deadline_s=600
+PASS CLI-ERROR-DIRECT exit=0 elapsed_ms=3210.4 deadline_s=600
+PASS MAPPING-CLI exit=0 elapsed_ms=24837.1 deadline_s=600
+PASS EVENT-CLI exit=0 elapsed_ms=8364.6 deadline_s=600
+PASS EVENT-DECODE-CLI exit=0 elapsed_ms=11588.3 deadline_s=600
+PASS CALLDATA-CLI exit=0 elapsed_ms=26930.2 deadline_s=600
+PASS MILESTONE-SPEED exit=0 elapsed_ms=199.4 deadline_s=60
+PASS PACKED-SOURCE exit=0 elapsed_ms=60687.0 deadline_s=600
+PASS MAPPING-SOURCE exit=0 elapsed_ms=8810.8 deadline_s=600
+PASS RETURNDATA-CLI exit=0 elapsed_ms=25903.8 deadline_s=600
+PASS MAPPING-RUNTIME exit=0 elapsed_ms=45229.1 deadline_s=600
+PASS FUNCTION-ABI exit=0 elapsed_ms=23615.5 deadline_s=600
+PASS RETURN-ABI exit=0 elapsed_ms=37772.6 deadline_s=900
+PASS SOURCE-EVENTS exit=0 elapsed_ms=50611.2 deadline_s=900
+PASS STORAGE-PROOFS exit=0 elapsed_ms=32331.2 deadline_s=600
+PASS ERC20-SOURCE exit=0 elapsed_ms=40530.3 deadline_s=900
+PASS M2-ABI exit=0 elapsed_ms=31529.4 deadline_s=600
+PASS M2-RECONCILE exit=0 elapsed_ms=99.9 deadline_s=60
+PASS REFINED-WORD exit=0 elapsed_ms=2832.3 deadline_s=600
+M0-VALIDATION OK; M0-EXIT requires the user commit and ratification
+STAGE-M2-RECONCILE FAIL
+make: *** [gates] Error 1
