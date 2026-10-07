@@ -14,7 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'dev'))
 import build
 from bend_source import bundle, declarations, reachable
-from cli_delta import PINS, cli_sources, only, pinned
+from cli_delta import PINS, cli_sources, only, pinned, source_records
 
 BASE = '356ce95673480c8b6290e9549a3a47153c44933f'
 NAMES = ('Trace.calldata', 'Trace.caller', 'Differential.caller')
@@ -158,7 +158,8 @@ def CliPrefixDirect.each(rows: ListOf(String)) -> IO(Unit):
       CliPrefixDirect.each(rest)
 def CliPrefixDirect.main() -> IO(Unit):
   CliPrefixDirect.each([''' + ', '.join(literal(text) for text in rows) + '])\n'
-    baseline = compile_and_run(control, entry, 'control')
+    # Compile the historical callers with their matching Model.Error handlers.
+    baseline = compile_and_run(source_records(ROOT, BASE)[0], entry, 'control')
     actual = compile_and_run(records, entry, 'native')
     lines = actual.decode().splitlines()
     expected = [golden(text, name) for text in rows for name in NAMES]

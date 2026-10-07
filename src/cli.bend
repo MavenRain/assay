@@ -282,13 +282,13 @@ Native.choose(&2, OptionOf(String), Big.when(Bool, scrut15961, _ => (Big.is_eq(N
 @unsafe
 def Trace.value(+text_291: String) -> Trace.Result(String):
   (+local15979 => (Match.Result(&2, String, &2, Model.Error, &2, Trace.Result(String), local15979, +item15986 => Done{item15986}, +item15987 => (Fail{(+local15981 => (Trace.Error.Invalid_value{(+scrut15982 = local15981
-  Match.Model_Error(&2, String, scrut15982, +p15983 => (Model.error(local15981)), +p15984 => (p15984), +p15985 => (Model.error(local15981))))}))(item15987)}))))((+local15965 => (Match.Result(&2, Model.Input, &2, Model.Error, &2, Model.Result(String), local15965, +item15975 => (Done{(+local15967 => ((+scrut15968 = {NativeString.lower(text_291) : String}
+  Match.Model_Error(&2, String, scrut15982, +p15983 => (Model.error(local15981)), +p15984 => (p15984), +p15985 => (Model.error(local15981)), +pm0 => +pm1 => (Model.error(local15981))))}))(item15987)}))))((+local15965 => (Match.Result(&2, Model.Input, &2, Model.Error, &2, Model.Result(String), local15965, +item15975 => (Done{(+local15967 => ((+scrut15968 = {NativeString.lower(text_291) : String}
   Native.choose(&2, String, String.starts_with(scrut15968, "0x"), _ => (scrut15968), _ => ((+scrut15974 = {NativeString.of_list(SeqList.drop_while(&2, Char, (+local15973 => (NativeChar.equal(local15973, Char.from_u32(48)))), NativeString.to_list(scrut15968))) : String}
   Native.choose(&2, String, NativeString.equal(scrut15974, ""), _ => ("0"), _ => (scrut15974))))))))(item15975)}), +item15976 => Fail{item15976})))(Model.inputs("", text_291, Nil{})))
 @unsafe
 def Trace.caller(+text_600: String) -> Trace.Result(String):
   (+local16003 => (Match.Result(&2, String, &2, Model.Error, &2, Trace.Result(String), local16003, +item16010 => Done{item16010}, +item16011 => (Fail{(+local16005 => (Trace.Error.Invalid_caller{(+scrut16006 = local16005
-  Match.Model_Error(&2, String, scrut16006, +p16007 => (Model.error(local16005)), +p16008 => (p16008), +p16009 => (Model.error(local16005))))}))(item16011)}))))((+local15990 => (Match.Result(&2, Model.Input, &2, Model.Error, &2, Model.Result(String), local15990, +item15999 => (Done{(+local15992 => ((+scrut15993 = {NativeString.lower(text_600) : String}
+  Match.Model_Error(&2, String, scrut16006, +p16007 => (Model.error(local16005)), +p16008 => (p16008), +p16009 => (Model.error(local16005)), +pm0 => +pm1 => (Model.error(local16005))))}))(item16011)}))))((+local15990 => (Match.Result(&2, Model.Input, &2, Model.Error, &2, Model.Result(String), local15990, +item15999 => (Done{(+local15992 => ((+scrut15993 = {NativeString.lower(text_600) : String}
   (+scrut15994 = {String.starts_with(scrut15993, "0x") : Bool}
   (+scrut15998 = {Native.choose(&2, String, scrut15994, _ => (NativeString.drop(2n, scrut15993)), _ => (scrut15993)) : String}
   String.append("0x", NativeString.pad(40n, Char.from_u32(48), Big.hex_natural(Big.read_validated(Native.choose(&2, Big, scrut15994, _ => (Big.of_nat(16n)), _ => (Big.of_nat(10n))), scrut15998)))))))))(item15999)}), +item16000 => Fail{item16000})))(Model.inputs_with_caller("", "0", Nil{}, text_600)))
@@ -314,7 +314,7 @@ def Trace.error(+param_288: Trace.Error) -> String:
 @unsafe
 def Differential.detail(+other_479: Model.Error) -> String:
   (+scrut16068 = other_479
-  Match.Model_Error(&2, String, scrut16068, +p16069 => (Model.error(scrut16068)), +p16070 => (p16070), +p16071 => (Model.error(scrut16068))))
+  Match.Model_Error(&2, String, scrut16068, +p16069 => (Model.error(scrut16068)), +p16070 => (p16070), +p16071 => (Model.error(scrut16068)), +pm0 => +pm1 => (Model.error(scrut16068))))
 @unsafe
 def Differential.value(+text_544: String) -> Differential.Result(String):
   (+local16065 => (Match.Result(&2, String, &2, Model.Error, &2, Differential.Result(String), local16065, +item16072 => Done{item16072}, +item16073 => (Fail{(+local16067 => (Differential.Error.Invalid_value{Differential.detail(local16067)}))(item16073)}))))((+local16058 => (Match.Result(&2, Model.Input, &2, Model.Error, &2, Model.Result(String), local16058, +item16061 => (Done{(+local16060 => (NativeString.lower(text_544)))(item16061)}), +item16062 => Fail{item16062})))(Model.inputs("", text_544, Nil{})))

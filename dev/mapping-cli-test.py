@@ -10,7 +10,7 @@ from dataclasses import replace
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / 'dev'))
-from cli_delta import cli_sources, source_records, only, pinned, PINS, OPTIONAL_BASE
+from cli_delta import cli_sources, source_records, only, pinned, PINS, LATE_PINS, TYPE_PINS, OPTIONAL_BASE
 spec = importlib.util.spec_from_file_location('mapping_oracles', ROOT / 'dev/layout-mapping-test.py')
 M = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(M)
@@ -107,9 +107,9 @@ def compatibility():
     if before != after:
         raise ValueError('COMPATIBILITY changed a carried CLI declaration')
     controls = 0
-    for name in ('Cli.usage', 'Cli.dispatch', 'Contract.add_name', *sorted(OPTIONAL_BASE)):
+    for name in sorted(PINS | LATE_PINS):
         row = only(records[1], name)
-        if row is None or hashlib.sha256(row.source.encode()).hexdigest() != PINS[name]:
+        if row is None or hashlib.sha256(row.source.encode()).hexdigest() != (PINS | LATE_PINS)[name]:
             raise ValueError('COMPATIBILITY missing command pin: ' + name)
         poison = [replace(r, source=r.source + '\n# unexpected change\n')
                   if r.key == row.key else r for r in records[1]]
@@ -120,6 +120,21 @@ def compatibility():
         if pinned(records[0], records[1] + [row]) is not None:
             raise ValueError('COMPATIBILITY accepted a duplicate pin: ' + name)
         controls += 3
+    for name, digest in sorted(TYPE_PINS.items()):
+        row = only(records[1], name, 'type')
+        if row is None or hashlib.sha256(row.source.encode()).hexdigest() != digest:
+            raise ValueError('COMPATIBILITY missing type pin: ' + name)
+        poison = [replace(r, source=r.source + '\n# unexpected change\n')
+                  if r.key == row.key else r for r in records[1]]
+        for changed in (poison, [r for r in records[1] if r.key != row.key], records[1] + [row]):
+            if pinned(records[0], changed) is not None:
+                raise ValueError('COMPATIBILITY accepted an invalid type pin: ' + name)
+            controls += 1
+        base_row = only(records[0], name, 'type')
+        for changed in ([r for r in records[0] if r.key != base_row.key], records[0] + [base_row]):
+            if pinned(changed, records[1]) is not None:
+                raise ValueError('COMPATIBILITY accepted an invalid baseline type: ' + name)
+            controls += 1
     for name in sorted(OPTIONAL_BASE):
         row = only(records[0], name)
         duplicate = records[0] + [row] if row is not None else records[0] + [only(records[1], name)] * 2

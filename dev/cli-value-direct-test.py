@@ -14,7 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'dev'))
 import build
 from bend_source import bundle, declarations, reachable
-from cli_delta import PINS, cli_sources, only, pinned
+from cli_delta import PINS, cli_sources, only, pinned, source_records
 
 BASE = '7af4b0478d6e1dd23ab98c0b3aa7f9e0d8d25fcd'
 NAME = 'Trace.value'
@@ -134,7 +134,8 @@ def main():
     if poisoned == records or other_after is None or other_before == other_after:
         raise ValueError('CLI value pin hid an unrelated change')
     inputs = fixtures()
-    expected = compile_and_run(control, inputs, 'predecessor')
+    # The predecessor caller and its Model.Error handler must come from one revision.
+    expected = compile_and_run(source_records(ROOT, BASE)[0], inputs, 'predecessor')
     actual = compile_and_run(records, inputs, 'current')
     if actual != expected:
         raise ValueError('predecessor mismatch')

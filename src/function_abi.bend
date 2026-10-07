@@ -238,7 +238,7 @@ def FunctionAbi.prepare(+export: String, +globals: Global, +erased: ListOf(Tuple
     case Mapping.Runtime.Plan.Events{_, inner}: FunctionAbi.prepare(export, globals, erased, inner)
 @unsafe
 def FunctionAbi.program(+contract: String, +export: String, +globals: Global, +rows: ListOf(TupleOf2(String, Global.Entry)), +erased: ListOf(TupleOf2(String, Erase.Entry)), +parameters: Packed.Parameters(), +functions: FunctionAbi.Functions(), +plan: Mapping.Runtime.Plan) -> Emit.Result(Emit.Output):
-  Emit.Result.bind(FunctionAbi.Packet(), Emit.Output, FunctionAbi.prepare(export, globals, erased, plan), packet => FunctionAbi.prepared(contract, rows, parameters, functions, plan, packet))
+  Emit.Result.bind(FunctionAbi.Packet(), Emit.Output, Emit.require_lowerable(FunctionAbi.prepare(export, globals, erased, plan)), packet => FunctionAbi.prepared(contract, rows, parameters, functions, plan, packet))
 @unsafe
 def FunctionAbi.prepared(+contract: String, +rows: ListOf(TupleOf2(String, Global.Entry)), +parameters: Packed.Parameters(), +functions: FunctionAbi.Functions(), +plan: Mapping.Runtime.Plan, +packet: FunctionAbi.Packet()) -> Emit.Result(Emit.Output):
   match packet:

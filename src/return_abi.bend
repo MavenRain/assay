@@ -346,7 +346,7 @@ def ReturnAbi.blocks(+functions: FunctionAbi.Functions(), +entries: ListOf(Emit.
   List.concat(&2, Asm.Block, SeqList.map(&2, &2, Asm.Block, ListOf(Asm.Block), block => FunctionAbi.block(functions, entries, block, scratch), blocks))
 @unsafe
 def ReturnAbi.program(+contract: String, +export: String, +globals: Global, +rows: ListOf(TupleOf2(String, Global.Entry)), +erased: ListOf(TupleOf2(String, Erase.Entry)), +parameters: Packed.Parameters(), +functions: FunctionAbi.Functions(), +errors: ReturnAbi.Errors(), +plan: Mapping.Runtime.Plan) -> Emit.Result(Emit.Output):
-  Emit.Result.bind(FunctionAbi.Packet(), Emit.Output, FunctionAbi.prepare(export, globals, erased, plan), packet => ReturnAbi.prepared(contract, rows, parameters, functions, errors, plan, packet))
+  Emit.Result.bind(FunctionAbi.Packet(), Emit.Output, Emit.require_lowerable(FunctionAbi.prepare(export, globals, erased, plan)), packet => ReturnAbi.prepared(contract, rows, parameters, functions, errors, plan, packet))
 @unsafe
 def ReturnAbi.prepared(+contract: String, +rows: ListOf(TupleOf2(String, Global.Entry)), +parameters: Packed.Parameters(), +functions: FunctionAbi.Functions(), +errors: ReturnAbi.Errors(), +plan: Mapping.Runtime.Plan, +packet: FunctionAbi.Packet()) -> Emit.Result(Emit.Output):
   match packet:

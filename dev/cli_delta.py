@@ -23,9 +23,9 @@ PINS = {
     'Recognize.parse_word': '59e2fb372c8021f6d364d2941f87696640ba3ebf26a09571461ed9bb6ca823c1',
     'Model.segment': '2eba65ca9929ad97b158e4c5e0deb75cdc10d9a4eedbe5ed1c6cd97c3e509c09',
     'Trace.calldata': '4720188f3a75355bcb49e24bdfe1d3c5b45d27b0d5d9f8be4640bcdb7b8e1c65',
-    'Trace.caller': 'a6b572114f5fbee3310f6ce88064e4c8dd9ab19bfec63e8e7a5b0318042b6a02',
+    'Trace.caller': '7f9cc490b602edc05c237cdb0e87ddc690f81845292034fb79bb2e8ed4e5e540',
     'Differential.caller': 'ddb671ef492592ec4ce0cd30b42742917eaf75b177069baacf3cb12125b04eec',
-    'Trace.value': 'c64a9ea07854fe9e86c7e79f4b6d24a99c1e36d89b44ea3caf3c3db773cb37a1',
+    'Trace.value': 'a50e4c5846498df3ec1364423ba13085b1a777d4890970a335cd9c68783eaad5',
     'Trace.has_error': '555dfe081178faa255102ce03488d8aed8745fc373c7c9555524e772a2d4d802',
     # M2 source packing uses one typed source snapshot in these three adapters.
     # Semantic behavior is checked by packed-source-test.py. Exact pins preserve
@@ -70,13 +70,13 @@ PINS = {
     'Parser.parse_atom_head': '81602e715b68ee6bae87e3fc6bcf5c8c3bc3e57dec60c19761c9ea55b77dcf26',
     'Parser.parse_decl': 'f634d89d1e961f2518e89af6e7cfcf21b8c21713d831b486952829ba5e39d8c2',
     'Emit.error': '09f44aac8b5ef05b166e8f9af28813d039b5317c82313e8270f8a6961bd52f32',
-    'Contract.generate': '98e69b7a73e28ada3fa3220b37c275793e985ee53a4968c51967fe7f7d471628',
+    'Contract.generate': '17d46c009487403eb21b001618ac264320a9ab7f481fd2574e48ad8a530f56e1',
     'Recognize.base_protocol': 'edaad2db8f54d88838078fb263f26acc90fda65284697adefe9da71c482ae513',
     'Recognize.schema': '4b55333d349a406a03106fea2cbdc557ba2310f9cca78629515ac07dae9e7df4',
     'Recognize.protocol': '6e7d93cc15f8a67f5d3a2a4456e873327ea8251c8aa9d70382c095ffc968d5b2',
     'Recognize.proof_protocol': 'b85e49715968750b91db6d9b4637d670e4ee8b045c4e2eab2b96a9b620cb4f29',
-    'Recognize.m1_protocol_for': '1f3743b19b9819474c0b242b2bb7493fbc6d16ee861afacb31ca9f3f2b996182',
-    'Recognize.m1_schema': 'c9a22eee9a5271aa07a6a88c2a40a94206419e1456a65c9b71393a3958706bfc',
+    'Recognize.m1_protocol_for': '4bab8fe12fbadbd70b4bd3c4f1f811adf3dc60f135f1de558a0701ee6cbf2f7f',
+    'Recognize.m1_schema': '550259ffca7e2484243ef645cab9eb5ba49b107efb714e874e8bee33e3d7701d',
 }
 # These helpers were introduced by source packing. Older baselines can lack
 # them, but their current bodies remain pinned and any reachable addition
@@ -102,14 +102,59 @@ LATE_PINS = {
     'Cli.EventDecode.typ': 'd7a91f428b5c46e48eab80475fdc91fd774bc4676b7f887c99bcb9a8560c7504',
     'Cli.Mapping.typ': 'f19838a98a66e582fcd46c95460d53beeed66c2915454791a9a630f1e3a7c474',
     'Cli.Mapping.boolean': 'cc9fd7f80117f197b9b984f77dec459b83fdfa821d83207cbf727e851d4572de',
+    # M3 call recognition and explicit emission refusal. The external-call gate
+    # checks behavior; mapping-cli-test.py mutates every accepted body and type.
+    'Case.Contract.branch11264': '773c0f5dc79bab8a18aa2c1b953bfc979c2e74b427c5513ecf435982cd721a70',
+    'Case.Packed.switch_17': 'ecb7119387978f4b610399770bd8518438a4efc6ce3bf708a913b6cefe4f3680',
+    'Contract.constructor': '8e2b7e1db9a4a51991b7c97329249797769544cb4617933b17c4d682895f5800',
+    'Contract.reserved': '9dd5a6562cf8cfb43758c126eeb7315443a5bbcf158ccb8db48137c66b3735da',
+    'Differential.detail': 'eafb2e5b9a61e8b02894791ed6ac91486ec5e06fd1d8b49e8c38136451e785a7',
+    'Emit.Mapping.prepare_raw': 'ae14d1da8c46c75a1cc4dbe4916f46f6b3802e6c7e1315a1eb0ebc6052ac70f0',
+    'Emit.Mapping.program': 'a14b5feb6ccc395b5407d7fbba5db6a48aa68fa703480c99b6d4b5be88bad0a5',
+    'Emit.Mapping.readonly': '4a629a620e77b2cdae9ff14a606c0a3799aa9c87123079c07360eae0b5ea2542',
+    'Emit.dispatch_blocks': 'dbe75299a0aa2434c15a8b99ed457e36aa079c795834e86c8a64c658d22d7a4d',
+    'Emit.environment': 'f415709e344bbb80bdc57f7f4460e6f48db11ce7a76903afc00d052b8ae2e1f6',
+    'Emit.prepare_m1': '2b6da3a3058298f4e936af932bd665e67df8040fe508c7a73564d5f443fd55ce',
+    'Emit.program_m1': '252850dc0f45cf23c88f58e6f9160067ea49fea1ea509f95264af0fb844c22b6',
+    'Emit.readonly': 'f7c0f51f05ea4721feee32f3d469842e1ed21e1ae146c9df50090226761fd773',
+    'Emit.transaction': 'f9a84114503110ae89433d6bb1832dcb48ab8a8935debe8b1076e82006cdf571',
+    'Emit.transaction_blocks': '3cd49b869a0edaa14e33b7f5dcf9bd3ae1611b8bd13cc2f8130653b13adbe1ba',
+    'EventSource.compare': '2e59bafab92ca88a3a314349aad26969cd8b2a505649d1c5f5057f78ef7df731',
+    'EventSource.emits': 'd2f13f8c8237a1410114a7af13b9a0aa86b078fb839a79018d748ff4a9a24a6a',
+    'EventSource.program': 'ab2ed2a52b25c89a35eadb5bb634bec98a277c3bc033bf0ec7b912838be34605',
+    'EventSource.reject_event': '2fffd9175be73c716b41b46ed16eb6af53364955e38a8a9ae3c6e7a9b6130851',
+    'EventSource.transaction': '7ac7ea369f5e2e7b0c6a1d976e45e6a4668aee8c4749564d4185b87eee2de85c',
+    'FunctionAbi.program': '5a71f075f06422b81dadd8e78e5b7f3eba2d66eae6b8c204ddca53e0deeeba9b',
+    'Get.Emit.Environment.context_tags': '021ba62d1e63a5174f67f49205de29a2b977f7041238e09049ee9447ffd2ca9e',
+    'Get.Emit.Environment.functions': '2c0e4f53ee90f53ced139a7d05e6645afb1c3f0d008d7d618a25a3da8e11f1b3',
+    'Get.Emit.Environment.payable_tag': 'e4580e023a3a68d715ed80461255a4476b0e12a4c67c3c9aa551a4e57f8dcb6f',
+    'Get.Emit.Environment.postulates': 'c209497fdce3a297e8e9d30ea76fa9e1e1dfbd3f589df6efc12cb558e614f17d',
+    'Get.Emit.Environment.runtime': '693838aab0f788e7f03e7534dd03b3c579923dbf4fe081d58c6abe7ac31192ae',
+    'Local.Contract.lower.f12919': '090f82e230603fc9c56be6904c4de479f2b9b6cdcda3332d34890522cba357b1',
+    'Local.Contract.steps.f11204': 'ae600ae86251725acbd164c9ac48afac1a2142109d928424723c43892f194648',
+    'Match.Contract_Step': 'c84da5525e3658caf853c3ee451ddc32116ec3c35e00129f42c49b092a1d838c',
+    'Match.Emit_Transaction': '3f7bcfe0fc8dbae85575f5cf09d34efe422d3deb0eb2002fde5950c48bd0cfdc',
+    'Match.Model_Error': 'ce08f961d6bcccc94f05decc96e37a6699cb8d0d56a517bd7f1423c2ccb744c9',
+    'Model.Mapping.transaction': '7518cad939eb3187a5942610ce616c65ef8381801b336e4ca704b77893e5dd5f',
+    'Model.Packed.transaction': 'c35e86221fc5bd511ac31035c30d5179a40ee82dd7023c9d4898034f2d3371bb',
+    'Model.error': '0db175876fe7452f03ca5b6c4e4c2c57fb56676dac16f56a19780b526086d138',
+    'Model.transaction': '01abbe131aee9edad6c63611fb7b7f6031de7bc5b33fcab4f05acc7c85176caa',
+    'Recognize.Mapping.schema': 'b58ecfd6a61a8afb49489613b0f7f12d167b69792e1a1b9f25a224367d7bf9cf',
+    'ReturnAbi.program': '3eb2fe8c47425cba0b86af5c828f84a0f26528c4df3e4802a2870496bda33764',
+}
+TYPE_PINS = {
+    'Contract.Step': '4ff4d24271486c0f9601263a3ea17e9304c188bc7c2fce00c7550fd21a8e2cac',
+    'Emit.Environment': 'dceb7956190eb723af1d608df5cad553fc0122464bda85b3f35f580107a8a3d1',
+    'Emit.Transaction': '42bc5020b10a4df9f1bb86c307c3287dcc3aae280c13d8d748fad9d4be13f4cb',
+    'Model.Error': '91828607dcdf1093567f6d17a42091f98842f8c75ab4aadcd4825428fb9cbf23',
 }
 # Reports identify the complete pin manifest, with a stable serialization.
-SHA256 = hashlib.sha256(json.dumps(dict(pins=PINS, late_pins=LATE_PINS, optional_base=sorted(OPTIONAL_BASE)),
+SHA256 = hashlib.sha256(json.dumps(dict(pins=PINS, late_pins=LATE_PINS, type_pins=TYPE_PINS, optional_base=sorted(OPTIONAL_BASE)),
                                   sort_keys=True, separators=(',', ':')).encode()).hexdigest()
 
 
-def only(rows, name):
-    matches = [row for row in rows if row.kind == 'def' and row.name == name]
+def only(rows, name, kind='def'):
+    matches = [row for row in rows if row.kind == kind and row.name == name]
     return matches[0] if len(matches) == 1 else None
 
 
@@ -125,6 +170,12 @@ def pinned(base_rows, work_rows):
                 return None
         else:
             replacements[work.key] = base
+    for name, digest in TYPE_PINS.items():
+        base, work = only(base_rows, name, 'type'), only(work_rows, name, 'type')
+        if (base is None or work is None or
+                hashlib.sha256(work.source.encode()).hexdigest() != digest):
+            return None
+        replacements[work.key] = base
     for name, digest in LATE_PINS.items():
         base, work = only(base_rows, name), only(work_rows, name)
         if work is None or hashlib.sha256(work.source.encode()).hexdigest() != digest:

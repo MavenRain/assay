@@ -357,7 +357,7 @@ def Case.Packed.switch_17(+packed_switch_17: Layout.Packed.Result(Emit.Packed.Fi
   match packed_switch_17:
     case Fail{_}: Fail{Emit.Error.Invalid_ir{"PACKED_LAYOUT: invalid scalar storage declaration"}}
     case Done{fields}:
-      Case.Packed.switch_18(Emit.prepare_m1(export, globals, erased), contract, fields, parameters, rows)
+      Case.Packed.switch_18(Emit.require_lowerable(Emit.prepare_m1(export, globals, erased)), contract, fields, parameters, rows)
 @unsafe
 def Case.Packed.switch_18(+packed_switch_18: Emit.Result(TupleOf5(ListOf(Emit.Entry), Emit.Effect, ListOf(String), ListOf(TupleOf2(Abi.Custom_error, String)), OptionOf(Emit.Transaction))), +contract: String, +fields: Emit.Packed.Fields(), +parameters: Packed.Parameters(), +rows: List<&2, Tuple2<&2, &2, String, Global.Entry>>) -> Emit.Result(Emit.Output):
   match packed_switch_18:

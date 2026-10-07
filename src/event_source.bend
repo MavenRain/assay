@@ -212,6 +212,8 @@ def EventSource.emits(+events: EventSource.Events(), +tx: Emit.Transaction) -> B
     case Emit.Transaction.Arithmetic{_, _, _, _, yes, no}: Bool.or(EventSource.emits(events, yes), EventSource.emits(events, no))
     case Emit.Transaction.Compute{_, _, _, _, next}: EventSource.emits(events, next)
     case Emit.Transaction.Compare{_, _, yes, no}: Bool.or(EventSource.reject_event(events, no), Bool.or(EventSource.emits(events, yes), EventSource.emits(events, no)))
+    case Emit.Transaction.Call{_, _, _, _, _, after}: EventSource.emits(events, after)
+    case Emit.Transaction.Returndata{_, after}: EventSource.emits(events, after)
 @unsafe
 def EventSource.reject_event(+events: EventSource.Events(), +tx: Emit.Transaction) -> Bool:
   match tx:
@@ -224,6 +226,8 @@ def EventSource.reject_event(+events: EventSource.Events(), +tx: Emit.Transactio
     case Emit.Transaction.Arithmetic{_, _, _, _, _, _}: False{}
     case Emit.Transaction.Compute{_, _, _, _, _}: False{}
     case Emit.Transaction.Compare{_, _, _, _}: False{}
+    case Emit.Transaction.Call{_, _, _, _, _, _}: False{}
+    case Emit.Transaction.Returndata{_, _}: False{}
 @unsafe
 def EventSource.entry(+events: EventSource.Events(), +entry: Emit.Entry) -> Emit.Entry:
   match entry:
@@ -238,7 +242,7 @@ def EventSource.mutability(+mutability: Abi.Mutability) -> Abi.Mutability:
 def EventSource.program(+contract: String, +export: String, +globals: Global, +rows: ListOf(TupleOf2(String, Global.Entry)), +erased: ListOf(TupleOf2(String, Erase.Entry)), +parameters: Packed.Parameters(), +events: EventSource.Events(), +plan: Mapping.Runtime.Plan) -> Emit.Result(Emit.Output):
   match plan:
     case Mapping.Runtime.Plan.Outputs{functions, errors, inner}:
-      Emit.Result.bind(FunctionAbi.Packet(), Emit.Output, FunctionAbi.prepare(export, globals, erased, inner), packet => EventSource.prepared(contract, rows, parameters, functions, errors, events, inner, packet))
+      Emit.Result.bind(FunctionAbi.Packet(), Emit.Output, Emit.require_lowerable(FunctionAbi.prepare(export, globals, erased, inner)), packet => EventSource.prepared(contract, rows, parameters, functions, errors, events, inner, packet))
     case Mapping.Runtime.Plan.Plain{}: Fail{Emit.Error.Invalid_ir{"EVENT: missing output schema"}}
     case Mapping.Runtime.Plan.Mapped{_, _}: Fail{Emit.Error.Invalid_ir{"EVENT: missing output schema"}}
     case Mapping.Runtime.Plan.Functions{_, _}: Fail{Emit.Error.Invalid_ir{"EVENT: missing output schema"}}
@@ -461,6 +465,8 @@ def EventSource.transaction(+env: EventSource.Environment(), +input: Model.Input
           +value = Model.Packed.arithmetic(operation, a, b)
           Native.choose(&2, Model.Result(EventSource.Outcome), Abi.Codec.within(Big.of_nat(256n), value), _ => EventSource.transaction(env, input, storage, Tup2{target, value} <> memory, next), _ => Fail{Model.Error.Source{Emit.Error.M1_shape{"proved arithmetic bound"}}})))
     case Emit.Transaction.Compare{left, right, yes, no}: EventSource.compare(env, input, storage, memory, left, right, yes, no)
+    case Emit.Transaction.Call{_, _, _, _, _, _}: Fail{Model.Error.Run{"CALL", "external calls run only in plain contracts until M3 group 5"}}
+    case Emit.Transaction.Returndata{_, _}: Fail{Model.Error.Run{"CALL", "external calls run only in plain contracts until M3 group 5"}}
 @unsafe
 def EventSource.load(+env: EventSource.Environment(), +input: Model.Input, +storage: Model.Storage, +memory: Model.Storage, +slot: Big, +target: Big, +next: Emit.Transaction) -> Model.Result(EventSource.Outcome):
   match env:
@@ -480,6 +486,8 @@ def EventSource.compare(+env: EventSource.Environment(), +input: Model.Input, +s
     case Emit.Transaction.Arithmetic{_, _, _, _, _, _}: EventSource.compare_plain(env, input, storage, memory, left, right, yes, no)
     case Emit.Transaction.Compute{_, _, _, _, _}: EventSource.compare_plain(env, input, storage, memory, left, right, yes, no)
     case Emit.Transaction.Compare{_, _, _, _}: EventSource.compare_plain(env, input, storage, memory, left, right, yes, no)
+    case Emit.Transaction.Call{_, _, _, _, _, _}: EventSource.compare_plain(env, input, storage, memory, left, right, yes, no)
+    case Emit.Transaction.Returndata{_, _}: EventSource.compare_plain(env, input, storage, memory, left, right, yes, no)
 @unsafe
 def EventSource.compare_reject(+env: EventSource.Environment(), +input: Model.Input, +storage: Model.Storage, +memory: Model.Storage, +left: Emit.Operand, +right: Emit.Operand, +yes: Emit.Transaction, +no: Emit.Transaction, +selector: String, +operands: ListOf(Emit.Operand)) -> Model.Result(EventSource.Outcome):
   match env:

@@ -3,6 +3,7 @@ all:
 	python3 -P dev/build.py build
 test:
 	python3 -P dev/build.py runtest
+	python3 -P dev/external-call-test.py
 	python3 -P dev/milestone-speed-test.py
 	python3 -P dev/packed-source-test.py
 	python3 -P dev/mapping-cli-test.py
