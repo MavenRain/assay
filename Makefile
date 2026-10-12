@@ -33,3 +33,15 @@ gates: all
 	python3 -P dev/stage-a-gates.py --m2-reconcile
 gates-m4-speed: all
 	python3 -P dev/stage-a-gates.py --m4-speed
+# C host (TinyCC). A translator writes c/gen/*.c from src/*.bend. Do not edit these files by hand.
+.PHONY: c c-test
+TCC ?= tcc
+C_FLAGS = -Wall -Werror -I c
+C_GEN = $(wildcard c/gen/*.c)
+c:
+	mkdir -p _build/c
+	$(TCC) $(C_FLAGS) -o _build/c/assay c/main.c c/runtime.c $(filter-out c/gen/tests.c,$(C_GEN)) -lpthread
+	$(TCC) $(C_FLAGS) -o _build/c/tests c/tests_main.c c/runtime.c $(C_GEN) -lpthread
+c-test: c
+	$(TCC) $(C_FLAGS) -o _build/c/runtime_test c/runtime.c c/runtime_test.c
+	_build/c/runtime_test
