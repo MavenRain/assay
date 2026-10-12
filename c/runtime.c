@@ -1,4 +1,4 @@
-/* runtime.c: hand runtime for the assay C host. Spec: K/BUILTINS.md; OS layer: R/src/os.js. */
+/* runtime.c: hand runtime for the assay C host. OS layer: src/os.js. */
 #define _DARWIN_C_SOURCE
 #define _GNU_SOURCE
 #include "assay.h"

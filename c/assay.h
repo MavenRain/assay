@@ -1,5 +1,5 @@
-/* assay.h: runtime for the C host of assay (generated from the Bend 2 host by bend2c.py).
- * Spec: K/BUILTINS.md `## C representation`. All values are one word `V`.
+/* assay.h: runtime for the C host of assay (the C in c/gen is generated from the Bend 2 sources in src).
+ * All values are one word `V`.
  *  - Immediate: U32, Char (code), Bool (0/1), Cmp (LT 0, EQ 1, GT 2), Unit (0), File (fd),
  *    every nullary constructor (its index). Immediates are below IMM_LIMIT when they are
  *    constructor values, so tag_of() can tell them from objects.
