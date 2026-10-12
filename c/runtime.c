@@ -49,7 +49,7 @@ static uint64_t arena_max = (uint64_t)2560 << 20, arena_mapped;
 /* ---------------- allocation profile (ASSAY_PROFILE=1) ----------------
  * Every allocation takes rt_alloc_slow (rt_hl stays at rt_hp). An allocation's tag is read at
  * the next allocation, after its header is written. A site is 5 return addresses from the frame
- * records; K/scratch/prof.py resolves them with nm. The report goes to stderr at exit. The GC
+ * records; nm resolves them to names. The report goes to stderr at exit. The GC
  * runs as in a normal run: span_close puts the real region limit (prof_hl) back first. */
 static int prof_on;
 static uint8_t *prof_hl, *prof_last;
@@ -1489,7 +1489,7 @@ void rt_init(int argc, char **argv) {
   signal(SIGPIPE, SIG_IGN);
 }
 
-/* ---- Big.bits kernels (C_DEFS in bend2c.py) ----
+/* ---- Big.bits kernels (c/gen calls them in place of the Big.bits defs) ----
  * Bool lists, least significant bit first (kernel.bend `type Big`). Each function returns the
  * same list as its Bend body for every input it accepts, so the goldens hold. */
 V bits_to_nat(V xs) {

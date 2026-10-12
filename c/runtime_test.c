@@ -221,7 +221,7 @@ static void test_os(const char *tmp) {
 
 /* collector: a list on the stack and a value reachable only from an rt_root slot survive
  * collections forced by 384 MB of garbage under a 256 MB cap; a heap Nat computed once into a
- * rooted static (the bend2c.py closed-constant form) keeps its value */
+ * rooted static (the c/gen closed-constant form) keeps its value */
 static V gc_memo;
 static V gc_k;
 static int gc_k_ok;

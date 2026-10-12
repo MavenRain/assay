@@ -1,4 +1,4 @@
-/* tests_main.c: the test adapters on the C host (R/dev/build.py ADAPTERS and ENTRIES).
+/* tests_main.c: the test adapters on the C host (dev/build.py ADAPTERS and ENTRIES).
  * `tests ADAPTER ARGS...` runs one ENTRIES row, the same as the Bend `backends` target
  * (Entry.Backends) or a `test_ADAPTER` target. Any other first argument (or none) runs
  * Entry.Tests, the Bend `tests` target. 1 GB stack, as in main.c. */

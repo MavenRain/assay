@@ -92,7 +92,7 @@ V nat_pred(V a); /* a - 1, saturating */
 V nat_show(V a); /* decimal String */
 uint32_t nat_to_u32(V a);       /* a mod 2^32 */
 uint64_t nat_to_u64_sat(V a);   /* min(a, 2^64 - 1) */
-/* Big.bits kernels (C_DEFS in bend2c.py): Bool lists, least significant bit first */
+/* Big.bits kernels (c/gen calls them in place of the Big.bits defs): Bool lists, least significant bit first */
 V bits_to_nat(V xs);
 V nat_to_bits(V n);              /* no trailing False */
 V bits_add(V xs, V ys, V carry); /* carry: U32 */

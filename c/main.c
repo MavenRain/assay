@@ -1,4 +1,4 @@
-/* main.c: the `assay` CLI on the C host (R/dev/build.py target `assay`, entry Entry.Cli).
+/* main.c: the `assay` CLI on the C host (dev/build.py target `assay`, entry Entry.Cli).
  * The generated code recurses deeply, so the program runs on a thread with a 1 GB stack. */
 #include <pthread.h>
 #include <stdio.h>
